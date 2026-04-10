@@ -59,7 +59,7 @@ const QuizEngine = (() => {
     const stats = Progress.getDomainStats();
     return domains.filter(d => {
       const s = stats[d.id];
-      if (!s || s.total_questions_answered < 3) return false;
+      if (!s || s.total_questions_answered < 1) return false;
       const accuracy = (s.total_correct / s.total_questions_answered) * 100;
       return accuracy < threshold;
     });
