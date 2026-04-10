@@ -125,7 +125,8 @@ const QuizComponent = (() => {
 
   function _bindSetupEvents() {
     document.querySelectorAll('.domain-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault(); // prevent label from toggling checkbox twice
         const id = chip.dataset.id;
         const idx = _selectedDomains.indexOf(id);
         if (idx >= 0) {
