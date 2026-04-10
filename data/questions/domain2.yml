@@ -225,3 +225,362 @@ questions:
         - "Optical discs (CD/DVD/Blu-ray) store data using physical pits and lands on the disc surface — magnetic fields have no effect."
     difficulty: "easy"
     tags: ["sanitization", "media"]
+
+    - id: q-d2-013
+    domain: domain2
+    question: "Which of the following is the most important factor when determining the classification of an asset?"
+    options:
+      - "The cost to replace the asset"
+      - "The value of the asset to the organization"
+      - "The age of the asset"
+      - "The physical location of the asset"
+    correct_answer: 1
+    explanations:
+      correct: "The value of the asset to the organization (including its sensitivity and the impact of its loss) is the primary driver for classification."
+      incorrect:
+        - "Replacement cost is a factor in valuation, but classification is more broadly based on the sensitivity of the information."
+        - "Age does not necessarily correlate with the sensitivity or importance of data."
+        - "Location is a factor for physical protection, but classification is based on the data's inherent value."
+    difficulty: "easy"
+    tags: ["classification", "valuation"]
+
+  - id: q-d2-014
+    domain: domain2
+    question: "Which role is responsible for ensuring that data is backed up according to the frequency defined by the data owner?"
+    options:
+      - "Data steward"
+      - "Data custodian"
+      - "Privacy officer"
+      - "System auditor"
+    correct_answer: 1
+    explanations:
+      correct: "The Data Custodian is responsible for the technical implementation of security controls, including performing backups and ensuring data integrity."
+      incorrect:
+        - "Data stewards focus on data quality and business metadata, not technical backup tasks."
+        - "The privacy officer oversees regulatory compliance regarding personal data."
+        - "An auditor reviews controls but does not perform the day-to-day backup operations."
+    difficulty: "medium"
+    tags: ["roles"]
+
+  - id: q-d2-015
+    domain: domain2
+    question: "What is the primary purpose of 'Data Labeling' in a security program?"
+    options:
+      - "To identify the creator of the data"
+      - "To ensure that users know how to handle the data according to its classification"
+      - "To make the data easier to search in a database"
+      - "To prevent the data from being encrypted"
+    correct_answer: 1
+    explanations:
+      correct: "Labels (or markings) provide a clear visual or metadata indicator of a file's classification, ensuring handlers follow the appropriate protection standards."
+      incorrect:
+        - "While metadata might include the creator, the primary security purpose of a label is to communicate classification."
+        - "Searchability is a benefit of indexing, not the primary goal of security labeling."
+        - "Labels are often used as a trigger *to* encrypt data, not to prevent it."
+    difficulty: "easy"
+    tags: ["classification", "labeling"]
+
+  - id: q-d2-016
+    domain: domain2
+    question: "Which of the following is a drawback of using 'Symmetric Encryption' for data at rest across a large enterprise?"
+    options:
+      - "It is significantly slower than asymmetric encryption"
+      - "Key management and distribution become complex as the number of users increases"
+      - "It cannot be used to protect large volumes of data"
+      - "It does not provide confidentiality"
+    correct_answer: 1
+    explanations:
+      correct: "In a purely symmetric environment, the number of keys required grows exponentially with the number of users ($n(n-1)/2$), making management difficult."
+      incorrect:
+        - "Symmetric encryption is actually much faster than asymmetric encryption."
+        - "Symmetric encryption is the preferred method for bulk data protection."
+        - "Confidentiality is the primary goal of symmetric encryption."
+    difficulty: "medium"
+    tags: ["encryption", "key-management"]
+
+  - id: q-d2-017
+    domain: domain2
+    question: "When an organization moves to a public cloud, who is ultimately responsible for the classification of data stored in that cloud?"
+    options:
+      - "The Cloud Service Provider (CSP)"
+      - "The customer (organization)"
+      - "The third-party auditor"
+      - "The cloud architect"
+    correct_answer: 1
+    explanations:
+      correct: "Under the Shared Responsibility Model, the customer always retains ownership and responsibility for their data and its classification."
+      incorrect:
+        - "The CSP is responsible for the 'security of the cloud' (infrastructure), not the data inside it."
+        - "Auditors verify compliance but do not own the classification process."
+        - "Architects design the environment, but the Data Owner within the organization sets classification."
+    difficulty: "medium"
+    tags: ["cloud", "roles"]
+
+  - id: q-d2-018
+    domain: domain2
+    question: "Which of the following describes 'Cryptographic Erasure' (Crypto-Erase)?"
+    options:
+      - "Overwriting every sector of a drive with zeros"
+      - "Physically shredding a TPM chip"
+      - "Deleting the encryption key for encrypted data to make it unrecoverable"
+      - "Using a magnet to scramble the data on an SSD"
+    correct_answer: 2
+    explanations:
+      correct: "Cryptographic erasure involves destroying the decryption key. Without the key, the encrypted data becomes mathematically impossible to recover."
+      incorrect:
+        - "Overwriting is a different form of sanitization (Clearing)."
+        - "Shredding is physical destruction."
+        - "Magnets (degaussing) do not work on SSDs."
+    difficulty: "medium"
+    tags: ["sanitization", "encryption"]
+
+  - id: q-d2-019
+    domain: domain2
+    question: "What is the primary risk of using 'Link Encryption' instead of 'End-to-End Encryption'?"
+    options:
+      - "The data is unencrypted at each intermediate node/router"
+      - "It is slower than end-to-end encryption"
+      - "It does not protect the packet headers"
+      - "It requires more expensive hardware"
+    correct_answer: 0
+    explanations:
+      correct: "Link encryption decrypts and re-encrypts data at every hop. This means the data is in 'clear text' inside the memory of every router/switch along the path."
+      incorrect:
+        - "Link encryption is often faster because it is handled in hardware."
+        - "Link encryption actually *does* protect headers; end-to-end typically only protects the payload."
+        - "Cost varies, but the primary security risk is exposure at intermediate nodes."
+    difficulty: "hard"
+    tags: ["encryption", "network-security"]
+
+  - id: q-d2-020
+    domain: domain2
+    question: "Which standard is most commonly used for the classification and labeling of government information in the United States?"
+    options:
+      - "ISO 27001"
+      - "NIST SP 800-53"
+      - "Executive Order 13526"
+      - "COBIT 5"
+    correct_answer: 2
+    explanations:
+      correct: "Executive Order 13526 establishes the uniform system for classifying, safeguarding, and declassifying national security information."
+      incorrect:
+        - "ISO 27001 is an international management standard."
+        - "NIST 800-53 provides security controls, but EO 13526 defines the classification levels themselves."
+        - "COBIT is a framework for IT governance."
+    difficulty: "medium"
+    tags: ["legal", "government"]
+
+  - id: q-d2-021
+    domain: domain2
+    question: "What is 'Data Sprawl'?"
+    options:
+      - "The process of spreading data across multiple backup tapes"
+      - "The unauthorized or accidental duplication of data across various systems and locations"
+      - "A method of increasing database performance"
+      - "The use of wide-area networks to move data"
+    correct_answer: 1
+    explanations:
+      correct: "Data sprawl occurs when data is copied to various locations (email, USBs, cloud storage) without oversight, making it difficult to protect and manage."
+      incorrect:
+        - "Redundancy is intentional; sprawl is usually uncontrolled."
+        - "Sprawl generally decreases performance and increases security risk."
+        - "Moving data over a WAN is simply data transfer."
+    difficulty: "easy"
+    tags: ["data-management"]
+
+  - id: q-d2-022
+    domain: domain2
+    question: "Which of the following is an example of 'Data in Use'?"
+    options:
+      - "An Excel file saved on a network drive"
+      - "A database record being updated in a server's RAM"
+      - "An email being sent over a VPN"
+      - "A backup stored on an off-site tape"
+    correct_answer: 1
+    explanations:
+      correct: "Data in use refers to data actively being processed by a CPU or residing in system memory (RAM)."
+      incorrect:
+        - "Saved files are 'Data at Rest'."
+        - "Emails in transit are 'Data in Motion'."
+        - "Backups are 'Data at Rest'."
+    difficulty: "easy"
+    tags: ["data-states"]
+
+  - id: q-d2-023
+    domain: domain2
+    question: "Why is 'Physical Destruction' often required for SSDs instead of 'Degaussing'?"
+    options:
+      - "SSDs are too small for degaussers"
+      - "SSDs do not store data magnetically"
+      - "SSDs are too expensive to degauss"
+      - "Degaussing only works on files, not hardware"
+    correct_answer: 1
+    explanations:
+      correct: "SSDs use flash memory (integrated circuits). Degaussing only works by disrupting magnetic fields, which SSDs do not use."
+      incorrect:
+        - "Size is not the limiting factor; the storage technology is."
+        - "Cost is irrelevant to the effectiveness of the physics."
+        - "Degaussing is a hardware-level process, but it requires magnetic media."
+    difficulty: "easy"
+    tags: ["sanitization", "media"]
+
+  - id: q-d2-024
+    domain: domain2
+    question: "In the context of asset security, what does 'Curie Temperature' relate to?"
+    options:
+      - "The temperature at which a CPU fails"
+      - "The temperature at which magnetic media loses its magnetic properties"
+      - "The heat required to incinerate paper documents"
+      - "The ideal temperature for a cold site"
+    correct_answer: 1
+    explanations:
+      correct: "The Curie point is the temperature at which a ferromagnetic material becomes paramagnetic, effectively erasing magnetic data. This is used in thermal destruction/degaussing."
+      incorrect:
+        - "CPU failure is a thermal throttling or hardware damage issue."
+        - "Incineration is physical destruction, but 'Curie Temperature' is a specific magnetic threshold."
+        - "Cold sites relate to business continuity, not magnetic physics."
+    difficulty: "hard"
+    tags: ["sanitization", "media"]
+
+  - id: q-d2-025
+    domain: domain2
+    question: "Which of the following is a key requirement for 'Data Retention' policies?"
+    options:
+      - "Keeping all data forever just in case"
+      - "Deleting data as soon as the user finishes reading it"
+      - "Aligning storage duration with legal, regulatory, and business requirements"
+      - "Using the highest level of encryption for all data"
+    correct_answer: 2
+    explanations:
+      correct: "Retention policies must balance business needs with legal requirements (like Sarbanes-Oxley or GDPR) to ensure data is kept only as long as necessary."
+      incorrect:
+        - "Keeping data forever increases storage costs and legal liability."
+        - "Premature deletion can violate laws and hurt business operations."
+        - "Encryption is a protection mechanism, not a retention policy."
+    difficulty: "medium"
+    tags: ["retention", "compliance"]
+
+  - id: q-d2-026
+    domain: domain2
+    question: "What is the primary goal of 'Data Masking'?"
+    options:
+      - "To compress data for faster storage"
+      - "To protect sensitive data by replacing it with realistic but false data"
+      - "To hide a file's extension"
+      - "To encrypt data for transmission"
+    correct_answer: 1
+    explanations:
+      correct: "Data masking (or obfuscation) allows developers or analysts to work with functional datasets without seeing actual sensitive information (like PII)."
+      incorrect:
+        - "Compression is for space saving."
+        - "Hiding extensions is a file system trick, not a data security strategy."
+        - "Encryption is used for confidentiality; masking is used for usability without exposure."
+    difficulty: "medium"
+    tags: ["privacy", "obfuscation"]
+
+  - id: q-d2-027
+    domain: domain2
+    question: "Which of the following describes 'Digital Rights Management' (DRM)?"
+    options:
+      - "A law that gives users the right to access their data"
+      - "Technological tools that control the use, modification, and distribution of copyrighted material"
+      - "The process of assigning IP addresses to devices"
+      - "A framework for ethical hacking"
+    correct_answer: 1
+    explanations:
+      correct: "DRM uses technology (like persistent encryption) to enforce licensing and prevent unauthorized copying of digital assets."
+      incorrect:
+        - "The right to access data is part of privacy laws like GDPR."
+        - "IP assignment is DHCP."
+        - "DRM is a protection technology, not a hacking framework."
+    difficulty: "easy"
+    tags: ["drm", "protection"]
+
+  - id: q-d2-028
+    domain: domain2
+    question: "An organization uses 'Scoping' to determine which ISO 27002 controls to implement. What is 'Tailoring' in this context?"
+    options:
+      - "Removing controls that don't apply"
+      - "Adjusting the scoped controls to fit the organization's specific technical environment"
+      - "Hiring a consultant to write the policy"
+      - "Using a different framework entirely"
+    correct_answer: 1
+    explanations:
+      correct: "Tailoring is the follow-up to scoping. It involves refining the selected controls to ensure they are effective and appropriate for the specific systems in use."
+      incorrect:
+        - "Removing non-applicable controls is Scoping."
+        - "Tailoring is an internal engineering/policy process, not just a hiring action."
+        - "Tailoring happens within a framework, not by replacing it."
+    difficulty: "hard"
+    tags: ["compliance", "frameworks"]
+
+  - id: q-d2-029
+    domain: domain2
+    question: "Which type of 'Data Discovery' tool is used to find PII across an entire network?"
+    options:
+      - "Endpoint Detection and Response (EDR)"
+      - "Data Loss Prevention (DLP)"
+      - "Intrusion Prevention System (IPS)"
+      - "Vulnerability Scanner"
+    correct_answer: 1
+    explanations:
+      correct: "DLP tools are specifically designed to scan for patterns (like credit card or social security numbers) to identify and protect sensitive data."
+      incorrect:
+        - "EDR focuses on malware and threat detection on hosts."
+        - "IPS focuses on stopping network attacks."
+        - "Vulnerability scanners find weak software/configurations, not specific data types."
+    difficulty: "medium"
+    tags: ["dlp", "pii"]
+
+  - id: q-d2-030
+    domain: domain2
+    question: "In the 'Information Life Cycle,' which stage follows 'Store'?"
+    options:
+      - "Create"
+      - "Use"
+      - "Archive"
+      - "Destroy"
+    correct_answer: 1
+    explanations:
+      correct: "The standard life cycle is Create, Store, Use, Share, Archive, and Destroy. Once data is stored, it is typically accessed for use."
+      incorrect:
+        - "Create is the first stage."
+        - "Archive and Destroy occur much later in the life cycle."
+    difficulty: "medium"
+    tags: ["lifecycle"]
+
+  - id: q-d2-031
+    domain: domain2
+    question: "Which of the following is a primary concern for 'Inventory Management' in security?"
+    options:
+      - "The color of the hardware"
+      - "Identifying 'Shadow IT' or unauthorized assets"
+      - "Ensuring the cheapest vendors are used"
+      - "Tracking the electricity usage of each server"
+    correct_answer: 1
+    explanations:
+      correct: "You cannot protect what you don't know exists. Identifying unauthorized assets is a critical security function of inventory management."
+      incorrect:
+        - "Physical aesthetics (color) do not impact security."
+        - "Procurement handles vendor costs."
+        - "Power monitoring is an operational/environmental task."
+    difficulty: "easy"
+    tags: ["inventory", "governance"]
+
+  - id: q-d2-032
+    domain: domain2
+    question: "Which security control is most effective against a 'Lost Laptop' scenario involving sensitive data?"
+    options:
+      - "A complex BIOS password"
+      - "Full Disk Encryption (FDE)"
+      - "A laptop cable lock"
+      - "Anti-virus software"
+    correct_answer: 1
+    explanations:
+      correct: "FDE (like BitLocker) ensures that if the physical device is stolen, the data cannot be read without the decryption key, even if the drive is removed."
+      incorrect:
+        - "BIOS passwords can often be bypassed or the drive can be moved to another machine."
+        - "A cable lock prevents the theft itself, but not the data access if the lock is cut."
+        - "Anti-virus does nothing to protect data on a powered-down, stolen device."
+    difficulty: "easy"
+    tags: ["protection", "encryption"]
