@@ -1,0 +1,29 @@
+name: PR Checks
+
+# Runs on every PR targeting main, and on direct pushes to main.
+# Uses ubuntu-latest (Linux = 1× minute multiplier, cheapest runner).
+# Typical runtime: ~30 seconds — well within the free tier.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate-data:
+    name: Validate YAML data files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # npm ci is faster and reproducible; requires package-lock.json.
+      # If the lock file is not yet committed, use `npm install` instead.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run data validation
+        run: npm test

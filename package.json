@@ -1,0 +1,10 @@
+{
+  "name": "cissp-study-tool",
+  "private": true,
+  "scripts": {
+    "test": "node tests/validate.js"
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
