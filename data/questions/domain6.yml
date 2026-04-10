@@ -226,3 +226,383 @@ questions:
         - "Both Type I and Type II require an independent certified public accountant (CPA) or qualified auditor."
     difficulty: "medium"
     tags: ["SOC2", "audit", "compliance"]
+
+  - id: q-d6-013
+    domain: domain6
+    question: "What is the primary goal of 'code review' as a security testing technique?"
+    options:
+      - "To evaluate the visual design of the user interface"
+      - "To identify security vulnerabilities and defects in source code before deployment"
+      - "To measure the performance of the application under load"
+      - "To verify that the code meets functional business requirements"
+    correct_answer: 1
+    explanations:
+      correct: "Security code review examines source code to identify vulnerabilities such as injection flaws, insecure cryptography, improper error handling, and authentication weaknesses before the code is deployed. It can be manual (peer review) or automated (SAST tools). Earlier detection is less expensive to remediate."
+      incorrect:
+        - "UI design is evaluated by UX review — security code review focuses on vulnerabilities in the logic and implementation."
+        - "Identifying security vulnerabilities in source code before deployment is the primary goal of security code review."
+        - "Performance testing (load testing, stress testing) is a separate testing discipline — code review focuses on correctness and security."
+        - "Functional requirement testing is done by functional/acceptance testing — security code review specifically targets security defects."
+    difficulty: "easy"
+    tags: ["code-review", "testing"]
+
+  - id: q-d6-014
+    domain: domain6
+    question: "What is the difference between DAST and SAST tools?"
+    options:
+      - "DAST tests databases; SAST tests application servers"
+      - "DAST tests the running application from the outside (black box); SAST analyzes source code without execution (white box)"
+      - "DAST is manual testing; SAST is automated"
+      - "DAST tests for performance issues; SAST tests for security issues"
+    correct_answer: 1
+    explanations:
+      correct: "DAST (Dynamic Application Security Testing) sends requests to a running application to find runtime vulnerabilities (like a simulated attacker). SAST (Static Application Security Testing) analyzes code without execution. DAST finds runtime issues SAST misses (like authentication flaws); SAST finds code issues DAST can't reach (like hardcoded credentials)."
+      incorrect:
+        - "Both test security of applications — neither is limited to specific infrastructure components."
+        - "DAST tests the running app externally; SAST analyzes code statically — this correctly distinguishes them."
+        - "Both can be automated — the distinction is about execution vs. static analysis, not automation level."
+        - "Both DAST and SAST test for security issues — the difference is methodology (dynamic vs. static), not the type of issue."
+    difficulty: "medium"
+    tags: ["DAST", "SAST", "testing"]
+
+  - id: q-d6-015
+    domain: domain6
+    question: "What is the 'Common Criteria' (ISO/IEC 15408) and what does an EAL rating signify?"
+    options:
+      - "A compliance framework for financial reporting — EAL ratings indicate audit quality"
+      - "An international standard for evaluating IT security product assurance — EAL ratings indicate the rigor of the evaluation, not the absolute security level"
+      - "A US government classification system for security software"
+      - "A standard for testing network intrusion prevention systems"
+    correct_answer: 1
+    explanations:
+      correct: "Common Criteria (CC) is an international framework for evaluating security properties of IT products. EAL (Evaluation Assurance Level) 1-7 indicates how thoroughly the product was evaluated — higher EAL = more rigorous testing, not necessarily more features or higher security. A higher EAL means greater confidence in the product behaving as specified."
+      incorrect:
+        - "Common Criteria is an IT security product evaluation standard, not a financial compliance framework."
+        - "International standard for IT product security evaluation with EAL indicating evaluation rigor — this correctly describes Common Criteria."
+        - "Common Criteria is international (ISO/IEC) — not a US government classification system, though US DoD uses it."
+        - "CC evaluates all types of IT security products — not limited to network intrusion prevention."
+    difficulty: "medium"
+    tags: ["standards", "common-criteria"]
+
+  - id: q-d6-016
+    domain: domain6
+    question: "What is the purpose of 'threat intelligence' in a security program?"
+    options:
+      - "To eliminate all threats before they occur"
+      - "To provide actionable information about current and emerging threats to inform security decisions and prioritize defenses"
+      - "To replace vulnerability scanning with external data"
+      - "To automate incident response without human involvement"
+    correct_answer: 1
+    explanations:
+      correct: "Threat intelligence provides contextualized information about adversary TTPs (Tactics, Techniques, and Procedures), IOCs (Indicators of Compromise), and emerging threats. It informs prioritization of defenses, helps tune detection rules, and enables proactive threat hunting. Sources include ISACs, government feeds (CISA), and commercial providers."
+      incorrect:
+        - "Threats cannot be completely eliminated — threat intelligence helps prioritize defenses against most likely threats."
+        - "Providing actionable information about threats to inform security decisions is the correct purpose of threat intelligence."
+        - "Threat intelligence complements vulnerability scanning — it provides context about which vulnerabilities are actively exploited."
+        - "Threat intelligence informs human decisions and automated controls but doesn't automate full incident response."
+    difficulty: "easy"
+    tags: ["threat-intelligence", "monitoring"]
+
+  - id: q-d6-017
+    domain: domain6
+    question: "What is 'security regression testing' and when should it be performed?"
+    options:
+      - "Testing security controls from previous years to see if they still work"
+      - "Re-testing previously identified vulnerabilities after patches to verify they are fully remediated and no new vulnerabilities were introduced"
+      - "Testing backup systems after a security incident"
+      - "Annual penetration testing to verify long-term security posture"
+    correct_answer: 1
+    explanations:
+      correct: "Security regression testing verifies that: 1) Previously found vulnerabilities are fully remediated after patching. 2) New code changes haven't re-introduced old vulnerabilities or created new ones. It should be part of every patch cycle and CI/CD pipeline to prevent vulnerability recurrence."
+      incorrect:
+        - "Testing old controls for continued effectiveness is control effectiveness testing — regression testing specifically re-tests after changes."
+        - "Re-testing after patches to verify remediation and catch new issues is the correct description of security regression testing."
+        - "Testing backup systems is disaster recovery testing — regression testing focuses on application security after code changes."
+        - "Annual penetration testing is a point-in-time assessment — regression testing is done as part of every change cycle."
+    difficulty: "medium"
+    tags: ["testing", "regression"]
+
+  - id: q-d6-018
+    domain: domain6
+    question: "What is the purpose of a 'security baseline' configuration?"
+    options:
+      - "To document the minimum acceptable security configuration for a system type, providing a starting point for hardening"
+      - "To record the system's state after it has been fully compromised for forensic purposes"
+      - "To measure network bandwidth usage as a performance baseline"
+      - "To define the maximum privileges any user can have"
+    correct_answer: 0
+    explanations:
+      correct: "A security baseline defines the minimum acceptable security configuration for a system type (e.g., Windows server baseline, Linux workstation baseline). It covers settings like disabled services, required patches, password policy, and audit logging. Baselines are derived from hardening guides (CIS Benchmarks, STIG) and applied during provisioning."
+      incorrect:
+        - "Documenting minimum acceptable security configuration for hardening is the correct purpose of a security baseline."
+        - "Recording a compromised system's state is forensic imaging — not a security baseline."
+        - "Network performance baselines are operational metrics — security baselines define configuration requirements."
+        - "Maximum privilege definitions are part of access control policies — baselines focus on system configuration."
+    difficulty: "easy"
+    tags: ["baselines", "configuration"]
+
+  - id: q-d6-019
+    domain: domain6
+    question: "What is the OWASP Testing Guide primarily used for?"
+    options:
+      - "A framework for physical security assessments"
+      - "A comprehensive methodology and checklist for testing web application security"
+      - "A government standard for penetration testing authorization"
+      - "A tool for automated network scanning"
+    correct_answer: 1
+    explanations:
+      correct: "The OWASP Testing Guide provides a comprehensive methodology for testing web application security. It covers all phases from information gathering to vulnerability-specific tests (SQL injection, XSS, authentication testing, business logic flaws). Security testers use it as a structured checklist to ensure complete coverage."
+      incorrect:
+        - "Physical security assessments use different frameworks — OWASP focuses on web application security."
+        - "A comprehensive web application security testing methodology is the correct description of the OWASP Testing Guide."
+        - "OWASP is a non-profit organization producing open standards — it is not a government authorization body."
+        - "OWASP provides methodology and checklists — not a scanning tool itself (though it references tools like OWASP ZAP)."
+    difficulty: "easy"
+    tags: ["OWASP", "testing"]
+
+  - id: q-d6-020
+    domain: domain6
+    question: "What is 'output validation' and why is it important in web application security?"
+    options:
+      - "Validating that a web server returns HTTP 200 status codes"
+      - "Encoding output before rendering it to prevent injection of malicious content into HTML, JavaScript, or other contexts"
+      - "Verifying that query results are returned within acceptable time limits"
+      - "Checking that all API responses include proper authentication headers"
+    correct_answer: 1
+    explanations:
+      correct: "Output validation (output encoding/escaping) encodes user-controlled data before rendering it in HTML, JavaScript, CSS, or URL contexts. This prevents Stored and Reflected XSS by ensuring that even if malicious content was stored, it is rendered as data (displayed), not executed as code."
+      incorrect:
+        - "HTTP status codes indicate server response status — not related to output validation for security."
+        - "Encoding output before rendering to prevent injection of malicious content is the correct description of output validation."
+        - "Query performance timing is a performance/SLA concern — not output validation."
+        - "Authentication headers are part of API security configuration — output validation encodes response content to prevent XSS."
+    difficulty: "medium"
+    tags: ["XSS", "secure-coding", "testing"]
+
+  - id: q-d6-021
+    domain: domain6
+    question: "What does a 'scope of work' document define in a penetration testing engagement?"
+    options:
+      - "The skills required of the penetration testers"
+      - "The specific systems, networks, and testing methods that are authorized and the boundaries the testers must not cross"
+      - "The budget allocated for remediation of findings"
+      - "The timeline for patching vulnerabilities after the test"
+    correct_answer: 1
+    explanations:
+      correct: "The scope of work (or Rules of Engagement) defines what is in-scope (systems, IPs, methods), what is out-of-scope (production databases, DoS testing), testing windows, required notifications, and emergency contacts. It provides legal authorization and protects both the tester and client. Testing outside scope is unauthorized and illegal."
+      incorrect:
+        - "Tester qualifications may be in a contract but are not what the scope of work defines — scope defines what is tested."
+        - "Authorized systems, methods, and boundaries is the correct description of what a penetration testing scope defines."
+        - "Remediation budgets are financial/project decisions — not part of the testing scope document."
+        - "Patch timelines are post-test management decisions — scope defines what is tested, not post-test activities."
+    difficulty: "medium"
+    tags: ["pen-testing", "governance"]
+
+  - id: q-d6-022
+    domain: domain6
+    question: "What is a 'SIEM' (Security Information and Event Management) system's primary function?"
+    options:
+      - "To scan systems for known vulnerabilities"
+      - "To collect, correlate, and analyze log data from multiple sources to detect security events and support incident response"
+      - "To encrypt log files for compliance storage"
+      - "To automatically patch systems when vulnerabilities are detected"
+    correct_answer: 1
+    explanations:
+      correct: "A SIEM aggregates logs from diverse sources (firewalls, servers, endpoints, applications), normalizes the data, applies correlation rules to detect security events, generates alerts, and provides dashboards for security analysts. It is the central hub for security visibility, compliance reporting, and incident investigation."
+      incorrect:
+        - "Vulnerability scanning is performed by dedicated scanners (Nessus, Qualys) — SIEM processes log data for security events."
+        - "Collecting and correlating logs from multiple sources to detect security events is the correct primary SIEM function."
+        - "Log encryption for compliance is a log management feature — SIEM's primary purpose is correlation and detection."
+        - "Automated patching is a patch management function — SIEM detects and alerts on security events but doesn't patch."
+    difficulty: "easy"
+    tags: ["SIEM", "monitoring"]
+
+  - id: q-d6-023
+    domain: domain6
+    question: "What is the purpose of 'continuous monitoring' in a security program?"
+    options:
+      - "Monitoring employee email communications for policy compliance"
+      - "Maintaining ongoing awareness of security controls, vulnerabilities, and threats to support timely risk management decisions"
+      - "Continuously running penetration tests against all systems"
+      - "Monitoring network bandwidth usage 24/7"
+    correct_answer: 1
+    explanations:
+      correct: "Continuous monitoring (as defined in NIST SP 800-137) maintains ongoing awareness of an organization's security posture — including control effectiveness, vulnerabilities, threat feeds, and configuration drift. This enables timely, risk-based decisions rather than relying only on annual assessments. It is foundational to the NIST RMF."
+      incorrect:
+        - "Employee communication monitoring is an HR/privacy concern — continuous security monitoring tracks security controls and threats."
+        - "Maintaining ongoing awareness of security posture for timely risk decisions is the correct NIST definition of continuous monitoring."
+        - "Continuous penetration testing is not operationally feasible and would disrupt systems — continuous monitoring uses passive observation and automated scanning."
+        - "Network performance monitoring is operational management — security continuous monitoring tracks controls and threats."
+    difficulty: "medium"
+    tags: ["monitoring", "NIST"]
+
+  - id: q-d6-024
+    domain: domain6
+    question: "What is 'interface testing' in the context of application security assessment?"
+    options:
+      - "Testing that the application's user interface renders correctly on different browsers"
+      - "Testing APIs, user interfaces, and system interfaces for security vulnerabilities including improper input handling and authentication flaws"
+      - "Testing network interface cards for hardware defects"
+      - "Verifying database query interfaces return correct data"
+    correct_answer: 1
+    explanations:
+      correct: "Interface testing evaluates all application interfaces — user interfaces (web forms), APIs (REST, SOAP, GraphQL), and system interfaces (inter-service communications) — for security issues like improper input validation, authentication bypass, unauthorized data exposure, and rate limiting failures."
+      incorrect:
+        - "Browser rendering compatibility is UX/compatibility testing — security interface testing focuses on vulnerabilities."
+        - "Testing all interface types (UI, API, system interfaces) for security vulnerabilities is the correct description."
+        - "Testing network interface cards is hardware diagnostics — application interface testing examines software interfaces."
+        - "Data correctness is functional testing — security interface testing looks for vulnerabilities in how interfaces handle malformed or malicious input."
+    difficulty: "medium"
+    tags: ["testing", "API"]
+
+  - id: q-d6-025
+    domain: domain6
+    question: "What is the purpose of 'log normalization' in a SIEM environment?"
+    options:
+      - "To reduce log storage costs by deleting duplicate entries"
+      - "To convert logs from different sources into a consistent format to enable correlation and analysis"
+      - "To encrypt log files before transmission to the SIEM"
+      - "To prioritize critical log events for faster analyst review"
+    correct_answer: 1
+    explanations:
+      correct: "Different systems (Windows Event Log, Syslog, CEF, JSON) use different log formats. Normalization converts them into a common schema so the SIEM can correlate events across systems. Without normalization, an authentication event from a Windows server, a firewall, and a Linux system would appear as different, unrelated events."
+      incorrect:
+        - "Deduplication reduces redundancy but is not the same as normalization — normalization standardizes format."
+        - "Converting diverse log formats into a consistent schema for correlation is the correct description of log normalization."
+        - "Log encryption is a transport/storage security control — normalization is a data format standardization process."
+        - "Event prioritization/triage is correlation rule processing — normalization must happen before correlation is possible."
+    difficulty: "medium"
+    tags: ["SIEM", "logs"]
+
+  - id: q-d6-026
+    domain: domain6
+    question: "What is 'attack surface analysis' and when is it most valuable?"
+    options:
+      - "Physically measuring the size of a server room"
+      - "Identifying all possible points where an attacker could interact with or attempt to compromise a system, most valuable during design and architecture review"
+      - "Analyzing the spread of malware across a network after an attack"
+      - "Measuring network bandwidth to identify unusual traffic patterns"
+    correct_answer: 1
+    explanations:
+      correct: "Attack surface analysis identifies all entry points, interfaces, and interactions that could be exploited — input fields, APIs, network ports, authentication mechanisms, third-party libraries. Reducing attack surface (disabling unused services, removing unnecessary features) is a fundamental security principle. Most valuable during design but valuable throughout development."
+      incorrect:
+        - "Physical room measurement is facility planning — attack surface analysis is about logical and network attack vectors."
+        - "Identifying all potential attacker interaction points, most valuable at design time — this correctly describes attack surface analysis."
+        - "Post-attack malware analysis is forensic investigation — attack surface analysis is proactive and pre-attack."
+        - "Traffic pattern analysis is network monitoring — attack surface analysis maps what can be attacked, not what is being attacked."
+    difficulty: "medium"
+    tags: ["threat-modeling", "architecture"]
+
+  - id: q-d6-027
+    domain: domain6
+    question: "What is the difference between a 'vulnerability' and an 'exploit'?"
+    options:
+      - "They are the same — all vulnerabilities have an associated exploit"
+      - "A vulnerability is a weakness that could be exploited; an exploit is the actual code or technique that takes advantage of a vulnerability"
+      - "A vulnerability affects hardware; an exploit affects software"
+      - "An exploit is a documented vulnerability; a vulnerability is an undiscovered exploit"
+    correct_answer: 1
+    explanations:
+      correct: "A vulnerability is a flaw or weakness in a system (e.g., unpatched software, misconfiguration). An exploit is the actual mechanism (code, technique) that leverages the vulnerability to cause harm. Not all vulnerabilities have public exploits — an unexploited vulnerability still needs remediation because an exploit could be developed."
+      incorrect:
+        - "Many vulnerabilities have no known public exploit — the distinction between the two concepts is important for risk assessment."
+        - "A vulnerability is a weakness; an exploit is the mechanism to abuse it — this correctly distinguishes them."
+        - "Both vulnerabilities and exploits can affect hardware, software, or configurations — no hardware/software distinction."
+        - "This is reversed — a vulnerability is the weakness; an exploit is the developed technique to use it."
+    difficulty: "easy"
+    tags: ["vulnerability", "fundamentals"]
+
+  - id: q-d6-028
+    domain: domain6
+    question: "What is the purpose of 'patch Tuesday' awareness in vulnerability management?"
+    options:
+      - "A day when organizations apply all patches simultaneously to reduce effort"
+      - "Microsoft's monthly scheduled release of security patches — awareness helps organizations plan testing and deployment timelines"
+      - "A weekly vulnerability scanning window"
+      - "The Tuesday deadline for reporting newly found vulnerabilities to CISA"
+    correct_answer: 1
+    explanations:
+      correct: "Microsoft releases security patches on the second Tuesday of each month ('Patch Tuesday'). Organizations use this predictable cadence to plan their patch testing and deployment windows. Security teams monitor the patch release to assess severity, identify critical patches requiring emergency deployment, and schedule change management windows."
+      incorrect:
+        - "Organizations rarely apply all patches simultaneously — they follow risk-based prioritization and change management processes."
+        - "Microsoft's monthly patch release cycle that organizations plan around — this correctly describes Patch Tuesday's significance."
+        - "Vulnerability scanning is performed on varying schedules — Patch Tuesday is specifically Microsoft's patch release day."
+        - "CISA vulnerability reporting uses different processes (CVD programs) — Patch Tuesday is Microsoft's release cycle."
+    difficulty: "easy"
+    tags: ["patch-management", "vulnerability"]
+
+  - id: q-d6-029
+    domain: domain6
+    question: "What is 'threat hunting' and how does it differ from reactive incident response?"
+    options:
+      - "They are the same — both start with an alert from a SIEM"
+      - "Threat hunting is proactive searching for threats that evade existing detection; incident response is reactive investigation after an alert or known event"
+      - "Threat hunting is automated; incident response is manual"
+      - "Threat hunting is performed by external vendors; incident response is internal"
+    correct_answer: 1
+    explanations:
+      correct: "Threat hunting is a proactive, hypothesis-driven search for indicators of adversary activity that automated tools haven't detected. Hunters assume the environment is already compromised and look for subtle signs. Incident response is triggered by a known event or alert. Threat hunting may discover incidents that then transition to incident response."
+      incorrect:
+        - "Threat hunting doesn't start from an alert — it starts from a hypothesis. Incident response starts from a detected event."
+        - "Threat hunting is proactive hypothesis-driven search; incident response is reactive — this correctly distinguishes them."
+        - "Both threat hunting and incident response involve skilled humans — automation assists but doesn't replace human judgment."
+        - "Both can be performed by internal or external teams — neither is limited by who performs it."
+    difficulty: "medium"
+    tags: ["threat-hunting", "detection"]
+
+  - id: q-d6-030
+    domain: domain6
+    question: "What is an 'internal audit' and how does it differ from an 'external audit'?"
+    options:
+      - "Internal audits test technology; external audits test people and processes"
+      - "Internal audits are conducted by the organization's own auditors; external audits are conducted by independent third parties"
+      - "Internal audits are informal; external audits produce binding compliance reports"
+      - "External audits cost nothing; internal audits consume organizational resources"
+    correct_answer: 1
+    explanations:
+      correct: "Internal audits are conducted by auditors employed by or reporting to the organization — they may lack independence but provide valuable ongoing oversight. External audits are performed by independent third parties — they provide greater credibility, required by regulations (SOX, PCI DSS) or customer requirements. External auditors can issue opinions relied upon by external stakeholders."
+      incorrect:
+        - "Both internal and external audits can cover technology, people, and processes — neither is limited to a specific domain."
+        - "Internal = organization's own auditors; external = independent third parties — this correctly distinguishes them."
+        - "Both produce formal reports — internal audit reports may be less formal but still document findings systematically."
+        - "External audits are not free — they are typically expensive professional engagements."
+    difficulty: "easy"
+    tags: ["audit", "governance"]
+
+  - id: q-d6-031
+    domain: domain6
+    question: "What is the purpose of 'security metrics' in a security program?"
+    options:
+      - "To satisfy regulatory reporting requirements only"
+      - "To measure the effectiveness of security controls, track improvement over time, and communicate security posture to stakeholders"
+      - "To compare the organization's security spending to competitors"
+      - "To determine which employees need additional security training"
+    correct_answer: 1
+    explanations:
+      correct: "Security metrics measure control effectiveness (e.g., % systems patched within SLA, mean time to detect/respond, phishing click rates). They enable data-driven security decisions, demonstrate improvement over time, justify security investments to leadership, and fulfill reporting obligations. Good metrics are measurable, actionable, and tied to risk reduction."
+      incorrect:
+        - "Regulatory reporting is one use of metrics, but the broader purpose is measuring effectiveness and driving improvement."
+        - "Measuring control effectiveness, tracking improvement, and communicating posture to stakeholders is the correct purpose of security metrics."
+        - "Competitive benchmarking may be a use case but is not the primary purpose of internal security metrics."
+        - "Identifying training needs may be informed by metrics but is one narrow application — the primary purpose is measuring program effectiveness."
+    difficulty: "medium"
+    tags: ["metrics", "governance"]
+
+  - id: q-d6-032
+    domain: domain6
+    question: "What is 'passive reconnaissance' and how does it differ from active reconnaissance?"
+    options:
+      - "Passive reconnaissance uses automated tools; active reconnaissance is manual"
+      - "Passive reconnaissance gathers information without directly interacting with target systems (using public sources); active reconnaissance directly probes the target"
+      - "Passive reconnaissance is legal; active reconnaissance requires court authorization"
+      - "Passive reconnaissance only works on websites; active reconnaissance targets network infrastructure"
+    correct_answer: 1
+    explanations:
+      correct: "Passive reconnaissance (OSINT) uses publicly available information — WHOIS, DNS records, social media, job postings, Google dorking — without touching target systems. No alerts are generated on the target's IDS. Active reconnaissance (port scanning, enumeration) directly probes target systems and may trigger alerts."
+      incorrect:
+        - "Both passive and active reconnaissance can be manual or automated — the distinction is about interaction with the target."
+        - "Not directly touching target systems (public sources) vs. directly probing — this correctly distinguishes passive and active reconnaissance."
+        - "Both require authorization in penetration testing contexts — passive reconnaissance of public information generally doesn't require authorization but active probing does."
+        - "Both passive and active reconnaissance apply to websites, networks, applications, and infrastructure."
+    difficulty: "medium"
+    tags: ["reconnaissance", "pen-testing"]

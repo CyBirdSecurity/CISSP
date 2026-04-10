@@ -585,3 +585,379 @@ questions:
         - "Succession planning is a continuity and talent management strategy, not a cost-cutting measure."
     difficulty: "easy"
     tags: ["governance", "personnel"]
+
+  - id: q-d1-033
+    domain: domain1
+    question: "What is the difference between 'risk appetite' and 'risk tolerance'?"
+    options:
+      - "They are interchangeable terms used in different frameworks"
+      - "Risk appetite is the broad level of risk an organization is willing to accept; risk tolerance is the acceptable variation around that threshold"
+      - "Risk appetite is quantitative; risk tolerance is qualitative"
+      - "Risk appetite applies to financial risk only; risk tolerance applies to operational risk"
+    correct_answer: 1
+    explanations:
+      correct: "Risk appetite is the overall amount of risk an organization is willing to pursue in support of its objectives. Risk tolerance is the acceptable deviation from the risk appetite — the boundaries within which risk levels are considered acceptable."
+      incorrect:
+        - "They are distinct concepts. Risk appetite is strategic; risk tolerance defines the operational boundaries around it."
+        - "Both can be expressed quantitatively or qualitatively — the distinction is not about measurement method."
+        - "Both terms apply across all categories of risk (financial, operational, reputational, etc.), not specific domains."
+    difficulty: "hard"
+    tags: ["risk", "governance"]
+
+  - id: q-d1-034
+    domain: domain1
+    question: "A vulnerability has been identified but no known threat currently exploits it. What is the risk level?"
+    options:
+      - "High — vulnerabilities always represent high risk"
+      - "The same as if a threat existed — risk is defined solely by vulnerability"
+      - "Reduced — risk requires both a threat and a vulnerability to exist"
+      - "Zero — no threat means no risk"
+    correct_answer: 2
+    explanations:
+      correct: "Risk = Threat × Vulnerability × Asset Value. Without a threat to exploit a vulnerability, risk is significantly reduced but not necessarily zero. A new threat could emerge, so vulnerabilities should still be remediated. However, prioritization should factor in actual threat likelihood."
+      incorrect:
+        - "Vulnerabilities without active threats represent lower risk — not automatically high risk. Risk requires both components."
+        - "Risk is not solely defined by vulnerability — a credible threat must exist to exploit it."
+        - "Risk is reduced but rarely absolute zero — a threat could emerge at any time. Vulnerabilities still warrant remediation."
+    difficulty: "medium"
+    tags: ["risk", "fundamentals"]
+
+  - id: q-d1-035
+    domain: domain1
+    question: "ISO/IEC 27001 is best described as:"
+    options:
+      - "A technical standard specifying required security tools"
+      - "A framework for establishing, implementing, operating, and improving an Information Security Management System (ISMS)"
+      - "A government regulation mandating encryption standards"
+      - "A penetration testing methodology"
+    correct_answer: 1
+    explanations:
+      correct: "ISO/IEC 27001 is an international standard for Information Security Management Systems (ISMS). It provides a systematic approach to managing sensitive information using risk management processes and specifies requirements for certification."
+      incorrect:
+        - "ISO 27001 does not mandate specific tools — it specifies management system requirements and allows organizations to choose appropriate controls."
+        - "ISO 27001 is a voluntary international standard, not a government regulation. Organizations choose to pursue certification."
+        - "ISO 27001 is a management system standard, not a penetration testing framework."
+    difficulty: "easy"
+    tags: ["frameworks", "governance"]
+
+  - id: q-d1-036
+    domain: domain1
+    question: "The Sarbanes-Oxley Act (SOX) Section 404 requires organizations to:"
+    options:
+      - "Encrypt all customer financial data with AES-256"
+      - "Report and attest to the effectiveness of internal controls over financial reporting"
+      - "Conduct annual penetration tests of financial systems"
+      - "Appoint a Chief Information Security Officer"
+    correct_answer: 1
+    explanations:
+      correct: "SOX Section 404 requires management to assess and report on the effectiveness of internal controls over financial reporting (ICFR), and an external auditor must independently attest to this assessment. This has significant IT implications as many financial controls are IT-dependent."
+      incorrect:
+        - "SOX does not mandate specific encryption standards — it requires controls over financial reporting processes."
+        - "Annual penetration testing may be a good practice but is not a SOX Section 404 requirement."
+        - "SOX does not require appointment of a CISO, though many SOX-compliant organizations have one."
+    difficulty: "medium"
+    tags: ["compliance", "legal"]
+
+  - id: q-d1-037
+    domain: domain1
+    question: "What is 'inherent risk' in the context of risk management?"
+    options:
+      - "Risk that cannot be eliminated no matter what controls are applied"
+      - "The level of risk that exists before any security controls are applied"
+      - "Risk that is accepted by the organization's board"
+      - "Risk transferred to a third party through insurance"
+    correct_answer: 1
+    explanations:
+      correct: "Inherent risk is the raw, untreated risk that exists before any controls, mitigations, or safeguards are applied. After controls are applied, the remaining risk is residual risk. Inherent Risk - Control Effectiveness = Residual Risk."
+      incorrect:
+        - "Risk that cannot be eliminated is sometimes called 'irreducible risk' — inherent risk specifically refers to the pre-control risk level."
+        - "Inherent risk exists before controls are applied — this is the correct definition."
+        - "Board-accepted risk is a risk acceptance decision — not the definition of inherent risk."
+        - "Transferred risk is risk shifted to a third party — inherent risk is a pre-control measurement."
+    difficulty: "medium"
+    tags: ["risk", "fundamentals"]
+
+  - id: q-d1-038
+    domain: domain1
+    question: "Which of the following best describes the role of a Chief Information Security Officer (CISO)?"
+    options:
+      - "Day-to-day administration of firewalls and intrusion detection systems"
+      - "Providing strategic leadership for the information security program and aligning it with business objectives"
+      - "Writing all security policies and procedures"
+      - "Performing annual penetration tests of corporate systems"
+    correct_answer: 1
+    explanations:
+      correct: "The CISO is an executive-level role responsible for overseeing the strategic direction of the information security program, managing security risk, and ensuring security aligns with business objectives. They report to the CEO, COO, or board."
+      incorrect:
+        - "Day-to-day firewall and IDS administration is performed by security analysts and administrators — not the CISO."
+        - "Providing strategic leadership and alignment with business objectives is the core CISO responsibility."
+        - "Drafting policies may be delegated to the CISO's team, but the CISO's primary role is strategic leadership, not document writing."
+        - "Penetration testing is performed by security engineers or external firms — not typically the CISO."
+    difficulty: "easy"
+    tags: ["governance", "roles"]
+
+  - id: q-d1-039
+    domain: domain1
+    question: "Which NIST publication provides a catalog of security and privacy controls for federal information systems?"
+    options:
+      - "NIST SP 800-30"
+      - "NIST SP 800-37"
+      - "NIST SP 800-53"
+      - "NIST SP 800-61"
+    correct_answer: 2
+    explanations:
+      correct: "NIST SP 800-53 (Security and Privacy Controls for Information Systems and Organizations) provides a comprehensive catalog of security and privacy controls organized into families. It is the primary control catalog used in the NIST Risk Management Framework."
+      incorrect:
+        - "NIST SP 800-30 provides guidance for conducting risk assessments — not the control catalog."
+        - "NIST SP 800-37 describes the Risk Management Framework (RMF) process — not the control catalog itself."
+        - "NIST SP 800-53 is the control catalog — this is the correct answer."
+        - "NIST SP 800-61 is the Computer Security Incident Handling Guide — not the control catalog."
+    difficulty: "medium"
+    tags: ["frameworks", "NIST"]
+
+  - id: q-d1-040
+    domain: domain1
+    question: "What is the primary purpose of background checks in personnel security?"
+    options:
+      - "To verify the candidate holds the certifications listed on their resume"
+      - "To reduce the risk of insider threats by verifying trustworthiness before granting access"
+      - "To comply with equal employment opportunity laws"
+      - "To determine the applicant's technical skill level"
+    correct_answer: 1
+    explanations:
+      correct: "Background checks (criminal history, financial history, reference checks, employment verification) reduce insider threat risk by identifying potential red flags before granting access to sensitive systems or information. They are a preventive personnel security control."
+      incorrect:
+        - "Credential verification is one component, but the primary security purpose is reducing insider threat risk."
+        - "Reducing insider threat risk by vetting trustworthiness is the primary security purpose of background checks."
+        - "Equal employment compliance is an HR and legal concern — the security purpose is risk reduction."
+        - "Technical skill assessment is done through interviews and tests — not background checks."
+    difficulty: "easy"
+    tags: ["personnel", "insider-threat"]
+
+  - id: q-d1-041
+    domain: domain1
+    question: "Which privacy regulation applies to the protected health information (PHI) of US patients and imposes requirements on healthcare providers and their business associates?"
+    options:
+      - "GDPR"
+      - "FERPA"
+      - "HIPAA"
+      - "CCPA"
+    correct_answer: 2
+    explanations:
+      correct: "HIPAA (Health Insurance Portability and Accountability Act) protects PHI (Protected Health Information). The Security Rule requires administrative, physical, and technical safeguards. Business Associates (vendors handling PHI) must also comply via Business Associate Agreements (BAAs)."
+      incorrect:
+        - "GDPR is a European Union privacy regulation covering all personal data — not US healthcare-specific."
+        - "FERPA (Family Educational Rights and Privacy Act) protects student educational records — not healthcare data."
+        - "HIPAA is the correct answer for US healthcare PHI protection."
+        - "CCPA (California Consumer Privacy Act) is a California privacy law covering consumer personal information — not specifically healthcare."
+    difficulty: "easy"
+    tags: ["legal", "privacy", "compliance"]
+
+  - id: q-d1-042
+    domain: domain1
+    question: "What is the Annualized Loss Expectancy (ALE) for an asset with an SLE of $10,000 and an ARO of 0.25?"
+    options:
+      - "$40,000"
+      - "$10,000"
+      - "$2,500"
+      - "$25,000"
+    correct_answer: 2
+    explanations:
+      correct: "ALE = SLE × ARO. ALE = $10,000 × 0.25 = $2,500. An ARO of 0.25 means the threat is expected to occur once every four years. The ALE represents the expected annual loss from this threat."
+      incorrect:
+        - "$40,000 would result from SLE / ARO — this is not the ALE formula."
+        - "$10,000 is just the SLE — ALE requires multiplying by the ARO."
+        - "ALE = $10,000 × 0.25 = $2,500 — this is correct."
+        - "$25,000 is not produced by the ALE formula with these values."
+    difficulty: "medium"
+    tags: ["risk", "quantitative"]
+
+  - id: q-d1-043
+    domain: domain1
+    question: "What is the primary goal of a 'tabletop exercise' in business continuity planning?"
+    options:
+      - "To physically test all failover systems and backup restoration"
+      - "To discuss and walk through response procedures in a simulated scenario without operational disruption"
+      - "To measure how quickly IT systems can be restored"
+      - "To train employees on using new security tools"
+    correct_answer: 1
+    explanations:
+      correct: "A tabletop exercise is a discussion-based simulation where key personnel walk through their response to a hypothetical scenario. It identifies gaps in plans and trains responders without the cost or disruption of an actual failover test."
+      incorrect:
+        - "Physically testing failover and restoration is a functional or full-scale exercise — more disruptive and expensive than a tabletop."
+        - "Discussing response procedures in a simulated scenario without operational disruption is the correct definition of a tabletop exercise."
+        - "Measuring restoration speed requires a live test (functional exercise) — tabletop exercises are discussion-based."
+        - "Tool training is a separate activity — tabletop exercises focus on response coordination and decision-making."
+    difficulty: "medium"
+    tags: ["BCP", "exercises"]
+
+  - id: q-d1-044
+    domain: domain1
+    question: "Which of the following is the BEST description of 'third-party risk management' (TPRM)?"
+    options:
+      - "Managing the security of the organization's own systems used by third parties"
+      - "Identifying, assessing, and mitigating risks arising from an organization's relationships with vendors, suppliers, and partners"
+      - "Conducting penetration tests on all vendor systems annually"
+      - "Requiring all vendors to achieve ISO 27001 certification"
+    correct_answer: 1
+    explanations:
+      correct: "TPRM involves identifying all third-party relationships, assessing the risks they introduce (data access, service dependencies, supply chain), and implementing controls such as security questionnaires, contractual requirements, right-to-audit clauses, and continuous monitoring."
+      incorrect:
+        - "TPRM focuses on risks arising FROM third parties — not on your own systems used by them."
+        - "TPRM is a comprehensive program for identifying, assessing, and mitigating vendor/partner risks — this is correct."
+        - "Annual penetration testing of all vendors is impractical and not the definition of TPRM — questionnaires and audits are more common."
+        - "Requiring ISO 27001 may be one TPRM control, but TPRM is a broader risk management program."
+    difficulty: "medium"
+    tags: ["risk", "supply-chain"]
+
+  - id: q-d1-045
+    domain: domain1
+    question: "What is the purpose of a 'Security Charter' or 'Information Security Policy'?"
+    options:
+      - "To provide technical configuration requirements for all systems"
+      - "To document management's commitment to security and establish the authority and scope of the security program"
+      - "To list all approved software applications"
+      - "To describe procedures for incident response"
+    correct_answer: 1
+    explanations:
+      correct: "The information security policy (charter) is a high-level management document that establishes the organization's commitment to security, defines the scope and purpose of the security program, and provides authority for security activities. It is signed by senior leadership."
+      incorrect:
+        - "Technical configuration requirements belong in standards and baselines — not the high-level security policy."
+        - "Documenting management commitment and program authority is the core purpose of an information security policy."
+        - "Approved software lists are maintained in software whitelists or acceptable use policies — not the security charter."
+        - "Incident response procedures are documented in the incident response plan — not the security policy."
+    difficulty: "easy"
+    tags: ["governance", "policy"]
+
+  - id: q-d1-046
+    domain: domain1
+    question: "An organization performs a risk assessment and determines that a control costing $5,000/year reduces expected annual losses from $50,000 to $30,000. What is the value of this control?"
+    options:
+      - "The control has negative value — it costs more than it prevents"
+      - "$15,000 — the control provides a net benefit of $15,000 per year"
+      - "$20,000 reduction in risk but the control only costs $5,000, providing $15,000 net benefit"
+      - "$50,000 — the full value of the protected asset"
+    correct_answer: 2
+    explanations:
+      correct: "Control value = Risk Reduction - Control Cost. The control reduces losses by $20,000 ($50,000 - $30,000) and costs $5,000, providing a net annual benefit of $15,000. This cost-benefit analysis justifies implementing the control."
+      incorrect:
+        - "The control costs $5,000 but saves $20,000 — it has significant positive value."
+        - "$15,000 net benefit is correct but this answer doesn't explain the calculation fully."
+        - "$20,000 reduction minus $5,000 cost = $15,000 net benefit — this is the correct cost-benefit analysis."
+        - "$50,000 is the total asset risk, not the value of the specific control."
+    difficulty: "medium"
+    tags: ["risk", "quantitative"]
+
+  - id: q-d1-047
+    domain: domain1
+    question: "What does PCI DSS primarily govern?"
+    options:
+      - "Protection of government classified information"
+      - "Security controls for organizations that store, process, or transmit payment card data"
+      - "Privacy rights of European Union residents"
+      - "Security requirements for US federal information systems"
+    correct_answer: 1
+    explanations:
+      correct: "PCI DSS (Payment Card Industry Data Security Standard) is a private industry standard established by Visa, Mastercard, and other card brands. It applies to any organization that stores, processes, or transmits cardholder data, regardless of size or geography."
+      incorrect:
+        - "Government classified information is governed by regulations like NIST SP 800-53, FISMA, and Executive Orders — not PCI DSS."
+        - "PCI DSS governs payment card data security for organizations handling cardholder data — this is correct."
+        - "EU resident privacy is governed by GDPR — PCI DSS is a payment card industry standard, not a privacy regulation."
+        - "US federal systems are governed by FISMA and NIST standards — PCI DSS is an industry standard, not a federal requirement."
+    difficulty: "easy"
+    tags: ["compliance", "legal"]
+
+  - id: q-d1-048
+    domain: domain1
+    question: "What is the purpose of a 'risk register'?"
+    options:
+      - "A database of all known vulnerabilities affecting the organization's software"
+      - "A documented record of identified risks, their likelihood, impact, owners, and treatment decisions"
+      - "A list of all security incidents that have occurred"
+      - "A log of failed login attempts"
+    correct_answer: 1
+    explanations:
+      correct: "A risk register (risk log) is a central repository that records identified risks, their likelihood and impact ratings, risk owners, current treatment status (mitigate/accept/transfer/avoid), and residual risk levels. It is a living document updated as risks change."
+      incorrect:
+        - "A vulnerability database tracks technical weaknesses — a risk register captures business and security risks more broadly."
+        - "A documented record of identified risks, their attributes, owners, and treatment decisions is the correct definition."
+        - "Security incidents are tracked in an incident management system or incident log — not the risk register."
+        - "Failed login attempts are security event logs — not risk register entries."
+    difficulty: "easy"
+    tags: ["risk", "governance"]
+
+  - id: q-d1-049
+    domain: domain1
+    question: "Which type of security assessment involves evaluating an organization's security posture against a specific standard or framework without attempting exploitation?"
+    options:
+      - "Penetration test"
+      - "Red team exercise"
+      - "Security audit"
+      - "Bug bounty program"
+    correct_answer: 2
+    explanations:
+      correct: "A security audit evaluates an organization's controls, policies, and procedures against a defined standard (ISO 27001, NIST CSF, PCI DSS). It is a compliance-focused review that does not involve exploitation — unlike a penetration test."
+      incorrect:
+        - "A penetration test actively exploits vulnerabilities to demonstrate impact — it is not a compliance evaluation against a standard."
+        - "A red team exercise simulates a real-world adversary to test detection and response — not a standard compliance review."
+        - "Security audits evaluate compliance against standards without exploitation — this is correct."
+        - "A bug bounty program invites researchers to find and report vulnerabilities — not a structured audit against a framework."
+    difficulty: "medium"
+    tags: ["assessment", "governance"]
+
+  - id: q-d1-050
+    domain: domain1
+    question: "What is the key principle behind the concept of 'defense in depth'?"
+    options:
+      - "Using the single strongest security control available"
+      - "Layering multiple independent security controls so that failure of one does not compromise the entire system"
+      - "Defending only the most critical assets"
+      - "Keeping security mechanisms secret to prevent attackers from understanding them"
+    correct_answer: 1
+    explanations:
+      correct: "Defense in depth (layered security) uses multiple independent controls across different layers (perimeter, network, host, application, data) so that if one control fails or is bypassed, other layers still provide protection. No single control is relied upon exclusively."
+      incorrect:
+        - "Relying on a single control — even the strongest one — creates a single point of failure. Defense in depth uses multiple layers."
+        - "Layering multiple independent controls is the correct definition of defense in depth."
+        - "Defending only critical assets is prioritization — defense in depth is an architectural approach to layering controls."
+        - "Keeping security mechanisms secret violates Kerckhoffs's principle — security should not depend on obscurity."
+    difficulty: "easy"
+    tags: ["principles", "architecture"]
+
+  - id: q-d1-051
+    domain: domain1
+    question: "When performing qualitative risk analysis, what scale is typically used to rate likelihood and impact?"
+    options:
+      - "Exact dollar amounts and probability percentages"
+      - "Descriptive ratings such as High/Medium/Low or numerical scales like 1-5"
+      - "ALE and SLE calculations"
+      - "CVSS scores from 0 to 10"
+    correct_answer: 1
+    explanations:
+      correct: "Qualitative risk analysis uses descriptive scales (High/Medium/Low, Critical/High/Medium/Low/Informational, or 1-5 numeric scales) to rate likelihood and impact. It is faster and easier than quantitative analysis but relies on subjective judgment rather than hard numbers."
+      incorrect:
+        - "Exact dollar amounts and probability percentages are used in quantitative risk analysis — not qualitative."
+        - "Descriptive or ordinal scales (H/M/L, 1-5) are used in qualitative risk analysis — this is correct."
+        - "ALE and SLE calculations are quantitative risk metrics — not qualitative descriptors."
+        - "CVSS scores are used for vulnerability severity ratings — not a general qualitative risk analysis scale."
+    difficulty: "easy"
+    tags: ["risk", "assessment"]
+
+  - id: q-d1-052
+    domain: domain1
+    question: "What is the purpose of a 'Non-Disclosure Agreement' (NDA) in the context of personnel security?"
+    options:
+      - "To prevent employees from leaving the organization"
+      - "To legally bind individuals to protect confidential information they access during their role"
+      - "To grant employees access to classified systems"
+      - "To document employee performance expectations"
+    correct_answer: 1
+    explanations:
+      correct: "An NDA (also called a confidentiality agreement) legally obligates signatories to protect confidential information and not disclose it to unauthorized parties. In personnel security, NDAs are signed at hiring and sometimes at termination to protect trade secrets and sensitive data."
+      incorrect:
+        - "NDAs do not prevent employees from leaving — they restrict disclosure of confidential information accessed during employment."
+        - "Legally binding individuals to protect confidential information is the correct purpose of an NDA."
+        - "System access is granted through access control processes — NDAs are legal agreements, not access grants."
+        - "Performance expectations are documented in job descriptions and performance agreements — not NDAs."
+    difficulty: "easy"
+    tags: ["personnel", "legal"]

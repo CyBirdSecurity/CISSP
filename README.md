@@ -1,6 +1,6 @@
 # CyBird Security: CISSP Study Tool
 
-**CyBird Security** is a modern, interactive web application designed to help cybersecurity professionals prepare for the **ISC2 CISSP Common Body of Knowledge (CBK)**. The tool streamlines the study process by breaking down complex concepts into interactive quizzes and high-frequency flashcards.
+**CyBird Security** is a modern, interactive web application designed to help cybersecurity professionals prepare for the **ISC2 CISSP**. The tool streamlines the study process by breaking down complex concepts into interactive quizzes and high-frequency flashcards.
 
 [View the Live Tool](https://cissp.cybirdsecurity.com/)
 
@@ -9,7 +9,7 @@
 ## 🚀 Key Features
 
 * **All 8 CISSP Domains:** Dedicated study modules for every exam domain, from Security and Risk Management to Software Development Security.
-* **Interactive Quizzes:** 96 practice questions with real-time feedback to simulate exam-day decision making.
+* **Interactive Quizzes:** 200+ practice questions with real-time feedback to simulate exam-day decision making.
 * **Rapid-Fire Flashcards:** 120 curated cards designed to reinforce key terminology and frameworks.
 * **Progress Dashboard:** Track your accuracy and maintain your study streak with a visual performance overview.
 * **Focus Mode:** A clean, dark-themed interface built to minimize distractions during long study sessions.

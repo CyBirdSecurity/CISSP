@@ -227,7 +227,7 @@ questions:
     difficulty: "hard"
     tags: ["cryptography", "attacks"]
 
-- id: q-d3-013
+  - id: q-d3-013
     domain: domain3
     question: "Which security model uses a directed graph to dictate how rights can be passed from one subject to another?"
     options:
@@ -280,4 +280,383 @@ questions:
         - "A birthday attack is a collision attack used against hashes."
     difficulty: "medium"
     tags: ["cryptography", "attacks"]
-    
+
+  - id: q-d3-016
+    domain: domain3
+    question: "What is the Biba integrity model's 'Simple Integrity Property' (No Read Down)?"
+    options:
+      - "A subject cannot read data at a higher integrity level than their own"
+      - "A subject cannot read data at a lower integrity level than their own"
+      - "A subject cannot write to a higher integrity level than their own"
+      - "A subject cannot write to a lower integrity level than their own"
+    correct_answer: 1
+    explanations:
+      correct: "Biba's Simple Integrity Property (No Read Down) prevents a subject from reading data at a lower integrity level. Reading low-integrity (potentially corrupt) data could contaminate the subject's high-integrity work. The star property (No Write Up) prevents writing to higher integrity levels."
+      incorrect:
+        - "Not being able to read higher-level data is Bell-LaPadula's Simple Security Property (No Read Up) — that model protects confidentiality, not integrity."
+        - "No Read Down — preventing reading of lower integrity data — is the correct Biba Simple Integrity Property."
+        - "Not writing to higher integrity is Biba's star (*) Integrity Property — not the Simple Integrity Property."
+        - "Not writing to lower integrity is Bell-LaPadula's star property for confidentiality — not a Biba property."
+    difficulty: "hard"
+    tags: ["security-models", "integrity"]
+
+  - id: q-d3-017
+    domain: domain3
+    question: "What is the key characteristic of asymmetric (public-key) cryptography?"
+    options:
+      - "It uses a single shared key for both encryption and decryption"
+      - "It uses a mathematically related key pair — a public key for encryption and a private key for decryption"
+      - "It is faster than symmetric encryption for large data volumes"
+      - "It requires both parties to exchange keys in person before communicating"
+    correct_answer: 1
+    explanations:
+      correct: "Asymmetric cryptography uses a mathematically linked key pair. Data encrypted with the public key can only be decrypted with the corresponding private key. The public key can be distributed freely; the private key is kept secret. Common algorithms: RSA, ECC, Diffie-Hellman."
+      incorrect:
+        - "A single shared key is symmetric cryptography (AES, DES) — asymmetric uses a key pair."
+        - "A mathematically related key pair with public encryption and private decryption is the defining characteristic of asymmetric cryptography."
+        - "Asymmetric cryptography is significantly slower than symmetric — typically used only for key exchange and digital signatures, not bulk data."
+        - "The value of asymmetric cryptography is that keys do not need to be exchanged in person — the public key can be distributed openly."
+    difficulty: "easy"
+    tags: ["cryptography", "asymmetric"]
+
+  - id: q-d3-018
+    domain: domain3
+    question: "In PKI, what is the role of a Registration Authority (RA)?"
+    options:
+      - "To sign and issue digital certificates"
+      - "To maintain the Certificate Revocation List"
+      - "To verify the identity of certificate requestors before the CA issues a certificate"
+      - "To manage the private keys of all certificate holders"
+    correct_answer: 2
+    explanations:
+      correct: "The Registration Authority (RA) handles identity verification — it authenticates the identity of certificate requestors and approves or rejects certificate requests before forwarding approved requests to the Certificate Authority (CA) for issuance. The RA offloads the CA from administrative identity verification tasks."
+      incorrect:
+        - "Signing and issuing certificates is the CA's role — the RA verifies identity but does not sign certificates."
+        - "Maintaining the CRL is the CA's responsibility — the RA handles identity verification."
+        - "Verifying requestor identity before CA issuance is the correct RA role — this is what the RA does."
+        - "Private key management is the individual certificate holder's responsibility — PKI best practice is that the CA and RA never possess subscribers' private keys."
+    difficulty: "medium"
+    tags: ["PKI", "cryptography"]
+
+  - id: q-d3-019
+    domain: domain3
+    question: "Which type of cipher substitutes one letter for another based on a fixed shift value (e.g., A→D, B→E)?"
+    options:
+      - "Transposition cipher"
+      - "Vigenère cipher"
+      - "Caesar cipher"
+      - "One-time pad"
+    correct_answer: 2
+    explanations:
+      correct: "The Caesar cipher is a substitution cipher that shifts each letter by a fixed number of positions in the alphabet (e.g., shift 3: A→D, B→E). Julius Caesar used a shift of 3. It is trivially broken and has no modern security use — it is studied as a foundational cryptographic concept."
+      incorrect:
+        - "A transposition cipher rearranges the positions of characters without substituting them — it does not shift letter values."
+        - "The Vigenère cipher uses a keyword to apply multiple different shift values — it is a polyalphabetic substitution cipher, stronger than Caesar."
+        - "A Caesar cipher with a fixed letter shift is the correct answer."
+        - "A one-time pad uses a truly random key the same length as the message — it is theoretically unbreakable, not a simple shift cipher."
+    difficulty: "easy"
+    tags: ["cryptography", "historical"]
+
+  - id: q-d3-020
+    domain: domain3
+    question: "What is the purpose of 'certificate pinning' in mobile applications?"
+    options:
+      - "To speed up TLS handshake performance"
+      - "To bind an application to a specific expected certificate or public key, preventing acceptance of rogue certificates even from trusted CAs"
+      - "To store private keys securely on the device"
+      - "To compress certificate data for mobile networks"
+    correct_answer: 1
+    explanations:
+      correct: "Certificate pinning hard-codes (pins) the expected certificate or public key into an application. Even if an attacker obtains a fraudulent certificate from a legitimate CA (through compromise or social engineering), the app rejects it because it doesn't match the pinned value. This protects against CA compromises and MitM attacks."
+      incorrect:
+        - "Certificate pinning adds overhead during validation — it does not speed up TLS handshakes."
+        - "Binding the app to a specific expected certificate to prevent rogue certificate acceptance is the correct purpose of pinning."
+        - "Private key storage is managed by the device's secure enclave or keystore — not certificate pinning."
+        - "Certificate compression is not a function of certificate pinning — it is a security control."
+    difficulty: "hard"
+    tags: ["PKI", "mobile-security"]
+
+  - id: q-d3-021
+    domain: domain3
+    question: "What is the Diffie-Hellman key exchange protocol used for?"
+    options:
+      - "Encrypting large volumes of data efficiently"
+      - "Securely establishing a shared secret key over an untrusted channel without transmitting the key itself"
+      - "Creating digital signatures for email authentication"
+      - "Generating one-time passwords for multi-factor authentication"
+    correct_answer: 1
+    explanations:
+      correct: "Diffie-Hellman allows two parties to independently compute a shared secret key using public information exchanged over an untrusted channel — neither party ever transmits the actual secret. It solves the key distribution problem. It is widely used in TLS, SSH, and IPsec for session key establishment."
+      incorrect:
+        - "DH does not encrypt data — it establishes a shared key that is then used with symmetric algorithms (like AES) for bulk encryption."
+        - "Securely establishing a shared secret without transmitting it is the correct description of Diffie-Hellman."
+        - "Digital signatures use RSA or DSA/ECDSA — not Diffie-Hellman."
+        - "One-time passwords use TOTP/HOTP algorithms — not Diffie-Hellman."
+    difficulty: "medium"
+    tags: ["cryptography", "key-exchange"]
+
+  - id: q-d3-022
+    domain: domain3
+    question: "What security property does a Message Authentication Code (MAC) provide?"
+    options:
+      - "Confidentiality — the message cannot be read by unauthorized parties"
+      - "Integrity and authentication — verifies the message has not been altered and came from a holder of the shared key"
+      - "Non-repudiation — the sender cannot deny sending the message"
+      - "Availability — ensures the message is delivered"
+    correct_answer: 1
+    explanations:
+      correct: "A MAC (e.g., HMAC) uses a shared secret key to compute an authentication code appended to a message. It provides integrity (detects tampering) and authentication (proves the message came from someone with the shared key). Unlike digital signatures, MACs do not provide non-repudiation since both parties share the key."
+      incorrect:
+        - "MACs do not encrypt the message — confidentiality requires encryption. A MAC is appended to the message but doesn't hide it."
+        - "Integrity and authentication from a shared-key holder is the correct description of MAC's security properties."
+        - "Non-repudiation requires asymmetric cryptography (digital signatures) — MACs use shared keys, so either party could have created it."
+        - "Availability is not provided by MACs — they are cryptographic authentication tools."
+    difficulty: "medium"
+    tags: ["cryptography", "MAC", "integrity"]
+
+  - id: q-d3-023
+    domain: domain3
+    question: "What does 'perfect forward secrecy' (PFS) protect against?"
+    options:
+      - "Brute force attacks against session keys"
+      - "Compromise of long-term private keys being used to decrypt previously recorded session traffic"
+      - "Replay attacks using captured session tokens"
+      - "Side-channel timing attacks during key generation"
+    correct_answer: 1
+    explanations:
+      correct: "Perfect Forward Secrecy (PFS) ensures that session keys are generated freshly for each session using ephemeral key exchange (e.g., ECDHE). If a long-term private key is later compromised, an attacker cannot use it to decrypt previously recorded sessions because each session used a unique ephemeral key that was discarded."
+      incorrect:
+        - "Brute force resistance is addressed by key length — PFS specifically protects against long-term key compromise."
+        - "Protecting recorded past sessions from future long-term key compromise is the correct purpose of PFS."
+        - "Replay attacks are prevented by nonces and timestamps — not PFS."
+        - "Side-channel attacks are mitigated by implementation hardening — not PFS."
+    difficulty: "hard"
+    tags: ["cryptography", "TLS"]
+
+  - id: q-d3-024
+    domain: domain3
+    question: "What is the Clark-Wilson integrity model primarily concerned with protecting?"
+    options:
+      - "Confidentiality of classified data using security labels"
+      - "Integrity of commercial data through well-formed transactions and separation of duties"
+      - "Preventing conflicts of interest in consulting relationships"
+      - "Physical security of computing equipment"
+    correct_answer: 1
+    explanations:
+      correct: "Clark-Wilson protects data integrity in commercial environments. It uses Constrained Data Items (CDIs) that can only be modified through Transformation Procedures (TPs) — well-formed transactions that maintain integrity. It also enforces separation of duties through Access Control Triples (subject, TP, CDI)."
+      incorrect:
+        - "Confidentiality with security labels is the Bell-LaPadula model — Clark-Wilson focuses on integrity, not confidentiality."
+        - "Commercial data integrity through well-formed transactions and SoD is the correct description of Clark-Wilson."
+        - "Preventing conflicts of interest is the Brewer-Nash (Chinese Wall) model — not Clark-Wilson."
+        - "Physical security is not addressed by any of the named security models."
+    difficulty: "medium"
+    tags: ["security-models", "integrity"]
+
+  - id: q-d3-025
+    domain: domain3
+    question: "What is the primary weakness of WEP (Wired Equivalent Privacy)?"
+    options:
+      - "It uses symmetric encryption which is inherently insecure"
+      - "Its use of short, static keys and a flawed RC4 implementation with weak IVs allows traffic to be decrypted"
+      - "It requires physical access to crack"
+      - "It only supports networks with fewer than 10 devices"
+    correct_answer: 1
+    explanations:
+      correct: "WEP is cryptographically broken. It uses 24-bit Initialization Vectors (IVs) that repeat, combined with a flawed RC4 implementation. Attackers can capture enough traffic to statistically derive the encryption key in minutes. WEP should never be used — replaced by WPA, WPA2, and WPA3."
+      incorrect:
+        - "Symmetric encryption is not inherently insecure — AES (symmetric) is the current standard. WEP's specific implementation flaws are the problem."
+        - "Short/static keys, flawed RC4, and weak repeating IVs allowing key derivation from captured traffic is the correct description of WEP's weakness."
+        - "WEP can be cracked remotely by capturing wireless traffic — no physical access needed."
+        - "WEP's failure is cryptographic, not limited to device count."
+    difficulty: "medium"
+    tags: ["wireless", "cryptography"]
+
+  - id: q-d3-026
+    domain: domain3
+    question: "Which EAL (Evaluation Assurance Level) in Common Criteria represents 'formally verified design and tested'?"
+    options:
+      - "EAL1"
+      - "EAL4"
+      - "EAL7"
+      - "EAL3"
+    correct_answer: 2
+    explanations:
+      correct: "EAL7 is the highest Common Criteria assurance level, representing 'formally verified design and tested.' It requires formal mathematical verification of the security design. EAL7 is very rare and typically reserved for high-security systems like cryptographic modules used in national security applications."
+      incorrect:
+        - "EAL1 is the lowest level — 'functionally tested' with minimal assurance requirements."
+        - "EAL4 represents 'methodically designed, tested, and reviewed' — the highest level commercially practical without formal mathematical verification."
+        - "EAL7 — formally verified design and tested — is the highest and correct answer."
+        - "EAL3 represents 'methodically tested and checked' — not formally verified."
+    difficulty: "hard"
+    tags: ["standards", "common-criteria"]
+
+  - id: q-d3-027
+    domain: domain3
+    question: "What is 'steganography' and how does it differ from cryptography?"
+    options:
+      - "They are the same technique — both hide message content"
+      - "Steganography hides the existence of a message within another medium; cryptography scrambles message content but doesn't hide that a message exists"
+      - "Steganography is stronger than cryptography for protecting sensitive data"
+      - "Steganography uses mathematical algorithms; cryptography uses physical techniques"
+    correct_answer: 1
+    explanations:
+      correct: "Steganography hides the very existence of communication by concealing a secret message within an innocuous carrier (image, audio, video file). Cryptography makes a message unreadable but doesn't hide that communication occurred. Combining both (hiding an encrypted message) provides stronger security."
+      incorrect:
+        - "They serve different purposes — cryptography obscures content; steganography hides existence."
+        - "Steganography conceals the existence of a message; cryptography scrambles content — this correctly distinguishes them."
+        - "Neither is universally 'stronger' — they address different aspects of secure communication and are often used together."
+        - "Both use mathematical/algorithmic techniques — the distinction is about what they hide (content vs. existence)."
+    difficulty: "medium"
+    tags: ["cryptography", "steganography"]
+
+  - id: q-d3-028
+    domain: domain3
+    question: "What is FIPS 140-2/140-3 and what does it evaluate?"
+    options:
+      - "A certification for wireless network security protocols"
+      - "A US government standard for validating the security of cryptographic modules"
+      - "A framework for managing encryption keys across an enterprise"
+      - "A standard for evaluating the overall security of operating systems"
+    correct_answer: 1
+    explanations:
+      correct: "FIPS 140-2 (being replaced by FIPS 140-3) is a US government standard from NIST that specifies security requirements for cryptographic modules used in federal systems. It defines four security levels (Level 1-4) covering physical security, key management, and algorithm implementation."
+      incorrect:
+        - "Wireless security protocols use WPA2/WPA3 and IEEE standards — FIPS 140 is specifically for cryptographic module validation."
+        - "FIPS 140-2/3 validates cryptographic modules for use in federal systems — this is correct."
+        - "Key management practices are addressed in NIST SP 800-57 — FIPS 140 validates the modules themselves."
+        - "Operating system security is evaluated using Common Criteria — FIPS 140 focuses specifically on cryptographic module security."
+    difficulty: "medium"
+    tags: ["cryptography", "standards"]
+
+  - id: q-d3-029
+    domain: domain3
+    question: "What is a 'rainbow table' attack and what is the most effective defense against it?"
+    options:
+      - "An attack using multiple encryption algorithms; defended by using a single strong algorithm"
+      - "An attack using precomputed hash-to-password mappings; defended by adding a unique salt to each password before hashing"
+      - "A brute force attack against network authentication; defended by account lockout"
+      - "An attack against color-coded network cable labels; defended by physical security"
+    correct_answer: 1
+    explanations:
+      correct: "A rainbow table is a precomputed lookup table mapping password hashes to their plaintext values. Attackers can quickly reverse stolen password hashes without computing. Defense: salt each password with a unique random value before hashing — this ensures the same password produces different hashes, making precomputed tables useless."
+      incorrect:
+        - "Rainbow tables target password hashes, not encryption algorithms — salting is the defense, not algorithm selection."
+        - "Precomputed hash-to-password mappings defeated by unique per-user salting is the correct description of rainbow tables and their defense."
+        - "Account lockout addresses online brute force — rainbow tables are offline attacks against stolen hash databases."
+        - "This is a deliberate distractor — rainbow tables are cryptographic attacks, not physical cable attacks."
+    difficulty: "medium"
+    tags: ["cryptography", "passwords", "attacks"]
+
+  - id: q-d3-030
+    domain: domain3
+    question: "What is the purpose of a Hardware Security Module (HSM)?"
+    options:
+      - "To accelerate graphics processing for security dashboards"
+      - "To generate, store, and manage cryptographic keys in tamper-resistant hardware"
+      - "To scan hardware for malware at boot time"
+      - "To manage user authentication tokens"
+    correct_answer: 1
+    explanations:
+      correct: "An HSM is a tamper-resistant hardware device that generates, stores, and manages cryptographic keys. Keys never leave the HSM in plaintext. HSMs provide high-assurance key protection for PKI roots, payment systems, and disk encryption. They are FIPS 140-2/3 validated."
+      incorrect:
+        - "HSMs are specialized cryptographic devices — not graphics hardware."
+        - "Generating and managing crypto keys in tamper-resistant hardware is the correct description of an HSM."
+        - "Boot-time malware scanning is the function of secure boot (TPM/UEFI) — not specifically an HSM."
+        - "Physical authentication tokens (smart cards, YubiKeys) are managed by IAM systems — HSMs manage cryptographic keys."
+    difficulty: "medium"
+    tags: ["cryptography", "hardware"]
+
+  - id: q-d3-031
+    domain: domain3
+    question: "What does 'hybrid encryption' mean, and why is it used?"
+    options:
+      - "Using two symmetric algorithms together for stronger encryption"
+      - "Using asymmetric encryption to securely exchange a symmetric session key, then using symmetric encryption for bulk data"
+      - "Mixing hardware and software encryption in the same system"
+      - "Applying different encryption to different sensitivity levels within the same document"
+    correct_answer: 1
+    explanations:
+      correct: "Hybrid encryption combines the key distribution advantage of asymmetric cryptography with the speed of symmetric cryptography. A symmetric session key (e.g., AES-256) is generated, encrypted with the recipient's public key (asymmetric), then used to encrypt the actual data. TLS uses this approach."
+      incorrect:
+        - "Using two symmetric algorithms is a cascaded encryption approach — not hybrid encryption."
+        - "Using asymmetric to exchange a symmetric key, then symmetric for bulk data — this correctly describes hybrid encryption."
+        - "Mixing hardware and software encryption is an implementation architecture choice — not hybrid encryption."
+        - "Applying different encryption to different sensitivity levels is tiered encryption — not hybrid."
+    difficulty: "medium"
+    tags: ["cryptography", "hybrid"]
+
+  - id: q-d3-032
+    domain: domain3
+    question: "What is the primary difference between a 'block cipher' using CBC mode and one using CTR mode?"
+    options:
+      - "CBC is faster; CTR is more secure"
+      - "CBC chains blocks sequentially and requires padding; CTR uses a counter to generate a keystream and can be parallelized"
+      - "CBC uses symmetric keys; CTR uses asymmetric keys"
+      - "CTR requires an IV; CBC does not"
+    correct_answer: 1
+    explanations:
+      correct: "CBC (Cipher Block Chaining) XORs each plaintext block with the previous ciphertext block, creating a chain that must be processed sequentially. CTR (Counter) mode uses an incrementing counter encrypted to generate a keystream, which is XORed with plaintext. CTR enables parallel encryption/decryption and doesn't require padding."
+      incorrect:
+        - "CTR is often faster because it can be parallelized — CBC is sequential. Neither is universally 'more secure.'"
+        - "CBC chains sequentially with padding requirement; CTR uses a counter keystream with parallelization — this correctly describes the difference."
+        - "Both modes use symmetric keys — the key type is independent of the mode of operation."
+        - "Both CBC and CTR require an initialization value (IV or nonce) — this is not a distinguishing factor."
+    difficulty: "hard"
+    tags: ["cryptography", "symmetric"]
+
+  - id: q-d3-033
+    domain: domain3
+    question: "What is 'key escrow' and what is the primary controversy surrounding it?"
+    options:
+      - "The practice of generating backup copies of public keys; controversial because it increases storage costs"
+      - "Storing copies of encryption keys with a trusted third party; controversial because it creates a high-value target and potential for government access"
+      - "The process of exchanging keys between two parties; controversial because of performance overhead"
+      - "A hardware mechanism for protecting keys at rest; controversial because of high hardware costs"
+    correct_answer: 1
+    explanations:
+      correct: "Key escrow deposits copies of encryption keys with a trusted third party (often government-designated). The controversy: it creates a central repository of keys that is a high-value attack target, and government mandated escrow (clipper chip proposal) raised serious privacy concerns about lawful surveillance backdoors."
+      incorrect:
+        - "Key escrow stores private keys (not public keys) — public keys are freely shared and don't need escrow."
+        - "Storing keys with a trusted third party, controversial due to creating a central target and government access concerns — this correctly describes key escrow and its controversy."
+        - "Key exchange (Diffie-Hellman) is a different concept — key escrow is about depositing copies of existing keys."
+        - "Hardware key protection (HSM) is a security best practice — not what key escrow refers to."
+    difficulty: "hard"
+    tags: ["cryptography", "key-management"]
+
+  - id: q-d3-034
+    domain: domain3
+    question: "Which physical security control uses two consecutive doors — only one of which can be open at a time — to prevent tailgating?"
+    options:
+      - "Bollards"
+      - "Turnstile"
+      - "Mantrap (airlock)"
+      - "Faraday cage"
+    correct_answer: 2
+    explanations:
+      correct: "A mantrap (also called an airlock or sally port) uses two interlocked doors where only one can be open at a time. A person enters through the first door, which closes before the second opens. This prevents tailgating (piggybacking) into secure areas and allows for identity verification in the space between doors."
+      incorrect:
+        - "Bollards are short posts that prevent vehicle access — they do not address tailgating by pedestrians."
+        - "A turnstile allows one person at a time but both doors are not interlocked in the same way — it doesn't provide the identity verification opportunity of a mantrap."
+        - "A mantrap with two interlocked consecutive doors to prevent tailgating is the correct answer."
+        - "A Faraday cage blocks electromagnetic signals — it does not control physical personnel access."
+    difficulty: "easy"
+    tags: ["physical-security", "controls"]
+
+  - id: q-d3-035
+    domain: domain3
+    question: "What is the primary security purpose of a 'Trusted Platform Module' (TPM)?"
+    options:
+      - "To provide additional RAM for security applications"
+      - "To store cryptographic keys and measurements in tamper-resistant hardware, enabling platform integrity verification"
+      - "To block unauthorized network connections at the hardware level"
+      - "To provide a secure backup of user passwords"
+    correct_answer: 1
+    explanations:
+      correct: "A TPM is a dedicated security chip that stores cryptographic keys (including disk encryption keys like BitLocker), certificates, and platform configuration registers (PCRs) that record boot measurements. It enables secure boot (verifying boot integrity), full disk encryption key protection, and attestation."
+      incorrect:
+        - "TPMs do not provide RAM — they are dedicated security chips with limited storage for keys and measurements."
+        - "Tamper-resistant storage of crypto keys and platform integrity measurements (enabling secure boot) is the correct TPM purpose."
+        - "Network filtering is a firewall function — TPMs operate at the platform/hardware level for cryptographic operations."
+        - "TPMs store cryptographic keys and boot measurements — not user passwords (those are stored in OS credential stores)."
+    difficulty: "medium"
+    tags: ["hardware", "trusted-computing"]

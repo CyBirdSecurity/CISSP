@@ -584,3 +584,382 @@ questions:
         - "Anti-virus does nothing to protect data on a powered-down, stolen device."
     difficulty: "easy"
     tags: ["protection", "encryption"]
+
+  - id: q-d2-033
+    domain: domain2
+    question: "What is the primary purpose of a 'Data Loss Prevention' (DLP) system?"
+    options:
+      - "To recover deleted files from storage media"
+      - "To monitor, detect, and prevent unauthorized transmission or exfiltration of sensitive data"
+      - "To encrypt all data stored on endpoints"
+      - "To manage backup and recovery processes"
+    correct_answer: 1
+    explanations:
+      correct: "DLP systems monitor data in motion (network), data at rest (storage), and data in use (endpoints) to detect and prevent unauthorized disclosure of sensitive information. They use content inspection and contextual analysis to enforce data handling policies."
+      incorrect:
+        - "Recovering deleted files is forensic data recovery — DLP is focused on preventing unauthorized disclosure, not recovery."
+        - "Monitoring and preventing unauthorized data transmission is the primary purpose of DLP — this is correct."
+        - "Endpoint encryption is a separate control (FDE/file encryption) — DLP focuses on detecting and blocking policy violations."
+        - "Backup and recovery management is a separate function handled by backup software — not DLP."
+    difficulty: "easy"
+    tags: ["dlp", "data-protection"]
+
+  - id: q-d2-034
+    domain: domain2
+    question: "Which classification level in the US government system represents information whose unauthorized disclosure could cause 'serious damage' to national security?"
+    options:
+      - "Confidential"
+      - "Secret"
+      - "Top Secret"
+      - "Sensitive But Unclassified (SBU)"
+    correct_answer: 1
+    explanations:
+      correct: "Under Executive Order 13526: Confidential = 'damage'; Secret = 'serious damage'; Top Secret = 'exceptionally grave damage' to national security. Secret is the correct level for 'serious damage.'"
+      incorrect:
+        - "Confidential covers information whose unauthorized disclosure could cause 'damage' (not 'serious damage') to national security."
+        - "Secret = 'serious damage' — this is the correct classification level."
+        - "Top Secret covers information whose disclosure could cause 'exceptionally grave damage' — a higher threshold than serious damage."
+        - "SBU (Sensitive But Unclassified) covers sensitive information that doesn't meet classified thresholds — it is not a formal national security classification level."
+    difficulty: "medium"
+    tags: ["classification", "government"]
+
+  - id: q-d2-035
+    domain: domain2
+    question: "What is the concept of 'Privacy by Design' (PbD)?"
+    options:
+      - "A method of physically securing paper records"
+      - "Embedding privacy protections into systems and processes from the beginning rather than adding them later"
+      - "A legal framework for consent management"
+      - "The practice of anonymizing all data before storage"
+    correct_answer: 1
+    explanations:
+      correct: "Privacy by Design (PbD), developed by Ann Cavoukian, embeds privacy protections into system design from the start — not as an afterthought. It has seven foundational principles including proactive not reactive, privacy as the default, and end-to-end security. GDPR Article 25 requires 'data protection by design and default.'"
+      incorrect:
+        - "Physical security of paper records is a physical control — not Privacy by Design."
+        - "Embedding privacy into system design from the start is the correct definition of Privacy by Design."
+        - "PbD is an engineering/design principle — not a legal framework for consent, though it supports compliance."
+        - "Anonymization is one privacy technique — PbD is a broader design philosophy encompassing many privacy-enhancing approaches."
+    difficulty: "medium"
+    tags: ["privacy", "design"]
+
+  - id: q-d2-036
+    domain: domain2
+    question: "Under GDPR, what is the maximum timeframe for notifying the supervisory authority after discovering a personal data breach?"
+    options:
+      - "24 hours"
+      - "48 hours"
+      - "72 hours"
+      - "30 days"
+    correct_answer: 2
+    explanations:
+      correct: "GDPR Article 33 requires notification to the supervisory authority 'without undue delay and, where feasible, not later than 72 hours after having become aware' of a personal data breach. If notification exceeds 72 hours, the reasons for the delay must be provided."
+      incorrect:
+        - "24 hours is not the GDPR breach notification timeline — 72 hours is the requirement."
+        - "48 hours is not the correct GDPR timeframe — it is 72 hours under Article 33."
+        - "72 hours is the correct GDPR supervisory authority notification deadline."
+        - "30 days is too long — GDPR requires notification within 72 hours. Some US state laws and other regulations use 30-day windows."
+    difficulty: "medium"
+    tags: ["privacy", "GDPR", "compliance"]
+
+  - id: q-d2-037
+    domain: domain2
+    question: "What is 'data tokenization' and how does it differ from encryption?"
+    options:
+      - "Tokenization and encryption are equivalent — both reverse to the original value"
+      - "Tokenization replaces sensitive data with a non-sensitive placeholder (token) with no mathematical relationship; encryption uses an algorithm that is reversible with the key"
+      - "Tokenization uses stronger algorithms than encryption"
+      - "Tokenization is used for data at rest; encryption is used for data in transit"
+    correct_answer: 1
+    explanations:
+      correct: "Tokenization replaces sensitive data (like a credit card number) with a random token stored in a vault. There is no mathematical relationship between the token and original data — the original can only be retrieved by querying the token vault. Encryption is algorithmically reversible with the correct key."
+      incorrect:
+        - "They are not equivalent — tokenization has no mathematical relationship between token and original; encryption is reversible with a key."
+        - "Tokenization is a non-mathematical substitution; encryption is algorithmic and reversible — this correctly distinguishes them."
+        - "Tokenization doesn't use 'stronger algorithms' — it uses a mapping in a secure vault rather than cryptographic algorithms."
+        - "Both can be used in any data state context — the distinction is about reversibility, not where data lives."
+    difficulty: "hard"
+    tags: ["data-protection", "tokenization"]
+
+  - id: q-d2-038
+    domain: domain2
+    question: "Which of the following is an example of a 'Pseudonymization' technique?"
+    options:
+      - "Deleting the name field from a dataset"
+      - "Replacing a person's name with a consistent but artificial identifier while keeping the record otherwise intact"
+      - "Encrypting an entire database with AES-256"
+      - "Printing data on paper instead of storing it digitally"
+    correct_answer: 1
+    explanations:
+      correct: "Pseudonymization replaces directly identifying information (like a name) with a pseudonym (like a patient ID) while keeping other data fields usable. The mapping can be reversed with additional information. GDPR recognizes pseudonymization as a risk reduction measure but not full anonymization."
+      incorrect:
+        - "Deleting a field is data minimization or anonymization — pseudonymization keeps the record usable with a substituted identifier."
+        - "Replacing identifying info with a consistent artificial identifier is pseudonymization — this is correct."
+        - "Full database encryption is a confidentiality control — pseudonymization specifically substitutes identifiers while keeping data functionally useful."
+        - "Printing on paper is a media format change — not a pseudonymization technique."
+    difficulty: "medium"
+    tags: ["privacy", "pseudonymization"]
+
+  - id: q-d2-039
+    domain: domain2
+    question: "What is the primary security concern with 'shadow IT'?"
+    options:
+      - "It increases IT department workload"
+      - "Unsanctioned systems and services bypass security controls, creating unmanaged risk"
+      - "It violates software licensing agreements"
+      - "Shadow IT systems are slower than approved systems"
+    correct_answer: 1
+    explanations:
+      correct: "Shadow IT (systems, applications, or services used without IT/security approval) bypasses security vetting, patch management, DLP controls, and access management. Data stored in unsanctioned cloud services or applications is outside the security perimeter and may not be protected or recoverable."
+      incorrect:
+        - "Increased workload is an operational concern — the primary security concern is unmanaged risk and bypassed controls."
+        - "Unsanctioned systems bypassing security controls and creating unmanaged risk is the primary security concern."
+        - "Licensing violations are a legal/compliance concern — the security concern is the uncontrolled access to sensitive data."
+        - "Performance is not a security concern — the risk is the lack of security oversight and controls."
+    difficulty: "medium"
+    tags: ["governance", "data-management"]
+
+  - id: q-d2-040
+    domain: domain2
+    question: "What does NIST SP 800-88 provide guidance on?"
+    options:
+      - "Encryption standards for federal systems"
+      - "Media sanitization — guidelines for sanitizing storage media before disposal or reuse"
+      - "Password policy requirements"
+      - "Network segmentation for sensitive systems"
+    correct_answer: 1
+    explanations:
+      correct: "NIST SP 800-88 (Guidelines for Media Sanitization) provides guidance on sanitizing storage media including categorizing media types, choosing appropriate sanitization methods (Clear, Purge, Destroy), and documenting the process. It is the authoritative reference for data destruction decisions."
+      incorrect:
+        - "Encryption standards are covered in other NIST publications (FIPS 140-2/3, SP 800-57) — not SP 800-88."
+        - "Media sanitization guidelines is the correct subject of NIST SP 800-88."
+        - "Password policies are addressed in NIST SP 800-63B — not SP 800-88."
+        - "Network segmentation is covered in NIST SP 800-53 and other guidance — not SP 800-88."
+    difficulty: "medium"
+    tags: ["sanitization", "NIST"]
+
+  - id: q-d2-041
+    domain: domain2
+    question: "What is the difference between 'anonymization' and 'pseudonymization'?"
+    options:
+      - "They are the same process — both terms are used interchangeably in GDPR"
+      - "Anonymization is irreversible (re-identification is not possible); pseudonymization is reversible with additional information"
+      - "Anonymization is stronger but only applies to medical data; pseudonymization applies to all data"
+      - "Pseudonymization is irreversible; anonymization retains a link to the original"
+    correct_answer: 1
+    explanations:
+      correct: "True anonymization is irreversible — re-identifying individuals is not reasonably possible. GDPR does not apply to truly anonymized data. Pseudonymization is reversible if you have the mapping/key — it reduces risk but GDPR still applies to pseudonymized personal data."
+      incorrect:
+        - "They are distinct under GDPR — anonymized data is outside GDPR scope; pseudonymized data is still personal data under GDPR."
+        - "Anonymization is irreversible; pseudonymization is reversible — this correctly distinguishes them."
+        - "Both apply to all types of personal data — not just medical."
+        - "This is reversed — anonymization is irreversible; pseudonymization retains a reversible link."
+    difficulty: "hard"
+    tags: ["privacy", "GDPR"]
+
+  - id: q-d2-042
+    domain: domain2
+    question: "Which concept describes the security practice of ensuring that data is only accessible to users who have a legitimate need for it?"
+    options:
+      - "Least privilege"
+      - "Need to know"
+      - "Separation of duties"
+      - "Data minimization"
+    correct_answer: 1
+    explanations:
+      correct: "Need to know restricts access to information to only those who require it to perform their specific job function — even if they hold an adequate clearance level. A cleared individual still must have a need to know to access specific information."
+      incorrect:
+        - "Least privilege limits the access rights and permissions a user holds — need to know specifically addresses whether information should be shared with a cleared individual."
+        - "Need to know is the principle restricting information access to those with legitimate operational need — this is correct."
+        - "Separation of duties divides critical functions among multiple people — it is about task division, not information access."
+        - "Data minimization limits the collection of personal data — need to know restricts access to already-collected data."
+    difficulty: "easy"
+    tags: ["access-control", "principles"]
+
+  - id: q-d2-043
+    domain: domain2
+    question: "What is a key challenge with protecting 'data in use'?"
+    options:
+      - "Data in use is always encrypted so it requires no additional protection"
+      - "Data must be decrypted in memory to be processed, making it temporarily exposed and difficult to protect"
+      - "Data in use cannot be accessed by the operating system"
+      - "Data in use can only be protected by physical security controls"
+    correct_answer: 1
+    explanations:
+      correct: "Data in use (actively processed in RAM/CPU) must be decrypted to be processed, creating a window of exposure. Technologies addressing this include Trusted Execution Environments (TEE), Intel SGX enclaves, and homomorphic encryption (which allows computation on encrypted data without decryption)."
+      incorrect:
+        - "Data in use is typically in plaintext in memory — encryption must be removed for computation, making it the hardest state to protect."
+        - "Decryption in memory creating temporary exposure is the key challenge with data in use protection — this is correct."
+        - "The OS does access data in use — memory-based attacks like cold boot attacks exploit this."
+        - "Physical controls alone cannot protect data in use from software-based memory attacks — TEEs and hardware security modules are needed."
+    difficulty: "hard"
+    tags: ["data-states", "encryption"]
+
+  - id: q-d2-044
+    domain: domain2
+    question: "What is the primary purpose of 'data classification' in an organization?"
+    options:
+      - "To make data easier to find in search systems"
+      - "To ensure data receives appropriate protection proportional to its sensitivity and value"
+      - "To comply with every applicable regulation simultaneously"
+      - "To reduce storage costs by deleting unimportant data"
+    correct_answer: 1
+    explanations:
+      correct: "Data classification assigns sensitivity levels to data assets so that appropriate (proportional) security controls can be applied. High-value/sensitive data gets stronger controls; less sensitive data gets lighter controls. This enables efficient security spending and appropriate risk management."
+      incorrect:
+        - "Search indexing and data discovery are separate functions — classification is about sensitivity-based protection."
+        - "Ensuring data receives protection proportional to its sensitivity is the primary purpose of classification."
+        - "While classification aids compliance, the fundamental purpose is matching protection to sensitivity — not achieving simultaneous regulatory compliance."
+        - "Deleting unimportant data is data lifecycle management — classification determines protection levels, not what to delete."
+    difficulty: "easy"
+    tags: ["classification", "fundamentals"]
+
+  - id: q-d2-045
+    domain: domain2
+    question: "Which cloud service model places the most data security responsibility on the customer?"
+    options:
+      - "SaaS (Software as a Service)"
+      - "PaaS (Platform as a Service)"
+      - "IaaS (Infrastructure as a Service)"
+      - "All models share responsibility equally"
+    correct_answer: 2
+    explanations:
+      correct: "In IaaS, the customer manages the OS, middleware, runtime, applications, and data — only physical infrastructure and hypervisor are managed by the provider. This gives the most customer control but also the most customer responsibility for data security."
+      incorrect:
+        - "In SaaS, the provider manages nearly everything including data security controls — the customer has the least control and responsibility."
+        - "In PaaS, the customer manages applications and data — more responsibility than SaaS but less than IaaS."
+        - "IaaS places the most data security responsibility on the customer — the shared responsibility model differs significantly across service models."
+    difficulty: "medium"
+    tags: ["cloud", "shared-responsibility"]
+
+  - id: q-d2-046
+    domain: domain2
+    question: "What is 'data aggregation' and why is it a privacy concern?"
+    options:
+      - "Combining databases for performance optimization — not a security concern"
+      - "Combining individually innocuous pieces of data to create a more sensitive profile that enables re-identification or reveals private information"
+      - "A backup technique for storing data in multiple locations"
+      - "The process of encrypting data from multiple sources together"
+    correct_answer: 1
+    explanations:
+      correct: "Data aggregation combines multiple data points (each seemingly harmless alone) to create a detailed profile. Example: name + employer + neighborhood + physical description + daily schedule — individually non-sensitive, combined they enable stalking or targeted attacks. This is a key concern in both privacy and intelligence contexts."
+      incorrect:
+        - "Database aggregation for performance is a technical optimization — the security concern is about combining sensitive data points to reveal protected information."
+        - "Combining innocuous data to create sensitive profiles or enable re-identification is the privacy concern with data aggregation — this is correct."
+        - "Storing data in multiple locations is replication/redundancy — not aggregation."
+        - "Encrypting combined data is a protection technique — not the definition of data aggregation."
+    difficulty: "medium"
+    tags: ["privacy", "data-management"]
+
+  - id: q-d2-047
+    domain: domain2
+    question: "What is the purpose of a 'data retention schedule'?"
+    options:
+      - "To determine how quickly data can be accessed"
+      - "To define how long different types of data must be kept and when they must be destroyed"
+      - "To schedule regular backups of all business data"
+      - "To prioritize which data is most important to protect"
+    correct_answer: 1
+    explanations:
+      correct: "A data retention schedule defines retention periods for different data categories based on legal requirements, regulatory mandates, and business needs. It ensures data is kept long enough to meet legal obligations (e.g., 7 years for tax records) and destroyed when no longer needed, reducing storage costs and legal liability."
+      incorrect:
+        - "Data access speed is an availability/performance concern — retention schedules address duration, not speed."
+        - "Defining how long data is kept and when to destroy it is the correct purpose of a data retention schedule."
+        - "Backup scheduling is an operational continuity activity — retention schedules address the lifecycle of data, not backup frequency."
+        - "Data prioritization for protection is part of classification — retention schedules address timing, not protection levels."
+    difficulty: "easy"
+    tags: ["retention", "lifecycle"]
+
+  - id: q-d2-048
+    domain: domain2
+    question: "What is a 'data custodian' primarily responsible for?"
+    options:
+      - "Determining what data the organization should collect"
+      - "Classifying data and setting access requirements"
+      - "Implementing and maintaining the technical controls that protect data as defined by the data owner"
+      - "Negotiating data sharing agreements with third parties"
+    correct_answer: 2
+    explanations:
+      correct: "The data custodian (often IT or system administrators) is responsible for the technical implementation of security controls protecting data — backups, encryption, access control enforcement, patch management. They protect data according to the classification and policies set by the data owner."
+      incorrect:
+        - "Determining what data to collect is a business and data governance decision — typically the data owner's responsibility."
+        - "Classifying data and setting access requirements is the data owner's responsibility — the custodian implements those decisions."
+        - "Implementing and maintaining technical controls as defined by the data owner is the custodian's core responsibility — this is correct."
+        - "Negotiating data sharing agreements is a legal and governance function — typically data owner, legal counsel, or procurement."
+    difficulty: "medium"
+    tags: ["roles", "governance"]
+
+  - id: q-d2-049
+    domain: domain2
+    question: "What is the purpose of 'data masking' in development and testing environments?"
+    options:
+      - "To prevent developers from accessing production systems directly"
+      - "To allow development and testing using realistic data without exposing actual sensitive production data"
+      - "To compress data to reduce storage in test environments"
+      - "To encrypt test databases using production encryption keys"
+    correct_answer: 1
+    explanations:
+      correct: "Data masking replaces real sensitive data (PII, financial data) with realistic but fictitious substitutes in development and test environments. Developers get functional test data without exposure to live customer information, reducing the risk of test environment breaches exposing production data."
+      incorrect:
+        - "Access controls prevent direct production access — masking is about what data is in the test environment, not access to production."
+        - "Allowing testing with realistic but non-sensitive data is the primary purpose of data masking — this is correct."
+        - "Compression reduces storage — masking is a privacy protection technique, not a storage optimization."
+        - "Test environments should not use production encryption keys — masking replaces sensitive data values, not encryption keys."
+    difficulty: "medium"
+    tags: ["privacy", "obfuscation"]
+
+  - id: q-d2-050
+    domain: domain2
+    question: "Which of the following is the BEST description of 'information asset valuation'?"
+    options:
+      - "Calculating only the purchase price of hardware and software"
+      - "Determining the value of information assets based on replacement cost, business impact of loss, and regulatory exposure"
+      - "Rating assets by their age and depreciation schedule"
+      - "Counting the number of files stored on each system"
+    correct_answer: 1
+    explanations:
+      correct: "Information asset valuation considers: replacement/recreation cost, revenue generated, competitive value, liability if disclosed, and business impact of unavailability. This holistic valuation supports risk prioritization — assets with higher value warrant stronger controls."
+      incorrect:
+        - "Purchase price captures tangible asset cost but ignores the business value and impact of data itself — especially for intangible information assets."
+        - "Valuation based on replacement cost, business impact, and regulatory exposure is the comprehensive and correct approach."
+        - "Depreciation schedules apply to physical assets — information assets often appreciate over time and don't depreciate like hardware."
+        - "Counting files measures volume, not value — a single file containing trade secrets may be worth millions."
+    difficulty: "medium"
+    tags: ["classification", "valuation"]
+
+  - id: q-d2-051
+    domain: domain2
+    question: "What does 'data sovereignty' mean for an organization using a multinational cloud provider?"
+    options:
+      - "The organization owns all data stored in the cloud"
+      - "Data is subject to the laws of the country where it physically resides, which may create conflicting legal obligations"
+      - "The cloud provider has no access to stored data"
+      - "Data can only be accessed by employees in the country of origin"
+    correct_answer: 1
+    explanations:
+      correct: "Data sovereignty means that data stored in a particular country is subject to that country's laws — including laws that may compel disclosure (e.g., US CLOUD Act, Russian data localization laws, GDPR). Organizations must consider where data physically resides when choosing cloud regions to avoid conflicting legal obligations."
+      incorrect:
+        - "Data ownership is separate from sovereignty — even customer-owned data is subject to the laws of the country where it is stored."
+        - "Data sovereignty creates jurisdictional obligations based on physical storage location — potential conflicting laws is the key concern."
+        - "Cloud providers may have technical access to data depending on encryption arrangements — sovereignty is about legal jurisdiction, not access."
+        - "Data sovereignty is about legal jurisdiction — not a restriction on who can access it by geography."
+    difficulty: "medium"
+    tags: ["sovereignty", "cloud", "legal"]
+
+  - id: q-d2-052
+    domain: domain2
+    question: "What is the primary difference between 'data integrity' and 'data accuracy'?"
+    options:
+      - "They are the same concept expressed differently"
+      - "Data integrity means data has not been improperly altered; data accuracy means data correctly reflects the real-world fact it represents"
+      - "Data integrity is a technical control; data accuracy is a business metric"
+      - "Data integrity only applies to databases; data accuracy applies to all data types"
+    correct_answer: 1
+    explanations:
+      correct: "Data integrity (a security property) ensures data has not been modified without authorization — it focuses on unauthorized or accidental alteration. Data accuracy (a data quality property) means the data correctly represents the real-world value — accurate data has not drifted from truth. Data can be integral (unaltered) but inaccurate (if it was entered incorrectly from the start)."
+      incorrect:
+        - "They are distinct concepts — integrity is about unauthorized modification; accuracy is about correctness relative to reality."
+        - "Integrity = protection from unauthorized alteration; accuracy = correct reflection of reality — this correctly distinguishes them."
+        - "Both can be technical or business concerns — the distinction is not about where they apply."
+        - "Both apply to all types of data regardless of storage format."
+    difficulty: "hard"
+    tags: ["data-quality", "integrity"]

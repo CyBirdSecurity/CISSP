@@ -226,3 +226,383 @@ questions:
         - "Logging input is part of audit/monitoring — not input validation."
     difficulty: "easy"
     tags: ["input-validation", "secure-coding"]
+
+  - id: q-d8-013
+    domain: domain8
+    question: "What is 'secure by default' in software design?"
+    options:
+      - "Requiring administrators to enable security features after installation"
+      - "Shipping software with the most restrictive and secure settings active out of the box, requiring deliberate user action to reduce security"
+      - "Encrypting all application code to prevent reverse engineering"
+      - "Defaulting to the most common user configuration for simplicity"
+    correct_answer: 1
+    explanations:
+      correct: "Secure by default means software ships with the strongest available security settings enabled from the start — not opt-in. Features that reduce security (weak ciphers, verbose error messages, debugging mode) require explicit administrator action to enable. This protects users who don't know to configure security settings."
+      incorrect:
+        - "Requiring administrators to enable security after installation is the opposite — it makes security opt-in and leaves default installs insecure."
+        - "Most restrictive security settings active by default is the correct description of secure by default."
+        - "Code encryption is obfuscation — secure by default is about runtime configuration, not code protection."
+        - "Defaulting to common user configurations prioritizes convenience over security — secure by default prioritizes security."
+    difficulty: "easy"
+    tags: ["secure-design", "principles"]
+
+  - id: q-d8-014
+    domain: domain8
+    question: "What is 'path traversal' (directory traversal) vulnerability?"
+    options:
+      - "An attack exploiting the authentication path in OAuth flows"
+      - "A vulnerability allowing attackers to access files outside the intended directory by using sequences like '../' to navigate the file system"
+      - "An attack that hijacks the execution path of a program by modifying environment variables"
+      - "A vulnerability in network routing that misdirects traffic"
+    correct_answer: 1
+    explanations:
+      correct: "Path traversal occurs when user-supplied input is used to construct file paths without proper validation. Attackers inject '../' sequences to navigate outside the intended directory and access sensitive files (e.g., /etc/passwd). Defense: validate/sanitize input, use allowlists for permitted paths, and use OS-level controls to chroot the application."
+      incorrect:
+        - "OAuth path exploitation is an authentication vulnerability — path traversal is a file system access vulnerability."
+        - "Accessing files outside intended directory using '../' sequences is the correct description of path traversal."
+        - "Execution path hijacking via environment variables is a different vulnerability (LD_PRELOAD attack) — not path traversal."
+        - "Network routing misdirection is a routing attack — path traversal is a file system access vulnerability."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "web-security"]
+
+  - id: q-d8-015
+    domain: domain8
+    question: "What is 'XML External Entity' (XXE) injection and what is its primary risk?"
+    options:
+      - "Injecting malicious XML into database queries — similar to SQL injection"
+      - "An attack that exploits XML parsers to read local files, perform SSRF, or conduct DoS by referencing external entities"
+      - "Modifying XML configuration files on a web server"
+      - "Encoding malicious scripts in XML tags for XSS attacks"
+    correct_answer: 1
+    explanations:
+      correct: "XXE exploits XML parsers that process External Entity declarations. Attackers craft XML containing entity references pointing to local files (file:///etc/passwd) or internal services (SSRF). Defense: disable external entity processing in XML parsers, use JSON APIs where possible, and validate/sanitize XML input."
+      incorrect:
+        - "SQL injection manipulates SQL queries — XXE exploits XML parser behavior, not database queries."
+        - "Exploiting XML parsers to read files or perform SSRF is the correct description of XXE injection."
+        - "Configuration file modification is a different attack category — XXE exploits runtime XML parsing behavior."
+        - "XSS involves script injection in HTML — XXE is specifically about XML parser exploitation."
+    difficulty: "hard"
+    tags: ["XXE", "vulnerabilities", "web-security"]
+
+  - id: q-d8-016
+    domain: domain8
+    question: "What is 'insecure deserialization' and why is it listed in the OWASP Top 10?"
+    options:
+      - "Storing sensitive data in unencrypted serialized format"
+      - "Processing untrusted serialized objects that can lead to remote code execution when an attacker manipulates the serialized data"
+      - "Sending session data in serialized format over unencrypted channels"
+      - "Failing to properly serialize data before storing it in a database"
+    correct_answer: 1
+    explanations:
+      correct: "Insecure deserialization occurs when an application deserializes attacker-controlled data without validation. If the deserialization process instantiates attacker-specified classes or executes methods, it can lead to remote code execution (RCE), privilege escalation, or DoS. Defense: don't deserialize untrusted data; use integrity checks on serialized objects."
+      incorrect:
+        - "Unencrypted sensitive data storage is a cryptographic failure — insecure deserialization is about code execution via object reconstruction."
+        - "Processing attacker-manipulated serialized objects leading to RCE is the correct description of insecure deserialization."
+        - "Unencrypted transmission is a TLS/transport security issue — insecure deserialization is about the processing of the data, not its transmission."
+        - "Database serialization errors are data integrity issues — insecure deserialization is an application security vulnerability."
+    difficulty: "hard"
+    tags: ["deserialization", "OWASP", "vulnerabilities"]
+
+  - id: q-d8-017
+    domain: domain8
+    question: "What is 'software composition analysis' (SCA) and why has it become increasingly important?"
+    options:
+      - "A process for evaluating the team structure of a software development project"
+      - "A tool that identifies open-source libraries and third-party components in code and checks them for known vulnerabilities"
+      - "A methodology for reviewing code architecture and design patterns"
+      - "An automated tool that rewrites vulnerable code using AI"
+    correct_answer: 1
+    explanations:
+      correct: "SCA tools inventory all open-source and third-party components in an application and check them against vulnerability databases (CVE, NVD). It became critical after incidents like Log4Shell (CVE-2021-44228) — organizations that had SCA could quickly identify all affected applications. SCA integrates with CI/CD pipelines to catch new vulnerabilities in dependencies."
+      incorrect:
+        - "Team structure evaluation is organizational management — SCA is a technical tool for code component analysis."
+        - "Identifying open-source/third-party components and checking for known vulnerabilities is the correct description of SCA."
+        - "Architecture and design review is a manual security activity — SCA is automated component vulnerability detection."
+        - "AI-based code rewriting is a code generation tool — SCA identifies vulnerabilities but doesn't automatically fix them."
+    difficulty: "medium"
+    tags: ["SCA", "supply-chain", "vulnerabilities"]
+
+  - id: q-d8-018
+    domain: domain8
+    question: "What does 'security in the SDLC' primarily mean?"
+    options:
+      - "Having security staff review code only in the final testing phase"
+      - "Integrating security activities (threat modeling, secure design, code review, testing) throughout every phase of software development"
+      - "Using only NIST-approved programming languages"
+      - "Requiring all developers to hold security certifications"
+    correct_answer: 1
+    explanations:
+      correct: "Security in the SDLC (Secure SDLC / S-SDLC) integrates security activities at every phase: security requirements in planning, threat modeling in design, secure coding in development, SAST/DAST in testing, and hardening in deployment. This is far more effective and cheaper than security testing only at the end."
+      incorrect:
+        - "Security review only in the final phase is the traditional 'bolt-on' approach that S-SDLC replaces — it is expensive and finds issues too late."
+        - "Integrating security activities throughout every SDLC phase is the correct description of security in the SDLC."
+        - "NIST doesn't mandate specific programming languages — any language can be used with appropriate secure coding practices."
+        - "Developer certifications may be valuable but are not what 'security in the SDLC' means — it is a process/methodology."
+    difficulty: "easy"
+    tags: ["SDLC", "DevSecOps"]
+
+  - id: q-d8-019
+    domain: domain8
+    question: "What is 'session fixation' and how does it differ from session hijacking?"
+    options:
+      - "They are the same attack — both steal session tokens"
+      - "In session fixation, the attacker forces a known session ID on the victim before authentication; in hijacking, the attacker steals an existing authenticated session token"
+      - "Session fixation targets cookies; session hijacking targets URL parameters"
+      - "Session fixation is server-side; session hijacking is client-side"
+    correct_answer: 1
+    explanations:
+      correct: "Session fixation: attacker sets a known session ID on the victim before they authenticate (e.g., sending a URL with a specific session parameter). When the victim authenticates, the attacker uses the same session ID they already know. Session hijacking: attacker steals an already-authenticated session token via XSS, sniffing, or prediction. Defense: regenerate session ID upon authentication."
+      incorrect:
+        - "They are different — fixation plants a known ID before auth; hijacking steals an existing authenticated token."
+        - "Forcing a known session ID before authentication (fixation) vs. stealing an existing token (hijacking) — this correctly distinguishes them."
+        - "Both can target cookies or URL parameters — storage location is not the distinguishing factor."
+        - "Neither is specifically server-side or client-side — the distinction is about the timing and method of session compromise."
+    difficulty: "hard"
+    tags: ["session-management", "attacks", "web-security"]
+
+  - id: q-d8-020
+    domain: domain8
+    question: "What is 'security testing coverage' and why is 100% coverage not always achievable?"
+    options:
+      - "The percentage of source code lines executed during testing — 100% is always the goal"
+      - "The extent to which security test cases cover potential vulnerabilities — 100% is not achievable because threat space is infinite and new vulnerabilities emerge continuously"
+      - "The number of security testers on the team — more testers = better coverage"
+      - "The percentage of systems that have been vulnerability scanned — all systems should be scanned"
+    correct_answer: 1
+    explanations:
+      correct: "Security testing coverage measures how comprehensively tests address potential vulnerabilities. 100% coverage is unachievable because: new attack techniques are constantly discovered, all possible inputs cannot be tested (infinite input space), and business logic flaws require domain knowledge. Risk-based prioritization focuses coverage on the highest-risk areas."
+      incorrect:
+        - "Code line execution is code coverage in functional testing — security coverage measures vulnerability test completeness, and 100% security coverage is not achievable."
+        - "Extent of vulnerability coverage with acknowledgment that 100% is impossible due to infinite threat space — this correctly describes security testing coverage."
+        - "Team size affects coverage capacity but doesn't define coverage — coverage is about what vulnerabilities are tested, not who tests."
+        - "Vulnerability scanning all systems is a security operations goal — security testing coverage is about vulnerability class completeness, not scan scope."
+    difficulty: "medium"
+    tags: ["testing", "coverage"]
+
+  - id: q-d8-021
+    domain: domain8
+    question: "What is 'open redirect' vulnerability and what attacks does it enable?"
+    options:
+      - "An attack that opens unauthorized network connections from a server"
+      - "A vulnerability where an application redirects users to an attacker-controlled URL, enabling phishing and stealing tokens passed in redirect parameters"
+      - "An attack that opens multiple connections to a web server to cause DoS"
+      - "A vulnerability allowing attackers to view open database connections"
+    correct_answer: 1
+    explanations:
+      correct: "Open redirect occurs when an application redirects to a URL from user-supplied input without validation. Attackers craft URLs on a trusted domain that redirect to malicious sites: 'trusted-site.com/redirect?url=attacker.com'. Victims trust the initial trusted domain. It enables phishing and OAuth token theft when tokens are passed in redirect URIs."
+      incorrect:
+        - "Unauthorized network connections are a different vulnerability — open redirect is about user-facing URL redirection."
+        - "Redirecting users to attacker-controlled URLs enabling phishing is the correct description of open redirect."
+        - "Opening multiple connections is DoS — open redirect targets individual user redirection."
+        - "Database connection visibility is an information disclosure vulnerability — open redirect is a web application redirection flaw."
+    difficulty: "medium"
+    tags: ["web-security", "vulnerabilities"]
+
+  - id: q-d8-022
+    domain: domain8
+    question: "What is the 'principle of least astonishment' in secure software design?"
+    options:
+      - "Applications should fail securely with minimal error information exposed to users"
+      - "Software should behave in the way users expect — avoiding surprising security behaviors that lead users to take insecure workarounds"
+      - "Security controls should be as simple as possible to minimize implementation errors"
+      - "New software versions should maintain backward compatibility with old security controls"
+    correct_answer: 1
+    explanations:
+      correct: "The principle of least astonishment (POLA) in security means software should behave predictably and as expected. If security controls surprise users (unexpected prompts, confusing warnings, counterintuitive behavior), users develop workarounds that bypass the controls. Predictable security UX leads to proper user compliance."
+      incorrect:
+        - "Minimal error information exposed is the 'fail secure' or 'fail safely' principle — not least astonishment."
+        - "Behaving as users expect to prevent surprising behaviors that cause insecure workarounds is the correct description of POLA in security."
+        - "Simplicity to minimize errors is the KISS (Keep It Simple) principle in security — not least astonishment."
+        - "Backward compatibility is an operational concern — least astonishment is about user expectations and predictable behavior."
+    difficulty: "hard"
+    tags: ["secure-design", "principles"]
+
+  - id: q-d8-023
+    domain: domain8
+    question: "What is 'server-side request forgery' (SSRF) and why has it become especially dangerous in cloud environments?"
+    options:
+      - "An attack where the server forges authentication credentials to access databases"
+      - "An attack where the server is induced to make HTTP requests to internal/external resources on behalf of the attacker — dangerous in cloud because metadata services expose credentials"
+      - "A social engineering attack targeting server administrators"
+      - "An attack that forges server certificates to intercept HTTPS traffic"
+    correct_answer: 1
+    explanations:
+      correct: "SSRF tricks the server into making requests to attacker-specified URLs — often internal services or cloud metadata services. In cloud environments (AWS, GCP, Azure), the metadata service (169.254.169.254) exposes IAM credentials to any instance that requests it. An SSRF vulnerability can lead to cloud credential theft and full account compromise (as in the Capital One breach)."
+      incorrect:
+        - "Credential forging for databases is a different vulnerability — SSRF is about inducing the server to make HTTP requests."
+        - "Inducing server HTTP requests to internal resources, especially dangerous due to cloud metadata credential exposure — this correctly describes SSRF."
+        - "Social engineering targets humans — SSRF is a technical attack exploiting server-side request functionality."
+        - "Certificate forging is a PKI attack — SSRF exploits server-side URL fetching functionality."
+    difficulty: "hard"
+    tags: ["SSRF", "vulnerabilities", "cloud"]
+
+  - id: q-d8-024
+    domain: domain8
+    question: "What is 'security debt' in software development?"
+    options:
+      - "The financial cost of security incidents and breaches"
+      - "The accumulation of unresolved security vulnerabilities and deferred security work that grows over time and increases risk"
+      - "Budget allocated but not yet spent on security tools"
+      - "The difference between actual and planned security control implementation"
+    correct_answer: 1
+    explanations:
+      correct: "Security debt (a subset of technical debt) is the cumulative backlog of unresolved vulnerabilities, skipped security reviews, and deferred security improvements. Like financial debt, it accrues 'interest' — it becomes harder and riskier to fix over time as the codebase grows around it. Regular security assessments and sprint security tasks reduce security debt."
+      incorrect:
+        - "Financial breach costs are incident impact — security debt is about accumulated unaddressed security issues in code."
+        - "Accumulation of unresolved vulnerabilities and deferred security work that grows and increases risk — this correctly describes security debt."
+        - "Unspent security budget is a financial planning issue — security debt is about deferred security work in code."
+        - "Implementation gap is a metrics concept — security debt is specifically about the accumulation of skipped/deferred security work."
+    difficulty: "medium"
+    tags: ["SDLC", "governance"]
+
+  - id: q-d8-025
+    domain: domain8
+    question: "What is 'dependency confusion' (namespace confusion) and how did it gain attention?"
+    options:
+      - "Confusion caused by poorly documented software dependencies"
+      - "A supply chain attack where a public package with a higher version number than an internal private package tricks build systems into downloading the malicious public version"
+      - "Accidental use of conflicting library versions causing application errors"
+      - "A social engineering attack targeting software developers"
+    correct_answer: 1
+    explanations:
+      correct: "Dependency confusion: many companies use internal package registries with packages named like their internal projects. If an attacker publishes a malicious package with the same name on a public registry (PyPI, npm) with a higher version number, build systems may download the public malicious version instead of the internal one. Alex Birsan earned $130K in bug bounties demonstrating this in 2021."
+      incorrect:
+        - "Documentation quality is a developer experience issue — dependency confusion is a deliberate supply chain attack."
+        - "Public malicious package with higher version number confusing build systems into downloading it instead of the internal package — this correctly describes dependency confusion."
+        - "Version conflicts causing application errors are a dependency management problem — dependency confusion is a deliberate malicious attack."
+        - "Social engineering targets humans — dependency confusion exploits automated build system behavior."
+    difficulty: "hard"
+    tags: ["supply-chain", "SDLC"]
+
+  - id: q-d8-026
+    domain: domain8
+    question: "What is the purpose of a 'Web Application Firewall' (WAF) and what are its limitations?"
+    options:
+      - "A firewall that protects all web servers in the data center from network-level attacks — no significant limitations"
+      - "An application-layer defense that filters HTTP/HTTPS traffic against known attack patterns — limited by bypass techniques and inability to protect against business logic flaws"
+      - "A proxy that caches web content to improve performance — limited by cache storage"
+      - "A tool that replaces secure coding practices by automatically fixing vulnerabilities in code"
+    correct_answer: 1
+    explanations:
+      correct: "A WAF filters HTTP/HTTPS traffic against rules for OWASP Top 10 attacks (SQL injection, XSS, etc.). Limitations: sophisticated attackers can bypass WAF rules via encoding, protocol variations, or unforeseen attack vectors; WAFs cannot protect against business logic flaws or application-specific attacks that don't match known patterns. WAF is a defense-in-depth layer, not a replacement for secure code."
+      incorrect:
+        - "WAFs specifically protect web applications at the application layer — they are not general network firewalls. They also have significant limitations."
+        - "Application-layer HTTP filtering against known attack patterns, limited by bypasses and business logic — this correctly describes WAF purpose and limitations."
+        - "Web caching is a CDN/proxy function — WAFs are security devices, not caching appliances."
+        - "WAFs do not rewrite application code — they filter traffic at runtime, and secure coding remains essential."
+    difficulty: "medium"
+    tags: ["WAF", "web-security"]
+
+  - id: q-d8-027
+    domain: domain8
+    question: "What is 'hardcoded credential' vulnerability and why is it particularly dangerous?"
+    options:
+      - "A password that is too simple to guess — dangerous because it's easily cracked"
+      - "Credentials embedded directly in source code or binaries — dangerous because they are shared across deployments and can be extracted from code repositories or binaries"
+      - "A default password that was never changed — dangerous because it's widely known"
+      - "A credential stored in a database without encryption — dangerous because of database breaches"
+    correct_answer: 1
+    explanations:
+      correct: "Hardcoded credentials (passwords, API keys, tokens embedded in code) are dangerous because: they cannot be easily rotated without code changes; they are exposed to anyone with source code access (including developers, contractors); public repositories often contain leaked credentials; and they are identical across all deployments using the same code."
+      incorrect:
+        - "Simple passwords are a password strength issue — hardcoded credentials may be complex but are still dangerous due to exposure and inability to rotate."
+        - "Credentials embedded in code, dangerous due to repository exposure and inability to rotate — this correctly describes hardcoded credentials."
+        - "Unchanged default passwords are a configuration security issue — hardcoded credentials are embedded in code, not default settings."
+        - "Unencrypted database credentials are a data protection issue — hardcoded credentials are in source code or binaries."
+    difficulty: "medium"
+    tags: ["secure-coding", "vulnerabilities"]
+
+  - id: q-d8-028
+    domain: domain8
+    question: "What is 'clickjacking' and what HTTP security header prevents it?"
+    options:
+      - "An attack that tricks users into clicking fraudulent UI elements overlaid on a legitimate page — prevented by the X-Frame-Options or Content-Security-Policy header"
+      - "Automatically clicking buttons in web forms to flood servers — prevented by CAPTCHA"
+      - "Injecting malicious click handlers into JavaScript — prevented by input validation"
+      - "Stealing mouse click events to capture user input — prevented by HTTPS"
+    correct_answer: 0
+    explanations:
+      correct: "Clickjacking (UI redress attack) overlays an invisible iframe of a legitimate site over a fake page. When users click what they think is the fake page, they are actually clicking elements of the invisible legitimate site (liking, purchasing, transferring funds). The X-Frame-Options header (DENY or SAMEORIGIN) prevents the page from being loaded in an iframe."
+      incorrect:
+        - "Invisible iframe overlay tricking users into clicking legitimate site elements — prevented by X-Frame-Options/CSP frame-ancestors — this is correct."
+        - "Automated form submission flooding is a bot/abuse issue — clickjacking is a UI deception attack against human users."
+        - "Malicious click handler injection is a different JavaScript attack — clickjacking uses iframes, not event handler injection."
+        - "HTTPS protects data in transit — it doesn't prevent iframe overlay attacks."
+    difficulty: "medium"
+    tags: ["web-security", "clickjacking", "HTTP-headers"]
+
+  - id: q-d8-029
+    domain: domain8
+    question: "What is 'security requirements' analysis and when should it occur in the SDLC?"
+    options:
+      - "Testing security requirements in the QA phase before release"
+      - "Defining specific security requirements during the planning/requirements phase to ensure security features are built in, not bolted on"
+      - "Writing security policies that developers must follow"
+      - "Reviewing requirements documents for compliance violations after development"
+    correct_answer: 1
+    explanations:
+      correct: "Security requirements analysis identifies specific security needs (authentication requirements, encryption standards, audit logging, data protection) during the planning phase. If security requirements aren't defined before design begins, they may be missed entirely or require expensive rework. They should be treated as equal to functional requirements."
+      incorrect:
+        - "Testing security requirements in QA is too late — by then, security gaps require costly rework. Requirements must be defined first."
+        - "Defining security requirements during planning so security is built in — this correctly describes when and what security requirements analysis is."
+        - "Security policies are organizational governance documents — security requirements are system-specific technical and functional requirements."
+        - "Post-development compliance review is reactive — security requirements analysis is proactive and should precede design."
+    difficulty: "medium"
+    tags: ["SDLC", "requirements"]
+
+  - id: q-d8-030
+    domain: domain8
+    question: "What is 'race condition' vulnerability and what common security problem does it cause?"
+    options:
+      - "A performance issue where multiple threads slow down application response — causes DoS"
+      - "When multiple processes access a shared resource concurrently without proper synchronization, potentially causing unpredictable behavior — commonly causes privilege escalation and TOCTOU vulnerabilities"
+      - "A vulnerability in racing game applications — causes scoring manipulation"
+      - "A conflict between security and development teams over deployment timing — causes delayed patching"
+    correct_answer: 1
+    explanations:
+      correct: "Race conditions occur when multiple processes/threads access shared resources concurrently without synchronization. In security: TOCTOU (Time of Check to Time of Use) — the state changes between security check and actual use. Can cause privilege escalation, authentication bypass, and data corruption. Proper mutex/locking mechanisms prevent races."
+      incorrect:
+        - "Performance degradation from thread contention is a performance issue — race conditions in security cause security failures like privilege escalation."
+        - "Concurrent shared resource access without synchronization causing unpredictable behavior — commonly TOCTOU and privilege escalation — this is correct."
+        - "This is a deliberate misdirection — race conditions are a serious concurrent programming security vulnerability."
+        - "Team conflict is organizational — race conditions are a technical concurrent programming vulnerability."
+    difficulty: "medium"
+    tags: ["race-condition", "vulnerabilities"]
+
+  - id: q-d8-031
+    domain: domain8
+    question: "What is 'improper error handling' and what security risk does it create?"
+    options:
+      - "Application crashes that cause denial of service — risk is availability impact"
+      - "Returning detailed error messages (stack traces, database info, file paths) to users — risk is information disclosure that aids attackers in understanding the system"
+      - "Logging errors too verbosely — risk is log storage overflow"
+      - "Failing to handle errors causing data corruption — risk is data integrity"
+    correct_answer: 1
+    explanations:
+      correct: "Verbose error messages displaying stack traces, database queries, file paths, version numbers, or configuration details give attackers a detailed map of the application's internals. Production applications should return generic error messages to users ('An error occurred') while logging detailed errors server-side only. This is a common finding in security assessments."
+      incorrect:
+        - "Application crashes are a stability issue — improper error handling's primary security risk is information disclosure to attackers."
+        - "Returning detailed technical errors to users disclosing internals to attackers is the correct description of improper error handling risk."
+        - "Log verbosity is a log management concern — the security risk is displaying technical details to end users."
+        - "Data corruption from unhandled errors is a data integrity concern — the primary security risk of improper error handling is information leakage."
+    difficulty: "easy"
+    tags: ["secure-coding", "information-disclosure"]
+
+  - id: q-d8-032
+    domain: domain8
+    question: "What is a 'memory-safe language' and why is memory safety important for security?"
+    options:
+      - "A programming language that uses less RAM — important for running more applications on limited hardware"
+      - "A language that prevents entire classes of memory vulnerabilities (buffer overflows, use-after-free, null pointer dereferences) through automatic memory management"
+      - "A language with built-in encryption for all stored variables"
+      - "A language approved by NIST for use in federal systems"
+    correct_answer: 1
+    explanations:
+      correct: "Memory-safe languages (Rust, Go, Python, Java, Swift) prevent memory safety vulnerabilities through bounds checking, garbage collection, or ownership systems. Memory-unsafe languages (C, C++) require manual memory management and are responsible for ~70% of CVEs in major software (Windows, Chrome, iOS). The NSA and CISA now recommend transitioning to memory-safe languages."
+      incorrect:
+        - "Memory efficiency is a performance concern — memory safety is about preventing security vulnerabilities from memory management errors."
+        - "Preventing buffer overflows, use-after-free, and null pointer issues through automatic memory management — this correctly describes memory-safe languages."
+        - "Variable encryption is a data protection feature — memory safety is about preventing memory corruption vulnerabilities."
+        - "NIST does not maintain a list of approved programming languages — memory-safe languages are recommended by NSA/CISA guidance."
+    difficulty: "medium"
+    tags: ["secure-coding", "memory-safety"]
