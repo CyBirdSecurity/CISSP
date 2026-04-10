@@ -378,6 +378,7 @@ const QuizComponent = (() => {
     `;
 
     document.getElementById('new-quiz-btn')?.addEventListener('click', () => {
+      _selectedDomains = [];
       _phase = 'setup'; render();
     });
     document.getElementById('retake-btn')?.addEventListener('click', () => {
@@ -438,7 +439,7 @@ const QuizComponent = (() => {
 
     document.getElementById('back-results-btn')?.addEventListener('click', () => { _phase = 'results'; render(); });
     document.getElementById('back-results-btn-2')?.addEventListener('click', () => { _phase = 'results'; render(); });
-    document.getElementById('new-quiz-btn-2')?.addEventListener('click', () => { _phase = 'setup'; render(); });
+    document.getElementById('new-quiz-btn-2')?.addEventListener('click', () => { _selectedDomains = []; _phase = 'setup'; render(); });
   }
 
   function _getDomainName(domainId) {
