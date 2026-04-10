@@ -226,3 +226,58 @@ questions:
         - "A rainbow table attack uses precomputed hash-to-password mappings to reverse password hashes — it is a type of pre-image attack but specifically for password cracking."
     difficulty: "hard"
     tags: ["cryptography", "attacks"]
+
+- id: q-d3-013
+    domain: domain3
+    question: "Which security model uses a directed graph to dictate how rights can be passed from one subject to another?"
+    options:
+      - "Bell-LaPadula"
+      - "Biba"
+      - "Take-Grant"
+      - "Clark-Wilson"
+    correct_answer: 2
+    explanations:
+      correct: "The Take-Grant model uses a directed graph to visualize how rights are transitioned or shared between subjects and objects."
+      incorrect:
+        - "Bell-LaPadula is a lattice-based confidentiality model."
+        - "Biba is a lattice-based integrity model."
+        - "Clark-Wilson uses an access control triple (subject, software, object) to ensure integrity."
+    difficulty: "hard"
+    tags: ["models"]
+
+  - id: q-d3-014
+    domain: domain3
+    question: "In the Common Criteria (ISO 15408), what is the term for the product or system being evaluated?"
+    options:
+      - "ST (Security Target)"
+      - "PP (Protection Profile)"
+      - "TOE (Target of Evaluation)"
+      - "EAL (Evaluation Assurance Level)"
+    correct_answer: 2
+    explanations:
+      correct: "The Target of Evaluation (TOE) is the specific product or system undergoing assessment."
+      incorrect:
+        - "The ST is the document describing the security properties of the TOE."
+        - "The PP is a set of security requirements for a category of products."
+        - "The EAL is the numerical rating (1-7) assigned after evaluation."
+    difficulty: "medium"
+    tags: ["standards", "common-criteria"]
+
+  - id: q-d3-015
+    domain: domain3
+    question: "Which cryptographic attack involves the attacker having access to both the plaintext and its corresponding ciphertext?"
+    options:
+      - "Ciphertext-only attack"
+      - "Known-plaintext attack"
+      - "Chosen-plaintext attack"
+      - "Birthday attack"
+    correct_answer: 1
+    explanations:
+      correct: "In a known-plaintext attack, the attacker has samples of both the original message and the encrypted version to find the key."
+      incorrect:
+        - "In ciphertext-only, the attacker only has the encrypted data."
+        - "In chosen-plaintext, the attacker can encrypt specific messages of their choice."
+        - "A birthday attack is a collision attack used against hashes."
+    difficulty: "medium"
+    tags: ["cryptography", "attacks"]
+    
