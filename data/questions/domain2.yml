@@ -226,7 +226,7 @@ questions:
     difficulty: "easy"
     tags: ["sanitization", "media"]
 
-    - id: q-d2-013
+  - id: q-d2-013
     domain: domain2
     question: "Which of the following is the most important factor when determining the classification of an asset?"
     options:
