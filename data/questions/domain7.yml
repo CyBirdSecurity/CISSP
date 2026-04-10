@@ -226,3 +226,383 @@ questions:
         - "A risk register tracks ongoing risks — it is not specifically created after each incident."
     difficulty: "easy"
     tags: ["incident-response", "post-incident"]
+
+  - id: q-d7-013
+    domain: domain7
+    question: "What is the primary purpose of 'network-based intrusion prevention systems' (NIPS) compared to network-based IDS (NIDS)?"
+    options:
+      - "NIPS only detects threats; NIDS detects and blocks them"
+      - "NIPS actively blocks or drops malicious traffic inline; NIDS only detects and alerts"
+      - "NIPS monitors host activity; NIDS monitors network traffic"
+      - "NIPS uses signature detection; NIDS uses anomaly detection"
+    correct_answer: 1
+    explanations:
+      correct: "A NIDS (Network Intrusion Detection System) sits out-of-band and generates alerts when suspicious traffic is detected — it cannot block traffic. A NIPS (Network Intrusion Prevention System) sits inline and can actively drop malicious packets, reset connections, or block traffic in real time, not just alert."
+      incorrect:
+        - "This is reversed — NIDS only detects; NIPS detects and can actively block."
+        - "NIPS blocks inline; NIDS only detects and alerts — this correctly distinguishes them."
+        - "Host-based IDS/IPS (HIDS/HIPS) monitors host activity — both NIDS and NIPS monitor network traffic."
+        - "Both NIDS and NIPS can use signature-based and anomaly-based detection — detection method is not the distinguishing factor."
+    difficulty: "easy"
+    tags: ["IDS", "IPS", "monitoring"]
+
+  - id: q-d7-014
+    domain: domain7
+    question: "What is 'media management' in security operations and why is it important?"
+    options:
+      - "Managing social media accounts for the security team"
+      - "Controlling the handling, storage, labeling, transportation, and disposal of storage media to prevent unauthorized data access"
+      - "Managing video surveillance systems for physical security"
+      - "Tracking all software media licenses for compliance"
+    correct_answer: 1
+    explanations:
+      correct: "Media management governs the entire lifecycle of storage media — labeling by classification, secure storage, access controls, transportation procedures, and sanitization/destruction at end of life. Poor media management is a leading cause of data breaches (lost/stolen laptops, improperly disposed drives)."
+      incorrect:
+        - "Social media management is a communications/marketing function — media management in security concerns storage media."
+        - "Controlling storage media handling, labeling, transportation, and disposal is the correct description of media management."
+        - "Video surveillance is a physical security control — media management concerns data storage media."
+        - "Software license management is an IT asset management function — media management is about physical storage media security."
+    difficulty: "easy"
+    tags: ["operations", "media"]
+
+  - id: q-d7-015
+    domain: domain7
+    question: "What is 'configuration management' and how does it support security operations?"
+    options:
+      - "Managing the organization's data center floor layout"
+      - "Identifying, controlling, and tracking changes to system configurations to maintain security baselines and prevent unauthorized modifications"
+      - "Configuring network routers and switches during installation"
+      - "Managing user account configurations and password policies"
+    correct_answer: 1
+    explanations:
+      correct: "Configuration management (CM) establishes and maintains baseline configurations, controls changes through change management, and detects unauthorized deviations (configuration drift). Security benefits: known-good configurations reduce attack surface, unauthorized changes indicate potential compromise, and compliance audits can verify settings."
+      incorrect:
+        - "Data center floor layout is facilities management — configuration management concerns system and software settings."
+        - "Controlling and tracking system configuration changes to maintain security baselines is the correct description of CM."
+        - "Initial device configuration is installation — CM manages the ongoing configuration state and changes over the system's lifetime."
+        - "User account and password policy configuration is IAM — CM broadly covers all system configuration settings."
+    difficulty: "medium"
+    tags: ["operations", "configuration"]
+
+  - id: q-d7-016
+    domain: domain7
+    question: "What is the purpose of 'data backup' verification testing?"
+    options:
+      - "To verify that backup software is properly licensed"
+      - "To confirm that backups are complete, uncorrupted, and can actually be restored to meet RTO and RPO requirements"
+      - "To check that backup media is physically stored in a secure location"
+      - "To measure the time it takes to create a backup"
+    correct_answer: 1
+    explanations:
+      correct: "Many organizations discover their backups are corrupt or incomplete only when they try to restore during a disaster. Regular restoration testing (not just backup completion) verifies recoverability, tests that the restore meets RPO (data loss) and RTO (time) targets, and validates the DR procedure. 'Backup without restore testing is not a backup.'"
+      incorrect:
+        - "Software licensing is a compliance concern — backup verification is about confirming recoverability."
+        - "Confirming backups are complete, uncorrupted, and restorable within RTO/RPO targets is the correct purpose of backup verification."
+        - "Physical security of backup media is a separate control — verification tests the actual ability to restore data."
+        - "Backup duration is a performance metric — verification tests whether restored data is usable and complete."
+    difficulty: "easy"
+    tags: ["DRP", "backup"]
+
+  - id: q-d7-017
+    domain: domain7
+    question: "What is 'Indicators of Compromise' (IOC) and how are they used in security operations?"
+    options:
+      - "Legal indicators used to prosecute cybercriminals"
+      - "Artifacts or evidence that suggest a system has been breached — used to detect, investigate, and respond to incidents"
+      - "Metrics measuring the effectiveness of security controls"
+      - "Warning signs that an employee is a potential insider threat"
+    correct_answer: 1
+    explanations:
+      correct: "IOCs are forensic artifacts indicating a compromise — malicious IP addresses, domain names, file hashes, registry keys, behavioral patterns. They are shared via threat intelligence feeds (STIX/TAXII) and loaded into SIEMs, firewalls, and EDR tools to detect and block known-bad activity. IOCs are reactive; TTPs are more proactive."
+      incorrect:
+        - "IOCs are technical/forensic artifacts — legal indicators for prosecution are evidence handled through legal processes."
+        - "Artifacts indicating a breach, used for detection and response, is the correct description of IOCs."
+        - "Security effectiveness metrics are KPIs — IOCs are specific threat indicators."
+        - "Insider threat behavioral indicators are a separate concept (behavioral analytics) — IOCs are technical artifacts from compromised systems."
+    difficulty: "medium"
+    tags: ["IOC", "incident-response"]
+
+  - id: q-d7-018
+    domain: domain7
+    question: "What is 'change management' in security operations and why is it important?"
+    options:
+      - "Managing organizational leadership transitions"
+      - "A formal process for requesting, reviewing, approving, testing, and documenting changes to systems to prevent unauthorized or untested changes that could introduce vulnerabilities"
+      - "Updating security policies to reflect new regulations"
+      - "Replacing outdated security tools with newer ones"
+    correct_answer: 1
+    explanations:
+      correct: "Change management (change control) ensures all changes to production systems are properly requested, risk-assessed, approved, tested in non-production first, implemented with rollback plans, and documented. Unauthorized changes are a leading cause of security incidents and outages — change management provides oversight and accountability."
+      incorrect:
+        - "Organizational leadership transitions are HR/executive management — change management in security operations is about system changes."
+        - "Formal process for requesting, approving, testing, and documenting system changes to prevent unauthorized/risky modifications — this is correct."
+        - "Policy updates follow governance processes — change management in operations governs technical system changes."
+        - "Replacing tools is a project/procurement activity — change management governs the process of any change to production systems."
+    difficulty: "medium"
+    tags: ["operations", "change-management"]
+
+  - id: q-d7-019
+    domain: domain7
+    question: "What is a 'cold site' recovery facility and when would an organization choose it over a hot site?"
+    options:
+      - "A secure server room kept at a low temperature — chosen for sensitive hardware"
+      - "A facility with basic infrastructure (power, space, connectivity) but no pre-configured systems — chosen when cost savings outweigh rapid recovery needs"
+      - "A cloud-based recovery solution — chosen for flexibility"
+      - "A mobile recovery unit that can be deployed anywhere — chosen for remote locations"
+    correct_answer: 1
+    explanations:
+      correct: "A cold site has only basic infrastructure — power, HVAC, floor space, and connectivity — with no pre-installed hardware or data. Recovery takes days to weeks as equipment must be procured/shipped and restored. Organizations choose cold sites when they need the lowest cost option and their MTD allows for extended recovery time."
+      incorrect:
+        - "Temperature control of server hardware is a data center facility feature — cold site refers to the level of preparedness, not temperature."
+        - "Basic infrastructure only with cost-driven selection when extended recovery is acceptable — this correctly describes a cold site."
+        - "Cloud recovery solutions are a separate category (DRaaS) — a cold site is a physical facility."
+        - "Mobile recovery units are a separate category — cold sites are fixed physical locations."
+    difficulty: "easy"
+    tags: ["DRP", "recovery-sites"]
+
+  - id: q-d7-020
+    domain: domain7
+    question: "What is 'asset inventory' management and why is it foundational to security operations?"
+    options:
+      - "Tracking the financial value of IT equipment for accounting purposes"
+      - "Maintaining an accurate record of all hardware, software, and data assets — foundational because you cannot protect what you don't know exists"
+      - "Managing software licenses to prevent audits"
+      - "Tracking employee productivity using asset usage data"
+    correct_answer: 1
+    explanations:
+      correct: "Asset inventory is foundational to security because every security control (patching, vulnerability scanning, access control, monitoring) requires knowing what assets exist. Unknown assets (shadow IT, forgotten servers) cannot be patched, monitored, or controlled — they become entry points for attackers. 'You can't protect what you don't know about.'"
+      incorrect:
+        - "Financial tracking of IT equipment is an accounting/asset management function — security asset inventory focuses on security visibility."
+        - "Maintaining accurate records of all assets as the foundation for all other security controls — this is correct."
+        - "License compliance is an IT asset management concern — security asset inventory is about security visibility, not just licensing."
+        - "Productivity tracking is an HR concern — asset inventory is about knowing what needs to be protected."
+    difficulty: "easy"
+    tags: ["operations", "inventory"]
+
+  - id: q-d7-021
+    domain: domain7
+    question: "What is the purpose of 'disaster recovery testing' beyond simple backup restoration?"
+    options:
+      - "To satisfy insurance requirements for data protection"
+      - "To validate that DR plans work, systems can be recovered within RTO/RPO targets, staff know their roles, and gaps are identified before a real disaster"
+      - "To train new IT staff on data center operations"
+      - "To identify which systems are most vulnerable to hardware failure"
+    correct_answer: 1
+    explanations:
+      correct: "DR testing validates the entire recovery process — not just backup restoration. It tests that recovery procedures work, recovery time meets the RTO, recovered data meets RPO, staff can execute the plan under stress, and dependencies (network, DNS, external services) are accounted for. Untested DR plans frequently fail in real disasters."
+      incorrect:
+        - "Insurance requirements may require testing but are not the primary purpose — actual operational recovery capability is."
+        - "Validating plans, RTO/RPO targets, staff readiness, and gap identification — this correctly describes the purpose of DR testing."
+        - "Staff training is a side benefit — DR testing's primary purpose is validating recovery capability."
+        - "Hardware failure risk is identified through reliability analysis and monitoring — DR testing validates recovery from failure, not prediction of failure."
+    difficulty: "medium"
+    tags: ["DRP", "testing"]
+
+  - id: q-d7-022
+    domain: domain7
+    question: "What is 'separation of environments' in security operations?"
+    options:
+      - "Using different physical data centers for different business units"
+      - "Maintaining distinct development, testing/staging, and production environments with strict controls on what can flow between them"
+      - "Separating the IT department from the security team organizationally"
+      - "Running different operating systems on different servers"
+    correct_answer: 1
+    explanations:
+      correct: "Development, staging/UAT, and production environments should be isolated with controls on what can be promoted between them. This prevents developer access to production data, ensures code is tested before deployment, and limits blast radius of development mistakes. Production data should not be used in development without masking."
+      incorrect:
+        - "Physical data center separation is a DR/availability concern — environment separation is about lifecycle stages (dev/test/prod)."
+        - "Separate dev/test/prod environments with promotion controls — this correctly describes separation of environments."
+        - "IT and security team organizational structure is a governance concern — environment separation is an operational IT practice."
+        - "OS diversity is security-through-heterogeneity — environment separation is about code and data lifecycle management."
+    difficulty: "easy"
+    tags: ["operations", "SDLC"]
+
+  - id: q-d7-023
+    domain: domain7
+    question: "What is 'data backup rotation' and what scheme is commonly used for offsite backup management?"
+    options:
+      - "Rotating backup media between multiple tape drives to extend their lifespan"
+      - "Systematically cycling backup media to enable point-in-time restoration — the Grandfather-Father-Son (GFS) scheme is commonly used"
+      - "Automatically rotating encryption keys used to protect backup data"
+      - "Sending backups to multiple cloud providers in rotation"
+    correct_answer: 1
+    explanations:
+      correct: "Backup rotation manages multiple backup generations for different retention periods. The Grandfather-Father-Son (GFS) scheme uses: daily (son) backups retained for a week, weekly (father) backups retained for a month, and monthly (grandfather) backups retained for a year. This enables recovery to many different points in time with manageable storage."
+      incorrect:
+        - "Tape drive hardware rotation extends media lifespan but is not what backup rotation means in strategy terms."
+        - "Cycling backup media for point-in-time restoration using GFS is the correct description of backup rotation."
+        - "Encryption key rotation is a separate security practice — backup rotation concerns the backup media/copies themselves."
+        - "Multi-cloud backup distribution is a resilience strategy — GFS rotation manages retention periods, not cloud providers."
+    difficulty: "medium"
+    tags: ["backup", "DRP"]
+
+  - id: q-d7-024
+    domain: domain7
+    question: "What is a 'playbook' in incident response?"
+    options:
+      - "A general security policy document"
+      - "A predefined, step-by-step procedure for responding to a specific type of security incident"
+      - "A training manual for new security analysts"
+      - "A log of all previous security incidents"
+    correct_answer: 1
+    explanations:
+      correct: "An incident response playbook is a documented, step-by-step procedure for responding to a specific incident type (ransomware, phishing, DDoS, insider threat). It defines who does what, in what order, with specific tools and commands. Playbooks enable consistent, faster response and can be automated in SOAR platforms."
+      incorrect:
+        - "A general security policy document is broad — a playbook is incident-type specific and procedural."
+        - "Predefined step-by-step procedures for a specific incident type — this correctly describes an incident response playbook."
+        - "Training manuals provide general knowledge — playbooks are operational procedures executed during real incidents."
+        - "Incident logs record past incidents — playbooks guide future response."
+    difficulty: "easy"
+    tags: ["incident-response", "playbook"]
+
+  - id: q-d7-025
+    domain: domain7
+    question: "What is the purpose of 'log integrity' controls in security operations?"
+    options:
+      - "To ensure logs are stored in the most efficient format"
+      - "To prevent attackers from modifying or deleting logs to cover their tracks, preserving evidence for investigation"
+      - "To automatically analyze logs for performance issues"
+      - "To compress logs for long-term archival storage"
+    correct_answer: 1
+    explanations:
+      correct: "Log integrity ensures that log records cannot be tampered with or deleted after the fact — preventing attackers from covering their tracks. Controls include: write-once storage, centralized log collection (separate from compromised systems), cryptographic signing of log entries, and immutable cloud storage. Without integrity, logs cannot be trusted as evidence."
+      incorrect:
+        - "Log storage efficiency is a capacity planning concern — log integrity protects the evidentiary value of logs."
+        - "Preventing attacker modification/deletion of logs to preserve evidence is the correct purpose of log integrity controls."
+        - "Automated log analysis is a SIEM function — log integrity protects the underlying log data from tampering."
+        - "Log compression is a storage optimization — log integrity ensures logs haven't been altered."
+    difficulty: "medium"
+    tags: ["logs", "forensics"]
+
+  - id: q-d7-026
+    domain: domain7
+    question: "What is 'Continuity of Operations Planning' (COOP) and how does it differ from Disaster Recovery Planning (DRP)?"
+    options:
+      - "They are the same — both plans address the same scenarios"
+      - "COOP focuses on maintaining essential business functions during and after any disruption (personnel, processes, technology); DRP focuses specifically on IT system recovery"
+      - "DRP is for natural disasters; COOP is for cyberattacks"
+      - "COOP is required by law; DRP is voluntary"
+    correct_answer: 1
+    explanations:
+      correct: "COOP is a broader plan ensuring essential functions continue — covering people, alternate work sites, succession, communications, and vital records regardless of disruption type. DRP is a technical subset of BCP/COOP specifically addressing IT system and data recovery. DRP supports COOP's technology requirements."
+      incorrect:
+        - "They address different scopes — COOP is operational continuity; DRP is IT system recovery."
+        - "COOP ensures essential business functions continue (people/processes/technology); DRP specifically addresses IT system recovery — this correctly distinguishes them."
+        - "Both plans address all types of disruptions — neither is limited to a specific threat type."
+        - "Both may be required by regulation in different industries — neither is universally mandatory or voluntary."
+    difficulty: "medium"
+    tags: ["BCP", "DRP", "continuity"]
+
+  - id: q-d7-027
+    domain: domain7
+    question: "What is 'data replication' versus 'data backup' as resilience strategies?"
+    options:
+      - "They are equivalent — both protect data equally against all failure scenarios"
+      - "Replication provides real-time or near-real-time copies for rapid failover; backup creates point-in-time copies for recovery from corruption, ransomware, or accidental deletion"
+      - "Backup is faster to restore than replication"
+      - "Replication protects against hardware failure; backup protects against site disasters"
+    correct_answer: 1
+    explanations:
+      correct: "Replication continuously copies data to another location for high availability and fast failover — but if data is corrupted or encrypted by ransomware, the corruption is also replicated. Backups create periodic point-in-time copies that are retained, enabling recovery from events that corrupt all copies. Both strategies are needed for complete resilience."
+      incorrect:
+        - "They are not equivalent — replication replicates corruption; backups retain clean historical copies. Both are needed."
+        - "Replication for rapid failover; backups for corruption/ransomware/deletion recovery — this correctly distinguishes them."
+        - "Replication can provide near-instant failover (faster than restoring from backup) — restoration speed favors replication, not backup."
+        - "Both replication and backup can protect against hardware failure and site disasters depending on configuration — the real distinction is about ransomware/corruption resilience."
+    difficulty: "hard"
+    tags: ["DRP", "backup", "replication"]
+
+  - id: q-d7-028
+    domain: domain7
+    question: "What is the 'eradication' phase of incident response focused on?"
+    options:
+      - "Notifying stakeholders and regulators about the incident"
+      - "Removing the threat actor's access, malware, and persistence mechanisms from all affected systems"
+      - "Restoring systems and data to normal operations"
+      - "Collecting forensic evidence from compromised systems"
+    correct_answer: 1
+    explanations:
+      correct: "The eradication phase removes the cause of the incident — deleting malware, removing unauthorized accounts and backdoors, closing exploit vectors, and ensuring the threat actor's persistence mechanisms are eliminated from all affected systems. Incomplete eradication leads to re-infection and incident recurrence."
+      incorrect:
+        - "Stakeholder and regulatory notification happens during containment and as a continuous activity — eradication focuses on technical removal of the threat."
+        - "Removing the threat actor's access, malware, and persistence mechanisms — this correctly describes the eradication phase."
+        - "Restoring systems to normal operations is the Recovery phase — eradication removes the threat before recovery begins."
+        - "Forensic evidence collection occurs during Detection & Analysis and Containment — before eradication."
+    difficulty: "medium"
+    tags: ["incident-response", "eradication"]
+
+  - id: q-d7-029
+    domain: domain7
+    question: "What is 'mean time to detect' (MTTD) and why is it an important security metric?"
+    options:
+      - "The average time for hardware to fail — important for availability planning"
+      - "The average time between when a breach occurs and when it is discovered — lower values indicate faster detection and less attacker dwell time"
+      - "The time required to deploy security patches — important for vulnerability management"
+      - "The average duration of security incidents — important for staffing security operations"
+    correct_answer: 1
+    explanations:
+      correct: "MTTD measures how long attackers dwell in a network before detection. Industry reports (IBM Cost of a Data Breach) show average dwell times exceed 200 days — longer dwell time = more damage and higher breach cost. Improving MTTD through better detection (SIEM, EDR, threat hunting) reduces attacker impact."
+      incorrect:
+        - "Hardware failure timing is MTBF — MTTD is a security detection metric."
+        - "Average time from breach to discovery, with lower values indicating faster detection — this correctly describes MTTD."
+        - "Patch deployment time is a vulnerability management metric (SLA compliance) — not MTTD."
+        - "Incident duration is a separate metric — MTTD specifically measures the initial detection delay."
+    difficulty: "medium"
+    tags: ["metrics", "incident-response"]
+
+  - id: q-d7-030
+    domain: domain7
+    question: "What is a 'Business Continuity Plan test' at the simulation/parallel level?"
+    options:
+      - "Verbally discussing the plan with key stakeholders"
+      - "Activating the alternate site and running actual business operations there while the primary site continues operating in parallel"
+      - "Physically shutting down the primary site to test failover"
+      - "Running a checklist of items without activating any systems"
+    correct_answer: 1
+    explanations:
+      correct: "A parallel test activates the recovery site and runs operations there simultaneously with the primary site — validating that the alternate site can actually support operations without risking the primary site. It is more rigorous than a simulation/walkthrough but less risky than a full cutover test."
+      incorrect:
+        - "Verbal discussion is a tabletop/walkthrough exercise — the least rigorous test type."
+        - "Running both primary and alternate sites simultaneously to validate alternate capability — this correctly describes a parallel test."
+        - "Physically shutting down the primary site is a full cutover test — the most rigorous and disruptive, with real operational risk."
+        - "Running a checklist without activating systems is a structured walkthrough — parallel testing actually activates and validates the alternate site."
+    difficulty: "hard"
+    tags: ["BCP", "testing"]
+
+  - id: q-d7-031
+    domain: domain7
+    question: "What is 'sanitization' in the context of incident response and system recovery?"
+    options:
+      - "Physical cleaning of server hardware after a disaster"
+      - "Completely removing all traces of malware and attacker artifacts from systems before returning them to production"
+      - "Deleting all user data before decommissioning a system"
+      - "Applying security patches to a compromised system"
+    correct_answer: 1
+    explanations:
+      correct: "System sanitization during incident response ensures all malware, backdoors, unauthorized accounts, configuration changes, and attacker artifacts are completely removed before a system returns to production. Incomplete sanitization is a common cause of reinfection. For severe compromises, rebuilding from a known-good baseline is more reliable than attempting cleanup."
+      incorrect:
+        - "Physical cleaning is a facilities/maintenance task — incident response sanitization is about removing malware and attacker artifacts."
+        - "Completely removing all malware and attacker artifacts before returning to production — this correctly describes sanitization in incident response."
+        - "Data deletion before decommissioning is media sanitization — incident response sanitization removes threats while retaining legitimate data."
+        - "Patching alone doesn't remove existing malware or backdoors — sanitization is comprehensive threat removal."
+    difficulty: "medium"
+    tags: ["incident-response", "recovery"]
+
+  - id: q-d7-032
+    domain: domain7
+    question: "What is 'network time protocol' (NTP) security and why is accurate time critical for security operations?"
+    options:
+      - "NTP encrypts network traffic to prevent eavesdropping"
+      - "Accurate time synchronization ensures log timestamps are consistent across systems, enabling accurate event correlation and forensic investigation"
+      - "NTP prevents replay attacks by generating time-based tokens"
+      - "Accurate time is required for certificate validity checking and Kerberos authentication"
+    correct_answer: 1
+    explanations:
+      correct: "Accurate, synchronized time (via NTP) ensures that logs from different systems (firewalls, servers, workstations) have consistent timestamps, enabling SIEM correlation of events into accurate attack timelines. Time discrepancies make forensic investigation extremely difficult. NTP authentication (NTPsec) prevents NTP poisoning attacks."
+      incorrect:
+        - "NTP does not encrypt data traffic — NTPsec adds authentication to prevent time manipulation, not traffic encryption."
+        - "Consistent log timestamps enabling event correlation and forensic accuracy is the correct primary security importance of NTP."
+        - "Time-based tokens (TOTP) use accurate time but NTP itself doesn't generate tokens — it synchronizes clocks."
+        - "Certificate validity and Kerberos do require accurate time, but the primary security operations value of time sync is log correlation — this is also partially correct but less complete."
+    difficulty: "medium"
+    tags: ["operations", "logging", "forensics"]

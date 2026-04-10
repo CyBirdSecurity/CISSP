@@ -226,3 +226,383 @@ questions:
         - "Session hijacking involves taking over an existing authenticated session — it requires established connections, not half-open ones."
     difficulty: "medium"
     tags: ["attacks", "DoS"]
+
+  - id: q-d4-013
+    domain: domain4
+    question: "What is the purpose of Network Access Control (NAC)?"
+    options:
+      - "To monitor network bandwidth and enforce QoS policies"
+      - "To enforce security policy compliance checks on devices before allowing them to connect to the network"
+      - "To authenticate users to web applications"
+      - "To filter email for spam and malware"
+    correct_answer: 1
+    explanations:
+      correct: "NAC evaluates connecting devices against security policies (patched OS, active antivirus, encryption enabled) before granting network access. Non-compliant devices may be quarantined or given restricted access. NAC enforces the principle that only healthy, authorized devices connect to the corporate network."
+      incorrect:
+        - "Bandwidth monitoring and QoS is network management — not the purpose of NAC."
+        - "Enforcing security policy compliance before allowing network connection is the correct description of NAC."
+        - "Web application authentication uses IAM and web SSO — NAC operates at the network access layer."
+        - "Email filtering is handled by email security gateways — NAC governs device access to the network."
+    difficulty: "medium"
+    tags: ["NAC", "networking"]
+
+  - id: q-d4-014
+    domain: domain4
+    question: "What is the OSI model layer responsible for end-to-end error detection, flow control, and reliable data delivery?"
+    options:
+      - "Layer 2 (Data Link)"
+      - "Layer 3 (Network)"
+      - "Layer 4 (Transport)"
+      - "Layer 5 (Session)"
+    correct_answer: 2
+    explanations:
+      correct: "Layer 4 (Transport) handles end-to-end communication, error detection and correction, flow control, and segmentation. TCP (connection-oriented, reliable) and UDP (connectionless, unreliable) both operate at Layer 4. Port numbers are a Layer 4 concept."
+      incorrect:
+        - "Layer 2 (Data Link) handles frame delivery within a single network segment using MAC addresses — not end-to-end."
+        - "Layer 3 (Network) handles routing between networks using IP addresses — not flow control or reliable delivery."
+        - "Layer 4 — Transport — handles end-to-end reliability, error detection, and flow control — this is correct."
+        - "Layer 5 (Session) manages session establishment, maintenance, and termination — not data reliability."
+    difficulty: "easy"
+    tags: ["OSI", "networking"]
+
+  - id: q-d4-015
+    domain: domain4
+    question: "What is ARP poisoning (ARP spoofing) and what attack does it enable?"
+    options:
+      - "Corrupting DNS records to redirect users to malicious websites"
+      - "Sending forged ARP replies to associate the attacker's MAC address with a legitimate IP, enabling MitM attacks on the local network"
+      - "Flooding a network switch with fake MAC addresses to fill its table"
+      - "Injecting malicious code into ARP protocol packets"
+    correct_answer: 1
+    explanations:
+      correct: "ARP poisoning sends forged ARP reply messages associating the attacker's MAC address with a legitimate IP address (e.g., the default gateway). Other hosts update their ARP caches and send traffic to the attacker instead, enabling a local network MitM attack, credential capture, or traffic injection."
+      incorrect:
+        - "Corrupting DNS records is DNS poisoning/spoofing — ARP operates at Layer 2 for local network MAC-to-IP resolution."
+        - "Sending forged ARP replies to enable local MitM by associating attacker's MAC with a legitimate IP is the correct description of ARP poisoning."
+        - "Flooding a switch with fake MACs to fill its table is a MAC flooding attack (CAM table overflow) — different from ARP poisoning."
+        - "ARP poisoning is about the ARP cache in hosts — not code injection into protocol packets."
+    difficulty: "medium"
+    tags: ["attacks", "networking"]
+
+  - id: q-d4-016
+    domain: domain4
+    question: "What is the difference between a stateful firewall and a stateless (packet filter) firewall?"
+    options:
+      - "Stateful firewalls are faster; stateless firewalls are more secure"
+      - "Stateful firewalls track connection state and context; stateless firewalls evaluate each packet in isolation"
+      - "Stateful firewalls operate at Layer 7; stateless operate at Layer 3"
+      - "Stateless firewalls log traffic; stateful firewalls do not"
+    correct_answer: 1
+    explanations:
+      correct: "A stateful firewall maintains a connection state table, tracking TCP sessions and allowing response traffic for established connections. Stateless firewalls evaluate each packet independently without session context — they cannot distinguish legitimate response packets from unsolicited traffic, making them less effective."
+      incorrect:
+        - "Stateless firewalls are generally faster (less processing); stateful firewalls are more secure because they track session context."
+        - "Stateful tracks connection context; stateless evaluates packets in isolation — this is the correct distinction."
+        - "Both types primarily operate at Layers 3 and 4 — stateful inspection adds session context at these layers."
+        - "Both types can log traffic — logging capability is not the defining difference."
+    difficulty: "medium"
+    tags: ["firewalls", "networking"]
+
+  - id: q-d4-017
+    domain: domain4
+    question: "What is 'port scanning' and when is it authorized in a security context?"
+    options:
+      - "Monitoring physical port access to server rooms — always authorized for security teams"
+      - "Sending probes to network ports to identify open services and potential vulnerabilities — authorized during penetration testing and vulnerability assessments"
+      - "Scanning USB ports for unauthorized devices — authorized in any environment"
+      - "Examining switch port configurations — authorized by network administrators"
+    correct_answer: 1
+    explanations:
+      correct: "Port scanning sends connection attempts or probes to IP addresses and port numbers to identify open services, operating systems, and potential vulnerabilities. It requires explicit written authorization from the system/network owner — unauthorized port scanning is illegal in most jurisdictions and may violate computer fraud laws."
+      incorrect:
+        - "Physical port access monitoring is a physical security control — port scanning is a network reconnaissance technique."
+        - "Network port scanning to identify services and vulnerabilities, authorized during pen tests — this correctly describes port scanning and its authorization requirement."
+        - "USB port scanning for unauthorized devices is a different activity (endpoint management) — not port scanning."
+        - "Switch port configuration review is network management — not port scanning."
+    difficulty: "easy"
+    tags: ["scanning", "pen-testing"]
+
+  - id: q-d4-018
+    domain: domain4
+    question: "What protocol is used to securely manage network devices (routers, switches) and provides encrypted terminal sessions?"
+    options:
+      - "Telnet"
+      - "SNMP v1"
+      - "SSH (Secure Shell)"
+      - "HTTP"
+    correct_answer: 2
+    explanations:
+      correct: "SSH (Secure Shell) provides encrypted terminal sessions for remote device management. It replaces Telnet, which transmits all data including credentials in plaintext. SSH version 2 is the current standard and provides strong encryption, host authentication, and integrity protection."
+      incorrect:
+        - "Telnet transmits all data including usernames and passwords in plaintext — it is insecure and should not be used for network device management."
+        - "SNMP v1 uses community strings as authentication (plaintext) and lacks encryption — SNMPv3 added authentication and encryption."
+        - "SSH provides encrypted management sessions and replaces Telnet — this is correct."
+        - "HTTP transmits data in plaintext — HTTPS adds encryption, but SSH is the standard for device management, not HTTP/HTTPS."
+    difficulty: "easy"
+    tags: ["protocols", "networking"]
+
+  - id: q-d4-019
+    domain: domain4
+    question: "What is a 'denial of service' (DoS) attack's primary objective?"
+    options:
+      - "To steal sensitive data from the target system"
+      - "To make a system, service, or network unavailable to legitimate users"
+      - "To gain unauthorized administrative access to a target"
+      - "To intercept communications between two parties"
+    correct_answer: 1
+    explanations:
+      correct: "A DoS attack aims to make a resource unavailable to legitimate users by overwhelming it with traffic, exploiting vulnerabilities, or consuming critical resources. A DDoS (Distributed DoS) uses many sources (often a botnet) to amplify the attack, making it harder to block."
+      incorrect:
+        - "Stealing data is the goal of data exfiltration attacks — DoS targets availability, not confidentiality."
+        - "Making systems unavailable to legitimate users is the primary objective of a DoS attack — this is correct."
+        - "Gaining admin access is the goal of privilege escalation attacks — DoS attacks target availability."
+        - "Intercepting communications is a MitM or eavesdropping attack — not DoS."
+    difficulty: "easy"
+    tags: ["attacks", "DoS"]
+
+  - id: q-d4-020
+    domain: domain4
+    question: "What is 'network segmentation' and what security benefit does it provide?"
+    options:
+      - "Dividing a network into multiple segments to improve bandwidth — no significant security benefit"
+      - "Dividing a network into isolated segments so that a compromise in one segment cannot easily spread to others, limiting lateral movement"
+      - "Encrypting all network traffic between devices"
+      - "Assigning different IP address ranges to different departments"
+    correct_answer: 1
+    explanations:
+      correct: "Network segmentation divides a network into isolated zones (VLANs, subnets, security zones) with access controls between them. If an attacker compromises one segment, they face additional barriers to reach other segments — limiting lateral movement and containing breaches. PCI DSS requires segmentation of cardholder data environments."
+      incorrect:
+        - "Segmentation does improve bandwidth but the primary security benefit is containing breaches and limiting lateral movement."
+        - "Isolating segments to limit lateral movement from a compromised segment is the primary security benefit of network segmentation."
+        - "Traffic encryption is a separate control (TLS, IPsec) — segmentation controls network access paths."
+        - "IP addressing is a network design activity — segmentation requires enforced access controls between zones, not just different address ranges."
+    difficulty: "easy"
+    tags: ["segmentation", "networking"]
+
+  - id: q-d4-021
+    domain: domain4
+    question: "What is the purpose of 802.1X in network security?"
+    options:
+      - "To define wireless encryption standards (WPA2/WPA3)"
+      - "To provide port-based Network Access Control, requiring authentication before granting network access"
+      - "To standardize the physical connectors for network cables"
+      - "To manage IP address assignment via DHCP"
+    correct_answer: 1
+    explanations:
+      correct: "IEEE 802.1X is a port-based NAC standard that requires devices to authenticate (using EAP methods like EAP-TLS with certificates) before a network port (wired or wireless) is opened. Unauthenticated devices are blocked from the production network, often redirected to a guest VLAN."
+      incorrect:
+        - "WPA2/WPA3 are wireless security protocols — 802.1X provides the authentication framework used within WPA2/3 Enterprise mode."
+        - "Port-based NAC requiring authentication before network access is the correct description of 802.1X."
+        - "Physical connectors are defined by other IEEE standards (like 802.3 for Ethernet) — not 802.1X."
+        - "DHCP for IP assignment is managed by DHCP servers — 802.1X is an authentication protocol."
+    difficulty: "medium"
+    tags: ["802.1X", "NAC", "networking"]
+
+  - id: q-d4-022
+    domain: domain4
+    question: "What type of attack attempts to overwhelm a target by sending traffic that appears to come from a third-party victim (spoofed source), causing responses to flood the victim?"
+    options:
+      - "SYN flood"
+      - "Smurf attack"
+      - "Amplification attack"
+      - "Fragmentation attack"
+    correct_answer: 2
+    explanations:
+      correct: "An amplification attack (also called a reflective DDoS) uses protocols like DNS, NTP, or SSDP where a small request generates a large response. The attacker spoofs the victim's IP as the source, so the large responses are directed at the victim. DNS amplification can achieve 40-70x traffic multiplication."
+      incorrect:
+        - "A SYN flood exhausts server connection tables with half-open TCP connections — it doesn't use amplification via spoofed responses."
+        - "A Smurf attack was a specific ICMP broadcast amplification attack (now largely mitigated) — amplification attack is the broader modern term."
+        - "Amplification attacks use spoofed source IPs to direct large responses at the victim — this is the correct answer."
+        - "Fragmentation attacks exploit IP packet reassembly — they don't involve amplification via spoofed sources."
+    difficulty: "hard"
+    tags: ["attacks", "DoS"]
+
+  - id: q-d4-023
+    domain: domain4
+    question: "What is the primary security benefit of using IPv6 over IPv4?"
+    options:
+      - "IPv6 packets are encrypted by default"
+      - "IPv6 eliminates the need for NAT, has a larger address space, and includes mandatory IPsec support in the specification (though not always enforced)"
+      - "IPv6 is immune to DDoS attacks"
+      - "IPv6 uses MAC addresses instead of IP addresses, making tracking impossible"
+    correct_answer: 1
+    explanations:
+      correct: "IPv6 provides a vastly larger address space (128-bit vs 32-bit), making address scanning less practical. The original specification included mandatory IPsec support, though enforcement varies by implementation. IPv6 eliminates NAT, which in IPv4 inadvertently provided some obscurity."
+      incorrect:
+        - "IPv6 packets are not encrypted by default — encryption requires IPsec or application-layer TLS, same as IPv4."
+        - "Larger address space, NAT elimination, and built-in IPsec specification are the key IPv6 improvements — this is correct."
+        - "IPv6 networks are also vulnerable to DDoS attacks — the larger address space doesn't prevent volumetric attacks."
+        - "IPv6 uses 128-bit IP addresses (not MAC addresses) — MAC addresses remain at Layer 2 in both IPv4 and IPv6."
+    difficulty: "medium"
+    tags: ["IPv6", "networking"]
+
+  - id: q-d4-024
+    domain: domain4
+    question: "A next-generation firewall (NGFW) differs from a traditional firewall primarily because it:"
+    options:
+      - "Operates at Layer 2 instead of Layer 3"
+      - "Performs deep packet inspection at Layer 7, including application identification and user-aware policies"
+      - "Uses hardware instead of software for packet filtering"
+      - "Only blocks known malicious IP addresses"
+    correct_answer: 1
+    explanations:
+      correct: "NGFWs incorporate traditional firewall capabilities plus application-layer (Layer 7) inspection, application identification (regardless of port), user and group-based policies, integrated IPS, TLS/SSL inspection, and threat intelligence. They can distinguish between legitimate HTTPS traffic and tunneled attacks."
+      incorrect:
+        - "NGFWs operate at multiple layers including Layer 7 — not specifically Layer 2."
+        - "Deep packet inspection at Layer 7 with application awareness is what distinguishes NGFWs from traditional firewalls."
+        - "Both traditional and next-gen firewalls can use hardware or software — the distinction is inspection depth and capability."
+        - "Blocking only known malicious IPs describes a simple reputation-based filter — NGFWs have far more sophisticated inspection capabilities."
+    difficulty: "medium"
+    tags: ["firewalls", "NGFW"]
+
+  - id: q-d4-025
+    domain: domain4
+    question: "What is 'wardriving' and what vulnerability does it exploit?"
+    options:
+      - "A physical security attack on data centers using vehicles"
+      - "Driving through areas scanning for wireless networks, often to find unsecured or weakly secured access points"
+      - "Intercepting cellular communications from a moving vehicle"
+      - "Physically bypassing security at server rooms"
+    correct_answer: 1
+    explanations:
+      correct: "Wardriving involves driving through geographic areas using a laptop or device to scan for and map wireless networks. Attackers look for networks using weak or no encryption, default credentials, or WPS enabled. The information is used to identify targets for further exploitation."
+      incorrect:
+        - "Wardriving is a wireless network reconnaissance activity — not a physical facility attack."
+        - "Scanning for wireless networks to find poorly secured access points while driving — this correctly describes wardriving."
+        - "Intercepting cellular communications involves IMSI catchers (stingrays) — wardriving focuses on Wi-Fi networks."
+        - "Physical bypass of server room security is a physical intrusion attack — not wardriving."
+    difficulty: "easy"
+    tags: ["wireless", "reconnaissance"]
+
+  - id: q-d4-026
+    domain: domain4
+    question: "What is the purpose of a 'proxy server' in network security?"
+    options:
+      - "To replace the firewall in small networks"
+      - "To act as an intermediary between clients and servers, providing content filtering, caching, and hiding client identities"
+      - "To directly route packets between network segments"
+      - "To provide encrypted VPN tunnels for remote users"
+    correct_answer: 1
+    explanations:
+      correct: "A proxy server sits between clients and external servers, forwarding requests on behalf of clients. Security benefits: content filtering (blocking malicious sites), caching (performance), SSL inspection, and hiding internal IP addresses from external servers. Forward proxies protect clients; reverse proxies protect servers."
+      incorrect:
+        - "Proxies complement firewalls but don't replace them — they serve different security functions."
+        - "Acting as an intermediary for content filtering, caching, and client identity protection is the correct description of a proxy."
+        - "Routing packets between segments is a Layer 3 router function — proxies operate at the application layer."
+        - "VPN tunnels are provided by VPN gateways (IPsec, SSL/TLS) — proxy servers are application-layer intermediaries."
+    difficulty: "easy"
+    tags: ["proxy", "networking"]
+
+  - id: q-d4-027
+    domain: domain4
+    question: "What is a 'honeypot' and what is its primary security purpose?"
+    options:
+      - "A system for storing sensitive data securely"
+      - "A decoy system designed to attract and detect attackers while gathering intelligence about their techniques"
+      - "A backup system that activates when production systems fail"
+      - "A monitoring tool for employee internet activity"
+    correct_answer: 1
+    explanations:
+      correct: "A honeypot is a deliberately vulnerable decoy system designed to attract attackers. Any access to the honeypot is suspicious by definition (legitimate users shouldn't be there). It provides early warning of attacks, gathers attacker intelligence (techniques, tools, targets), and diverts attackers from production systems."
+      incorrect:
+        - "Sensitive data should be stored in protected production systems — placing it in a honeypot would be counterproductive."
+        - "A decoy system for attracting attackers and gathering intelligence is the correct description of a honeypot."
+        - "A backup system that activates on failure is a hot standby or failover system — not a honeypot."
+        - "Employee internet monitoring is done by proxies and DLP — honeypots are for external attacker detection."
+    difficulty: "easy"
+    tags: ["honeypot", "detection"]
+
+  - id: q-d4-028
+    domain: domain4
+    question: "What is the primary purpose of using 'network traffic analysis' (NTA) for security monitoring?"
+    options:
+      - "To measure and optimize network bandwidth usage"
+      - "To detect anomalies and threats by analyzing network flow data and packet content"
+      - "To document network topology for compliance audits"
+      - "To manage IP address assignments across the network"
+    correct_answer: 1
+    explanations:
+      correct: "NTA (also called Network Detection and Response, NDR) analyzes network flow data (NetFlow, PCAP) to detect anomalies like data exfiltration, lateral movement, C2 communications, and insider threats. It provides visibility into encrypted traffic patterns even without decryption."
+      incorrect:
+        - "Bandwidth measurement is network performance management — NTA is security-focused threat detection."
+        - "Detecting anomalies and threats through network flow and packet analysis is the correct security purpose of NTA."
+        - "Network topology documentation is a configuration management activity — NTA is runtime threat detection."
+        - "IP address management is IPAM (IP Address Management) — not network traffic analysis."
+    difficulty: "medium"
+    tags: ["monitoring", "detection"]
+
+  - id: q-d4-029
+    domain: domain4
+    question: "What is the purpose of ICMP and why might administrators block it at the perimeter?"
+    options:
+      - "ICMP manages IP address assignment — blocked to prevent unauthorized DHCP responses"
+      - "ICMP provides network diagnostics (ping, traceroute) — blocked to reduce reconnaissance and certain flood attacks"
+      - "ICMP encrypts network communications — blocked because it creates key management complexity"
+      - "ICMP manages routing tables — blocked to prevent routing protocol attacks"
+    correct_answer: 1
+    explanations:
+      correct: "ICMP is used for network diagnostics (ping for connectivity testing, traceroute for path discovery). Administrators often block ICMP at the perimeter to prevent attackers from using ping sweeps for host discovery, traceroute for network mapping, and ICMP-based flood attacks (Ping of Death, Smurf). Blocking ICMP can complicate troubleshooting."
+      incorrect:
+        - "IP address assignment is DHCP — ICMP is a diagnostic and error-reporting protocol."
+        - "ICMP provides diagnostics and is blocked to prevent reconnaissance and attacks — this is correct."
+        - "ICMP does not encrypt communications — it is a control/diagnostic protocol with no encryption capability."
+        - "Routing tables are managed by routing protocols (OSPF, BGP) — ICMP handles error reporting and diagnostics."
+    difficulty: "medium"
+    tags: ["protocols", "networking"]
+
+  - id: q-d4-030
+    domain: domain4
+    question: "What is 'session hijacking' and which layer does it primarily target?"
+    options:
+      - "Taking over a user's physical workstation — targets Layer 1"
+      - "Taking over an authenticated session by stealing or predicting session tokens — targets Layer 4-7"
+      - "Rerouting network packets to a different destination — targets Layer 3"
+      - "Cracking encryption keys to read session content — targets Layer 6"
+    correct_answer: 1
+    explanations:
+      correct: "Session hijacking takes over an already authenticated session by stealing session tokens (via XSS, network sniffing) or predicting them (if weakly generated). The attacker uses the stolen token to impersonate the authenticated user without needing credentials. It operates at the transport to application layers (4-7)."
+      incorrect:
+        - "Physical workstation takeover is not session hijacking — session hijacking is a logical attack on authenticated sessions."
+        - "Stealing or predicting session tokens to take over authenticated sessions, targeting Layers 4-7 — this is correct."
+        - "Rerouting packets is a routing attack or MitM — session hijacking targets the session credentials/tokens."
+        - "Cracking encryption keys is a cryptographic attack — session hijacking steals/predicts tokens, not keys."
+    difficulty: "medium"
+    tags: ["attacks", "sessions"]
+
+  - id: q-d4-031
+    domain: domain4
+    question: "What is 'microsegmentation' and how does it differ from traditional network segmentation?"
+    options:
+      - "They are the same — microsegmentation is just a marketing term for VLANs"
+      - "Microsegmentation applies granular security policies at the individual workload/VM level, not just at network perimeters"
+      - "Microsegmentation uses smaller hardware — traditional segmentation uses enterprise-grade equipment"
+      - "Microsegmentation only applies to wireless networks; traditional segmentation applies to wired"
+    correct_answer: 1
+    explanations:
+      correct: "Traditional segmentation uses VLANs and firewalls to divide the network into zones. Microsegmentation (key to Zero Trust) applies east-west security policies at the individual workload, VM, or container level — limiting lateral movement within a segment. Software-defined networking (SDN) and tools like VMware NSX enable microsegmentation."
+      incorrect:
+        - "Microsegmentation is more granular than VLANs — it enforces policies at the workload level, not just network zone boundaries."
+        - "Granular security at the individual workload level is what distinguishes microsegmentation from traditional zone-based segmentation."
+        - "Equipment size is irrelevant — microsegmentation is about policy granularity, often implemented in software."
+        - "Microsegmentation applies to any network (wired, wireless, cloud, virtual) — not limited to wireless."
+    difficulty: "hard"
+    tags: ["microsegmentation", "zero-trust"]
+
+  - id: q-d4-032
+    domain: domain4
+    question: "What does HTTPS provide that HTTP does not?"
+    options:
+      - "Faster page loading through compression"
+      - "Authentication of the server, encryption of data in transit, and integrity verification"
+      - "The ability to load interactive web content"
+      - "Protection against SQL injection in web applications"
+    correct_answer: 1
+    explanations:
+      correct: "HTTPS is HTTP over TLS (Transport Layer Security). It provides: Server authentication (via digital certificate verifying the site's identity), Encryption (confidentiality of transmitted data), and Integrity (detection of tampering). It does not protect against application-layer vulnerabilities like SQL injection."
+      incorrect:
+        - "Compression for faster loading is optional HTTP/2 or HTTP/3 feature — not what HTTPS provides over HTTP."
+        - "Server authentication, encryption, and integrity protection are what HTTPS adds over HTTP — this is correct."
+        - "Dynamic web content (JavaScript, etc.) works with both HTTP and HTTPS — HTTPS doesn't add content capability."
+        - "HTTPS secures the transport layer — SQL injection is an application-layer vulnerability requiring input validation, not transport encryption."
+    difficulty: "easy"
+    tags: ["TLS", "protocols"]

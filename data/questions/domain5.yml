@@ -226,3 +226,383 @@ questions:
         - "Voice recognition is the least reliable biometric — affected by illness, ambient noise, and can be replayed or synthesized."
     difficulty: "hard"
     tags: ["biometrics", "authentication"]
+
+  - id: q-d5-013
+    domain: domain5
+    question: "What is 'just-in-time' (JIT) access provisioning in privileged access management?"
+    options:
+      - "Granting permanent privileged access to all administrators to avoid delays"
+      - "Providing temporary, time-limited privileged access only when needed for a specific task, automatically expiring afterward"
+      - "Requiring privileged users to log in at exactly scheduled times"
+      - "Automatically provisioning new user accounts during onboarding"
+    correct_answer: 1
+    explanations:
+      correct: "JIT access provides elevated privileges on demand for a defined time window and specific purpose. When the window expires, privileges are automatically removed. This reduces standing privileged access (a major attack surface) — attackers compromising a JIT-managed account can't abuse persistent elevated access."
+      incorrect:
+        - "Permanent privileged access (standing privileges) is the problem JIT solves — it creates persistent attack surface."
+        - "Temporary, time-limited access for specific tasks that auto-expires is the correct description of JIT access."
+        - "JIT refers to provisioning timing (on-demand), not the time of day users log in."
+        - "New account provisioning during onboarding is identity lifecycle management — JIT specifically addresses privileged access duration."
+    difficulty: "medium"
+    tags: ["PAM", "privileged-access"]
+
+  - id: q-d5-014
+    domain: domain5
+    question: "Which authentication factor category does a hardware security key (like a YubiKey) belong to?"
+    options:
+      - "Something you know"
+      - "Something you have"
+      - "Something you are"
+      - "Somewhere you are"
+    correct_answer: 1
+    explanations:
+      correct: "A hardware security key (physical token like a YubiKey) is 'something you have' — a physical possession factor. YubiKeys implement FIDO2/WebAuthn, providing strong phishing-resistant MFA. The 'have' factor is compromised by physical theft or loss of the device."
+      incorrect:
+        - "'Something you know' includes passwords, PINs, and security questions — not physical hardware devices."
+        - "'Something you have' correctly describes physical hardware tokens — YubiKey, smart cards, hardware OTP tokens."
+        - "'Something you are' includes biometrics — fingerprints, iris scans, facial recognition."
+        - "'Somewhere you are' is a location-based factor using IP geolocation or GPS — not a physical hardware device."
+    difficulty: "easy"
+    tags: ["authentication", "MFA"]
+
+  - id: q-d5-015
+    domain: domain5
+    question: "What is the primary advantage of FIDO2/WebAuthn over traditional password-based authentication?"
+    options:
+      - "FIDO2 uses longer passwords that are harder to guess"
+      - "FIDO2 uses public key cryptography tied to the specific website, making credentials phishing-resistant and eliminating shared secrets"
+      - "FIDO2 is cheaper to implement than password systems"
+      - "FIDO2 allows users to use the same password on all websites"
+    correct_answer: 1
+    explanations:
+      correct: "FIDO2/WebAuthn uses asymmetric cryptography where the private key never leaves the authenticator device. Credentials are site-specific (the public key is registered per site) — credentials for site A cannot be used on a fake site B, making phishing impossible. No shared secret is transmitted or stored on the server."
+      incorrect:
+        - "FIDO2 replaces passwords entirely — it doesn't use longer passwords."
+        - "Public key cryptography tied to specific sites, eliminating phishing and shared secrets, is the key FIDO2 advantage."
+        - "FIDO2 implementation requires hardware authenticators or device TPMs — it may add infrastructure cost."
+        - "FIDO2 generates site-specific credentials (the opposite of reuse) — credential reuse is a password security anti-pattern."
+    difficulty: "hard"
+    tags: ["authentication", "FIDO2"]
+
+  - id: q-d5-016
+    domain: domain5
+    question: "In OAuth 2.0, what does the 'authorization code' grant type provide?"
+    options:
+      - "Direct access to the resource with a username and password"
+      - "A short-lived code exchanged server-side for an access token, keeping tokens out of the browser"
+      - "Permanent access to resources without user involvement"
+      - "A token stored in browser cookies for session management"
+    correct_answer: 1
+    explanations:
+      correct: "The Authorization Code flow redirects the user to the authorization server, which returns a short-lived authorization code to the client. The client then exchanges this code for an access token in a server-to-server call. This keeps the access token out of the browser/URL (preventing token theft via browser history or logs)."
+      incorrect:
+        - "Direct username/password to the resource server bypasses OAuth's delegation model — this is what OAuth replaces."
+        - "A short-lived code exchanged server-side for tokens, keeping them out of the browser — this correctly describes the Authorization Code flow."
+        - "Permanent access without user involvement describes the Client Credentials flow for machine-to-machine — not Authorization Code."
+        - "Storing tokens in browser cookies is a session management pattern — the Authorization Code grant specifically avoids tokens appearing in the browser."
+    difficulty: "hard"
+    tags: ["OAuth", "IAM"]
+
+  - id: q-d5-017
+    domain: domain5
+    question: "What is the purpose of an 'access review' or 'user access recertification' process?"
+    options:
+      - "To train users on how to use access management systems"
+      - "To periodically verify that user access rights are still appropriate and remove unnecessary privileges"
+      - "To reset passwords on a scheduled basis"
+      - "To document all user login activity for compliance"
+    correct_answer: 1
+    explanations:
+      correct: "Access reviews (recertification campaigns) periodically verify that each user's access is still appropriate for their current role. Data owners or managers review and certify (or revoke) access rights. This addresses privilege creep and ensures terminated or transferred employees don't retain inappropriate access."
+      incorrect:
+        - "Training users on access management is part of security awareness — recertification is about reviewing and validating access rights."
+        - "Periodically verifying access appropriateness and removing unnecessary privileges is the correct purpose of access reviews."
+        - "Password resets are an authentication management activity — access reviews examine what resources users can reach."
+        - "Login activity logging is audit log management — access reviews evaluate whether existing access permissions remain appropriate."
+    difficulty: "easy"
+    tags: ["IAM", "access-control"]
+
+  - id: q-d5-018
+    domain: domain5
+    question: "What distinguishes Attribute-Based Access Control (ABAC) from Role-Based Access Control (RBAC)?"
+    options:
+      - "ABAC is simpler to implement than RBAC"
+      - "ABAC makes access decisions based on multiple attributes (user, resource, environment); RBAC uses predefined roles"
+      - "RBAC can handle more complex policies than ABAC"
+      - "ABAC is only used in government environments; RBAC is for commercial use"
+    correct_answer: 1
+    explanations:
+      correct: "ABAC makes dynamic access decisions based on attributes — user attributes (clearance, department, location), resource attributes (classification, type), and environmental attributes (time of day, IP address). This enables fine-grained policies. RBAC uses predefined roles which are simpler but less flexible for complex requirements."
+      incorrect:
+        - "ABAC is generally more complex to implement due to the policy engine and attribute management required."
+        - "ABAC uses multiple attribute types for dynamic decisions; RBAC uses predefined roles — this correctly distinguishes them."
+        - "ABAC handles more complex, fine-grained policies than RBAC — RBAC is simpler but less flexible."
+        - "Both ABAC and RBAC are used across all sectors — neither is limited to a specific type of organization."
+    difficulty: "medium"
+    tags: ["ABAC", "RBAC", "access-control"]
+
+  - id: q-d5-019
+    domain: domain5
+    question: "What is a 'service account' and what special security controls should be applied to it?"
+    options:
+      - "An account for customer-facing service staff — requires regular password changes"
+      - "A non-human account used by applications and services — requires long/complex passwords, limited privileges, and regular rotation or managed service accounts"
+      - "An account with read-only access to service logs"
+      - "A temporary account created for vendor support visits"
+    correct_answer: 1
+    explanations:
+      correct: "Service accounts are non-interactive accounts used by applications, scripts, and services. Security controls: strong/random passwords, principle of least privilege (only what the service needs), no interactive login, no email inbox, documented ownership, and preferably managed via PAM or gMSA (Group Managed Service Accounts). They are a common attack target."
+      incorrect:
+        - "Service accounts are for applications/services, not human service staff — they require different controls than user accounts."
+        - "Non-human accounts for applications requiring strong credentials, minimal privileges, and managed rotation — this is correct."
+        - "Read-only access is one possible configuration — service accounts have varying privileges depending on what the application needs."
+        - "Temporary vendor accounts are a different category — service accounts are persistent application accounts."
+    difficulty: "medium"
+    tags: ["IAM", "service-accounts"]
+
+  - id: q-d5-020
+    domain: domain5
+    question: "What is the difference between 'identification' and 'authentication' in the AAA framework?"
+    options:
+      - "They are the same process in modern systems"
+      - "Identification is the claim of identity (who you are); authentication is proving that claim (verifying you are who you say)"
+      - "Identification is automated; authentication requires human review"
+      - "Authentication occurs first, then identification confirms who authenticated"
+    correct_answer: 1
+    explanations:
+      correct: "The AAA framework has three distinct steps: 1) Identification — presenting an identity claim (entering a username). 2) Authentication — proving the claim (entering a password, biometric scan). 3) Authorization — determining what the authenticated identity can do. Identification without authentication provides no security."
+      incorrect:
+        - "They are distinct steps — identification presents a claim; authentication verifies it."
+        - "Identification is the claim of identity; authentication proves it — this correctly describes both steps."
+        - "Both can be automated — the distinction is about claim versus proof, not automation level."
+        - "Identification always comes first (you must state who you are before proving it) — not authentication first."
+    difficulty: "easy"
+    tags: ["IAM", "authentication", "fundamentals"]
+
+  - id: q-d5-021
+    domain: domain5
+    question: "What biometric performance metric measures the rate at which unauthorized users are incorrectly accepted?"
+    options:
+      - "False Rejection Rate (FRR)"
+      - "False Acceptance Rate (FAR)"
+      - "Crossover Error Rate (CER)"
+      - "Equal Error Rate (EER)"
+    correct_answer: 1
+    explanations:
+      correct: "The False Acceptance Rate (FAR) — also called Type II error — measures the percentage of unauthorized users incorrectly granted access. A low FAR is critical for high-security systems. FAR is the security metric; FRR is the usability metric. Lower FAR = more secure but may increase FRR."
+      incorrect:
+        - "False Rejection Rate (FRR / Type I error) measures legitimate users incorrectly denied access — this is a usability concern, not a security failure."
+        - "FAR (False Acceptance Rate) measures unauthorized users incorrectly accepted — this is the security failure metric."
+        - "Crossover Error Rate (CER) is the point where FAR and FRR are equal — it provides an overall accuracy metric but doesn't specifically measure unauthorized acceptance."
+        - "EER (Equal Error Rate) is the same as CER — a balance point, not the specific unauthorized acceptance metric."
+    difficulty: "medium"
+    tags: ["biometrics", "authentication"]
+
+  - id: q-d5-022
+    domain: domain5
+    question: "What is the primary security concern with 'pass-the-hash' attacks?"
+    options:
+      - "Attackers guess passwords using dictionary attacks"
+      - "Attackers use a captured password hash directly to authenticate without knowing the plaintext password"
+      - "Attackers intercept and replay authentication tokens"
+      - "Attackers crack hashed passwords using GPU acceleration"
+    correct_answer: 1
+    explanations:
+      correct: "Pass-the-hash exploits Windows NTLM authentication by using a captured password hash directly to authenticate — the attacker never needs the plaintext password. Defenders can mitigate this by using Kerberos over NTLM, Protected Users security group, credential guard, and least privilege to limit hash exposure."
+      incorrect:
+        - "Dictionary attacks try to crack the hash by guessing — pass-the-hash uses the hash directly without cracking it."
+        - "Using a captured hash to authenticate without knowing the plaintext is the correct description of pass-the-hash."
+        - "Token replay attacks (Pass-the-Ticket in Kerberos) are a related but different technique — pass-the-hash specifically uses NTLM hashes."
+        - "GPU hash cracking aims to recover the plaintext — pass-the-hash doesn't bother cracking, it just uses the hash."
+    difficulty: "hard"
+    tags: ["attacks", "authentication"]
+
+  - id: q-d5-023
+    domain: domain5
+    question: "What is 'context-aware authentication' (adaptive authentication)?"
+    options:
+      - "Authentication that adapts to different operating systems"
+      - "Authentication that dynamically adjusts requirements based on risk signals such as device, location, behavior, and time"
+      - "Authentication that learns user preferences over time"
+      - "Multi-language support in authentication portals"
+    correct_answer: 1
+    explanations:
+      correct: "Adaptive/context-aware authentication evaluates risk signals — device health, IP reputation, geolocation, time of day, behavioral patterns — and adjusts authentication requirements accordingly. Low-risk logins may succeed with just a password; high-risk scenarios (new device, unusual location) trigger step-up MFA."
+      incorrect:
+        - "OS compatibility is a software engineering concern — adaptive authentication is about risk-based security decisions."
+        - "Dynamically adjusting authentication requirements based on risk signals is the correct description of adaptive authentication."
+        - "Learning preferences improves UX — adaptive authentication is a security mechanism that increases friction for risky scenarios."
+        - "Language support is a localization feature — adaptive authentication is risk-based policy enforcement."
+    difficulty: "medium"
+    tags: ["authentication", "IAM"]
+
+  - id: q-d5-024
+    domain: domain5
+    question: "What is a 'Discretionary Access Control' (DAC) model and what is its primary weakness?"
+    options:
+      - "Access is controlled by the system based on security labels — weakness is inflexibility"
+      - "Resource owners control access to their resources — weakness is that owners can grant access to anyone, including malicious users"
+      - "Access is based on job roles — weakness is role explosion with many users"
+      - "Access is based on user attributes — weakness is complex policy management"
+    correct_answer: 1
+    explanations:
+      correct: "In DAC, the resource owner decides who gets access (e.g., file permissions on Windows/Unix where users control their own files). The weakness: owners may grant excessive access; malware running as the user inherits their access rights; and there's no system-enforced minimum — a single owner's poor decision can expose data."
+      incorrect:
+        - "System-controlled access based on security labels is MAC (Mandatory Access Control) — not DAC."
+        - "Owner-controlled access where owners can grant to anyone is the correct description of DAC and its weakness."
+        - "Role-based access is RBAC — 'role explosion' is RBAC's weakness, not DAC's."
+        - "Attribute-based access is ABAC — complex policy management is ABAC's weakness."
+    difficulty: "medium"
+    tags: ["DAC", "access-control"]
+
+  - id: q-d5-025
+    domain: domain5
+    question: "What is 'OpenID Connect' (OIDC) and how does it differ from OAuth 2.0?"
+    options:
+      - "They are the same protocol with different versions"
+      - "OIDC is an identity layer on top of OAuth 2.0 that adds authentication and ID tokens; OAuth 2.0 handles authorization only"
+      - "OAuth 2.0 provides identity; OIDC provides authorization"
+      - "OIDC is for mobile apps; OAuth 2.0 is for web applications"
+    correct_answer: 1
+    explanations:
+      correct: "OAuth 2.0 is an authorization framework — it grants access to resources but doesn't specify who the user is. OpenID Connect (OIDC) adds an authentication layer on top of OAuth 2.0, introducing the ID Token (a JWT) that contains user identity claims. OIDC answers 'who is this user?'; OAuth answers 'what can this app access?'"
+      incorrect:
+        - "They are distinct — OAuth 2.0 is authorization; OIDC adds authentication identity on top of OAuth 2.0."
+        - "OIDC adds authentication/ID tokens on top of OAuth 2.0 which handles authorization — this correctly distinguishes them."
+        - "This is reversed — OAuth 2.0 is authorization; OIDC provides the identity/authentication layer."
+        - "Both are used across all application types (web, mobile, server-side) — neither is platform-specific."
+    difficulty: "hard"
+    tags: ["OIDC", "OAuth", "federation"]
+
+  - id: q-d5-026
+    domain: domain5
+    question: "What is 'account harvesting' and how can organizations defend against it?"
+    options:
+      - "Physically stealing servers — defended by physical security"
+      - "Enumerating valid usernames from application error messages or timing differences — defended by generic error messages and consistent response times"
+      - "Intercepting account credentials over the network — defended by TLS"
+      - "Creating fake accounts to access resources — defended by identity verification"
+    correct_answer: 1
+    explanations:
+      correct: "Account harvesting (username enumeration) exploits different application responses to valid vs. invalid usernames (different error messages or response times). Attackers build a list of valid accounts for targeted attacks. Defense: return the same generic message ('invalid credentials') regardless of whether the username exists."
+      incorrect:
+        - "Server theft is a physical security issue — account harvesting is a logical attack against application responses."
+        - "Enumerating valid accounts via error message or timing differences, defended by generic responses — this correctly describes account harvesting."
+        - "Network credential interception is a sniffing/MitM attack — account harvesting exploits application feedback."
+        - "Creating fake accounts is account fraud — harvesting collects existing valid account names."
+    difficulty: "medium"
+    tags: ["authentication", "attacks"]
+
+  - id: q-d5-027
+    domain: domain5
+    question: "What is 'credential stuffing' and what defense is most effective against it?"
+    options:
+      - "Attempting every possible password combination — defended by account lockout"
+      - "Using lists of username/password pairs from previous breaches to attempt login across other services — defended by MFA and breach credential monitoring"
+      - "Phishing users for credentials — defended by security awareness training"
+      - "Installing keyloggers to capture passwords — defended by antivirus"
+    correct_answer: 1
+    explanations:
+      correct: "Credential stuffing automates login attempts using username/password pairs from prior data breaches, exploiting password reuse across services. MFA is the most effective defense — even if credentials match, the attacker can't complete the second factor. Breach credential monitoring (like HaveIBeenPwned) can detect compromised credentials proactively."
+      incorrect:
+        - "Trying every possible password combination is brute force — credential stuffing uses real stolen credentials, often bypassing lockout because the password may be correct."
+        - "Using stolen credential pairs across services, defended by MFA and breach monitoring — this correctly describes credential stuffing."
+        - "Phishing captures credentials through deception — credential stuffing uses already-compromised credentials from other breaches."
+        - "Keyloggers capture credentials at input — credential stuffing uses existing stolen credentials in automated login attempts."
+    difficulty: "medium"
+    tags: ["attacks", "authentication"]
+
+  - id: q-d5-028
+    domain: domain5
+    question: "In a Kerberos authentication flow, what does the Ticket Granting Service (TGS) issue?"
+    options:
+      - "The initial Ticket Granting Ticket (TGT) after username/password verification"
+      - "A service ticket granting the user access to a specific service after presenting a valid TGT"
+      - "An encryption key for securing the user's session"
+      - "A digital certificate for the user's identity"
+    correct_answer: 1
+    explanations:
+      correct: "In Kerberos: 1) AS issues the TGT after initial login. 2) User presents TGT to TGS requesting a specific service. 3) TGS issues a service ticket for that specific resource. 4) User presents service ticket to access the service. The TGS issues service-specific tickets, not the TGT."
+      incorrect:
+        - "The initial TGT is issued by the Authentication Service (AS) after password verification — not the TGS."
+        - "A service ticket for a specific resource after presenting a valid TGT — this correctly describes what the TGS issues."
+        - "Session encryption keys are embedded in Kerberos tickets as session keys — the TGS doesn't issue standalone encryption keys."
+        - "Digital certificates are a PKI concept — Kerberos uses tickets, not X.509 certificates."
+    difficulty: "hard"
+    tags: ["Kerberos", "authentication"]
+
+  - id: q-d5-029
+    domain: domain5
+    question: "What is 'account lockout' policy and what attack does it specifically defend against?"
+    options:
+      - "Automatically locking user accounts after hours — defends against after-hours unauthorized access"
+      - "Locking an account after a defined number of failed login attempts — defends against online brute force and password spraying"
+      - "Encrypting stored passwords after a breach — defends against offline hash cracking"
+      - "Requiring password changes every 90 days — defends against long-term credential theft"
+    correct_answer: 1
+    explanations:
+      correct: "Account lockout automatically locks an account after N consecutive failed login attempts (e.g., 5 attempts). This prevents online brute force attacks (trying many passwords against one account) and limits password spraying (trying one password against many accounts). Trade-off: attackers can use lockout as a DoS mechanism."
+      incorrect:
+        - "Time-based access restrictions are a separate control — account lockout is triggered by failed authentication attempts."
+        - "Locking after failed attempts defending against online brute force and password spraying — this correctly describes account lockout."
+        - "Encrypting passwords is storage protection — account lockout is a login attempt control."
+        - "Password rotation is a credential management policy — account lockout responds to real-time failed attempts."
+    difficulty: "easy"
+    tags: ["authentication", "controls"]
+
+  - id: q-d5-030
+    domain: domain5
+    question: "What is the primary purpose of an 'identity governance' program?"
+    options:
+      - "To manage the physical access cards of all employees"
+      - "To ensure that identities and their access rights are consistently managed, compliant, and auditable across the organization"
+      - "To develop the organization's brand identity and communications"
+      - "To monitor network traffic for identity-based threats"
+    correct_answer: 1
+    explanations:
+      correct: "Identity governance (IGA) ensures that digital identities and their access rights are accurately provisioned, maintained, reviewed, and de-provisioned throughout the identity lifecycle. It provides compliance evidence, enforces separation of duties, manages role definitions, and ensures audit trails for regulators."
+      incorrect:
+        - "Physical access cards are managed by physical security systems — identity governance is about digital identity and access rights."
+        - "Ensuring identities and access rights are managed, compliant, and auditable is the correct description of identity governance."
+        - "Brand identity is a marketing function — identity governance is an IT security and compliance program."
+        - "Network traffic monitoring for threats is a security operations function (SIEM, NTA) — identity governance is about lifecycle management and compliance."
+    difficulty: "medium"
+    tags: ["IAM", "governance"]
+
+  - id: q-d5-031
+    domain: domain5
+    question: "Which protocol provides Single Sign-On for web applications using token-based authentication with JSON Web Tokens (JWTs)?"
+    options:
+      - "SAML 2.0"
+      - "Kerberos"
+      - "OpenID Connect (OIDC)"
+      - "RADIUS"
+    correct_answer: 2
+    explanations:
+      correct: "OpenID Connect (OIDC) uses JWTs (JSON Web Tokens) as ID tokens to convey identity information. It is built on OAuth 2.0 and is widely used for modern web and mobile SSO. SAML also provides SSO but uses XML-based assertions — OIDC's JWT approach is more suited to APIs and modern applications."
+      incorrect:
+        - "SAML 2.0 uses XML-based assertions, not JWTs — it is also used for SSO but is older and more complex than OIDC."
+        - "Kerberos uses proprietary ticket-based authentication for internal network resources — not JWT-based web SSO."
+        - "OIDC with JWTs for web/API SSO is the correct answer."
+        - "RADIUS is a network authentication protocol for VPN and 802.1X — not JWT-based web SSO."
+    difficulty: "medium"
+    tags: ["OIDC", "SSO", "JWT"]
+
+  - id: q-d5-032
+    domain: domain5
+    question: "What is 'zero standing privileges' (ZSP) and how does it relate to least privilege?"
+    options:
+      - "Requiring all users to have zero access to start, then granting access via requests"
+      - "Eliminating all persistent privileged access so accounts have no elevated rights until explicitly needed, then access is granted JIT and revoked after use"
+      - "Revoking all access when an employee leaves the organization"
+      - "A firewall policy blocking all inbound connections by default"
+    correct_answer: 1
+    explanations:
+      correct: "Zero Standing Privileges (ZSP) extends least privilege to its logical conclusion: no account maintains permanent elevated privileges. Access is granted just-in-time for specific tasks and automatically revoked upon completion. This eliminates the standing privilege attack surface that attackers target in lateral movement."
+      incorrect:
+        - "Starting with zero access is a good onboarding practice but is not specifically ZSP — ZSP focuses on eliminating persistent elevated/admin rights."
+        - "Eliminating persistent elevated access with JIT grants that auto-revoke is the correct description of ZSP."
+        - "Revoking access upon termination is access lifecycle management — ZSP applies to active, ongoing privileged access for all users."
+        - "Default-deny firewall policies are network security controls — ZSP is an identity and access management principle."
+    difficulty: "hard"
+    tags: ["PAM", "least-privilege"]
