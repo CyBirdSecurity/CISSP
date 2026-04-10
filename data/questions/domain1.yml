@@ -225,3 +225,363 @@ questions:
         - "Simulating attacks against production is penetration testing, not threat modeling. Threat modeling is proactive and design-phase focused."
     difficulty: "medium"
     tags: ["threat-modeling", "risk"]
+    
+  - id: q-d1-013
+    domain: domain1
+    question: "Which of the following is considered a 'detective' administrative control?"
+    options:
+      - "Security awareness training"
+      - "Job rotation"
+      - "Separation of duties"
+      - "A security guard at the gate"
+    correct_answer: 1
+    explanations:
+      correct: "Job rotation is a detective administrative control because it allows a new person to review the work of a predecessor, which may uncover fraud or errors."
+      incorrect:
+        - "Security awareness training is a preventive administrative control."
+        - "Separation of duties is a preventive administrative control designed to stop a single person from completing a sensitive task alone."
+        - "A security guard is a physical control, not an administrative one."
+    difficulty: "medium"
+    tags: ["controls", "governance"]
+
+  - id: q-d1-014
+    domain: domain1
+    question: "In the context of the Canons of the (ISC)² Code of Ethics, which canon takes the highest priority?"
+    options:
+      - "Provide diligent and competent service to principals"
+      - "Advance and protect the profession"
+      - "Protect society, the common good, necessary public trust and confidence, and the infrastructure"
+      - "Act honorably, honestly, justly, responsibly, and legally"
+    correct_answer: 2
+    explanations:
+      correct: "The canons are in order of priority. The first canon—protecting society and the common good—is always the highest priority."
+      incorrect:
+        - "Diligent service to principals is the third canon."
+        - "Advancing the profession is the fourth canon."
+        - "Acting honorably and legally is the second canon."
+    difficulty: "easy"
+    tags: ["ethics", "legal"]
+
+  - id: q-d1-015
+    domain: domain1
+    question: "Which of the following describes the 'Scoping' activity in the context of security standards?"
+    options:
+      - "The process of tailoring a baseline to a specific system"
+      - "Identifying which specific controls from a baseline are applicable to an organization"
+      - "Researching new threats to update an existing security policy"
+      - "The physical inspection of a data center"
+    correct_answer: 1
+    explanations:
+      correct: "Scoping involves reviewing a baseline and selecting only those controls that apply to the systems you are actually using."
+      incorrect:
+        - "Tailoring is the process of adjusting the specific settings of the controls you have already 'scoped' into your project."
+        - "Updating policies based on threat research is part of a continuous improvement cycle, not scoping."
+        - "Physical inspection is part of an audit or assessment."
+    difficulty: "medium"
+    tags: ["compliance", "frameworks"]
+
+  - id: q-d1-016
+    domain: domain1
+    question: "What is the primary goal of Change Management?"
+    options:
+      - "To prevent all changes to the production environment"
+      - "To ensure changes are implemented as quickly as possible"
+      - "To ensure that changes are recorded, evaluated, and authorized to minimize impact"
+      - "To delegate authority to junior admins for system updates"
+    correct_answer: 2
+    explanations:
+      correct: "Change Management's primary goal is to ensure that all changes are handled in a controlled manner to prevent unauthorized changes and minimize service disruption."
+      incorrect:
+        - "Change management does not stop changes; it controls them."
+        - "Speed is a factor, but 'controlled' implementation is the primary goal over 'fast' implementation."
+        - "Delegation is part of internal workflows but not the goal of the change management process itself."
+    difficulty: "medium"
+    tags: ["governance", "operations"]
+
+  - id: q-d1-017
+    domain: domain1
+    question: "Under the GDPR, what is the role of a 'Data Processor'?"
+    options:
+      - "The entity that determines the purposes and means of processing personal data"
+      - "The individual to whom the personal data belongs"
+      - "The entity that processes data on behalf of a data controller"
+      - "The government agency responsible for data protection enforcement"
+    correct_answer: 2
+    explanations:
+      correct: "A Data Processor handles personal data only on behalf of and according to the instructions of a Data Controller."
+      incorrect:
+        - "The entity determining the purpose is the Data Controller."
+        - "The individual is the Data Subject."
+        - "The enforcement agency is the Supervisory Authority (SA)."
+    difficulty: "medium"
+    tags: ["legal", "GDPR", "privacy"]
+
+  - id: q-d1-018
+    domain: domain1
+    question: "Which risk calculation involves calculating the Single Loss Expectancy (SLE)?"
+    options:
+      - "Asset Value (AV) x Exposure Factor (EF)"
+      - "Asset Value (AV) / Annual Rate of Occurrence (ARO)"
+      - "Annualized Loss Expectancy (ALE) x Exposure Factor (EF)"
+      - "Single Loss Expectancy (SLE) / Annual Rate of Occurrence (ARO)"
+    correct_answer: 0
+    explanations:
+      correct: "SLE = AV x EF. This represents the dollar amount lost from a single realized threat."
+      incorrect:
+        - "AV / ARO is not a standard risk formula."
+        - "ALE x EF is not used for SLE; ALE is usually the end result of SLE x ARO."
+        - "SLE / ARO is not a standard risk formula."
+    difficulty: "easy"
+    tags: ["risk", "quantitative"]
+
+  - id: q-d1-019
+    domain: domain1
+    question: "Which of the following would be an example of 'Risk Avoidance'?"
+    options:
+      - "Purchasing an insurance policy"
+      - "Installing a firewall to block malicious traffic"
+      - "Deciding not to launch a high-risk web application"
+      - "Outsourcing data storage to a third-party cloud provider"
+    correct_answer: 2
+    explanations:
+      correct: "Risk avoidance is the decision to eliminate the risk by not engaging in the activity that creates it."
+      incorrect:
+        - "Insurance is Risk Transfer."
+        - "Firewalls are Risk Mitigation."
+        - "Outsourcing can be Risk Transfer or Mitigation depending on the contract."
+    difficulty: "easy"
+    tags: ["risk"]
+
+  - id: q-d1-020
+    domain: domain1
+    question: "The STRIDE threat model was developed by Microsoft. What does the 'I' in STRIDE stand for?"
+    options:
+      - "Information Disclosure"
+      - "Insecure Defaults"
+      - "Integrity Violation"
+      - "Identity Theft"
+    correct_answer: 0
+    explanations:
+      correct: "STRIDE stands for Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, and Elevation of Privilege."
+      incorrect:
+        - "Insecure Defaults is a configuration issue, not part of the STRIDE acronym."
+        - "Tampering covers integrity violations, but 'I' specifically stands for Information Disclosure."
+        - "Spoofing covers identity issues, but 'I' is Information Disclosure."
+    difficulty: "medium"
+    tags: ["threat-modeling"]
+
+  - id: q-d1-021
+    domain: domain1
+    question: "What is the primary difference between a 'Policy' and a 'Guideline'?"
+    options:
+      - "Policies are long; guidelines are short"
+      - "Policies are mandatory; guidelines are suggested"
+      - "Policies are technical; guidelines are administrative"
+      - "Guidelines must be signed by the CEO; policies do not"
+    correct_answer: 1
+    explanations:
+      correct: "Policies are high-level, mandatory management statements. Guidelines are non-mandatory recommendations or best practices."
+      incorrect:
+        - "Length does not determine the type of document."
+        - "Both can be administrative; technical details usually live in Standards or Procedures."
+        - "The CEO typically signs high-level Policies, not guidelines."
+    difficulty: "easy"
+    tags: ["governance"]
+
+  - id: q-d1-022
+    domain: domain1
+    question: "Which of the following is a 'Technical' control?"
+    options:
+      - "Security policy"
+      - "Encryption"
+      - "Background checks"
+      - "Fences"
+    correct_answer: 1
+    explanations:
+      correct: "Technical (or logical) controls use technology to enforce security, such as encryption, firewalls, and IDS."
+      incorrect:
+        - "Security policy is an Administrative control."
+        - "Background checks are Administrative controls."
+        - "Fences are Physical controls."
+    difficulty: "easy"
+    tags: ["controls"]
+
+  - id: q-d1-023
+    domain: domain1
+    question: "In Business Continuity Planning, what is the 'Maximum Tolerable Downtime' (MTD) composed of?"
+    options:
+      - "RPO + WRT"
+      - "RTO + WRT"
+      - "RTO + SLE"
+      - "ALE + ARO"
+    correct_answer: 1
+    explanations:
+      correct: "MTD is the sum of Recovery Time Objective (RTO) and Work Recovery Time (WRT)."
+      incorrect:
+        - "RPO is about data loss, not downtime duration."
+        - "SLE is a risk metric, not a continuity time metric."
+        - "ALE and ARO are quantitative risk assessment metrics."
+    difficulty: "hard"
+    tags: ["BCP", "BIA"]
+
+  - id: q-d1-024
+    domain: domain1
+    question: "Which legal system is based primarily on written laws and codes rather than judicial precedents?"
+    options:
+      - "Common Law"
+      - "Civil Law"
+      - "Religious Law"
+      - "Criminal Law"
+    correct_answer: 1
+    explanations:
+      correct: "Civil Law (not to be confused with civil/tort law in common law systems) relies on codified statutes and is the most prevalent legal system globally."
+      incorrect:
+        - "Common Law relies heavily on judicial precedent (case law)."
+        - "Religious Law is based on religious texts."
+        - "Criminal Law is a branch of law, not a total legal system type like Civil or Common law."
+    difficulty: "medium"
+    tags: ["legal"]
+
+  - id: q-d1-025
+    domain: domain1
+    question: "A 'Supply Chain Risk Management' (SCRM) program should primarily focus on:"
+    options:
+      - "Reducing the cost of hardware"
+      - "Identifying and mitigating risks throughout the entire lifecycle of a product"
+      - "Ensuring all vendors use the same encryption"
+      - "Eliminating all third-party dependencies"
+    correct_answer: 1
+    explanations:
+      correct: "SCRM involves identifying and managing risks associated with the entire supply chain, from raw materials to final delivery and disposal."
+      incorrect:
+        - "Cost reduction is procurement's job, not the primary focus of security risk management."
+        - "While standards are good, 'entire lifecycle' management is the broader and more correct goal."
+        - "Eliminating all dependencies is impossible in modern business."
+    difficulty: "medium"
+    tags: ["risk", "supply-chain"]
+
+  - id: q-d1-026
+    domain: domain1
+    question: "The 'Delphi Technique' is used in risk assessment to:"
+    options:
+      - "Calculate exact ALE values"
+      - "Obtain a consensus from a group of experts anonymously"
+      - "Automate vulnerability scanning"
+      - "Predict the exact date of the next breach"
+    correct_answer: 1
+    explanations:
+      correct: "The Delphi Technique is a qualitative method used to reach a consensus among experts while avoiding 'groupthink' by using anonymous questionnaires."
+      incorrect:
+        - "It is a qualitative method, not used for exact quantitative calculations like ALE."
+        - "It is a human-based process, not an automated scanning tool."
+        - "No technique can predict exact dates of future breaches."
+    difficulty: "medium"
+    tags: ["risk", "assessment"]
+
+  - id: q-d1-027
+    domain: domain1
+    question: "Which of the following best describes 'Residual Risk'?"
+    options:
+      - "The risk that exists before any controls are applied"
+      - "The risk that remains after security controls have been implemented"
+      - "The risk associated with a retired asset"
+      - "The cost of the security control itself"
+    correct_answer: 1
+    explanations:
+      correct: "Residual Risk = Inherent Risk - Impact of Controls. It is the risk left over after management has taken action."
+      incorrect:
+        - "Risk before controls is 'Inherent Risk'."
+        - "Retired assets should have their risk mitigated through proper disposal (sanitization)."
+        - "The cost of a control is part of a Cost-Benefit Analysis, not the definition of residual risk."
+    difficulty: "easy"
+    tags: ["risk"]
+
+  - id: q-d1-028
+    domain: domain1
+    question: "What is the primary purpose of 'Security Awareness Training'?"
+    options:
+      - "To satisfy legal requirements only"
+      - "To change user behavior and reduce the human risk factor"
+      - "To teach employees how to perform penetration testing"
+      - "To ensure everyone knows the password to the guest Wi-Fi"
+    correct_answer: 1
+    explanations:
+      correct: "The goal of awareness is to influence behavior and foster a security-conscious culture, thereby reducing risks like social engineering."
+      incorrect:
+        - "Compliance is a driver, but the 'primary purpose' is risk reduction through behavior change."
+        - "General employees do not need to know how to perform penetration tests."
+        - "Knowing Wi-Fi passwords is not the goal of a security awareness program."
+    difficulty: "easy"
+    tags: ["awareness", "personnel"]
+
+  - id: q-d1-029
+    domain: domain1
+    question: "Which type of law deals with wrongs against society and usually results in imprisonment or fines?"
+    options:
+      - "Civil (Tort) Law"
+      - "Administrative Law"
+      - "Criminal Law"
+      - "Contract Law"
+    correct_answer: 2
+    explanations:
+      correct: "Criminal law addresses conduct that is perceived as threatening, harmful, or otherwise endangering to the property, health, safety, and moral welfare of people inclusive of the state."
+      incorrect:
+        - "Civil law deals with disputes between individuals or organizations, usually resulting in financial compensation."
+        - "Administrative law deals with the procedures and regulations of government agencies."
+        - "Contract law is a subset of civil law."
+    difficulty: "easy"
+    tags: ["legal"]
+
+  - id: q-d1-030
+    domain: domain1
+    question: "A Business Impact Analysis (BIA) should be performed:"
+    options:
+      - "Only after a major disaster has occurred"
+      - "At the very beginning of the BCP process"
+      - "By the IT department alone"
+      - "Once every ten years"
+    correct_answer: 1
+    explanations:
+      correct: "The BIA is a foundational step in BCP. It identifies critical functions and requirements, which informs the rest of the plan."
+      incorrect:
+        - "Waiting for a disaster is reactive; BCP/BIA is proactive."
+        - "BIA requires input from business process owners across the whole organization, not just IT."
+        - "Ten years is far too long; it should be reviewed regularly or when significant business changes occur."
+    difficulty: "medium"
+    tags: ["BCP", "BIA"]
+
+  - id: q-d1-031
+    domain: domain1
+    question: "Which of the following is an example of 'Non-repudiation'?"
+    options:
+      - "A user logging in with a password"
+      - "A digital signature on an email"
+      - "An encrypted hard drive"
+      - "A redundant power supply"
+    correct_answer: 1
+    explanations:
+      correct: "A digital signature provides non-repudiation because it proves the sender's identity and that the message wasn't altered, so the sender cannot deny sending it."
+      incorrect:
+        - "Passwords can be shared or stolen, and don't provide strong non-repudiation on their own."
+        - "Encryption provides confidentiality."
+        - "Redundancy provides availability."
+    difficulty: "medium"
+    tags: ["CIA", "fundamentals"]
+
+  - id: q-d1-032
+    domain: domain1
+    question: "What is the primary objective of 'Succession Planning'?"
+    options:
+      - "To ensure employees are promoted every two years"
+      - "To identify and develop internal people with the potential to fill key leadership positions"
+      - "To automate all executive decision-making"
+      - "To reduce the salary of incoming managers"
+    correct_answer: 1
+    explanations:
+      correct: "Succession planning ensures that if a key leader leaves, there is a trained and ready replacement to maintain continuity of operations."
+      incorrect:
+        - "It's about capability and readiness, not a guaranteed timeline for promotion."
+        - "Automation cannot replace leadership."
+        - "Succession planning is a continuity and talent management strategy, not a cost-cutting measure."
+    difficulty: "easy"
+    tags: ["governance", "personnel"]
