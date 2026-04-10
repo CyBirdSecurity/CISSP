@@ -1,0 +1,228 @@
+questions:
+  - id: q-d5-001
+    domain: domain5
+    question: "A user authenticates with a password and a hardware token. What type of authentication is this?"
+    options:
+      - "Single-factor authentication"
+      - "Multi-factor authentication"
+      - "Two-step verification"
+      - "Biometric authentication"
+    correct_answer: 1
+    explanations:
+      correct: "Using a password (something you know) AND a hardware token (something you have) combines two different authentication factor categories, making this multi-factor authentication (MFA)."
+      incorrect:
+        - "Single-factor authentication uses only one factor — using two separate factors from different categories is MFA."
+        - "MFA combines factors from different categories (know, have, are) — password + hardware token is MFA."
+        - "Two-step verification (using the same factor category twice, like two passwords) is not MFA. Using factors from different categories is MFA."
+        - "Biometric authentication uses 'something you are' (fingerprint, face, iris) — a hardware token is 'something you have.'"
+    difficulty: "easy"
+    tags: ["authentication", "MFA"]
+
+  - id: q-d5-002
+    domain: domain5
+    question: "What is the primary security risk associated with Single Sign-On (SSO)?"
+    options:
+      - "Users must remember too many passwords"
+      - "Compromised SSO credentials provide access to all integrated systems"
+      - "SSO increases authentication latency"
+      - "SSO cannot support multi-factor authentication"
+    correct_answer: 1
+    explanations:
+      correct: "SSO creates a single point of failure for authentication. If an attacker compromises SSO credentials (or the SSO provider itself), they gain access to all systems integrated with that SSO. This risk must be mitigated with strong MFA and monitoring."
+      incorrect:
+        - "SSO reduces password complexity — users only need one set of credentials. Password fatigue is reduced, not increased."
+        - "Compromised credentials granting access to all systems is the correct and critical security risk of SSO."
+        - "SSO is generally faster — authentication happens once. Latency increase is not the primary concern."
+        - "SSO providers typically support and encourage MFA — this is not a limitation of SSO."
+    difficulty: "medium"
+    tags: ["SSO", "IAM"]
+
+  - id: q-d5-003
+    domain: domain5
+    question: "In the RBAC model, what is the correct relationship between users, roles, and permissions?"
+    options:
+      - "Users are assigned permissions directly, and roles organize related users"
+      - "Permissions are assigned to roles, and users are assigned to roles"
+      - "Roles are assigned to objects, and users receive access through object ownership"
+      - "Users and permissions are directly linked without intermediate roles"
+    correct_answer: 1
+    explanations:
+      correct: "In RBAC, permissions are assigned to roles (not to users directly), and then users are assigned to appropriate roles. This simplifies administration — changing a role's permissions updates all users in that role automatically."
+      incorrect:
+        - "In RBAC, permissions are NOT assigned directly to users — they are assigned to roles, then users get roles."
+        - "Permissions to roles, then users to roles — this correctly describes the RBAC model."
+        - "RBAC is not about object ownership — that describes DAC (Discretionary Access Control)."
+        - "Direct user-to-permission assignment is characteristic of DAC, not RBAC."
+    difficulty: "easy"
+    tags: ["RBAC", "access-control"]
+
+  - id: q-d5-004
+    domain: domain5
+    question: "Which access control model is typically enforced by the operating system and uses security labels to control access, with users unable to override policy?"
+    options:
+      - "DAC (Discretionary Access Control)"
+      - "RBAC (Role-Based Access Control)"
+      - "MAC (Mandatory Access Control)"
+      - "ABAC (Attribute-Based Access Control)"
+    correct_answer: 2
+    explanations:
+      correct: "MAC is enforced by the OS/system — not by individual users or object owners. Security labels (classification levels) are assigned to subjects and objects, and the system enforces access based on these labels. Users cannot override or change the policy."
+      incorrect:
+        - "DAC allows the resource owner to determine access — users CAN override/grant access. This is the opposite of MAC."
+        - "RBAC assigns permissions through roles — it is an administrative model, not a system-enforced label-based model."
+        - "MAC is enforced by the OS with security labels that users cannot override — this is correct."
+        - "ABAC uses policy attributes for access decisions — it is more flexible and not based on hierarchical security labels."
+    difficulty: "medium"
+    tags: ["MAC", "access-control"]
+
+  - id: q-d5-005
+    domain: domain5
+    question: "What is the purpose of a Kerberos Ticket Granting Ticket (TGT)?"
+    options:
+      - "To authorize access to a specific network service"
+      - "To prove the user's identity to the Ticket Granting Service so they can obtain service tickets"
+      - "To encrypt all communications between client and server"
+      - "To store user credentials securely in the KDC database"
+    correct_answer: 1
+    explanations:
+      correct: "The TGT is issued by the Authentication Service (AS) after initial login. The user presents the TGT to the Ticket Granting Service (TGS) to obtain specific service tickets for individual resources — without re-entering their password."
+      incorrect:
+        - "Access to a specific service is granted through a service ticket, not the TGT. The TGT only grants access to the TGS."
+        - "The TGT proves identity to the TGS to obtain service tickets — this correctly describes the TGT's role."
+        - "Communication encryption uses session keys within tickets — the TGT is an authentication mechanism, not an encryption service."
+        - "User credentials are stored in the AS database — the TGT is issued after authentication, not used to store credentials."
+    difficulty: "hard"
+    tags: ["Kerberos", "authentication"]
+
+  - id: q-d5-006
+    domain: domain5
+    question: "What is the key difference between authentication and authorization?"
+    options:
+      - "Authentication verifies what you can do; authorization verifies who you are"
+      - "Authentication verifies who you are; authorization determines what you are permitted to do"
+      - "They are the same process with different names in different frameworks"
+      - "Authentication is for humans; authorization is for systems and services"
+    correct_answer: 1
+    explanations:
+      correct: "Authentication answers 'Who are you?' by verifying identity (password, biometrics, tokens). Authorization answers 'What can you do?' by determining what resources and actions the authenticated identity is permitted to access."
+      incorrect:
+        - "This is reversed. Authentication verifies identity (who you are); authorization determines what you're permitted to do."
+        - "Authentication verifies identity; authorization determines permissions — this is correct."
+        - "They are distinct processes. Authentication must succeed before authorization can occur."
+        - "Both authentication and authorization apply to humans, systems, services, and applications."
+    difficulty: "easy"
+    tags: ["authentication", "authorization", "IAM"]
+
+  - id: q-d5-007
+    domain: domain5
+    question: "SAML is primarily used to enable which capability?"
+    options:
+      - "Encrypting database credentials"
+      - "Single Sign-On between identity providers and service providers"
+      - "Two-factor authentication for mobile devices"
+      - "Certificate-based authentication for network devices"
+    correct_answer: 1
+    explanations:
+      correct: "SAML (Security Assertion Markup Language) is an XML-based standard that enables SSO by allowing Identity Providers (IdPs) to securely communicate authentication and authorization data to Service Providers (SPs), enabling federated identity."
+      incorrect:
+        - "SAML is not used for database credential encryption — it is an authentication/authorization communication standard."
+        - "SSO between identity and service providers is the primary use case for SAML."
+        - "While SAML can include MFA assertions, its primary purpose is SSO federation, not 2FA specifically."
+        - "Certificate-based authentication for network devices uses protocols like EAP-TLS or 802.1X, not SAML."
+    difficulty: "medium"
+    tags: ["SAML", "SSO", "federation"]
+
+  - id: q-d5-008
+    domain: domain5
+    question: "Which access control principle requires that when an employee changes roles, their old access permissions should be removed and only new, appropriate permissions granted?"
+    options:
+      - "Least privilege"
+      - "Separation of duties"
+      - "Privilege revocation"
+      - "Access recertification"
+    correct_answer: 0
+    explanations:
+      correct: "Least privilege requires that users have only the minimum access necessary for their current role. When roles change, old permissions should be removed (privilege revocation/access recertification) to maintain least privilege. Accumulating permissions across roles is called 'privilege creep.'"
+      incorrect:
+        - "Least privilege requires removing old access when roles change — this correctly describes the principle violated by privilege creep."
+        - "Separation of duties divides critical functions among multiple people — it does not specifically address role change access management."
+        - "Privilege revocation is the action taken (removing old permissions) — least privilege is the underlying principle that drives this requirement."
+        - "Access recertification is a periodic review process to verify access is still appropriate — it is a mechanism to enforce least privilege but not the principle itself."
+    difficulty: "medium"
+    tags: ["least-privilege", "IAM"]
+
+  - id: q-d5-009
+    domain: domain5
+    question: "What is 'privilege creep' and how should it be addressed?"
+    options:
+      - "A system vulnerability where privileges escalate automatically"
+      - "The gradual accumulation of access rights beyond what is needed, addressed through access reviews and recertification"
+      - "When privileged users misuse their access intentionally"
+      - "A type of malware that escalates system privileges"
+    correct_answer: 1
+    explanations:
+      correct: "Privilege creep occurs when users accumulate access rights over time (through job changes, project assignments) beyond what their current role requires. It is addressed through periodic access reviews/recertification and role-change revocation processes."
+      incorrect:
+        - "Automatic privilege escalation is a technical vulnerability, not privilege creep. Privilege creep is an administrative/process issue."
+        - "Gradual accumulation beyond need, addressed through reviews — this correctly describes privilege creep and its remediation."
+        - "Intentional misuse of privileges is insider threat — privilege creep describes unintended accumulation, not intentional misuse."
+        - "Privilege escalation malware is a technical attack — privilege creep is an administrative access management problem."
+    difficulty: "medium"
+    tags: ["IAM", "access-control"]
+
+  - id: q-d5-010
+    domain: domain5
+    question: "What is the primary purpose of Privileged Access Management (PAM) solutions?"
+    options:
+      - "Managing password complexity requirements for all users"
+      - "Controlling, monitoring, and auditing privileged account access to reduce risk from compromised or abused admin credentials"
+      - "Providing self-service password reset for end users"
+      - "Enforcing multi-factor authentication for all user accounts"
+    correct_answer: 1
+    explanations:
+      correct: "PAM solutions specifically manage privileged accounts (admin, root, service accounts) through credential vaulting, just-in-time access, session recording, and monitoring. Privileged accounts are targeted in 80% of breaches, making PAM critical."
+      incorrect:
+        - "General password management (complexity, history, expiration) is handled by password policies, not PAM specifically."
+        - "PAM controls privileged access with vaulting, JIT provisioning, and session recording — this is the correct description."
+        - "Self-service password reset is a standard IAM feature, not specifically PAM. PAM focuses on privileged/administrative accounts."
+        - "MFA enforcement is a broader IAM control. PAM specifically addresses privileged accounts beyond just adding MFA."
+    difficulty: "medium"
+    tags: ["PAM", "privileged-access"]
+
+  - id: q-d5-011
+    domain: domain5
+    question: "In federated identity management, what is the role of an Identity Provider (IdP)?"
+    options:
+      - "The service that the user wants to access"
+      - "The organization that authenticates users and asserts their identity to service providers"
+      - "The protocol used to transmit identity assertions"
+      - "The network device that enforces access policies"
+    correct_answer: 1
+    explanations:
+      correct: "The Identity Provider (IdP) authenticates the user and creates identity assertions (e.g., SAML assertions, JWT tokens) that are trusted by Service Providers (SPs). The IdP manages the user's credentials and identity."
+      incorrect:
+        - "The service the user wants to access is the Service Provider (SP), not the Identity Provider."
+        - "The IdP authenticates users and asserts their identity — this correctly describes the IdP role."
+        - "The protocol (SAML, OAuth, OIDC) is the communication standard, not the IdP."
+        - "Access policy enforcement is done by the SP or an access control system, not the IdP."
+    difficulty: "medium"
+    tags: ["federation", "SSO", "IAM"]
+
+  - id: q-d5-012
+    domain: domain5
+    question: "Which biometric authentication factor has the highest accuracy and is considered most secure for identification purposes?"
+    options:
+      - "Fingerprint recognition"
+      - "Facial recognition"
+      - "Iris scan"
+      - "Voice recognition"
+    correct_answer: 2
+    explanations:
+      correct: "Iris scans are considered among the most accurate biometric identifiers. The iris pattern is highly unique (even between identical twins), remains stable throughout life, and is difficult to forge. It has very low False Acceptance Rate (FAR) and False Rejection Rate (FRR)."
+      incorrect:
+        - "Fingerprint recognition is widely used and accurate but can be affected by cuts, dirt, or age. It is less accurate than iris scans."
+        - "Facial recognition has improved dramatically but can be fooled by photos, twins, or facial changes and is generally less accurate than iris scans in controlled conditions."
+        - "Iris scans are the most accurate common biometric — stable, unique, and hard to forge."
+        - "Voice recognition is the least reliable biometric — affected by illness, ambient noise, and can be replayed or synthesized."
+    difficulty: "hard"
+    tags: ["biometrics", "authentication"]

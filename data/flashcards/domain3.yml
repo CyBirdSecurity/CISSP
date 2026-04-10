@@ -1,0 +1,105 @@
+flashcards:
+  - id: fc-d3-001
+    domain: domain3
+    term: "Bell-LaPadula Model"
+    definition: "A formal state machine model focused on confidentiality using rules: No Read Up (Simple Security) and No Write Down (*-Property)"
+    explanation: "Designed for military/government use. Subjects cannot read data at a higher classification ('no read up') and cannot write data to a lower classification ('no write down'). Protects confidentiality but not integrity."
+    tags: ["security-models", "confidentiality"]
+
+  - id: fc-d3-002
+    domain: domain3
+    term: "Biba Integrity Model"
+    definition: "A formal security model focused on integrity using rules: No Read Down (Simple Integrity) and No Write Up (*-Integrity Property)"
+    explanation: "The inverse of Bell-LaPadula but for integrity. Subjects cannot read data from a lower integrity level ('no read down') and cannot write to a higher integrity level ('no write up'). Protects data from corruption."
+    tags: ["security-models", "integrity"]
+
+  - id: fc-d3-003
+    domain: domain3
+    term: "Clark-Wilson Model"
+    definition: "An integrity model using well-formed transactions and separation of duties to ensure data integrity in commercial environments"
+    explanation: "Uses Constrained Data Items (CDIs), Unconstrained Data Items (UDIs), Integrity Verification Procedures (IVPs), and Transformation Procedures (TPs). Subjects can only access objects through programs (TPs), ensuring proper transactions."
+    tags: ["security-models", "integrity"]
+
+  - id: fc-d3-004
+    domain: domain3
+    term: "Brewer-Nash (Chinese Wall) Model"
+    definition: "A security model that prevents conflicts of interest by restricting access based on a user's prior access history"
+    explanation: "Originally designed for financial consulting. Once a user accesses data about one company, they are blocked from accessing competing companies' data. Prevents information flow that creates conflicts of interest."
+    tags: ["security-models", "integrity"]
+
+  - id: fc-d3-005
+    domain: domain3
+    term: "Trusted Computing Base (TCB)"
+    definition: "The totality of protection mechanisms within a computer system that are responsible for enforcing a security policy"
+    explanation: "The TCB includes hardware, firmware, and software. It must be as small as possible (small TCB = smaller attack surface). The TCB must be tamper-resistant and cannot be bypassed."
+    tags: ["architecture", "trusted-systems"]
+
+  - id: fc-d3-006
+    domain: domain3
+    term: "Reference Monitor"
+    definition: "An abstract concept defining a system component that mediates all access between subjects and objects"
+    explanation: "The reference monitor must be: always invoked (cannot be bypassed), tamper-proof, and small enough to be verified. The security kernel implements the reference monitor concept."
+    tags: ["architecture", "trusted-systems"]
+
+  - id: fc-d3-007
+    domain: domain3
+    term: "Symmetric Encryption"
+    definition: "Encryption that uses the same key for both encryption and decryption"
+    explanation: "Examples: AES (128/192/256-bit), DES, 3DES, Blowfish, RC4. Fast and efficient for large data volumes. Key distribution is the main challenge — both parties must securely share the same secret key."
+    tags: ["cryptography", "symmetric"]
+
+  - id: fc-d3-008
+    domain: domain3
+    term: "Asymmetric Encryption"
+    definition: "Encryption using a mathematically related key pair: a public key for encryption and a private key for decryption"
+    explanation: "Examples: RSA, ECC, Diffie-Hellman, ElGamal. Solves the key distribution problem. Public key can be shared openly; private key is kept secret. Much slower than symmetric encryption — typically used for key exchange and digital signatures."
+    tags: ["cryptography", "asymmetric"]
+
+  - id: fc-d3-009
+    domain: domain3
+    term: "Cryptographic Hash Function"
+    definition: "A one-way function that produces a fixed-size digest from variable-length input, with the property that any change in input produces a completely different output"
+    explanation: "Properties: deterministic, fast computation, pre-image resistance, collision resistance, avalanche effect. Examples: SHA-256, SHA-3, MD5 (broken). Used for integrity verification and password storage."
+    tags: ["cryptography", "hashing"]
+
+  - id: fc-d3-010
+    domain: domain3
+    term: "Digital Signature"
+    definition: "A cryptographic mechanism that provides authentication, integrity, and non-repudiation by encrypting a message hash with the sender's private key"
+    explanation: "Process: sender hashes the message, encrypts hash with their private key (creating the signature). Receiver decrypts signature with sender's public key and compares to their own hash of the message. Proves authenticity and integrity."
+    tags: ["cryptography", "PKI"]
+
+  - id: fc-d3-011
+    domain: domain3
+    term: "Public Key Infrastructure (PKI)"
+    definition: "A framework of policies, procedures, hardware, software, and people needed to create, manage, distribute, and revoke digital certificates"
+    explanation: "Components: CA (Certificate Authority), RA (Registration Authority), CRL (Certificate Revocation List), certificates. PKI enables secure communications by binding public keys to verified identities."
+    tags: ["cryptography", "PKI"]
+
+  - id: fc-d3-012
+    domain: domain3
+    term: "Kerckhoffs's Principle"
+    definition: "The principle that a cryptosystem should be secure even if everything about the system, except the key, is public knowledge"
+    explanation: "Security through obscurity is not sufficient. Strong encryption must rely on key secrecy, not algorithm secrecy. All modern encryption standards (AES, RSA) are public. Opposite of security through obscurity."
+    tags: ["cryptography", "principles"]
+
+  - id: fc-d3-013
+    domain: domain3
+    term: "Defense in Depth"
+    definition: "A layered security strategy using multiple independent security controls to protect assets"
+    explanation: "Physical, logical, and administrative controls at multiple layers. If one control fails, others provide protection. Example: Perimeter firewall → network segmentation → host-based firewall → application controls → encryption."
+    tags: ["architecture", "strategy"]
+
+  - id: fc-d3-014
+    domain: domain3
+    term: "Secure Facility Design"
+    definition: "Physical security principles applied to building and room design to protect assets from unauthorized access and environmental threats"
+    explanation: "CPTED (Crime Prevention Through Environmental Design) principles: natural surveillance, natural access control, territorial reinforcement. Physical controls: fences, bollards, mantrap/airlock, biometric access."
+    tags: ["physical-security", "facilities"]
+
+  - id: fc-d3-015
+    domain: domain3
+    term: "Common Criteria (CC)"
+    definition: "An international standard (ISO/IEC 15408) for evaluating the security properties of IT products through defined evaluation assurance levels (EALs)"
+    explanation: "EAL1 (lowest, functionally tested) through EAL7 (highest, formally verified). Products earn a CC certificate by meeting Target of Evaluation (TOE) criteria. Widely used for government procurement requirements."
+    tags: ["standards", "evaluation"]

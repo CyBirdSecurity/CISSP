@@ -1,0 +1,105 @@
+flashcards:
+  - id: fc-d2-001
+    domain: domain2
+    term: "Data Classification"
+    definition: "The process of organizing data into categories based on sensitivity, value, and the impact of unauthorized disclosure"
+    explanation: "Government classification levels: Top Secret, Secret, Confidential, Unclassified. Commercial levels: Confidential/Proprietary, Private, Sensitive, Public. Classification drives how data is handled, stored, and transmitted."
+    tags: ["classification", "data"]
+
+  - id: fc-d2-002
+    domain: domain2
+    term: "Data Owner"
+    definition: "A senior executive or manager responsible for the classification, protection, and use of a specific dataset"
+    explanation: "The data owner defines access rules and classification levels. They are accountable for the data but may delegate day-to-day management to a data custodian. Often a business unit manager."
+    tags: ["roles", "data"]
+
+  - id: fc-d2-003
+    domain: domain2
+    term: "Data Custodian"
+    definition: "The technical role responsible for implementing the data owner's security controls and managing day-to-day data security"
+    explanation: "Custodians handle backups, access control implementation, and technical safeguards. They follow the policies set by the data owner but do not determine classification levels."
+    tags: ["roles", "data"]
+
+  - id: fc-d2-004
+    domain: domain2
+    term: "Data Controller"
+    definition: "Under GDPR and privacy regulations, the entity that determines the purposes and means of processing personal data"
+    explanation: "The data controller has legal responsibility for how personal data is collected and used. They must ensure compliance with applicable data protection laws and can be liable for breaches."
+    tags: ["privacy", "GDPR", "roles"]
+
+  - id: fc-d2-005
+    domain: domain2
+    term: "Data Processor"
+    definition: "An entity that processes personal data on behalf of and under the instructions of the data controller"
+    explanation: "Data processors (e.g., cloud providers, payroll companies) must have data processing agreements with controllers. They follow controller instructions but can also bear liability under GDPR."
+    tags: ["privacy", "GDPR", "roles"]
+
+  - id: fc-d2-006
+    domain: domain2
+    term: "PII (Personally Identifiable Information)"
+    definition: "Any information that can be used to identify, contact, or locate a specific individual"
+    explanation: "PII includes names, SSNs, addresses, email, phone numbers, and biometric data. Organizations must protect PII through appropriate technical and administrative controls and comply with privacy laws."
+    tags: ["privacy", "PII"]
+
+  - id: fc-d2-007
+    domain: domain2
+    term: "Data Remanence"
+    definition: "The residual representation of data that remains on storage media after deletion attempts"
+    explanation: "Even after deletion, data may still be recoverable through forensic analysis. Data remanence must be addressed before disposing of or repurposing storage media through proper sanitization."
+    tags: ["data-destruction", "sanitization"]
+
+  - id: fc-d2-008
+    domain: domain2
+    term: "Data Sanitization"
+    definition: "The process of irreversibly removing or destroying data from storage media to prevent unauthorized recovery"
+    explanation: "Methods include: Clearing (overwriting with non-sensitive data), Purging (degaussing or overwriting), Destruction (physical). The appropriate method depends on data sensitivity and media type."
+    tags: ["data-destruction", "sanitization"]
+
+  - id: fc-d2-009
+    domain: domain2
+    term: "Degaussing"
+    definition: "The process of exposing magnetic storage media to a strong magnetic field to erase data"
+    explanation: "Degaussing is effective for magnetic media (HDDs, tapes) but renders the media unusable. It does NOT work on SSDs, flash drives, or optical media. Used for Secret or higher classification data destruction."
+    tags: ["data-destruction", "media"]
+
+  - id: fc-d2-010
+    domain: domain2
+    term: "Scoping and Tailoring"
+    definition: "Adjusting security control baselines to fit the specific needs, environment, and risk profile of an organization"
+    explanation: "Scoping excludes controls that don't apply (e.g., wireless controls for a wired-only environment). Tailoring adjusts the implementation of applicable controls. Used when applying frameworks like NIST SP 800-53."
+    tags: ["compliance", "frameworks"]
+
+  - id: fc-d2-011
+    domain: domain2
+    term: "Data Retention Policy"
+    definition: "A policy defining how long different types of data must be kept before they are securely destroyed"
+    explanation: "Retention periods are driven by legal, regulatory, and business requirements. Keeping data longer than required increases risk and liability. Examples: HIPAA requires 6 years, Sarbanes-Oxley requires 7 years."
+    tags: ["policy", "data"]
+
+  - id: fc-d2-012
+    domain: domain2
+    term: "Baseline Security"
+    definition: "A minimum set of security controls established as a starting point for a system or organization"
+    explanation: "Baselines provide a consistent starting point for security. They are derived from standards and best practices (e.g., CIS Benchmarks). All new systems should meet baseline requirements before deployment."
+    tags: ["controls", "standards"]
+
+  - id: fc-d2-013
+    domain: domain2
+    term: "Data at Rest"
+    definition: "Data that is stored in databases, file systems, or any persistent storage medium"
+    explanation: "Data at rest must be protected through encryption (AES-256), access controls, and physical security. Contrast with data in transit (moving across a network) and data in use (actively being processed)."
+    tags: ["data-states", "encryption"]
+
+  - id: fc-d2-014
+    domain: domain2
+    term: "Data in Transit"
+    definition: "Data that is actively moving across a network or between systems"
+    explanation: "Protect with TLS/SSL, IPsec, or other encryption protocols. VPNs protect data in transit over untrusted networks. Packet sniffing is the primary threat to data in transit."
+    tags: ["data-states", "encryption"]
+
+  - id: fc-d2-015
+    domain: domain2
+    term: "Data Sovereignty"
+    definition: "The concept that data is subject to the laws and governance structures of the country where it is physically stored"
+    explanation: "Critical in cloud computing. Organizations must ensure data stored in foreign jurisdictions complies with both domestic and foreign regulations. Example: GDPR requires EU citizen data to comply with EU rules."
+    tags: ["privacy", "legal", "cloud"]

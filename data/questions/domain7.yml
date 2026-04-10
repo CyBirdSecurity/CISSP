@@ -1,0 +1,228 @@
+questions:
+  - id: q-d7-001
+    domain: domain7
+    question: "What is the correct order of NIST's incident response phases?"
+    options:
+      - "Detection, Preparation, Containment, Eradication, Recovery, Post-Incident"
+      - "Preparation, Detection & Analysis, Containment, Eradication, Recovery, Post-Incident Activity"
+      - "Identification, Containment, Eradication, Recovery, Lessons Learned"
+      - "Triage, Investigation, Containment, Resolution, Reporting"
+    correct_answer: 1
+    explanations:
+      correct: "NIST SP 800-61 defines six phases: 1) Preparation, 2) Detection & Analysis, 3) Containment, 4) Eradication, 5) Recovery, 6) Post-Incident Activity (lessons learned). Preparation enables all other phases."
+      incorrect:
+        - "Preparation must come first — you cannot detect before you're prepared. Also, these aren't the correct NIST phase names."
+        - "NIST's six phases are: Preparation, Detection & Analysis, Containment, Eradication, Recovery, Post-Incident Activity."
+        - "This describes the SANS/PICERL model (Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned), not NIST."
+        - "Triage, Investigation, etc. is not a recognized standard incident response methodology."
+    difficulty: "medium"
+    tags: ["incident-response", "NIST"]
+
+  - id: q-d7-002
+    domain: domain7
+    question: "During a digital forensics investigation, why must evidence be collected in order of volatility?"
+    options:
+      - "To minimize storage space requirements"
+      - "To ensure the most transient data is captured before it's lost"
+      - "To comply with chain of custody requirements"
+      - "To prioritize the most important evidence first"
+    correct_answer: 1
+    explanations:
+      correct: "Volatile data (RAM, CPU registers, network connections) disappears when power is lost or the system is rebooted. Collecting in order of volatility ensures transient data is captured first before it is lost. Non-volatile data (disk) persists and can be collected later."
+      incorrect:
+        - "Volatility order is about data persistence, not storage efficiency."
+        - "Capturing transient data before it's lost is the correct reason for collecting in order of volatility."
+        - "Chain of custody is maintained throughout all collection — it is not the reason for the volatility order."
+        - "Importance is not the determining factor — volatility (how quickly data disappears) is."
+    difficulty: "medium"
+    tags: ["forensics", "evidence"]
+
+  - id: q-d7-003
+    domain: domain7
+    question: "What is the primary purpose of 'chain of custody' in digital forensics?"
+    options:
+      - "To speed up the investigation process"
+      - "To document the handling of evidence to maintain its integrity and admissibility"
+      - "To determine the financial cost of a security incident"
+      - "To establish which system was attacked first"
+    correct_answer: 1
+    explanations:
+      correct: "Chain of custody documents everyone who handled evidence, when, and how. This maintains evidence integrity and ensures it is admissible in legal proceedings. A broken chain of custody can result in evidence being rejected in court."
+      incorrect:
+        - "Chain of custody adds procedural requirements — it may slow the investigation but ensures legal admissibility."
+        - "Documenting handling to maintain integrity and admissibility is the primary purpose of chain of custody."
+        - "Incident cost/impact analysis is a separate process from chain of custody documentation."
+        - "Attack timeline reconstruction is done during the investigation — chain of custody is about evidence handling procedures."
+    difficulty: "easy"
+    tags: ["forensics", "evidence"]
+
+  - id: q-d7-004
+    domain: domain7
+    question: "An organization wants to recover IT systems as quickly as possible after a disaster and money is not a concern. Which recovery site option is most appropriate?"
+    options:
+      - "Cold site"
+      - "Warm site"
+      - "Hot site"
+      - "Mobile site"
+    correct_answer: 2
+    explanations:
+      correct: "A hot site is the most expensive option but provides the fastest recovery (minutes to hours) because it maintains real-time or near-real-time data replication and has all hardware, software, and networking pre-configured and ready."
+      incorrect:
+        - "A cold site has only basic infrastructure (power, space) — everything else must be provisioned, resulting in days to weeks of recovery time."
+        - "A warm site has hardware ready but requires data restoration from backups — typically hours to days of recovery time."
+        - "A hot site is the fastest recovery option when cost is not a constraint."
+        - "A mobile site is a portable solution useful for flexible deployment but generally not faster than a pre-configured hot site."
+    difficulty: "easy"
+    tags: ["DRP", "recovery-sites"]
+
+  - id: q-d7-005
+    domain: domain7
+    question: "What is the purpose of 'mandatory vacation' (forced leave) as a security control?"
+    options:
+      - "To improve employee wellness and reduce burnout"
+      - "To detect fraud by requiring another person to perform a role, potentially uncovering irregularities"
+      - "To cross-train staff on multiple job functions"
+      - "To comply with labor law requirements"
+    correct_answer: 1
+    explanations:
+      correct: "The primary security purpose of mandatory vacation is fraud detection. Many fraud schemes require continuous access to cover tracks. When someone else performs the role during forced absence, they may discover irregularities. This deters and detects fraud."
+      incorrect:
+        - "Employee wellness may be a benefit, but it is not the security purpose of mandatory vacation."
+        - "Fraud detection through forced review of an employee's work is the security purpose of mandatory vacation."
+        - "Cross-training is a benefit and side effect, but fraud detection is the primary security rationale."
+        - "Legal compliance may be required in some jurisdictions, but the security purpose is fraud detection."
+    difficulty: "medium"
+    tags: ["operations", "controls", "fraud"]
+
+  - id: q-d7-006
+    domain: domain7
+    question: "An organization's availability calculation shows 99.9% uptime. Approximately how much downtime does this allow per year?"
+    options:
+      - "About 5 minutes"
+      - "About 52 minutes"
+      - "About 8.7 hours"
+      - "About 3.65 days"
+    correct_answer: 2
+    explanations:
+      correct: "99.9% uptime ('three nines') = 0.1% downtime per year. 0.001 × 365.25 days × 24 hours = approximately 8.76 hours per year (or ~526 minutes). For comparison: 99.99% = ~52 minutes/year, 99.999% = ~5 minutes/year."
+      incorrect:
+        - "About 5 minutes per year corresponds to 99.999% ('five nines') uptime, not 99.9%."
+        - "About 52 minutes per year corresponds to 99.99% ('four nines') uptime, not 99.9%."
+        - "99.9% uptime allows approximately 8.76 hours of downtime per year — this is correct."
+        - "About 3.65 days corresponds to approximately 99% uptime, not 99.9%."
+    difficulty: "hard"
+    tags: ["availability", "metrics"]
+
+  - id: q-d7-007
+    domain: domain7
+    question: "What is the primary purpose of patch management?"
+    options:
+      - "Adding new features to software"
+      - "Remediating known security vulnerabilities and software defects"
+      - "Monitoring system performance"
+      - "Backing up system configurations"
+    correct_answer: 1
+    explanations:
+      correct: "Patch management ensures that known security vulnerabilities and software defects are remediated promptly. Unpatched systems are a primary attack vector — major incidents like WannaCry exploited a known, patchable vulnerability (MS17-010)."
+      incorrect:
+        - "Adding new features is software development/updates — patch management focuses on fixing existing issues."
+        - "Remediating vulnerabilities and defects is the primary purpose of patch management."
+        - "System performance monitoring is a separate function — patch management is about fixing known issues."
+        - "Configuration backup is part of change/configuration management, not patch management."
+    difficulty: "easy"
+    tags: ["patch-management", "operations"]
+
+  - id: q-d7-008
+    domain: domain7
+    question: "What is 'separation of duties' in the context of security operations?"
+    options:
+      - "Having different teams handle different types of security incidents"
+      - "Dividing critical functions so no single person can complete a sensitive action or transaction alone"
+      - "Separating development and production environments"
+      - "Using different tools for detection and response"
+    correct_answer: 1
+    explanations:
+      correct: "Separation of duties divides critical functions among multiple people to prevent fraud, errors, and misuse. No single person can complete a sensitive action alone. Example: The person who initiates a change should not be the same person who approves and implements it."
+      incorrect:
+        - "Having different incident response teams is specialization, not separation of duties."
+        - "Dividing critical functions so no single person can act alone — this correctly describes separation of duties."
+        - "Separating dev and production is environment separation, which is related but not the definition of SoD."
+        - "Using different security tools is a defense-in-depth approach, not separation of duties."
+    difficulty: "easy"
+    tags: ["operations", "controls"]
+
+  - id: q-d7-009
+    domain: domain7
+    question: "During the containment phase of incident response, what is the primary objective?"
+    options:
+      - "Identifying all affected systems and determining root cause"
+      - "Limiting the spread and impact of the incident while preserving evidence"
+      - "Returning all systems to normal operations"
+      - "Notifying regulatory authorities of the breach"
+    correct_answer: 1
+    explanations:
+      correct: "The containment phase aims to limit the spread and impact of the incident (stop the bleeding) while preserving evidence for investigation. Containment may involve isolating systems, blocking network traffic, or taking affected systems offline."
+      incorrect:
+        - "Identifying affected systems and root cause is part of Detection & Analysis — containment comes after initial detection."
+        - "Limiting spread while preserving evidence is the correct objective of the containment phase."
+        - "Returning systems to normal operations is the Recovery phase, which comes after Eradication."
+        - "Regulatory notification may be required but is not the primary containment objective — stopping spread is."
+    difficulty: "medium"
+    tags: ["incident-response", "containment"]
+
+  - id: q-d7-010
+    domain: domain7
+    question: "What is MTBF and how does it relate to system availability?"
+    options:
+      - "Mean Time Before Failure — lower is better for availability"
+      - "Mean Time Between Failures — higher means more reliable, improving availability"
+      - "Maximum Time Before Failover — minimum acceptable uptime"
+      - "Mean Time to Backup Files — how often data is backed up"
+    correct_answer: 1
+    explanations:
+      correct: "MTBF (Mean Time Between Failures) measures the average time a system runs before failing. Higher MTBF = more reliable system. Availability = MTBF / (MTBF + MTTR). To improve availability, organizations increase MTBF (better hardware) or decrease MTTR (faster repairs)."
+      incorrect:
+        - "MTBF stands for Mean Time Between Failures, not 'Before.' And higher (not lower) MTBF is desirable."
+        - "Mean Time Between Failures — higher is better, improving availability — this is correct."
+        - "MTBF is not about failover thresholds or minimum uptime targets."
+        - "MTBF measures hardware reliability between failures, not backup frequency."
+    difficulty: "medium"
+    tags: ["availability", "metrics"]
+
+  - id: q-d7-011
+    domain: domain7
+    question: "What is 'job rotation' as a security control and what is its primary security benefit?"
+    options:
+      - "Assigning multiple roles simultaneously to cross-train employees"
+      - "Periodically moving employees between roles to detect fraud and reduce key-person dependency"
+      - "Rotating encryption keys on a regular schedule"
+      - "Changing system administrator passwords on a regular basis"
+    correct_answer: 1
+    explanations:
+      correct: "Job rotation periodically moves employees between roles. The primary security benefit is fraud detection — the incoming person may discover irregularities left by the previous person. It also reduces key-person dependency and provides cross-training."
+      incorrect:
+        - "Holding multiple roles simultaneously is not job rotation — rotation involves sequential, not simultaneous, role assignments."
+        - "Periodically moving employees to detect fraud and reduce dependency is the correct description of job rotation."
+        - "Encryption key rotation is a cryptographic key management practice, not job rotation."
+        - "Password rotation is an account management control, not job rotation."
+    difficulty: "easy"
+    tags: ["operations", "controls", "fraud"]
+
+  - id: q-d7-012
+    domain: domain7
+    question: "What document should be completed after every security incident to improve future response?"
+    options:
+      - "Incident response plan"
+      - "Lessons learned report"
+      - "Business impact analysis"
+      - "Risk register"
+    correct_answer: 1
+    explanations:
+      correct: "A lessons learned report (post-incident review) is completed after every incident to document what happened, what was done well, what could be improved, and what changes are needed. This is the Post-Incident Activity phase in NIST's model."
+      incorrect:
+        - "The incident response plan is prepared before incidents — it is not created after each incident."
+        - "A lessons learned report is the document completed after each incident to drive improvement."
+        - "A BIA is a planning document for business continuity — not a post-incident review document."
+        - "A risk register tracks ongoing risks — it is not specifically created after each incident."
+    difficulty: "easy"
+    tags: ["incident-response", "post-incident"]

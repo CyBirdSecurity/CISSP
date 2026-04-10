@@ -1,0 +1,227 @@
+questions:
+  - id: q-d2-001
+    domain: domain2
+    question: "Who is responsible for determining the classification level and access requirements for a dataset?"
+    options:
+      - "Data custodian"
+      - "Data owner"
+      - "Security administrator"
+      - "Data processor"
+    correct_answer: 1
+    explanations:
+      correct: "The data owner (typically a senior manager or executive) is responsible for classifying data and determining who should have access. They are accountable for the data and set the protection requirements."
+      incorrect:
+        - "The data custodian implements the security controls defined by the owner — they do not determine classification or access requirements."
+        - "The data owner determines classification — not the security administrator, who helps implement technical controls."
+        - "The data processor (under GDPR) processes data on behalf of the controller — they do not set classification levels."
+    difficulty: "easy"
+    tags: ["roles", "classification"]
+
+  - id: q-d2-002
+    domain: domain2
+    question: "An organization is disposing of hard drives from a system that processed classified government information. What is the most secure disposal method?"
+    options:
+      - "Delete all files and format the drives"
+      - "Overwrite the drives with random data seven times"
+      - "Degauss and physically destroy the drives"
+      - "Use the OS secure delete function"
+    correct_answer: 2
+    explanations:
+      correct: "For classified media, the most secure method is degaussing (for magnetic drives) combined with physical destruction. This ensures no data recovery is possible and meets requirements for sensitive data disposal."
+      incorrect:
+        - "Deleting files and formatting only removes the file system references — data remains recoverable using forensic tools."
+        - "Overwriting is effective for non-classified data but for classified information, physical destruction is required to meet strict standards."
+        - "Degauss and physical destruction is the correct answer for classified data — it ensures complete, irreversible elimination."
+        - "OS secure delete functions vary in effectiveness and are not certified for classified data disposal."
+    difficulty: "medium"
+    tags: ["data-destruction", "media"]
+
+  - id: q-d2-003
+    domain: domain2
+    question: "Under GDPR, which party determines the purposes and means of processing personal data and bears primary legal responsibility?"
+    options:
+      - "Data subject"
+      - "Data processor"
+      - "Data controller"
+      - "Supervisory authority"
+    correct_answer: 2
+    explanations:
+      correct: "The data controller determines why (purposes) and how (means) personal data is processed and bears primary legal responsibility for GDPR compliance. They can be fined up to 4% of global annual turnover for violations."
+      incorrect:
+        - "The data subject is the individual whose data is being processed — they have rights but are not responsible for processing decisions."
+        - "The data processor processes data on behalf of and under instruction from the controller — they have obligations but the controller bears primary responsibility."
+        - "The data controller is the correct answer — they determine purposes and means and bear primary legal responsibility."
+        - "Supervisory authorities (like the ICO) enforce GDPR — they do not process or control personal data."
+    difficulty: "medium"
+    tags: ["privacy", "GDPR"]
+
+  - id: q-d2-004
+    domain: domain2
+    question: "What is 'data remanence' and why is it a security concern?"
+    options:
+      - "Data that is copied to multiple locations, increasing exposure"
+      - "Residual data that remains on storage media after deletion attempts"
+      - "Encrypted data that can no longer be decrypted"
+      - "Data retained beyond its required retention period"
+    correct_answer: 1
+    explanations:
+      correct: "Data remanence refers to residual representations of data that persist on storage media after deletion. Standard deletion only removes file system pointers — the actual data remains until overwritten and may be recoverable forensically."
+      incorrect:
+        - "Data copied to multiple locations is a data sprawl or data proliferation issue — not data remanence."
+        - "Data remanence is residual data after deletion — this is the correct answer."
+        - "Unrecoverable encrypted data describes cryptographic erasure or key destruction — not remanence."
+        - "Data kept beyond retention requirements is a compliance issue but not data remanence."
+    difficulty: "medium"
+    tags: ["data-destruction", "remanence"]
+
+  - id: q-d2-005
+    domain: domain2
+    question: "Which data state requires encryption using protocols like TLS or IPsec?"
+    options:
+      - "Data at rest"
+      - "Data in transit"
+      - "Data in use"
+      - "Data in archive"
+    correct_answer: 1
+    explanations:
+      correct: "Data in transit (moving across a network) should be protected with TLS, IPsec, or other transport encryption protocols. This prevents interception and eavesdropping during transmission."
+      incorrect:
+        - "Data at rest (stored) requires encryption solutions like AES-256 for disk/database encryption — not TLS/IPsec."
+        - "Data in transit is the correct answer — TLS and IPsec protect data moving across networks."
+        - "Data in use (actively processed in RAM) is the hardest state to protect — technologies like Trusted Execution Environments (TEE) and homomorphic encryption address this."
+        - "Data in archive is a form of data at rest and requires storage encryption, not TLS/IPsec."
+    difficulty: "easy"
+    tags: ["data-states", "encryption"]
+
+  - id: q-d2-006
+    domain: domain2
+    question: "What is the primary difference between 'clearing' and 'purging' storage media?"
+    options:
+      - "Clearing is physical destruction; purging is overwriting"
+      - "Clearing removes data for internal reuse; purging makes data irrecoverable even with lab techniques"
+      - "They are equivalent methods that achieve the same level of data removal"
+      - "Clearing works on SSDs; purging works on magnetic media"
+    correct_answer: 1
+    explanations:
+      correct: "Clearing (e.g., overwriting) makes data inaccessible through normal means but may be recoverable with lab techniques. Purging (e.g., degaussing, cryptographic erasure) makes data recovery infeasible even with advanced forensic techniques."
+      incorrect:
+        - "Physical destruction is a separate sanitization method. Clearing is overwriting; purging includes degaussing and more thorough methods."
+        - "Clearing is for internal reuse where casual recovery is the concern; purging is for releasing media outside the organization where lab recovery is a concern."
+        - "They are not equivalent — they provide different levels of assurance and are appropriate for different situations."
+        - "The choice of method is based on the classification of data and the media type, not a simple SSD vs. magnetic distinction."
+    difficulty: "hard"
+    tags: ["sanitization", "data-destruction"]
+
+  - id: q-d2-007
+    domain: domain2
+    question: "A cloud provider stores customer data in servers located in Germany. A US government agency issues a subpoena for this data. Which concept most directly governs this situation?"
+    options:
+      - "Data classification"
+      - "Data sovereignty"
+      - "Data retention"
+      - "Privacy by design"
+    correct_answer: 1
+    explanations:
+      correct: "Data sovereignty holds that data is subject to the laws of the country where it physically resides. This creates jurisdictional conflicts — German data may be protected by GDPR while US law may compel disclosure."
+      incorrect:
+        - "Data classification determines sensitivity levels but does not govern which country's laws apply to stored data."
+        - "Data sovereignty is the correct concept — it addresses jurisdictional authority over data based on its physical location."
+        - "Data retention policies determine how long data is kept — not which legal authority can compel access."
+        - "Privacy by design is a framework for building privacy into systems from the start — not a legal jurisdiction concept."
+    difficulty: "medium"
+    tags: ["sovereignty", "legal", "cloud"]
+
+  - id: q-d2-008
+    domain: domain2
+    question: "Which type of media sanitization renders the device permanently unusable but provides the highest assurance of data destruction?"
+    options:
+      - "Overwriting"
+      - "Degaussing"
+      - "Cryptographic erasure"
+      - "Physical destruction"
+    correct_answer: 3
+    explanations:
+      correct: "Physical destruction (shredding, incineration, disintegration) renders the media permanently unusable and provides the highest assurance that data cannot be recovered. Required for the highest classification levels."
+      incorrect:
+        - "Overwriting leaves the media functional for reuse but provides lower assurance as recovery may be possible with advanced tools."
+        - "Degaussing works on magnetic media and renders it unusable, but is not effective on SSDs or flash storage."
+        - "Cryptographic erasure destroys the encryption key, making data unreadable, but relies on the strength of the encryption."
+        - "Physical destruction is correct — it provides the absolute highest assurance of data elimination."
+    difficulty: "medium"
+    tags: ["sanitization", "data-destruction"]
+
+  - id: q-d2-009
+    domain: domain2
+    question: "An organization is 'scoping' its NIST SP 800-53 security controls. What does scoping involve?"
+    options:
+      - "Prioritizing controls by implementation cost"
+      - "Identifying and excluding controls that are not applicable to the organization's environment"
+      - "Adding additional controls beyond the baseline"
+      - "Translating controls into specific technical configurations"
+    correct_answer: 1
+    explanations:
+      correct: "Scoping involves reviewing a security control baseline and identifying controls that are not applicable to the organization's specific environment and excluding them. For example, excluding wireless controls from a wired-only environment."
+      incorrect:
+        - "Prioritizing controls by cost is part of implementation planning, not scoping. Scoping determines applicability, not priority."
+        - "Scoping is about excluding non-applicable controls — this is the correct answer."
+        - "Adding controls beyond the baseline is called supplementation, not scoping."
+        - "Translating controls into technical configurations is implementation — scoping is a pre-implementation selection activity."
+    difficulty: "hard"
+    tags: ["compliance", "frameworks"]
+
+  - id: q-d2-010
+    domain: domain2
+    question: "What is the key difference between a data owner and a data steward?"
+    options:
+      - "Data owners handle technical implementation; stewards set policy"
+      - "Data owners have business accountability; stewards manage day-to-day data quality and governance"
+      - "They are interchangeable roles in most organizations"
+      - "Data owners only exist in government organizations; stewards are the commercial equivalent"
+    correct_answer: 1
+    explanations:
+      correct: "Data owners have business accountability and make high-level decisions about data classification and access. Data stewards handle operational data governance — ensuring data quality, consistency, and adherence to the owner's policies on a day-to-day basis."
+      incorrect:
+        - "This is reversed. Data owners set business policy and accountability; technical implementation is the custodian's role."
+        - "Data owners have business accountability; data stewards manage day-to-day governance — this is the correct distinction."
+        - "They are distinct roles with different responsibilities, though role definitions may vary by organization."
+        - "Both roles exist across all sectors, not just government."
+    difficulty: "hard"
+    tags: ["roles", "governance"]
+
+  - id: q-d2-011
+    domain: domain2
+    question: "Which privacy principle requires that data collection be limited to only what is necessary for the specific stated purpose?"
+    options:
+      - "Purpose limitation"
+      - "Data minimization"
+      - "Storage limitation"
+      - "Accuracy"
+    correct_answer: 1
+    explanations:
+      correct: "Data minimization (under GDPR Article 5) requires that personal data be 'adequate, relevant and limited to what is necessary in relation to the purposes for which it is processed.' Collect only what you need."
+      incorrect:
+        - "Purpose limitation means data collected for one purpose cannot be reprocessed for a different incompatible purpose — it does not limit the volume of collection."
+        - "Data minimization is correct — it limits collection to what is necessary for the stated purpose."
+        - "Storage limitation addresses how long data is retained — not how much is collected."
+        - "Accuracy requires that data be kept correct and up to date — not limited in scope."
+    difficulty: "medium"
+    tags: ["privacy", "GDPR"]
+
+  - id: q-d2-012
+    domain: domain2
+    question: "Degaussing is an effective data sanitization method for which type of storage media?"
+    options:
+      - "Solid State Drives (SSDs)"
+      - "USB flash drives"
+      - "Magnetic hard disk drives (HDDs)"
+      - "Optical discs (CD/DVD)"
+    correct_answer: 2
+    explanations:
+      correct: "Degaussing uses a strong magnetic field to erase data on magnetic storage media (HDDs, magnetic tapes). It is effective on magnetic media but does NOT work on SSDs, flash drives, or optical media."
+      incorrect:
+        - "Degaussing is NOT effective on SSDs because they use NAND flash memory, which is not affected by magnetic fields."
+        - "USB flash drives use NAND flash memory and are not affected by degaussing — overwriting or physical destruction must be used."
+        - "Magnetic HDDs are correctly identified as the media type where degaussing is effective."
+        - "Optical discs (CD/DVD/Blu-ray) store data using physical pits and lands on the disc surface — magnetic fields have no effect."
+    difficulty: "easy"
+    tags: ["sanitization", "media"]

@@ -1,0 +1,105 @@
+flashcards:
+  - id: fc-d1-001
+    domain: domain1
+    term: "CIA Triad"
+    definition: "The three core principles of information security: Confidentiality, Integrity, and Availability"
+    explanation: "Confidentiality ensures only authorized access; Integrity ensures data accuracy and completeness; Availability ensures timely access to resources. All security controls can be mapped to one or more of these principles."
+    tags: ["CIA", "fundamentals"]
+
+  - id: fc-d1-002
+    domain: domain1
+    term: "Risk"
+    definition: "The probability that a threat will exploit a vulnerability, combined with the potential impact of that event"
+    explanation: "Risk = Threat × Vulnerability × Impact. Risk is never fully eliminated but can be managed through acceptance, avoidance, mitigation, or transfer."
+    tags: ["risk", "fundamentals"]
+
+  - id: fc-d1-003
+    domain: domain1
+    term: "Threat"
+    definition: "Any circumstance or event with the potential to cause harm to an information system through unauthorized access, destruction, disclosure, or modification"
+    explanation: "Threats can be natural (hurricanes), human (hackers), or environmental (power failure). A threat agent is the entity that exploits a vulnerability."
+    tags: ["risk", "threats"]
+
+  - id: fc-d1-004
+    domain: domain1
+    term: "Vulnerability"
+    definition: "A weakness in a system, process, or control that could be exploited by a threat to cause harm"
+    explanation: "Vulnerabilities exist in software (unpatched systems), processes (weak procedures), and people (lack of training). Reducing vulnerabilities reduces overall risk."
+    tags: ["risk", "vulnerabilities"]
+
+  - id: fc-d1-005
+    domain: domain1
+    term: "Risk Management"
+    definition: "The process of identifying, assessing, and responding to risk to keep it within acceptable levels"
+    explanation: "The four responses to risk are: Accept (acknowledge and do nothing), Avoid (eliminate the activity), Mitigate (reduce likelihood or impact), Transfer (shift risk to a third party via insurance or contracts)."
+    tags: ["risk", "management"]
+
+  - id: fc-d1-006
+    domain: domain1
+    term: "Business Continuity Plan (BCP)"
+    definition: "A plan that ensures critical business functions can continue during and after a disaster"
+    explanation: "BCP is strategic and focuses on keeping the business running. It encompasses DRP but also covers non-IT functions. BCP planning involves BIA, risk assessment, strategy development, and testing."
+    tags: ["BCP", "continuity"]
+
+  - id: fc-d1-007
+    domain: domain1
+    term: "Disaster Recovery Plan (DRP)"
+    definition: "The technical subset of BCP focused on restoring IT systems and operations after a disruption"
+    explanation: "DRP defines the steps to recover technology infrastructure. It is tactical in nature and specifies recovery procedures, responsibilities, and timelines."
+    tags: ["DRP", "recovery"]
+
+  - id: fc-d1-008
+    domain: domain1
+    term: "Recovery Time Objective (RTO)"
+    definition: "The maximum acceptable length of time that a system or process can be offline after a disruption"
+    explanation: "RTO defines how quickly systems must be restored. A lower RTO requires more investment in redundancy and hot standby systems. RTO is determined during the Business Impact Analysis."
+    tags: ["BCP", "DRP", "metrics"]
+
+  - id: fc-d1-009
+    domain: domain1
+    term: "Recovery Point Objective (RPO)"
+    definition: "The maximum acceptable amount of data loss measured in time — how far back in time recovery must restore data"
+    explanation: "RPO determines backup frequency. An RPO of 4 hours means you can lose up to 4 hours of data, requiring backups every 4 hours or less."
+    tags: ["BCP", "DRP", "metrics"]
+
+  - id: fc-d1-010
+    domain: domain1
+    term: "Due Care"
+    definition: "Taking reasonable precautions and acting responsibly to protect assets — doing what a reasonable person would do"
+    explanation: "Due care is the action — implementing security controls. It demonstrates that an organization is actively protecting its assets. Failure to exercise due care can result in legal liability."
+    tags: ["governance", "legal"]
+
+  - id: fc-d1-011
+    domain: domain1
+    term: "Due Diligence"
+    definition: "The practice of continually investigating and understanding the risks to which an organization is exposed"
+    explanation: "Due diligence is the research — assessing vendors, understanding threats, reviewing controls. Due care is doing something; due diligence is knowing what to do."
+    tags: ["governance", "legal"]
+
+  - id: fc-d1-012
+    domain: domain1
+    term: "Security Policy"
+    definition: "A high-level management statement defining the organization's stance on security and its commitment to protecting information assets"
+    explanation: "Policies are the highest-level security document. They drive standards (specific requirements), guidelines (recommendations), and procedures (step-by-step instructions)."
+    tags: ["governance", "policy"]
+
+  - id: fc-d1-013
+    domain: domain1
+    term: "Least Privilege"
+    definition: "The principle that users and processes should have only the minimum access rights necessary to perform their functions"
+    explanation: "Least privilege limits the blast radius of compromised accounts and reduces insider threat risk. It applies to users, services, and processes alike."
+    tags: ["access-control", "principles"]
+
+  - id: fc-d1-014
+    domain: domain1
+    term: "Defense in Depth"
+    definition: "A security strategy that employs multiple layers of controls so that if one layer fails, others remain to protect the asset"
+    explanation: "Also called layered security. Uses administrative, technical, and physical controls at multiple layers. No single point of failure. Example: firewall + IPS + antivirus + endpoint detection."
+    tags: ["strategy", "principles"]
+
+  - id: fc-d1-015
+    domain: domain1
+    term: "Business Impact Analysis (BIA)"
+    definition: "A process that identifies critical business functions and the impact of disrupting those functions"
+    explanation: "BIA outputs include MTD, RTO, RPO, and a prioritized list of systems. It determines which functions are mission-critical and informs BCP/DRP strategy."
+    tags: ["BCP", "analysis"]

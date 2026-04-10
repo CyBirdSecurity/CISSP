@@ -1,0 +1,105 @@
+flashcards:
+  - id: fc-d6-001
+    domain: domain6
+    term: "Penetration Testing"
+    definition: "An authorized simulated cyberattack on a system to evaluate its security posture by actively exploiting vulnerabilities"
+    explanation: "Phases: Reconnaissance, Scanning, Exploitation, Post-exploitation, Reporting. Different from vulnerability scanning — pen testing actively exploits. Types: Black box (no prior knowledge), White box (full knowledge), Gray box (partial knowledge)."
+    tags: ["pen-testing", "assessment"]
+
+  - id: fc-d6-002
+    domain: domain6
+    term: "Vulnerability Scanning"
+    definition: "An automated process that identifies known security weaknesses in systems, networks, and applications without exploiting them"
+    explanation: "Non-intrusive — scans for known vulnerabilities using a database of signatures. Examples: Nessus, Qualys, OpenVAS. Does not confirm exploitability. Should be performed regularly. Contrast with penetration testing which confirms exploitability."
+    tags: ["scanning", "assessment"]
+
+  - id: fc-d6-003
+    domain: domain6
+    term: "CVSS (Common Vulnerability Scoring System)"
+    definition: "An industry standard framework for rating the severity of security vulnerabilities on a scale of 0.0 to 10.0"
+    explanation: "CVSS v3 base metrics: Attack Vector, Attack Complexity, Privileges Required, User Interaction, Scope, Confidentiality/Integrity/Availability Impact. Critical (9.0-10.0), High (7.0-8.9), Medium (4.0-6.9), Low (0.1-3.9)."
+    tags: ["vulnerability", "metrics"]
+
+  - id: fc-d6-004
+    domain: domain6
+    term: "Black Box Testing"
+    definition: "A testing approach where the tester has no prior knowledge of the internal workings of the system being tested"
+    explanation: "Simulates an external attacker's perspective. Most realistic for external threat simulation but least efficient — tester must discover everything. Also called opaque-box testing. Less likely to find complex logic flaws than white box."
+    tags: ["testing-types", "pen-testing"]
+
+  - id: fc-d6-005
+    domain: domain6
+    term: "White Box Testing"
+    definition: "A testing approach where the tester has complete knowledge of the system, including source code, architecture, and credentials"
+    explanation: "Most thorough and efficient — tester can focus on logic and code-level vulnerabilities. Used in code reviews, security audits of specific components. Also called clear-box or glass-box testing."
+    tags: ["testing-types", "pen-testing"]
+
+  - id: fc-d6-006
+    domain: domain6
+    term: "Threat Modeling"
+    definition: "A structured process for identifying, quantifying, and addressing security risks associated with a system or application"
+    explanation: "Common methodologies: STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege), DREAD, PASTA, VAST. Performed during design phase to find issues early and cheaply."
+    tags: ["threat-modeling", "assessment"]
+
+  - id: fc-d6-007
+    domain: domain6
+    term: "SAST (Static Application Security Testing)"
+    definition: "Analysis of application source code, bytecode, or binaries without executing the application to identify security vulnerabilities"
+    explanation: "White-box testing technique. Analyzes code for patterns matching known vulnerabilities (SQL injection, buffer overflow, hardcoded credentials). Integrated into CI/CD pipelines for early detection. Cannot find runtime/environmental issues."
+    tags: ["SAST", "code-review"]
+
+  - id: fc-d6-008
+    domain: domain6
+    term: "DAST (Dynamic Application Security Testing)"
+    definition: "Security testing performed on a running application by sending inputs and observing outputs to identify vulnerabilities"
+    explanation: "Black-box testing technique. Simulates real-world attacks against a live application. Tools: OWASP ZAP, Burp Suite. Finds runtime vulnerabilities that SAST misses. Cannot identify code-level issues. Complements SAST."
+    tags: ["DAST", "testing"]
+
+  - id: fc-d6-009
+    domain: domain6
+    term: "Fuzzing (Fuzz Testing)"
+    definition: "An automated testing technique that sends large amounts of random, malformed, or unexpected input to an application to discover crashes and vulnerabilities"
+    explanation: "Effective for finding buffer overflows, format string bugs, and input validation issues. Types: mutation-based (modifies existing inputs), generation-based (creates inputs from scratch). Coverage-guided fuzzing (AFL, LibFuzzer) is most effective."
+    tags: ["fuzzing", "testing"]
+
+  - id: fc-d6-010
+    domain: domain6
+    term: "Security Audit"
+    definition: "A systematic, measurable technical assessment of how well an organization's security policies and controls are implemented"
+    explanation: "Types: Internal (by internal team), External (by third party), Compliance (against specific standard like PCI DSS, ISO 27001). An audit verifies that controls are in place and working — distinct from a risk assessment which identifies risks."
+    tags: ["audit", "compliance"]
+
+  - id: fc-d6-011
+    domain: domain6
+    term: "Log Review"
+    definition: "The systematic examination of event logs from systems, applications, and network devices to detect security incidents and policy violations"
+    explanation: "Critical for incident detection and forensic investigation. Logs should be: centralized (SIEM), tamper-proof, time-synchronized (NTP), retained per policy. Review key logs: authentication, privilege use, network flows, application errors."
+    tags: ["monitoring", "logs"]
+
+  - id: fc-d6-012
+    domain: domain6
+    term: "SIEM (Security Information and Event Management)"
+    definition: "A platform that aggregates and correlates security logs from multiple sources to provide real-time analysis and alerting"
+    explanation: "Combines SIM (Security Information Management — log storage/analysis) and SEM (Security Event Management — real-time monitoring/alerting). Enables correlation rules to detect complex, multi-step attacks. Examples: Splunk, IBM QRadar, Microsoft Sentinel."
+    tags: ["monitoring", "SIEM"]
+
+  - id: fc-d6-013
+    domain: domain6
+    term: "SOC 2 (Service Organization Control 2)"
+    definition: "An auditing procedure that ensures service providers securely manage data to protect the privacy and interests of clients"
+    explanation: "Based on five Trust Services Criteria: Security, Availability, Processing Integrity, Confidentiality, Privacy. Type I: tests controls at a point in time. Type II: tests effectiveness over a period (more valuable). Required by many enterprise clients."
+    tags: ["compliance", "audit"]
+
+  - id: fc-d6-014
+    domain: domain6
+    term: "Regression Testing"
+    definition: "Re-testing previously identified vulnerabilities after remediation to confirm they have been properly fixed"
+    explanation: "Ensures patches and fixes don't reintroduce old vulnerabilities or create new ones. Critical part of the vulnerability management lifecycle. Also validates that new code changes haven't broken existing security controls."
+    tags: ["testing", "vulnerability"]
+
+  - id: fc-d6-015
+    domain: domain6
+    term: "Red Team / Blue Team"
+    definition: "Red team simulates adversaries to test defenses; Blue team defends and responds. Purple teaming combines both for collaborative improvement"
+    explanation: "Red team: offensive, uses real attack techniques, adversarial thinking. Blue team: defensive, incident response, monitoring. Purple team: red and blue work together to transfer knowledge and improve detection/response capabilities."
+    tags: ["pen-testing", "assessment"]

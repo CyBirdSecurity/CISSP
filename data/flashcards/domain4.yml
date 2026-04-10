@@ -1,0 +1,105 @@
+flashcards:
+  - id: fc-d4-001
+    domain: domain4
+    term: "OSI Model"
+    definition: "A 7-layer conceptual framework for understanding how network communication functions: Physical, Data Link, Network, Transport, Session, Presentation, Application"
+    explanation: "Mnemonic: 'Please Do Not Throw Sausage Pizza Away'. Layer 7 (Application) is closest to the user. Security controls map to specific layers: firewalls operate at L3/L4, WAFs at L7, encryption at L6."
+    tags: ["networking", "OSI"]
+
+  - id: fc-d4-002
+    domain: domain4
+    term: "Firewall"
+    definition: "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules"
+    explanation: "Types: Packet filtering (L3/L4, stateless), Stateful inspection (tracks connection state), Proxy/Application (L7, deep inspection), NGFW (combines all with IPS, app awareness). Default-deny is best practice."
+    tags: ["networking", "firewalls"]
+
+  - id: fc-d4-003
+    domain: domain4
+    term: "VPN (Virtual Private Network)"
+    definition: "A secure, encrypted tunnel over a public network that allows remote access to private network resources"
+    explanation: "Types: Remote access VPN (individual users), Site-to-site VPN (connecting networks). Protocols: IPsec (Layer 3), SSL/TLS VPN (Layer 7), L2TP, PPTP (insecure). Split tunneling sends only some traffic through VPN."
+    tags: ["networking", "VPN"]
+
+  - id: fc-d4-004
+    domain: domain4
+    term: "TLS (Transport Layer Security)"
+    definition: "A cryptographic protocol that provides end-to-end security for data transmitted over a network"
+    explanation: "Successor to SSL (which is deprecated and insecure). TLS 1.3 is current standard. Uses asymmetric encryption for key exchange and symmetric encryption for bulk data. Provides confidentiality, integrity, and authentication."
+    tags: ["protocols", "encryption"]
+
+  - id: fc-d4-005
+    domain: domain4
+    term: "IPsec"
+    definition: "A suite of protocols for securing IP communications through authentication and encryption at the network layer"
+    explanation: "Modes: Transport mode (encrypts payload only, used host-to-host) and Tunnel mode (encrypts entire packet, used in VPNs). Protocols: AH (Authentication Header — integrity only), ESP (Encapsulating Security Payload — integrity + confidentiality)."
+    tags: ["protocols", "VPN"]
+
+  - id: fc-d4-006
+    domain: domain4
+    term: "DMZ (Demilitarized Zone)"
+    definition: "A network segment that sits between the internal network and the internet, hosting public-facing services"
+    explanation: "The DMZ isolates internet-facing servers (web, email, DNS) from the internal network. A three-legged firewall or two separate firewalls can create a DMZ. Compromise of DMZ servers doesn't directly expose internal systems."
+    tags: ["networking", "architecture"]
+
+  - id: fc-d4-007
+    domain: domain4
+    term: "VLAN (Virtual Local Area Network)"
+    definition: "A logical subdivision of a network that groups devices regardless of physical location, providing segmentation and isolation"
+    explanation: "VLANs provide traffic segmentation, reducing broadcast domains and limiting lateral movement after a compromise. Inter-VLAN routing requires a Layer 3 device. VLAN hopping attacks can bypass VLAN segmentation."
+    tags: ["networking", "segmentation"]
+
+  - id: fc-d4-008
+    domain: domain4
+    term: "IDS/IPS"
+    definition: "Intrusion Detection System (monitors and alerts) and Intrusion Prevention System (monitors and actively blocks) malicious network activity"
+    explanation: "Detection methods: Signature-based (known attacks, low false positives), Anomaly-based (detects unknown attacks, higher false positives). Network-based (NIDS/NIPS) monitors traffic; Host-based (HIDS/HIPS) monitors individual systems."
+    tags: ["detection", "prevention"]
+
+  - id: fc-d4-009
+    domain: domain4
+    term: "WPA3"
+    definition: "The latest Wi-Fi Protected Access protocol providing strong encryption and authentication for wireless networks"
+    explanation: "WPA3 improvements over WPA2: Simultaneous Authentication of Equals (SAE) replaces PSK (resistant to offline dictionary attacks), 192-bit security for enterprise, forward secrecy. WEP and WPA are insecure and must not be used."
+    tags: ["wireless", "encryption"]
+
+  - id: fc-d4-010
+    domain: domain4
+    term: "DNS (Domain Name System)"
+    definition: "A hierarchical distributed naming system that translates human-readable domain names into IP addresses"
+    explanation: "DNS attacks: DNS poisoning/spoofing (injecting false records), DNS hijacking, DDoS amplification, DNS tunneling (exfiltration). DNSSEC adds cryptographic signatures to validate DNS responses."
+    tags: ["protocols", "DNS"]
+
+  - id: fc-d4-011
+    domain: domain4
+    term: "ARP Poisoning"
+    definition: "An attack where an adversary sends falsified ARP (Address Resolution Protocol) messages to link their MAC address with a legitimate IP address, enabling traffic interception"
+    explanation: "Enables Man-in-the-Middle attacks on local networks. Countermeasures: Dynamic ARP Inspection (DAI), static ARP entries, VLAN segmentation, and encrypted protocols (TLS). Operates at Layer 2."
+    tags: ["attacks", "networking"]
+
+  - id: fc-d4-012
+    domain: domain4
+    term: "Man-in-the-Middle (MitM) Attack"
+    definition: "An attack where an adversary secretly intercepts and potentially alters communications between two parties who believe they are communicating directly"
+    explanation: "Enabled by: ARP poisoning, DNS spoofing, rogue Wi-Fi access points, SSL stripping. Mitigated by: certificate pinning, HSTS, mutual TLS authentication, encrypted communications."
+    tags: ["attacks", "networking"]
+
+  - id: fc-d4-013
+    domain: domain4
+    term: "Zero Trust Architecture"
+    definition: "A security model based on the principle 'never trust, always verify' — no user, device, or network segment is implicitly trusted"
+    explanation: "Core tenets: Verify explicitly (always authenticate/authorize), use least-privilege access, assume breach. Implemented via microsegmentation, identity-centric security, continuous verification. Moves away from perimeter-based security."
+    tags: ["architecture", "zero-trust"]
+
+  - id: fc-d4-014
+    domain: domain4
+    term: "Network Address Translation (NAT)"
+    definition: "A technique that maps private IP addresses to one or more public IP addresses, providing address conservation and an implicit security benefit"
+    explanation: "NAT hides internal IP addressing from external parties. Types: Static NAT (one-to-one), Dynamic NAT (pool), PAT/Overloading (many-to-one, most common for home/office). Does not replace a firewall — traffic can still be directed inbound."
+    tags: ["networking", "NAT"]
+
+  - id: fc-d4-015
+    domain: domain4
+    term: "Software-Defined Networking (SDN)"
+    definition: "An approach to networking that separates the control plane from the data plane, enabling centralized, programmable network management"
+    explanation: "The controller programs the forwarding rules on network devices. Enables dynamic segmentation, rapid security response, and centralized policy enforcement. Security concern: the SDN controller is a high-value target."
+    tags: ["networking", "SDN"]

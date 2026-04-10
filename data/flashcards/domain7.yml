@@ -1,0 +1,105 @@
+flashcards:
+  - id: fc-d7-001
+    domain: domain7
+    term: "Incident Response"
+    definition: "A structured methodology for handling security incidents to contain damage, recover operations, and prevent recurrence"
+    explanation: "NIST phases: Preparation, Detection & Analysis, Containment, Eradication, Recovery, Post-Incident Activity. SANS/PICERL: Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned."
+    tags: ["incident-response", "operations"]
+
+  - id: fc-d7-002
+    domain: domain7
+    term: "Chain of Custody"
+    definition: "The documented chronological record of evidence collection, handling, transfer, and storage to maintain its integrity and admissibility"
+    explanation: "Every person who handles evidence must be documented. Breaks in chain of custody can render evidence inadmissible in court. Includes: who collected it, when, how it was stored, who accessed it, and all transfers."
+    tags: ["forensics", "evidence"]
+
+  - id: fc-d7-003
+    domain: domain7
+    term: "Digital Forensics"
+    definition: "The process of collecting, preserving, analyzing, and presenting digital evidence in a manner that is legally admissible"
+    explanation: "Order of volatility (collect in this order): CPU registers/cache, RAM, network connections, running processes, disk, offline storage. Write blockers prevent evidence modification. Hash verification ensures integrity."
+    tags: ["forensics", "evidence"]
+
+  - id: fc-d7-004
+    domain: domain7
+    term: "Patch Management"
+    definition: "The process of acquiring, testing, and installing updates (patches) to software to fix security vulnerabilities and improve functionality"
+    explanation: "Key steps: inventory, assess criticality, test in non-production, deploy, verify. Emergency patching for critical vulnerabilities. Unpatched systems are the cause of many breaches (e.g., EternalBlue/WannaCry exploited MS17-010)."
+    tags: ["operations", "vulnerability"]
+
+  - id: fc-d7-005
+    domain: domain7
+    term: "Change Management"
+    definition: "A formal process for requesting, reviewing, approving, implementing, and documenting changes to systems and infrastructure"
+    explanation: "Purpose: prevent unauthorized changes, minimize disruption, maintain an audit trail. Components: Change Request, Impact Assessment, CAB (Change Advisory Board) approval, testing, implementation, rollback plan, documentation."
+    tags: ["operations", "governance"]
+
+  - id: fc-d7-006
+    domain: domain7
+    term: "Configuration Management"
+    definition: "The process of establishing and maintaining consistent settings and configurations for systems to ensure security and stability"
+    explanation: "Includes: secure baselines, automated configuration tools (Ansible, Chef, Puppet), drift detection. Configuration Management Database (CMDB) tracks all assets and their configurations. Unauthorized changes are detected through comparison."
+    tags: ["operations", "configuration"]
+
+  - id: fc-d7-007
+    domain: domain7
+    term: "Hot Site"
+    definition: "A fully operational recovery facility with up-to-date data that can take over operations within minutes to hours of a disaster"
+    explanation: "Most expensive recovery option. Contains identical hardware, software, and near-real-time data replication. RTO: minutes to hours. Used for mission-critical systems. Contrast with warm site (hours to days) and cold site (days to weeks)."
+    tags: ["BCP", "DRP", "recovery-sites"]
+
+  - id: fc-d7-008
+    domain: domain7
+    term: "Warm Site"
+    definition: "A recovery facility with hardware and some software already installed but requiring data restoration before becoming operational"
+    explanation: "Moderate cost. Hardware is present but data must be restored from backups. RTO: hours to days. Balance between cost (lower than hot site) and recovery speed (faster than cold site). Most common for non-critical systems."
+    tags: ["BCP", "DRP", "recovery-sites"]
+
+  - id: fc-d7-009
+    domain: domain7
+    term: "Cold Site"
+    definition: "A recovery facility with only basic infrastructure (power, connectivity) requiring all hardware, software, and data to be brought in and installed"
+    explanation: "Least expensive recovery option. Longest recovery time — days to weeks. Suitable for non-critical systems with high RTO. Provides only the physical space and basic utilities; everything else must be provisioned during recovery."
+    tags: ["BCP", "DRP", "recovery-sites"]
+
+  - id: fc-d7-010
+    domain: domain7
+    term: "Mean Time Between Failures (MTBF)"
+    definition: "The average time between system failures — a measure of system reliability"
+    explanation: "Higher MTBF = more reliable system. Used in hardware selection and availability calculations. Availability = MTBF / (MTBF + MTTR). For 99.999% ('five nines') availability, the combined MTBF and MTTR must be carefully managed."
+    tags: ["metrics", "availability"]
+
+  - id: fc-d7-011
+    domain: domain7
+    term: "Mean Time to Repair (MTTR)"
+    definition: "The average time required to repair a failed component or system and restore it to operational status"
+    explanation: "Lower MTTR = faster recovery. Improving MTTR involves: redundancy, spare parts inventory, documented procedures, trained staff. System availability = MTBF / (MTBF + MTTR)."
+    tags: ["metrics", "availability"]
+
+  - id: fc-d7-012
+    domain: domain7
+    term: "Separation of Duties"
+    definition: "A control that divides critical functions among multiple people to prevent any single individual from having enough access to commit fraud or make damaging errors"
+    explanation: "Operational example: system admins should not audit their own systems; developers should not deploy to production without change management review; backups should be verified by someone other than who created them."
+    tags: ["operations", "controls"]
+
+  - id: fc-d7-013
+    domain: domain7
+    term: "Job Rotation"
+    definition: "A policy requiring employees to periodically change roles or responsibilities to prevent fraud, reduce key-person dependency, and cross-train staff"
+    explanation: "Security benefits: exposes fraud (successor discovers irregularities), deters fraud (knowledge that someone else will review your work), maintains institutional knowledge. Required by some financial regulations."
+    tags: ["operations", "controls"]
+
+  - id: fc-d7-014
+    domain: domain7
+    term: "Mandatory Vacation (Forced Leave)"
+    definition: "A policy requiring employees to take scheduled, continuous vacation during which their duties are performed by others"
+    explanation: "Primary security purpose: fraud detection. Many fraud schemes require continuous access — forcing absence allows review of activities. Common in financial services. Also reveals key-person dependencies and need for cross-training."
+    tags: ["operations", "controls"]
+
+  - id: fc-d7-015
+    domain: domain7
+    term: "Order of Evidence Volatility"
+    definition: "The principle that digital evidence should be collected in order from most to least volatile to preserve the most transient data first"
+    explanation: "Order: 1) CPU registers and cache, 2) RAM (volatile memory), 3) Network connections/ARP tables, 4) Running processes, 5) Disk contents, 6) Remote logging/monitoring, 7) Physical configuration. Follow this order during incident response."
+    tags: ["forensics", "evidence"]

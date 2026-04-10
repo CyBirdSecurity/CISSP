@@ -1,0 +1,105 @@
+flashcards:
+  - id: fc-d8-001
+    domain: domain8
+    term: "Software Development Life Cycle (SDLC)"
+    definition: "A structured process for planning, creating, testing, deploying, and maintaining software applications"
+    explanation: "Common models: Waterfall (sequential), Agile (iterative), Spiral (risk-driven). Security must be integrated at every phase — security requirements in planning, threat modeling in design, code review in development, pen testing before release."
+    tags: ["SDLC", "development"]
+
+  - id: fc-d8-002
+    domain: domain8
+    term: "DevSecOps"
+    definition: "A culture and practice that integrates security into the DevOps pipeline, making security a shared responsibility throughout the development lifecycle"
+    explanation: "'Shift left' — move security testing earlier in the pipeline (from testing to development). Automate security checks: SAST in CI, dependency scanning, secrets detection, container scanning, DAST against staging. Security becomes continuous, not a gate."
+    tags: ["DevSecOps", "SDLC"]
+
+  - id: fc-d8-003
+    domain: domain8
+    term: "Buffer Overflow"
+    definition: "A vulnerability where a program writes more data to a buffer than it can hold, overwriting adjacent memory and potentially enabling code execution"
+    explanation: "Stack overflow: overwrites return address, enabling attacker control of execution flow. Heap overflow: corrupts heap structures. Mitigations: stack canaries, ASLR (Address Space Layout Randomization), DEP/NX (Data Execution Prevention), safe string functions."
+    tags: ["vulnerabilities", "secure-coding"]
+
+  - id: fc-d8-004
+    domain: domain8
+    term: "SQL Injection"
+    definition: "An attack where malicious SQL code is inserted into an input field to manipulate the database query"
+    explanation: "Example: input 'admin'--  comments out password check. Impact: unauthorized data access, modification, or deletion. Mitigations: parameterized queries/prepared statements (most effective), input validation, WAF, least privilege database accounts."
+    tags: ["vulnerabilities", "web-security"]
+
+  - id: fc-d8-005
+    domain: domain8
+    term: "Cross-Site Scripting (XSS)"
+    definition: "An attack where malicious scripts are injected into web pages viewed by other users, executing in their browsers"
+    explanation: "Types: Reflected XSS (script in URL/request), Stored XSS (script saved in database, most dangerous), DOM-based XSS (client-side manipulation). Mitigations: output encoding, Content Security Policy (CSP), input validation, HttpOnly cookies."
+    tags: ["vulnerabilities", "web-security"]
+
+  - id: fc-d8-006
+    domain: domain8
+    term: "Cross-Site Request Forgery (CSRF)"
+    definition: "An attack that tricks a user's browser into making unintended requests to a site where they are authenticated"
+    explanation: "Exploits the trust a site has in the user's browser. Example: clicking a malicious link transfers money from your bank. Mitigations: CSRF tokens (synchronizer token pattern), SameSite cookie attribute, Origin/Referer header checking."
+    tags: ["vulnerabilities", "web-security"]
+
+  - id: fc-d8-007
+    domain: domain8
+    term: "OWASP Top 10"
+    definition: "A regularly updated list of the 10 most critical web application security risks published by the Open Web Application Security Project"
+    explanation: "2021 OWASP Top 10: Broken Access Control, Cryptographic Failures, Injection, Insecure Design, Security Misconfiguration, Vulnerable Components, Auth Failures, Software Integrity Failures, Logging/Monitoring Failures, SSRF. Essential reference for secure coding."
+    tags: ["OWASP", "web-security"]
+
+  - id: fc-d8-008
+    domain: domain8
+    term: "Input Validation"
+    definition: "The practice of verifying that all data received from external sources conforms to expected format, type, length, and range before processing"
+    explanation: "Validate on the server side (client-side validation is easily bypassed). Approaches: allowlist (only accept known good) is preferred over denylist (block known bad). Validate all inputs: user forms, API parameters, file uploads, headers."
+    tags: ["secure-coding", "vulnerabilities"]
+
+  - id: fc-d8-009
+    domain: domain8
+    term: "Secure Coding Standards"
+    definition: "A set of guidelines and best practices for writing code that is resistant to security vulnerabilities"
+    explanation: "Major standards: OWASP Secure Coding Practices, CERT Secure Coding Standards, MISRA (safety-critical systems). Key practices: never trust user input, fail securely, use security libraries, minimize attack surface, keep it simple."
+    tags: ["secure-coding", "standards"]
+
+  - id: fc-d8-010
+    domain: domain8
+    term: "Code Review (Security)"
+    definition: "The systematic examination of source code by peers or security specialists to identify security vulnerabilities, logic errors, and policy violations"
+    explanation: "Types: Manual review (thorough but slow), automated SAST tools (fast but false positives), combination. Effective for finding logic flaws, auth errors, and hardcoded credentials that automated tools miss. Part of defense-in-depth."
+    tags: ["code-review", "SDLC"]
+
+  - id: fc-d8-011
+    domain: domain8
+    term: "Software Supply Chain Security"
+    definition: "The practice of verifying the integrity and security of all third-party code, libraries, and tools used in software development"
+    explanation: "Risks: malicious packages (typosquatting), compromised packages (SolarWinds, Log4Shell), outdated dependencies. Controls: SBOM (Software Bill of Materials), dependency scanning (Snyk, Dependabot), signed artifacts, private registries."
+    tags: ["supply-chain", "SDLC"]
+
+  - id: fc-d8-012
+    domain: domain8
+    term: "Principle of Fail Secure"
+    definition: "The design principle that when a system fails, it should default to a secure state rather than an open/insecure state"
+    explanation: "Example: if authentication fails due to a system error, deny access (not grant it). If a firewall fails, block all traffic (fail closed). Contrast with fail open (defaulting to accessible state) which prioritizes availability over security."
+    tags: ["principles", "secure-design"]
+
+  - id: fc-d8-013
+    domain: domain8
+    term: "Race Condition (TOCTOU)"
+    definition: "A vulnerability where a system's behavior depends on the timing of events, allowing an attacker to manipulate the state between a check and its use"
+    explanation: "Time of Check to Time of Use (TOCTOU): attacker changes a resource after it's checked but before it's used. Example: checking file permissions, then attacker replaces file before it's opened. Mitigations: atomic operations, locks, minimize time between check and use."
+    tags: ["vulnerabilities", "secure-coding"]
+
+  - id: fc-d8-014
+    domain: domain8
+    term: "API Security"
+    definition: "The practice of protecting Application Programming Interfaces from attacks by implementing authentication, authorization, rate limiting, and input validation"
+    explanation: "OWASP API Top 10 risks: Broken Object Level Authorization (BOLA), Broken Authentication, Excessive Data Exposure, Lack of Rate Limiting, etc. Use API keys or OAuth, validate all inputs, implement rate limiting, log all API calls."
+    tags: ["API", "web-security"]
+
+  - id: fc-d8-015
+    domain: domain8
+    term: "Cryptographic Failures (Sensitive Data Exposure)"
+    definition: "Vulnerabilities resulting from inadequate cryptographic protection of sensitive data — using weak algorithms, poor key management, or no encryption"
+    explanation: "Common failures: using MD5/SHA1 for password hashing (use bcrypt/Argon2), HTTP instead of HTTPS, weak TLS configurations, hardcoded keys, ECB mode encryption. #2 in OWASP Top 10. Encrypt data at rest and in transit using strong, current algorithms."
+    tags: ["cryptography", "vulnerabilities"]

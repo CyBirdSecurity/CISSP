@@ -1,0 +1,228 @@
+questions:
+  - id: q-d8-001
+    domain: domain8
+    question: "What is the MOST effective defense against SQL injection attacks?"
+    options:
+      - "Input validation using denylists"
+      - "Web Application Firewall (WAF)"
+      - "Parameterized queries (prepared statements)"
+      - "Escaping special characters in user input"
+    correct_answer: 2
+    explanations:
+      correct: "Parameterized queries (prepared statements) are the most effective defense against SQL injection. The query structure is defined first, then user input is passed as a parameter — making it impossible for the input to alter the query's logic."
+      incorrect:
+        - "Denylist-based input validation is insufficient — there are many ways to bypass denylists, and new bypass techniques are discovered regularly."
+        - "A WAF provides an additional layer of defense but can be bypassed. Parameterized queries address the root cause at the code level."
+        - "Parameterized queries are the correct and most effective defense — they structurally prevent SQL injection."
+        - "Character escaping is a mitigation but can be implemented incorrectly. Parameterized queries are structurally safer."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "SQL-injection"]
+
+  - id: q-d8-002
+    domain: domain8
+    question: "What is the primary difference between XSS (Cross-Site Scripting) and CSRF (Cross-Site Request Forgery)?"
+    options:
+      - "XSS attacks exploit the server; CSRF attacks exploit the client"
+      - "XSS injects malicious scripts into pages viewed by users; CSRF tricks users into making unintended requests"
+      - "XSS targets databases; CSRF targets authentication systems"
+      - "XSS and CSRF are the same attack with different names"
+    correct_answer: 1
+    explanations:
+      correct: "XSS injects malicious scripts into a web page that execute in other users' browsers (exploiting trust the user has in the site). CSRF tricks the user's browser into making unintended requests to a site where they are authenticated (exploiting trust the site has in the user's browser)."
+      incorrect:
+        - "Both XSS and CSRF involve client-side exploitation. XSS exploits trust users have in a site; CSRF exploits trust a site has in users' browsers."
+        - "XSS injects scripts for client execution; CSRF tricks browsers into unintended actions — this is the correct distinction."
+        - "XSS can target any data in the browser; CSRF exploits authenticated sessions. Neither specifically targets databases."
+        - "They are distinct attack types with different mechanisms, impacts, and mitigations."
+    difficulty: "medium"
+    tags: ["XSS", "CSRF", "web-security"]
+
+  - id: q-d8-003
+    domain: domain8
+    question: "The 'shift left' concept in DevSecOps means:"
+    options:
+      - "Moving security teams to the left side of the organization chart"
+      - "Introducing security testing and controls earlier in the development lifecycle"
+      - "Prioritizing left-side security controls over right-side controls"
+      - "Shifting from manual to automated security testing"
+    correct_answer: 1
+    explanations:
+      correct: "In DevSecOps, 'shift left' means incorporating security activities earlier (to the left) in the software development lifecycle — during planning, design, and coding phases — rather than waiting until testing or deployment. Earlier detection is faster and cheaper to remediate."
+      incorrect:
+        - "Shift left is a temporal metaphor (earlier in the SDLC timeline) — not an organizational chart reference."
+        - "Moving security earlier in the development lifecycle is the correct meaning of 'shift left.'"
+        - "Shift left is about timing in the SDLC, not a prioritization framework between left and right controls."
+        - "Automation is a component of DevSecOps but is not specifically what 'shift left' means."
+    difficulty: "easy"
+    tags: ["DevSecOps", "SDLC"]
+
+  - id: q-d8-004
+    domain: domain8
+    question: "What vulnerability does a buffer overflow exploit?"
+    options:
+      - "Improper session management allowing session hijacking"
+      - "Lack of bounds checking when writing data to a fixed-size buffer, potentially overwriting adjacent memory"
+      - "Insufficient encryption allowing data interception"
+      - "Weak authentication allowing unauthorized access"
+    correct_answer: 1
+    explanations:
+      correct: "A buffer overflow occurs when a program writes more data to a buffer than it can hold (no bounds checking), overwriting adjacent memory locations. Attackers can overwrite the return address to redirect execution to malicious code (shellcode)."
+      incorrect:
+        - "Session management flaws allow session hijacking — a different class of vulnerability from buffer overflow."
+        - "Lack of bounds checking causing memory overwrite is the correct description of buffer overflow."
+        - "Encryption weakness leads to interception/disclosure — not related to buffer overflow memory corruption."
+        - "Authentication weaknesses are access control issues — not related to memory management vulnerabilities."
+    difficulty: "medium"
+    tags: ["buffer-overflow", "vulnerabilities"]
+
+  - id: q-d8-005
+    domain: domain8
+    question: "What is a TOCTOU (Time of Check to Time of Use) vulnerability?"
+    options:
+      - "A timing attack against cryptographic operations"
+      - "A race condition where a resource's state changes between when it is checked and when it is used"
+      - "A vulnerability in time-based one-time password systems"
+      - "An attack that exploits time zone differences in authentication tokens"
+    correct_answer: 1
+    explanations:
+      correct: "TOCTOU (Time of Check to Time of Use) is a race condition vulnerability. An attacker manipulates a resource (e.g., a file) after security checks pass but before the operation is performed. The check sees a safe state; the use operates on a malicious state."
+      incorrect:
+        - "Timing attacks against cryptography measure execution time to infer secrets — different from TOCTOU race conditions."
+        - "A resource changing between check and use — this correctly describes a TOCTOU race condition."
+        - "TOCTOU has nothing to do with time-based OTP (TOTP) systems."
+        - "TOCTOU is about race conditions in resource access, not time zone issues in authentication."
+    difficulty: "hard"
+    tags: ["TOCTOU", "race-condition", "vulnerabilities"]
+
+  - id: q-d8-006
+    domain: domain8
+    question: "Which OWASP Top 10 category includes vulnerabilities where users can access other users' data by manipulating identifiers?"
+    options:
+      - "Injection"
+      - "Cryptographic Failures"
+      - "Broken Access Control"
+      - "Security Misconfiguration"
+    correct_answer: 2
+    explanations:
+      correct: "Broken Access Control (#1 in OWASP Top 10 2021) includes Broken Object Level Authorization (BOLA/IDOR) where users can access other users' data by manipulating identifiers (e.g., changing userId=123 to userId=124 in a request)."
+      incorrect:
+        - "Injection covers SQL, NoSQL, OS, and LDAP injection — not unauthorized access to other users' data."
+        - "Cryptographic Failures relates to inadequate protection of sensitive data through insufficient encryption."
+        - "Broken Access Control (#1) covers IDOR/BOLA, vertical and horizontal privilege escalation — correct."
+        - "Security Misconfiguration covers default passwords, unnecessary features enabled, error information exposure — not IDOR."
+    difficulty: "medium"
+    tags: ["OWASP", "access-control"]
+
+  - id: q-d8-007
+    domain: domain8
+    question: "What is the purpose of a SBOM (Software Bill of Materials) in software supply chain security?"
+    options:
+      - "A financial document listing software licensing costs"
+      - "A formal record of all components, libraries, and dependencies in a software product"
+      - "A security audit report of software vulnerabilities"
+      - "A document listing approved vendors for software procurement"
+    correct_answer: 1
+    explanations:
+      correct: "A SBOM is a complete inventory of all components, libraries, open-source packages, and dependencies included in a software product. It enables rapid identification of affected products when new vulnerabilities (like Log4Shell) are discovered."
+      incorrect:
+        - "A SBOM is a technical inventory, not a financial licensing document."
+        - "A SBOM is a formal record of all software components and dependencies — this is correct."
+        - "A vulnerability audit report documents security findings — a SBOM lists components (which then enables vulnerability tracking)."
+        - "Approved vendor lists are procurement documents — a SBOM is a technical component inventory."
+    difficulty: "medium"
+    tags: ["supply-chain", "SBOM"]
+
+  - id: q-d8-008
+    domain: domain8
+    question: "Which hashing algorithm is recommended for storing user passwords?"
+    options:
+      - "MD5 with salt"
+      - "SHA-256"
+      - "bcrypt or Argon2"
+      - "SHA-512"
+    correct_answer: 2
+    explanations:
+      correct: "bcrypt and Argon2 are designed specifically for password hashing. They are intentionally slow (configurable work factor) and incorporate salt automatically, making brute-force and GPU-accelerated attacks impractical. General-purpose hash functions (MD5, SHA) are too fast for password storage."
+      incorrect:
+        - "MD5 is cryptographically broken and even with salt, its speed makes it vulnerable to GPU-accelerated brute force attacks."
+        - "SHA-256 is a general-purpose cryptographic hash, not designed for password storage. It is too fast — GPU clusters can compute billions of SHA-256 hashes per second."
+        - "bcrypt or Argon2 are correct — specifically designed for password hashing with adjustable work factors."
+        - "SHA-512 is also too fast for password storage despite its length. Use purpose-built password hashing functions."
+    difficulty: "medium"
+    tags: ["cryptography", "passwords"]
+
+  - id: q-d8-009
+    domain: domain8
+    question: "What does 'fail secure' (fail closed) mean in system design?"
+    options:
+      - "The system sends an alert when it fails"
+      - "When a system fails, it defaults to a secure/closed state denying access"
+      - "The system has redundant components to prevent failure"
+      - "The system logs all failures for later analysis"
+    correct_answer: 1
+    explanations:
+      correct: "Fail secure (fail closed) means that when a system fails, it defaults to a secure, restrictive state. Example: if a firewall fails, it blocks all traffic rather than allowing all traffic. This prioritizes security over availability."
+      incorrect:
+        - "Alerting on failure is monitoring — fail secure is about the default state when a failure occurs."
+        - "Defaulting to a closed/secure state when failing — this correctly describes fail secure."
+        - "Redundancy prevents failure — fail secure describes behavior during/after failure, not prevention."
+        - "Logging failures is an auditing practice — fail secure is a design principle about default states."
+    difficulty: "easy"
+    tags: ["secure-design", "principles"]
+
+  - id: q-d8-010
+    domain: domain8
+    question: "In the context of secure SDLC, why is threat modeling best performed during the design phase?"
+    options:
+      - "Because design phase documentation is required by regulations"
+      - "Because finding and fixing design flaws early is far cheaper than fixing them after development"
+      - "Because threat modeling requires access to source code"
+      - "Because the design phase has the most security engineers available"
+    correct_answer: 1
+    explanations:
+      correct: "The 'rule of 10' states that defects found in design are 10× cheaper to fix than in coding, 100× cheaper than in testing, and 1000× cheaper than in production. Threat modeling in design phase identifies architectural security flaws before code is written."
+      incorrect:
+        - "While some regulations reference secure design, the primary reason is cost — early detection is exponentially cheaper."
+        - "Finding design flaws early is far cheaper to fix — this correctly explains why design phase is ideal for threat modeling."
+        - "Threat modeling works from diagrams, architecture documents, and data flow diagrams — it does not require source code."
+        - "Resource availability varies by organization and is not the reason design phase is preferred for threat modeling."
+    difficulty: "medium"
+    tags: ["threat-modeling", "SDLC"]
+
+  - id: q-d8-011
+    domain: domain8
+    question: "What type of XSS attack stores malicious script on the server, causing it to execute for every user who views the affected page?"
+    options:
+      - "Reflected XSS"
+      - "DOM-based XSS"
+      - "Stored XSS"
+      - "Universal XSS"
+    correct_answer: 2
+    explanations:
+      correct: "Stored XSS (persistent XSS) involves injecting malicious script that is saved on the server (in a database, comment field, etc.) and served to all users who view the affected page. It affects all visitors without requiring them to click a malicious link."
+      incorrect:
+        - "Reflected XSS requires the victim to click a malicious link — the script is in the URL/request and is reflected back, not stored."
+        - "DOM-based XSS occurs client-side when JavaScript manipulates the DOM using attacker-controlled input — not stored server-side."
+        - "Stored XSS persists on the server and affects all visitors — this is the most dangerous XSS type."
+        - "Universal XSS is not a standard XSS classification."
+    difficulty: "medium"
+    tags: ["XSS", "web-security"]
+
+  - id: q-d8-012
+    domain: domain8
+    question: "What is 'input validation' and why should it always be performed server-side?"
+    options:
+      - "Checking that input data matches expected patterns — performed client-side for performance"
+      - "Checking that input data is valid and safe — must be server-side because client-side validation is easily bypassed"
+      - "Encrypting user input before processing"
+      - "Logging all user input for security monitoring"
+    correct_answer: 1
+    explanations:
+      correct: "Input validation verifies that input conforms to expected format, type, length, and range. It MUST be performed server-side because client-side validation (JavaScript) can be easily bypassed using browser dev tools, curl, or Burp Suite. Server-side validation is the authoritative check."
+      incorrect:
+        - "Input validation should be performed server-side — client-side validation alone is insufficient and easily bypassed."
+        - "Server-side validation is required because client-side can be bypassed — this correctly describes the requirement."
+        - "Encrypting input is a data protection measure — not what input validation means."
+        - "Logging input is part of audit/monitoring — not input validation."
+    difficulty: "easy"
+    tags: ["input-validation", "secure-coding"]

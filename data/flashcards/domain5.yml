@@ -1,0 +1,105 @@
+flashcards:
+  - id: fc-d5-001
+    domain: domain5
+    term: "Authentication"
+    definition: "The process of verifying that an identity (user, device, or service) is who they claim to be"
+    explanation: "Three factors: Something you know (password, PIN), Something you have (token, smart card), Something you are (biometrics). Type IV: Somewhere you are (location). Type V: Something you do (behavioral)."
+    tags: ["IAM", "authentication"]
+
+  - id: fc-d5-002
+    domain: domain5
+    term: "Multi-Factor Authentication (MFA)"
+    definition: "An authentication method requiring two or more independent verification factors from different categories"
+    explanation: "Using two factors from the same category (two passwords) is NOT MFA — it's two-step authentication. MFA significantly reduces account takeover risk. TOTP, hardware tokens, and biometrics are common second factors."
+    tags: ["IAM", "MFA"]
+
+  - id: fc-d5-003
+    domain: domain5
+    term: "Single Sign-On (SSO)"
+    definition: "A centralized authentication service that allows users to authenticate once and access multiple applications without re-authenticating"
+    explanation: "Benefits: better user experience, reduced password fatigue. Risk: SSO creates a single point of failure — compromised credentials grant access to all integrated systems. Implemented via SAML, OAuth/OIDC, Kerberos."
+    tags: ["IAM", "SSO"]
+
+  - id: fc-d5-004
+    domain: domain5
+    term: "Role-Based Access Control (RBAC)"
+    definition: "An access control model where permissions are assigned to roles, and users are assigned to roles — not permissions directly"
+    explanation: "Users acquire permissions through role membership. Simplifies administration — changing a role updates all users in that role. Common in enterprise environments. Examples: Admin role, Read-only role, Developer role."
+    tags: ["access-control", "RBAC"]
+
+  - id: fc-d5-005
+    domain: domain5
+    term: "Mandatory Access Control (MAC)"
+    definition: "An access control model where the operating system enforces access based on security labels assigned to subjects and objects"
+    explanation: "Users cannot override or change access policies — the OS enforces them. Used in high-security environments (military). Examples: SELinux, Trusted Solaris. Labels include classification levels (Top Secret, Secret, etc.)."
+    tags: ["access-control", "MAC"]
+
+  - id: fc-d5-006
+    domain: domain5
+    term: "Discretionary Access Control (DAC)"
+    definition: "An access control model where the owner of a resource determines who can access it and what permissions they have"
+    explanation: "The resource owner has discretion over access. Most flexible but least secure. Windows NTFS permissions and Unix file permissions are DAC examples. Weakness: owners can grant access to anyone, including malicious actors."
+    tags: ["access-control", "DAC"]
+
+  - id: fc-d5-007
+    domain: domain5
+    term: "Attribute-Based Access Control (ABAC)"
+    definition: "An access control model that grants access based on attributes of the user, resource, and environment"
+    explanation: "More granular than RBAC. Access decisions use policies combining attributes: user attributes (role, clearance), resource attributes (classification, type), environment (time of day, location). Very flexible but complex to manage."
+    tags: ["access-control", "ABAC"]
+
+  - id: fc-d5-008
+    domain: domain5
+    term: "Kerberos"
+    definition: "A network authentication protocol using tickets and a trusted third-party (Key Distribution Center) to allow nodes to prove their identity securely"
+    explanation: "Components: KDC (Key Distribution Center), AS (Authentication Service), TGS (Ticket Granting Service). Process: user gets TGT from AS, exchanges for service ticket from TGS, presents to service. Used in Windows Active Directory."
+    tags: ["protocols", "authentication"]
+
+  - id: fc-d5-009
+    domain: domain5
+    term: "SAML (Security Assertion Markup Language)"
+    definition: "An XML-based open standard for exchanging authentication and authorization data between an identity provider and a service provider"
+    explanation: "Enables SSO for web applications. IdP authenticates the user and sends a SAML assertion to the SP. The SP grants access based on the assertion. Common in enterprise B2B federations."
+    tags: ["federation", "SSO", "protocols"]
+
+  - id: fc-d5-010
+    domain: domain5
+    term: "OAuth 2.0"
+    definition: "An authorization framework that allows third-party applications to obtain limited access to user accounts on a service, without exposing credentials"
+    explanation: "OAuth is for authorization (what you can do), not authentication (who you are). OpenID Connect (OIDC) adds identity layer on top of OAuth for authentication. Used for 'Sign in with Google/Facebook' flows."
+    tags: ["protocols", "authorization"]
+
+  - id: fc-d5-011
+    domain: domain5
+    term: "Privileged Access Management (PAM)"
+    definition: "A security solution that controls and monitors access to privileged accounts (admin, root, service accounts) to prevent misuse"
+    explanation: "PAM features: just-in-time access (elevate only when needed), session recording, credential vaulting, least privilege enforcement. Privileged accounts are prime targets — 80% of breaches involve credential misuse."
+    tags: ["IAM", "privileged-access"]
+
+  - id: fc-d5-012
+    domain: domain5
+    term: "Identity Federation"
+    definition: "The linking of a user's identity across multiple distinct security domains so they can use one set of credentials to access resources in multiple organizations"
+    explanation: "Enables B2B SSO between organizations. Technologies: SAML, OAuth, WS-Federation. Requires trust relationships between identity providers. Example: A contractor using their employer's credentials to access a client's systems."
+    tags: ["IAM", "federation"]
+
+  - id: fc-d5-013
+    domain: domain5
+    term: "LDAP (Lightweight Directory Access Protocol)"
+    definition: "A protocol for accessing and maintaining distributed directory information services over a network"
+    explanation: "Used to query directory services like Active Directory. Stores user accounts, groups, and attributes. LDAPS (LDAP over TLS) encrypts the connection. LDAP injection is an attack where malicious input manipulates LDAP queries."
+    tags: ["protocols", "directory"]
+
+  - id: fc-d5-014
+    domain: domain5
+    term: "Separation of Duties (SoD)"
+    definition: "A security principle requiring that critical tasks be divided among multiple individuals to prevent fraud and errors"
+    explanation: "No single person should have enough access to commit and conceal fraud. Examples: The person who initiates a payment should not also approve it; developers should not have production access. Enforced through access controls and workflows."
+    tags: ["principles", "access-control"]
+
+  - id: fc-d5-015
+    domain: domain5
+    term: "Identity Lifecycle Management"
+    definition: "The set of processes for managing digital identities from creation (provisioning) through changes (modification) to deletion (deprovisioning)"
+    explanation: "Key processes: onboarding (create accounts), role changes (modify permissions), offboarding (immediately revoke access). Orphaned accounts (from departed employees) are a significant risk. Automated IGA (Identity Governance and Administration) tools help."
+    tags: ["IAM", "lifecycle"]

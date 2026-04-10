@@ -1,0 +1,48 @@
+domains:
+  - id: domain1
+    name: Security and Risk Management
+    description: Governance, compliance, risk management, and the foundations of security policy
+    weight: 15
+    color: "#7c3aed"
+
+  - id: domain2
+    name: Asset Security
+    description: Data classification, ownership, privacy protection, and secure data handling
+    weight: 10
+    color: "#2563eb"
+
+  - id: domain3
+    name: Security Architecture and Engineering
+    description: Security models, cryptography, physical security, and system vulnerabilities
+    weight: 13
+    color: "#06b6d4"
+
+  - id: domain4
+    name: Communication and Network Security
+    description: Network protocols, secure communications, firewalls, VPNs, and wireless security
+    weight: 13
+    color: "#10b981"
+
+  - id: domain5
+    name: Identity and Access Management
+    description: Authentication, authorization, access control models, and identity lifecycle
+    weight: 13
+    color: "#f59e0b"
+
+  - id: domain6
+    name: Security Assessment and Testing
+    description: Vulnerability assessments, penetration testing, audits, and security metrics
+    weight: 12
+    color: "#ef4444"
+
+  - id: domain7
+    name: Security Operations
+    description: Incident response, investigations, BCP/DRP, and operational security controls
+    weight: 13
+    color: "#8b5cf6"
+
+  - id: domain8
+    name: Software Development Security
+    description: Secure SDLC, secure coding practices, and software vulnerability management
+    weight: 11
+    color: "#ec4899"

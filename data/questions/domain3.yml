@@ -1,0 +1,228 @@
+questions:
+  - id: q-d3-001
+    domain: domain3
+    question: "Which security model uses the properties 'No Read Up' and 'No Write Down' to enforce confidentiality?"
+    options:
+      - "Biba Integrity Model"
+      - "Bell-LaPadula Model"
+      - "Clark-Wilson Model"
+      - "Brewer-Nash Model"
+    correct_answer: 1
+    explanations:
+      correct: "The Bell-LaPadula model protects confidentiality. The Simple Security Property (No Read Up) prevents subjects from reading data at higher classification levels. The *-Property (No Write Down) prevents subjects from writing to lower classification levels."
+      incorrect:
+        - "The Biba model protects integrity and uses opposite rules: No Read Down and No Write Up."
+        - "Bell-LaPadula is correct — No Read Up and No Write Down enforce confidentiality."
+        - "Clark-Wilson protects integrity using well-formed transactions and separation of duties, not simple read/write rules."
+        - "The Brewer-Nash (Chinese Wall) model prevents conflicts of interest based on prior access history."
+    difficulty: "medium"
+    tags: ["security-models", "confidentiality"]
+
+  - id: q-d3-002
+    domain: domain3
+    question: "What is the primary security concern with Electronic Codebook (ECB) mode encryption?"
+    options:
+      - "It requires more processing power than other modes"
+      - "Identical plaintext blocks produce identical ciphertext blocks, revealing patterns"
+      - "It is vulnerable to timing attacks"
+      - "It requires a larger key size than other modes"
+    correct_answer: 1
+    explanations:
+      correct: "ECB mode encrypts each block independently. Identical plaintext blocks produce identical ciphertext blocks, which can reveal patterns in the data. The classic example is the 'ECB penguin' where an image remains recognizable after ECB encryption."
+      incorrect:
+        - "ECB mode is not particularly more computationally expensive than other modes — pattern revelation is the security concern."
+        - "Identical plaintext producing identical ciphertext is the fundamental weakness of ECB mode."
+        - "Timing attacks are a side-channel attack technique not specifically associated with ECB mode."
+        - "ECB mode does not require a larger key than other modes of the same cipher."
+    difficulty: "hard"
+    tags: ["cryptography", "symmetric"]
+
+  - id: q-d3-003
+    domain: domain3
+    question: "What property of cryptographic hash functions means that finding two different inputs that produce the same hash output should be computationally infeasible?"
+    options:
+      - "Pre-image resistance"
+      - "Second pre-image resistance"
+      - "Collision resistance"
+      - "Avalanche effect"
+    correct_answer: 2
+    explanations:
+      correct: "Collision resistance means it should be computationally infeasible to find any two different inputs (m1 ≠ m2) such that H(m1) = H(m2). MD5 and SHA-1 have known collision vulnerabilities, making them unsuitable for security uses."
+      incorrect:
+        - "Pre-image resistance means that given a hash output H, it should be infeasible to find any input m such that H(m) = H. This is one-way property."
+        - "Second pre-image resistance means that given a specific input m1, it should be infeasible to find a different m2 such that H(m1) = H(m2)."
+        - "Collision resistance is correct — finding any two inputs with the same hash is infeasible."
+        - "The avalanche effect means that a small change in input produces a dramatically different hash output — it is not about two inputs having the same hash."
+    difficulty: "hard"
+    tags: ["cryptography", "hashing"]
+
+  - id: q-d3-004
+    domain: domain3
+    question: "In PKI, what is the purpose of a Certificate Revocation List (CRL)?"
+    options:
+      - "A list of certificates that have expired naturally"
+      - "A list of certificates that have been revoked before their expiration date"
+      - "A list of trusted Certificate Authorities"
+      - "A list of pending certificate signing requests"
+    correct_answer: 1
+    explanations:
+      correct: "A CRL is a list maintained by the CA of certificates that have been revoked before their scheduled expiration date. Reasons for revocation include: key compromise, CA compromise, affiliation change, or certificate superseded."
+      incorrect:
+        - "Expired certificates are not on the CRL — they are simply no longer valid after their expiration date."
+        - "The CRL contains revoked certificates (invalidated before expiration) — this is the correct answer."
+        - "Trusted CAs are listed in trust stores, not in a CRL. The CRL only contains revoked certificates from a specific CA."
+        - "Pending certificate signing requests (CSRs) are processed by the RA/CA — they are not listed in a CRL."
+    difficulty: "medium"
+    tags: ["PKI", "cryptography"]
+
+  - id: q-d3-005
+    domain: domain3
+    question: "Which symmetric encryption algorithm is the current federal standard, using block sizes of 128 bits and key sizes of 128, 192, or 256 bits?"
+    options:
+      - "DES (Data Encryption Standard)"
+      - "3DES (Triple DES)"
+      - "AES (Advanced Encryption Standard)"
+      - "Blowfish"
+    correct_answer: 2
+    explanations:
+      correct: "AES (Advanced Encryption Standard, aka Rijndael) is the current NIST standard. It uses 128-bit block size with 128, 192, or 256-bit keys. It replaced DES and 3DES as the federal standard in 2001."
+      incorrect:
+        - "DES uses 56-bit keys (too small) and was broken in 1999. It is no longer considered secure."
+        - "3DES applies DES three times with 112 or 168-bit effective key length. It is being phased out — NIST deprecated it in 2023."
+        - "AES is the correct answer — current federal standard with 128-bit blocks and up to 256-bit keys."
+        - "Blowfish uses variable key length (32-448 bits) but is not a federal standard and was replaced by Twofish and AES in competition."
+    difficulty: "easy"
+    tags: ["cryptography", "symmetric"]
+
+  - id: q-d3-006
+    domain: domain3
+    question: "What is the primary security principle behind Kerckhoffs's principle?"
+    options:
+      - "The encryption key should be the same length as the message"
+      - "A cryptosystem should be secure even if everything except the key is public knowledge"
+      - "Only government-approved cryptographic algorithms should be used"
+      - "Encryption keys should be rotated every 90 days"
+    correct_answer: 1
+    explanations:
+      correct: "Kerckhoffs's principle states that a cryptosystem should remain secure even if the attacker knows everything about the system except the key. This is the basis for using open, publicly vetted cryptographic algorithms rather than secret 'proprietary' ones."
+      incorrect:
+        - "Key length equal to message length describes the One-Time Pad (OTP) — not Kerckhoffs's principle."
+        - "Security depends only on the secret key, not the secrecy of the algorithm — this is the core of Kerckhoffs's principle."
+        - "Kerckhoffs's principle does not specify government approval — it is about not relying on algorithm secrecy."
+        - "Key rotation is a key management best practice, not Kerckhoffs's principle."
+    difficulty: "medium"
+    tags: ["cryptography", "principles"]
+
+  - id: q-d3-007
+    domain: domain3
+    question: "A digital signature provides which three security services?"
+    options:
+      - "Confidentiality, integrity, and availability"
+      - "Authentication, integrity, and non-repudiation"
+      - "Confidentiality, authentication, and authorization"
+      - "Integrity, availability, and non-repudiation"
+    correct_answer: 1
+    explanations:
+      correct: "A digital signature provides: Authentication (verifies the sender's identity), Integrity (confirms the message was not altered), and Non-repudiation (the sender cannot deny sending it). It does NOT provide confidentiality — the message itself may be unencrypted."
+      incorrect:
+        - "Digital signatures do not provide confidentiality or availability — they address authentication, integrity, and non-repudiation."
+        - "Authentication, integrity, and non-repudiation are the three services provided by digital signatures."
+        - "Digital signatures provide authentication but not confidentiality or authorization. Authorization is a separate access control function."
+        - "Digital signatures provide integrity and non-repudiation but not availability."
+    difficulty: "medium"
+    tags: ["cryptography", "digital-signatures"]
+
+  - id: q-d3-008
+    domain: domain3
+    question: "The Trusted Computing Base (TCB) must satisfy three conditions to properly implement the reference monitor concept. Which of the following is NOT one of those conditions?"
+    options:
+      - "It must be tamper-resistant"
+      - "It must always be invoked for every access attempt"
+      - "It must be large enough to cover all system functions"
+      - "It must be small enough to be fully verified and tested"
+    correct_answer: 2
+    explanations:
+      correct: "The TCB must be SMALL enough to be verified and tested — not large. The three requirements for a reference monitor are: 1) Always invoked (no bypass), 2) Tamper-resistant, 3) Small enough to be fully analyzed and tested."
+      incorrect:
+        - "Tamper-resistant is a required property of the TCB/reference monitor."
+        - "Always invoked (cannot be bypassed) is a required property of the reference monitor."
+        - "The TCB must be small enough (not large) to be fully verified — being 'large enough to cover all functions' is NOT a requirement."
+        - "Small enough to be verified is indeed a correct requirement — the TCB should have a minimal footprint."
+    difficulty: "hard"
+    tags: ["architecture", "trusted-systems"]
+
+  - id: q-d3-009
+    domain: domain3
+    question: "What is the main difference between stream ciphers and block ciphers?"
+    options:
+      - "Stream ciphers use symmetric keys; block ciphers use asymmetric keys"
+      - "Stream ciphers encrypt one bit/byte at a time; block ciphers encrypt fixed-size blocks"
+      - "Stream ciphers are more secure; block ciphers are faster"
+      - "Stream ciphers are used for data at rest; block ciphers are used for data in transit"
+    correct_answer: 1
+    explanations:
+      correct: "Stream ciphers encrypt data one bit or byte at a time using a continuous keystream (e.g., RC4). Block ciphers divide plaintext into fixed-size blocks (e.g., AES uses 128-bit blocks) and encrypt each block."
+      incorrect:
+        - "Both stream and block ciphers can use symmetric keys. Key type is not the distinguishing factor."
+        - "Stream ciphers encrypt continuously bit by bit; block ciphers encrypt fixed blocks — this is the correct distinction."
+        - "Neither is universally more secure or faster — they have different use cases and trade-offs."
+        - "The application (at rest vs. in transit) does not define cipher type — both types can be used in either context."
+    difficulty: "medium"
+    tags: ["cryptography", "symmetric"]
+
+  - id: q-d3-010
+    domain: domain3
+    question: "Which physical security control prevents vehicle-based attacks on buildings by blocking vehicles from approaching within a certain distance?"
+    options:
+      - "Mantrap"
+      - "CCTV"
+      - "Bollards"
+      - "Turnstile"
+    correct_answer: 2
+    explanations:
+      correct: "Bollards are short, sturdy posts installed to prevent vehicles from ramming into buildings or restricted areas. They provide standoff distance protection against vehicle-borne improvised explosive devices (VBIEDs) and accidental vehicle intrusions."
+      incorrect:
+        - "A mantrap (airlock) controls personnel entry — it prevents tailgating but does not stop vehicles."
+        - "CCTV is a detective control for monitoring and recording — it does not physically prevent vehicle attacks."
+        - "Bollards correctly prevent vehicle attacks by physically blocking vehicle access."
+        - "A turnstile controls pedestrian access — it does not stop vehicles."
+    difficulty: "easy"
+    tags: ["physical-security", "controls"]
+
+  - id: q-d3-011
+    domain: domain3
+    question: "What does the 'avalanche effect' mean in the context of cryptographic hash functions?"
+    options:
+      - "The hash function can process large files quickly"
+      - "A small change in input produces a completely different hash output"
+      - "The hash output is always larger than the input"
+      - "Multiple inputs can produce the same hash value"
+    correct_answer: 1
+    explanations:
+      correct: "The avalanche effect means that a tiny change in the input (even one bit) produces a drastically different hash output. This is a desirable property — it makes it difficult to predict the output or reverse-engineer the input."
+      incorrect:
+        - "Processing speed is not the avalanche effect — it relates to computational efficiency, not cryptographic properties."
+        - "A small input change producing a completely different hash is the correct definition of the avalanche effect."
+        - "Hash functions produce fixed-size outputs regardless of input size — the output is not always larger than the input."
+        - "Multiple inputs producing the same hash is a collision — the opposite of a desirable property."
+    difficulty: "easy"
+    tags: ["cryptography", "hashing"]
+
+  - id: q-d3-012
+    domain: domain3
+    question: "What type of attack attempts to find the original input that produced a specific hash value?"
+    options:
+      - "Birthday attack"
+      - "Collision attack"
+      - "Pre-image attack"
+      - "Rainbow table attack"
+    correct_answer: 2
+    explanations:
+      correct: "A pre-image attack attempts to find an input m such that hash(m) equals a specific target hash value. It tries to reverse the hash function. Strong hash functions are designed to be pre-image resistant."
+      incorrect:
+        - "A birthday attack exploits the birthday paradox to find any two inputs with the same hash — not a specific target hash."
+        - "A collision attack finds two arbitrary inputs that produce the same hash — not necessarily a specific target hash."
+        - "A pre-image attack is the correct term for finding an input that produces a specific target hash."
+        - "A rainbow table attack uses precomputed hash-to-password mappings to reverse password hashes — it is a type of pre-image attack but specifically for password cracking."
+    difficulty: "hard"
+    tags: ["cryptography", "attacks"]

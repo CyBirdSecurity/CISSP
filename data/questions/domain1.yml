@@ -1,0 +1,227 @@
+questions:
+  - id: q-d1-001
+    domain: domain1
+    question: "Which component of the CIA triad ensures that data is accurate, complete, and has not been altered by unauthorized parties?"
+    options:
+      - "Confidentiality"
+      - "Integrity"
+      - "Availability"
+      - "Non-repudiation"
+    correct_answer: 1
+    explanations:
+      correct: "Integrity ensures data is accurate, complete, and has not been modified by unauthorized parties. Controls like hashing, digital signatures, and checksums protect integrity."
+      incorrect:
+        - "Confidentiality ensures only authorized users can access data — it does not address data accuracy or modification."
+        - "Integrity is the correct answer — it directly addresses protection against unauthorized alteration."
+        - "Availability ensures systems and data are accessible when needed — it does not address data accuracy."
+        - "Non-repudiation is not a core CIA triad component — it provides proof that an action occurred and cannot be denied."
+    difficulty: "easy"
+    tags: ["CIA", "fundamentals"]
+
+  - id: q-d1-002
+    domain: domain1
+    question: "A company identifies a risk of $50,000 and determines the cost to mitigate it would be $75,000. What is the most appropriate risk response?"
+    options:
+      - "Mitigate the risk by implementing the $75,000 control"
+      - "Transfer the risk to an insurance provider"
+      - "Accept the risk and document it"
+      - "Avoid the risk by eliminating the business activity"
+    correct_answer: 2
+    explanations:
+      correct: "When the cost of mitigation exceeds the value of what is being protected, risk acceptance is appropriate. The risk should be formally accepted, documented, and monitored."
+      incorrect:
+        - "Spending $75,000 to mitigate a $50,000 risk is not cost-effective. The control cost exceeds the potential loss."
+        - "Risk transfer (insurance) may be appropriate but is not the most obvious answer when acceptance is directly justified by cost comparison."
+        - "Risk acceptance is the correct response when mitigation costs exceed the risk value."
+        - "Risk avoidance would eliminate a business activity — this is extreme and often not practical for a single risk scenario."
+    difficulty: "medium"
+    tags: ["risk", "management"]
+
+  - id: q-d1-003
+    domain: domain1
+    question: "What distinguishes 'due care' from 'due diligence' in information security?"
+    options:
+      - "Due care is the research; due diligence is the action taken"
+      - "Due care is the action taken; due diligence is the ongoing research and investigation"
+      - "They are interchangeable terms describing the same security obligation"
+      - "Due care applies to executives; due diligence applies to technical staff"
+    correct_answer: 1
+    explanations:
+      correct: "Due care is the action — implementing controls and doing what a reasonable person would do. Due diligence is the research — investigating and understanding risks before acting."
+      incorrect:
+        - "This is reversed. Due diligence is the research; due care is the action taken."
+        - "Due care is doing something (implementing controls); due diligence is knowing what needs to be done (research and investigation)."
+        - "They are distinct concepts. Both are legally important but address different aspects of security responsibility."
+        - "Both concepts apply to all levels of an organization — they are not role-specific distinctions."
+    difficulty: "medium"
+    tags: ["governance", "legal"]
+
+  - id: q-d1-004
+    domain: domain1
+    question: "During a BIA, the maximum time a critical business function can be disrupted before causing unacceptable damage is called the:"
+    options:
+      - "Recovery Time Objective (RTO)"
+      - "Recovery Point Objective (RPO)"
+      - "Maximum Tolerable Downtime (MTD)"
+      - "Mean Time to Repair (MTTR)"
+    correct_answer: 2
+    explanations:
+      correct: "MTD (also called Maximum Tolerable Outage or MTO) defines the absolute maximum time a business can survive without a function. RTO must be less than or equal to MTD."
+      incorrect:
+        - "RTO is the targeted time to restore a system — it must be equal to or less than the MTD, but it is not the definition of maximum acceptable disruption."
+        - "RPO relates to data loss tolerance (how much data can be lost), not disruption duration."
+        - "MTD is the correct answer — it is the threshold beyond which business damage becomes unacceptable."
+        - "MTTR is an operational metric for how long repairs take, not a BIA planning metric for business tolerance."
+    difficulty: "medium"
+    tags: ["BCP", "BIA"]
+
+  - id: q-d1-005
+    domain: domain1
+    question: "Which security policy document provides step-by-step instructions for implementing a specific security task?"
+    options:
+      - "Policy"
+      - "Standard"
+      - "Guideline"
+      - "Procedure"
+    correct_answer: 3
+    explanations:
+      correct: "Procedures provide specific, detailed, step-by-step instructions for implementing tasks. They are the most granular policy document and are mandatory."
+      incorrect:
+        - "A policy is a high-level management statement of intent — it defines what must be done but not how."
+        - "A standard defines specific, mandatory requirements (e.g., AES-256 encryption) but does not provide step-by-step instructions."
+        - "A guideline provides recommendations and best practices but is not mandatory and does not provide step-by-step instructions."
+        - "A procedure is the correct answer — it provides specific, actionable steps for completing a task."
+    difficulty: "easy"
+    tags: ["governance", "policy"]
+
+  - id: q-d1-006
+    domain: domain1
+    question: "What is the primary purpose of a Business Continuity Plan (BCP)?"
+    options:
+      - "To restore IT systems after a disaster"
+      - "To ensure critical business functions continue during and after a disruption"
+      - "To document security incidents and their resolution"
+      - "To train employees on emergency evacuation procedures"
+    correct_answer: 1
+    explanations:
+      correct: "BCP focuses on keeping critical business functions operational during and after any disruption — not just IT systems. It encompasses people, processes, and technology."
+      incorrect:
+        - "Restoring IT systems is the purpose of a Disaster Recovery Plan (DRP), which is a technical subset of the BCP."
+        - "BCP is focused on maintaining business operations during disruptions — it is not primarily about documenting incidents."
+        - "Emergency evacuation is part of physical security and emergency management, which may be included in BCP but is not its primary purpose."
+    difficulty: "easy"
+    tags: ["BCP", "continuity"]
+
+  - id: q-d1-007
+    domain: domain1
+    question: "An organization is considering the four responses to risk. Which response involves shifting the financial impact of a risk to a third party?"
+    options:
+      - "Risk avoidance"
+      - "Risk mitigation"
+      - "Risk transfer"
+      - "Risk acceptance"
+    correct_answer: 2
+    explanations:
+      correct: "Risk transfer (also called risk sharing) shifts the financial impact to a third party through insurance, contracts, or outsourcing. The organization still faces the risk but limits its financial exposure."
+      incorrect:
+        - "Risk avoidance eliminates the activity that causes the risk — it does not shift responsibility to a third party."
+        - "Risk mitigation reduces the likelihood or impact of a risk through controls — it does not transfer responsibility."
+        - "Risk transfer is the correct answer — it shifts financial impact, not risk itself, to another party."
+        - "Risk acceptance means acknowledging the risk and choosing to deal with it if it occurs — no shifting to third party."
+    difficulty: "easy"
+    tags: ["risk", "management"]
+
+  - id: q-d1-008
+    domain: domain1
+    question: "Which framework is specifically designed for evaluating and improving an organization's cybersecurity posture, organized around five core functions: Identify, Protect, Detect, Respond, Recover?"
+    options:
+      - "ISO/IEC 27001"
+      - "NIST Cybersecurity Framework (CSF)"
+      - "COBIT"
+      - "ITIL"
+    correct_answer: 1
+    explanations:
+      correct: "The NIST Cybersecurity Framework (CSF) is organized around five core functions: Identify, Protect, Detect, Respond, and Recover. It provides a risk-based approach to managing cybersecurity."
+      incorrect:
+        - "ISO/IEC 27001 is an international standard for establishing an Information Security Management System (ISMS) — it does not use the five-function structure."
+        - "NIST CSF is the correct framework with the five core functions."
+        - "COBIT (Control Objectives for IT) focuses on IT governance and management, not specifically on the five cybersecurity functions."
+        - "ITIL is an IT service management framework focused on service delivery, not cybersecurity posture."
+    difficulty: "medium"
+    tags: ["frameworks", "governance"]
+
+  - id: q-d1-009
+    domain: domain1
+    question: "What type of risk assessment assigns numerical values to assets, threats, and vulnerabilities to calculate annualized loss expectancy?"
+    options:
+      - "Qualitative risk assessment"
+      - "Quantitative risk assessment"
+      - "Delphi technique"
+      - "Fault tree analysis"
+    correct_answer: 1
+    explanations:
+      correct: "Quantitative risk assessment uses numerical values and formulas: Asset Value × Exposure Factor = Single Loss Expectancy (SLE); SLE × Annual Rate of Occurrence (ARO) = Annualized Loss Expectancy (ALE)."
+      incorrect:
+        - "Qualitative risk assessment uses descriptive ratings (High/Medium/Low) rather than numeric values. It is more subjective but easier and faster to perform."
+        - "Quantitative assessment assigns numbers and calculates ALE — this is the correct answer."
+        - "The Delphi technique is a qualitative method using expert consensus — not numerical calculations."
+        - "Fault tree analysis is a diagram-based technique for analyzing system failures — it does not calculate ALE."
+    difficulty: "medium"
+    tags: ["risk", "assessment"]
+
+  - id: q-d1-010
+    domain: domain1
+    question: "The principle that no single person should have complete control over a critical process or transaction is known as:"
+    options:
+      - "Least privilege"
+      - "Need to know"
+      - "Separation of duties"
+      - "Job rotation"
+    correct_answer: 2
+    explanations:
+      correct: "Separation of duties (SoD) divides critical functions among multiple people so no single individual can complete a sensitive transaction alone. This prevents fraud and reduces errors."
+      incorrect:
+        - "Least privilege limits access to what is minimally necessary — it doesn't specifically divide tasks among multiple people."
+        - "Need to know restricts access to information required for a specific task — it is about information access, not task division."
+        - "Separation of duties is the correct principle — it requires multiple people for critical processes."
+        - "Job rotation periodically moves people between roles but doesn't prevent a single person from controlling a process while in that role."
+    difficulty: "easy"
+    tags: ["principles", "access-control"]
+
+  - id: q-d1-011
+    domain: domain1
+    question: "A company's RPO is set at 4 hours. What does this mean for their backup strategy?"
+    options:
+      - "Systems must be restored within 4 hours of a disaster"
+      - "Backups must be performed at least every 4 hours"
+      - "Recovery systems must be available within 4 hours"
+      - "Data can only be retained for 4 hours"
+    correct_answer: 1
+    explanations:
+      correct: "RPO is the maximum acceptable data loss measured in time. An RPO of 4 hours means the organization can tolerate losing up to 4 hours of data, so backups must occur at least every 4 hours."
+      incorrect:
+        - "Restoring systems within a set time is RTO (Recovery Time Objective), not RPO. RPO defines data loss tolerance, not recovery speed."
+        - "Backups must be performed at least every 4 hours — this correctly reflects what RPO of 4 hours means."
+        - "System availability is related to RTO, not RPO. RPO specifically measures how much data (in time) can be lost."
+        - "RPO is about backup frequency to prevent data loss, not about how long data is retained."
+    difficulty: "medium"
+    tags: ["BCP", "DRP", "metrics"]
+
+  - id: q-d1-012
+    domain: domain1
+    question: "Which of the following best describes 'threat modeling'?"
+    options:
+      - "Creating a visual map of network vulnerabilities"
+      - "A structured process for identifying and prioritizing potential threats to a system"
+      - "Building a threat intelligence database from external feeds"
+      - "Simulating attacks against a production system"
+    correct_answer: 1
+    explanations:
+      correct: "Threat modeling is a structured process (using frameworks like STRIDE, PASTA, or VAST) to identify, categorize, and prioritize potential threats during the design phase to inform security controls."
+      incorrect:
+        - "Network vulnerability mapping is vulnerability scanning, not threat modeling. Threat modeling is broader and design-focused."
+        - "Threat modeling is a structured process to identify and address threats — this is the correct answer."
+        - "Threat intelligence feeds provide information about real-world threats — threat modeling is about modeling risks to a specific system."
+        - "Simulating attacks against production is penetration testing, not threat modeling. Threat modeling is proactive and design-phase focused."
+    difficulty: "medium"
+    tags: ["threat-modeling", "risk"]

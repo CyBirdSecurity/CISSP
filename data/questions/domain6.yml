@@ -1,0 +1,228 @@
+questions:
+  - id: q-d6-001
+    domain: domain6
+    question: "A penetration tester is given no information about the target system before beginning the test. What type of test is this?"
+    options:
+      - "White box test"
+      - "Gray box test"
+      - "Black box test"
+      - "Crystal box test"
+    correct_answer: 2
+    explanations:
+      correct: "A black box (opaque box) test means the tester has no prior knowledge of the target — they simulate an external attacker starting from scratch with only publicly available information."
+      incorrect:
+        - "White box testing provides the tester with full knowledge (source code, architecture, credentials) — the opposite of this scenario."
+        - "Gray box testing provides partial knowledge (e.g., user-level credentials but no source code)."
+        - "Black box testing with no prior information correctly describes this scenario."
+        - "'Crystal box' is another name for white box testing — full knowledge access."
+    difficulty: "easy"
+    tags: ["pen-testing", "testing-types"]
+
+  - id: q-d6-002
+    domain: domain6
+    question: "What does a CVSS score of 9.5 indicate about a vulnerability?"
+    options:
+      - "Low severity — minimal risk"
+      - "Medium severity — limited impact"
+      - "High severity — significant risk"
+      - "Critical severity — requires immediate attention"
+    correct_answer: 3
+    explanations:
+      correct: "CVSS v3 scoring: Critical (9.0-10.0), High (7.0-8.9), Medium (4.0-6.9), Low (0.1-3.9). A score of 9.5 is Critical, indicating the vulnerability is easy to exploit, requires little or no authentication, and has severe impact. Critical vulnerabilities require immediate patching."
+      incorrect:
+        - "A score of 9.5 is Critical — not Low (0.1-3.9)."
+        - "A score of 9.5 is Critical — not Medium (4.0-6.9)."
+        - "A score of 9.5 is Critical — not just High (7.0-8.9)."
+        - "Critical (9.0-10.0) is correct for 9.5 — requires immediate remediation."
+    difficulty: "easy"
+    tags: ["CVSS", "vulnerability"]
+
+  - id: q-d6-003
+    domain: domain6
+    question: "What is the key difference between vulnerability scanning and penetration testing?"
+    options:
+      - "Vulnerability scanning is more expensive than penetration testing"
+      - "Vulnerability scanning identifies potential weaknesses; penetration testing actively exploits them to confirm impact"
+      - "Vulnerability scanning requires explicit authorization; penetration testing does not"
+      - "Vulnerability scanning is performed by external parties; penetration testing is internal"
+    correct_answer: 1
+    explanations:
+      correct: "Vulnerability scanning uses automated tools to identify known potential weaknesses. Penetration testing goes further — it actively attempts to exploit found and additional vulnerabilities to demonstrate actual impact and attack paths."
+      incorrect:
+        - "Penetration testing is generally more expensive and time-intensive than automated vulnerability scanning."
+        - "Vulnerability scanning identifies weaknesses; pen testing exploits them to prove impact — this is the key difference."
+        - "Both vulnerability scanning AND penetration testing require explicit written authorization. Unauthorized scanning is illegal."
+        - "Both can be performed internally or by external parties — who performs the test is not the defining difference."
+    difficulty: "medium"
+    tags: ["pen-testing", "scanning"]
+
+  - id: q-d6-004
+    domain: domain6
+    question: "STRIDE is a threat modeling methodology. What does the 'T' in STRIDE stand for?"
+    options:
+      - "Tracking"
+      - "Tampering"
+      - "Trust elevation"
+      - "Transmission interception"
+    correct_answer: 1
+    explanations:
+      correct: "STRIDE stands for: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege. Tampering refers to unauthorized modification of data or code."
+      incorrect:
+        - "Tracking is not a component of STRIDE."
+        - "Tampering (unauthorized data modification) is the correct 'T' in STRIDE."
+        - "'Trust elevation' is not a STRIDE component — 'Elevation of Privilege' (E) is the related concept."
+        - "'Transmission interception' is not a STRIDE component — 'Information Disclosure' (I) covers unauthorized data exposure."
+    difficulty: "medium"
+    tags: ["threat-modeling", "STRIDE"]
+
+  - id: q-d6-005
+    domain: domain6
+    question: "A developer integrates SAST tools into the CI/CD pipeline. What category of testing does SAST represent?"
+    options:
+      - "Dynamic testing — testing the running application"
+      - "Static testing — analyzing code without executing it"
+      - "Interactive testing — combining static and dynamic approaches"
+      - "Manual testing — human review of code"
+    correct_answer: 1
+    explanations:
+      correct: "SAST (Static Application Security Testing) analyzes source code, bytecode, or binaries WITHOUT executing the application. It is a white-box testing technique that finds vulnerabilities in the code itself during development."
+      incorrect:
+        - "Dynamic testing (DAST) tests the running application — SAST is the opposite; it analyzes static code without execution."
+        - "Static testing (no execution, code analysis) correctly describes SAST."
+        - "IAST (Interactive Application Security Testing) combines static and dynamic approaches — SAST is purely static."
+        - "Manual code review is a human process — SAST is an automated static analysis tool."
+    difficulty: "medium"
+    tags: ["SAST", "testing"]
+
+  - id: q-d6-006
+    domain: domain6
+    question: "Which phase of a penetration test involves documenting findings, providing risk ratings, and recommending remediation steps?"
+    options:
+      - "Reconnaissance"
+      - "Exploitation"
+      - "Post-exploitation"
+      - "Reporting"
+    correct_answer: 3
+    explanations:
+      correct: "The Reporting phase documents all findings, includes risk ratings (typically using CVSS), and provides remediation recommendations. A good pen test report has an executive summary and a technical findings section with reproduction steps."
+      incorrect:
+        - "Reconnaissance is the information gathering phase — identifying targets and gathering intelligence."
+        - "Exploitation is the phase where vulnerabilities are actively attacked — not where findings are documented."
+        - "Post-exploitation involves lateral movement, privilege escalation, and maintaining access after initial compromise."
+        - "Reporting is the final phase where all findings are documented and presented — this is correct."
+    difficulty: "easy"
+    tags: ["pen-testing", "phases"]
+
+  - id: q-d6-007
+    domain: domain6
+    question: "What is the primary purpose of log management in a security program?"
+    options:
+      - "To improve application performance by reducing log verbosity"
+      - "To provide an audit trail for incident investigation, compliance, and detection of security events"
+      - "To backup system state for disaster recovery purposes"
+      - "To monitor employee productivity"
+    correct_answer: 1
+    explanations:
+      correct: "Log management provides: 1) Incident investigation (forensic audit trail), 2) Compliance evidence (SOX, PCI DSS, HIPAA all require audit logs), 3) Real-time security event detection when fed to SIEM. Logs must be centralized, tamper-proof, and time-synchronized."
+      incorrect:
+        - "Reducing log verbosity would harm security visibility — logs should be comprehensive, not minimized."
+        - "Audit trail for incidents, compliance, and detection is the primary security purpose of log management."
+        - "Disaster recovery uses backups of data and system state — log management serves a different, security-focused purpose."
+        - "Employee monitoring may be a secondary use, but the primary security purpose is incident investigation and compliance."
+    difficulty: "easy"
+    tags: ["logs", "monitoring"]
+
+  - id: q-d6-008
+    domain: domain6
+    question: "What is a 'false positive' in the context of intrusion detection?"
+    options:
+      - "A real attack that is not detected by the IDS"
+      - "A legitimate action incorrectly flagged as malicious by the IDS"
+      - "An attack detected and blocked by the IPS"
+      - "A vulnerability confirmed as exploitable by penetration testing"
+    correct_answer: 1
+    explanations:
+      correct: "A false positive occurs when the IDS generates an alert for benign, legitimate activity — incorrectly identifying it as malicious. High false positive rates cause alert fatigue, leading analysts to ignore alerts. Tuning IDS/IPS reduces false positives."
+      incorrect:
+        - "A real attack not detected is a 'false negative' — the most dangerous failure mode for an IDS."
+        - "Legitimate activity flagged as malicious is a false positive — causing unnecessary alerts and alert fatigue."
+        - "An attack detected and blocked is a 'true positive' — the desired IPS outcome."
+        - "Exploitability confirmed by pen testing relates to vulnerability management, not IDS detection accuracy."
+    difficulty: "medium"
+    tags: ["IDS", "detection"]
+
+  - id: q-d6-009
+    domain: domain6
+    question: "During a security audit, auditors verify that password complexity requirements are actually enforced by the system. What type of control testing is this?"
+    options:
+      - "Design review"
+      - "Compliance testing"
+      - "Substantive testing"
+      - "Attribute testing"
+    correct_answer: 1
+    explanations:
+      correct: "Compliance testing (also called tests of controls) verifies that controls are actually operating as designed — i.e., that the password policy is enforced by the system, not just documented. It tests effectiveness of controls."
+      incorrect:
+        - "Design review examines whether controls are appropriately designed for their purpose — not whether they are operating as intended."
+        - "Compliance testing verifies controls are working as designed — this correctly describes verifying password enforcement."
+        - "Substantive testing verifies the accuracy of data/transactions (financial audit term) — not control operation."
+        - "Attribute testing samples transactions to check for a specific characteristic — more common in financial auditing."
+    difficulty: "hard"
+    tags: ["audit", "testing"]
+
+  - id: q-d6-010
+    domain: domain6
+    question: "What is the primary goal of a red team exercise that differs from a standard penetration test?"
+    options:
+      - "Finding the maximum number of vulnerabilities"
+      - "Emulating a specific real-world threat actor to test detection and response capabilities"
+      - "Providing a compliance certification for the organization"
+      - "Testing only perimeter defenses and internet-facing systems"
+    correct_answer: 1
+    explanations:
+      correct: "Red team exercises emulate real-world adversaries (APT groups, specific threat actors) to test an organization's detection and response capabilities — not just find vulnerabilities. Red teams try to remain undetected; the blue team's ability to detect is part of what's tested."
+      incorrect:
+        - "Finding maximum vulnerabilities is a vulnerability assessment goal. Red team focuses on realistic adversary emulation and detection testing."
+        - "Emulating specific threat actors to test detection and response is the defining goal of red team exercises."
+        - "Red team exercises do not provide compliance certifications — they test operational security posture."
+        - "Red teams conduct full-scope attacks including physical, social engineering, and internal movement — not just perimeter testing."
+    difficulty: "medium"
+    tags: ["red-team", "assessment"]
+
+  - id: q-d6-011
+    domain: domain6
+    question: "Which testing technique sends random, malformed, or unexpected inputs to a program to discover crashes and vulnerabilities?"
+    options:
+      - "Regression testing"
+      - "Unit testing"
+      - "Fuzzing"
+      - "Integration testing"
+    correct_answer: 2
+    explanations:
+      correct: "Fuzzing (fuzz testing) automatically sends large amounts of random, malformed, or unexpected data to applications to find crashes, assertion failures, and security vulnerabilities like buffer overflows and input validation issues."
+      incorrect:
+        - "Regression testing verifies that changes haven't broken previously working functionality — it tests known scenarios, not random inputs."
+        - "Unit testing tests individual code components with specific expected inputs and outputs — not random/malformed data."
+        - "Fuzzing correctly describes the technique of sending unexpected inputs to discover vulnerabilities."
+        - "Integration testing verifies that different components work together correctly — not security-focused random input testing."
+    difficulty: "easy"
+    tags: ["fuzzing", "testing"]
+
+  - id: q-d6-012
+    domain: domain6
+    question: "What is the difference between a SOC 2 Type I and Type II report?"
+    options:
+      - "Type I covers security only; Type II covers all five trust service criteria"
+      - "Type I tests controls at a point in time; Type II tests effectiveness over a period (typically 6-12 months)"
+      - "Type I is for cloud providers; Type II is for on-premises organizations"
+      - "Type I is performed by internal auditors; Type II requires an external auditor"
+    correct_answer: 1
+    explanations:
+      correct: "SOC 2 Type I evaluates the design and implementation of controls at a specific point in time. Type II evaluates whether those controls operated effectively over a period, typically 6-12 months. Type II is more valuable and widely required by customers."
+      incorrect:
+        - "Both Type I and Type II can cover any of the five Trust Service Criteria (Security, Availability, Processing Integrity, Confidentiality, Privacy)."
+        - "Type I is point-in-time; Type II is over a period — this is the correct distinction."
+        - "Both types apply to any service organization, not specific to cloud or on-premises."
+        - "Both Type I and Type II require an independent certified public accountant (CPA) or qualified auditor."
+    difficulty: "medium"
+    tags: ["SOC2", "audit", "compliance"]
