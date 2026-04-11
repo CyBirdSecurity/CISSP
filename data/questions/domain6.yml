@@ -606,3 +606,383 @@ questions:
         - "Both passive and active reconnaissance apply to websites, networks, applications, and infrastructure."
     difficulty: "medium"
     tags: ["reconnaissance", "pen-testing"]
+
+  - id: q-d6-033
+    domain: domain6
+    question: "A security team runs automated vulnerability scans against production systems weekly. However, critical vulnerabilities from 3 months ago remain unpatched. What security program failure does this represent?"
+    options:
+      - "Insufficient scanning frequency"
+      - "Failure in vulnerability management — scanning without remediation"
+      - "Incorrect scanning tool configuration"
+      - "Lack of vulnerability disclosure policy"
+    correct_answer: 1
+    explanations:
+      correct: "Scanning identifies vulnerabilities but does not fix them. Vulnerability management requires a complete lifecycle: discover → assess → prioritize → remediate → verify. Having scan data with no remediation represents a critical program failure — scanning creates false assurance while risks remain. Critical vulnerabilities should have defined SLAs for remediation (e.g., critical within 30 days)."
+      incorrect:
+        - "Weekly scans are generally adequate frequency for most environments — the problem is remediation failure, not scan frequency."
+        - "Having vulnerabilities identified but unremediated is the correct failure — scanning without remediation provides false assurance."
+        - "Tool configuration affects what vulnerabilities are found — the described scenario is about remediation failure, not detection gaps."
+        - "A vulnerability disclosure policy governs how external researchers report vulnerabilities — not the organization's internal remediation program."
+    difficulty: "medium"
+    tags: ["vulnerability", "management"]
+
+  - id: q-d6-034
+    domain: domain6
+    question: "What is the key difference between a vulnerability assessment and a penetration test?"
+    options:
+      - "Vulnerability assessments cost more than penetration tests"
+      - "Vulnerability assessments identify potential weaknesses without exploiting them; penetration tests actively exploit vulnerabilities to confirm impact"
+      - "Penetration tests only test web applications; vulnerability assessments test all systems"
+      - "Vulnerability assessments require source code access; penetration tests do not"
+    correct_answer: 1
+    explanations:
+      correct: "A vulnerability assessment uses automated tools to identify potential security weaknesses but does not attempt to exploit them — it reports potential vulnerabilities. A penetration test actively exploits discovered vulnerabilities to confirm they are exploitable, demonstrate actual impact, and discover privilege escalation chains that scanners cannot find."
+      incorrect:
+        - "Penetration tests are generally more expensive due to the manual expertise required — vulnerability assessments using automated tools are typically less costly."
+        - "Non-exploitation (vulnerability assessment) vs. active exploitation (penetration test) is the correct distinction."
+        - "Both assessments can target web applications, networks, and systems — scope depends on engagement objectives, not the assessment type."
+        - "White-box penetration testing uses source code access, but black-box pen tests do not — vulnerability assessment does not require source code."
+    difficulty: "easy"
+    tags: ["assessment", "pen-testing", "vulnerability"]
+
+  - id: q-d6-035
+    domain: domain6
+    question: "A CVSS base score of 9.8 with Attack Vector: Network, Attack Complexity: Low, Privileges Required: None, User Interaction: None indicates which type of vulnerability?"
+    options:
+      - "A local privilege escalation requiring user interaction"
+      - "A remotely exploitable, easy-to-use vulnerability requiring no authentication or user interaction — a critical threat"
+      - "A moderate vulnerability with difficult exploitation requirements"
+      - "A physical access vulnerability affecting a single component"
+    correct_answer: 1
+    explanations:
+      correct: "CVSS scores break down the attack scenario: Network vector means exploitable remotely over the internet, Low complexity means no special conditions or expertise needed, No privileges means authentication is not required, No user interaction means the attacker doesn't need to trick a user. Combined, this describes a trivially exploitable internet-facing vulnerability — the most dangerous category (9.8/10 = Critical)."
+      incorrect:
+        - "Local privileges escalation would have Attack Vector: Local, not Network — this is a remote vulnerability requiring no local access."
+        - "Remotely exploitable, easy to use, requiring no authentication or user interaction (Critical severity) is the correct characterization of this CVSS profile."
+        - "Low CVSS scores reflect difficult exploitation — a 9.8 Critical reflects the easiest possible exploitation conditions."
+        - "Physical access would be Attack Vector: Physical — the Network vector means internet-accessible."
+    difficulty: "hard"
+    tags: ["vulnerability", "CVSS", "metrics"]
+
+  - id: q-d6-036
+    domain: domain6
+    question: "SOC 2 Type II differs from SOC 2 Type I in which key way?"
+    options:
+      - "Type II covers 5 trust service criteria; Type I covers only 2"
+      - "Type II evaluates controls over a period of time (6-12 months); Type I evaluates controls at a point in time"
+      - "Type II is required for government contractors; Type I is for commercial organizations"
+      - "Type II examines source code; Type I reviews policies only"
+    correct_answer: 1
+    explanations:
+      correct: "SOC 2 Type I evaluates whether controls are designed appropriately at a single point in time — a snapshot. Type II evaluates whether controls are designed appropriately AND operating effectively over a period (typically 6-12 months). Enterprise clients increasingly require Type II reports as they demonstrate sustained control effectiveness, not just a point-in-time snapshot."
+      incorrect:
+        - "Both Type I and Type II can cover all five Trust Services Criteria — the difference is the evaluation period, not the number of criteria."
+        - "Evaluation over a period (Type II) vs. point in time (Type I) is the correct distinction — Type II is more valuable for demonstrating sustained effectiveness."
+        - "Neither type is exclusively required for government vs. commercial — both are used across sectors based on client requirements."
+        - "Neither type examines source code — SOC 2 examines security, availability, processing integrity, confidentiality, and privacy controls."
+    difficulty: "medium"
+    tags: ["compliance", "audit", "SOC2"]
+
+  - id: q-d6-037
+    domain: domain6
+    question: "In threat modeling, which STRIDE category is most relevant to an API endpoint that accepts user-controlled object IDs and returns records without verifying the requester owns them?"
+    options:
+      - "Spoofing"
+      - "Tampering"
+      - "Information Disclosure"
+      - "Denial of Service"
+    correct_answer: 2
+    explanations:
+      correct: "Information Disclosure (the 'I' in STRIDE) occurs when data is exposed to unauthorized parties. An API returning another user's records without ownership verification exposes confidential information — this is Insecure Direct Object Reference (IDOR/BOLA), which directly violates confidentiality. The attacker accesses data they should not be able to see."
+      incorrect:
+        - "Spoofing involves impersonating another identity — the described scenario involves accessing data without impersonation."
+        - "Tampering involves modifying data — this scenario involves reading/accessing unauthorized data, not modifying it."
+        - "Information Disclosure (unauthorized access to another user's records) is the correct STRIDE category for this IDOR vulnerability."
+        - "Denial of Service involves making services unavailable — unauthorized data access is an availability concern, not DoS."
+    difficulty: "hard"
+    tags: ["threat-modeling", "STRIDE", "assessment"]
+
+  - id: q-d6-038
+    domain: domain6
+    question: "A penetration tester receives only the target organization's name and public IP ranges before testing. No credentials, network diagrams, or internal documentation are provided. What type of test is this?"
+    options:
+      - "White box test"
+      - "Gray box test"
+      - "Black box test"
+      - "Crystal box test"
+    correct_answer: 2
+    explanations:
+      correct: "A black box test (also called opaque-box testing) gives the tester no prior knowledge of internal systems, credentials, or architecture — only the target name and publicly available information. The tester must discover the attack surface through reconnaissance, simulating an external attacker's perspective. It is the most realistic simulation of an external threat."
+      incorrect:
+        - "White box testing provides full knowledge: source code, architecture, credentials, network diagrams — the tester has complete insider information."
+        - "Gray box testing provides partial knowledge (some credentials, documentation, or network diagrams) — the described scenario provides none."
+        - "Black box testing (no internal knowledge, tester must discover everything) is the correct answer."
+        - "Crystal box is another term for white box testing (full knowledge) — not the scenario described."
+    difficulty: "easy"
+    tags: ["pen-testing", "testing-types"]
+
+  - id: q-d6-039
+    domain: domain6
+    question: "Which security testing technique is most effective for discovering business logic vulnerabilities in a web application?"
+    options:
+      - "Automated SAST scanning"
+      - "Automated DAST scanning"
+      - "Manual penetration testing"
+      - "Fuzzing"
+    correct_answer: 2
+    explanations:
+      correct: "Business logic vulnerabilities (e.g., price manipulation, workflow bypass, privilege abuse) require understanding of how the application is supposed to work and creative thinking about how to abuse it. Automated tools lack the contextual understanding to identify these — a human tester who understands the application's business purpose can discover logic flaws that scanners will never find."
+      incorrect:
+        - "SAST analyzes source code for known vulnerability patterns — it cannot understand business logic or test application behavior."
+        - "DAST tests a running application but uses pattern-matching and predefined attack sequences — it lacks the contextual understanding to find logic flaws."
+        - "Manual penetration testing by an experienced tester who understands the business context is the most effective for logic vulnerabilities."
+        - "Fuzzing sends random/malformed inputs to find crashes and input handling bugs — it is not effective for business logic vulnerabilities that require understanding intended behavior."
+    difficulty: "medium"
+    tags: ["pen-testing", "testing-types", "business-logic"]
+
+  - id: q-d6-040
+    domain: domain6
+    question: "What is the purpose of including 'rules of engagement' in a penetration testing contract?"
+    options:
+      - "To establish payment terms between the tester and client"
+      - "To define scope, authorized targets, test timing, and emergency contacts to ensure testing stays within legal and operational boundaries"
+      - "To guarantee that all vulnerabilities will be found"
+      - "To specify which vulnerability scanning tools must be used"
+    correct_answer: 1
+    explanations:
+      correct: "Rules of Engagement define: what systems are in-scope vs. out-of-scope, testing timeframes (can you test during business hours?), authorized techniques (can you use destructive tests?), emergency escalation contacts (if a tester accidentally takes down a critical system), and communication procedures. They protect both the tester (legal authorization) and the client (prevent unintended disruption)."
+      incorrect:
+        - "Payment terms are part of the engagement contract but not the rules of engagement — rules of engagement focus on technical and operational scope."
+        - "Defining authorized scope, targets, timing, and emergency contacts to ensure legal and safe testing is the correct purpose of rules of engagement."
+        - "No penetration testing engagement can guarantee complete vulnerability coverage — rules of engagement define scope and authorization, not completeness guarantees."
+        - "Tool selection may be discussed but is typically the tester's professional judgment — rules of engagement focus on authorization and scope."
+    difficulty: "medium"
+    tags: ["pen-testing", "governance"]
+
+  - id: q-d6-041
+    domain: domain6
+    question: "A red team exercise differs from a standard penetration test primarily in which way?"
+    options:
+      - "Red teams only test network security; pen tests cover all attack surfaces"
+      - "Red teams simulate a persistent, targeted threat actor to test detection and response capabilities; pen tests focus on finding and documenting vulnerabilities"
+      - "Red teams are always internal; pen tests are always external"
+      - "Red teams report to the CEO; pen testers report to the CISO"
+    correct_answer: 1
+    explanations:
+      correct: "Red team exercises simulate a realistic, persistent advanced threat actor attempting to achieve specific objectives (e.g., access financial data, disrupt operations). They test not just vulnerabilities but also the organization's detection capabilities and incident response. The blue team (SOC) doesn't know the red team is active. Standard pen tests focus on comprehensive vulnerability identification and documentation."
+      incorrect:
+        - "Red teams test all attack surfaces — physical, social, and technical — typically a broader scope than traditional pen tests."
+        - "Simulating a persistent threat actor to test detection and response (vs. finding and documenting vulnerabilities) is the key red team differentiator."
+        - "Both red teams and pen testers can be internal employees or external consultants — organizational location is not the distinction."
+        - "Reporting structure varies by organization and doesn't define the difference between red teaming and pen testing."
+    difficulty: "medium"
+    tags: ["pen-testing", "red-team", "assessment"]
+
+  - id: q-d6-042
+    domain: domain6
+    question: "NIST SP 800-115 defines which four phases of information security assessment?"
+    options:
+      - "Reconnaissance, Scanning, Exploitation, Reporting"
+      - "Planning, Discovery, Attack, Reporting"
+      - "Identify, Protect, Detect, Respond"
+      - "Pre-engagement, Intelligence Gathering, Vulnerability Analysis, Exploitation"
+    correct_answer: 1
+    explanations:
+      correct: "NIST SP 800-115 (Technical Guide to Information Security Testing and Assessment) defines four phases: Planning (objectives, rules of engagement, logistics), Discovery (information gathering, system identification, network scanning), Attack (vulnerability testing and exploitation), Reporting (findings documentation, risk rating, recommendations). This is the NIST-specific methodology."
+      incorrect:
+        - "Reconnaissance, Scanning, Exploitation, Reporting describes the Penetration Testing Execution Standard (PTES) phases — not specifically NIST SP 800-115."
+        - "Planning, Discovery, Attack, Reporting are the four NIST SP 800-115 phases — this is the correct answer."
+        - "Identify, Protect, Detect, Respond describes the NIST Cybersecurity Framework (CSF) functions — not SP 800-115 assessment phases."
+        - "Pre-engagement, Intelligence Gathering, Vulnerability Analysis, Exploitation describes the PTES (Penetration Testing Execution Standard) — not NIST SP 800-115."
+    difficulty: "hard"
+    tags: ["standards", "NIST", "pen-testing", "SP800-115"]
+
+  - id: q-d6-043
+    domain: domain6
+    question: "A security assessment team tests an application by attempting to access admin features using a regular user account. Which testing category does this represent?"
+    options:
+      - "Denial of service testing"
+      - "Authentication bypass testing"
+      - "Privilege escalation and authorization testing"
+      - "SQL injection testing"
+    correct_answer: 2
+    explanations:
+      correct: "Testing whether a regular user can access administrative features that should require elevated privileges is authorization testing — specifically testing for vertical privilege escalation (a lower-privileged user gaining higher-privileged access). This directly tests whether authorization controls enforce proper access boundaries."
+      incorrect:
+        - "Denial of service testing attempts to make services unavailable — accessing admin features with a regular account doesn't involve disrupting availability."
+        - "Authentication bypass tests whether users can skip the authentication process entirely — the described scenario involves an authenticated user attempting to exceed their authorization."
+        - "Privilege escalation and authorization testing (testing whether lower-privileged users can access higher-privileged functionality) is the correct answer."
+        - "SQL injection tests database query manipulation through user input — not testing authorization boundaries between user roles."
+    difficulty: "medium"
+    tags: ["pen-testing", "authorization", "assessment"]
+
+  - id: q-d6-044
+    domain: domain6
+    question: "Which of the following best describes the purpose of a 'compensating control' in a PCI DSS compliance context?"
+    options:
+      - "A control that provides additional security beyond what PCI DSS requires"
+      - "An alternative control used when the primary PCI DSS requirement cannot be met, providing equivalent risk reduction"
+      - "A temporary control while the primary control is being installed"
+      - "A control that compensates for the high cost of other security investments"
+    correct_answer: 1
+    explanations:
+      correct: "PCI DSS allows compensating controls when an organization cannot implement a specific required control due to legitimate technical or business constraints. The compensating control must: address the risk of the original requirement, provide equivalent or greater security, and be formally documented and validated by a QSA. It is not a permanent replacement — the primary control should be implemented when feasible."
+      incorrect:
+        - "Additional security beyond PCI DSS requirements describes an 'enhanced control' or defense-in-depth addition — not a compensating control."
+        - "An alternative control providing equivalent risk reduction when the primary control cannot be implemented is the correct PCI DSS definition of a compensating control."
+        - "Temporary controls during installation are operational workarounds — PCI compensating controls are formal documented alternatives, not just interim measures."
+        - "Compensating controls are about meeting security requirements when primary controls can't be implemented — not about cost management."
+    difficulty: "medium"
+    tags: ["compliance", "PCI", "controls"]
+
+  - id: q-d6-045
+    domain: domain6
+    question: "A security team wants to assess their organization's susceptibility to phishing attacks. What is the MOST appropriate approach?"
+    options:
+      - "Block all external email without warning users"
+      - "Conduct authorized simulated phishing campaigns and use results for targeted training"
+      - "Review email server logs for past phishing attempts"
+      - "Ask employees to self-report how often they click suspicious links"
+    correct_answer: 1
+    explanations:
+      correct: "Authorized simulated phishing campaigns (using platforms like KnowBe4, Proofpoint Security Awareness) send realistic phishing emails to employees and measure click rates, credential submission rates, and reporting rates. Results reveal actual susceptibility and identify employees needing additional training. The simulation must be authorized by leadership and results used for education, not punishment."
+      incorrect:
+        - "Blocking all external email destroys business communication — it is not an assessment approach and would not improve resilience to phishing."
+        - "Authorized simulated phishing campaigns followed by targeted training is the most appropriate and measurable assessment approach."
+        - "Log review shows past attack attempts but not employee susceptibility — it doesn't reveal who would click a well-crafted phishing email."
+        - "Self-reporting is highly inaccurate — employees either don't remember, underreport to avoid embarrassment, or don't recognize what constitutes suspicious behavior."
+    difficulty: "easy"
+    tags: ["social-engineering", "assessment", "awareness"]
+
+  - id: q-d6-046
+    domain: domain6
+    question: "Which metric best measures the effectiveness of a vulnerability management program over time?"
+    options:
+      - "Total number of vulnerabilities discovered per scan"
+      - "Mean time to remediate (MTTR) critical vulnerabilities"
+      - "Number of vulnerability scanners deployed"
+      - "Total security budget allocated to patching"
+    correct_answer: 1
+    explanations:
+      correct: "Mean Time to Remediate (MTTR) critical vulnerabilities measures how quickly identified vulnerabilities are actually fixed — the most important outcome of a vulnerability management program. A program that finds many vulnerabilities but remedates them slowly provides limited security value. MTTR tracks the end-to-end cycle from discovery to verified remediation."
+      incorrect:
+        - "Total vulnerabilities found measures the scan's coverage but not program effectiveness — a system might find all vulnerabilities but never fix them."
+        - "MTTR for critical vulnerabilities measures actual remediation speed — the most meaningful effectiveness metric."
+        - "Number of scanners measures tool deployment, not program effectiveness — more scanners with poor remediation is still ineffective."
+        - "Budget allocated to patching measures investment but not outcomes — a large budget with poor execution produces poor results."
+    difficulty: "medium"
+    tags: ["vulnerability", "metrics", "management"]
+
+  - id: q-d6-047
+    domain: domain6
+    question: "A security team is conducting a fuzzing test against a new API. What types of vulnerabilities is fuzzing most likely to discover?"
+    options:
+      - "Broken authentication and session management"
+      - "Business logic errors and workflow bypasses"
+      - "Input handling crashes, buffer overflows, and format string vulnerabilities"
+      - "SQL injection in ORM-based database queries"
+    correct_answer: 2
+    explanations:
+      correct: "Fuzzing sends large volumes of random, malformed, or unexpected inputs to discover how a program handles invalid data. It is most effective at finding: crashes from unhandled exceptions, buffer overflows from oversized inputs, format string bugs, null pointer dereferences, and integer overflows — essentially any bug triggered by unexpected input that causes abnormal behavior."
+      incorrect:
+        - "Authentication and session management vulnerabilities require understanding of application logic and state — fuzzing's random inputs don't specifically target these."
+        - "Business logic vulnerabilities require understanding of intended application behavior — fuzzing cannot reason about business rules."
+        - "Input handling crashes, buffer overflows, and format string vulnerabilities are the primary targets of fuzzing — this is correct."
+        - "ORM-based queries with parameterization are generally not vulnerable to injection — and fuzzing doesn't specifically target database layer vulnerabilities."
+    difficulty: "medium"
+    tags: ["fuzzing", "testing", "vulnerabilities"]
+
+  - id: q-d6-048
+    domain: domain6
+    question: "A risk register entry shows: Risk = 'Database backup failure', Likelihood = High, Impact = Critical, Current Controls = 'Manual backup verification monthly', Residual Risk = High. What does this entry suggest the organization should do?"
+    options:
+      - "Accept the residual risk since current controls are documented"
+      - "Implement additional or stronger controls to reduce the high residual risk"
+      - "Transfer the risk to a third-party backup provider immediately"
+      - "Remove this item from the risk register as it is already controlled"
+    correct_answer: 1
+    explanations:
+      correct: "A high residual risk (remaining after current controls) on a Critical Impact risk indicates the current controls are insufficient. The risk register is a living document that drives action. High residual risk on critical assets requires implementing additional controls — perhaps automated backup verification, more frequent testing, offsite replication, and regular recovery testing — to reduce residual risk to an acceptable level."
+      incorrect:
+        - "Documented controls do not make residual risk acceptable if the residual risk level remains High/Critical — documentation records the state, it doesn't resolve the risk."
+        - "Implementing additional controls to reduce the unacceptably high residual risk is the correct response."
+        - "Risk transfer may be appropriate but should be evaluated after considering additional mitigation options — immediate transfer without analysis may be premature."
+        - "Active high-residual-risk items must remain in the risk register with updated treatment plans — removing them creates false assurance."
+    difficulty: "medium"
+    tags: ["risk", "governance", "risk-register"]
+
+  - id: q-d6-051
+    domain: domain6
+    question: "Security regression testing is performed primarily to verify which of the following?"
+    options:
+      - "That new features do not introduce new security vulnerabilities"
+      - "That previously identified and patched vulnerabilities have not been reintroduced"
+      - "That all user input is validated correctly"
+      - "That the application meets performance benchmarks"
+    correct_answer: 1
+    explanations:
+      correct: "Regression testing in security retests previously fixed vulnerabilities to verify: the fix works correctly, the fix hasn't been accidentally removed by subsequent code changes, and related code areas haven't been broken. It is a critical part of vulnerability management lifecycle — without regression testing, vulnerabilities can silently return."
+      incorrect:
+        - "Testing new features for new vulnerabilities is standard security testing — regression testing specifically retests previously known issues."
+        - "Verifying that previously fixed vulnerabilities haven't been reintroduced is the correct definition of security regression testing."
+        - "Input validation testing is a type of functional security testing — not regression testing specifically."
+        - "Performance benchmarks are non-functional testing — security regression testing focuses on verifying security fixes remain effective."
+    difficulty: "medium"
+    tags: ["testing", "vulnerability", "SDLC"]
+
+  - id: q-d6-052
+    domain: domain6
+    question: "A security manager wants to demonstrate the ROI of the security program to executive leadership. Which type of metric is most persuasive for this purpose?"
+    options:
+      - "Number of security tools deployed"
+      - "Percentage of systems with antivirus installed"
+      - "Reduction in mean time to detect (MTTD) and mean time to respond (MTTR) over the past year"
+      - "Number of phishing emails blocked by email gateway"
+    correct_answer: 2
+    explanations:
+      correct: "Executives care about outcomes and risk reduction — not tool counts. Demonstrating that MTTD decreased from 45 days to 8 days and MTTR from 15 days to 3 days shows measurable improvement in security capability directly linked to reduced breach impact. These outcome metrics connect security investment to business risk reduction."
+      incorrect:
+        - "Number of tools deployed is an input metric — executives need outcome metrics showing whether the security program is making the organization safer."
+        - "Antivirus coverage is an implementation metric — it shows deployment but not effectiveness or risk reduction."
+        - "MTTD/MTTR improvement over time demonstrates measurable, business-relevant security program effectiveness — these are outcome metrics executives can relate to breach risk and cost."
+        - "Emails blocked is a volume metric — it shows activity but not whether the organization is more secure as a result."
+    difficulty: "medium"
+    tags: ["governance", "metrics", "management"]
+
+  - id: q-d6-049
+    domain: domain6
+    question: "Which log source would be MOST useful for detecting a successful SQL injection attack that exfiltrated data from a web application database?"
+    options:
+      - "Network firewall logs"
+      - "Web application and database query logs"
+      - "Physical access control logs"
+      - "DNS query logs"
+    correct_answer: 1
+    explanations:
+      correct: "SQL injection attacks occur at the application layer — firewall logs typically only see TCP connections, not the payload content. Web application logs capture HTTP requests (revealing injection payloads in URL parameters or POST bodies) and database query logs capture the malformed SQL queries that actually executed. Together they provide the clearest evidence of SQL injection attacks."
+      incorrect:
+        - "Firewall logs show connection-level data (source IP, destination port) — they typically cannot inspect or log HTTP request content or SQL queries."
+        - "Web application and database query logs capturing the injection payload and executed queries are the most useful sources."
+        - "Physical access logs track building entry — irrelevant to detecting a web-layer attack."
+        - "DNS logs might show exfiltration via DNS tunneling — but for SQL injection data exfiltration through the application, web and database logs are more directly relevant."
+    difficulty: "medium"
+    tags: ["monitoring", "logs", "assessment"]
+
+  - id: q-d6-050
+    domain: domain6
+    question: "An organization uses CIS Benchmarks to evaluate its system configurations. These benchmarks represent which type of security standard?"
+    options:
+      - "Regulatory compliance mandates"
+      - "Vendor-neutral, community-developed configuration security best practices"
+      - "Government-classified security requirements"
+      - "Application-specific secure coding standards"
+    correct_answer: 1
+    explanations:
+      correct: "CIS (Center for Internet Security) Benchmarks are consensus-based, vendor-neutral configuration guides developed by security communities, government agencies, and industry experts. They define secure configuration baselines for operating systems, cloud platforms, and applications. Organizations use them as starting points for security hardening and compliance evidence."
+      incorrect:
+        - "CIS Benchmarks are voluntary best practice guides — they are not regulatory mandates (HIPAA, PCI DSS are regulatory). However, they are often used as evidence of compliance."
+        - "Community-developed, vendor-neutral configuration security best practices is the correct description of CIS Benchmarks."
+        - "CIS Benchmarks are public, unclassified documents freely available for any organization — not government-classified requirements."
+        - "CIS Benchmarks cover system and infrastructure configurations — not application source code security."
+    difficulty: "easy"
+    tags: ["standards", "compliance", "configuration"]

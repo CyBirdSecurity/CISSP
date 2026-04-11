@@ -606,3 +606,383 @@ questions:
         - "HTTPS secures the transport layer — SQL injection is an application-layer vulnerability requiring input validation, not transport encryption."
     difficulty: "easy"
     tags: ["TLS", "protocols"]
+
+  - id: q-d4-033
+    domain: domain4
+    question: "At which OSI layer does a stateful inspection firewall primarily operate?"
+    options:
+      - "Layer 2 (Data Link)"
+      - "Layer 3 and 4 (Network and Transport)"
+      - "Layer 7 (Application)"
+      - "Layer 1 (Physical)"
+    correct_answer: 1
+    explanations:
+      correct: "Stateful inspection firewalls operate primarily at Layer 3 (Network) and Layer 4 (Transport), tracking the state of connections (TCP handshake state, UDP pseudo-sessions). Unlike simple packet-filtering firewalls that examine each packet independently, stateful firewalls maintain connection tables to allow return traffic and block out-of-state packets."
+      incorrect:
+        - "Layer 2 is where switches and MAC-based controls operate — not stateful inspection firewalls."
+        - "Layers 3 and 4 (tracking network addresses and connection states) is where stateful inspection firewalls primarily operate."
+        - "Layer 7 (Application) is where Next-Generation Firewalls (NGFWs) and WAFs perform deep packet inspection — beyond stateful inspection."
+        - "Layer 1 is the physical medium — no security logic operates at this layer."
+    difficulty: "medium"
+    tags: ["networking", "firewalls", "OSI"]
+
+  - id: q-d4-034
+    domain: domain4
+    question: "An organization wants to ensure that only authenticated and authorized devices can connect to their corporate wired network. Which standard enables this capability?"
+    options:
+      - "IEEE 802.11"
+      - "IEEE 802.1Q"
+      - "IEEE 802.1X"
+      - "IEEE 802.3"
+    correct_answer: 2
+    explanations:
+      correct: "IEEE 802.1X is the standard for port-based Network Access Control (NAC). It requires devices to authenticate to a RADIUS/TACACS+ server before being granted network access. Until authenticated, the switch port only allows EAP authentication traffic. After successful authentication, the port is opened for normal network access."
+      incorrect:
+        - "IEEE 802.11 is the wireless networking standard (Wi-Fi) — not port-based network access control."
+        - "IEEE 802.1Q is the VLAN tagging standard — it segments network traffic but does not authenticate devices before granting access."
+        - "IEEE 802.1X (port-based NAC requiring device authentication before network access) is the correct standard."
+        - "IEEE 802.3 is the wired Ethernet standard — it defines physical and data link specifications, not access control."
+    difficulty: "medium"
+    tags: ["networking", "authentication", "NAC"]
+
+  - id: q-d4-035
+    domain: domain4
+    question: "The key security difference between RADIUS and TACACS+ is:"
+    options:
+      - "RADIUS uses TCP; TACACS+ uses UDP"
+      - "RADIUS encrypts only the password; TACACS+ encrypts the entire authentication payload"
+      - "RADIUS is used for VPNs; TACACS+ is used for wireless only"
+      - "RADIUS separates authentication from authorization; TACACS+ combines them"
+    correct_answer: 1
+    explanations:
+      correct: "RADIUS uses UDP and encrypts only the password field in the Access-Request packet — other attributes are transmitted in plaintext. TACACS+ uses TCP and encrypts the entire body of every packet. This makes TACACS+ more secure for sensitive administrative operations (device management) and makes it easier to implement granular command authorization."
+      incorrect:
+        - "This is reversed — RADIUS uses UDP (ports 1812/1813); TACACS+ uses TCP (port 49)."
+        - "RADIUS encrypting only the password while TACACS+ encrypts the entire payload is the correct security distinction."
+        - "Both can be used for VPN and network access authentication — TACACS+ is preferred for device administration due to its command-level authorization."
+        - "TACACS+ separates AAA into three independent functions; RADIUS combines authentication and authorization."
+    difficulty: "hard"
+    tags: ["protocols", "AAA", "authentication"]
+
+  - id: q-d4-036
+    domain: domain4
+    question: "A VLAN hopping attack using 'double tagging' requires which network configuration to be exploitable?"
+    options:
+      - "Spanning Tree Protocol must be disabled"
+      - "The attacker must be on a trunk port with the same native VLAN as the target switch"
+      - "DHCP snooping must be disabled on all switches"
+      - "The attacker must have physical access to the network closet"
+    correct_answer: 1
+    explanations:
+      correct: "Double-tag VLAN hopping works by sending frames with two 802.1Q tags. The outer tag matches the native VLAN of the trunk link (which is stripped by the first switch). The inner tag then directs the frame to a different VLAN on the next switch. This only works when the attacker's port shares the native VLAN with the trunk link between switches."
+      incorrect:
+        - "STP status does not affect VLAN hopping via double tagging — STP prevents loops, not VLAN traversal attacks."
+        - "The attacker being on a port with the same native VLAN as the inter-switch trunk is the required condition for double-tag VLAN hopping."
+        - "DHCP snooping prevents rogue DHCP servers — it is not related to VLAN hopping attacks."
+        - "Double-tag VLAN hopping is a logical/software attack — physical access is not required."
+    difficulty: "hard"
+    tags: ["attacks", "networking", "VLAN"]
+
+  - id: q-d4-037
+    domain: domain4
+    question: "A network administrator discovers that the ARP table on a Windows workstation shows the gateway's IP address mapped to an attacker's MAC address. Which attack has most likely occurred?"
+    options:
+      - "DNS poisoning"
+      - "MAC flooding"
+      - "ARP poisoning"
+      - "IP spoofing"
+    correct_answer: 2
+    explanations:
+      correct: "ARP poisoning (ARP spoofing) involves sending forged ARP replies that associate the attacker's MAC address with a legitimate IP address (like the default gateway). Any traffic the victim sends to the gateway is intercepted by the attacker, enabling Man-in-the-Middle attacks. The incorrect ARP table entry (gateway IP → attacker MAC) is the telltale sign."
+      incorrect:
+        - "DNS poisoning substitutes false DNS records to redirect domain lookups — it would appear in DNS cache entries, not ARP tables."
+        - "MAC flooding overwhelms the switch's CAM table to force broadcast mode — it doesn't modify ARP tables on endpoints."
+        - "ARP poisoning (forging ARP replies to map legitimate IPs to attacker's MAC) is the attack indicated by the incorrect ARP table entry."
+        - "IP spoofing forges the source IP address in packets — it does not modify ARP tables."
+    difficulty: "medium"
+    tags: ["attacks", "networking", "ARP"]
+
+  - id: q-d4-038
+    domain: domain4
+    question: "IPsec ESP in Tunnel mode is most appropriate for which scenario?"
+    options:
+      - "Encrypting traffic between two individual hosts on the same LAN"
+      - "Securing communications between two network gateways, encrypting the entire original packet"
+      - "Providing integrity-only protection for network management traffic"
+      - "Authenticating individual users to a web application"
+    correct_answer: 1
+    explanations:
+      correct: "IPsec Tunnel mode encrypts the entire original IP packet (header + payload) and encapsulates it in a new IP packet. This hides internal addressing and is used for site-to-site VPN connections between gateways. Transport mode encrypts only the payload (not the outer IP header) and is used for host-to-host communications where IP addresses don't need to be hidden."
+      incorrect:
+        - "Host-to-host communication on the same LAN typically uses IPsec Transport mode — Tunnel mode adds unnecessary overhead for same-LAN traffic."
+        - "Gateway-to-gateway VPN with full packet encryption (Tunnel mode) is the correct use case for IPsec ESP Tunnel mode."
+        - "Integrity-only protection (no encryption) is provided by AH (Authentication Header) — not ESP (Encapsulating Security Payload) which always encrypts."
+        - "Web application authentication is handled at the application layer (forms, OAuth) — not IPsec."
+    difficulty: "hard"
+    tags: ["protocols", "IPsec", "VPN"]
+
+  - id: q-d4-039
+    domain: domain4
+    question: "DNS Security Extensions (DNSSEC) protects against which specific attack?"
+    options:
+      - "DDoS amplification attacks using DNS"
+      - "DNS cache poisoning by cryptographically signing DNS resource records"
+      - "DNS tunneling for data exfiltration"
+      - "Unauthorized zone transfers"
+    correct_answer: 1
+    explanations:
+      correct: "DNSSEC adds cryptographic signatures to DNS resource records, allowing resolvers to verify that responses came from the legitimate zone and have not been tampered with. This directly counters DNS cache poisoning (Kaminsky attack) where attackers inject false DNS records. Resolvers validate the signature chain back to the DNSSEC-signed root zone."
+      incorrect:
+        - "DDoS amplification uses DNS as a reflection/amplification tool — DNSSEC does not prevent the DNS service from being used for amplification."
+        - "Cryptographically signing DNS records to prevent cache poisoning is the correct DNSSEC protection."
+        - "DNS tunneling encodes data in DNS queries/responses — DNSSEC authenticates record integrity but does not inspect or block DNS query content."
+        - "Unauthorized zone transfers are prevented by ACLs on DNS servers and TSIG (Transaction Signatures) — not DNSSEC, which focuses on response authenticity."
+    difficulty: "medium"
+    tags: ["protocols", "DNS", "DNSSEC"]
+
+  - id: q-d4-040
+    domain: domain4
+    question: "In a Zero Trust Architecture, which principle replaces the traditional concept of a trusted internal network perimeter?"
+    options:
+      - "All traffic inside the corporate firewall is trusted by default"
+      - "Never trust, always verify — every access request is authenticated and authorized regardless of network location"
+      - "Trust is established by physical network location (wired vs. wireless)"
+      - "Users on VPN are automatically trusted for all internal resources"
+    correct_answer: 1
+    explanations:
+      correct: "Zero Trust replaces perimeter-based trust with identity-centric, context-aware verification. 'Never trust, always verify' means every request — even from within the corporate network — must be authenticated, authorized, and validated. This assumes breach: attackers may already be inside the network. Controls: microsegmentation, MFA, device health checks, and continuous verification."
+      incorrect:
+        - "Implicit trust for internal traffic is exactly the perimeter security model that Zero Trust replaces — it is explicitly rejected."
+        - "'Never trust, always verify' with context-aware verification of every request regardless of location is the Zero Trust core principle."
+        - "Physical location-based trust is perimeter security thinking — Zero Trust treats all locations as potentially compromised."
+        - "VPN grants network access but not implicit authorization — Zero Trust requires verification at each resource, not just at the network boundary."
+    difficulty: "easy"
+    tags: ["architecture", "zero-trust"]
+
+  - id: q-d4-041
+    domain: domain4
+    question: "What is the primary security risk introduced when employees connect to public Wi-Fi without a VPN?"
+    options:
+      - "Their device may use too much bandwidth"
+      - "An attacker on the same network can intercept unencrypted traffic or perform evil twin and MitM attacks"
+      - "Their device IP address becomes publicly visible"
+      - "The public Wi-Fi router may apply content filtering"
+    correct_answer: 1
+    explanations:
+      correct: "On untrusted public Wi-Fi, attackers can: sniff unencrypted traffic, perform ARP poisoning for MitM attacks, set up evil twin access points, and intercept credentials. A VPN encrypts all traffic before it leaves the device, protecting against interception on the local network segment. Even with HTTPS, metadata and non-HTTPS traffic remain exposed without a VPN."
+      incorrect:
+        - "Bandwidth usage is a performance concern, not a security risk of public Wi-Fi."
+        - "Traffic interception and MitM/evil twin attacks are the primary security risks of public Wi-Fi without VPN."
+        - "IP visibility is a privacy concern but not the primary risk — the more critical issue is local network interception."
+        - "Content filtering may be applied but is a lesser concern compared to active attack risks."
+    difficulty: "easy"
+    tags: ["wireless", "VPN", "attacks"]
+
+  - id: q-d4-042
+    domain: domain4
+    question: "WPA3 improves upon WPA2 in authentication primarily through which mechanism?"
+    options:
+      - "Using AES-128 instead of TKIP for encryption"
+      - "Simultaneous Authentication of Equals (SAE) replacing PSK, making offline dictionary attacks impractical"
+      - "Requiring certificates for all connecting devices"
+      - "Eliminating the need for passwords entirely"
+    correct_answer: 1
+    explanations:
+      correct: "WPA3 replaces the Pre-Shared Key (PSK) handshake (used in WPA2) with Simultaneous Authentication of Equals (SAE), also known as Dragonfly. SAE is resistant to offline dictionary attacks because each authentication attempt requires online interaction with the AP — captured handshakes cannot be dictionary-attacked offline. WPA2-PSK handshakes (PMKID/4-way handshake) can be captured and cracked offline."
+      incorrect:
+        - "WPA2 with AES was already an improvement over TKIP — WPA3's key innovation is SAE for key exchange, not just changing the encryption cipher."
+        - "SAE replacing PSK to prevent offline dictionary attacks is the primary WPA3 authentication improvement."
+        - "WPA3-Personal uses passwords — it does not require certificates (that is WPA3-Enterprise using 802.1X)."
+        - "WPA3-Personal still uses passwords — the improvement is in how the password is used for authentication (SAE vs. PSK handshake)."
+    difficulty: "medium"
+    tags: ["wireless", "WPA3", "authentication"]
+
+  - id: q-d4-043
+    domain: domain4
+    question: "A network architect segments the corporate network into zones with firewall controls between each zone. This design follows which security principle?"
+    options:
+      - "Single point of control"
+      - "Security through obscurity"
+      - "Defense in depth through network segmentation"
+      - "Fail open design"
+    correct_answer: 2
+    explanations:
+      correct: "Separating a network into zones with firewall controls between them implements defense in depth — if one zone is compromised, the attacker faces additional barriers to reach other zones. Segmentation limits lateral movement, contains breaches, and reduces blast radius. Common zones: internet, DMZ, internal network, sensitive data zone, management network."
+      incorrect:
+        - "Single point of control would centralize all security decisions — segmentation creates multiple independent checkpoints."
+        - "Security through obscurity relies on hiding system details — network segmentation is an explicit, structural security control."
+        - "Defense in depth through network segmentation is the correct security principle implemented."
+        - "Fail open design defaults to permissive access during failures — network segmentation is a restrictive control that limits unauthorized access."
+    difficulty: "easy"
+    tags: ["networking", "architecture", "segmentation"]
+
+  - id: q-d4-044
+    domain: domain4
+    question: "HSTS (HTTP Strict Transport Security) prevents which specific attack against HTTPS?"
+    options:
+      - "SQL injection through HTTPS connections"
+      - "SSL stripping, where an attacker downgrades HTTPS to HTTP"
+      - "Certificate spoofing using self-signed certificates"
+      - "Brute-force attacks on TLS session keys"
+    correct_answer: 1
+    explanations:
+      correct: "SSL stripping (discovered by Moxie Marlinspike) intercepts the initial HTTP request before the HTTPS redirect, maintaining HTTP with the victim while connecting to the server via HTTPS. HSTS tells browsers to only ever connect via HTTPS for the specified domain — the browser refuses HTTP connections and upgrades to HTTPS automatically, blocking the downgrade attack."
+      incorrect:
+        - "SQL injection is an application vulnerability — HSTS enforces transport encryption but does not protect against application-layer injection attacks."
+        - "HSTS preventing SSL stripping (HTTP downgrade attacks) is the correct answer."
+        - "Certificate validation and revocation prevent certificate spoofing — HSTS enforces HTTPS use but relies on normal certificate validation."
+        - "TLS session key brute-force resistance comes from key length and algorithm strength — not HSTS."
+    difficulty: "medium"
+    tags: ["web-security", "TLS", "HSTS"]
+
+  - id: q-d4-045
+    domain: domain4
+    question: "A DMZ (Demilitarized Zone) is typically placed between which network boundaries?"
+    options:
+      - "Between two internal network segments of equal trust"
+      - "Between the internet and the internal network, hosting public-facing services"
+      - "Between the data center and the backup facility"
+      - "Between the employee network and the management network"
+    correct_answer: 1
+    explanations:
+      correct: "A DMZ is placed between the internet (untrusted) and the internal corporate network (trusted), hosting services that must be accessible from the internet (web servers, email servers, DNS). The DMZ isolates these exposed systems — if a DMZ server is compromised, the attacker still faces another firewall barrier before reaching internal systems."
+      incorrect:
+        - "Internal segments of equal trust typically use VLANs, not a DMZ — a DMZ specifically bridges untrusted/trusted boundaries."
+        - "Between the internet and internal network (hosting internet-accessible services in an isolated zone) is the correct DMZ placement."
+        - "Data center to backup facility connectivity is typically private WAN/MPLS — not a DMZ."
+        - "Employee vs. management network segmentation is internal network segregation, not the classic internet-facing DMZ placement."
+    difficulty: "easy"
+    tags: ["networking", "architecture", "DMZ"]
+
+  - id: q-d4-046
+    domain: domain4
+    question: "SNMPv1 and SNMPv2c use 'community strings' for authentication. Why is this considered insecure?"
+    options:
+      - "Community strings are too long for routers to process efficiently"
+      - "Community strings are transmitted in plaintext and provide no encryption or strong authentication"
+      - "Community strings expire every 30 days automatically"
+      - "Community strings can only be used once before rotating"
+    correct_answer: 1
+    explanations:
+      correct: "SNMP community strings function as passwords but are transmitted in cleartext (unencrypted). Anyone performing packet capture on the network can read them. Default community strings ('public' for read, 'private' for read-write) are widely known and rarely changed. SNMPv3 adds authentication (MD5/SHA) and encryption (AES/DES) to address these weaknesses."
+      incorrect:
+        - "Community string length does not cause processing issues — security, not performance, is the concern."
+        - "Plaintext transmission with no encryption or strong authentication is the correct security problem with SNMPv1/v2c community strings."
+        - "Community strings do not expire automatically — they remain valid indefinitely until manually changed."
+        - "Community strings are reusable shared secrets — they do not rotate automatically."
+    difficulty: "medium"
+    tags: ["protocols", "SNMP", "network-management"]
+
+  - id: q-d4-047
+    domain: domain4
+    question: "BGP hijacking attacks are difficult to prevent primarily because:"
+    options:
+      - "BGP requires expensive hardware that few organizations can afford"
+      - "BGP was designed without origin authentication — any AS can announce any IP prefix"
+      - "BGP is only implemented on government networks"
+      - "BGP traffic is encrypted and cannot be monitored"
+    correct_answer: 1
+    explanations:
+      correct: "BGP was designed in an era of trusted network operators and has no built-in mechanism to verify that an Autonomous System legitimately owns the IP prefixes it advertises. Any AS can announce any prefix — legitimate operators peer based on trust relationships. RPKI (Resource Public Key Infrastructure) adds cryptographic route origin validation but adoption is incomplete."
+      incorrect:
+        - "BGP is implemented on standard router hardware that is widely available — cost is not the barrier to security."
+        - "BGP lacking origin authentication (any AS can announce any prefix) is the root cause of hijacking vulnerabilities."
+        - "BGP is the internet's backbone routing protocol used by all ISPs, enterprises, and carriers globally."
+        - "BGP routing announcements are typically transmitted in plaintext between peers — they can be monitored, which is actually how hijacking incidents are often detected."
+    difficulty: "hard"
+    tags: ["networking", "BGP", "attacks"]
+
+  - id: q-d4-048
+    domain: domain4
+    question: "When implementing network segmentation for a payment card environment, which network should process and store cardholder data be most isolated from?"
+    options:
+      - "The backup network"
+      - "Any networks outside the defined Cardholder Data Environment (CDE), especially untrusted networks"
+      - "The HVAC and building management systems network"
+      - "The executive management network"
+    correct_answer: 1
+    explanations:
+      correct: "PCI DSS requires the Cardholder Data Environment (CDE) to be segmented from all networks not involved in card processing. The CDE scope — and therefore compliance requirements — grows with every connected system. Proper segmentation minimizes the CDE footprint, reducing compliance burden and attack surface. Any untrusted network (internet, corporate LAN) must be isolated from CDE systems."
+      incorrect:
+        - "Backup networks, if they handle CDE backups, must also be within scope — isolation from backup is important but not the primary CDE segmentation concern."
+        - "Isolation from all networks outside the defined CDE (especially untrusted networks) is the correct primary segmentation requirement."
+        - "Building management systems (HVAC, physical security) are a significant concern — they are often on converged networks but the primary requirement is isolation from untrusted networks."
+        - "Executive networks are internal corporate networks — while they should be isolated from CDE, the primary concern is external-facing untrusted networks."
+    difficulty: "hard"
+    tags: ["networking", "PCI", "segmentation"]
+
+  - id: q-d4-049
+    domain: domain4
+    question: "An organization's TLS 1.0 and 1.1 support on its web servers should be disabled primarily because:"
+    options:
+      - "TLS 1.0/1.1 is slower than TLS 1.3"
+      - "TLS 1.0/1.1 have known cryptographic vulnerabilities (POODLE, BEAST) and weak cipher support"
+      - "TLS 1.0/1.1 does not support IPv6"
+      - "TLS 1.0/1.1 requires more server certificates than TLS 1.3"
+    correct_answer: 1
+    explanations:
+      correct: "TLS 1.0 and 1.1 have known vulnerabilities: POODLE (CBC padding oracle), BEAST (exploits CBC in TLS 1.0), and CRIME/BREACH (compression-based attacks). They also support weak cipher suites (export-grade, RC4, DES). NIST, PCI DSS, and browser vendors have deprecated TLS 1.0/1.1. TLS 1.2 (with strong ciphers) and TLS 1.3 should be the only supported versions."
+      incorrect:
+        - "Performance is a secondary concern — security vulnerabilities are the primary reason to disable TLS 1.0/1.1."
+        - "Known cryptographic vulnerabilities and weak cipher support are the correct reasons to disable TLS 1.0/1.1."
+        - "TLS version does not affect IPv6 compatibility — the two are independent protocol concerns."
+        - "TLS version does not affect certificate requirements — certificate management is separate from TLS protocol version."
+    difficulty: "medium"
+    tags: ["protocols", "TLS", "cryptography"]
+
+  - id: q-d4-050
+    domain: domain4
+    question: "Which type of firewall provides the most granular application-layer inspection and can identify and control specific application functions?"
+    options:
+      - "Packet-filtering firewall"
+      - "Stateful inspection firewall"
+      - "Next-Generation Firewall (NGFW)"
+      - "NAT gateway"
+    correct_answer: 2
+    explanations:
+      correct: "Next-Generation Firewalls (NGFWs) combine traditional stateful inspection with application awareness (Layer 7), IPS, SSL/TLS inspection, user identity awareness, and advanced threat protection. They can identify specific applications (even if they use non-standard ports) and enforce policy at the function level — e.g., allow Slack messaging but block Slack file transfers."
+      incorrect:
+        - "Packet-filtering firewalls operate at Layer 3/4 only — they cannot inspect application content or identify applications."
+        - "Stateful inspection tracks connection state but does not perform application-layer content inspection."
+        - "NGFWs with application-layer awareness and granular application function control is the correct answer."
+        - "NAT gateways translate IP addresses — they are not security inspection devices."
+    difficulty: "easy"
+    tags: ["networking", "firewalls", "NGFW"]
+
+  - id: q-d4-051
+    domain: domain4
+    question: "An organization connects multiple branch offices using MPLS circuits provided by a service provider. What is a key security consideration for this deployment?"
+    options:
+      - "MPLS provides end-to-end encryption by default"
+      - "MPLS traffic is logically separated from other customers but not encrypted — sensitive data should be encrypted at the application or VPN layer"
+      - "MPLS circuits cannot carry encrypted traffic"
+      - "MPLS automatically segments traffic using 802.1X"
+    correct_answer: 1
+    explanations:
+      correct: "MPLS provides traffic separation between customers (using VRFs — Virtual Routing and Forwarding instances) but does NOT encrypt the traffic. The service provider can see the traffic content. For sensitive data, organizations should add IPsec or TLS encryption over MPLS. This is especially important for compliance requirements (PCI DSS, HIPAA) that mandate data encryption in transit."
+      incorrect:
+        - "MPLS does not provide encryption by default — it provides logical separation, not cryptographic protection."
+        - "MPLS logical separation without encryption means sensitive data should be encrypted at application or VPN layer — this is correct."
+        - "MPLS can carry encrypted traffic (e.g., IPsec over MPLS) — there is no restriction on encrypted payloads."
+        - "802.1X is a network access control standard for endpoint authentication — MPLS uses label switching, not 802.1X."
+    difficulty: "medium"
+    tags: ["networking", "WAN", "MPLS"]
+
+  - id: q-d4-052
+    domain: domain4
+    question: "Network Access Control (NAC) performs a posture check on a connecting device and finds it is running an outdated OS without the latest patches. What is the appropriate NAC response?"
+    options:
+      - "Allow full network access — patching is the user's responsibility"
+      - "Quarantine the device to a remediation VLAN with limited access until it meets compliance requirements"
+      - "Permanently ban the device's MAC address from the network"
+      - "Send an email to the user asking them to patch their device"
+    correct_answer: 1
+    explanations:
+      correct: "NAC quarantine places non-compliant devices in a restricted VLAN with access only to remediation resources (Windows Update, patch servers, helpdesk). The device cannot access production resources until it meets the compliance policy. Once remediated and re-assessed, the device is granted appropriate access. This enforces security posture without permanently blocking users."
+      incorrect:
+        - "Allowing full access to unpatched devices defeats the purpose of NAC — unpatched devices can be exploited and spread malware to other network resources."
+        - "Quarantine to a remediation VLAN until compliance requirements are met is the appropriate NAC response."
+        - "Permanent MAC ban is overly punitive for a patching issue — devices should be remediated and allowed back. MAC addresses can also be spoofed."
+        - "Email notification alone does not enforce compliance — the device still has full network access during the time the user decides to patch."
+    difficulty: "medium"
+    tags: ["networking", "NAC", "access-control"]

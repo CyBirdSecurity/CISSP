@@ -103,3 +103,115 @@ flashcards:
     definition: "An approach to networking that separates the control plane from the data plane, enabling centralized, programmable network management"
     explanation: "The controller programs the forwarding rules on network devices. Enables dynamic segmentation, rapid security response, and centralized policy enforcement. Security concern: the SDN controller is a high-value target."
     tags: ["networking", "SDN"]
+
+  - id: fc-d4-016
+    domain: domain4
+    term: "IEEE 802.1X"
+    definition: "A port-based network access control standard that requires devices to authenticate before being granted access to a network"
+    explanation: "Three components: Supplicant (device requesting access), Authenticator (switch/AP enforcing policy), Authentication Server (usually RADIUS). EAP (Extensible Authentication Protocol) carries credentials. Used to prevent unauthorized devices from connecting to wired/wireless networks. Basis for NAC (Network Access Control) implementations."
+    tags: ["networking", "authentication", "standards"]
+
+  - id: fc-d4-017
+    domain: domain4
+    term: "RADIUS (Remote Authentication Dial-In User Service)"
+    definition: "A networking protocol providing centralized Authentication, Authorization, and Accounting (AAA) management for users connecting to a network"
+    explanation: "Uses UDP (ports 1812 auth, 1813 accounting). Encrypts only the password field in the Access-Request packet. Commonly used for: Wi-Fi enterprise authentication (802.1X), VPN authentication, ISP dial-up. Often paired with 802.1X for network access control. Compare with TACACS+ which encrypts the entire payload."
+    tags: ["protocols", "authentication", "AAA"]
+
+  - id: fc-d4-018
+    domain: domain4
+    term: "TACACS+ (Terminal Access Controller Access-Control System Plus)"
+    definition: "A Cisco-developed AAA protocol that separates authentication, authorization, and accounting into independent functions and encrypts the entire communication"
+    explanation: "Key differences from RADIUS: uses TCP (port 49), encrypts entire payload (not just password), separates AAA into three distinct processes allowing granular authorization. Preferred for device administration (router/switch management). RADIUS preferred for network access (VPN, Wi-Fi). TACACS+ is a Cisco proprietary protocol."
+    tags: ["protocols", "authentication", "AAA"]
+
+  - id: fc-d4-019
+    domain: domain4
+    term: "DNSSEC (DNS Security Extensions)"
+    definition: "A suite of extensions to DNS that adds cryptographic signatures to DNS records, allowing resolvers to verify the authenticity and integrity of DNS responses"
+    explanation: "Protects against DNS cache poisoning and spoofing. Signs DNS records with the zone's private key. Resolvers validate using the zone's public key, anchored to the root zone. Does NOT encrypt DNS queries (only signs responses). DNS over HTTPS (DoH) and DNS over TLS (DoT) provide encryption for query privacy."
+    tags: ["protocols", "DNS", "security"]
+
+  - id: fc-d4-020
+    domain: domain4
+    term: "BGP Hijacking"
+    definition: "An attack where a malicious or misconfigured autonomous system (AS) announces ownership of IP prefixes it does not legitimately control, redirecting internet traffic"
+    explanation: "Border Gateway Protocol (BGP) has no built-in authentication — it relies on trust between AS operators. Hijacking can be malicious (traffic interception, blackholing) or accidental (misconfiguration). Mitigation: RPKI (Resource Public Key Infrastructure) adds cryptographic route origin validation. Notable incidents: Pakistan Telecom hijacking YouTube (2008), Amazon Route 53 BGP hijack (2018)."
+    tags: ["attacks", "networking", "routing"]
+
+  - id: fc-d4-021
+    domain: domain4
+    term: "MPLS (Multiprotocol Label Switching)"
+    definition: "A high-performance routing technique that directs data between nodes using short path labels rather than long network addresses"
+    explanation: "Labels are assigned at the network edge (ingress LER). Core routers (LSRs) forward based on label swapping — faster than IP lookup. Used by service providers for: VPNs (MPLS VPN), traffic engineering, QoS. Security consideration: MPLS networks are generally private but not inherently encrypted — traffic should still be encrypted for sensitive data."
+    tags: ["networking", "WAN"]
+
+  - id: fc-d4-022
+    domain: domain4
+    term: "IPv6 Security Considerations"
+    definition: "Security differences and new attack vectors introduced by IPv6 compared to IPv4, including the elimination of NAT and expanded attack surfaces"
+    explanation: "IPv6 eliminates NAT (every device gets a public address), requiring proper firewalling at all boundaries. New concerns: ICMPv6 is required (hard to block), Neighbor Discovery Protocol (NDP) vulnerable to spoofing (DAI equivalent is SEND protocol), IPv6 tunneling can bypass security controls, many networks have 'dual-stack' gaps where IPv6 traffic isn't inspected."
+    tags: ["networking", "IPv6"]
+
+  - id: fc-d4-023
+    domain: domain4
+    term: "SNMPv3 (Simple Network Management Protocol version 3)"
+    definition: "The current, secure version of SNMP that adds authentication and encryption to network device management, addressing critical vulnerabilities in SNMPv1/v2c"
+    explanation: "SNMPv1/v2c used community strings (essentially plaintext passwords) — never use in production. SNMPv3 adds: USM (User-based Security Model) for authentication (MD5/SHA) and encryption (DES/AES), VACM (View-based Access Control Model) for access control. SNMPv1/v2c community strings 'public' and 'private' are commonly exploited in attacks."
+    tags: ["protocols", "network-management"]
+
+  - id: fc-d4-024
+    domain: domain4
+    term: "HSTS (HTTP Strict Transport Security)"
+    definition: "A web security policy mechanism that instructs browsers to only connect to a website using HTTPS, preventing SSL-stripping attacks"
+    explanation: "Delivered via HTTP response header: Strict-Transport-Security. After first HTTPS connection, browser refuses HTTP connections for the specified max-age. Preloading submits domains to browser-maintained HSTS preload lists (no first-visit HTTP request needed). Mitigates: SSL stripping, HTTP MitM attacks, certificate errors being clicked through."
+    tags: ["web-security", "protocols"]
+
+  - id: fc-d4-025
+    domain: domain4
+    term: "WPS (Wi-Fi Protected Setup) Vulnerability"
+    definition: "A critical design flaw in the WPS PIN authentication mechanism that allows brute-force attacks to recover the PIN in approximately 11,000 attempts due to split verification"
+    explanation: "The 8-digit PIN is verified in two 4-digit halves independently. This reduces brute-force space from 10^8 to 10^4 + 10^4 = 20,000 attempts. Reaver and Bully are common WPS attack tools. Mitigation: disable WPS entirely on all wireless access points. WPS push-button method is safer but still has risks from proximity attacks."
+    tags: ["wireless", "attacks", "vulnerabilities"]
+
+  - id: fc-d4-026
+    domain: domain4
+    term: "Evil Twin Attack"
+    definition: "A wireless attack where an adversary sets up a rogue access point with the same SSID as a legitimate network to intercept traffic from devices that connect to it"
+    explanation: "Devices often auto-connect to the strongest signal for a known SSID. Attacker provides internet connectivity while intercepting traffic. Countermeasures: 802.1X (certificate-based) authentication, VPN for all traffic on untrusted networks, wireless IDS to detect rogue APs, educating users not to connect to untrusted networks."
+    tags: ["attacks", "wireless"]
+
+  - id: fc-d4-027
+    domain: domain4
+    term: "MAC Flooding"
+    definition: "A network attack that overwhelms a switch's CAM (Content Addressable Memory) table with fake MAC addresses, forcing it to broadcast traffic to all ports like a hub"
+    explanation: "When CAM table is full, switch enters 'fail-open' mode broadcasting all frames — allowing an attacker to sniff traffic on a switched network. Tools: macof. Countermeasures: port security (limit MAC addresses per port), 802.1X, private VLANs. Demonstrates that switches do not inherently isolate traffic against active attacks."
+    tags: ["attacks", "networking", "Layer-2"]
+
+  - id: fc-d4-028
+    domain: domain4
+    term: "VLAN Hopping"
+    definition: "An attack technique that allows an attacker on one VLAN to access traffic on another VLAN, bypassing the intended network segmentation"
+    explanation: "Two methods: Switch Spoofing (attacker negotiates 802.1Q trunk with switch, receiving all VLAN traffic) and Double Tagging (attacker sends frames with two 802.1Q tags, exploiting native VLAN on trunk links). Mitigations: disable auto-trunking (DTP off), set non-default native VLAN, use tagged native VLAN, implement private VLANs."
+    tags: ["attacks", "networking", "Layer-2"]
+
+  - id: fc-d4-029
+    domain: domain4
+    term: "Content Delivery Network (CDN)"
+    definition: "A geographically distributed network of proxy servers that delivers web content to users from the nearest node, improving performance and providing DDoS mitigation"
+    explanation: "Security benefits: DDoS absorption (distributes attack traffic across PoPs), Web Application Firewall (WAF) integration, origin IP hiding, TLS termination. Security risks: CDN becomes a trusted intermediary that can inspect and modify traffic, CDN cache poisoning attacks. Major providers: Cloudflare, Akamai, AWS CloudFront."
+    tags: ["networking", "DDoS", "web-security"]
+
+  - id: fc-d4-030
+    domain: domain4
+    term: "SD-WAN (Software-Defined Wide Area Network)"
+    definition: "A technology that uses software to control the connectivity and management of wide area networks, often replacing traditional MPLS with internet-based links"
+    explanation: "Security considerations: traffic traverses untrusted internet (requires encryption), centralized SD-WAN controller is a high-value target, may bypass traditional perimeter security. Security features: integrated encryption, application-aware routing, centralized policy management. Often combined with SASE (Secure Access Service Edge) for cloud-delivered security."
+    tags: ["networking", "WAN"]
+
+  - id: fc-d4-031
+    domain: domain4
+    term: "Network Access Control (NAC)"
+    definition: "A security solution that enforces policy on devices seeking to access network resources, ensuring only compliant and authorized devices can connect"
+    explanation: "Pre-admission NAC: checks device before granting access (OS patch level, antivirus status, encryption). Post-admission NAC: monitors devices after connection and can quarantine non-compliant ones. Enforcement methods: 802.1X, DHCP-based, inline appliance. Guest access typically placed in isolated VLAN with internet-only access."
+    tags: ["networking", "access-control"]

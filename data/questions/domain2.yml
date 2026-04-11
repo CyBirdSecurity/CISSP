@@ -963,3 +963,383 @@ questions:
         - "Both apply to all types of data regardless of storage format."
     difficulty: "hard"
     tags: ["data-quality", "integrity"]
+
+  - id: q-d2-053
+    domain: domain2
+    question: "A healthcare organization needs to share patient data with a research team but wants to ensure the research team cannot identify individual patients. Which technique is most appropriate?"
+    options:
+      - "Tokenization"
+      - "Encryption"
+      - "Anonymization"
+      - "Pseudonymization"
+    correct_answer: 2
+    explanations:
+      correct: "Anonymization irreversibly removes all identifying information so that individuals cannot be identified, directly or indirectly. If properly anonymized, the data falls outside HIPAA and GDPR scope. Unlike pseudonymization, there is no key to re-identify subjects, making it appropriate for research where individual identity is not needed."
+      incorrect:
+        - "Tokenization replaces sensitive values with tokens but maintains a mapping in a vault — the original data can be retrieved. This is not appropriate when irreversible de-identification is required."
+        - "Encryption protects data confidentiality but the data remains identifiable once decrypted — it does not de-identify the data."
+        - "Anonymization (irreversible de-identification) is the correct approach when researchers must not be able to identify individuals."
+        - "Pseudonymization replaces identifiers with pseudonyms but maintains a re-identification key — pseudonymized data is still personal data under GDPR and HIPAA."
+    difficulty: "medium"
+    tags: ["privacy", "data-protection", "anonymization"]
+
+  - id: q-d2-054
+    domain: domain2
+    question: "Under GDPR, which term describes the entity that determines the purposes and means of processing personal data?"
+    options:
+      - "Data Processor"
+      - "Data Custodian"
+      - "Data Steward"
+      - "Data Controller"
+    correct_answer: 3
+    explanations:
+      correct: "The Data Controller is defined under GDPR as the entity that determines the 'why' (purposes) and 'how' (means) of processing personal data. The controller bears primary legal responsibility for ensuring GDPR compliance and protecting individuals' rights."
+      incorrect:
+        - "A Data Processor processes personal data on behalf of and under the instructions of the controller — processors do not determine purposes or means."
+        - "Data Custodian is an organizational role (typically IT) responsible for technical implementation of data security — not a GDPR legal term."
+        - "Data Steward is an organizational role responsible for data quality and governance — not a GDPR legal designation."
+        - "Data Controller (the entity determining purposes and means of processing) is the correct GDPR term."
+    difficulty: "medium"
+    tags: ["privacy", "GDPR", "roles"]
+
+  - id: q-d2-055
+    domain: domain2
+    question: "An organization uses a payment processing vendor that stores credit card numbers in their vault and provides tokens that the merchant uses instead. This approach is best described as:"
+    options:
+      - "Encryption at rest"
+      - "Data masking"
+      - "Tokenization"
+      - "Digital rights management"
+    correct_answer: 2
+    explanations:
+      correct: "Tokenization replaces sensitive data (the credit card number/PAN) with a non-sensitive surrogate value (token). The token has no mathematical relationship to the original value — the mapping is stored in a secure vault. This significantly reduces PCI DSS scope for the merchant, as they never handle actual card numbers."
+      incorrect:
+        - "Encryption protects data but the encrypted value maintains a mathematical relationship with the plaintext and is reversible with the key — tokenization has no such relationship."
+        - "Data masking replaces data with realistic-looking fictional data for non-production environments — it is not the same as the token-vault approach used in payment processing."
+        - "Tokenization (replacing the PAN with a non-sensitive token, mapping stored in vault) is the correct answer."
+        - "Digital rights management controls how digital content can be used and distributed — not applicable to payment card data handling."
+    difficulty: "easy"
+    tags: ["data-protection", "tokenization", "PCI"]
+
+  - id: q-d2-056
+    domain: domain2
+    question: "An employee leaves an organization but their Active Directory account remains active for 6 months. This best represents which type of security risk?"
+    options:
+      - "Privilege creep"
+      - "Orphaned accounts"
+      - "Credential stuffing"
+      - "Excessive access"
+    correct_answer: 1
+    explanations:
+      correct: "Orphaned accounts are accounts belonging to users who are no longer with the organization (departed employees, contractors, vendors) that were not deprovisioned. They represent a significant risk because they may be exploited by former employees for unauthorized access or by external attackers who compromise the abandoned credentials."
+      incorrect:
+        - "Privilege creep refers to the gradual accumulation of access rights beyond what is needed for a current role — it describes excessive permissions in active accounts, not accounts of departed users."
+        - "Orphaned accounts (active accounts of departed users) is the correct answer."
+        - "Credential stuffing is an attack where breached credentials are used against other services — not an internal account management issue."
+        - "Excessive access describes active users having more permissions than needed — not accounts that should have been disabled entirely."
+    difficulty: "easy"
+    tags: ["IAM", "lifecycle", "accounts"]
+
+  - id: q-d2-057
+    domain: domain2
+    question: "What is the primary purpose of a Data Loss Prevention (DLP) solution?"
+    options:
+      - "To encrypt all data stored in organizational databases"
+      - "To detect and prevent unauthorized transfer or disclosure of sensitive data"
+      - "To control user access to classified systems"
+      - "To backup critical data to offsite storage"
+    correct_answer: 1
+    explanations:
+      correct: "DLP monitors, detects, and blocks the unauthorized exfiltration or disclosure of sensitive data. It can monitor: email (blocking attachments containing SSNs), network traffic (detecting credit card numbers in uploads), endpoints (blocking USB copy of sensitive files), and cloud storage. DLP enforces data handling policies."
+      incorrect:
+        - "Encrypting database data at rest is a storage encryption function — DLP focuses on data movement and disclosure prevention, not encryption."
+        - "Detecting and preventing unauthorized transfer or disclosure of sensitive data is the correct primary purpose of DLP."
+        - "Access control systems (IAM) restrict who can access systems — DLP focuses on data movement regardless of who is accessing it."
+        - "Backup and recovery is a data availability function — DLP is specifically about preventing data loss through unauthorized disclosure."
+    difficulty: "easy"
+    tags: ["data-protection", "DLP"]
+
+  - id: q-d2-058
+    domain: domain2
+    question: "FIPS 140-2 Level 3 adds which security requirement beyond Level 2?"
+    options:
+      - "Basic algorithm testing with no physical security requirements"
+      - "Tamper-evident coatings on the physical device"
+      - "Tamper resistance with key zeroization when tamper is detected"
+      - "Complete physical protection with environmental attack resistance"
+    correct_answer: 2
+    explanations:
+      correct: "FIPS 140-2 Level 3 requires tamper resistance (not just evidence): the module must attempt to erase keys and critical security parameters when physical intrusion is detected. This is distinct from Level 2 which only requires tamper-evidence (showing that intrusion occurred). Level 3 is required for HSMs used in federal PKI and payment processing."
+      incorrect:
+        - "Basic algorithm testing with no physical security is Level 1 — the lowest FIPS 140-2 level."
+        - "Tamper-evident coatings (evidence that tampering occurred) characterize Level 2 — not the resistance and zeroization of Level 3."
+        - "Tamper resistance with key zeroization on intrusion detection is the correct description of Level 3 requirements."
+        - "Complete physical protection and environmental attack resistance describes Level 4, the highest FIPS 140-2 level."
+    difficulty: "hard"
+    tags: ["standards", "cryptography", "FIPS"]
+
+  - id: q-d2-059
+    domain: domain2
+    question: "Under GDPR's 'Right to Erasure' (Article 17), which scenario would allow an organization to REFUSE a deletion request?"
+    options:
+      - "The data was collected more than 2 years ago"
+      - "The organization needs the data to comply with a legal obligation"
+      - "The user has not provided a specific reason for the deletion request"
+      - "The data is stored in backup systems"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR Article 17(3) provides exceptions to the right to erasure, including when processing is necessary for compliance with a legal obligation (e.g., tax records must be retained for 7 years, healthcare records for required periods). Legal obligations can override the individual's right to erasure."
+      incorrect:
+        - "The age of data collection is not one of the exceptions to the right to erasure under GDPR — old data can still be erased."
+        - "A legal obligation to retain data is a valid exception allowing organizations to refuse erasure under GDPR Article 17(3)."
+        - "GDPR does not require users to provide specific reasons for erasure requests — the organization bears the burden of justifying retention."
+        - "Storage in backup systems does not excuse non-compliance — organizations must also erase data from backups, though technical feasibility affects timelines."
+    difficulty: "hard"
+    tags: ["privacy", "GDPR", "legal"]
+
+  - id: q-d2-060
+    domain: domain2
+    question: "What is the primary security risk associated with 'data remanence' when repurposing storage media?"
+    options:
+      - "The media becomes physically fragile after repurposing"
+      - "Residual data from previous use may be recoverable by forensic analysis"
+      - "The media's encryption keys may become invalid after repurposing"
+      - "New data written to the media may overwrite important backup data"
+    correct_answer: 1
+    explanations:
+      correct: "Data remanence refers to the residual data representation remaining on storage media even after deletion or formatting. Simple deletion only removes file system pointers — the data remains physically on the media and can be recovered using forensic tools. Proper sanitization (secure overwrite, degaussing, or physical destruction) is required before repurposing."
+      incorrect:
+        - "Physical fragility is not related to data remanence or repurposing — this is not a security concern."
+        - "Residual data recoverable by forensic analysis is the correct description of the data remanence risk during media repurposing."
+        - "Encryption key validity is a key management concern, not specifically a remanence issue — and properly encrypted data with deleted keys is effectively unrecoverable."
+        - "Overwriting backup data is a data management concern, not a security risk specific to data remanence."
+    difficulty: "easy"
+    tags: ["data-destruction", "sanitization"]
+
+  - id: q-d2-061
+    domain: domain2
+    question: "Degaussing is an appropriate data destruction method for which type of storage media?"
+    options:
+      - "Solid-state drives (SSDs) and USB flash drives"
+      - "Optical media (CD-ROM, DVD)"
+      - "Magnetic hard disk drives (HDDs) and magnetic tapes"
+      - "Cloud storage volumes"
+    correct_answer: 2
+    explanations:
+      correct: "Degaussing uses a powerful magnetic field to disrupt the magnetic domains on magnetic storage media, destroying the data. It is effective for: magnetic hard disk drives (HDDs), magnetic tapes (LTO, backup tapes), floppy disks. Degaussing renders the media unusable."
+      incorrect:
+        - "Degaussing does NOT work on SSDs or flash drives — they store data electrically, not magnetically. Physical destruction or secure erase commands (using ATA Secure Erase or cryptographic erase) are required for SSDs."
+        - "Optical media (CDs, DVDs) stores data using pits and lands in a physical surface — not magnetic domains. Degaussing has no effect. Physical destruction (shredding) is required."
+        - "Magnetic HDDs and tapes are the correct media type for degaussing — it destroys the magnetic data patterns."
+        - "Cloud storage is logical/virtual — degaussing is a physical process that cannot be applied to cloud volumes. Cloud data destruction relies on provider controls and cryptographic erasure."
+    difficulty: "medium"
+    tags: ["data-destruction", "sanitization", "media"]
+
+  - id: q-d2-062
+    domain: domain2
+    question: "A Cloud Access Security Broker (CASB) primarily addresses which security challenge?"
+    options:
+      - "Encrypting data stored in on-premises databases"
+      - "Providing visibility into and control over cloud service usage, including shadow IT"
+      - "Managing user authentication for on-premises applications"
+      - "Securing physical access to data centers hosting cloud infrastructure"
+    correct_answer: 1
+    explanations:
+      correct: "A CASB provides visibility into cloud service usage (including unauthorized shadow IT), enforces data security policies for cloud data (DLP), ensures regulatory compliance for cloud-stored data, and provides threat protection. It acts as a security enforcement point between the organization and cloud services."
+      incorrect:
+        - "Encrypting on-premises database data is a data-at-rest encryption function — not a CASB capability, which focuses on cloud service governance."
+        - "Visibility and control over cloud service usage (including shadow IT) is the primary CASB value proposition."
+        - "On-premises application authentication is an IAM/SSO function — CASBs focus on cloud service access and data security."
+        - "Physical data center security is a physical security control — CASBs provide logical/virtual security enforcement for cloud services."
+    difficulty: "medium"
+    tags: ["cloud", "CASB", "data-protection"]
+
+  - id: q-d2-063
+    domain: domain2
+    question: "Which data state classification applies to data currently being processed by a CPU or application?"
+    options:
+      - "Data at rest"
+      - "Data in transit"
+      - "Data in use"
+      - "Data in motion"
+    correct_answer: 2
+    explanations:
+      correct: "Data in use refers to data actively being processed by applications, loaded into RAM, or being accessed by a CPU. It is the most difficult state to protect because data must be in plaintext for processing. Technologies like Intel SGX (Software Guard Extensions) and homomorphic encryption attempt to protect data in use."
+      incorrect:
+        - "Data at rest is data stored in persistent storage (databases, file systems, backup media) — not actively being processed."
+        - "Data in transit is data moving across a network between systems — not data being actively processed locally."
+        - "Data in use (actively being processed by CPU/application) is the correct answer."
+        - "Data in motion is another term for data in transit (moving across a network) — not the same as data being actively processed."
+    difficulty: "easy"
+    tags: ["data-states", "fundamentals"]
+
+  - id: q-d2-064
+    domain: domain2
+    question: "What is the key security difference between pseudonymization and anonymization?"
+    options:
+      - "Pseudonymization is stronger because it uses encryption; anonymization uses simple deletion"
+      - "Anonymization is irreversible; pseudonymized data can be re-identified using a separate key"
+      - "Pseudonymization applies only to medical data; anonymization applies to all data types"
+      - "They are equivalent techniques with different names in different regulatory frameworks"
+    correct_answer: 1
+    explanations:
+      correct: "Anonymization is designed to be irreversible — once properly anonymized, data cannot be linked back to individuals (even indirectly). Pseudonymization replaces identifiers with pseudonyms but retains a key (link table) that allows re-identification. Under GDPR, pseudonymized data is still personal data; truly anonymized data is not."
+      incorrect:
+        - "Pseudonymization does not necessarily involve encryption — it uses any substitute identifier. The key distinction is reversibility, not the technique used."
+        - "Anonymization being irreversible while pseudonymized data can be re-identified with a key is the correct distinction."
+        - "Both techniques apply across all data types — neither is restricted to medical data."
+        - "They are functionally different: anonymization removes the ability to re-identify; pseudonymization maintains it through a separate key."
+    difficulty: "medium"
+    tags: ["privacy", "GDPR", "data-protection"]
+
+  - id: q-d2-065
+    domain: domain2
+    question: "Under data classification frameworks, who has the ultimate authority and accountability for determining the classification level of a specific dataset?"
+    options:
+      - "The IT security team"
+      - "The data custodian"
+      - "The data owner"
+      - "The Chief Information Security Officer (CISO)"
+    correct_answer: 2
+    explanations:
+      correct: "The data owner — typically a senior manager or business unit leader who created or is responsible for the business purpose of the data — has ultimate authority and accountability for classifying data. They define who can access it and at what level. The IT security team and custodians implement the owner's decisions."
+      incorrect:
+        - "The IT security team implements security controls based on classification decisions but does not have authority to classify data — classification requires business context understanding."
+        - "The data custodian is the IT role responsible for implementing the technical controls the data owner requires — not for making classification decisions."
+        - "The data owner (typically a business manager accountable for the data's business purpose) has classification authority — not the CISO."
+        - "The CISO defines the classification framework and enforces compliance but does not own specific datasets or have authority to classify them — that belongs to the business data owner."
+    difficulty: "medium"
+    tags: ["classification", "roles", "data"]
+
+  - id: q-d2-066
+    domain: domain2
+    question: "An organization discovers employees are using personal Dropbox accounts to share work files. This is an example of which security risk?"
+    options:
+      - "Data exfiltration attack"
+      - "Malware infection"
+      - "Shadow IT"
+      - "Insider threat"
+    correct_answer: 2
+    explanations:
+      correct: "Shadow IT refers to the use of IT systems, services, or software without explicit organizational IT department knowledge or approval. Personal cloud storage used for work data is a classic shadow IT risk — data is outside organizational DLP controls, may violate data sovereignty requirements, and creates compliance gaps."
+      incorrect:
+        - "Data exfiltration is typically intentional and malicious — employees using personal Dropbox may be attempting convenience, not sabotage. Shadow IT better describes the pattern of unauthorized service use."
+        - "Malware infection is a technical attack — personal cloud storage use is an organizational governance and policy issue."
+        - "Shadow IT (unauthorized use of external cloud services for work data) is the correct answer."
+        - "Insider threat implies intentional malicious action — shadow IT users are typically not acting maliciously but are creating security risks through policy violations."
+    difficulty: "easy"
+    tags: ["governance", "cloud", "shadow-IT"]
+
+  - id: q-d2-067
+    domain: domain2
+    question: "Information Rights Management (IRM) technology differs from traditional access control in which key way?"
+    options:
+      - "IRM requires a physical token for authentication"
+      - "IRM protection travels with the document, enforcing access controls even after distribution"
+      - "IRM is only applicable to classified government documents"
+      - "IRM encrypts data in transit but not at rest"
+    correct_answer: 1
+    explanations:
+      correct: "IRM (also called Enterprise DRM) embeds persistent access controls directly in the document or content. The protection travels with the document — even when sent to an external party, IRM can restrict printing, copying, forwarding, or viewing after a certain date. Traditional access controls only work while data remains within the organization's managed systems."
+      incorrect:
+        - "IRM does not require physical tokens — it uses digital rights and policy servers to enforce permissions when a document is opened."
+        - "IRM protection traveling with documents even outside organizational systems is the key differentiator from traditional access controls."
+        - "IRM is widely used in commercial environments for protecting business documents — not limited to government use."
+        - "IRM typically encrypts the document itself at rest and in transit — the encryption is the mechanism for enforcing rights even outside corporate systems."
+    difficulty: "medium"
+    tags: ["data-protection", "IRM", "access-control"]
+
+  - id: q-d2-068
+    domain: domain2
+    question: "A company's data retention policy requires financial records to be kept for 7 years per SOX requirements. An employee requests deletion of a specific financial record they personally submitted. What is the appropriate response?"
+    options:
+      - "Delete the record immediately per the employee's request"
+      - "Deny the deletion request because legal retention requirements override individual deletion requests"
+      - "Anonymize the record to satisfy the deletion request while meeting retention requirements"
+      - "Escalate to the CISO to decide case-by-case"
+    correct_answer: 1
+    explanations:
+      correct: "Legal retention obligations override individual deletion requests. SOX requires certain financial records to be retained for 7 years. GDPR's right to erasure (and similar privacy rights) explicitly excludes data that must be retained to comply with legal obligations (Article 17(3)(b)). The appropriate response is to deny the request citing the legal retention requirement."
+      incorrect:
+        - "Deleting data subject to a legal retention requirement could constitute obstruction or violation of SOX — this is not an appropriate response."
+        - "Denying the deletion request based on mandatory legal retention is the correct and legally required response."
+        - "Anonymization might satisfy some privacy concerns but SOX retention requirements apply to identifiable financial records — anonymization may not satisfy the regulatory requirement."
+        - "This is a clear-cut legal obligation case — it does not require CISO escalation. The policy and legal requirement provide the answer."
+    difficulty: "medium"
+    tags: ["compliance", "data-retention", "legal"]
+
+  - id: q-d2-069
+    domain: domain2
+    question: "What does the 'scoping and tailoring' process enable when implementing security control baselines?"
+    options:
+      - "Automatically generating security policies from regulatory requirements"
+      - "Adjusting a baseline by removing non-applicable controls (scoping) and modifying applicable controls to fit the environment (tailoring)"
+      - "Scanning systems to automatically detect which controls are already in place"
+      - "Selecting the most expensive security controls to maximize protection"
+    correct_answer: 1
+    explanations:
+      correct: "Scoping removes controls from the baseline that are not applicable to the system (e.g., removing wireless security controls from a system with no wireless components). Tailoring adjusts how applicable controls are implemented to match the specific environment, technology, or risk profile. Both are used when applying frameworks like NIST SP 800-53 baselines."
+      incorrect:
+        - "Generating policies from regulations is a compliance mapping activity — not the scoping and tailoring process."
+        - "Removing non-applicable controls (scoping) and adjusting applicable controls (tailoring) is the correct description."
+        - "Automated scanning identifies existing controls but is not the definition of scoping and tailoring."
+        - "Cost is not the criterion for control selection in scoping and tailoring — applicability and fit to the environment are."
+    difficulty: "medium"
+    tags: ["controls", "frameworks", "compliance"]
+
+  - id: q-d2-070
+    domain: domain2
+    question: "A software company includes all open-source libraries, versions, and licenses in a machine-readable inventory file. This document is best described as:"
+    options:
+      - "A System Security Plan (SSP)"
+      - "A software bill of materials (SBOM)"
+      - "A data dictionary"
+      - "An asset register"
+    correct_answer: 1
+    explanations:
+      correct: "A Software Bill of Materials (SBOM) is a formal, machine-readable inventory of all components, libraries, and dependencies within a software product, including version numbers and license information. It enables rapid identification of vulnerable components (e.g., Log4j), license compliance auditing, and supply chain risk management."
+      incorrect:
+        - "A System Security Plan (SSP) documents the security controls implemented for a system — it is not specifically an inventory of software components and their licensing."
+        - "An SBOM (software bill of materials) is the correct term for an inventory of software components, versions, and licenses."
+        - "A data dictionary describes the structure, meaning, and constraints of data elements in a database — not a software component inventory."
+        - "An asset register tracks organizational assets broadly — an SBOM is specifically focused on software component inventory within a single application or product."
+    difficulty: "medium"
+    tags: ["supply-chain", "standards", "SBOM"]
+
+  - id: q-d2-071
+    domain: domain2
+    question: "What is the primary purpose of data labeling in a classified information environment?"
+    options:
+      - "To make data searchable in organizational databases"
+      - "To visually indicate data classification so users know how to handle it appropriately"
+      - "To enable automated backup of sensitive files"
+      - "To comply with copyright and trademark requirements"
+    correct_answer: 1
+    explanations:
+      correct: "Data labeling (also called marking or classification markings) visually identifies the classification level of a document or data element, informing users of the required handling, storage, transmission, and destruction procedures. Labels like 'CONFIDENTIAL' or 'SECRET' indicate both the sensitivity and the required protective measures."
+      incorrect:
+        - "Making data searchable is a metadata or indexing function unrelated to security classification labeling."
+        - "Visually indicating classification level to guide appropriate handling is the correct purpose of data labeling."
+        - "Automated backup decisions may use metadata but data labeling's primary purpose is guiding human handling decisions."
+        - "Copyright and trademark markings are legal notices — security classification labels serve a different, security-driven purpose."
+    difficulty: "easy"
+    tags: ["classification", "data"]
+
+  - id: q-d2-072
+    domain: domain2
+    question: "A GDPR data subject in Germany requests that a U.S. company transfer their personal data to a local competitor. Under GDPR, which right is being exercised?"
+    options:
+      - "Right to Access (Article 15)"
+      - "Right to Rectification (Article 16)"
+      - "Right to Data Portability (Article 20)"
+      - "Right to Restriction of Processing (Article 18)"
+    correct_answer: 2
+    explanations:
+      correct: "The Right to Data Portability (GDPR Article 20) allows data subjects to receive their personal data in a structured, commonly used, machine-readable format and to transmit that data to another controller (e.g., a competitor). It applies when processing is based on consent or contract and carried out by automated means."
+      incorrect:
+        - "The Right to Access (Article 15) allows data subjects to obtain a copy of their personal data and information about how it is processed — it does not specifically cover transfer to another organization."
+        - "The Right to Rectification (Article 16) allows correction of inaccurate or incomplete personal data — it does not involve data transfer to another controller."
+        - "Data Portability (Article 20 — allowing transfer to another organization) is the correct right being exercised."
+        - "The Right to Restriction (Article 18) allows data subjects to request that processing be temporarily stopped under specific circumstances — it does not enable transfer to another organization."
+    difficulty: "hard"
+    tags: ["privacy", "GDPR", "legal"]

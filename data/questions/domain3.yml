@@ -660,3 +660,383 @@ questions:
         - "TPMs store cryptographic keys and boot measurements — not user passwords (those are stored in OS credential stores)."
     difficulty: "medium"
     tags: ["hardware", "trusted-computing"]
+
+  - id: q-d3-036
+    domain: domain3
+    question: "The Bell-LaPadula model's *-property (star property) states that a subject cannot:"
+    options:
+      - "Read data at a higher classification level"
+      - "Write data to a lower classification level"
+      - "Execute programs without a security label"
+      - "Access objects without a valid clearance"
+    correct_answer: 1
+    explanations:
+      correct: "The *-property (star property) of the Bell-LaPadula model states 'No Write Down' — a subject cannot write to an object at a lower security level. This prevents the leakage of high-classification information to lower classification levels. Combined with the Simple Security Property ('No Read Up'), it enforces confidentiality."
+      incorrect:
+        - "The inability to read data at a higher classification is the Simple Security Property ('No Read Up'), not the *-property."
+        - "Not writing to a lower classification level ('No Write Down') is the *-property — this is the correct answer."
+        - "Program execution restrictions are not defined by Bell-LaPadula — it is a confidentiality model focused on read/write operations."
+        - "Requiring clearance for access is a general access control requirement — not specifically the *-property."
+    difficulty: "hard"
+    tags: ["security-models", "Bell-LaPadula", "confidentiality"]
+
+  - id: q-d3-037
+    domain: domain3
+    question: "The Clark-Wilson integrity model uses which mechanism to ensure that only authorized programs can modify constrained data items?"
+    options:
+      - "Access Control Lists (ACLs)"
+      - "Transformation Procedures (TPs)"
+      - "Mandatory Labels"
+      - "Role-Based Permissions"
+    correct_answer: 1
+    explanations:
+      correct: "In Clark-Wilson, Transformation Procedures (TPs) are the only authorized programs that can modify Constrained Data Items (CDIs). Subjects can only access CDIs through TPs — never directly. TPs enforce well-formed transactions and ensure data transitions are valid. This models separation of duties and application controls."
+      incorrect:
+        - "ACLs are used in DAC implementations — Clark-Wilson uses a different mechanism (TPs as intermediaries) to protect data integrity."
+        - "Transformation Procedures (TPs) as the only authorized way to modify CDIs is the correct mechanism in Clark-Wilson."
+        - "Mandatory labels are part of MAC and Bell-LaPadula — Clark-Wilson uses a different approach based on well-formed transactions."
+        - "Role-based permissions describe RBAC — Clark-Wilson's mechanism is the TP/CDI relationship, not role assignment."
+    difficulty: "hard"
+    tags: ["security-models", "Clark-Wilson", "integrity"]
+
+  - id: q-d3-038
+    domain: domain3
+    question: "The Brewer-Nash (Chinese Wall) model was designed to prevent which type of conflict?"
+    options:
+      - "Military information leaking to civilian personnel"
+      - "Conflicts of interest arising from access to competitors' information"
+      - "Unauthorized modification of integrity-critical data"
+      - "Denial of service to authorized users"
+    correct_answer: 1
+    explanations:
+      correct: "The Brewer-Nash (Chinese Wall) model prevents conflicts of interest in commercial environments — particularly financial consulting. Once a user accesses data about one company, they are blocked from accessing data about competing companies. It creates dynamic access restrictions based on a user's access history."
+      incorrect:
+        - "Military classification separation is addressed by Bell-LaPadula — Brewer-Nash was designed for commercial conflict-of-interest scenarios."
+        - "Preventing conflicts of interest from accessing competitors' data is the correct purpose of the Brewer-Nash/Chinese Wall model."
+        - "Data integrity protection is addressed by Biba or Clark-Wilson — Brewer-Nash addresses conflict of interest, not data integrity."
+        - "Denial of service prevention is an availability concern — Brewer-Nash addresses confidentiality in commercial conflict-of-interest contexts."
+    difficulty: "medium"
+    tags: ["security-models", "Brewer-Nash"]
+
+  - id: q-d3-039
+    domain: domain3
+    question: "What property distinguishes a cryptographic hash function from a standard checksum?"
+    options:
+      - "Hash functions are faster to compute than checksums"
+      - "Hash functions provide collision resistance and one-way properties; checksums are designed only for error detection"
+      - "Hash functions require a key; checksums do not"
+      - "Hash functions produce longer outputs than checksums"
+    correct_answer: 1
+    explanations:
+      correct: "Cryptographic hash functions provide security properties checksums lack: one-way (preimage resistance — cannot reverse hash to input), second preimage resistance (cannot find a different input with same hash), and collision resistance (computationally infeasible to find two inputs with the same hash). Checksums (CRC32) are designed only to detect accidental errors, not withstand deliberate manipulation."
+      incorrect:
+        - "Checksums are often faster than cryptographic hashes — cryptographic strength requires more computation."
+        - "Collision resistance and one-way properties distinguish cryptographic hashes from simple checksums — this is the correct answer."
+        - "Most cryptographic hash functions are keyless (like SHA-256). HMAC adds a key to a hash — but a basic hash doesn't require a key."
+        - "Output length varies — MD5 produces 128 bits, CRC32 produces 32 bits. Length alone does not define a cryptographic hash."
+    difficulty: "medium"
+    tags: ["cryptography", "hashing"]
+
+  - id: q-d3-040
+    domain: domain3
+    question: "A digital signature provides which three security properties?"
+    options:
+      - "Confidentiality, Integrity, Availability"
+      - "Authentication, Integrity, Non-repudiation"
+      - "Authentication, Authorization, Accounting"
+      - "Confidentiality, Authentication, Non-repudiation"
+    correct_answer: 1
+    explanations:
+      correct: "A digital signature provides: Authentication (verifies the signer's identity — only the holder of the private key can create it), Integrity (any modification to the signed message invalidates the signature), and Non-repudiation (the signer cannot later deny signing — only they had the private key). Digital signatures do NOT provide confidentiality."
+      incorrect:
+        - "Digital signatures do not provide confidentiality — the signed message may still be readable by anyone. Encryption provides confidentiality."
+        - "Authentication, Integrity, and Non-repudiation are the three properties provided by digital signatures — this is the correct answer."
+        - "Authentication, Authorization, and Accounting (AAA) is a security framework for access control — not the properties of digital signatures."
+        - "Confidentiality is not provided by digital signatures — signing does not encrypt the content."
+    difficulty: "medium"
+    tags: ["cryptography", "digital-signatures"]
+
+  - id: q-d3-041
+    domain: domain3
+    question: "Which attack type exploits the physical implementation of a cryptographic system rather than weaknesses in the algorithm itself?"
+    options:
+      - "Brute force attack"
+      - "Birthday attack"
+      - "Side-channel attack"
+      - "Chosen plaintext attack"
+    correct_answer: 2
+    explanations:
+      correct: "Side-channel attacks exploit information leaked through the physical implementation of a cryptographic system: timing variations, power consumption patterns, electromagnetic emissions, or acoustic signals. They bypass the mathematical strength of the algorithm by exploiting measurable physical properties during cryptographic operations."
+      incorrect:
+        - "A brute force attack attempts all possible keys or inputs — it attacks the key space mathematically, not the physical implementation."
+        - "A birthday attack exploits probability theory to find hash collisions — it is a mathematical/statistical attack, not a physical implementation attack."
+        - "A side-channel attack (exploiting physical implementation: timing, power, EM) is the correct answer."
+        - "A chosen plaintext attack has the attacker choose plaintexts to encrypt and analyze ciphertext patterns — it is a cryptanalytic attack, not a physical implementation attack."
+    difficulty: "medium"
+    tags: ["attacks", "cryptography", "side-channel"]
+
+  - id: q-d3-042
+    domain: domain3
+    question: "What is the primary advantage of Elliptic Curve Cryptography (ECC) over RSA for equivalent security levels?"
+    options:
+      - "ECC is faster for decryption only; RSA is faster for encryption"
+      - "ECC provides equivalent security with significantly smaller key sizes"
+      - "ECC does not require key exchange protocols"
+      - "ECC is immune to quantum computing attacks"
+    correct_answer: 1
+    explanations:
+      correct: "ECC provides equivalent security to RSA with much smaller key sizes: a 256-bit ECC key provides approximately the same security as a 3072-bit RSA key. Smaller keys mean faster computation, less bandwidth consumption, and lower power requirements — critical for mobile devices and IoT. Both are vulnerable to quantum attacks (Shor's algorithm)."
+      incorrect:
+        - "ECC is generally faster than RSA for both encryption and decryption operations, not just decryption."
+        - "Smaller keys for equivalent security is the primary advantage of ECC over RSA — this is correct."
+        - "ECC uses key exchange protocols (ECDH) just as RSA does — it still requires secure key exchange mechanisms."
+        - "ECC is vulnerable to quantum attacks (Shor's algorithm can break ECC) — it is NOT quantum-resistant. Post-quantum cryptography (CRYSTALS-Kyber, etc.) is needed for quantum resistance."
+    difficulty: "medium"
+    tags: ["cryptography", "ECC", "asymmetric"]
+
+  - id: q-d3-043
+    domain: domain3
+    question: "Perfect Forward Secrecy (PFS) protects against which specific attack scenario?"
+    options:
+      - "An attacker performing a brute-force attack on current session keys"
+      - "An attacker who records encrypted traffic now and later obtains the server's private key"
+      - "An attacker intercepting authentication credentials during transmission"
+      - "An attacker performing a replay attack using captured session tokens"
+    correct_answer: 1
+    explanations:
+      correct: "PFS protects against the scenario where an attacker records encrypted traffic today and later compromises the server's private key. Without PFS, past sessions could be decrypted. With PFS (using ephemeral key exchange like ECDHE), each session uses a unique temporary key that is discarded afterward — the private key cannot be used to derive past session keys."
+      incorrect:
+        - "Brute-force attacks on session keys are addressed by key length and algorithm strength — not specifically PFS."
+        - "Recording traffic now to decrypt later after obtaining the private key is the exact threat that PFS defends against — this is correct."
+        - "Protecting authentication credentials in transit is a function of TLS encryption generally — not specifically PFS."
+        - "Replay attacks are prevented by nonces, timestamps, and session tokens — not specifically by PFS."
+    difficulty: "hard"
+    tags: ["cryptography", "PFS", "TLS"]
+
+  - id: q-d3-044
+    domain: domain3
+    question: "A password hash database is leaked. The attacker finds all users whose hashes begin with the same value and uses precomputed hash chains to crack them instantly. What security control was NOT implemented?"
+    options:
+      - "Two-factor authentication"
+      - "Password complexity requirements"
+      - "Cryptographic salting"
+      - "Account lockout policies"
+    correct_answer: 2
+    explanations:
+      correct: "The scenario describes a rainbow table or precomputed hash attack that is only possible when passwords are not salted. Salting adds a unique random value to each password before hashing, ensuring identical passwords produce different hashes and defeating precomputed tables. Without salting, identical passwords produce identical hashes — revealing patterns and enabling precomputed attacks."
+      incorrect:
+        - "Two-factor authentication prevents unauthorized login but does not affect hash cracking — the attacker is analyzing the hash database offline."
+        - "Password complexity may slow brute force but doesn't defeat precomputed rainbow tables if no salt is used."
+        - "Cryptographic salting (adding unique random values to each password before hashing) is the missing control that would defeat precomputed hash attacks."
+        - "Account lockout prevents online brute-force attempts but has no effect on offline hash cracking from a leaked database."
+    difficulty: "medium"
+    tags: ["cryptography", "password-security", "salting"]
+
+  - id: q-d3-045
+    domain: domain3
+    question: "The Trusted Computing Base (TCB) must possess which three essential properties to be effective?"
+    options:
+      - "Availability, Reliability, and Scalability"
+      - "Always invoked, tamper-proof, and verifiably correct"
+      - "Encrypted, authenticated, and logged"
+      - "Open source, audited, and updated"
+    correct_answer: 1
+    explanations:
+      correct: "The Reference Monitor (concept implemented by the security kernel in the TCB) must be: always invoked (mediates every access — cannot be bypassed), tamper-proof (cannot be modified by subjects), and verifiably correct (small enough to be thoroughly analyzed and proven to function correctly). These properties ensure the TCB can be trusted to enforce security policy."
+      incorrect:
+        - "Availability, reliability, and scalability are operational system properties — not the security properties required of the TCB/reference monitor."
+        - "Always invoked, tamper-proof, and verifiably correct are the three required properties of the reference monitor concept implemented in the TCB."
+        - "Encryption, authentication, and logging are security controls but not the defining properties of the TCB concept."
+        - "Open source, audited, and updated describes good security practice for software but not the formal TCB requirements from security architecture theory."
+    difficulty: "hard"
+    tags: ["architecture", "trusted-systems", "TCB"]
+
+  - id: q-d3-046
+    domain: domain3
+    question: "What is the purpose of a Hardware Security Module (HSM) compared to software-based key management?"
+    options:
+      - "HSMs provide faster algorithm support for modern CPUs"
+      - "HSMs store and process cryptographic keys in tamper-resistant hardware, preventing key extraction"
+      - "HSMs provide a backup mechanism for cryptographic operations during software failures"
+      - "HSMs eliminate the need for key rotation policies"
+    correct_answer: 1
+    explanations:
+      correct: "HSMs provide tamper-resistant hardware that stores cryptographic keys and performs cryptographic operations entirely within the secure boundary. Keys never leave the HSM in plaintext — even administrators cannot extract them. If tampered with, HSMs zeroize (destroy) their keys. Software key stores can be read from memory or storage if the system is compromised."
+      incorrect:
+        - "HSMs may use specialized cryptographic accelerators but the primary security purpose is tamper resistance for key protection, not CPU performance optimization."
+        - "Tamper-resistant hardware storage preventing key extraction is the correct primary purpose of HSMs."
+        - "HSMs are not primarily backup mechanisms — they are the authoritative, protected location for sensitive cryptographic keys."
+        - "HSMs support proper key management including rotation — they do not eliminate the need for key management policies."
+    difficulty: "medium"
+    tags: ["cryptography", "hardware", "HSM"]
+
+  - id: q-d3-047
+    domain: domain3
+    question: "Kerckhoffs's principle states that the security of a cryptosystem should depend on:"
+    options:
+      - "The secrecy of the algorithm itself"
+      - "Only the secrecy of the key, not the secrecy of the algorithm"
+      - "Both the secrecy of the algorithm and the key equally"
+      - "Physical security of the devices running the cryptographic software"
+    correct_answer: 1
+    explanations:
+      correct: "Kerckhoffs's principle states that a cryptosystem should be secure even if everything about the system — except the key — is publicly known. Security should rest entirely on key secrecy, not algorithm secrecy. This is why AES, RSA, and all modern cryptographic algorithms are public — only the keys need to be secret."
+      incorrect:
+        - "Security through obscurity (secret algorithm) is explicitly what Kerckhoffs's principle rejects — algorithms should be public and withstand public scrutiny."
+        - "Only key secrecy (not algorithm secrecy) is required — this is the correct statement of Kerckhoffs's principle."
+        - "Equal dependence on both is not Kerckhoffs's principle — the algorithm should be fully public; only the key needs to remain secret."
+        - "Physical security is important but Kerckhoffs's principle specifically addresses the design philosophy for the algorithm/key relationship, not physical security."
+    difficulty: "easy"
+    tags: ["cryptography", "principles", "Kerckhoffs"]
+
+  - id: q-d3-048
+    domain: domain3
+    question: "UEFI Secure Boot primarily protects against which threat?"
+    options:
+      - "Application-level malware running after the OS has loaded"
+      - "Bootkit and rootkit malware that loads before the operating system and persists below it"
+      - "Network-based attacks during system startup"
+      - "Physical theft of the system's storage media"
+    correct_answer: 1
+    explanations:
+      correct: "UEFI Secure Boot prevents the loading of unauthorized bootloaders, kernel modules, and drivers during the boot process. Bootkits and rootkits that load before the OS are invisible to OS-level security tools and extremely persistent. Secure Boot ensures only cryptographically signed, trusted boot components can execute, blocking pre-OS malware."
+      incorrect:
+        - "Application-level malware running after OS load is addressed by AV, EDR, and OS security features — not UEFI Secure Boot, which operates before the OS loads."
+        - "Bootkit/rootkit malware loading before the OS is the primary threat Secure Boot addresses."
+        - "Network-based attacks during startup would require network-level security controls — Secure Boot addresses local boot integrity."
+        - "Physical theft of storage media is addressed by full-disk encryption (BitLocker, FileVault) — Secure Boot addresses boot integrity, not data confidentiality."
+    difficulty: "medium"
+    tags: ["hardware", "trusted-systems", "boot-security"]
+
+  - id: q-d3-049
+    domain: domain3
+    question: "A certificate has been compromised before its expiration date. Which mechanism allows relying parties to immediately verify that the certificate should no longer be trusted?"
+    options:
+      - "Certificate Transparency Logs"
+      - "Certificate Revocation List (CRL) or OCSP"
+      - "Certificate Pinning"
+      - "Key Escrow"
+    correct_answer: 1
+    explanations:
+      correct: "Certificate Revocation List (CRL) and Online Certificate Status Protocol (OCSP) provide mechanisms to check whether a certificate has been revoked before its expiration. CRL is a periodically published list; OCSP provides real-time status checks. Relying parties should always check revocation status when validating certificates."
+      incorrect:
+        - "Certificate Transparency Logs record all issued certificates for accountability and detection of misissued certificates — they do not provide real-time revocation status."
+        - "CRL or OCSP are the mechanisms for communicating and checking certificate revocation status — this is the correct answer."
+        - "Certificate Pinning hardcodes expected certificate/key values in applications — it prevents substitution with different valid certificates but doesn't provide revocation checking."
+        - "Key Escrow stores copies of cryptographic keys with a trusted third party — it is not related to certificate revocation."
+    difficulty: "medium"
+    tags: ["PKI", "cryptography", "certificates"]
+
+  - id: q-d3-050
+    domain: domain3
+    question: "The Common Criteria EAL4 evaluation level indicates that a product has been:"
+    options:
+      - "Formally verified with mathematical proof of security properties"
+      - "Methodically designed, tested, and reviewed"
+      - "Functionally tested only at the most basic level"
+      - "Structurally tested with semi-formal design descriptions"
+    correct_answer: 1
+    explanations:
+      correct: "EAL4 (Evaluation Assurance Level 4) indicates the product is 'Methodically Designed, Tested, and Reviewed.' It requires: security target, design descriptions, source code samples, independent vulnerability analysis, and functional and penetration testing. EAL4 is the highest level commonly achieved by commercial products and is accepted internationally."
+      incorrect:
+        - "Formal mathematical verification characterizes EAL6 and EAL7 — the highest and most rigorous levels, rarely achieved by commercial products."
+        - "Methodically designed, tested, and reviewed is the correct description of EAL4."
+        - "Basic functional testing only describes EAL1 — the lowest assurance level."
+        - "Structural testing with semi-formal design describes EAL5 — one level above EAL4."
+    difficulty: "hard"
+    tags: ["standards", "Common-Criteria", "evaluation"]
+
+  - id: q-d3-051
+    domain: domain3
+    question: "A covert storage channel differs from a covert timing channel in which way?"
+    options:
+      - "Covert storage channels use time delays; timing channels use file modifications"
+      - "Covert storage channels communicate through storage mechanisms; timing channels communicate through observable timing behavior"
+      - "Covert channels are legal; timing channels are illegal"
+      - "Covert storage channels are always detectable; timing channels are always invisible"
+    correct_answer: 1
+    explanations:
+      correct: "A covert storage channel communicates by modifying a shared storage resource (e.g., file existence, database entries, file sizes, lock states). A covert timing channel communicates by modulating observable timing behavior (e.g., CPU utilization patterns, network timing, process scheduling). Both violate security policy by transferring information through unintended paths."
+      incorrect:
+        - "This is reversed — covert timing channels use time delays/patterns; storage channels use storage modifications."
+        - "Storage channels use storage mechanisms; timing channels use observable timing behavior — this is the correct distinction."
+        - "Both covert channel types violate security policy — the distinction is technical (how they work), not legal."
+        - "Detection difficulty varies for both types — timing channels can be detected through statistical analysis; storage channels can be detected through monitoring."
+    difficulty: "hard"
+    tags: ["architecture", "covert-channels"]
+
+  - id: q-d3-052
+    domain: domain3
+    question: "An HMAC differs from a plain cryptographic hash in which critical way?"
+    options:
+      - "HMAC uses symmetric encryption; plain hashes use asymmetric algorithms"
+      - "HMAC requires a secret key, providing both integrity and authentication; a plain hash provides only integrity"
+      - "HMAC is faster than a plain hash because it skips key derivation"
+      - "HMAC produces a longer output than equivalent hash algorithms"
+    correct_answer: 1
+    explanations:
+      correct: "HMAC (Hash-based Message Authentication Code) combines a cryptographic hash with a shared secret key. Without the key, an attacker cannot generate a valid HMAC — this provides authentication (proof the MAC was created by someone with the key). A plain hash provides only integrity (detects modification) but anyone can compute it — an attacker could modify a message and recompute the hash."
+      incorrect:
+        - "HMAC uses hash functions (like SHA-256), not symmetric encryption algorithms — though it does require a symmetric secret key."
+        - "HMAC requiring a secret key and providing both integrity and authentication (vs. hash providing only integrity) is the correct distinction."
+        - "HMAC is slightly slower than a plain hash because it performs additional operations involving the key."
+        - "HMAC output size equals the underlying hash output size (e.g., HMAC-SHA256 produces 256 bits, same as SHA-256)."
+    difficulty: "medium"
+    tags: ["cryptography", "HMAC", "integrity"]
+
+  - id: q-d3-053
+    domain: domain3
+    question: "What is the primary threat that post-quantum cryptography (PQC) is designed to address?"
+    options:
+      - "Improved GPU-based password cracking attacks"
+      - "Quantum computers using Shor's algorithm to break RSA and ECC"
+      - "Nation-state actors intercepting symmetric encrypted communications"
+      - "AI-assisted cryptanalysis of block cipher modes"
+    correct_answer: 1
+    explanations:
+      correct: "Shor's algorithm, run on a sufficiently powerful quantum computer, can factor large integers and solve discrete logarithm problems exponentially faster than classical computers — directly breaking RSA and ECC. NIST has standardized quantum-resistant algorithms (CRYSTALS-Kyber for key exchange, CRYSTALS-Dilithium for signatures) to replace vulnerable public-key cryptography."
+      incorrect:
+        - "GPU-based cracking affects password hashing — addressed by slow hashing algorithms (Argon2, bcrypt), not quantum-resistant cryptography."
+        - "Quantum computers using Shor's algorithm to break RSA and ECC is the primary threat PQC addresses."
+        - "Nation-state interception of symmetric communications is addressed by key length (AES-256 is quantum-resistant to Grover's algorithm with doubled key) — not the primary PQC concern."
+        - "AI-assisted cryptanalysis is a theoretical concern but not the specific threat driving the PQC standardization effort."
+    difficulty: "hard"
+    tags: ["cryptography", "quantum", "PQC"]
+
+  - id: q-d3-054
+    domain: domain3
+    question: "The 'Reference Monitor' concept requires which of the following properties?"
+    options:
+      - "It must be implemented in software only, for easy auditing"
+      - "It must be always invoked, tamper-proof, and small enough to be verifiably correct"
+      - "It must log all access attempts to a centralized SIEM"
+      - "It must be separated across multiple redundant systems"
+    correct_answer: 1
+    explanations:
+      correct: "The Reference Monitor must be: always invoked (no access request can bypass it — complete mediation), tamper-proof (cannot be modified by any subject — including privileged ones), and verifiable (small and simple enough to be thoroughly analyzed and formally proved correct). The security kernel implements this concept as the TCB's access mediation component."
+      incorrect:
+        - "Reference Monitors can be implemented in hardware, firmware, or software — the requirement is tamper-resistance and correctness, not any specific implementation medium."
+        - "Always invoked, tamper-proof, and small enough for verification are the three required reference monitor properties."
+        - "Logging is important for audit but is not one of the three formal reference monitor requirements — complete mediation, tamper-resistance, and verifiability are."
+        - "Distribution across redundant systems is an availability strategy — not a reference monitor requirement."
+    difficulty: "hard"
+    tags: ["architecture", "TCB", "reference-monitor"]
+
+  - id: q-d3-055
+    domain: domain3
+    question: "Key escrow raises which primary security concern?"
+    options:
+      - "Escrowed keys expire sooner than non-escrowed keys"
+      - "The key escrow system becomes a high-value target whose compromise exposes all protected data"
+      - "Escrowing keys prevents the use of public key cryptography"
+      - "Key escrow systems are incompatible with TLS/SSL protocols"
+    correct_answer: 1
+    explanations:
+      correct: "Key escrow creates a centralized repository of encryption keys held by a trusted third party or government entity. This repository becomes an extremely high-value attack target — compromising it would expose all data protected by the escrowed keys. This 'single point of failure for all secrets' is the primary security concern that led to widespread opposition to government-mandated key escrow proposals."
+      incorrect:
+        - "Key escrow does not affect key expiration — key lifecycle management is handled separately from escrow."
+        - "The escrow system becoming a high-value target whose compromise exposes all protected data is the primary security concern."
+        - "Key escrow does not prevent use of public key cryptography — it applies to the private or symmetric keys used in public key systems."
+        - "Key escrow is a key management policy that can be applied alongside TLS/SSL — they are not incompatible."
+    difficulty: "hard"
+    tags: ["cryptography", "key-management", "escrow"]

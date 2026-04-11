@@ -606,3 +606,383 @@ questions:
         - "NIST does not maintain a list of approved programming languages — memory-safe languages are recommended by NSA/CISA guidance."
     difficulty: "medium"
     tags: ["secure-coding", "memory-safety"]
+
+  - id: q-d8-033
+    domain: domain8
+    question: "An XML web service returns internal file contents when an attacker submits a crafted XML document containing '<!DOCTYPE foo [<!ENTITY xxe SYSTEM \"file:///etc/passwd\">]>'. This is an example of which vulnerability?"
+    options:
+      - "SQL Injection"
+      - "Cross-Site Scripting (XSS)"
+      - "XML External Entity (XXE) Injection"
+      - "Server-Side Template Injection"
+    correct_answer: 2
+    explanations:
+      correct: "XML External Entity (XXE) Injection exploits XML parsers that process external entity declarations in DOCTYPE definitions. The attacker defines an entity that references a local file (file:///etc/passwd) or internal network resource. When the XML parser resolves the entity, it reads and returns the file contents in the response."
+      incorrect:
+        - "SQL Injection targets database queries through user input — it does not involve XML parsing or external entity declarations."
+        - "XSS injects client-side scripts into web pages viewed by users — it does not involve XML external entity processing."
+        - "XXE Injection (exploiting XML parsers to read local files or perform SSRF) is the correct answer."
+        - "Server-Side Template Injection exploits template engines (Jinja2, Twig) — not XML parsers."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "XXE", "web-security"]
+
+  - id: q-d8-034
+    domain: domain8
+    question: "An attacker exploits a web application by sending the URL 'http://victim.com/fetch?url=http://169.254.169.254/latest/meta-data/' to steal cloud credentials. This attack is called:"
+    options:
+      - "Cross-Site Request Forgery (CSRF)"
+      - "Server-Side Request Forgery (SSRF)"
+      - "XML External Entity (XXE)"
+      - "Open Redirect"
+    correct_answer: 1
+    explanations:
+      correct: "Server-Side Request Forgery (SSRF) forces the server to make HTTP requests to attacker-specified URLs. The IP 169.254.169.254 is the AWS Instance Metadata Service (IMDS) — accessible only from within the cloud instance. SSRF tricks the server into fetching this internal resource, potentially returning IAM credentials, instance details, and user data."
+      incorrect:
+        - "CSRF tricks a user's browser into making unintended requests using their existing session — it does not involve the server making requests to internal URLs."
+        - "SSRF (forcing the server to request attacker-specified URLs, including internal cloud metadata services) is the correct answer."
+        - "XXE exploits XML external entity declarations — this attack uses HTTP URL parameters, not XML parsing."
+        - "An Open Redirect exploits inadequate URL validation to redirect users to malicious sites — it doesn't involve server-side fetching of internal resources."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "SSRF", "cloud"]
+
+  - id: q-d8-035
+    domain: domain8
+    question: "Which secure coding practice is the MOST effective defense against SQL injection attacks?"
+    options:
+      - "Input validation using a denylist of SQL keywords"
+      - "Web Application Firewall (WAF)"
+      - "Parameterized queries (prepared statements)"
+      - "Encrypting the database connection string"
+    correct_answer: 2
+    explanations:
+      correct: "Parameterized queries (prepared statements) separate SQL code from data by pre-compiling the SQL structure, then supplying user input as typed parameters. The database treats parameters as data, never as SQL code — making injection impossible regardless of input content. This is the most effective defense because it eliminates the vulnerability at its root."
+      incorrect:
+        - "Denylist-based input validation is insufficient — SQL injection can be achieved with encoded characters, alternative syntax, and strings that bypass keyword filters."
+        - "WAFs can detect and block many SQL injection attempts but can be bypassed with obfuscation and encoding — they are a compensating control, not a primary defense."
+        - "Parameterized queries are the gold standard defense against SQL injection — this is correct."
+        - "Encrypting the database connection protects credentials in transit but does not prevent SQL injection — injection happens within an authenticated connection."
+    difficulty: "easy"
+    tags: ["vulnerabilities", "SQL-injection", "secure-coding"]
+
+  - id: q-d8-036
+    domain: domain8
+    question: "A developer finds a Python pickle.loads() call that processes user-submitted data in a web API. Why is this a critical security vulnerability?"
+    options:
+      - "Pickle files can contain malware that infects end-user browsers"
+      - "Deserializing untrusted data can lead to arbitrary code execution on the server"
+      - "Pickle encoding is weaker than JSON and leaks data"
+      - "Pickle.loads() is deprecated and causes memory leaks"
+    correct_answer: 1
+    explanations:
+      correct: "Python's pickle library deserializes object graphs that can include callable objects. Specially crafted pickle data can execute arbitrary Python code during deserialization (via __reduce__ method). Processing untrusted pickle data is equivalent to running arbitrary code as the server process — a critical remote code execution vulnerability."
+      incorrect:
+        - "Pickle deserialization runs on the server, not in the browser — client-side browser infection is not the vulnerability here."
+        - "Deserializing untrusted pickle data enabling arbitrary code execution on the server is the critical vulnerability."
+        - "Pickle is a serialization format, not an encryption scheme — the vulnerability is about code execution, not data leakage."
+        - "Pickle.loads() is not deprecated — the security issue is using it with untrusted data, which is a design flaw, not a deprecation issue."
+    difficulty: "hard"
+    tags: ["vulnerabilities", "deserialization", "secure-coding"]
+
+  - id: q-d8-037
+    domain: domain8
+    question: "An attacker registers a package named 'company-internal-utils' on npm's public registry. The company's CI/CD system starts downloading this package instead of the internal private one. What attack occurred?"
+    options:
+      - "Typosquatting"
+      - "Dependency confusion"
+      - "Watering hole attack"
+      - "Supply chain compromise via malicious maintainer"
+    correct_answer: 1
+    explanations:
+      correct: "Dependency confusion (also called namespace confusion) occurs when a malicious package using the same name as an internal private package is published to a public registry. Most package managers default to preferring public registries or choosing the highest version number — causing systems to download the malicious public package instead of the intended private one."
+      incorrect:
+        - "Typosquatting involves registering packages with names similar to (but slightly misspelled from) popular packages — this attack uses the exact same name as the internal package."
+        - "Dependency confusion (using the exact internal package name on a public registry) is the correct answer."
+        - "A watering hole attack compromises websites that a target organization's employees visit — not package registry manipulation."
+        - "Supply chain compromise via maintainer involves taking over an existing legitimate package's maintainer account — not creating a new malicious package with an internal name."
+    difficulty: "hard"
+    tags: ["supply-chain", "attacks"]
+
+  - id: q-d8-038
+    domain: domain8
+    question: "In the OWASP Top 10 2021, 'Broken Access Control' moved to the #1 position. Which scenario best represents this vulnerability category?"
+    options:
+      - "An application using MD5 to hash user passwords"
+      - "A user modifying their user ID in an API request to access another user's account data"
+      - "An attacker injecting JavaScript into a stored comment"
+      - "An application exposing detailed error messages with stack traces"
+    correct_answer: 1
+    explanations:
+      correct: "Broken Access Control occurs when access restrictions are not properly enforced. The most common form — Broken Object Level Authorization (BOLA/IDOR) — allows users to access other users' resources by manipulating identifiers. Changing a user_id parameter in an API request to another user's ID and receiving their data is a classic BOLA/IDOR example."
+      incorrect:
+        - "Using MD5 for password hashing is a Cryptographic Failure (OWASP #2) — not broken access control."
+        - "Accessing another user's data by modifying the user ID in an API request (IDOR/BOLA) is the correct broken access control example."
+        - "Injecting JavaScript into a stored comment is Stored XSS — an Injection vulnerability (OWASP #3), not broken access control."
+        - "Exposing stack traces is Security Misconfiguration (OWASP #5) — not broken access control."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "OWASP", "access-control"]
+
+  - id: q-d8-039
+    domain: domain8
+    question: "A developer implements a function that checks a file's permissions and then opens it. An attacker replaces the file between the check and the open. This vulnerability is called:"
+    options:
+      - "Integer overflow"
+      - "Time-of-Check to Time-of-Use (TOCTOU)"
+      - "Buffer overflow"
+      - "Command injection"
+    correct_answer: 1
+    explanations:
+      correct: "TOCTOU (Time-of-Check to Time-of-Use) is a race condition where an attacker exploits the window between when a condition is checked and when the result is used. The classic example is checking file permissions, then having the attacker swap the file for a symlink to /etc/passwd before the application opens it."
+      incorrect:
+        - "Integer overflow occurs when arithmetic exceeds the maximum integer value — not when a resource is modified between check and use."
+        - "TOCTOU (race condition between check and use) is the correct vulnerability name for this scenario."
+        - "Buffer overflow occurs when more data is written to a buffer than it can hold — not when a resource is modified between operations."
+        - "Command injection passes untrusted input to a system shell — not related to file permission checking race conditions."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "TOCTOU", "race-conditions"]
+
+  - id: q-d8-040
+    domain: domain8
+    question: "Which SDLC phase is the most cost-effective time to address security vulnerabilities?"
+    options:
+      - "Testing phase"
+      - "Deployment phase"
+      - "Requirements and design phase"
+      - "Maintenance phase"
+    correct_answer: 2
+    explanations:
+      correct: "The IBM Systems Science Institute found that fixing a defect found in design costs ~10x less than fixing it in testing, and ~100x less than fixing it in production. Addressing security requirements and architecture decisions early (requirements/design) eliminates vulnerabilities before code is written — 'shift left' security. This is the economic basis for security by design."
+      incorrect:
+        - "The testing phase can find vulnerabilities but fixing them then is significantly more expensive than preventing them in design — code may need to be rewritten."
+        - "Deployment is very late in the SDLC — discovered vulnerabilities require expensive rework, rollback, or emergency patches."
+        - "The requirements and design phase is the most cost-effective time — preventing vulnerabilities through good design before code is written."
+        - "The maintenance phase (production) is the most expensive time to fix vulnerabilities — it may involve emergency patches, incident response, and potential breach costs."
+    difficulty: "easy"
+    tags: ["SDLC", "principles", "cost"]
+
+  - id: q-d8-041
+    domain: domain8
+    question: "A Terraform configuration file accidentally includes an AWS secret access key hardcoded as a variable value and is committed to a public Git repository. What is the MOST immediate mitigation?"
+    options:
+      - "Delete the Git commit and rewrite history"
+      - "Revoke the exposed credentials immediately, then remove them from the repository"
+      - "Rotate the Git repository to a private repository"
+      - "Hash the credentials in the Terraform file"
+    correct_answer: 1
+    explanations:
+      correct: "The credential has been exposed publicly and may have already been scraped by automated bots (this happens within seconds of a GitHub push). The most critical immediate action is to revoke/invalidate the exposed credentials to prevent misuse. After revoking, clean the repository history and implement proper secrets management (Vault, AWS Secrets Manager)."
+      incorrect:
+        - "Deleting the commit and rewriting history does not immediately prevent the already-exposed credentials from being used — bots monitor public repos and capture secrets immediately. Revocation must happen first."
+        - "Immediately revoking the exposed credentials (before they can be misused) is the most critical first step."
+        - "Making the repository private does not invalidate the exposed credential — anyone who already captured it can still use it."
+        - "Hashing the credentials would make them unusable for authentication purposes — you need actual credentials to authenticate, not hashes."
+    difficulty: "medium"
+    tags: ["DevSecOps", "secrets-management", "IaC"]
+
+  - id: q-d8-042
+    domain: domain8
+    question: "Which defense against Cross-Site Request Forgery (CSRF) works by including a unique secret token in each form that the server validates before processing?"
+    options:
+      - "Content Security Policy (CSP)"
+      - "CSRF token (Synchronizer Token Pattern)"
+      - "HttpOnly cookie flag"
+      - "SameSite=Strict cookie attribute"
+    correct_answer: 1
+    explanations:
+      correct: "The Synchronizer Token Pattern embeds a unique, secret, per-session CSRF token in all state-changing forms. The server validates the token before processing the request. Since the attacker's malicious page cannot read the token from the victim's session (due to same-origin policy), they cannot forge valid requests."
+      incorrect:
+        - "CSP restricts sources from which scripts and resources can be loaded — it does not prevent CSRF attacks which exploit authenticated sessions."
+        - "CSRF token (Synchronizer Token Pattern) is the correct defense — server validates the hidden token proving the request originated from the legitimate site."
+        - "HttpOnly prevents JavaScript from accessing cookies (protecting against XSS cookie theft) — it does not prevent CSRF attacks."
+        - "SameSite=Strict prevents the browser from sending cookies with cross-site requests, which is an effective CSRF mitigation, but the question specifically describes the token-based approach."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "CSRF", "web-security"]
+
+  - id: q-d8-043
+    domain: domain8
+    question: "The STRIDE threat modeling category 'Elevation of Privilege' maps to a violation of which security property?"
+    options:
+      - "Confidentiality"
+      - "Integrity"
+      - "Authorization"
+      - "Availability"
+    correct_answer: 2
+    explanations:
+      correct: "In STRIDE, each category maps to a violated security property: S=Spoofing→Authentication, T=Tampering→Integrity, R=Repudiation→Non-repudiation, I=Information Disclosure→Confidentiality, D=Denial of Service→Availability, E=Elevation of Privilege→Authorization. Elevation of Privilege means gaining unauthorized access beyond what is permitted — a violation of authorization controls."
+      incorrect:
+        - "Confidentiality is violated by Information Disclosure (the 'I' in STRIDE) — not Elevation of Privilege."
+        - "Integrity is violated by Tampering (the 'T' in STRIDE) — not Elevation of Privilege."
+        - "Authorization is the security property violated by Elevation of Privilege — gaining access beyond permitted levels."
+        - "Availability is violated by Denial of Service (the 'D' in STRIDE) — not Elevation of Privilege."
+    difficulty: "hard"
+    tags: ["threat-modeling", "STRIDE"]
+
+  - id: q-d8-044
+    domain: domain8
+    question: "Stored XSS is considered more dangerous than Reflected XSS because:"
+    options:
+      - "Stored XSS bypasses the browser's same-origin policy"
+      - "Stored XSS persists in the database and attacks all users who view the affected page"
+      - "Stored XSS cannot be detected by Content Security Policy"
+      - "Stored XSS allows the attacker to execute server-side code"
+    correct_answer: 1
+    explanations:
+      correct: "Stored (Persistent) XSS saves the malicious script in the server's database. Every user who views the affected page executes the script — amplifying impact to potentially all users. Reflected XSS requires the attacker to trick each victim individually into clicking a crafted URL. A single stored XSS payload can compromise thousands of users automatically."
+      incorrect:
+        - "Both stored and reflected XSS execute in the victim's browser within the page's origin — neither inherently bypasses the same-origin policy."
+        - "Stored XSS persisting and affecting all viewers (vs. requiring individual targeting) makes it more dangerous — this is correct."
+        - "Both stored and reflected XSS can potentially be mitigated by properly configured CSP — stored XSS does not uniquely bypass CSP."
+        - "Both types of XSS execute client-side JavaScript in the browser — neither directly executes server-side code."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "XSS", "web-security"]
+
+  - id: q-d8-045
+    domain: domain8
+    question: "What is the primary purpose of a Software Bill of Materials (SBOM) in the context of security incident response?"
+    options:
+      - "To document the security testing results for each software release"
+      - "To rapidly identify all products affected by a newly disclosed vulnerability in a specific library"
+      - "To provide developers with step-by-step remediation instructions"
+      - "To track which developers contributed to each software component"
+    correct_answer: 1
+    explanations:
+      correct: "When a critical vulnerability is disclosed (like Log4Shell in Log4j), organizations with SBOMs can instantly query which of their products include the vulnerable library and version. Without SBOM, security teams must manually inventory all software — a process that can take weeks. SBOMs enable rapid, accurate impact assessment for supply chain vulnerabilities."
+      incorrect:
+        - "Security testing results are documented in security reports and test plans — not in SBOMs, which catalog components and dependencies."
+        - "Rapidly identifying all affected products when a library vulnerability is disclosed is the key incident response value of SBOMs."
+        - "Remediation instructions are provided by security advisories and patch notes — SBOMs identify what needs remediation, not how to remediate."
+        - "Developer contribution tracking is a version control (git history) function — SBOMs track component provenance, not individual developer contributions."
+    difficulty: "medium"
+    tags: ["supply-chain", "SBOM", "incident-response"]
+
+  - id: q-d8-046
+    domain: domain8
+    question: "A developer uses strcpy() to copy user input into a fixed-size buffer in a C program without checking the input length. This can result in which vulnerability?"
+    options:
+      - "SQL Injection"
+      - "Buffer Overflow"
+      - "Insecure Deserialization"
+      - "Integer Overflow"
+    correct_answer: 1
+    explanations:
+      correct: "strcpy() copies bytes until it encounters a null terminator without checking if the destination buffer is large enough. If the input is longer than the buffer, it overwrites adjacent memory — a stack buffer overflow. This can allow attackers to overwrite the return address, redirect execution flow, and achieve code execution. Safe alternatives: strncpy(), strlcpy(), or bounds-checked string functions."
+      incorrect:
+        - "SQL Injection involves manipulating database queries through user input — not related to buffer operations in C programs."
+        - "Buffer Overflow (overwriting adjacent memory due to unbounded copy into fixed-size buffer) is the correct vulnerability."
+        - "Insecure Deserialization involves processing untrusted serialized object data — not buffer operations."
+        - "Integer Overflow involves arithmetic exceeding integer type bounds — not copying beyond buffer boundaries."
+    difficulty: "easy"
+    tags: ["vulnerabilities", "buffer-overflow", "secure-coding"]
+
+  - id: q-d8-047
+    domain: domain8
+    question: "Which DevSecOps practice integrates static application security testing (SAST) most effectively into the development process?"
+    options:
+      - "Running SAST scans on a quarterly schedule"
+      - "Running SAST in the CI/CD pipeline on every code commit, blocking merges with critical findings"
+      - "Running SAST only before production releases"
+      - "Having the security team run SAST independently from the development team"
+    correct_answer: 1
+    explanations:
+      correct: "Integrating SAST into the CI/CD pipeline to run on every commit is the 'shift left' approach — providing immediate feedback to developers when vulnerabilities are introduced. Blocking merges for critical findings prevents vulnerable code from progressing. This makes security a continuous activity rather than a late-stage gate and dramatically reduces remediation cost."
+      incorrect:
+        - "Quarterly SAST scans leave vulnerabilities undetected for months — by the time they're found, the code is far from the developer's mind and expensive to fix."
+        - "SAST in CI/CD pipeline on every commit with merge blocking for critical findings is the optimal DevSecOps integration."
+        - "Pre-production only testing is late in the SDLC — vulnerabilities found then are expensive to fix and may delay releases."
+        - "Security team-driven SAST separate from development creates silos — findings arrive late, out of context, and developers haven't yet adopted security accountability."
+    difficulty: "medium"
+    tags: ["DevSecOps", "SAST", "SDLC"]
+
+  - id: q-d8-048
+    domain: domain8
+    question: "The 'fail-secure' principle requires that when a system encounters an error, it should:"
+    options:
+      - "Automatically restart and resume normal operations"
+      - "Default to a secure, restricted state rather than an open, permissive state"
+      - "Immediately alert all users about the failure"
+      - "Preserve all current user sessions to prevent data loss"
+    correct_answer: 1
+    explanations:
+      correct: "Fail-secure (fail-closed) means that when a system fails or encounters an error, it defaults to the most secure state — denying access or halting operations rather than opening up. Example: if authentication fails due to a system error, deny access. If a firewall crashes, block all traffic. Security is prioritized over availability in failure scenarios."
+      incorrect:
+        - "Automatic restart and resume may be appropriate for availability but does not describe the security posture during the failure window — which is the focus of fail-secure."
+        - "Defaulting to a secure, restricted state when a failure occurs is the correct definition of fail-secure."
+        - "Alerting users is a notification mechanism, not the definition of fail-secure behavior."
+        - "Preserving user sessions prioritizes availability and user experience over security — fail-secure may require terminating sessions during failure."
+    difficulty: "easy"
+    tags: ["principles", "secure-design"]
+
+  - id: q-d8-049
+    domain: domain8
+    question: "An organization discovers that a malicious package named 'coIors' (with capital 'i' instead of lowercase 'l') was installed from npm as a transitive dependency. This is an example of which supply chain attack?"
+    options:
+      - "Dependency confusion"
+      - "Typosquatting"
+      - "Watering hole"
+      - "Malicious maintainer takeover"
+    correct_answer: 1
+    explanations:
+      correct: "Typosquatting involves publishing packages with names visually similar to (but slightly different from) popular legitimate packages, hoping developers or automated systems will install them by mistake. 'coIors' (capital I) looks identical to 'colors' (lowercase l) in many fonts. Automated dependency resolution may install the wrong package."
+      incorrect:
+        - "Dependency confusion uses the exact same name as an internal package — typosquatting uses a visually similar but different name targeting public packages."
+        - "Typosquatting (visually similar name designed to trick users into installing the wrong package) is the correct answer."
+        - "A watering hole attack compromises websites visited by target users — not package registry name manipulation."
+        - "Maintainer takeover involves compromising the account of a legitimate package maintainer — not creating a new package with a deceptive name."
+    difficulty: "medium"
+    tags: ["supply-chain", "attacks"]
+
+  - id: q-d8-050
+    domain: domain8
+    question: "Path traversal attacks use which technique to escape an application's intended file directory?"
+    options:
+      - "SQL metacharacters to bypass database directory controls"
+      - "Sequences like '../' to navigate up the directory hierarchy beyond the intended root"
+      - "Encoded null bytes to terminate file path strings early"
+      - "HTTP verb tampering to access restricted file endpoints"
+    correct_answer: 1
+    explanations:
+      correct: "Path traversal exploits insufficient path validation by using '../' (and variants like URL-encoded %2e%2e%2f or double-encoded %252e%252e%252f) to navigate up directory levels beyond the intended web root. For example, requesting '/download?file=../../../etc/passwd' navigates three directories up from the web root to read the system password file."
+      incorrect:
+        - "SQL metacharacters are used in SQL injection attacks against databases — not for file system path manipulation."
+        - "Using '../' sequences to navigate beyond the intended directory root is the path traversal technique."
+        - "Null byte injection (%00) can terminate strings in some languages (C-based), but it's a different attack technique — path traversal specifically uses directory traversal sequences."
+        - "HTTP verb tampering exploits differences in how servers handle different HTTP methods — not directly related to directory traversal."
+    difficulty: "medium"
+    tags: ["vulnerabilities", "path-traversal", "web-security"]
+
+  - id: q-d8-051
+    domain: domain8
+    question: "Which container security practice most directly addresses the risk of a container escape leading to host system compromise?"
+    options:
+      - "Using Alpine Linux as the base image"
+      - "Running containers as a non-root user with minimal Linux capabilities"
+      - "Scanning container images for known CVEs"
+      - "Encrypting container image layers at rest"
+    correct_answer: 1
+    explanations:
+      correct: "Container escapes often rely on kernel exploits or container misconfigurations. Running containers as a non-root user and dropping all unnecessary Linux capabilities (using --cap-drop ALL and adding only needed capabilities) dramatically limits what an escaped process can do on the host. Root inside a container maps to root on the host if escape occurs."
+      incorrect:
+        - "Alpine Linux reduces attack surface through a smaller footprint but does not directly limit what an escaped container can do on the host."
+        - "Running as non-root with minimal capabilities directly limits the impact of a container escape — this is the most directly relevant control."
+        - "CVE scanning identifies known vulnerable components but does not prevent a successful escape from escalating privileges on the host."
+        - "Image layer encryption protects data confidentiality — it does not limit runtime privileges or prevent escape escalation."
+    difficulty: "hard"
+    tags: ["container-security", "DevSecOps"]
+
+  - id: q-d8-052
+    domain: domain8
+    question: "Which software development approach produces applications with the smallest attack surface by default?"
+    options:
+      - "Agile development with two-week sprints"
+      - "Building only essential features, disabling all unused functionality, and following the principle of economy of mechanism"
+      - "Using only open-source frameworks with active security communities"
+      - "Requiring code reviews for all pull requests"
+    correct_answer: 1
+    explanations:
+      correct: "Minimizing attack surface requires building only what is needed (economy of mechanism), disabling all unused features/services/ports, and following the principle of minimization. Every feature, API endpoint, and enabled service is a potential attack entry point. The smallest attack surface comes from deliberate minimalism in design and configuration."
+      incorrect:
+        - "Agile sprint methodology is a development process — it does not inherently produce smaller attack surfaces without security-focused practices."
+        - "Building only essential features, disabling unused functionality, and economy of mechanism directly minimizes attack surface — this is the correct answer."
+        - "Open-source frameworks can have security communities but still introduce significant attack surface if enabled features are not needed."
+        - "Code reviews improve code quality and can catch vulnerabilities but do not reduce attack surface — that requires architectural and design decisions."
+    difficulty: "medium"
+    tags: ["secure-design", "principles", "attack-surface"]

@@ -103,3 +103,122 @@ flashcards:
     definition: "The concept that data is subject to the laws and governance structures of the country where it is physically stored"
     explanation: "Critical in cloud computing. Organizations must ensure data stored in foreign jurisdictions complies with both domestic and foreign regulations. Example: GDPR requires EU citizen data to comply with EU rules."
     tags: ["privacy", "legal", "cloud"]
+
+  - id: fc-d2-016
+    domain: domain2
+    term: "Data Masking"
+    definition: "A data security technique that replaces sensitive data with realistic but fictitious data while preserving the format and structure of the original"
+    explanation: "Types: Static masking (creates a masked copy of database), Dynamic masking (masks data in real-time during retrieval). Used for development/testing environments where real data isn't needed. Differs from encryption — masked data cannot be reversed to original. Common for PII, credit card numbers, SSNs."
+    tags: ["data-protection", "privacy"]
+
+  - id: fc-d2-017
+    domain: domain2
+    term: "Tokenization"
+    definition: "The process of replacing sensitive data with a non-sensitive surrogate value (token) while maintaining a secure mapping in a token vault"
+    explanation: "Unlike encryption, the token has no mathematical relationship to the original value — it's just a reference. Widely used in payment card processing (replaces PAN with token). Token vault stores the mapping. Reduces PCI DSS scope by removing actual cardholder data from systems."
+    tags: ["data-protection", "payment"]
+
+  - id: fc-d2-018
+    domain: domain2
+    term: "Anonymization"
+    definition: "The irreversible process of altering data so that individuals cannot be identified, directly or indirectly, even by combining with other available information"
+    explanation: "If done correctly, anonymized data falls outside GDPR scope as it is no longer personal data. Techniques: generalization, suppression, noise addition, data swapping. True anonymization is difficult to achieve — many 'anonymized' datasets have been re-identified. Contrast with pseudonymization, which is reversible."
+    tags: ["privacy", "GDPR", "data-protection"]
+
+  - id: fc-d2-019
+    domain: domain2
+    term: "Pseudonymization"
+    definition: "A data de-identification technique that replaces directly identifying information with artificial identifiers (pseudonyms), while retaining the ability to re-identify with the key"
+    explanation: "GDPR explicitly recognizes pseudonymization as a risk-reduction measure but pseudonymized data is still considered personal data. The re-identification key must be kept separate and secure. Examples: replacing patient names with study IDs while keeping a separate link table."
+    tags: ["privacy", "GDPR", "data-protection"]
+
+  - id: fc-d2-020
+    domain: domain2
+    term: "Protected Health Information (PHI)"
+    definition: "Any health information that can identify an individual and relates to their past, present, or future physical or mental health, condition, or payment for healthcare services"
+    explanation: "Under HIPAA, 18 identifiers make health data PHI (name, address, dates, phone, SSN, etc.). Electronic PHI (ePHI) requires Technical, Physical, and Administrative safeguards. De-identification: either remove all 18 identifiers (Safe Harbor) or use Expert Determination method."
+    tags: ["privacy", "HIPAA", "PHI"]
+
+  - id: fc-d2-021
+    domain: domain2
+    term: "Data Loss Prevention (DLP)"
+    definition: "A set of tools and processes that monitor, detect, and block the unauthorized transfer or disclosure of sensitive data"
+    explanation: "Deployment modes: Network DLP (monitors traffic at egress points), Endpoint DLP (monitors workstation activity), Cloud DLP (monitors cloud storage and SaaS). Common policies: block SSN/credit card patterns, prevent uploading to personal cloud storage, alert on large data exports. Generates false positives requiring tuning."
+    tags: ["data-protection", "monitoring"]
+
+  - id: fc-d2-022
+    domain: domain2
+    term: "Cloud Access Security Broker (CASB)"
+    definition: "A security enforcement point between cloud users and cloud service providers that monitors activity and enforces security policies"
+    explanation: "Four pillars: Visibility (discover shadow IT), Data Security (DLP for cloud), Compliance (enforce data sovereignty), Threat Protection (detect account compromise, malware). Deployment modes: API-mode (out-of-band), Proxy-mode (inline). Helps organizations extend on-premises security policies to cloud services."
+    tags: ["cloud", "data-protection"]
+
+  - id: fc-d2-023
+    domain: domain2
+    term: "Digital Rights Management (DRM)"
+    definition: "Technology used by publishers and copyright holders to control how digital content is used, copied, and distributed after delivery"
+    explanation: "Enforces access restrictions on digital content (eBooks, music, video, software). Methods: encryption, license keys, online activation, watermarking. Enterprise DRM (also called IRM) extends to office documents. Criticized for restricting legitimate fair use. Cannot prevent all piracy (analog hole)."
+    tags: ["data-protection", "intellectual-property"]
+
+  - id: fc-d2-024
+    domain: domain2
+    term: "Information Rights Management (IRM)"
+    definition: "An enterprise technology that applies persistent access controls to documents and emails, restricting how they can be viewed, edited, printed, forwarded, or copied"
+    explanation: "Sometimes called Enterprise DRM. Controls travel with the document — protection persists even when the file is shared outside the organization. Examples: Microsoft Azure Information Protection, Adobe LiveCycle. Addresses insider threat and accidental data leakage. IRM policies enforced by central server."
+    tags: ["data-protection", "access-control"]
+
+  - id: fc-d2-025
+    domain: domain2
+    term: "FIPS 140-2 / FIPS 140-3"
+    definition: "U.S. federal standards for cryptographic modules that specify security requirements for hardware and software cryptographic implementations"
+    explanation: "Four security levels: Level 1 (basic requirements), Level 2 (adds tamper evidence), Level 3 (tamper resistance and key zeroization), Level 4 (complete physical protection). Required for U.S. federal government procurement and many regulated industries. FIPS 140-3 (2019) aligns with ISO/IEC 19790."
+    tags: ["standards", "cryptography", "compliance"]
+
+  - id: fc-d2-026
+    domain: domain2
+    term: "Shadow IT"
+    definition: "Information technology systems, software, or services used within an organization without explicit IT department approval or knowledge"
+    explanation: "Common examples: personal cloud storage (Dropbox, Google Drive), unapproved SaaS apps, unauthorized devices. Creates security gaps: unpatched systems, data outside DLP controls, compliance violations. Addressed through: CASB solutions, acceptable use policies, providing approved alternatives that meet business needs."
+    tags: ["governance", "risk"]
+
+  - id: fc-d2-027
+    domain: domain2
+    term: "Asset Inventory"
+    definition: "A comprehensive catalog of all organizational assets including hardware, software, data, and services, along with their classification, ownership, and value"
+    explanation: "Foundation of all security programs — you cannot protect what you don't know you have. Must be continuously updated. Includes: physical assets (servers, laptops), virtual assets (VMs, cloud instances), software assets (licenses, applications), data assets (databases, files). Feeds into vulnerability management and risk assessment."
+    tags: ["asset-management", "governance"]
+
+  - id: fc-d2-028
+    domain: domain2
+    term: "Right to be Forgotten (RTBF)"
+    definition: "A GDPR right (Article 17) allowing individuals to request that their personal data be erased when it is no longer necessary, consent is withdrawn, or the processing is unlawful"
+    explanation: "Not absolute — can be overridden by legal obligations, public interest, or freedom of expression. Organizations must have a documented process to handle erasure requests within 30 days. Challenge: data may exist in backups, logs, and third-party systems. Must also notify processors to erase."
+    tags: ["privacy", "GDPR", "legal"]
+
+  - id: fc-d2-029
+    domain: domain2
+    term: "Cross-Border Data Transfers"
+    definition: "The movement of personal data across national boundaries, which may be subject to legal restrictions under privacy regulations"
+    explanation: "GDPR restricts transfers outside EEA to countries with 'adequate' protection or through safeguards: Standard Contractual Clauses (SCCs), Binding Corporate Rules (BCRs), or adequacy decisions. U.S.-EU Privacy Shield was invalidated (Schrems II). Organizations must document legal basis for each transfer."
+    tags: ["privacy", "GDPR", "legal"]
+
+  - id: fc-d2-030
+    domain: domain2
+    term: "Data Metadata"
+    definition: "Data that describes other data, providing context such as creation date, author, file size, location, access history, and format"
+    explanation: "Often overlooked as sensitive. Document metadata can reveal: author identity, revision history, tracked changes, internal comments, geographic coordinates in photos (EXIF data). Metadata should be stripped from documents before external sharing. Forensically valuable — can establish timelines and attribution."
+    tags: ["data", "privacy"]
+
+  - id: fc-d2-031
+    domain: domain2
+    term: "End-of-Life (EOL) Asset Management"
+    definition: "The security practices governing hardware and software that has reached the end of vendor support, requiring careful risk management before disposal or continued use"
+    explanation: "EOL software no longer receives security patches — a critical risk. Options: upgrade, isolate with compensating controls, accept risk (documented), or replace. Hardware disposal requires data sanitization. EOL tracking must be part of asset inventory. Windows 7, Server 2008, and many embedded systems present common EOL challenges."
+    tags: ["asset-management", "lifecycle"]
+
+  - id: fc-d2-032
+    domain: domain2
+    term: "Information Asset Valuation"
+    definition: "The process of determining the monetary or qualitative value of an information asset to prioritize protection efforts and justify security investments"
+    explanation: "Valuation methods: replacement cost (cost to recreate the data), market value (what others would pay), cost of loss (financial impact if destroyed or disclosed). Feeds into risk calculation (ALE = SLE × ARO). Assets with the highest value and most likely threats receive the strongest protections. Required input for quantitative risk assessment."
+    tags: ["asset-management", "risk", "valuation"]

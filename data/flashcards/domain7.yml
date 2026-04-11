@@ -103,3 +103,115 @@ flashcards:
     definition: "The principle that digital evidence should be collected in order from most to least volatile to preserve the most transient data first"
     explanation: "Order: 1) CPU registers and cache, 2) RAM (volatile memory), 3) Network connections/ARP tables, 4) Running processes, 5) Disk contents, 6) Remote logging/monitoring, 7) Physical configuration. Follow this order during incident response."
     tags: ["forensics", "evidence"]
+
+  - id: fc-d7-016
+    domain: domain7
+    term: "SOAR (Security Orchestration, Automation and Response)"
+    definition: "A platform that combines security orchestration (workflow automation), automation (machine-speed response), and response (playbook execution) to improve SOC efficiency"
+    explanation: "Capabilities: automated alert triage, playbook execution for common incidents, integration of disparate security tools via APIs, case management, metrics tracking. Reduces MTTR by automating repetitive tasks (e.g., auto-blocking IP on firewall when IDS alert fires). Does NOT replace human analysts for complex investigations. Examples: Palo Alto XSOAR, Splunk SOAR."
+    tags: ["operations", "automation", "incident-response"]
+
+  - id: fc-d7-017
+    domain: domain7
+    term: "Threat Intelligence"
+    definition: "Evidence-based knowledge about adversaries' capabilities, motivations, tactics, techniques, and procedures (TTPs), used to inform defensive decisions"
+    explanation: "Types: Strategic (high-level trends for executives), Operational (specific campaigns and actors), Tactical (TTPs for detection engineering), Technical (IOCs: hashes, IPs, domains). Sources: ISACs, commercial threat feeds, OSINT, government sharing (CISA, US-CERT). Intelligence-driven security moves from reactive to proactive defense."
+    tags: ["intelligence", "operations"]
+
+  - id: fc-d7-018
+    domain: domain7
+    term: "Indicator of Compromise (IOC)"
+    definition: "Forensic artifacts or observable evidence suggesting a system has been compromised — including malicious IP addresses, domain names, file hashes, registry keys, or behavioral patterns"
+    explanation: "IOC types: Network (C2 IP/domains, unusual outbound traffic), Host (malicious file hashes, suspicious processes, registry modifications, unusual accounts). IOCs have limited shelf life — attackers change infrastructure. IOAs (Indicators of Attack) focus on behaviors (lateral movement, credential dumping) rather than artifacts — more durable."
+    tags: ["forensics", "intelligence", "incident-response"]
+
+  - id: fc-d7-019
+    domain: domain7
+    term: "OSINT (Open Source Intelligence)"
+    definition: "Intelligence gathered from publicly available sources including websites, social media, public records, academic publications, and technical resources"
+    explanation: "Offensive OSINT (reconnaissance): attackers use OSINT to map attack surface (employee names, email formats, IP ranges, tech stack from job postings). Defensive OSINT: organizations use OSINT to find their own exposed data, monitor for threats, and enrich incident investigations. Tools: Maltego, Shodan, theHarvester, SpiderFoot."
+    tags: ["intelligence", "reconnaissance"]
+
+  - id: fc-d7-020
+    domain: domain7
+    term: "Honeypot"
+    definition: "A decoy system deliberately designed to attract and engage attackers, providing early warning of intrusions and intelligence about attack techniques"
+    explanation: "Types: Low-interaction (simulated services, low risk, less intelligence), High-interaction (real systems, more intelligence but higher risk of attacker breakout). Honeynets: networks of honeypots. Legal concern: entrapment (must not lure legitimate users). Deception technology scales honeypots across production networks. Value: detect insider threats, gather attacker TTPs."
+    tags: ["deception", "detection"]
+
+  - id: fc-d7-021
+    domain: domain7
+    term: "Honeytoken"
+    definition: "A fake data item (credentials, record, file, or token) placed in systems to detect unauthorized access — when accessed or used, it immediately signals a breach"
+    explanation: "Examples: fake admin credentials in a password manager (alert when used), fake database records (alert when queried), canary documents (alert when opened outside organization), fake API keys committed to repos. Low false-positive rate — no legitimate reason to access honeytoken. Useful for detecting insider threats and credential theft."
+    tags: ["deception", "detection"]
+
+  - id: fc-d7-022
+    domain: domain7
+    term: "Tabletop Exercise"
+    definition: "A discussion-based incident response exercise where participants talk through their responses to a simulated scenario without activating actual response procedures"
+    explanation: "Purpose: test understanding of incident response plans, identify gaps, improve coordination between teams. Less disruptive than full-scale exercises. Scenarios: ransomware attack, data breach, insider threat. Facilitator presents inject (new information) throughout exercise. Followed by hot wash (immediate debrief) and after-action report. Required by many compliance frameworks."
+    tags: ["incident-response", "testing"]
+
+  - id: fc-d7-023
+    domain: domain7
+    term: "Cyber Kill Chain"
+    definition: "Lockheed Martin's framework describing the seven stages of a cyberattack: Reconnaissance, Weaponization, Delivery, Exploitation, Installation, Command & Control (C2), Actions on Objectives"
+    explanation: "Defenders can interrupt the kill chain at any stage. Reconnaissance: OSINT, scanning. Weaponization: crafting exploit/payload. Delivery: phishing, watering hole, USB. Exploitation: executing the exploit. Installation: malware persistence. C2: establishing control channel. Actions: data theft, ransomware. Limitation: describes linear intrusions, less applicable to sophisticated APTs."
+    tags: ["threat-modeling", "attack-frameworks"]
+
+  - id: fc-d7-024
+    domain: domain7
+    term: "MITRE ATT&CK Framework"
+    definition: "A globally-accessible knowledge base of adversary tactics, techniques, and procedures (TTPs) based on real-world observations of cyberattacks"
+    explanation: "Organized into: Tactics (the 'why' — 14 categories like Initial Access, Persistence, Lateral Movement), Techniques (the 'how'), Sub-techniques (specific implementations). Used for: threat modeling, detection engineering (SIEM use cases), red team planning, gap analysis. ATT&CK for Enterprise, Mobile, and ICS versions available. Enables common language for describing adversary behavior."
+    tags: ["threat-modeling", "attack-frameworks"]
+
+  - id: fc-d7-025
+    domain: domain7
+    term: "Insider Threat"
+    definition: "A security risk that originates from individuals within an organization (current/former employees, contractors, partners) who have or had authorized access to systems and data"
+    explanation: "Types: Malicious insider (intentional theft/sabotage), Negligent insider (accidental data loss), Compromised insider (external attacker using legitimate credentials). Indicators: downloading large amounts of data, accessing sensitive data outside job role, off-hours access, attempting to circumvent security controls. Controls: monitoring, DLP, least privilege, background checks, behavioral analytics."
+    tags: ["threats", "operations"]
+
+  - id: fc-d7-026
+    domain: domain7
+    term: "Alert Fatigue"
+    definition: "The desensitization of security analysts to security alerts due to an overwhelming volume of alerts, leading to missed detections or delayed responses"
+    explanation: "Caused by: poorly tuned detection rules generating excessive false positives, insufficient analyst capacity, lack of alert prioritization. Consequences: critical alerts missed in the noise, analyst burnout, slower MTTR. Solutions: SIEM tuning, alert consolidation and deduplication, SOAR automation for common alerts, risk-based prioritization, proper staffing. Measuring MTTD and MTTR reveals alert fatigue impact."
+    tags: ["operations", "monitoring"]
+
+  - id: fc-d7-027
+    domain: domain7
+    term: "Threat Hunting"
+    definition: "A proactive security practice where analysts actively search for hidden threats and adversary activity that has evaded existing automated detection controls"
+    explanation: "Hypothesis-driven: analyst develops hypothesis based on threat intelligence (e.g., 'ransomware actors use living-off-the-land techniques — search for suspicious PowerShell execution') then searches for evidence. Assumes breach: operates on the premise that attackers may already be inside. Complements SIEM alerting — finds threats that rules don't catch. Findings improve detection capabilities."
+    tags: ["operations", "detection"]
+
+  - id: fc-d7-028
+    domain: domain7
+    term: "Malware Sandbox Analysis"
+    definition: "The execution of suspicious code in an isolated virtual environment to observe its behavior without risk to production systems"
+    explanation: "Sandbox records: network connections, file system changes, registry modifications, process creation, API calls. Detects malware that evades signature scanning. Sandbox evasion techniques used by malware: detecting VM artifacts (VM detection), time-based delays (sleeping past sandbox analysis window), user interaction checks. Tools: Cuckoo Sandbox (open source), Any.run, Joe Sandbox."
+    tags: ["malware", "forensics"]
+
+  - id: fc-d7-029
+    domain: domain7
+    term: "Data Exfiltration"
+    definition: "The unauthorized transfer of data from within an organization to an external destination, representing the ultimate objective in most data breach scenarios"
+    explanation: "Methods: email (sending to personal account), cloud upload (personal Dropbox/Google Drive), USB drives, DNS tunneling (encoding data in DNS queries), HTTPS to C2, covert channels. Detection: DLP monitoring, network flow analysis, user behavior analytics (unusual large transfers), proxy logs. Prevention: DLP, outbound filtering, USB controls, data classification."
+    tags: ["data-protection", "threats"]
+
+  - id: fc-d7-030
+    domain: domain7
+    term: "Security Operations Center (SOC)"
+    definition: "A centralized team and facility that monitors, detects, analyzes, and responds to cybersecurity incidents on a continuous (24x7x365) basis"
+    explanation: "SOC models: In-house (full control, expensive), Managed SOC/MSSP (outsourced, cost-effective), Hybrid (combination). SOC functions: real-time monitoring, alert triage, incident response, threat intelligence, vulnerability tracking. SOC analyst tiers: Tier 1 (alert triage), Tier 2 (incident investigation), Tier 3 (threat hunting, advanced analysis). Key metrics: MTTD, MTTR, alert volume, escalation rate."
+    tags: ["operations", "monitoring"]
+
+  - id: fc-d7-031
+    domain: domain7
+    term: "Mean Time to Detect (MTTD)"
+    definition: "The average time elapsed between when a security incident begins and when it is detected by the security team"
+    explanation: "A critical security operations metric. Industry average MTTD for breaches historically exceeded 200 days (IBM/Ponemon). Reducing MTTD directly reduces breach impact and remediation cost. Improved through: better detection tooling (EDR, UEBA), threat hunting, and improved SIEM correlation rules. Pair with MTTR (response time) to measure full incident handling cycle. Both should trend downward over time."
+    tags: ["metrics", "operations", "incident-response"]

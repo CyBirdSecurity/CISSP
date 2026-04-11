@@ -9,8 +9,8 @@
 ## 🚀 Key Features
 
 * **All 8 CISSP Domains:** Dedicated study modules for every exam domain, from Security and Risk Management to Software Development Security.
-* **Interactive Quizzes:** 200+ practice questions with real-time feedback to simulate exam-day decision making.
-* **Rapid-Fire Flashcards:** 120 curated cards designed to reinforce key terminology and frameworks.
+* **Interactive Quizzes:** 450+ practice questions with real-time feedback to simulate exam-day decision making.
+* **Rapid-Fire Flashcards:** 250 curated cards designed to reinforce key terminology and frameworks.
 * **Progress Dashboard:** Track your accuracy and maintain your study streak with a visual performance overview.
 * **Focus Mode:** A clean, dark-themed interface built to minimize distractions during long study sessions.
 

@@ -103,3 +103,122 @@ flashcards:
     definition: "An international standard (ISO/IEC 15408) for evaluating the security properties of IT products through defined evaluation assurance levels (EALs)"
     explanation: "EAL1 (lowest, functionally tested) through EAL7 (highest, formally verified). Products earn a CC certificate by meeting Target of Evaluation (TOE) criteria. Widely used for government procurement requirements."
     tags: ["standards", "evaluation"]
+
+  - id: fc-d3-016
+    domain: domain3
+    term: "Graham-Denning Model"
+    definition: "A formal security model that defines a set of rules for securely creating, deleting, and transferring access rights between subjects and objects"
+    explanation: "Defines eight protection rules: creating/deleting subjects and objects, reading/granting/deleting/transferring access rights. Addresses gaps in the access matrix model by specifying how subjects and objects are administered. Provides a foundation for access control system design."
+    tags: ["security-models", "access-control"]
+
+  - id: fc-d3-017
+    domain: domain3
+    term: "Harrison-Ruzzo-Ullman (HRU) Model"
+    definition: "A formal access control model that extends the access matrix model to address the safety problem: determining whether a subject can ever obtain a right to an object"
+    explanation: "Proved that the safety problem is undecidable in the general case — no algorithm can determine for all possible systems whether a given right will ever be leaked. This finding limits the theoretical guarantees we can make about general-purpose access control systems."
+    tags: ["security-models", "access-control"]
+
+  - id: fc-d3-018
+    domain: domain3
+    term: "Noninterference Model"
+    definition: "A security model ensuring that actions performed by high-security users cannot be observed or inferred by users at lower security levels"
+    explanation: "Addresses covert channel threats not covered by Bell-LaPadula. Even if a high-security user's data is protected, their observable actions (timing, resource usage) should not leak information to lower-level users. Relevant to multi-level secure systems and preventing timing side channels."
+    tags: ["security-models", "confidentiality"]
+
+  - id: fc-d3-019
+    domain: domain3
+    term: "Take-Grant Model"
+    definition: "A formal security model using a directed graph to represent how access rights (take and grant) can be transferred between subjects and objects"
+    explanation: "Rights represented as edges in a directed graph. 'Take' rule: subject takes a right from another subject's object. 'Grant' rule: subject grants its right to another subject. Allows formal analysis of whether certain rights can be obtained through chains of operations. Simpler than HRU but more analyzable."
+    tags: ["security-models", "access-control"]
+
+  - id: fc-d3-020
+    domain: domain3
+    term: "Hardware Security Module (HSM)"
+    definition: "A dedicated physical computing device that safeguards and manages cryptographic keys and performs encryption/decryption operations within a tamper-resistant hardware boundary"
+    explanation: "Provides: secure key generation and storage, hardware-accelerated cryptographic operations, tamper detection/resistance (key zeroization if tampered). Used for: PKI root CAs, payment processing (HSM-in-PCI), code signing, TLS acceleration. Must be FIPS 140-2 Level 3 or higher for most government use."
+    tags: ["cryptography", "hardware"]
+
+  - id: fc-d3-021
+    domain: domain3
+    term: "Trusted Platform Module (TPM)"
+    definition: "A hardware chip embedded on a device's motherboard that provides cryptographic functions, secure key storage, and system integrity measurement"
+    explanation: "Functions: Platform integrity measurement (stores hashes of boot components in Platform Configuration Registers/PCRs), secure key generation and storage, random number generation, remote attestation. Enables: BitLocker full-disk encryption, secure boot, device identity. TPM 2.0 required for Windows 11."
+    tags: ["hardware", "trusted-systems"]
+
+  - id: fc-d3-022
+    domain: domain3
+    term: "UEFI Secure Boot"
+    definition: "A firmware security mechanism that ensures only cryptographically signed and trusted operating system bootloaders and drivers are loaded during startup"
+    explanation: "Prevents bootkit and rootkit malware from loading before the OS. The firmware maintains a database of trusted signatures (db) and revoked signatures (dbx). Each boot component must be signed by a trusted key. Can be bypassed if an attacker has physical access and can modify UEFI settings."
+    tags: ["hardware", "trusted-systems", "boot-security"]
+
+  - id: fc-d3-023
+    domain: domain3
+    term: "Side-Channel Attack"
+    definition: "An attack that exploits information gained from the physical implementation of a cryptographic system rather than weaknesses in the algorithm itself"
+    explanation: "Types: Timing attacks (exploiting processing time variations), Power analysis (monitoring power consumption during crypto operations), Electromagnetic analysis (measuring EM emissions), Cache timing (exploiting CPU cache behavior). Famous examples: Meltdown/Spectre (CPU microarchitecture side channels). Countermeasures: constant-time algorithms, noise injection, physical shielding."
+    tags: ["attacks", "cryptography"]
+
+  - id: fc-d3-024
+    domain: domain3
+    term: "Covert Channel"
+    definition: "A communication path that transfers information using a mechanism not intended for communication, violating security policy by bypassing access controls"
+    explanation: "Types: Covert storage channel (uses storage mechanism, e.g., file existence), Covert timing channel (uses time, e.g., CPU load patterns). Example: malware exfiltrating data by modulating CPU usage that external observers can detect. Extremely difficult to eliminate. TCSEC defines acceptable covert channel bandwidth limits."
+    tags: ["attacks", "architecture"]
+
+  - id: fc-d3-025
+    domain: domain3
+    term: "Perfect Forward Secrecy (PFS)"
+    definition: "A cryptographic property ensuring that session keys cannot be compromised even if the server's long-term private key is later exposed"
+    explanation: "Achieved using ephemeral key exchange (DHE or ECDHE). Each session generates a new, temporary key pair. Even if an attacker records all encrypted traffic and later obtains the private key, they cannot decrypt past sessions. Mandatory in TLS 1.3. Critical for protecting long-term surveillance recordings."
+    tags: ["cryptography", "protocols"]
+
+  - id: fc-d3-026
+    domain: domain3
+    term: "Elliptic Curve Cryptography (ECC)"
+    definition: "An asymmetric cryptographic approach based on the algebraic structure of elliptic curves over finite fields, providing equivalent security to RSA with much smaller key sizes"
+    explanation: "256-bit ECC key ≈ 3072-bit RSA key in security strength. Benefits: smaller keys = faster computation, less bandwidth, better for mobile/IoT. Used in: ECDSA (signatures), ECDH/ECDHE (key exchange), Bitcoin/blockchain. NIST-approved curves: P-256, P-384, P-521."
+    tags: ["cryptography", "asymmetric"]
+
+  - id: fc-d3-027
+    domain: domain3
+    term: "Rainbow Tables"
+    definition: "Precomputed lookup tables of plaintext-to-hash mappings used to reverse cryptographic hashes and crack passwords"
+    explanation: "Trade computation time for storage space. A rainbow table for common passwords can crack unsalted hashes instantly. Completely defeated by salting (adding unique random value to each password before hashing). Modern password storage must use: salt + slow hashing algorithm (bcrypt, scrypt, Argon2)."
+    tags: ["attacks", "cryptography", "password-security"]
+
+  - id: fc-d3-028
+    domain: domain3
+    term: "Cryptographic Salting"
+    definition: "The practice of adding a unique, random value to each password before hashing to ensure identical passwords produce different hash values and defeat precomputed attacks"
+    explanation: "Salt does not need to be secret — it just needs to be random and unique per user. Stored alongside the hash. Defeats rainbow tables and enables detection of identical passwords. Must be generated using a cryptographically secure random number generator. Combined with a slow hashing algorithm (bcrypt, Argon2) for strongest protection."
+    tags: ["cryptography", "password-security"]
+
+  - id: fc-d3-029
+    domain: domain3
+    term: "HMAC (Hash-based Message Authentication Code)"
+    definition: "A mechanism for verifying both the integrity and authenticity of a message using a cryptographic hash function combined with a shared secret key"
+    explanation: "HMAC = H(key || message) using an iterated construction. Provides both integrity (message not altered) and authentication (message is from someone with the key). Used in: TLS, API authentication, JWT tokens, IPsec. Unlike a plain hash, HMAC cannot be computed by someone without the secret key."
+    tags: ["cryptography", "integrity", "authentication"]
+
+  - id: fc-d3-030
+    domain: domain3
+    term: "Steganography"
+    definition: "The practice of hiding secret information within or alongside non-secret data (cover medium) so that the existence of the hidden message is concealed"
+    explanation: "Different from cryptography: crypto hides content, steganography hides existence. Techniques: LSB (Least Significant Bit) modification in images/audio, whitespace manipulation in text, hidden partitions. Used by attackers for data exfiltration and covert C2 communications. Detected via steganalysis (statistical analysis of media files)."
+    tags: ["cryptography", "covert-channels"]
+
+  - id: fc-d3-031
+    domain: domain3
+    term: "Key Escrow"
+    definition: "A system where cryptographic keys are held by a trusted third party and can be retrieved under specific authorized circumstances"
+    explanation: "Used for: law enforcement access (government mandates in some jurisdictions), business continuity (recovering encrypted data when employee leaves), and enterprise key recovery. Controversial: creates single point of compromise. Government key escrow proposals (e.g., Clipper chip) were opposed by security community."
+    tags: ["cryptography", "key-management"]
+
+  - id: fc-d3-032
+    domain: domain3
+    term: "Post-Quantum Cryptography (PQC)"
+    definition: "Cryptographic algorithms designed to resist attacks from quantum computers, which can break current RSA and ECC asymmetric algorithms"
+    explanation: "Quantum threat: Shor's algorithm breaks RSA and ECC; Grover's algorithm halves symmetric key security (AES-256 remains adequate). NIST finalized four PQC standards in August 2024: ML-KEM/FIPS 203 (formerly CRYSTALS-Kyber, key encapsulation), ML-DSA/FIPS 204 (formerly CRYSTALS-Dilithium, signatures), SLH-DSA/FIPS 205 (formerly SPHINCS+, signatures), FN-DSA/FIPS 206 (formerly FALCON, signatures). Organizations should inventory cryptographic assets and develop quantum migration plans ('harvest now, decrypt later' threat)."
+    tags: ["cryptography", "quantum"]

@@ -606,3 +606,383 @@ questions:
         - "Default-deny firewall policies are network security controls — ZSP is an identity and access management principle."
     difficulty: "hard"
     tags: ["PAM", "least-privilege"]
+
+  - id: q-d5-033
+    domain: domain5
+    question: "A biometric system has a False Accept Rate (FAR) of 0.001% and a False Reject Rate (FRR) of 5%. What does the FAR indicate in terms of security?"
+    options:
+      - "The system incorrectly rejects 0.001% of legitimate users"
+      - "The system incorrectly accepts 0.001% of unauthorized users — indicating high security but potential inconvenience for legitimate users"
+      - "The system requires 0.001% more processing time than standard authentication"
+      - "The system has a 0.001% chance of hardware failure"
+    correct_answer: 1
+    explanations:
+      correct: "FAR (False Accept Rate) measures how often the system grants access to unauthorized users — a security failure. FAR of 0.001% means 1 in 100,000 unauthorized attempts succeeds — a very secure setting. However, the high FRR of 5% means 5% of legitimate users are rejected — a usability problem. Security and usability are inversely related in biometrics; sensitivity adjustment trades one for the other."
+      incorrect:
+        - "Incorrectly rejecting legitimate users is measured by FRR (False Reject Rate), not FAR. 5% is the FRR in this scenario."
+        - "FAR of 0.001% indicating very few unauthorized users are accepted (high security, but high false rejection for legitimate users) is the correct interpretation."
+        - "FAR measures authentication accuracy, not processing time performance."
+        - "FAR measures authentication error rates, not hardware reliability metrics."
+    difficulty: "medium"
+    tags: ["biometrics", "IAM", "metrics"]
+
+  - id: q-d5-034
+    domain: domain5
+    question: "SAML-based federation allows an organization's employees to access a SaaS application without creating new accounts in the SaaS platform. The employee's company acts as which SAML role?"
+    options:
+      - "Service Provider (SP)"
+      - "Identity Provider (IdP)"
+      - "Relying Party"
+      - "Certificate Authority (CA)"
+    correct_answer: 1
+    explanations:
+      correct: "In SAML federation, the Identity Provider (IdP) is the entity that authenticates users and asserts their identity. The employee's company (which manages their accounts and credentials) is the IdP. The SaaS application is the Service Provider (SP) — it relies on the IdP's assertion to grant access without managing authentication itself."
+      incorrect:
+        - "The Service Provider is the SaaS application that accepts SAML assertions from the IdP to grant access — not the employee's company."
+        - "The employee's company managing authentication and providing SAML assertions to the SaaS platform is the Identity Provider — this is correct."
+        - "Relying Party is a general term (sometimes used in OIDC) for the party that relies on identity assertions — in SAML terminology, this is the Service Provider role."
+        - "A Certificate Authority issues digital certificates — not a SAML federation role."
+    difficulty: "medium"
+    tags: ["federation", "SAML", "IAM"]
+
+  - id: q-d5-035
+    domain: domain5
+    question: "Which authentication protocol uses tickets and a Key Distribution Center (KDC) to enable single sign-on across an enterprise network?"
+    options:
+      - "RADIUS"
+      - "LDAP"
+      - "Kerberos"
+      - "TACACS+"
+    correct_answer: 2
+    explanations:
+      correct: "Kerberos uses a trusted third party (KDC consisting of Authentication Service and Ticket-Granting Service) to issue tickets proving authentication. Users authenticate once to get a Ticket-Granting Ticket (TGT), then exchange it for service-specific tickets without re-entering credentials. Windows Active Directory uses Kerberos for enterprise SSO."
+      incorrect:
+        - "RADIUS is an AAA protocol for network access control — it does not use tickets or a KDC for SSO."
+        - "LDAP is a directory access protocol for querying user information — it does not provide authentication ticket-granting mechanisms."
+        - "Kerberos (tickets + KDC for SSO) is the correct answer."
+        - "TACACS+ is a Cisco AAA protocol for device administration authentication — it does not use the Kerberos ticket system."
+    difficulty: "easy"
+    tags: ["protocols", "authentication", "Kerberos"]
+
+  - id: q-d5-036
+    domain: domain5
+    question: "An attacker captures an NTLM hash from a Windows system's memory using Mimikatz. They then use this hash to authenticate to a file server without cracking it. This attack is called:"
+    options:
+      - "Pass-the-Ticket"
+      - "Kerberoasting"
+      - "Pass-the-Hash"
+      - "Golden Ticket attack"
+    correct_answer: 2
+    explanations:
+      correct: "Pass-the-Hash (PtH) exploits Windows NTLM authentication, which accepts the hash directly as proof of identity. The attacker extracts the NTLM hash from LSASS memory and uses it to authenticate to remote services without needing the plaintext password. Mitigation: Credential Guard, Protected Users group, LAPS, and disabling NTLM where possible."
+      incorrect:
+        - "Pass-the-Ticket uses a stolen Kerberos ticket (TGT or service ticket) — not an NTLM hash."
+        - "Kerberoasting extracts and cracks Kerberos service tickets offline — it involves Kerberos, not NTLM hashes."
+        - "Pass-the-Hash (using captured NTLM hash to authenticate without the plaintext password) is the correct answer."
+        - "A Golden Ticket attack forges a Kerberos TGT using the KRBTGT account hash — it uses Kerberos, not NTLM."
+    difficulty: "hard"
+    tags: ["attacks", "Windows", "authentication"]
+
+  - id: q-d5-037
+    domain: domain5
+    question: "Password spraying differs from traditional brute-force attacks in which key way?"
+    options:
+      - "Password spraying uses GPU acceleration to test passwords faster"
+      - "Password spraying tries a few common passwords against many accounts to avoid triggering lockout policies"
+      - "Password spraying only targets web applications"
+      - "Password spraying uses leaked password databases from previous breaches"
+    correct_answer: 1
+    explanations:
+      correct: "Traditional brute-force tries many passwords against one account — quickly triggering lockout. Password spraying inverts this: it tries one or few very common passwords (like 'Summer2024!') across thousands of accounts. The low attempt count per account avoids lockout detection while the high account volume increases success probability."
+      incorrect:
+        - "GPU acceleration is used in offline hash cracking — password spraying is an online attack against live authentication endpoints."
+        - "Trying few passwords against many accounts to avoid lockout detection is the correct description of password spraying."
+        - "Password spraying targets any authentication interface — VPN, Office 365, SSH, domain logons — not exclusively web applications."
+        - "Using leaked credential databases for login attempts describes credential stuffing — not password spraying."
+    difficulty: "medium"
+    tags: ["attacks", "authentication"]
+
+  - id: q-d5-038
+    domain: domain5
+    question: "Role-Based Access Control (RBAC) provides which primary administrative advantage over assigning permissions directly to users?"
+    options:
+      - "RBAC automatically encrypts all data accessed by role members"
+      - "RBAC simplifies administration — changing a role's permissions automatically updates all users assigned to that role"
+      - "RBAC prevents users from accessing any data outside their department"
+      - "RBAC eliminates the need for user authentication"
+    correct_answer: 1
+    explanations:
+      correct: "With RBAC, permissions are assigned to roles, and users are assigned to roles. When job requirements change (e.g., all developers now need access to a new repository), an administrator updates the role once — automatically affecting all role members. Direct user-to-permission assignment requires updating each user individually, creating high administrative overhead and inconsistency."
+      incorrect:
+        - "RBAC manages access permissions — it does not provide data encryption functionality."
+        - "Simplified administration through role-level permission management (one change updates all users) is the correct primary RBAC advantage."
+        - "RBAC controls what resources a role can access but doesn't automatically enforce departmental boundaries — those must be designed into the role structure."
+        - "RBAC is an authorization model — it does not replace authentication. Users must still authenticate before RBAC determines what they can access."
+    difficulty: "easy"
+    tags: ["access-control", "RBAC", "IAM"]
+
+  - id: q-d5-039
+    domain: domain5
+    question: "What is the primary security risk of maintaining orphaned service accounts (accounts used by applications that no longer exist)?"
+    options:
+      - "They consume excessive system resources"
+      - "They can be exploited by attackers for persistent access, often having elevated privileges and no monitoring"
+      - "They prevent legitimate users from logging in"
+      - "They cause application performance degradation"
+    correct_answer: 1
+    explanations:
+      correct: "Orphaned service accounts often have elevated privileges (apps need broad access) and are not monitored for unusual activity (nobody owns them). Attackers who discover these accounts can use them for persistent access — no legitimate owner will notice the account is being used. Service accounts are prime targets in Active Directory attacks."
+      incorrect:
+        - "Unused accounts do not consume significant resources — the security risk is unauthorized access, not resource consumption."
+        - "Orphaned service accounts enabling persistent attacker access (with elevated privileges and no monitoring) is the correct security risk."
+        - "Orphaned accounts don't affect other users' login capabilities — they are simply inactive accounts that can be exploited."
+        - "Unused accounts do not affect application performance — they are idle, not actively processing requests."
+    difficulty: "medium"
+    tags: ["IAM", "lifecycle", "accounts"]
+
+  - id: q-d5-040
+    domain: domain5
+    question: "OAuth 2.0 provides authorization, not authentication. Which extension standard adds authentication capabilities on top of OAuth 2.0?"
+    options:
+      - "SAML 2.0"
+      - "OpenID Connect (OIDC)"
+      - "Kerberos"
+      - "WS-Federation"
+    correct_answer: 1
+    explanations:
+      correct: "OpenID Connect (OIDC) is an identity layer built on top of OAuth 2.0 that adds authentication. It introduces the ID Token (a JWT containing claims about the authenticated user) alongside OAuth's access token. OIDC enables 'Sign in with Google/Apple' flows — using OAuth for API authorization while OIDC provides the authenticated identity."
+      incorrect:
+        - "SAML 2.0 is a separate standard for SSO and federation — it does not extend OAuth 2.0."
+        - "OpenID Connect adding an authentication identity layer on top of OAuth 2.0 is the correct answer."
+        - "Kerberos is an enterprise ticket-based authentication protocol — it does not extend OAuth 2.0."
+        - "WS-Federation is a separate federation protocol (used in Microsoft environments) — it does not extend OAuth 2.0."
+    difficulty: "medium"
+    tags: ["protocols", "authentication", "OIDC"]
+
+  - id: q-d5-041
+    domain: domain5
+    question: "Just-in-Time (JIT) access is primarily designed to address which security risk?"
+    options:
+      - "Users forgetting their passwords"
+      - "Standing privileged access — accounts with always-on elevated permissions that expand the attack surface"
+      - "Slow authentication performance in high-availability systems"
+      - "Unauthorized physical access to server rooms"
+    correct_answer: 1
+    explanations:
+      correct: "Standing privilege refers to accounts that always have elevated permissions — a prime target for attackers. JIT access grants elevated permissions only when needed for a specific task and automatically revokes them when done. This minimizes the window of opportunity for abuse: a compromised admin account with JIT access can only be misused when access is actively granted."
+      incorrect:
+        - "Password forgetting is addressed by self-service password reset — JIT access is a PAM control for managing when elevated permissions exist."
+        - "Eliminating always-on standing privilege by granting access only when needed is the primary JIT access benefit."
+        - "Authentication performance is addressed by authentication architecture — JIT is about the lifecycle of elevated permissions, not performance."
+        - "Physical access control is a different security domain — JIT is a logical access management control."
+    difficulty: "medium"
+    tags: ["IAM", "PAM", "privileged-access"]
+
+  - id: q-d5-042
+    domain: domain5
+    question: "Separation of duties is BEST enforced through which technical mechanism?"
+    options:
+      - "Password complexity requirements"
+      - "Multi-factor authentication"
+      - "Role-based access control with conflicting role exclusions"
+      - "Network segmentation"
+    correct_answer: 2
+    explanations:
+      correct: "Separation of duties requires that no single individual can complete a sensitive transaction alone. RBAC enforces this by identifying conflicting roles (e.g., 'Payment Initiator' and 'Payment Approver') and configuring the system to prevent any user from being assigned both roles simultaneously. GRC/IGA tools enforce Segregation of Duties (SoD) rulesets automatically."
+      incorrect:
+        - "Password complexity ensures strong credentials but does not prevent a single user from having conflicting privileges."
+        - "MFA verifies identity but does not prevent an authenticated user from having excessive or conflicting access rights."
+        - "RBAC with conflicting role exclusions (SoD controls) is the technical enforcement mechanism for separation of duties."
+        - "Network segmentation controls which systems can communicate — it does not enforce that a single user cannot perform multiple conflicting functions."
+    difficulty: "medium"
+    tags: ["access-control", "SoD", "IAM"]
+
+  - id: q-d5-043
+    domain: domain5
+    question: "During an identity governance review, analysts discover that a database administrator has accumulated read access to HR payroll records, finance reports, and legal contracts over 5 years of role changes. This best describes which IAM risk?"
+    options:
+      - "Orphaned account"
+      - "Privilege creep"
+      - "Credential stuffing"
+      - "Insider threat"
+    correct_answer: 1
+    explanations:
+      correct: "Privilege creep (also called access accumulation) occurs when users gradually accumulate access rights over time as they change roles, without old access being revoked. Each role change adds new access while previous access remains. Regular access recertification and automated deprovisioning of old access rights address privilege creep."
+      incorrect:
+        - "An orphaned account belongs to a user who has left the organization — privilege creep affects active users who have accumulated excess permissions over time."
+        - "Privilege creep (gradual accumulation of access rights across role changes without revocation) is the correct answer."
+        - "Credential stuffing is an attack using breached credentials from other services — not an internal access accumulation issue."
+        - "Insider threat is a broader risk category — privilege creep is the specific access control risk that could enable an insider threat but is not itself a threat category."
+    difficulty: "easy"
+    tags: ["IAM", "access-control", "governance"]
+
+  - id: q-d5-044
+    domain: domain5
+    question: "An organization implements mandatory re-authentication for high-risk transactions even though users are already logged in. This is an example of which authentication concept?"
+    options:
+      - "Single Sign-On (SSO)"
+      - "Step-up authentication"
+      - "Multi-factor authentication"
+      - "Federated identity"
+    correct_answer: 1
+    explanations:
+      correct: "Step-up authentication (also called step-up or adaptive authentication) requires additional authentication for high-risk or sensitive operations within an already-authenticated session. For example, a banking app requires re-authentication with a second factor before wire transfers. It provides stronger security for sensitive operations while maintaining user convenience for routine activities."
+      incorrect:
+        - "SSO allows authenticated access to multiple applications — it reduces authentication friction, rather than increasing it for sensitive operations."
+        - "Step-up authentication (requiring additional verification for high-risk operations within an active session) is the correct answer."
+        - "MFA describes using multiple authentication factors at login — step-up authentication triggers additional authentication dynamically within a session based on transaction risk."
+        - "Federated identity allows using credentials from one organization to access another's resources — not related to session-level re-authentication for risk."
+    difficulty: "medium"
+    tags: ["authentication", "IAM", "step-up"]
+
+  - id: q-d5-045
+    domain: domain5
+    question: "SCIM (System for Cross-domain Identity Management) primarily solves which identity management challenge?"
+    options:
+      - "Encrypting passwords stored in Active Directory"
+      - "Automating user provisioning and deprovisioning across multiple systems using a standard API"
+      - "Federating authentication between organizations"
+      - "Providing biometric authentication for cloud services"
+    correct_answer: 1
+    explanations:
+      correct: "SCIM is an open standard (RFC 7642-7644) defining a REST API for user lifecycle management. When an HR system creates/modifies/terminates an employee, SCIM enables automatic propagation to all connected applications — creating accounts, updating roles, and disabling/deleting accounts. This eliminates manual provisioning and ensures timely deprovisioning across all systems."
+      incorrect:
+        - "Password encryption in Active Directory is a directory security function — not what SCIM addresses."
+        - "Automating user provisioning/deprovisioning across systems via standard API is the correct purpose of SCIM."
+        - "Authentication federation is provided by SAML and OIDC — SCIM handles user lifecycle management, not authentication."
+        - "Biometric authentication is a separate authentication technology — SCIM is specifically for user account lifecycle automation."
+    difficulty: "medium"
+    tags: ["IAM", "SCIM", "provisioning"]
+
+  - id: q-d5-046
+    domain: domain5
+    question: "What distinguishes Mandatory Access Control (MAC) from Discretionary Access Control (DAC)?"
+    options:
+      - "MAC is faster to implement; DAC is more secure"
+      - "MAC access decisions are enforced by the operating system based on security labels; DAC allows resource owners to control access at their discretion"
+      - "MAC is used in cloud environments; DAC is used in on-premises environments"
+      - "MAC only applies to file systems; DAC applies to all resource types"
+    correct_answer: 1
+    explanations:
+      correct: "In MAC, the operating system enforces access decisions based on security labels (classification levels) assigned to subjects and objects — users cannot override OS-enforced policies. In DAC, resource owners have discretion to grant access to any user they choose — the user controls, not the OS. MAC is used in high-security environments (military); DAC is common in commercial systems (Windows NTFS)."
+      incorrect:
+        - "MAC is more complex to implement (requires labeling all objects); DAC is more flexible but less secure than MAC."
+        - "OS-enforced label-based access (MAC) vs. owner-discretion access (DAC) is the correct distinction."
+        - "Both MAC and DAC can be implemented in cloud or on-premises environments — the distinction is the control mechanism, not deployment location."
+        - "Both access control models apply to files, databases, and other resource types — not limited to file systems."
+    difficulty: "medium"
+    tags: ["access-control", "MAC", "DAC"]
+
+  - id: q-d5-047
+    domain: domain5
+    question: "A financial institution implements a policy where users receive access to a new system only after their manager approves the request and a separate security team validates business need. This is an example of:"
+    options:
+      - "Least privilege implementation"
+      - "Access control provisioning workflow with separation of duties"
+      - "Need-to-know enforcement"
+      - "Mandatory access control"
+    correct_answer: 1
+    explanations:
+      correct: "Requiring both manager approval and independent security team validation creates a separation of duties in the provisioning process — no single person can both request and approve access. This is an access control workflow that prevents unauthorized access grants. The security team independently validates business justification without the manager being able to self-approve access."
+      incorrect:
+        - "Least privilege describes what access is granted (minimum necessary) — this scenario describes the approval workflow for granting access."
+        - "A provisioning workflow requiring multiple independent approvers (separation of duties in access granting) is the correct description."
+        - "Need-to-know is the principle that access should be granted only when there is a demonstrated business need — this workflow enforces it but the described control is the workflow itself."
+        - "MAC is OS-enforced label-based access — this scenario describes an administrative workflow process."
+    difficulty: "medium"
+    tags: ["IAM", "access-control", "provisioning"]
+
+  - id: q-d5-048
+    domain: domain5
+    question: "Privileged Access Management (PAM) solutions typically include which feature to reduce risk from shared administrative accounts?"
+    options:
+      - "Biometric authentication for all administrative users"
+      - "Password vaulting with automatic rotation and session recording"
+      - "Network segmentation for administrative traffic"
+      - "Multi-factor authentication for regular user accounts"
+    correct_answer: 1
+    explanations:
+      correct: "PAM vaults store privileged account credentials and can automatically rotate them after each use — preventing the same password from being reused by multiple admins or by an attacker who captured it. Session recording provides an audit trail of all privileged actions. Users check out credentials from the vault and the vault injects them without the user ever seeing the password."
+      incorrect:
+        - "Biometric authentication may be part of a PAM deployment but is not the specific PAM feature addressing shared account risk."
+        - "Password vaulting with automatic rotation and session recording is the core PAM feature addressing shared administrative account risk."
+        - "Network segmentation for admin traffic is a network security control — not the specific PAM feature for credential management."
+        - "MFA for regular users is an IAM control — PAM focuses on privileged accounts specifically."
+    difficulty: "medium"
+    tags: ["IAM", "PAM", "privileged-access"]
+
+  - id: q-d5-049
+    domain: domain5
+    question: "FIDO2/WebAuthn provides which critical security improvement over traditional password authentication?"
+    options:
+      - "Passwords are longer and more complex"
+      - "Authentication is cryptographically bound to the specific website's origin, making it phishing-resistant"
+      - "FIDO2 uses biometrics which cannot be shared"
+      - "FIDO2 stores password hashes on hardware devices"
+    correct_answer: 1
+    explanations:
+      correct: "FIDO2 authentication is bound to the specific website origin during key registration. When a user authenticates, the authenticator signs a challenge that includes the website's origin. A phishing site (different origin) cannot complete authentication even with a valid username — the cryptographic challenge/response will fail because the origin doesn't match. This makes FIDO2 inherently phishing-resistant."
+      incorrect:
+        - "FIDO2 is passwordless — it replaces passwords entirely with cryptographic key pairs, not just making passwords stronger."
+        - "Cryptographic binding to website origin making it phishing-resistant is the key FIDO2 security improvement over passwords."
+        - "FIDO2 supports various authenticators — biometrics, security keys, PINs. Biometrics are just one option and biometrics are actually stored locally on the device."
+        - "FIDO2 uses public-key cryptography (private key never leaves the device); it does not store password hashes."
+    difficulty: "hard"
+    tags: ["authentication", "FIDO2", "phishing"]
+
+  - id: q-d5-050
+    domain: domain5
+    question: "Identity Governance and Administration (IGA) tools provide which primary capability beyond basic identity management?"
+    options:
+      - "Network perimeter security and traffic inspection"
+      - "Automated access recertification, role mining, and segregation of duties policy enforcement"
+      - "Endpoint detection and response for user devices"
+      - "Encryption of all identity data in the directory"
+    correct_answer: 1
+    explanations:
+      correct: "IGA extends IAM with governance capabilities: automated access recertification campaigns (periodic reviews asking managers to confirm access is still needed), role mining (analyzing existing access patterns to define appropriate roles), SoD conflict detection and prevention (blocking assignments of conflicting roles), and compliance reporting. IGA tools make identity governance at scale practical."
+      incorrect:
+        - "Network perimeter security is a network security domain — not an identity governance function."
+        - "Automated access recertification, role mining, and SoD enforcement are the core IGA governance capabilities beyond basic IAM."
+        - "Endpoint detection and response (EDR) monitors device behavior — this is a security operations function, not identity governance."
+        - "Directory encryption is a data security control — not a governance capability of IGA tools."
+    difficulty: "medium"
+    tags: ["IAM", "governance", "IGA"]
+
+  - id: q-d5-052
+    domain: domain5
+    question: "During access recertification, a manager notices a database administrator has access to customer PII records that are not needed for the DBA role. What is the correct action?"
+    options:
+      - "Leave the access in place as the DBA might need it in the future"
+      - "Revoke the access and document the removal as part of the recertification process"
+      - "Escalate to the CISO to investigate potential fraud before taking any action"
+      - "Move the access to a separate shared account for the team"
+    correct_answer: 1
+    explanations:
+      correct: "Access recertification exists specifically to identify and remove access that is no longer justified. When a manager determines access is not needed for the role, the correct action is to revoke it immediately and document the removal. Leaving unnecessary access in place violates least privilege and increases insider threat and breach risk."
+      incorrect:
+        - "Maintaining access 'just in case' violates least privilege — access should be granted only when there is a current, documented business need."
+        - "Revoking unjustified access and documenting it is the correct recertification action — this maintains least privilege and creates an audit trail."
+        - "Recertification is a routine governance process — escalating every over-privilege finding would create unnecessary overhead. Fraud investigation is separate from access removal."
+        - "Moving to a shared account distributes risk to more people rather than removing unnecessary access — this is not an appropriate response to excess access found in recertification."
+    difficulty: "easy"
+    tags: ["IAM", "governance", "recertification"]
+
+  - id: q-d5-051
+    domain: domain5
+    question: "An organization implements a policy that users must re-authenticate with a hardware token when accessing the payroll system, even if they are already logged into the corporate SSO. This policy implements which IAM concept?"
+    options:
+      - "Federation"
+      - "Step-up authentication"
+      - "Credential stuffing prevention"
+      - "Mandatory access control"
+    correct_answer: 1
+    explanations:
+      correct: "Step-up authentication requires additional, stronger authentication factors when accessing high-risk or sensitive resources — even within an active SSO session. The existing SSO session establishes a baseline identity; the hardware token adds a second, stronger factor for the sensitive payroll system. This balances user convenience (SSO for normal apps) with security (stronger auth for sensitive ones)."
+      incorrect:
+        - "Federation links identities across organizations — it does not describe the dynamic escalation of authentication strength for sensitive operations."
+        - "Step-up authentication (requiring additional factors for high-risk resources within an existing session) is the correct answer."
+        - "Credential stuffing prevention involves rate limiting, CAPTCHA, and monitoring — not requiring hardware tokens for specific applications."
+        - "MAC is OS-enforced label-based access control — not a session-level authentication escalation mechanism."
+    difficulty: "medium"
+    tags: ["authentication", "IAM", "step-up"]
