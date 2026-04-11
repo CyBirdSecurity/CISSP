@@ -103,3 +103,115 @@ flashcards:
     definition: "The set of processes for managing digital identities from creation (provisioning) through changes (modification) to deletion (deprovisioning)"
     explanation: "Key processes: onboarding (create accounts), role changes (modify permissions), offboarding (immediately revoke access). Orphaned accounts (from departed employees) are a significant risk. Automated IGA (Identity Governance and Administration) tools help."
     tags: ["IAM", "lifecycle"]
+
+  - id: fc-d5-016
+    domain: domain5
+    term: "Biometric Accuracy Metrics (FAR, FRR, CER)"
+    definition: "Measurements of biometric system performance: False Accept Rate (FAR) is the rate at which unauthorized users are accepted; False Reject Rate (FRR) is the rate at which authorized users are rejected; Crossover Error Rate (CER/EER) is where FAR equals FRR"
+    explanation: "FAR = Type II error (accepting impostors — security failure). FRR = Type I error (rejecting legitimate users — usability failure). CER is the optimal operating point balancing security and usability. Lower CER = better biometric system. Adjusting sensitivity trades FAR against FRR inversely. CER is the primary comparison metric between biometric systems."
+    tags: ["biometrics", "IAM", "metrics"]
+
+  - id: fc-d5-017
+    domain: domain5
+    term: "FIDO2 / WebAuthn"
+    definition: "Modern open standards for passwordless authentication using public-key cryptography, hardware security keys, or biometrics to replace passwords"
+    explanation: "FIDO2 = WebAuthn (W3C) + CTAP (Client-to-Authenticator Protocol). Authentication: device generates key pair, private key never leaves authenticator, server stores public key. Resistant to phishing (binds to origin), replay attacks, and credential theft. Implementations: hardware keys (YubiKey), platform authenticators (Windows Hello, Touch ID)."
+    tags: ["authentication", "standards", "passwordless"]
+
+  - id: fc-d5-018
+    domain: domain5
+    term: "Just-in-Time (JIT) Access"
+    definition: "A privileged access management approach where elevated permissions are granted only when needed for a specific task and automatically revoked when the task is complete or the time window expires"
+    explanation: "Reduces standing privilege (always-on admin accounts) which are prime attack targets. Implemented via PAM solutions. Access workflow: request → approval → temporary grant → auto-revocation. Reduces the window of opportunity for insider threats and limits blast radius of compromised privileged accounts."
+    tags: ["IAM", "privileged-access"]
+
+  - id: fc-d5-019
+    domain: domain5
+    term: "Access Recertification (Access Review)"
+    definition: "A periodic process in which data owners and managers formally review and certify that user access rights remain appropriate and business-justified"
+    explanation: "Required by many compliance frameworks (SOX, HIPAA). Addresses access accumulation (users gaining access over time that's never revoked) and privilege creep (gradual buildup of excessive access). Typically quarterly or annually. High-risk access (admin, PII) reviewed more frequently. Automation through IGA tools improves efficiency."
+    tags: ["IAM", "governance", "compliance"]
+
+  - id: fc-d5-020
+    domain: domain5
+    term: "SCIM (System for Cross-domain Identity Management)"
+    definition: "An open standard protocol (RFC 7642-7644) for automating user identity provisioning and deprovisioning between identity providers and service providers"
+    explanation: "Uses RESTful API with JSON/XML. Enables automated account creation, modification, and deletion in SaaS applications when HR systems change. Eliminates manual provisioning and deprovisioning. Supports both push (IDP pushes changes) and pull (SP queries IDP) models. Widely supported by major SaaS providers."
+    tags: ["IAM", "standards", "provisioning"]
+
+  - id: fc-d5-021
+    domain: domain5
+    term: "OpenID Connect (OIDC)"
+    definition: "An identity authentication layer built on top of OAuth 2.0 that allows clients to verify the identity of end users and obtain basic profile information"
+    explanation: "OAuth 2.0 handles authorization; OIDC adds authentication by introducing the ID Token (a JWT). Key endpoints: Authorization, Token, UserInfo. Used for 'Sign in with Google/Apple/Microsoft'. Provides: who the user is (ID Token), access to APIs (Access Token), long-lived access without re-login (Refresh Token)."
+    tags: ["protocols", "authentication", "federation"]
+
+  - id: fc-d5-022
+    domain: domain5
+    term: "Password Spraying"
+    definition: "An attack technique that tries a small number of commonly used passwords against a large number of accounts to avoid account lockout thresholds"
+    explanation: "Inverse of brute force: instead of many passwords against one account (triggers lockout), try one or few passwords against many accounts. Uses passwords like 'Summer2024!', 'CompanyName1'. Detection: many failed logins across different accounts from same source. Mitigation: MFA, monitor for distributed low-frequency login failures, block common passwords."
+    tags: ["attacks", "authentication"]
+
+  - id: fc-d5-023
+    domain: domain5
+    term: "Credential Stuffing"
+    definition: "An attack using lists of username/password pairs obtained from data breaches to attempt automated logins on other services, exploiting password reuse"
+    explanation: "Relies on users reusing credentials across multiple services. Billions of credentials available from breaches (HaveIBeenPwned.com). Automated using tools (Sentry MBA, SilverBullet). Detection: unusual login patterns, geographic anomalies, high failure rates. Mitigation: MFA, CAPTCHA, rate limiting, leaked credential monitoring."
+    tags: ["attacks", "authentication"]
+
+  - id: fc-d5-024
+    domain: domain5
+    term: "Privileged Identity Management (PIM)"
+    definition: "A PAM component focused specifically on managing the lifecycle of privileged identities — including who has privileged access, when it was granted, and how it's used"
+    explanation: "Azure AD PIM is a well-known implementation. Features: just-in-time activation, approval workflows, time-bound access, access reviews, audit logging. Distinct from PAM (broader) — PIM focuses on identity lifecycle of privileged accounts. Addresses audit question: 'Who are your privileged users and when did they use their access?'"
+    tags: ["IAM", "privileged-access"]
+
+  - id: fc-d5-025
+    domain: domain5
+    term: "Context-Aware / Risk-Based Authentication"
+    definition: "An authentication approach that dynamically adjusts the required authentication strength based on contextual risk signals such as location, device, behavior, and time of access"
+    explanation: "Risk signals: new device or IP, unusual geographic location, impossible travel (login from NY then London 30 min later), anomalous behavior (accessing sensitive data outside working hours). Step-up authentication: normal access requires password+MFA; high-risk access requires additional verification. Reduces user friction while maintaining security."
+    tags: ["authentication", "IAM"]
+
+  - id: fc-d5-026
+    domain: domain5
+    term: "Identity as a Service (IDaaS)"
+    definition: "Cloud-delivered identity and access management services that provide authentication, authorization, SSO, MFA, and directory services without on-premises infrastructure"
+    explanation: "Examples: Okta, Azure AD (Entra ID), Ping Identity, Google Workspace Identity. Benefits: reduced operational burden, built-in MFA and SSO, automatic updates, scalability. Risks: dependency on third-party availability, data residency concerns, integration with legacy on-premises systems. Key consideration: vendor lock-in and exit strategy."
+    tags: ["IAM", "cloud"]
+
+  - id: fc-d5-027
+    domain: domain5
+    term: "Non-repudiation"
+    definition: "A security property ensuring that a party cannot deny having performed an action or sent a message, typically enforced through digital signatures or audit logs"
+    explanation: "Provided by digital signatures: only the private key holder can create the signature, so they cannot later deny signing. Audit logs provide non-repudiation for access events when properly protected from tampering. Important in legal, financial, and contractual contexts. Cannot be enforced by authentication alone — also needs integrity."
+    tags: ["principles", "cryptography"]
+
+  - id: fc-d5-028
+    domain: domain5
+    term: "Pass-the-Hash (PtH) Attack"
+    definition: "An attack technique where an attacker captures the NTLM hash of a password and uses it to authenticate to remote services without needing to crack the password"
+    explanation: "Exploits Windows NTLM authentication which accepts the hash as proof of identity. Attacker extracts hash from memory (using Mimikatz) or SAM database. Mitigation: Credential Guard (isolates credential storage in secure VM), Protected Users security group, Local Administrator Password Solution (LAPS), disable NTLM where possible."
+    tags: ["attacks", "Windows", "authentication"]
+
+  - id: fc-d5-029
+    domain: domain5
+    term: "Account Aggregation and Provisioning"
+    definition: "Account aggregation links multiple system accounts to a single identity; provisioning is the automated process of creating, modifying, and deleting accounts based on identity events"
+    explanation: "Aggregation challenge: same person may have accounts in AD, cloud services, legacy apps, each with different identifiers. IGA tools create the authoritative link. Provisioning automation: HR system triggers account creation → IGA provisions all required accounts and group memberships → termination triggers immediate deprovisioning across all systems."
+    tags: ["IAM", "lifecycle"]
+
+  - id: fc-d5-030
+    domain: domain5
+    term: "Directory Services"
+    definition: "A centralized repository that stores and organizes information about network resources (users, groups, computers, printers) and provides authentication and authorization services"
+    explanation: "Microsoft Active Directory is the dominant enterprise directory. Stores identities in a hierarchical structure (forest > domain > OU > objects). Authentication via Kerberos, authorization via group membership and ACLs. Attacks against AD: Kerberoasting, DCSync, Golden/Silver Ticket, Pass-the-Hash. Proper AD security is critical to enterprise security."
+    tags: ["IAM", "directory", "protocols"]
+
+  - id: fc-d5-031
+    domain: domain5
+    term: "Two-Person Integrity (TPI)"
+    definition: "A security control requiring that two authorized individuals are present whenever sensitive operations are performed, preventing any single person from acting alone"
+    explanation: "Stronger than separation of duties — TPI requires simultaneous presence. Used for: nuclear weapon arming (two-man rule), high-value cryptographic key ceremonies, accessing extremely sensitive vaults or safes. Physically prevents a single rogue actor from completing the action. Also provides witness to deter and detect unauthorized behavior."
+    tags: ["principles", "access-control", "physical-security"]

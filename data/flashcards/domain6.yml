@@ -103,3 +103,115 @@ flashcards:
     definition: "Red team simulates adversaries to test defenses; Blue team defends and responds. Purple teaming combines both for collaborative improvement"
     explanation: "Red team: offensive, uses real attack techniques, adversarial thinking. Blue team: defensive, incident response, monitoring. Purple team: red and blue work together to transfer knowledge and improve detection/response capabilities."
     tags: ["pen-testing", "assessment"]
+
+  - id: fc-d6-016
+    domain: domain6
+    term: "NIST SP 800-115"
+    definition: "NIST Special Publication 800-115: Technical Guide to Information Security Testing and Assessment — provides guidance for planning and conducting information security testing"
+    explanation: "Covers four phases: Planning (rules of engagement, objectives), Discovery (information gathering, network scanning), Attack (vulnerability testing, exploitation), Reporting. Defines testing techniques: network discovery, port scanning, vulnerability scanning, password cracking, penetration testing, social engineering. Reference standard for U.S. federal agency security assessments."
+    tags: ["standards", "NIST", "assessment"]
+
+  - id: fc-d6-017
+    domain: domain6
+    term: "Penetration Testing Execution Standard (PTES)"
+    definition: "A community-driven standard defining a common framework for penetration testing methodology with seven phases from pre-engagement to reporting"
+    explanation: "Seven phases: Pre-engagement interactions (scope, rules), Intelligence gathering (OSINT, reconnaissance), Threat modeling (identify threats), Vulnerability analysis, Exploitation, Post-exploitation (persistence, lateral movement), Reporting. PTES provides consistent methodology ensuring comprehensive coverage. Distinguishes between what was found vs. what the impact means to the business."
+    tags: ["standards", "pen-testing"]
+
+  - id: fc-d6-018
+    domain: domain6
+    term: "Bug Bounty Program"
+    definition: "A structured, crowdsourced vulnerability disclosure program that rewards external security researchers for responsibly reporting security vulnerabilities"
+    explanation: "Types: Private (invite-only, lower noise), Public (open to all researchers). Platforms: HackerOne, Bugcrowd, Intigriti. Scope defines what's in/out of bounds. Safe harbor provisions protect researchers from legal action. Complements but does not replace internal testing. Programs with clear scope, reasonable rewards, and responsive triage attract quality researchers."
+    tags: ["assessment", "vulnerability"]
+
+  - id: fc-d6-019
+    domain: domain6
+    term: "Attack Surface Analysis"
+    definition: "The process of identifying and mapping all entry points an attacker could use to interact with a system, with the goal of minimizing unnecessary exposure"
+    explanation: "Attack surface includes: all input fields, APIs, network ports, authentication endpoints, admin interfaces, third-party integrations. Principles: minimize attack surface by disabling unused features, using least privilege, reducing exposed services. Attack Surface Management (ASM) tools continuously monitor external attack surface. Reducing attack surface is more effective than just patching known vulnerabilities."
+    tags: ["assessment", "architecture"]
+
+  - id: fc-d6-020
+    domain: domain6
+    term: "False Positive vs. False Negative"
+    definition: "False positive: a security tool incorrectly identifies benign activity as malicious. False negative: a security tool fails to detect actual malicious activity"
+    explanation: "False positives cause alert fatigue, wasted analyst time, and potential blocking of legitimate activity. False negatives allow attacks to succeed undetected. Tools must be tuned to balance both. Signature-based detection: low false positives, high false negatives for new attacks. Anomaly-based: higher false positives, better at detecting novel attacks."
+    tags: ["detection", "metrics"]
+
+  - id: fc-d6-021
+    domain: domain6
+    term: "Continuous Monitoring"
+    definition: "An ongoing security process that maintains real-time awareness of information security, vulnerabilities, and threats to support organizational risk management decisions"
+    explanation: "NIST SP 800-137 defines continuous monitoring framework. Components: define strategy, establish program, implement, analyze/report, respond, review/update. Key metrics: patch compliance rate, vulnerability age, mean time to detect (MTTD), mean time to respond (MTTR). Continuous monitoring enables adaptive risk management rather than point-in-time snapshots."
+    tags: ["monitoring", "assessment"]
+
+  - id: fc-d6-022
+    domain: domain6
+    term: "Security Control Assessment (SCA)"
+    definition: "The testing and evaluation of implemented security controls to determine their effectiveness in meeting stated security requirements"
+    explanation: "Methods for assessing controls: Examine (review documentation/configurations), Interview (question personnel), Test (observe controls in action). NIST SP 800-53A provides procedures. Produces: Findings (observations), Determinations (satisfied/not satisfied), Recommendations. Results feed into the Risk Management Framework (RMF) authorization decision."
+    tags: ["assessment", "controls", "compliance"]
+
+  - id: fc-d6-023
+    domain: domain6
+    term: "Synthetic Transactions"
+    definition: "Scripted, simulated user transactions regularly executed against an application to proactively test its availability, performance, and functionality from an external perspective"
+    explanation: "Also called active monitoring or synthetic monitoring. Executes predefined scripts that mimic real user journeys (login, search, checkout). Fires from multiple locations globally. Detects availability issues before real users are affected. Distinct from Real User Monitoring (RUM) which monitors actual user transactions. Useful for SLA measurement and after-hours monitoring."
+    tags: ["testing", "monitoring"]
+
+  - id: fc-d6-024
+    domain: domain6
+    term: "Social Engineering Testing"
+    definition: "Authorized testing of an organization's susceptibility to human manipulation attacks including phishing simulations, pretexting calls, and physical deception attempts"
+    explanation: "Types: Phishing campaigns (email), Vishing (phone pretexting), Smishing (SMS), Physical pretexting (impersonating vendor/IT staff to gain access). Requires executive authorization. Findings drive security awareness training. Must respect employee privacy and avoid creating hostile work environment. Results should be used for training, not punishment."
+    tags: ["social-engineering", "assessment"]
+
+  - id: fc-d6-025
+    domain: domain6
+    term: "Physical Penetration Testing"
+    definition: "Authorized testing that attempts to bypass physical security controls to gain unauthorized access to facilities, equipment, or sensitive areas"
+    explanation: "Techniques: tailgating/piggybacking, impersonation (vendor, delivery, IT), lock picking, RFID cloning, dumpster diving, bypassing access controls. Documents weaknesses in: physical barriers, guard procedures, visitor management, employee security awareness. Requires explicit written authorization specifying scope, timing, and emergency contact procedures."
+    tags: ["physical-security", "pen-testing"]
+
+  - id: fc-d6-026
+    domain: domain6
+    term: "Risk Register"
+    definition: "A formal document that records identified risks, their characteristics (likelihood, impact), risk owners, current mitigation status, and residual risk"
+    explanation: "Living document updated throughout the risk management lifecycle. Contains: risk ID, description, category, likelihood, impact, risk score, risk owner, current controls, risk response strategy, residual risk, review date. Feeds executive risk reporting and drives security investment decisions. Must be reviewed regularly — risks change as environment evolves."
+    tags: ["risk", "governance", "documentation"]
+
+  - id: fc-d6-027
+    domain: domain6
+    term: "Compensating Controls"
+    definition: "Alternative security controls implemented when the primary required control cannot be used due to technical, operational, or business constraints"
+    explanation: "Must provide equivalent or greater security assurance than the original requirement. Required by PCI DSS when primary controls cannot be implemented. Must be documented with: reason primary control cannot be met, risk of not meeting requirement, how compensating control addresses the risk, validation that compensating control works. Not a permanent solution — primary control should be implemented when feasible."
+    tags: ["controls", "compliance"]
+
+  - id: fc-d6-028
+    domain: domain6
+    term: "Key Risk Indicators (KRIs)"
+    definition: "Metrics that provide early warning signals of increasing risk exposure before incidents occur, enabling proactive risk management"
+    explanation: "Examples: % of systems unpatched beyond 30 days (indicator of patch risk), number of privileged accounts (indicator of insider threat risk), phishing click rate (indicator of social engineering risk). Distinguished from KPIs (measure performance) — KRIs measure risk levels. Thresholds trigger risk responses. Part of continuous monitoring programs."
+    tags: ["risk", "metrics", "monitoring"]
+
+  - id: fc-d6-029
+    domain: domain6
+    term: "Security Maturity Models (CMMI / C2M2)"
+    definition: "Frameworks for assessing and improving an organization's security program maturity through defined capability levels or maturity tiers"
+    explanation: "CMMI (Capability Maturity Model Integration): 5 levels from Initial (ad hoc) to Optimizing (continuous improvement). C2M2 (Cybersecurity Capability Maturity Model): 4 levels (MIL0-MIL3), developed for energy sector. NIST CSF Implementation Tiers (1-4) provide a lighter-weight maturity assessment. Maturity assessments drive security roadmap development."
+    tags: ["frameworks", "governance", "maturity"]
+
+  - id: fc-d6-030
+    domain: domain6
+    term: "Vulnerability Disclosure Policy (VDP)"
+    definition: "A formal policy defining how an organization accepts, acknowledges, and responds to security vulnerability reports from external researchers"
+    explanation: "Required by U.S. federal agencies (BOD 20-01). Components: scope (what's in/out of bounds), safe harbor (protection for good-faith researchers), submission process, response timeline commitments, preferred disclosure format. VDP is different from bug bounty — VDP accepts reports without monetary rewards. Enables organizations to receive vulnerability information they might otherwise never learn about."
+    tags: ["assessment", "governance", "vulnerability"]
+
+  - id: fc-d6-031
+    domain: domain6
+    term: "Penetration Testing Authorization (Rules of Engagement)"
+    definition: "The legally binding documentation that defines the scope, permissions, limitations, and emergency procedures for an authorized penetration test"
+    explanation: "Critical components: explicit written authorization from asset owner, defined in-scope and out-of-scope targets, testing timeframes, authorized techniques (is destructive testing allowed?), emergency escalation contacts, confidentiality obligations for findings, and legal safe harbor language. Without proper authorization, penetration testing activities constitute unauthorized access under computer crime laws (CFAA, Computer Misuse Act)."
+    tags: ["pen-testing", "legal", "governance"]

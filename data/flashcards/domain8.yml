@@ -103,3 +103,108 @@ flashcards:
     definition: "Vulnerabilities resulting from inadequate cryptographic protection of sensitive data — using weak algorithms, poor key management, or no encryption"
     explanation: "Common failures: using MD5/SHA1 for password hashing (use bcrypt/Argon2), HTTP instead of HTTPS, weak TLS configurations, hardcoded keys, ECB mode encryption. #2 in OWASP Top 10. Encrypt data at rest and in transit using strong, current algorithms."
     tags: ["cryptography", "vulnerabilities"]
+
+  - id: fc-d8-016
+    domain: domain8
+    term: "XML External Entity (XXE) Injection"
+    definition: "An attack against XML parsers where malicious XML input references external entities, potentially exposing internal files, performing SSRF, or causing denial of service"
+    explanation: "Exploits XML processors that evaluate external entity declarations. Payloads can: read /etc/passwd (file disclosure), probe internal network services (SSRF), cause DoS (billion laughs attack via entity expansion). Mitigation: disable external entity processing in XML parsers, use JSON where possible, input validation, WAF. OWASP Top 10 includes XXE as a specific risk."
+    tags: ["vulnerabilities", "web-security"]
+
+  - id: fc-d8-017
+    domain: domain8
+    term: "Server-Side Request Forgery (SSRF)"
+    definition: "An attack that tricks the server into making HTTP requests to internal resources or external services on behalf of the attacker, bypassing network controls"
+    explanation: "Attacker controls the URL the server fetches. Can access: cloud metadata APIs (AWS IMDSv1 at 169.254.169.254), internal services not exposed externally, localhost services. Impact: credential theft (cloud IAM tokens), internal network mapping, RCE. Mitigation: allowlist permitted destinations, block cloud metadata endpoints, validate/sanitize URLs, use IMDSv2 (requires session tokens)."
+    tags: ["vulnerabilities", "web-security"]
+
+  - id: fc-d8-018
+    domain: domain8
+    term: "Insecure Deserialization"
+    definition: "A vulnerability where untrusted data is deserialized (converted from a serialized format back to an object) without validation, potentially allowing remote code execution"
+    explanation: "Serialization converts objects to bytes/strings for storage/transmission. Deserialization reconstructs them. If the serialized data is attacker-controlled, they can craft malicious objects that execute code during deserialization. Affects: Java (ObjectInputStream), PHP (unserialize()), Python (pickle), .NET. OWASP Top 10 category. Mitigation: never deserialize untrusted data, use safe formats (JSON), integrity checks on serialized data."
+    tags: ["vulnerabilities", "secure-coding"]
+
+  - id: fc-d8-019
+    domain: domain8
+    term: "Path Traversal (Directory Traversal)"
+    definition: "An attack where an attacker uses sequences like '../' in file path inputs to escape the intended directory and access restricted files on the server"
+    explanation: "Example: requesting /download?file=../../../../etc/passwd to read the password file. URL encoding (%2e%2e%2f) and double encoding (%252e%252e%252f) can bypass naive filters. Mitigation: canonicalize paths before validation, use allowlists of permitted files, avoid passing user input to file system operations, jail application to a directory (chroot)."
+    tags: ["vulnerabilities", "web-security"]
+
+  - id: fc-d8-020
+    domain: domain8
+    term: "OS Command Injection"
+    definition: "An attack where attacker-controlled input is passed to a system shell, allowing execution of arbitrary operating system commands with the application's privileges"
+    explanation: "Example: if an app runs 'ping [user_input]', input '8.8.8.8; rm -rf /' executes both commands. Shells interpret metacharacters (; | & ` $ etc.) as command separators/substitution. Mitigation: never pass user input to shell functions (system(), exec()), use parameterized API calls for OS operations, input validation with allowlist."
+    tags: ["vulnerabilities", "secure-coding"]
+
+  - id: fc-d8-021
+    domain: domain8
+    term: "Integer Overflow / Underflow"
+    definition: "A vulnerability where arithmetic operations produce results exceeding the maximum (overflow) or minimum (underflow) value for a data type, causing unexpected behavior"
+    explanation: "Example: signed 8-bit integer max is 127; adding 1 wraps to -128. If used as array index or allocation size, can cause buffer overflows, logic errors, or security bypasses. Common in C/C++. Real-world example: OpenSSL Heartbleed involved a length field integer that wasn't properly validated. Mitigation: bounds checking, use safe integer libraries, avoid arithmetic on untrusted values."
+    tags: ["vulnerabilities", "secure-coding"]
+
+  - id: fc-d8-022
+    domain: domain8
+    term: "Dependency Confusion Attack"
+    definition: "A supply chain attack where a malicious package with the same name as an internal private package is published to a public registry, causing build systems to install the malicious version"
+    explanation: "Discovered by Alex Birsan in 2021. Most package managers prefer public over private registries by default. Attacker identifies internal package names (from job postings, leaked configs, error messages), publishes malicious package with higher version number to public registry. Mitigation: scope packages (npm @company/package), configure registry priority, verify package sources, use Artifact Firewall."
+    tags: ["supply-chain", "attacks"]
+
+  - id: fc-d8-023
+    domain: domain8
+    term: "SBOM (Software Bill of Materials)"
+    definition: "A formal, machine-readable inventory of all software components, libraries, and their dependencies contained within an application"
+    explanation: "Enables: vulnerability management (quickly identify if Log4j is in any product), license compliance, supply chain risk assessment. Formats: SPDX (Linux Foundation), CycloneDX (OWASP). U.S. Executive Order 14028 requires SBOM for software sold to federal government. Generated by: SCA tools during CI/CD, post-build analysis. Critical for managing open-source risk at scale."
+    tags: ["supply-chain", "standards"]
+
+  - id: fc-d8-024
+    domain: domain8
+    term: "Container Security"
+    definition: "Security practices for building, deploying, and running containerized workloads (Docker, Kubernetes), addressing unique risks from container isolation, image supply chains, and orchestration"
+    explanation: "Risks: using unpatched base images, running as root, excessive container capabilities, exposed Docker socket, secrets in environment variables/images, Kubernetes RBAC misconfigurations. Controls: scan images for vulnerabilities, use minimal base images, run as non-root, implement Pod Security Standards, secrets management (Vault), network policies for pod-to-pod segmentation."
+    tags: ["DevSecOps", "cloud", "architecture"]
+
+  - id: fc-d8-025
+    domain: domain8
+    term: "Infrastructure as Code (IaC) Security"
+    definition: "Security practices for managing and validating infrastructure definitions (Terraform, CloudFormation, Ansible) to prevent misconfigurations from being deployed to production"
+    explanation: "IaC risks: public S3 buckets, overly permissive security groups, unencrypted storage, hardcoded credentials in templates. Static analysis tools: tfsec, Checkov, cfn-nag scan IaC templates before deployment. Drift detection: compare deployed infrastructure to IaC definitions. Immutable infrastructure: replace rather than modify servers (eliminates configuration drift)."
+    tags: ["DevSecOps", "cloud"]
+
+  - id: fc-d8-026
+    domain: domain8
+    term: "STRIDE Threat Modeling"
+    definition: "A structured threat modeling methodology that categorizes threats into six types: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege"
+    explanation: "Spoofing: impersonating users/systems. Tampering: modifying data or code. Repudiation: denying actions without evidence. Information Disclosure: unauthorized data exposure. Denial of Service: preventing legitimate access. Elevation of Privilege: gaining unauthorized higher permissions. Each STRIDE category maps to a violated security property (Authenticity, Integrity, Non-repudiation, Confidentiality, Availability, Authorization)."
+    tags: ["threat-modeling", "SDLC"]
+
+  - id: fc-d8-027
+    domain: domain8
+    term: "Security by Design"
+    definition: "The principle and practice of embedding security into the architecture, design, and requirements of a system from its inception rather than retrofitting it after development"
+    explanation: "Practices: threat modeling during design, security requirements definition, architecture risk analysis, secure design patterns (fail-safe defaults, complete mediation, economy of mechanism, separation of privilege). Contrast with 'bolt-on security' — retrofitting security is exponentially more expensive and less effective. Mandated by GDPR Article 25 (Privacy by Design)."
+    tags: ["secure-design", "principles", "SDLC"]
+
+  - id: fc-d8-028
+    domain: domain8
+    term: "Memory-Safe Programming"
+    definition: "Programming languages and practices that prevent memory corruption vulnerabilities (buffer overflows, use-after-free, null pointer dereference) through automatic memory management or compile-time guarantees"
+    explanation: "Memory-unsafe languages (C, C++) rely on developers to manually manage memory — leading to decades of exploitable vulnerabilities. Memory-safe languages: Rust (ownership model enforced at compile time), Go, Java, Python (garbage collection). U.S. government (CISA, NSA) recommends transitioning to memory-safe languages for new development. Critical for eliminating entire vulnerability classes."
+    tags: ["secure-coding", "languages"]
+
+  - id: fc-d8-029
+    domain: domain8
+    term: "Software Composition Analysis (SCA)"
+    definition: "Automated security testing that identifies known vulnerabilities, license risks, and version information in open-source and third-party components used in an application"
+    explanation: "Scans dependency manifests (package.json, requirements.txt, pom.xml) and matches against vulnerability databases (NVD, GitHub Advisory, Snyk). Generates SBOM. Tools: Snyk, OWASP Dependency-Check, GitHub Dependabot, Black Duck. Critical given that modern applications are 70-90% open-source code. Distinct from SAST (analyzes custom code) — SCA analyzes dependencies."
+    tags: ["supply-chain", "SDLC", "tools"]
+
+  - id: fc-d8-030
+    domain: domain8
+    term: "Secure Software Requirements"
+    definition: "Security-specific requirements defined during the requirements phase of the SDLC that specify what security properties, behaviors, and constraints the software must satisfy"
+    explanation: "Types: Functional security requirements (system must authenticate users with MFA, data must be encrypted with AES-256), Non-functional security requirements (system must withstand 100 concurrent authentication attempts, response time for auth ≤ 2s). Sources: regulations (HIPAA, PCI DSS), organizational policy, threat model outputs, ASVS (OWASP Application Security Verification Standard). Requirements without security requirements produce insecure systems by default."
+    tags: ["SDLC", "requirements"]

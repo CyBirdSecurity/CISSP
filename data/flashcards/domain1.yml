@@ -103,3 +103,122 @@ flashcards:
     definition: "A process that identifies critical business functions and the impact of disrupting those functions"
     explanation: "BIA outputs include MTD, RTO, RPO, and a prioritized list of systems. It determines which functions are mission-critical and informs BCP/DRP strategy."
     tags: ["BCP", "analysis"]
+
+  - id: fc-d1-016
+    domain: domain1
+    term: "Annualized Loss Expectancy (ALE)"
+    definition: "The expected annual financial loss from a specific risk, calculated as: ALE = Single Loss Expectancy (SLE) × Annualized Rate of Occurrence (ARO)"
+    explanation: "ALE is the cornerstone of quantitative risk analysis. If a server worth $100,000 has an exposure factor of 50% and is expected to be hit once every 5 years (ARO = 0.2), then SLE = $50,000 and ALE = $10,000. Controls costing less than the ALE are cost-justified."
+    tags: ["risk", "quantitative", "metrics"]
+
+  - id: fc-d1-017
+    domain: domain1
+    term: "Single Loss Expectancy (SLE)"
+    definition: "The expected monetary loss from a single occurrence of a specific risk event, calculated as: SLE = Asset Value × Exposure Factor"
+    explanation: "Exposure Factor (EF) is the percentage of asset value lost in a single incident. If a $200,000 data center has an EF of 30% for a flood, SLE = $60,000. SLE feeds into ALE for annualized risk calculation."
+    tags: ["risk", "quantitative", "metrics"]
+
+  - id: fc-d1-018
+    domain: domain1
+    term: "Annualized Rate of Occurrence (ARO)"
+    definition: "The estimated frequency with which a specific threat is expected to occur within a one-year period"
+    explanation: "ARO can be a fraction (e.g., 0.1 = once every 10 years) or whole number (e.g., 12 = monthly). Combined with SLE to produce ALE. Derived from historical data, threat intelligence, and actuarial tables. Difficult to calculate accurately for low-frequency/high-impact events."
+    tags: ["risk", "quantitative", "metrics"]
+
+  - id: fc-d1-019
+    domain: domain1
+    term: "Quantitative Risk Assessment"
+    definition: "A risk assessment methodology that uses numerical values, formulas, and financial figures to express risk in monetary terms"
+    explanation: "Uses ALE, SLE, ARO, and asset valuation. Produces objective, defensible figures for cost-benefit analysis. Strengths: financial clarity, basis for ROI on security spend. Weaknesses: time-consuming, requires reliable data, assigns false precision to inherently uncertain estimates."
+    tags: ["risk", "assessment"]
+
+  - id: fc-d1-020
+    domain: domain1
+    term: "Qualitative Risk Assessment"
+    definition: "A risk assessment methodology that uses subjective ratings (High/Medium/Low or numerical scales) instead of monetary values to evaluate and prioritize risk"
+    explanation: "Uses risk matrices, scenario analysis, and expert judgment. Faster than quantitative methods. Strengths: quicker, requires less data, more adaptable. Weaknesses: subjective, cannot directly support ROI calculations. Delphi technique is a qualitative method using expert consensus."
+    tags: ["risk", "assessment"]
+
+  - id: fc-d1-021
+    domain: domain1
+    term: "Maximum Tolerable Downtime (MTD)"
+    definition: "The absolute maximum time a critical business function can be unavailable before the organization suffers irreversible damage"
+    explanation: "Also called Maximum Tolerable Outage (MTO). MTD sets the outer boundary for all recovery objectives. RTO must be ≤ MTD. If payroll cannot be down for more than 72 hours without legal consequences, MTD = 72 hours. Determined during the BIA."
+    tags: ["BCP", "DRP", "metrics"]
+
+  - id: fc-d1-022
+    domain: domain1
+    term: "NIST Cybersecurity Framework (CSF)"
+    definition: "A voluntary framework developed by NIST providing standards, guidelines, and best practices for managing cybersecurity risk, organized around five core functions: Identify, Protect, Detect, Respond, Recover"
+    explanation: "Originally developed for critical infrastructure but widely adopted across sectors. CSF 2.0 added a sixth function: Govern. Implementation Tiers (1–4) describe maturity levels. Framework Profiles map current vs. desired state. Aligns with ISO 27001, COBIT, and other frameworks."
+    tags: ["frameworks", "governance", "NIST"]
+
+  - id: fc-d1-023
+    domain: domain1
+    term: "ISO/IEC 27001"
+    definition: "The international standard specifying requirements for establishing, implementing, maintaining, and continually improving an Information Security Management System (ISMS)"
+    explanation: "Certification demonstrates a systematic approach to managing sensitive information. Requires risk assessment, risk treatment plan, and Statement of Applicability (SoA). Annex A contains 93 controls organized into 4 themes. Pairs with ISO 27002 which provides implementation guidance for controls."
+    tags: ["frameworks", "standards", "ISO"]
+
+  - id: fc-d1-024
+    domain: domain1
+    term: "COBIT (Control Objectives for Information and Related Technologies)"
+    definition: "An IT governance and management framework developed by ISACA that aligns IT goals with business objectives"
+    explanation: "COBIT 2019 defines governance and management objectives organized into domains: Evaluate, Direct & Monitor (governance) and Align, Plan & Organize; Build, Acquire & Implement; Deliver, Service & Support; Monitor, Evaluate & Assess (management). Widely used for IT audit and governance."
+    tags: ["frameworks", "governance"]
+
+  - id: fc-d1-025
+    domain: domain1
+    term: "Sarbanes-Oxley Act (SOX)"
+    definition: "A U.S. federal law requiring public companies to maintain accurate financial records and implement internal controls over financial reporting, with significant IT security implications"
+    explanation: "Section 302: CEO/CFO must certify financial report accuracy. Section 404: management must assess internal controls annually. IT security implications: access controls over financial systems, audit logging, segregation of duties for financial transactions. Violations can result in criminal penalties."
+    tags: ["compliance", "legal", "governance"]
+
+  - id: fc-d1-026
+    domain: domain1
+    term: "HIPAA Security Rule"
+    definition: "The Health Insurance Portability and Accountability Act Security Rule establishes national standards for protecting electronic Protected Health Information (ePHI)"
+    explanation: "Three safeguard categories: Administrative (risk analysis, workforce training), Physical (facility access, workstation security), Technical (access control, encryption, audit logs). Covered entities and business associates must comply. Violations: civil penalties up to $1.9M/year per violation category."
+    tags: ["compliance", "legal", "privacy"]
+
+  - id: fc-d1-027
+    domain: domain1
+    term: "PCI DSS (Payment Card Industry Data Security Standard)"
+    definition: "A set of security standards designed to ensure all companies that process, store, or transmit credit card information maintain a secure environment"
+    explanation: "6 goals, 12 requirements. Key requirements include: install firewall, don't use vendor defaults, protect stored cardholder data, encrypt transmission, use antivirus, secure systems, restrict access, unique IDs, physical access controls, monitor/test networks, maintain policy. Maintained by PCI SSC."
+    tags: ["compliance", "standards"]
+
+  - id: fc-d1-028
+    domain: domain1
+    term: "Risk Appetite"
+    definition: "The amount and type of risk an organization is willing to accept in pursuit of its objectives"
+    explanation: "Distinct from risk tolerance (the acceptable deviation from risk appetite) and risk threshold (the level at which risk response is triggered). A high-risk-appetite org accepts more risk for potential gain; a low-risk-appetite org prioritizes safety. Defined by executive leadership and the board."
+    tags: ["risk", "governance"]
+
+  - id: fc-d1-029
+    domain: domain1
+    term: "Privacy by Design (PbD)"
+    definition: "A framework requiring that privacy protections be built into systems and processes from the outset, not added on after the fact"
+    explanation: "Seven foundational principles: proactive not reactive, privacy as default, privacy embedded into design, full functionality (not zero-sum), end-to-end security, visibility and transparency, respect for user privacy. Embedded into GDPR Article 25. Requires data minimization and purpose limitation."
+    tags: ["privacy", "design"]
+
+  - id: fc-d1-030
+    domain: domain1
+    term: "Threat Intelligence"
+    definition: "Evidence-based knowledge about existing or emerging threats, including context, mechanisms, indicators, and actionable advice, used to inform security decisions"
+    explanation: "Types: Strategic (executive-level trends), Tactical (TTPs of threat actors), Operational (specific upcoming attacks), Technical (IOCs, malware hashes). Sources: ISACs, ISAO, threat feeds, dark web monitoring, OSINT. Enables proactive defense rather than reactive response."
+    tags: ["threats", "intelligence"]
+
+  - id: fc-d1-031
+    domain: domain1
+    term: "Security Governance"
+    definition: "The system of oversight, accountability structures, policies, and processes by which an organization directs and controls its information security activities"
+    explanation: "Governance ensures security aligns with business objectives. Key elements: board and executive accountability, security steering committee, defined roles (CISO, CIO), policy framework, metrics and reporting. Governance is distinct from management — governance sets direction, management executes."
+    tags: ["governance", "policy"]
+
+  - id: fc-d1-032
+    domain: domain1
+    term: "Aggregation Problem"
+    definition: "The security risk that combining multiple pieces of individually low-sensitivity information can produce a combined dataset of much higher sensitivity"
+    explanation: "Example: employee name (public), department (public), and salary grade (internal) each have low sensitivity individually. Combined with work schedule and physical location data, they could enable targeted social engineering or physical attacks. Addressed through data classification and access controls that consider aggregated data sensitivity."
+    tags: ["risk", "data", "principles"]

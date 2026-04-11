@@ -606,3 +606,383 @@ questions:
         - "Certificate validity and Kerberos do require accurate time, but the primary security operations value of time sync is log correlation — this is also partially correct but less complete."
     difficulty: "medium"
     tags: ["operations", "logging", "forensics"]
+
+  - id: q-d7-033
+    domain: domain7
+    question: "During a forensic investigation, an analyst needs to collect RAM contents from a running system. According to the order of volatility, when should RAM be collected relative to hard disk imaging?"
+    options:
+      - "After imaging the hard disk, because disk data is more important"
+      - "Before imaging the hard disk, because RAM is more volatile and will be lost on shutdown"
+      - "Simultaneously with disk imaging using automated tools"
+      - "RAM collection is unnecessary if the disk contains log files"
+    correct_answer: 1
+    explanations:
+      correct: "The order of volatility requires collecting the most transient evidence first. RAM contents are lost immediately when power is removed and contain critically valuable data: running processes, network connections, decrypted content, malware in memory, passwords, and encryption keys. Hard disk data persists — it can be imaged after volatile data is captured."
+      incorrect:
+        - "Imaging the hard disk first is incorrect — disk data persists, but RAM is lost on shutdown. Volatile data must always be collected first."
+        - "Collecting RAM before disk imaging to preserve volatile evidence is the correct approach per the order of volatility."
+        - "Simultaneous collection is impractical and unnecessary — the order of volatility provides a clear prioritization sequence."
+        - "Log files on disk persist and can be collected later — RAM contains evidence not found anywhere else (live network connections, decrypted data, running malware)."
+    difficulty: "easy"
+    tags: ["forensics", "evidence", "volatility"]
+
+  - id: q-d7-034
+    domain: domain7
+    question: "An organization's IDS generates 500 alerts per day, of which only 3 are actual incidents. Security analysts are overwhelmed and begin ignoring low-priority alerts. This describes which security operations problem?"
+    options:
+      - "High false negative rate"
+      - "Alert fatigue"
+      - "Signature drift"
+      - "Detection gap"
+    correct_answer: 1
+    explanations:
+      correct: "Alert fatigue occurs when the volume of security alerts — especially false positives — overwhelms analysts, causing them to become desensitized and begin ignoring or quickly dismissing alerts without proper investigation. This dramatically increases the risk that real incidents are missed. The solution requires tuning, automation, and proper alert prioritization."
+      incorrect:
+        - "A high false negative rate means the IDS is missing attacks — the described scenario has a high false positive rate (many alerts, few real incidents). Alert fatigue is the human consequence of this."
+        - "Alert fatigue (analyst desensitization from overwhelming alert volume) is the correct answer."
+        - "Signature drift is not a standard security term — the described problem is about alert volume overwhelming analysts."
+        - "Detection gap refers to attacks going undetected — the scenario describes detected alerts being ignored due to volume, which is alert fatigue."
+    difficulty: "easy"
+    tags: ["operations", "monitoring", "alert-fatigue"]
+
+  - id: q-d7-035
+    domain: domain7
+    question: "Which NIST incident response phase involves activities such as implementing patches, removing malware, and closing attacker-created backdoors?"
+    options:
+      - "Containment"
+      - "Recovery"
+      - "Eradication"
+      - "Post-Incident Activity"
+    correct_answer: 2
+    explanations:
+      correct: "Eradication is the phase where the root cause of the incident is removed: deleting malware, closing backdoors, patching vulnerabilities exploited during the incident, removing unauthorized accounts. Eradication follows Containment (limiting spread) and precedes Recovery (restoring normal operations). Thorough eradication is critical — skipping it leads to reinfection."
+      incorrect:
+        - "Containment limits the spread and impact of the incident — it does not remove the threat. Containment might involve isolating systems or blocking network access."
+        - "Recovery restores systems to normal operations after eradication — it involves restoring from backups, validating system integrity, and monitoring for recurrence."
+        - "Eradication (removing malware, patches, closing backdoors) is the correct NIST IR phase."
+        - "Post-Incident Activity involves lessons learned, documentation, and process improvement — it occurs after recovery is complete."
+    difficulty: "medium"
+    tags: ["incident-response", "NIST"]
+
+  - id: q-d7-036
+    domain: domain7
+    question: "A security analyst discovers suspicious PowerShell commands in event logs suggesting data staging before exfiltration. This type of proactive hunting activity is best described as:"
+    options:
+      - "Vulnerability scanning"
+      - "Penetration testing"
+      - "Threat hunting"
+      - "Log review for compliance"
+    correct_answer: 2
+    explanations:
+      correct: "Threat hunting is a proactive, hypothesis-driven search for hidden threats and adversary activity that has evaded automated detection. The analyst formed a hypothesis (attacker using PowerShell for data staging) based on threat intelligence (known technique), then searched for evidence in logs. This is distinct from reactive analysis of triggered alerts."
+      incorrect:
+        - "Vulnerability scanning uses automated tools to identify technical weaknesses — it does not involve human analysis of behavioral indicators in logs."
+        - "Penetration testing is an authorized offensive simulation — not the defensive investigation of suspicious activity in internal logs."
+        - "Threat hunting (proactive hypothesis-driven search for adversary activity) is the correct description."
+        - "Compliance log review verifies that logging is functioning and policies are being followed — it is not driven by threat intelligence hypotheses about specific adversary techniques."
+    difficulty: "medium"
+    tags: ["operations", "threat-hunting"]
+
+  - id: q-d7-037
+    domain: domain7
+    question: "In the Cyber Kill Chain framework, which stage involves the attacker establishing a persistent communication channel back to their infrastructure?"
+    options:
+      - "Delivery"
+      - "Exploitation"
+      - "Installation"
+      - "Command and Control (C2)"
+    correct_answer: 3
+    explanations:
+      correct: "Command and Control (C2) is the sixth stage of the Cyber Kill Chain, where the attacker establishes a persistent communication channel with the compromised system. This allows them to remotely control the implant, execute commands, exfiltrate data, and move to the 'Actions on Objectives' phase. C2 channels often use HTTPS, DNS tunneling, or other evasion techniques."
+      incorrect:
+        - "Delivery (stage 3) is how the weapon reaches the target — email, USB, watering hole. It precedes exploitation."
+        - "Exploitation (stage 4) is the trigger that executes the exploit code — it does not establish the persistent communication channel."
+        - "Installation (stage 5) installs a persistent implant/backdoor on the system — but the C2 channel is established in the next stage."
+        - "Command and Control (establishing the persistent communication channel) is the correct Kill Chain stage."
+    difficulty: "medium"
+    tags: ["threat-modeling", "kill-chain"]
+
+  - id: q-d7-038
+    domain: domain7
+    question: "A SOAR platform's primary value in a SOC is to:"
+    options:
+      - "Replace human analysts entirely with AI-driven investigation"
+      - "Automate repetitive alert triage and response tasks, freeing analysts for complex investigations"
+      - "Provide better vulnerability scanning than traditional tools"
+      - "Store security logs for compliance purposes"
+    correct_answer: 1
+    explanations:
+      correct: "SOAR platforms automate repetitive, well-defined security tasks: enriching alerts with threat intelligence, triggering response playbooks (block IP, isolate system), correlating related alerts into cases, and tracking metrics. This reduces analyst workload on routine tasks and dramatically reduces MTTR. SOAR augments human analysts — it does not replace them for complex investigation and judgment."
+      incorrect:
+        - "SOAR automates repetitive tasks but does not replace human analysts for complex investigations requiring judgment, contextual analysis, and creative problem-solving."
+        - "Automating repetitive tasks and freeing analysts for complex work is the correct primary value of SOAR."
+        - "SOAR orchestrates security tools and automates response — vulnerability scanning is performed by separate tools (Qualys, Tenable) that SOAR may integrate with."
+        - "Log storage is a SIEM function — SOAR uses log data from the SIEM but is focused on orchestration and automated response."
+    difficulty: "easy"
+    tags: ["operations", "SOAR", "automation"]
+
+  - id: q-d7-039
+    domain: domain7
+    question: "Chain of custody is broken when which of the following occurs during a forensic investigation?"
+    options:
+      - "Evidence is analyzed by a different analyst than who collected it"
+      - "Evidence changes hands without proper documentation"
+      - "Evidence is stored in a refrigerated environment"
+      - "Multiple copies of digital evidence are created"
+    correct_answer: 1
+    explanations:
+      correct: "Chain of custody documents every transfer, access, and handling of evidence. When evidence changes hands without documentation (who received it, when, under what conditions), the chain is broken. A broken chain of custody can make evidence inadmissible in legal proceedings because the integrity of the evidence can no longer be proven."
+      incorrect:
+        - "Different analysts handling evidence is normal in investigations — what matters is that each transfer is properly documented to maintain the chain of custody."
+        - "Evidence changing hands without proper documentation breaks chain of custody — this is the correct answer."
+        - "Proper storage conditions (including refrigeration for physical evidence) support evidence integrity — this does not break chain of custody."
+        - "Creating multiple forensic copies (working copies vs. master copy with hash verification) is standard practice and does not break chain of custody if properly documented."
+    difficulty: "easy"
+    tags: ["forensics", "evidence", "chain-of-custody"]
+
+  - id: q-d7-040
+    domain: domain7
+    question: "A hot site differs from a warm site primarily in which way?"
+    options:
+      - "A hot site is located in a different country; a warm site is in the same region"
+      - "A hot site has near-real-time data replication and can be activated in minutes to hours; a warm site requires data restoration and takes hours to days"
+      - "A hot site is more cost-effective; a warm site is more expensive"
+      - "A hot site is owned by the organization; a warm site is always outsourced"
+    correct_answer: 1
+    explanations:
+      correct: "A hot site maintains fully operational infrastructure with near-real-time data replication — it can take over operations within minutes to hours of a disaster. A warm site has hardware in place but requires data restoration from backups before becoming operational, taking hours to days. Hot sites are significantly more expensive due to redundant infrastructure costs."
+      incorrect:
+        - "Geographic location is not the defining difference between hot and warm sites — both can be in any location."
+        - "Near-real-time data and rapid activation (hot) vs. requiring data restoration and longer recovery (warm) is the correct distinction."
+        - "Hot sites are MORE expensive than warm sites due to infrastructure duplication — not more cost-effective."
+        - "Both hot and warm sites can be owned or outsourced to a third-party disaster recovery provider — ownership model is not the defining difference."
+    difficulty: "easy"
+    tags: ["BCP", "DRP", "recovery-sites"]
+
+  - id: q-d7-041
+    domain: domain7
+    question: "Which security control most effectively detects unauthorized privileged account usage that occurs outside of normal business hours?"
+    options:
+      - "Password complexity requirements"
+      - "User and Entity Behavior Analytics (UEBA)"
+      - "Network firewall rules"
+      - "Patch management"
+    correct_answer: 1
+    explanations:
+      correct: "UEBA (User and Entity Behavior Analytics) establishes behavioral baselines for users and entities, then detects anomalous deviations — including privileged account activity at unusual times, abnormal data access volumes, or access from unusual locations. It is specifically designed to detect the subtle behavioral anomalies associated with insider threats and compromised accounts."
+      incorrect:
+        - "Password complexity prevents weak passwords but does not detect when valid credentials are used at unusual times."
+        - "UEBA detecting anomalous behavior (privileged account usage outside business hours) is the correct answer."
+        - "Firewall rules control network traffic flows but do not analyze user behavior patterns or detect after-hours authenticated activity."
+        - "Patch management addresses known vulnerabilities in software — it does not detect anomalous account usage."
+    difficulty: "medium"
+    tags: ["operations", "monitoring", "UEBA"]
+
+  - id: q-d7-042
+    domain: domain7
+    question: "The MITRE ATT&CK framework's 'Lateral Movement' tactic describes which adversary activity?"
+    options:
+      - "Establishing initial access to the environment through phishing or exploitation"
+      - "Techniques used to move through the network and access additional systems after initial compromise"
+      - "Methods for maintaining persistent access to compromised systems"
+      - "Techniques for collecting credentials to enable future access"
+    correct_answer: 1
+    explanations:
+      correct: "Lateral Movement in MITRE ATT&CK describes techniques adversaries use to progressively move through a network after initial compromise — accessing additional hosts, services, and data. Techniques include: Pass-the-Hash, Pass-the-Ticket, RDP hijacking, SMB/Windows Admin Shares. Lateral movement expands the attacker's foothold toward their objective."
+      incorrect:
+        - "Initial access (phishing, exploitation) is the 'Initial Access' tactic in ATT&CK — it describes how attackers enter the environment, not how they move within it."
+        - "Moving through the network to access additional systems after initial compromise is the correct description of the Lateral Movement tactic."
+        - "Maintaining persistent access describes the 'Persistence' tactic — techniques like scheduled tasks, registry run keys, and service installations."
+        - "Credential collection is the 'Credential Access' tactic — capturing hashes, tokens, or credentials for reuse. Different from lateral movement techniques themselves."
+    difficulty: "medium"
+    tags: ["threat-modeling", "MITRE-ATT&CK"]
+
+  - id: q-d7-043
+    domain: domain7
+    question: "During change management, what is the purpose of a 'rollback plan'?"
+    options:
+      - "To schedule future maintenance windows"
+      - "To define how to revert the change if it causes problems or fails"
+      - "To identify who approved the change request"
+      - "To document the business justification for the change"
+    correct_answer: 1
+    explanations:
+      correct: "A rollback plan defines the specific steps to revert a change to the previous state if the change fails, causes unexpected issues, or needs to be reversed. It must be prepared before implementation, tested where feasible, and available during the change window. Without a rollback plan, a failed change may result in extended outage."
+      incorrect:
+        - "Scheduling maintenance windows is part of the change planning process — not the purpose of a rollback plan."
+        - "Defining how to revert the change if it fails or causes problems is the correct purpose of a rollback plan."
+        - "Change approval documentation is part of the change request form — not the rollback plan."
+        - "Business justification is documented in the change request — the rollback plan addresses the technical reversal procedure."
+    difficulty: "easy"
+    tags: ["operations", "change-management"]
+
+  - id: q-d7-044
+    domain: domain7
+    question: "A SOC analyst receives an alert for a known malicious IP address communicating with an internal server. The analyst checks threat intelligence and confirms the IP is a known C2 server for a specific ransomware group. This IP address is an example of which type of threat intelligence data?"
+    options:
+      - "Strategic intelligence"
+      - "Technical indicator of compromise (IOC)"
+      - "Operational intelligence"
+      - "Behavioral TTP"
+    correct_answer: 1
+    explanations:
+      correct: "A known malicious IP address is a technical Indicator of Compromise (IOC) — specific, actionable, machine-readable data used in detection and response. IOCs include: IP addresses, domain names, file hashes, registry keys. They are technical intelligence at the lowest level of the intelligence pyramid, consumed directly by security tools for detection."
+      incorrect:
+        - "Strategic intelligence provides high-level trends and threat landscape information for executive decision-making — not specific IOCs for technical detection."
+        - "A known malicious IP address is a technical IOC — actionable data consumed by security tools for detection."
+        - "Operational intelligence covers specific campaigns, threat actors, and near-term attack plans — not individual technical indicators."
+        - "Behavioral TTPs describe how adversaries operate (their tactics and techniques) — they are more abstract than specific IOCs like IP addresses."
+    difficulty: "medium"
+    tags: ["intelligence", "IOC", "operations"]
+
+  - id: q-d7-045
+    domain: domain7
+    question: "Job rotation as a security control is primarily designed to prevent which type of threat?"
+    options:
+      - "Insider fraud that requires continuous access to perpetuate and conceal"
+      - "Malware infections from employee devices"
+      - "Social engineering attacks targeting employees"
+      - "Brute-force attacks against system credentials"
+    correct_answer: 0
+    explanations:
+      correct: "Job rotation is primarily a fraud prevention control. Many fraudulent activities (embezzlement, data manipulation, kickback schemes) require continuous access over time. Rotating employees into different roles: (1) forces a successor to review previous activity, exposing fraud; (2) deters fraud knowing a successor will review your work; (3) eliminates single-person control over critical processes."
+      incorrect:
+        - "Insider fraud requiring continuous access is the primary target of job rotation — this is correct."
+        - "Malware infections are addressed by endpoint security controls — job rotation does not affect malware risk."
+        - "Social engineering is addressed by security awareness training — job rotation does not specifically counter manipulation attacks."
+        - "Brute-force attacks are addressed by account lockout, MFA, and strong passwords — job rotation does not affect credential attack risk."
+    difficulty: "medium"
+    tags: ["operations", "controls", "fraud"]
+
+  - id: q-d7-046
+    domain: domain7
+    question: "An organization wants to place a decoy system in its network that appears to be a production database server to attract and identify attackers. This is called a:"
+    options:
+      - "Bastion host"
+      - "Honeypot"
+      - "Jump server"
+      - "DMZ server"
+    correct_answer: 1
+    explanations:
+      correct: "A honeypot is a decoy system deliberately designed to attract attackers, emulate a valuable target, and observe attacker behavior. When an attacker interacts with the honeypot, security teams receive early warning of intrusion activity and gain intelligence about attacker techniques. No legitimate users should ever access a honeypot, so any interaction indicates malicious activity."
+      incorrect:
+        - "A bastion host is a hardened system exposed to the internet to provide specific services (SSH gateway, reverse proxy) — it is a real production component, not a decoy."
+        - "A honeypot (decoy system designed to attract and detect attackers) is the correct answer."
+        - "A jump server (jump box) is a hardened intermediary system used to securely access other systems — a legitimate production control, not a decoy."
+        - "A DMZ server hosts legitimate public-facing services — it is a real production component, not a decoy designed to detect attackers."
+    difficulty: "easy"
+    tags: ["deception", "detection", "honeypot"]
+
+  - id: q-d7-047
+    domain: domain7
+    question: "What is the key difference between a tabletop exercise and a full-scale disaster recovery test?"
+    options:
+      - "A tabletop exercise is more expensive than a full-scale test"
+      - "A tabletop exercise is discussion-based without activating actual systems; a full-scale test activates real recovery procedures"
+      - "A tabletop exercise only tests technical staff; a full-scale test involves all employees"
+      - "A tabletop exercise is conducted annually; a full-scale test is conducted daily"
+    correct_answer: 1
+    explanations:
+      correct: "A tabletop exercise is a discussion-based simulation where participants talk through their responses to scenarios without actually activating systems or procedures. It tests knowledge, decision-making, and coordination. A full-scale test activates actual recovery procedures, failover systems, and data restoration — it tests whether the technical procedures actually work."
+      incorrect:
+        - "Full-scale tests are significantly more expensive (requiring actual system failover, staff time, potential service disruption) — tabletop exercises are much less costly."
+        - "Discussion-based without system activation (tabletop) vs. activating actual recovery procedures (full-scale) is the correct distinction."
+        - "Tabletop exercises typically involve key personnel from multiple teams (IT, business units, management) — not limited to technical staff."
+        - "Testing frequency is determined by organizational policy and risk — no standard requires tabletops to be annual or full-scale tests daily."
+    difficulty: "easy"
+    tags: ["BCP", "DRP", "testing"]
+
+  - id: q-d7-048
+    domain: domain7
+    question: "Which personnel security control is specifically designed to deter and detect fraud by ensuring someone else reviews work during an employee's absence?"
+    options:
+      - "Background checks"
+      - "Separation of duties"
+      - "Mandatory vacation"
+      - "Least privilege"
+    correct_answer: 2
+    explanations:
+      correct: "Mandatory vacation (forced leave) requires employees to take continuous time off during which their duties are covered by others. This is specifically designed to detect fraud — many fraud schemes require daily maintenance that becomes impossible during absence, and the substitute employee may discover the fraud. The knowledge that a successor will review your work also deters fraud."
+      incorrect:
+        - "Background checks verify history before hiring — they do not detect ongoing fraud during employment."
+        - "Separation of duties divides critical functions among multiple people — it prevents any one person from having enough access to commit and conceal fraud, but doesn't specifically require review during absence."
+        - "Mandatory vacation (requiring continuous absence during which others cover work and may discover fraud) is the specific control described."
+        - "Least privilege limits access to minimum necessary — it reduces the impact of fraud but doesn't specifically enable detection through substitute coverage."
+    difficulty: "medium"
+    tags: ["operations", "controls", "fraud"]
+
+  - id: q-d7-049
+    domain: domain7
+    question: "MTBF is used to calculate system availability using which formula?"
+    options:
+      - "Availability = MTTR / (MTBF + MTTR)"
+      - "Availability = MTBF / (MTBF + MTTR)"
+      - "Availability = MTBF × MTTR"
+      - "Availability = 1 - (MTTR / MTBF)"
+    correct_answer: 1
+    explanations:
+      correct: "Availability = MTBF / (MTBF + MTTR). If a system fails once every 1000 hours (MTBF = 1000h) and takes 10 hours to repair (MTTR = 10h), availability = 1000 / (1000 + 10) = 99.0%. To improve availability: increase MTBF (more reliable components, redundancy) and decrease MTTR (faster repair through spares, good documentation, trained staff)."
+      incorrect:
+        - "MTTR / (MTBF + MTTR) would give the unavailability (fraction of time the system is down) — not availability."
+        - "MTBF / (MTBF + MTTR) is the correct formula for system availability."
+        - "Availability is a ratio (dimensionless percentage) — multiplying MTBF × MTTR gives units of hours squared, which is meaningless as an availability metric."
+        - "1 - (MTTR/MTBF) is an approximation that doesn't equal the actual formula when MTTR is significant relative to MTBF."
+    difficulty: "hard"
+    tags: ["metrics", "availability", "BCP"]
+
+  - id: q-d7-050
+    domain: domain7
+    question: "An incident response team discovers malware on a workstation. Before eradication, what must the team do to ensure evidence is admissible and the full scope is understood?"
+    options:
+      - "Immediately reimage the workstation to prevent further spread"
+      - "Collect and preserve forensic evidence, document findings, and determine the full scope of compromise"
+      - "Notify all employees about the malware discovery"
+      - "Scan all systems simultaneously to find other infections"
+    correct_answer: 1
+    explanations:
+      correct: "Before eradication, the team must: collect volatile evidence (RAM, network connections), create forensic disk images, document all findings with timestamps and hashes, and conduct scope analysis to determine if other systems are compromised. Premature eradication destroys evidence needed for root cause analysis, legal proceedings, and scope determination."
+      incorrect:
+        - "Immediate reimaging destroys forensic evidence and may be premature if the scope of compromise is unknown — other connected systems may still be compromised."
+        - "Collecting evidence, documenting findings, and determining scope before eradication is the correct pre-eradication requirement."
+        - "Employee notification may be premature during investigation and could tip off an insider threat — notification follows after containment and leadership briefing."
+        - "Simultaneous scanning of all systems is a scope-determination activity but must not happen before evidence is preserved from the known compromised system."
+    difficulty: "medium"
+    tags: ["incident-response", "forensics"]
+
+  - id: q-d7-051
+    domain: domain7
+    question: "A SIEM correlation rule fires when there are more than 10 failed login attempts from the same IP address within 5 minutes, followed by a successful login. What attack is this rule designed to detect?"
+    options:
+      - "SQL Injection"
+      - "Online brute-force or password spraying leading to successful compromise"
+      - "Phishing campaign"
+      - "Man-in-the-middle attack"
+    correct_answer: 1
+    explanations:
+      correct: "This SIEM rule correlates multiple failed authentication attempts (brute force/password spraying pattern) with a subsequent success, indicating that an attacker likely guessed the correct password after multiple attempts. The pattern 'many failures + success' is a strong indicator of a successful brute-force or spraying attack."
+      incorrect:
+        - "SQL Injection targets database queries through application input — it would not manifest as authentication failures in login logs."
+        - "Brute-force or password spraying followed by successful authentication is the attack pattern this correlation rule detects."
+        - "Phishing attacks occur outside the network perimeter and result in credential use from external sources — they would appear as immediate successful logins, not preceded by many failures."
+        - "MitM attacks intercept traffic between parties — they would not generate multiple failed login attempts from the same IP."
+    difficulty: "easy"
+    tags: ["operations", "SIEM", "detection"]
+
+  - id: q-d7-052
+    domain: domain7
+    question: "Configuration management's primary security benefit is:"
+    options:
+      - "Increasing system performance by optimizing configurations"
+      - "Detecting unauthorized changes to system configurations that could indicate compromise or policy violations"
+      - "Reducing hardware procurement costs"
+      - "Automating software license management"
+    correct_answer: 1
+    explanations:
+      correct: "Configuration management maintains documented, approved baselines for all systems. By continuously comparing deployed configurations against approved baselines, organizations can detect: unauthorized changes (potential compromise), configuration drift (unintended deviations), and policy violations. Unauthorized configuration changes are often indicators of attacker persistence or privilege escalation."
+      incorrect:
+        - "Performance optimization may be a side effect of good configuration but is not the primary security benefit."
+        - "Detecting unauthorized configuration changes (potential compromise or policy violation indicators) is the primary security benefit."
+        - "Hardware procurement cost reduction is a procurement/asset management function — not related to configuration management security benefits."
+        - "Software license management is an asset management function — configuration management focuses on security settings and configurations, not licensing."
+    difficulty: "medium"
+    tags: ["operations", "configuration-management"]

@@ -961,3 +961,383 @@ questions:
         - "Performance expectations are documented in job descriptions and performance agreements — not NDAs."
     difficulty: "easy"
     tags: ["personnel", "legal"]
+
+  - id: q-d1-053
+    domain: domain1
+    question: "An organization calculates that a server valued at $500,000 would be 40% destroyed on average in a fire event, and fires are expected to occur approximately once every 10 years. What is the Annualized Loss Expectancy (ALE)?"
+    options:
+      - "$200,000"
+      - "$500,000"
+      - "$20,000"
+      - "$50,000"
+    correct_answer: 2
+    explanations:
+      correct: "SLE = Asset Value × Exposure Factor = $500,000 × 0.40 = $200,000. ARO = 1/10 = 0.1 (once every 10 years). ALE = SLE × ARO = $200,000 × 0.1 = $20,000."
+      incorrect:
+        - "$200,000 is the SLE (Single Loss Expectancy), not the ALE. The ALE accounts for how often the event occurs annually."
+        - "$500,000 is the total asset value before applying the exposure factor — it ignores both the exposure factor and ARO."
+        - "$20,000 is correct: ALE = SLE ($200,000) × ARO (0.1) = $20,000."
+        - "$50,000 would result from incorrectly using ARO = 0.25 or misapplying the exposure factor."
+    difficulty: "hard"
+    tags: ["risk", "quantitative", "ALE"]
+
+  - id: q-d1-054
+    domain: domain1
+    question: "The NIST Cybersecurity Framework (CSF) core functions are best described as which of the following?"
+    options:
+      - "Plan, Do, Check, Act"
+      - "Identify, Protect, Detect, Respond, Recover"
+      - "Prevent, Detect, Respond, Recover, Improve"
+      - "Govern, Manage, Measure, Report, Improve"
+    correct_answer: 1
+    explanations:
+      correct: "The NIST CSF core consists of five functions: Identify (understand organizational context and risk), Protect (implement safeguards), Detect (identify cybersecurity events), Respond (take action on detected incidents), Recover (restore capabilities). CSF 2.0 adds Govern as a sixth function."
+      incorrect:
+        - "Plan-Do-Check-Act (PDCA) is the ISO management system cycle used in ISO 27001, not the NIST CSF core functions."
+        - "Identify, Protect, Detect, Respond, Recover are the correct NIST CSF core functions."
+        - "Prevent, Detect, Respond, Recover, Improve is not the NIST CSF structure — 'Prevent' is not one of the five core functions."
+        - "Govern, Manage, Measure, Report, Improve describes COBIT governance objectives, not the NIST CSF."
+    difficulty: "medium"
+    tags: ["frameworks", "NIST", "governance"]
+
+  - id: q-d1-055
+    domain: domain1
+    question: "Which ISO standard specifically establishes requirements for an Information Security Management System (ISMS)?"
+    options:
+      - "ISO 27002"
+      - "ISO 31000"
+      - "ISO 27001"
+      - "ISO 22301"
+    correct_answer: 2
+    explanations:
+      correct: "ISO/IEC 27001 is the standard that specifies requirements for establishing, implementing, maintaining, and continually improving an ISMS. Organizations can be certified against ISO 27001. It requires risk assessment, risk treatment, and a Statement of Applicability (SoA)."
+      incorrect:
+        - "ISO 27002 provides a code of practice (implementation guidance) for the controls referenced in ISO 27001 — it does not establish ISMS requirements and is not certifiable on its own."
+        - "ISO 31000 is a general risk management framework — it does not specifically address information security management systems."
+        - "ISO 27001 is the ISMS requirements standard — this is the correct answer."
+        - "ISO 22301 addresses Business Continuity Management Systems (BCMS), not information security management systems."
+    difficulty: "medium"
+    tags: ["standards", "ISO", "governance"]
+
+  - id: q-d1-056
+    domain: domain1
+    question: "A security manager identifies a risk with an ALE of $15,000. A vendor proposes a control costing $25,000 annually to address it. What is the most appropriate risk response?"
+    options:
+      - "Implement the control because it eliminates the risk completely"
+      - "Accept the risk and document it, as the control cost exceeds the annual loss expectancy"
+      - "Transfer the risk by purchasing insurance for exactly $15,000"
+      - "Avoid the risk by discontinuing the business activity"
+    correct_answer: 1
+    explanations:
+      correct: "When the annual cost of a control ($25,000) exceeds the ALE ($15,000), the control is not cost-justified. Risk acceptance with documentation is appropriate. The organization accepts a known $15,000 annual expected loss rather than spending $25,000 to prevent it."
+      incorrect:
+        - "Even if the control eliminates risk completely, spending $25,000 to prevent $15,000 in expected losses is economically irrational."
+        - "Accepting the risk when control cost exceeds ALE is the correct response — document, monitor, and review periodically."
+        - "Insurance may be a viable option but typically doesn't cost exactly the ALE value, and the question calls for the 'most appropriate' primary response."
+        - "Risk avoidance is extreme — it eliminates the business function, which may not be feasible or proportionate for a $15,000 risk."
+    difficulty: "medium"
+    tags: ["risk", "cost-benefit", "management"]
+
+  - id: q-d1-057
+    domain: domain1
+    question: "Under HIPAA, what three categories of safeguards are required to protect electronic Protected Health Information (ePHI)?"
+    options:
+      - "Technical, Operational, and Managerial"
+      - "Administrative, Physical, and Technical"
+      - "Preventive, Detective, and Corrective"
+      - "Logical, Physical, and Environmental"
+    correct_answer: 1
+    explanations:
+      correct: "HIPAA Security Rule requires three categories of safeguards: Administrative (policies, risk analysis, workforce training, access management), Physical (facility access controls, workstation use policies, device controls), and Technical (access control, audit controls, integrity, authentication, transmission security/encryption)."
+      incorrect:
+        - "Technical, Operational, and Managerial is the NIST control family taxonomy (NIST SP 800-53) — not the HIPAA safeguard categories."
+        - "Administrative, Physical, and Technical are the correct HIPAA Security Rule safeguard categories."
+        - "Preventive, Detective, and Corrective describe control types by function — these are not HIPAA's safeguard categories."
+        - "Logical, Physical, and Environmental is not a standard HIPAA or security framework categorization."
+    difficulty: "medium"
+    tags: ["compliance", "HIPAA", "legal"]
+
+  - id: q-d1-058
+    domain: domain1
+    question: "Which Sarbanes-Oxley (SOX) section requires management to assess and report on the effectiveness of internal controls over financial reporting?"
+    options:
+      - "Section 302"
+      - "Section 404"
+      - "Section 802"
+      - "Section 906"
+    correct_answer: 1
+    explanations:
+      correct: "SOX Section 404 requires management to assess the effectiveness of internal controls over financial reporting (ICFR) annually and include this assessment in the annual report. External auditors must also attest to management's assessment. This has significant IT security implications including access controls, audit logging, and segregation of duties."
+      incorrect:
+        - "SOX Section 302 requires CEO and CFO to certify the accuracy of financial statements in each quarterly/annual report — it addresses executive certification, not internal control assessment."
+        - "SOX Section 404 (management assessment of internal controls) is the correct answer."
+        - "SOX Section 802 addresses document tampering and record alteration — criminal penalties for destroying evidence."
+        - "SOX Section 906 addresses criminal penalties for knowingly certifying false financial reports — not internal control assessment."
+    difficulty: "hard"
+    tags: ["compliance", "SOX", "governance"]
+
+  - id: q-d1-059
+    domain: domain1
+    question: "What distinguishes 'risk tolerance' from 'risk appetite' in enterprise risk management?"
+    options:
+      - "Risk appetite is the acceptable deviation from risk tolerance"
+      - "Risk tolerance is the acceptable deviation from risk appetite; risk appetite is the overall level of risk the organization accepts"
+      - "They are interchangeable terms with no meaningful distinction"
+      - "Risk tolerance applies to operational risks; risk appetite applies to strategic risks"
+    correct_answer: 1
+    explanations:
+      correct: "Risk appetite is the broad level of risk an organization is willing to accept in pursuit of its objectives — set by the board and executives. Risk tolerance is the acceptable deviation (variation) from the risk appetite — the operational boundaries within which risk-taking decisions are made."
+      incorrect:
+        - "This reverses the relationship. Risk appetite is the strategic-level declaration; risk tolerance is the acceptable variance from that position."
+        - "Risk tolerance is the acceptable deviation from risk appetite — risk appetite is the overall strategic risk position. This is the correct relationship."
+        - "While often used interchangeably in common parlance, risk management frameworks (COSO, ISO 31000) distinguish them as described."
+        - "Both concepts apply across risk types — the distinction is about level (strategic vs. operational) not category of risk."
+    difficulty: "hard"
+    tags: ["risk", "governance"]
+
+  - id: q-d1-060
+    domain: domain1
+    question: "An organization discovers that combining employee names (public), office locations (public), and work schedules (internal) creates profiles that could enable targeted physical attacks. This best illustrates which risk concept?"
+    options:
+      - "Data sovereignty"
+      - "The aggregation problem"
+      - "Residual risk"
+      - "Inherent risk"
+    correct_answer: 1
+    explanations:
+      correct: "The aggregation problem occurs when combining individually low-sensitivity data elements creates a combined dataset of much higher sensitivity. Individual pieces may be harmless, but their combination reveals sensitive patterns that could be exploited for social engineering, physical attacks, or surveillance."
+      incorrect:
+        - "Data sovereignty concerns the legal jurisdiction governing data based on where it is physically stored — it does not apply to sensitivity emerging from data combination."
+        - "The aggregation problem is the correct answer — individual low-sensitivity data combining to create high-sensitivity information."
+        - "Residual risk is the remaining risk after controls are applied — it does not describe the emergent sensitivity from combining data elements."
+        - "Inherent risk is risk before any controls are applied — it does not describe the phenomenon of data combination creating new sensitivity."
+    difficulty: "medium"
+    tags: ["risk", "data", "principles"]
+
+  - id: q-d1-061
+    domain: domain1
+    question: "Which PCI DSS requirement directly addresses the protection of stored cardholder data?"
+    options:
+      - "Requirement 1: Install and maintain network security controls"
+      - "Requirement 3: Protect stored account data"
+      - "Requirement 8: Identify users and authenticate access to system components"
+      - "Requirement 10: Log and monitor all access to system components and cardholder data"
+    correct_answer: 1
+    explanations:
+      correct: "PCI DSS Requirement 3 addresses the protection of stored account data (cardholder data). It includes requirements to minimize storage, mask PANs when displayed, encrypt stored cardholder data using strong cryptography, and prohibit storage of sensitive authentication data after authorization."
+      incorrect:
+        - "Requirement 1 addresses network security controls (firewalls) — not the protection of stored cardholder data."
+        - "Requirement 3 (protect stored account data) is the correct answer."
+        - "Requirement 8 addresses user identification and authentication — important for access control but not specifically for protecting stored data."
+        - "Requirement 10 addresses logging and monitoring — critical for detection but not the primary requirement for protecting stored cardholder data."
+    difficulty: "hard"
+    tags: ["compliance", "PCI-DSS"]
+
+  - id: q-d1-062
+    domain: domain1
+    question: "Privacy by Design (PbD) requires that privacy be treated as which of the following?"
+    options:
+      - "A compliance obligation to be addressed after system development"
+      - "A default setting — the most privacy-protective option should be automatic"
+      - "An optional enhancement for systems handling sensitive data"
+      - "A reactive measure applied only after privacy incidents occur"
+    correct_answer: 1
+    explanations:
+      correct: "One of PbD's seven foundational principles is 'Privacy as the Default Setting' — in any given IT system or business practice, an individual's privacy must be automatically protected. Users should not have to take action to protect their privacy; the highest level of privacy should be the default."
+      incorrect:
+        - "PbD is explicitly proactive — privacy must be built in from the start, not addressed as an afterthought after development."
+        - "Privacy as the default setting is a core PbD principle — the most privacy-protective option should be automatic without user action."
+        - "PbD requires privacy for all systems, not just those handling obviously sensitive data — privacy is a universal default."
+        - "PbD is proactive, not reactive — it anticipates and prevents privacy-invasive events rather than responding to them."
+    difficulty: "medium"
+    tags: ["privacy", "design", "GDPR"]
+
+  - id: q-d1-063
+    domain: domain1
+    question: "Which qualitative risk assessment technique uses anonymous input from subject matter experts to converge on a consensus risk rating through multiple rounds of feedback?"
+    options:
+      - "Fault Tree Analysis"
+      - "Monte Carlo Simulation"
+      - "Delphi Technique"
+      - "OCTAVE"
+    correct_answer: 2
+    explanations:
+      correct: "The Delphi Technique is a structured qualitative method where experts anonymously provide risk assessments, receive anonymized group feedback, and revise their assessments over multiple rounds until consensus emerges. Anonymity prevents dominant personalities from influencing results, and iteration drives convergence."
+      incorrect:
+        - "Fault Tree Analysis is a quantitative/diagrammatic method that models how system failures can combine to cause an undesired top-level event — it does not use expert consensus rounds."
+        - "Monte Carlo Simulation is a quantitative technique that runs thousands of scenarios with random variable inputs to produce probability distributions of outcomes — not an expert consensus method."
+        - "The Delphi Technique (anonymous expert consensus through iteration) is the correct answer."
+        - "OCTAVE (Operationally Critical Threat, Asset, and Vulnerability Evaluation) is a risk assessment methodology framework, not specifically the technique of gathering anonymous expert consensus."
+    difficulty: "hard"
+    tags: ["risk", "assessment", "qualitative"]
+
+  - id: q-d1-064
+    domain: domain1
+    question: "An organization's BCP states the RTO for its e-commerce platform is 4 hours and the MTD is 6 hours. What does this mean?"
+    options:
+      - "The platform should be restored within 6 hours; 4 hours is an informal target"
+      - "The platform must be restored within 4 hours; after 6 hours the business suffers irreversible damage"
+      - "Both represent the same concept expressed in different frameworks"
+      - "The 6-hour RTO supersedes the 4-hour MTD in planning"
+    correct_answer: 1
+    explanations:
+      correct: "RTO (4 hours) is the targeted time to restore the system — what the team aims to achieve. MTD (6 hours) is the absolute maximum tolerable downtime before irreversible business damage occurs. RTO must always be less than or equal to MTD. The 2-hour buffer provides recovery margin."
+      incorrect:
+        - "MTD is not an informal target — it is the absolute threshold beyond which survival of the business function is in doubt. The RTO is the actual operational recovery target."
+        - "Correct: the platform must be restored within the RTO (4 hours), and the MTD (6 hours) is the outer limit before irreversible damage."
+        - "RTO and MTD are distinct: RTO is the recovery target; MTD is the maximum acceptable outage. RTO must be ≤ MTD."
+        - "MTD constrains RTO — RTO must be set at or below MTD, not the reverse. The 4-hour RTO is the operational target."
+    difficulty: "medium"
+    tags: ["BCP", "DRP", "metrics"]
+
+  - id: q-d1-065
+    domain: domain1
+    question: "COBIT is best described as a framework for which of the following?"
+    options:
+      - "Technical security controls for network defense"
+      - "Cryptographic key management and PKI governance"
+      - "IT governance and management, aligning IT with business objectives"
+      - "Software development lifecycle security integration"
+    correct_answer: 2
+    explanations:
+      correct: "COBIT (Control Objectives for Information and Related Technologies) is an IT governance and management framework developed by ISACA. It helps organizations align IT goals with business objectives, manage risk, and deliver value. It is used extensively for IT auditing and governance assessments."
+      incorrect:
+        - "COBIT is a governance framework — it addresses processes and objectives, not specific technical network security controls."
+        - "COBIT covers IT governance broadly — key management and PKI are specific cryptographic topics addressed by standards like NIST SP 800-57, not COBIT's primary focus."
+        - "IT governance and management aligned with business objectives is the correct description of COBIT."
+        - "SDLC security integration is addressed by frameworks like SAMM (Software Assurance Maturity Model) or the NIST SSDF — not COBIT."
+    difficulty: "medium"
+    tags: ["frameworks", "governance", "COBIT"]
+
+  - id: q-d1-066
+    domain: domain1
+    question: "An organization accepts a cybersecurity risk formally. Under the Risk Management Framework (RMF), which role has the authority to make this acceptance decision?"
+    options:
+      - "System Administrator"
+      - "Information System Security Officer (ISSO)"
+      - "Authorizing Official (AO)"
+      - "Information System Security Manager (ISSM)"
+    correct_answer: 2
+    explanations:
+      correct: "Under NIST RMF, the Authorizing Official (AO) — a senior official with the authority to formally accept risk on behalf of the organization — makes the authorization decision. The AO signs the Authority to Operate (ATO) after reviewing the system's security posture and accepting residual risk."
+      incorrect:
+        - "System Administrators implement controls but do not have the authority to formally accept organizational risk — this is an executive-level decision."
+        - "The ISSO supports security assessment and documentation but does not hold formal authority to accept risk on behalf of the organization."
+        - "The Authorizing Official (AO) is the role with formal authority to accept risk and grant system authorization in the NIST RMF."
+        - "The ISSM oversees the security program but the formal risk acceptance authority belongs to the AO."
+    difficulty: "hard"
+    tags: ["governance", "RMF", "NIST"]
+
+  - id: q-d1-067
+    domain: domain1
+    question: "What is the primary security purpose of a Security Steering Committee?"
+    options:
+      - "To perform daily security monitoring and incident response"
+      - "To provide executive-level oversight, direction, and resource allocation for the security program"
+      - "To conduct penetration tests and vulnerability assessments"
+      - "To manage individual user access requests and approvals"
+    correct_answer: 1
+    explanations:
+      correct: "A Security Steering Committee provides executive-level governance of the security program. It sets strategic direction, prioritizes initiatives, allocates budget and resources, reviews risk posture, and ensures security aligns with business objectives. It bridges the CISO/security team with executive leadership and the board."
+      incorrect:
+        - "Daily security monitoring and incident response are operational SOC functions — not the role of a governance committee."
+        - "Executive-level oversight, direction, and resource allocation for security is the correct governance function of a Security Steering Committee."
+        - "Penetration testing and vulnerability assessment are technical security functions performed by security teams or third parties."
+        - "Individual access request management is an operational IAM function, not a strategic steering committee responsibility."
+    difficulty: "medium"
+    tags: ["governance", "management"]
+
+  - id: q-d1-068
+    domain: domain1
+    question: "Under FISMA, what document formally authorizes a federal information system to operate, accepting the residual risk?"
+    options:
+      - "System Security Plan (SSP)"
+      - "Security Assessment Report (SAR)"
+      - "Authority to Operate (ATO)"
+      - "Plan of Action and Milestones (POA&M)"
+    correct_answer: 2
+    explanations:
+      correct: "The Authority to Operate (ATO) is the official management decision granting authorization for a federal information system to operate. It is issued by the Authorizing Official (AO) after reviewing the System Security Plan, Security Assessment Report, and Plan of Action and Milestones, accepting the residual risk."
+      incorrect:
+        - "The System Security Plan (SSP) describes the security controls implemented — it is input to the authorization process, not the authorization itself."
+        - "The Security Assessment Report (SAR) documents the results of security control testing — it informs the ATO decision but is not the authorization document."
+        - "The Authority to Operate (ATO) is the formal authorization document in the NIST RMF/FISMA framework."
+        - "The Plan of Action and Milestones (POA&M) tracks identified weaknesses and remediation plans — it accompanies the ATO but is not the authorization itself."
+    difficulty: "hard"
+    tags: ["governance", "FISMA", "RMF"]
+
+  - id: q-d1-069
+    domain: domain1
+    question: "A company's board of directors formally defines the organization's acceptable level of risk exposure. This is best described as establishing the organization's:"
+    options:
+      - "Risk tolerance"
+      - "Risk appetite"
+      - "Risk threshold"
+      - "Residual risk"
+    correct_answer: 1
+    explanations:
+      correct: "Risk appetite is the high-level statement of the amount and type of risk an organization is willing to accept in pursuit of its objectives, defined by executive leadership and the board. It reflects the organization's overall attitude toward risk-taking and drives risk management strategy."
+      incorrect:
+        - "Risk tolerance is the acceptable deviation from the risk appetite — the operational boundaries for risk-taking decisions. It is derived from risk appetite, not defined by the board at the strategic level."
+        - "The board defining the overall acceptable level of risk exposure is establishing the organization's risk appetite."
+        - "Risk threshold is the level at which risk triggers a response — a tactical measurement, not the board-level strategic declaration."
+        - "Residual risk is what remains after controls are applied — it is measured against appetite/tolerance, not defined by the board."
+    difficulty: "medium"
+    tags: ["risk", "governance"]
+
+  - id: q-d1-070
+    domain: domain1
+    question: "Which of the following best describes 'threat intelligence' in the context of a security operations program?"
+    options:
+      - "A list of all known CVEs published by NIST"
+      - "Evidence-based knowledge about adversary capabilities, motivations, and TTPs used to inform defensive decisions"
+      - "The output of a vulnerability scan identifying weaknesses in organizational systems"
+      - "Documentation of past security incidents maintained for compliance purposes"
+    correct_answer: 1
+    explanations:
+      correct: "Threat intelligence is evidence-based knowledge about current and emerging adversaries including their capabilities, infrastructure, motivations, goals, and TTPs (Tactics, Techniques, and Procedures). It enables organizations to understand who is likely to attack them, how, and why — enabling proactive, intelligence-driven defense."
+      incorrect:
+        - "The NVD/CVE list is a vulnerability database — useful for vulnerability management but it does not constitute actionable threat intelligence about adversary behavior or intent."
+        - "Evidence-based knowledge about adversary capabilities, motivations, and TTPs is the correct definition of threat intelligence."
+        - "Vulnerability scan output identifies technical weaknesses in the organization's own systems — this is vulnerability data, not threat intelligence about adversaries."
+        - "Historical incident documentation is important for learning but is an internal record, not the external adversary-focused knowledge base that defines threat intelligence."
+    difficulty: "easy"
+    tags: ["intelligence", "operations", "fundamentals"]
+
+  - id: q-d1-071
+    domain: domain1
+    question: "What is the key distinction between a security policy and a security standard?"
+    options:
+      - "Policies are technical documents; standards are management-level statements"
+      - "Policies are high-level management statements; standards specify the specific, measurable requirements to meet policy intent"
+      - "Policies are optional guidance; standards are mandatory requirements"
+      - "Policies apply to external parties; standards apply to internal employees"
+    correct_answer: 1
+    explanations:
+      correct: "Security policies are high-level management statements of intent — they declare what the organization wants to achieve (e.g., 'all sensitive data must be encrypted'). Standards specify the specific, measurable requirements needed to comply with policy (e.g., 'sensitive data must be encrypted using AES-256'). Standards derive from policies and provide implementable specifics."
+      incorrect:
+        - "Policies are management-level statements; standards (and procedures) are more technical/specific — this is the reverse."
+        - "Policies as high-level intent and standards as specific measurable requirements is the correct relationship."
+        - "Both policies and standards are mandatory — guidelines are the optional advisory documents in the policy hierarchy."
+        - "Policies apply throughout the organization and to relevant third parties; standards are also internally focused — neither exclusively applies only to external parties."
+    difficulty: "easy"
+    tags: ["governance", "policy"]
+
+  - id: q-d1-072
+    domain: domain1
+    question: "When conducting a Business Impact Analysis (BIA), what is the primary output used to prioritize recovery efforts?"
+    options:
+      - "A list of all organizational assets and their replacement costs"
+      - "A prioritized ranking of critical business functions with MTD, RTO, and RPO for each"
+      - "A comprehensive inventory of security vulnerabilities in IT systems"
+      - "A detailed list of employees with access to critical systems"
+    correct_answer: 1
+    explanations:
+      correct: "The BIA produces a prioritized list of critical business functions along with their recovery time requirements (RTO, RPO) and maximum tolerable downtime (MTD). This drives recovery prioritization — which systems and functions must be restored first and within what timeframes. It is the foundation of BCP/DRP strategy."
+      incorrect:
+        - "Asset replacement costs are important for financial planning but the BIA's primary security output is the prioritization of business functions with recovery objectives."
+        - "A prioritized list of critical business functions with MTD, RTO, and RPO is the primary BIA output for BCP/DRP planning."
+        - "Vulnerability inventories come from vulnerability assessments — not from a Business Impact Analysis."
+        - "Employee access information comes from access control reviews — the BIA focuses on business functions and operational impacts, not personnel access."
+    difficulty: "medium"
+    tags: ["BCP", "BIA", "analysis"]
