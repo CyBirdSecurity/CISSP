@@ -986,3 +986,867 @@ questions:
         - "Code reviews improve code quality and can catch vulnerabilities but do not reduce attack surface — that requires architectural and design decisions."
     difficulty: "medium"
     tags: ["secure-design", "principles", "attack-surface"]
+  
+  - id: q-d8-053
+    domain: domain8
+    question: "What is the most critical risk associated with insecure API authentication?"
+    options:
+      - "Attackers gaining unauthorized access to backend resources and data"
+      - "Increased latency in API responses"
+      - "Loss of application performance metrics"
+      - "Difficulty in scaling API infrastructure"
+    correct_answer: 0
+    explanations:
+      correct: "Insecure API authentication allows attackers to bypass access controls and access protected resources, leading to data theft, unauthorized modifications, and full system compromise."
+      incorrect:
+        - "Insecure authentication poses a security risk, not a performance issue leading to latency."
+        - "Performance metrics are unrelated to authentication security."
+        - "Scaling infrastructure is an operational concern, not an authentication problem."
+    difficulty: medium
+    tags: ["api-security", "authentication"]
+
+  - id: q-d8-054
+    domain: domain8
+    question: "What is a primary vulnerability in GraphQL APIs?"
+    options:
+      - "Query complexity attacks can exhaust server resources by processing deeply nested queries"
+      - "GraphQL queries are slower than REST"
+      - "GraphQL requires more maintenance than REST"
+      - "GraphQL cannot be cached"
+    correct_answer: 0
+    explanations:
+      correct: "GraphQL's flexible query language allows attackers to craft deeply nested or complex queries that consume excessive CPU and memory, causing Denial of Service attacks."
+      incorrect:
+        - "Performance differences are not vulnerabilities."
+        - "Maintenance complexity is an operational concern, not a security vulnerability."
+        - "GraphQL caching is possible with proper configuration."
+    difficulty: hard
+    tags: ["graphql", "vulnerabilities"]
+
+  - id: q-d8-055
+    domain: domain8
+    question: "Which secrets management practice is most secure?"
+    options:
+      - "Store secrets in a dedicated secrets manager with encryption and audit logging"
+      - "Hardcode secrets in application configuration files"
+      - "Store secrets in environment variables accessible to all developers"
+      - "Embed secrets in version control with a note not to commit"
+    correct_answer: 0
+    explanations:
+      correct: "A dedicated secrets manager provides encryption, access controls, audit trails, and automatic rotation — the industry standard for secure secrets management."
+      incorrect:
+        - "Hardcoding is highly insecure and violates all security best practices."
+        - "Storing in accessible environment variables lacks encryption and audit controls."
+        - "Storing in version control violates fundamental security principles regardless of notes."
+    difficulty: medium
+    tags: ["secrets-management", "secure-coding"]
+
+  - id: q-d8-056
+    domain: domain8
+    question: "What is the primary security benefit of OAuth 2.0?"
+    options:
+      - "Enables granular delegated access without sharing passwords"
+      - "Encrypts all data in transit automatically"
+      - "Replaces the need for firewalls"
+      - "Provides multi-factor authentication by default"
+    correct_answer: 0
+    explanations:
+      correct: "OAuth 2.0 allows users to grant applications limited access to their resources without exposing passwords, using delegated authorization tokens."
+      incorrect:
+        - "Data encryption is separate from OAuth's authorization scope."
+        - "OAuth is an authorization protocol, not a network security tool."
+        - "MFA is not inherent to OAuth 2.0, though it can be integrated."
+    difficulty: easy
+    tags: ["oauth", "authentication"]
+
+  - id: q-d8-057
+    domain: domain8
+    question: "What is DAST in the context of DevSecOps?"
+    options:
+      - "Dynamic Application Security Testing that evaluates running applications for vulnerabilities"
+      - "Database Application Security Tuning for performance optimization"
+      - "Data Aggregation and Statistical Testing for analytics"
+      - "Distributed Authentication Security Token management"
+    correct_answer: 0
+    explanations:
+      correct: "DAST performs runtime security testing on deployed applications by simulating attacks and analyzing responses — complementary to static code analysis."
+      incorrect:
+        - "Database tuning is not related to security testing."
+        - "Data analytics uses different methodologies than security testing."
+        - "Token management is an authentication function, not testing."
+    difficulty: medium
+    tags: ["DAST", "DevSecOps"]
+
+  - id: q-d8-058
+    domain: domain8
+    question: "What is the primary purpose of container image scanning?"
+    options:
+      - "Identify known vulnerabilities in container layers and dependencies before deployment"
+      - "Verify container performance metrics and resource usage"
+      - "Monitor network traffic between containers"
+      - "Ensure containers follow naming conventions"
+    correct_answer: 0
+    explanations:
+      correct: "Container scanning tools analyze container images against vulnerability databases to detect and prevent deployment of vulnerable components."
+      incorrect:
+        - "Performance verification is separate from security scanning."
+        - "Network monitoring is runtime observation, not image analysis."
+        - "Naming conventions are operational standards, not security concerns."
+    difficulty: easy
+    tags: ["container-security", "vulnerability-scanning"]
+
+  - id: q-d8-059
+    domain: domain8
+    question: "What unique security challenge does serverless computing introduce?"
+    options:
+      - "Reduced visibility into the execution environment and inability to patch the underlying infrastructure"
+      - "Increased server maintenance overhead"
+      - "Requirement for on-premises hardware"
+      - "Inability to use encryption"
+    correct_answer: 0
+    explanations:
+      correct: "Serverless platforms abstract infrastructure management, limiting security teams' visibility and control over patching, configuration, and compliance monitoring."
+      incorrect:
+        - "Serverless eliminates server maintenance entirely."
+        - "Serverless is cloud-native and doesn't require on-premises hardware."
+        - "Encryption is fully supported in serverless architectures."
+    difficulty: medium
+    tags: ["serverless", "cloud-security"]
+
+  - id: q-d8-060
+    domain: domain8
+    question: "What is certificate pinning?"
+    options:
+      - "Restricting applications to accept only specific certificates from trusted Certificate Authorities"
+      - "Attaching certificates to server hardware"
+      - "Rotating certificates on a fixed schedule"
+      - "Encrypting certificate files on disk"
+    correct_answer: 0
+    explanations:
+      correct: "Certificate pinning embeds known-good certificate public keys in applications, preventing MITM attacks even if CAs are compromised."
+      incorrect:
+        - "Physical attachment is not how pinning works."
+        - "Certificate rotation is a key management practice, not pinning."
+        - "Disk encryption protects files but doesn't prevent acceptance of malicious certificates."
+    difficulty: hard
+    tags: ["certificate-security", "MITM-prevention"]
+
+  - id: q-d8-061
+    domain: domain8
+    question: "What threat modeling framework focuses on business processes?"
+    options:
+      - "PASTA (Process for Attack Simulation and Threat Analysis)"
+      - "STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)"
+      - "CVSS (Common Vulnerability Scoring System)"
+      - "NIST RMF (Risk Management Framework)"
+    correct_answer: 0
+    explanations:
+      correct: "PASTA is risk-centric and starts with business objectives, analyzing how attacks impact business processes — unlike STRIDE which focuses on system components."
+      incorrect:
+        - "STRIDE models threats against system elements (Spoofing, Tampering, etc.) — not business processes."
+        - "CVSS scores vulnerability severity, not a threat modeling framework."
+        - "NIST RMF is a governance framework, not a threat modeling methodology."
+    difficulty: hard
+    tags: ["threat-modeling", "PASTA"]
+
+  - id: q-d8-062
+    domain: domain8
+    question: "What is software provenance in supply chain security?"
+    options:
+      - "Documented origin and history of software components showing where they came from and how they were built"
+      - "Software licensing requirements"
+      - "Performance metrics of software"
+      - "User reviews of applications"
+    correct_answer: 0
+    explanations:
+      correct: "Provenance tracks the origin, build process, and modifications of software to establish trust and detect tampering or malicious injection."
+      incorrect:
+        - "Licensing is a legal concern, not provenance."
+        - "Performance is unrelated to supply chain provenance."
+        - "User reviews are subjective opinions, not provenance data."
+    difficulty: hard
+    tags: ["supply-chain", "provenance"]
+
+  - id: q-d8-063
+    domain: domain8
+    question: "What is the primary goal of artifact signing?"
+    options:
+      - "Ensure the integrity and authenticity of software artifacts by cryptographically signing them"
+      - "Compress artifacts for storage"
+      - "Document who built the artifact"
+      - "Validate artifact performance"
+    correct_answer: 0
+    explanations:
+      correct: "Artifact signing uses cryptographic signatures to verify that artifacts haven't been tampered with and come from a trusted source — essential for supply chain security."
+      incorrect:
+        - "Compression is a storage technique, not security."
+        - "Documentation alone doesn't provide cryptographic verification."
+        - "Performance validation is a quality concern, not security."
+    difficulty: medium
+    tags: ["artifact-signing", "supply-chain"]
+
+  - id: q-d8-064
+    domain: domain8
+    question: "What is the purpose of tabletop exercises in incident response?"
+    options:
+      - "Simulate incident scenarios in a controlled environment to test and improve response procedures"
+      - "Document all software installed on systems"
+      - "Train developers on secure coding"
+      - "Perform vulnerability scans"
+    correct_answer: 0
+    explanations:
+      correct: "Tabletop exercises walkthrough incident scenarios to identify gaps in procedures, clarify roles, and build team readiness before real incidents occur."
+      incorrect:
+        - "Software inventory is an asset management task, not incident response."
+        - "Secure coding training is a separate security activity."
+        - "Vulnerability scanning is a technical assessment, not incident response."
+    difficulty: medium
+    tags: ["incident-response", "testing"]
+
+  - id: q-d8-065
+    domain: domain8
+    question: "What is cryptographic key rotation?"
+    options:
+      - "Periodically replacing old keys with new ones to limit the impact of key compromise"
+      - "Storing multiple copies of the same key"
+      - "Encrypting keys with additional keys"
+      - "Deleting unused keys from memory"
+    correct_answer: 0
+    explanations:
+      correct: "Key rotation periodically generates new keys and re-encrypts data, limiting the window of exposure if a key is compromised."
+      incorrect:
+        - "Key duplication doesn't improve security."
+        - "Layered encryption increases complexity without addressing rotation needs."
+        - "Memory cleanup is a basic security practice, not rotation."
+    difficulty: medium
+    tags: ["key-management", "cryptography"]
+
+  - id: q-d8-066
+    domain: domain8
+    question: "What defines a horizontal privilege escalation attack?"
+    options:
+      - "An attacker accesses another user's resources at the same privilege level"
+      - "An attacker gains access to an administrator account"
+      - "An attacker escapes from a container"
+      - "An attacker exploits a network vulnerability"
+    correct_answer: 0
+    explanations:
+      correct: "Horizontal escalation involves accessing other users' resources without gaining higher privileges — often through IDOR or broken access control."
+      incorrect:
+        - "Vertical escalation involves moving from low to high privileges."
+        - "Container escape is a different attack vector."
+        - "Network exploitation is a separate attack category."
+    difficulty: medium
+    tags: ["privilege-escalation", "access-control"]
+
+  - id: q-d8-067
+    domain: domain8
+    question: "What is the biggest risk of information disclosure?"
+    options:
+      - "Exposure of sensitive data that can be used for further attacks or cause regulatory violations"
+      - "Loss of system availability"
+      - "Corruption of application data"
+      - "Slow application performance"
+    correct_answer: 0
+    explanations:
+      correct: "Information disclosure exposes confidential data (PII, credentials, trade secrets) leading to identity theft, financial loss, and compliance violations."
+      incorrect:
+        - "Data loss affects availability, not disclosure."
+        - "Data corruption affects integrity, not confidentiality."
+        - "Performance issues are availability concerns."
+    difficulty: medium
+    tags: ["information-disclosure", "confidentiality"]
+
+  - id: q-d8-068
+    domain: domain8
+    question: "What governance mechanism ensures security compliance?"
+    options:
+      - "Security policies, procedures, and regular audits to verify adherence to regulations and standards"
+      - "Installing security software on all systems"
+      - "Encrypting all data"
+      - "Requiring password changes monthly"
+    correct_answer: 0
+    explanations:
+      correct: "Governance establishes policies, assigns responsibilities, and audits compliance with legal/regulatory requirements and security standards."
+      incorrect:
+        - "Security tools alone don't ensure governance."
+        - "Encryption is a technical control, not governance."
+        - "Password policies are one control element, not comprehensive governance."
+    difficulty: easy
+    tags: ["governance", "compliance"]
+
+  - id: q-d8-069
+    domain: domain8
+    question: "What is the primary purpose of secure code review?"
+    options:
+      - "Identify security vulnerabilities in source code before deployment"
+      - "Verify code formatting and style consistency"
+      - "Measure code coverage percentages"
+      - "Optimize code for performance"
+    correct_answer: 0
+    explanations:
+      correct: "Security code reviews analyze source code for vulnerabilities like injection flaws, weak authentication, and insecure data handling before production deployment."
+      incorrect:
+        - "Code formatting is a style concern, not security."
+        - "Code coverage measures testing completeness, not security."
+        - "Performance optimization is a different review objective."
+    difficulty: easy
+    tags: ["code-review", "secure-coding"]
+
+  - id: q-d8-070
+    domain: domain8
+    question: "What is fuzzing in security testing?"
+    options:
+      - "Feeding random or malformed input to applications to discover vulnerabilities and crashes"
+      - "Obfuscating code to prevent reverse engineering"
+      - "Adding extra noise to network traffic"
+      - "Randomizing encryption keys"
+    correct_answer: 0
+    explanations:
+      correct: "Fuzzing sends invalid, unexpected, or random data to applications to trigger crashes, memory leaks, or unexpected behavior revealing vulnerabilities."
+      incorrect:
+        - "Code obfuscation is a reverse-engineering defense, not testing."
+        - "Network noise is unrelated to fuzzing."
+        - "Key randomization is a cryptographic practice."
+    difficulty: medium
+    tags: ["fuzzing", "testing"]
+
+  - id: q-d8-071
+    domain: domain8
+    question: "What makes BOLA (Broken Object Level Authorization) dangerous?"
+    options:
+      - "Allows users to access other users' objects by manipulating object identifiers without proper authorization checks"
+      - "Breaks object-oriented programming models"
+      - "Causes objects to fail during serialization"
+      - "Prevents objects from being created"
+    correct_answer: 0
+    explanations:
+      correct: "BOLA occurs when applications fail to verify ownership — attackers simply modify resource IDs in requests to access other users' data."
+      incorrect:
+        - "OOP models are not affected."
+        - "Serialization failures are different issues."
+        - "BOLA affects access, not object creation."
+    difficulty: medium
+    tags: ["BOLA", "access-control"]
+
+  - id: q-d8-072
+    domain: domain8
+    question: "What is a security champion program?"
+    options:
+      - "Designating developers and security-focused team members to promote secure practices across the organization"
+      - "Hiring only experts in cybersecurity"
+      - "Installing intrusion detection systems"
+      - "Conducting weekly penetration tests"
+    correct_answer: 0
+    explanations:
+      correct: "Security champions are advocates within teams who mentor peers, review code for security, and drive adoption of secure practices from within the organization."
+      incorrect:
+        - "Exclusive hiring is impractical and not a champion program."
+        - "IDS installation is a technical control, not a champion program."
+        - "Penetration testing is an assessment activity, not a champion program."
+    difficulty: easy
+    tags: ["security-culture", "DevSecOps"]
+
+  - id: q-d8-073
+    domain: domain8
+    question: "What is API rate limiting?"
+    options:
+      - "Restricting the number of API requests a client can make in a time period to prevent abuse and DoS attacks"
+      - "Limiting the size of API payloads"
+      - "Reducing API response times"
+      - "Controlling API versioning"
+    correct_answer: 0
+    explanations:
+      correct: "Rate limiting enforces request quotas per client, preventing attackers from brute-forcing credentials, scraping data, or overwhelming servers with requests."
+      incorrect:
+        - "Payload size is a different control."
+        - "Response times relate to performance, not rate limiting."
+        - "Versioning is an API management feature."
+    difficulty: medium
+    tags: ["api-security", "DoS-prevention"]
+
+  - id: q-d8-074
+    domain: domain8
+    question: "What is the principle of defense in depth?"
+    options:
+      - "Implementing multiple layers of security controls so that if one fails, others still protect the system"
+      - "Using the strongest encryption available"
+      - "Installing only one comprehensive security tool"
+      - "Blocking all external traffic"
+    correct_answer: 0
+    explanations:
+      correct: "Defense in depth uses layered, overlapping controls (firewalls, IDS, WAF, input validation, encryption) so a single failure doesn't compromise security."
+      incorrect:
+        - "Encryption is one layer, not defense in depth."
+        - "Single tools lack redundancy."
+        - "Blocking all traffic is impractical and doesn't represent layered defense."
+    difficulty: easy
+    tags: ["secure-design", "principles"]
+
+  - id: q-d8-075
+    domain: domain8
+    question: "What is the risk of using outdated third-party libraries?"
+    options:
+      - "Known vulnerabilities in outdated libraries can be exploited by attackers before patches are applied"
+      - "Outdated libraries are slower"
+      - "Outdated libraries use deprecated programming features"
+      - "Outdated libraries lack documentation"
+    correct_answer: 0
+    explanations:
+      correct: "Outdated libraries often contain publicly disclosed vulnerabilities that attackers actively exploit before organizations apply updates."
+      incorrect:
+        - "Performance is secondary to security."
+        - "Deprecated features don't equal vulnerability."
+        - "Documentation availability is not a security concern."
+    difficulty: medium
+    tags: ["supply-chain", "dependency-management"]
+
+  - id: q-d8-076
+    domain: domain8
+    question: "What is Infrastructure as Code (IaC) security?"
+    options:
+      - "Securing infrastructure configurations defined in code to prevent misconfigurations from being deployed"
+      - "Coding security policies manually"
+      - "Encrypting infrastructure blueprints"
+      - "Versioning infrastructure changes"
+    correct_answer: 0
+    explanations:
+      correct: "IaC security involves scanning, validating, and securing infrastructure definitions before they're deployed to prevent security misconfigurations."
+      incorrect:
+        - "Manual coding doesn't scale or provide automation."
+        - "Encryption alone doesn't address misconfiguration risks."
+        - "Versioning is important but doesn't address security validation."
+    difficulty: medium
+    tags: ["IaC", "DevSecOps"]
+
+  - id: q-d8-077
+    domain: domain8
+    question: "What is the security benefit of immutable infrastructure?"
+    options:
+      - "Systems cannot be changed after deployment, preventing tampering and ensuring consistency"
+      - "Systems run faster"
+      - "Systems use less storage"
+      - "Systems are easier to debug"
+    correct_answer: 0
+    explanations:
+      correct: "Immutable infrastructure prevents post-deployment modifications, making tampering obvious and ensuring every instance is identical and pre-tested."
+      incorrect:
+        - "Performance is not directly related to immutability."
+        - "Storage usage is independent of immutability."
+        - "Debugging is more difficult with immutable systems."
+    difficulty: medium
+    tags: ["infrastructure-security", "DevSecOps"]
+
+  - id: q-d8-078
+    domain: domain8
+    question: "What is a security incident?"
+    options:
+      - "An event that violates security policies or indicates a breach or attempted breach of a system"
+      - "A system that crashes"
+      - "A feature that users don't like"
+      - "A software update"
+    correct_answer: 0
+    explanations:
+      correct: "Security incidents include unauthorized access, data breaches, malware infections, and policy violations that require investigation and response."
+      incorrect:
+        - "System crashes are availability issues, not necessarily security incidents."
+        - "User preferences are not security concerns."
+        - "Software updates are maintenance activities."
+    difficulty: easy
+    tags: ["incident-response"]
+
+  - id: q-d8-079
+    domain: domain8
+    question: "What is the purpose of a security baseline?"
+    options:
+      - "Establish a minimum set of security configurations and controls that all systems must meet"
+      - "Measure system performance"
+      - "Document user complaints"
+      - "Track software licenses"
+    correct_answer: 0
+    explanations:
+      correct: "Baselines define mandatory security settings, configurations, and controls that organizations enforce across all systems for consistency."
+      incorrect:
+        - "Performance measurement is separate."
+        - "User complaints are feedback, not baselines."
+        - "License tracking is an inventory function."
+    difficulty: easy
+    tags: ["security-standards", "compliance"]
+
+  - id: q-d8-080
+    domain: domain8
+    question: "What is the CVSS scoring system used for?"
+    options:
+      - "Quantifying the severity of vulnerabilities on a scale to prioritize remediation efforts"
+      - "Counting total vulnerabilities in a system"
+      - "Predicting when vulnerabilities will be exploited"
+      - "Measuring code quality"
+    correct_answer: 0
+    explanations:
+      correct: "CVSS provides standardized numerical scores (0-10) reflecting vulnerability severity to help organizations prioritize patching and resource allocation."
+      incorrect:
+        - "CVSS doesn't just count vulnerabilities."
+        - "CVSS doesn't predict exploitation timing."
+        - "Code quality is measured separately."
+    difficulty: easy
+    tags: ["vulnerability-management", "CVSS"]
+
+  - id: q-d8-081
+    domain: domain8
+    question: "What is the purpose of honeypots?"
+    options:
+      - "Decoy systems designed to attract attackers and detect unauthorized access attempts"
+      - "Encrypt sensitive data"
+      - "Backup production systems"
+      - "Monitor legitimate user activity"
+    correct_answer: 0
+    explanations:
+      correct: "Honeypots are fake systems that attract attackers, allowing security teams to detect intrusions, study attack techniques, and gather intelligence."
+      incorrect:
+        - "Encryption is data protection, not detection."
+        - "Honeypots are not backups."
+        - "Honeypots target malicious activity, not legitimate users."
+    difficulty: medium
+    tags: ["threat-detection", "incident-response"]
+
+  - id: q-d8-082
+    domain: domain8
+    question: "What is secure by design?"
+    options:
+      - "Building security into systems from the earliest stages of development rather than adding it later"
+      - "Using only secure technologies"
+      - "Hiring only experienced security professionals"
+      - "Never deploying to the cloud"
+    correct_answer: 0
+    explanations:
+      correct: "Secure by design integrates security requirements, threat modeling, and secure practices into every development phase from inception."
+      incorrect:
+        - "Technology selection alone doesn't ensure design security."
+        - "Team expertise is important but insufficient without design practices."
+        - "Cloud deployment can be secure with proper practices."
+    difficulty: easy
+    tags: ["secure-design", "SDLC"]
+
+  - id: q-d8-083
+    domain: domain8
+    question: "What is the main advantage of automated security testing?"
+    options:
+      - "Continuously identify vulnerabilities quickly and consistently without manual effort"
+      - "Eliminate the need for security professionals"
+      - "Guarantee no vulnerabilities will ever be found"
+      - "Reduce system performance"
+    correct_answer: 0
+    explanations:
+      correct: "Automated testing provides rapid, repeatable vulnerability detection integrated into CI/CD, enabling earlier issue discovery and faster remediation."
+      incorrect:
+        - "Automation enhances, not replaces, security experts."
+        - "No testing can guarantee zero vulnerabilities."
+        - "Testing overhead is typically minimal in CI/CD."
+    difficulty: medium
+    tags: ["automated-testing", "DevSecOps"]
+
+  - id: q-d8-084
+    domain: domain8
+    question: "What is a Software Security Maturity Model?"
+    options:
+      - "A framework for assessing and improving an organization's security practices and processes over time"
+      - "A model for predicting software costs"
+      - "A method for designing user interfaces"
+      - "A technique for optimizing database performance"
+    correct_answer: 0
+    explanations:
+      correct: "Maturity models (like SAMM) define levels of security capability, helping organizations assess current practices and plan improvements systematically."
+      incorrect:
+        - "Cost prediction is an economic model."
+        - "UI design is unrelated to security maturity."
+        - "Database optimization is a performance concern."
+    difficulty: medium
+    tags: ["maturity-models", "governance"]
+
+  - id: q-d8-085
+    domain: domain8
+    question: "What is the primary goal of penetration testing?"
+    options:
+      - "Simulate real-world attacks to identify exploitable vulnerabilities and weaknesses in defenses"
+      - "Measure system performance under load"
+      - "Test backup and recovery procedures"
+      - "Verify user authentication credentials"
+    correct_answer: 0
+    explanations:
+      correct: "Penetration testing actively attempts to exploit vulnerabilities to demonstrate real-world attack impact and validate defensive controls."
+      incorrect:
+        - "Load testing measures performance, not security."
+        - "Disaster recovery testing is separate from pen testing."
+        - "Credential testing is operational, not penetration testing."
+    difficulty: easy
+    tags: ["penetration-testing", "assessment"]
+
+  - id: q-d8-086
+    domain: domain8
+    question: "What is the security risk of accepting user input without validation?"
+    options:
+      - "Attackers can inject malicious code, manipulate data, or exploit the application"
+      - "The system will run slowly"
+      - "Users will be unhappy"
+      - "The application will crash"
+    correct_answer: 0
+    explanations:
+      correct: "Unvalidated input enables injection attacks (SQL, OS, LDAP), XSS, path traversal, and other exploits that compromise confidentiality and integrity."
+      incorrect:
+        - "Performance is secondary to security."
+        - "User satisfaction is not a security concern."
+        - "Crashes are possible but secondary to exploitation risk."
+    difficulty: easy
+    tags: ["input-validation", "vulnerabilities"]
+
+  - id: q-d8-087
+    domain: domain8
+    question: "What does secure configuration management include?"
+    options:
+      - "Documenting and enforcing secure baselines for systems, disabling unnecessary services, and regularly auditing configurations"
+      - "Changing passwords randomly"
+      - "Installing the most recent software versions"
+      - "Rebooting systems frequently"
+    correct_answer: 0
+    explanations:
+      correct: "Configuration management establishes baselines, hardens systems, removes unnecessary services, and maintains audit trails to ensure consistent security posture."
+      incorrect:
+        - "Password management is separate."
+        - "Latest versions may introduce different risks; baselines are what matter."
+        - "Rebooting is not configuration management."
+    difficulty: medium
+    tags: ["configuration-management", "hardening"]
+
+  - id: q-d8-088
+    domain: domain8
+    question: "What is the principle of least privilege?"
+    options:
+      - "Users and processes receive only the minimum permissions necessary to perform their functions"
+      - "All users have administrative access"
+      - "Permissions are granted without restriction"
+      - "Privileges are determined by tenure"
+    correct_answer: 0
+    explanations:
+      correct: "Least privilege minimizes attack surface by limiting what compromised accounts can access, containing breach damage."
+      incorrect:
+        - "Universal admin access violates security principles."
+        - "Unrestricted permissions maximize risks."
+        - "Tenure is not a security criterion."
+    difficulty: easy
+    tags: ["access-control", "principles"]
+
+  - id: q-d8-089
+    domain: domain8
+    question: "What is the primary purpose of cryptography?"
+    options:
+      - "Protect the confidentiality and integrity of information through mathematical algorithms"
+      - "Improve system performance"
+      - "Reduce storage requirements"
+      - "Simplify user authentication"
+    correct_answer: 0
+    explanations:
+      correct: "Cryptography uses mathematical algorithms to encrypt data (confidentiality), verify authenticity (integrity), and enable secure key exchange."
+      incorrect:
+        - "Encryption has performance overhead."
+        - "Encryption may increase storage due to overhead."
+        - "Cryptography is more complex than simple authentication."
+    difficulty: easy
+    tags: ["cryptography"]
+
+  - id: q-d8-090
+    domain: domain8
+    question: "What is secure logging and monitoring?"
+    options:
+      - "Recording security-relevant events, protecting logs from tampering, and analyzing them for anomalies"
+      - "Preventing all errors from being logged"
+      - "Logging performance metrics only"
+      - "Monitoring system availability"
+    correct_answer: 0
+    explanations:
+      correct: "Secure logging captures authentication attempts, privilege changes, data access, and errors; logs are protected from tampering and analyzed for threats."
+      incorrect:
+        - "Error logging is essential for security."
+        - "Performance logging is separate from security monitoring."
+        - "Availability monitoring is operational, not security logging."
+    difficulty: medium
+    tags: ["logging", "monitoring"]
+
+  - id: q-d8-091
+    domain: domain8
+    question: "What is the risk of unencrypted data transmission?"
+    options:
+      - "Attackers can intercept and read sensitive data in transit (man-in-the-middle attacks)"
+      - "Data transmission is slower"
+      - "The system will use more bandwidth"
+      - "Users cannot authenticate"
+    correct_answer: 0
+    explanations:
+      correct: "Unencrypted transmission allows attackers to sniff passwords, tokens, PII, and other sensitive data from network traffic."
+      incorrect:
+        - "Encryption has minimal performance impact."
+        - "Encryption overhead is negligible with modern protocols."
+        - "Encryption supports authentication."
+    difficulty: easy
+    tags: ["encryption", "data-protection"]
+
+  - id: q-d8-092
+    domain: domain8
+    question: "What is the purpose of security awareness training?"
+    options:
+      - "Educate employees about security threats, best practices, and their role in protecting organizational assets"
+      - "Replace security technology"
+      - "Teach employees to code securely"
+      - "Document all security incidents"
+    correct_answer: 0
+    explanations:
+      correct: "Security awareness training reduces human vulnerabilities by teaching employees about phishing, social engineering, password hygiene, and incident reporting."
+      incorrect:
+        - "Training complements but doesn't replace technical controls."
+        - "Secure coding is specialized training, not general awareness."
+        - "Incident documentation is separate from training."
+    difficulty: easy
+    tags: ["security-awareness", "training"]
+
+  - id: q-d8-093
+    domain: domain8
+    question: "What is a data retention policy?"
+    options:
+      - "Guidelines specifying how long different data types must be kept before secure deletion"
+      - "Requirements for employee retention"
+      - "Policies for data backup scheduling"
+      - "Rules for data access"
+    correct_answer: 0
+    explanations:
+      correct: "Data retention policies define storage duration based on legal requirements and business needs, reducing exposure by limiting the time sensitive data persists."
+      incorrect:
+        - "Employee retention is an HR policy."
+        - "Backup scheduling is operational, not retention policy."
+        - "Access controls are separate from retention."
+    difficulty: medium
+    tags: ["data-protection", "compliance"]
+
+  - id: q-d8-094
+    domain: domain8
+    question: "What is privacy by design?"
+    options:
+      - "Integrating privacy and data protection principles into system design from the beginning"
+      - "Adding privacy features as an afterthought"
+      - "Collecting minimal data"
+      - "Using only encrypted storage"
+    correct_answer: 0
+    explanations:
+      correct: "Privacy by design embeds privacy requirements, minimization, consent, and transparency into architecture and development, not added later."
+      incorrect:
+        - "Afterthought approaches miss critical design phases."
+        - "Data minimization alone is insufficient."
+        - "Encryption is one control, not comprehensive privacy design."
+    difficulty: medium
+    tags: ["privacy", "secure-design"]
+
+  - id: q-d8-095
+    domain: domain8
+    question: "What is the purpose of business continuity planning?"
+    options:
+      - "Ensure critical business functions can continue or resume quickly after disruptions"
+      - "Reduce employee absences"
+      - "Improve customer satisfaction"
+      - "Minimize software bugs"
+    correct_answer: 0
+    explanations:
+      correct: "Business continuity planning identifies critical functions, develops recovery procedures, and tests them to minimize downtime from incidents."
+      incorrect:
+        - "HR management is separate."
+        - "Customer satisfaction is secondary to continuity."
+        - "Bug management is quality assurance, not continuity."
+    difficulty: easy
+    tags: ["business-continuity", "disaster-recovery"]
+
+  - id: q-d8-096
+    domain: domain8
+    question: "What is risk assessment in security?"
+    options:
+      - "Systematically identifying, analyzing, and evaluating threats, vulnerabilities, and potential impacts to prioritize controls"
+      - "Counting total vulnerabilities"
+      - "Installing security tools"
+      - "Hiring security consultants"
+    correct_answer: 0
+    explanations:
+      correct: "Risk assessment quantifies likelihood and impact to identify priorities, justify investments, and guide control implementation decisions."
+      incorrect:
+        - "Vulnerability counts don't reflect risk."
+        - "Tools alone don't replace assessment."
+        - "Consultants support assessment but aren't assessment itself."
+    difficulty: medium
+    tags: ["risk-management", "assessment"]
+
+  - id: q-d8-097
+    domain: domain8
+    question: "What is security metrics and measurement?"
+    options:
+      - "Collecting and analyzing data to assess security effectiveness and identify improvement areas"
+      - "Counting failed login attempts"
+      - "Measuring system uptime"
+      - "Recording employee training attendance"
+    correct_answer: 0
+    explanations:
+      correct: "Security metrics measure control effectiveness, vulnerability trends, incident response times, and compliance — enabling data-driven security management."
+      incorrect:
+        - "Login failures are one metric among many."
+        - "Uptime is availability, not security."
+        - "Training metrics are HR data."
+    difficulty: medium
+    tags: ["metrics", "governance"]
+
+  - id: q-d8-098
+    domain: domain8
+    question: "What is the purpose of security standards and frameworks?"
+    options:
+      - "Provide guidance on implementing security controls and best practices for consistent protection"
+      - "Replace organizational security policies"
+      - "Guarantee complete protection from attacks"
+      - "Eliminate the need for internal assessments"
+    correct_answer: 0
+    explanations:
+      correct: "Standards (ISO 27001, NIST CSF) and frameworks provide structured guidance for implementing controls, improving security maturity, and demonstrating compliance."
+      incorrect:
+        - "Standards complement but don't replace policies."
+        - "No framework guarantees complete protection."
+        - "Frameworks inform assessments; they don't eliminate them."
+    difficulty: easy
+    tags: ["standards", "frameworks"]
+
+  - id: q-d8-099
+    domain: domain8
+    question: "What is secure development lifecycle?"
+    options:
+      - "Integrating security practices and controls throughout all phases of software development"
+      - "Only testing for security at the end"
+      - "Hiring security specialists"
+      - "Using secure programming languages"
+    correct_answer: 0
+    explanations:
+      correct: "S-SDLC incorporates threat modeling, secure design, code review, testing, and secure deployment — shifting security left to prevent vulnerabilities early."
+      incorrect:
+        - "End-stage testing is reactive, not S-SDLC."
+        - "Specialists are necessary but insufficient."
+        - "Language choice is one factor among many."
+    difficulty: easy
+    tags: ["SDLC", "secure-development"]
+
+  - id: q-d8-100
+    domain: domain8
+    question: "What is the role of compliance in information security?"
+    options:
+      - "Ensure systems meet legal, regulatory, and contractual requirements protecting data and privacy"
+      - "Improve application performance"
+      - "Reduce software development costs"
+      - "Simplify user interfaces"
+    correct_answer: 0
+    explanations:
+      correct: "Compliance ensures adherence to regulations (GDPR, HIPAA, PCI-DSS) and standards (ISO 27001), reducing legal liability and protecting sensitive data."
+      incorrect:
+        - "Performance is unrelated to compliance."
+        - "Compliance may increase development costs."
+        - "UI design is separate from compliance."
+    difficulty: easy
+    tags: ["compliance", "governance"]
