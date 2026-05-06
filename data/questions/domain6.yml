@@ -986,3 +986,952 @@ questions:
         - "CIS Benchmarks cover system and infrastructure configurations — not application source code security."
     difficulty: "easy"
     tags: ["standards", "compliance", "configuration"]
+
+  - id: q-d6-053
+    domain: domain6
+    question: "A vulnerability researcher discovers a critical zero-day in a widely-used open-source library. Under responsible disclosure practices, what is the researcher's first step?"
+    options:
+      - "Publish full technical details and proof-of-concept exploit immediately on social media"
+      - "Notify the software vendor or maintainer privately and allow a reasonable time to develop and release a patch"
+      - "Report the vulnerability to government cybersecurity agencies before notifying the vendor"
+      - "Sell the exploit to a vulnerability broker for maximum financial return"
+    correct_answer: 1
+    explanations:
+      correct: "Responsible disclosure (also called coordinated disclosure) requires notifying the vendor privately first, giving them a reasonable remediation window (typically 90 days, per Google Project Zero standards) before any public disclosure. This protects users while maintaining researcher accountability."
+      incorrect:
+        - "Immediate public disclosure is 'full disclosure' — it maximizes public awareness but gives attackers the exploit before patches exist. Responsible disclosure avoids this."
+        - "Coordinated notification to the vendor first is correct — government notification may follow but vendor-first is the responsible disclosure standard."
+        - "Selling exploits to brokers is legal in some contexts but is not responsible disclosure and may violate the vendor's terms or applicable law."
+    difficulty: "easy"
+    tags: ["responsible-disclosure", "vulnerability-disclosure", "CVD", "ethics"]
+
+  - id: q-d6-054
+    domain: domain6
+    question: "A CVSS 3.1 base score uses which component vectors to calculate the score? (Select the best answer)"
+    options:
+      - "Attack Vector, Attack Complexity, Privileges Required, User Interaction, Scope, Confidentiality, Integrity, Availability"
+      - "Exploitability, Remediation Level, Report Confidence, and three Impact metrics"
+      - "Asset Value, Threat Likelihood, Control Effectiveness, and Vulnerability Severity"
+      - "Vulnerability Age, Patch Availability, and Business Impact"
+    correct_answer: 0
+    explanations:
+      correct: "CVSS 3.1 base score comprises: Exploitability metrics (Attack Vector, Attack Complexity, Privileges Required, User Interaction) and Impact metrics (Scope, Confidentiality impact, Integrity impact, Availability impact). These base metrics are constant regardless of environment or threat context."
+      incorrect:
+        - "The eight base score vectors are correct — these are the CVSS 3.1 Base Score components."
+        - "Exploitability, Remediation Level, and Report Confidence are Temporal score metrics (not base score); they adjust the base score based on current exploit and patch status."
+        - "Asset value and control effectiveness are Environmental score metrics that organizations overlay on the base score."
+        - "Vulnerability age and patch availability are Temporal metrics, not base score components."
+    difficulty: "medium"
+    tags: ["CVSS", "vulnerability-scoring", "base-score", "metrics"]
+
+  - id: q-d6-055
+    domain: domain6
+    question: "A purple team exercise combines red team and blue team activities. What is the PRIMARY benefit of a purple team approach over separate red/blue engagements?"
+    options:
+      - "Purple team exercises are less expensive than separate red and blue team engagements"
+      - "Real-time collaboration between attackers and defenders accelerates detection capability improvement and knowledge transfer"
+      - "Purple teams test production systems without the risk of service disruption"
+      - "Purple teams replace the need for continuous monitoring tools"
+    correct_answer: 1
+    explanations:
+      correct: "Purple team exercises have the red team conduct attacks while the blue team observes and responds in real time, with knowledge sharing between both teams. This accelerates blue team detection capability improvement — the red team shows exactly how attacks are executed, and the blue team tunes detections immediately rather than learning from a post-exercise report."
+      incorrect:
+        - "Purple team exercises often involve senior resources from both teams and are not necessarily less expensive."
+        - "Real-time attack-defend collaboration with knowledge transfer is correct — this is the defining value proposition of purple teaming."
+        - "Production risk is managed by scoping all team types; purple teams don't inherently reduce this risk."
+        - "Purple teams complement continuous monitoring by improving detection logic; they do not replace monitoring infrastructure."
+    difficulty: "medium"
+    tags: ["purple-team", "red-team", "blue-team", "security-testing"]
+
+  - id: q-d6-056
+    domain: domain6
+    question: "Software Composition Analysis (SCA) tools address which specific security risk in modern software development?"
+    options:
+      - "SQL injection vulnerabilities in custom application code"
+      - "Known vulnerabilities in open-source libraries and third-party dependencies"
+      - "Authentication weaknesses in application login flows"
+      - "Misconfigured cloud infrastructure"
+    correct_answer: 1
+    explanations:
+      correct: "SCA tools scan project dependencies (npm packages, Maven artifacts, Python packages, etc.) against vulnerability databases (NVD, OSV) to identify components with known CVEs. With the average application using hundreds of open-source components, SCA is essential for managing third-party supply chain risk."
+      incorrect:
+        - "SQL injection in custom code is detected by SAST and DAST tools, not SCA — SCA analyzes dependencies, not custom code logic."
+        - "Known vulnerabilities in open-source dependencies is correct — SCA maps dependencies to CVE/vulnerability databases."
+        - "Authentication weaknesses are found through DAST, code review, or threat modeling — SCA analyzes dependency versions."
+        - "Cloud misconfiguration is addressed by CSPM (Cloud Security Posture Management) tools, not SCA."
+    difficulty: "easy"
+    tags: ["SCA", "supply-chain", "open-source", "dependency-management"]
+
+  - id: q-d6-057
+    domain: domain6
+    question: "IAST (Interactive Application Security Testing) differs from SAST and DAST primarily in that it:"
+    options:
+      - "Tests applications after deployment in production environments"
+      - "Instruments the application at runtime and detects vulnerabilities from inside the application during normal execution or testing"
+      - "Analyzes source code without executing the application"
+      - "Simulates external attacks against the application from the network perimeter"
+    correct_answer: 1
+    explanations:
+      correct: "IAST uses agents or sensors instrumented inside the running application to monitor execution paths, data flows, and function calls in real time. It can detect vulnerabilities that neither static analysis nor external scanning can find, with lower false positive rates because it observes actual runtime behavior."
+      incorrect:
+        - "Testing in production is a deployment consideration; IAST is most commonly used in QA/staging environments."
+        - "Runtime instrumentation from inside the application is correct — this is IAST's distinguishing characteristic."
+        - "Analyzing code without execution describes SAST, not IAST."
+        - "Simulating external attacks describes DAST (black-box external testing), not IAST."
+    difficulty: "medium"
+    tags: ["IAST", "application-security-testing", "SAST", "DAST"]
+
+  - id: q-d6-058
+    domain: domain6
+    question: "A penetration tester receives a 'get out of jail' letter before conducting an authorized test. What is the PRIMARY purpose of this document?"
+    options:
+      - "To protect the tester from civil liability if they discover regulatory violations during testing"
+      - "To authorize the tester to conduct specific activities that would otherwise be illegal, providing legal protection if stopped by law enforcement or internal security"
+      - "To give the tester permission to disclose vulnerabilities to third parties"
+      - "To establish payment terms and intellectual property ownership of the findings"
+    correct_answer: 1
+    explanations:
+      correct: "A 'get out of jail' letter (authorization letter) documents that the organization has authorized the tester to conduct specific activities (e.g., network scanning, exploitation attempts) that could otherwise constitute unauthorized access violations. If the tester is stopped by law enforcement, internal security, or an ISP, this letter provides evidence of authorization."
+      incorrect:
+        - "Civil liability protection is addressed in the contract's indemnification clauses, not the authorization letter specifically."
+        - "Authorization documenting legal permission for otherwise-illegal testing activities is correct — this is the primary purpose."
+        - "Vulnerability disclosure terms are typically covered in a separate NDA or Rules of Engagement document."
+        - "Payment terms and IP ownership are commercial contract provisions, not the authorization letter's function."
+    difficulty: "easy"
+    tags: ["penetration-testing", "authorization", "legal", "rules-of-engagement"]
+
+  - id: q-d6-059
+    domain: domain6
+    question: "A CVSS environmental score modifies the base score using organization-specific context. Which of the following best describes when an organization should INCREASE the CVSS score from the base?"
+    options:
+      - "When the organization has compensating controls that reduce the exploitability of the vulnerability"
+      - "When the affected system stores sensitive customer data (high Confidentiality Requirement) not reflected in the base score"
+      - "When the vulnerability has been publicly disclosed for more than 30 days"
+      - "When the vulnerability has no known public exploit"
+    correct_answer: 1
+    explanations:
+      correct: "The CVSS environmental score allows organizations to adjust impact metrics (Confidentiality, Integrity, Availability Requirements) based on how critical the affected system is to their operations. A vulnerability in a system storing regulated PII may warrant increasing the Confidentiality Requirement to 'High,' raising the environmental score above the base."
+      incorrect:
+        - "Compensating controls would cause a score reduction (lower modified attack complexity or scope) not an increase."
+        - "High Confidentiality Requirement for sensitive data systems is correct — organizations adjust environmental metrics to reflect asset criticality."
+        - "Disclosure age affects the Temporal score's Report Confidence metric, not the environmental score."
+        - "Lack of public exploit reduces the Temporal Exploitability metric, lowering the score — not raising it."
+    difficulty: "hard"
+    tags: ["CVSS", "environmental-score", "vulnerability-management", "risk-context"]
+
+  - id: q-d6-060
+    domain: domain6
+    question: "An organization conducts credentialed vulnerability scans versus uncredentialed scans. What significant advantage do credentialed scans provide?"
+    options:
+      - "Credentialed scans test from the network perimeter as an attacker would"
+      - "Credentialed scans authenticate to the target and assess installed software versions, local configurations, and patch levels not visible from the network"
+      - "Credentialed scans are faster because they skip network service discovery"
+      - "Credentialed scans can trigger and execute exploits for proof of vulnerability"
+    correct_answer: 1
+    explanations:
+      correct: "With valid credentials, scanners can authenticate to target systems and read local configurations, installed software registries, patch levels, and security settings — information invisible to an unauthenticated external scanner. This dramatically improves scan accuracy and coverage, especially for local vulnerabilities that don't expose network services."
+      incorrect:
+        - "Uncredentialed scans test from the network perspective as an external attacker would; credentialed scanning has the opposite vantage point."
+        - "Authenticated local assessment of configurations and patches is correct — this is the primary advantage of credentialed scanning."
+        - "Credentialed scans perform more thorough assessment and are not necessarily faster than network-only scans."
+        - "Exploit execution is the domain of penetration testing, not vulnerability scanning — scanners detect vulnerabilities, not prove them via exploitation."
+    difficulty: "medium"
+    tags: ["vulnerability-scanning", "credentialed-scan", "patch-management", "assessment"]
+
+  - id: q-d6-061
+    domain: domain6
+    question: "The OWASP Top 10 2021 list introduced 'Insecure Design' as a new category. What distinguishes 'Insecure Design' from implementation flaws like 'Injection'?"
+    options:
+      - "Insecure Design refers to vulnerabilities in the application's architecture and design that cannot be fixed by correct implementation alone"
+      - "Insecure Design only applies to mobile applications; Injection affects web applications"
+      - "Insecure Design is an older category that was renamed from Security Misconfiguration"
+      - "Insecure Design specifically covers API security weaknesses"
+    correct_answer: 0
+    explanations:
+      correct: "Insecure Design covers flaws where security was not considered during architecture and design — missing abuse case analysis, inadequate threat modeling, no rate limiting design, or missing security requirements. Unlike injection (an implementation flaw), insecure design cannot be fixed by code-level patches; it requires design-level rework."
+      incorrect:
+        - "Architectural/design flaws requiring design-level remediation is correct — this is what distinguishes insecure design from implementation bugs."
+        - "OWASP Top 10 applies to web applications broadly; the categories are not platform-specific."
+        - "Insecure Design is a new category in 2021, not a rename of Security Misconfiguration (which remains a separate category)."
+        - "API-specific security is covered by the OWASP API Security Top 10, a separate list."
+    difficulty: "medium"
+    tags: ["OWASP", "secure-design", "threat-modeling", "application-security"]
+
+  - id: q-d6-062
+    domain: domain6
+    question: "A security team uses the MITRE ATT&CK framework to measure coverage of their detection capabilities. An adversary technique has no alert rule or detection logic associated with it. What does this gap indicate?"
+    options:
+      - "The technique is too rare to require detection coverage"
+      - "A detection blind spot where attackers could use that technique undetected"
+      - "The technique is handled by preventive controls and does not require detection"
+      - "The SIEM vendor has not yet added support for this technique"
+    correct_answer: 1
+    explanations:
+      correct: "ATT&CK coverage mapping identifies detection blind spots — techniques that adversaries could employ that the organization has no visibility into. Each gap represents a technique where an attacker could operate undetected. Security teams use this mapping to prioritize detection engineering based on threat actor profiles targeting their sector."
+      incorrect:
+        - "Rarity alone does not justify a detection gap; ATT&CK-mapped techniques are documented because real adversaries use them."
+        - "A detection blind spot where attackers go undetected is correct — this is the actionable finding from ATT&CK coverage analysis."
+        - "Preventive controls fail; defense in depth requires both prevention and detection. Relying solely on prevention leaves no visibility if prevention fails."
+        - "SIEM capabilities do not determine ATT&CK coverage; detection logic is written by the security team, not the SIEM vendor."
+    difficulty: "medium"
+    tags: ["MITRE-ATT&CK", "detection-coverage", "threat-detection", "security-engineering"]
+
+  - id: q-d6-063
+    domain: domain6
+    question: "A penetration tester is conducting a social engineering assessment. They call an employee pretending to be IT support and convince the employee to provide their VPN credentials. What type of social engineering technique is this?"
+    options:
+      - "Phishing"
+      - "Vishing (voice phishing)"
+      - "Smishing"
+      - "Tailgating"
+    correct_answer: 1
+    explanations:
+      correct: "Vishing (voice phishing) uses phone calls to manipulate targets into disclosing credentials or performing actions. Pretexting with an IT support persona is a classic vishing scenario. Authorized security assessments may test employees' susceptibility to vishing as part of social engineering engagements."
+      incorrect:
+        - "Phishing uses deceptive emails, not phone calls; vishing specifically refers to voice-based attacks."
+        - "Vishing using a phone call with an IT support pretext is correct — 'voice phishing' is the precise term."
+        - "Smishing uses SMS text messages to manipulate targets — different medium from phone calls."
+        - "Tailgating involves physical access — following someone through a secured door; it is a physical security attack, not voice-based."
+    difficulty: "easy"
+    tags: ["social-engineering", "vishing", "phishing", "security-awareness"]
+
+  - id: q-d6-064
+    domain: domain6
+    question: "CVE, CWE, and CPE are three NIST/MITRE standards used in vulnerability management. Which statement correctly distinguishes all three?"
+    options:
+      - "CVE identifies specific vulnerabilities; CWE classifies weakness types; CPE describes software/hardware products"
+      - "CVE classifies weakness types; CWE identifies specific vulnerabilities; CPE provides severity scores"
+      - "All three are equivalent identifiers for the same vulnerability with different naming schemes"
+      - "CVE provides CVSS scores; CWE maps to ATT&CK techniques; CPE describes vulnerability exploitation"
+    correct_answer: 0
+    explanations:
+      correct: "CVE (Common Vulnerabilities and Exposures) assigns unique IDs to specific vulnerabilities (e.g., CVE-2021-44228 for Log4Shell). CWE (Common Weakness Enumeration) classifies types of weaknesses (e.g., CWE-89: SQL Injection). CPE (Common Platform Enumeration) provides standardized names for software and hardware products, used to match CVEs to affected products."
+      incorrect:
+        - "CVE for specific vulnerabilities, CWE for weakness types, CPE for products is correct — each serves a distinct cataloging purpose."
+        - "CVE and CWE are swapped in this option; CVE identifies specific instances while CWE classifies types."
+        - "They serve distinct purposes in a layered vulnerability taxonomy, not equivalent identifiers."
+        - "CVSS scores are a separate standard; ATT&CK mapping and CVE/CWE/CPE serve different functions."
+    difficulty: "medium"
+    tags: ["CVE", "CWE", "CPE", "vulnerability-management"]
+
+  - id: q-d6-065
+    domain: domain6
+    question: "An organization wants to implement a bug bounty program for its public-facing web applications. What is the PRIMARY security benefit compared to relying solely on internal security testing?"
+    options:
+      - "Bug bounty programs are less expensive than hiring full-time security engineers"
+      - "External researchers with diverse skills and fresh perspectives discover vulnerabilities that internal teams miss"
+      - "Bug bounty programs provide continuous 24/7 testing coverage unlike periodic penetration tests"
+      - "Bug bounty participants are contractually bound to find all vulnerabilities before attackers do"
+    correct_answer: 1
+    explanations:
+      correct: "Bug bounty programs leverage the diversity of skills, backgrounds, and attack approaches from a large external researcher community. Researchers specialize in different vulnerability classes and bring perspectives internal teams — often familiar with the codebase — lack. This finds vulnerabilities that structured internal testing misses."
+      incorrect:
+        - "Cost comparison depends on program structure; bounties for critical vulnerabilities can be substantial, and program management has overhead costs."
+        - "Diverse external research perspectives finding what internal teams miss is correct — this is the primary security value."
+        - "While continuous, bug bounty testing is opportunistic; coverage is not guaranteed and depends on researcher interest in the scope."
+        - "Bug bounty programs cannot guarantee finding all vulnerabilities; they provide incentivized discovery, not exhaustive coverage."
+    difficulty: "medium"
+    tags: ["bug-bounty", "vulnerability-disclosure", "external-testing", "security-program"]
+
+  - id: q-d6-066
+    domain: domain6
+    question: "SCAP (Security Content Automation Protocol) is a NIST standard suite that enables automated security configuration assessment. Which component of SCAP defines the configuration checklists used by vulnerability scanners?"
+    options:
+      - "OVAL (Open Vulnerability and Assessment Language)"
+      - "XCCDF (Extensible Configuration Checklist Description Format)"
+      - "CCE (Common Configuration Enumeration)"
+      - "OCIL (Open Checklist Interactive Language)"
+    correct_answer: 1
+    explanations:
+      correct: "XCCDF defines the structured format for security configuration checklists, benchmarks, and profiles (like CIS Benchmarks and DISA STIGs). It describes what checks to perform and how to evaluate results. OVAL is used to express the actual check logic that tests run against systems."
+      incorrect:
+        - "OVAL (Open Vulnerability and Assessment Language) defines the machine-readable logic for specific checks (e.g., registry key values, file attributes); XCCDF structures the checklist that references OVAL definitions."
+        - "XCCDF defining configuration checklists is correct — it is the human-readable structure containing benchmark rules."
+        - "CCE provides unique identifiers for configuration settings, not the checklist structure itself."
+        - "OCIL supports interactive questionnaire-based checks; it does not define automated configuration benchmarks."
+    difficulty: "hard"
+    tags: ["SCAP", "XCCDF", "OVAL", "configuration-management"]
+
+  - id: q-d6-067
+    domain: domain6
+    question: "A security team is planning an API security assessment. Which tool category is MOST appropriate for discovering undocumented API endpoints that are not in the official API specification?"
+    options:
+      - "SAST tools analyzing the application source code"
+      - "Network traffic analysis and API gateway log review combined with fuzzing"
+      - "CIS Benchmark scanning for API server configuration"
+      - "Penetration testing of the authentication mechanism only"
+    correct_answer: 1
+    explanations:
+      correct: "Undocumented ('shadow') API endpoints are not listed in official specs, so testing cannot begin from documentation alone. Network traffic analysis (from proxy tools like Burp Suite or OWASP ZAP) captures actual API calls to discover endpoints in use. API gateway logs reveal endpoints receiving traffic. Fuzzing path components and parameters can discover additional hidden endpoints."
+      incorrect:
+        - "SAST analyzes source code; it may reveal endpoints in code but requires code access and doesn't test runtime behavior."
+        - "Traffic analysis, gateway logs, and fuzzing for undocumented endpoints is correct — this combination discovers shadow APIs."
+        - "CIS Benchmarks address server hardening configurations, not API endpoint discovery."
+        - "Authentication testing only covers the login mechanism; it does not discover the full attack surface."
+    difficulty: "hard"
+    tags: ["API-security", "shadow-APIs", "security-assessment", "fuzzing"]
+
+  - id: q-d6-068
+    domain: domain6
+    question: "A Server-Side Request Forgery (SSRF) vulnerability allows an attacker to make the application server issue HTTP requests to arbitrary URLs. In a cloud environment, what is the most critical target of SSRF exploitation?"
+    options:
+      - "External competitor websites"
+      - "The cloud instance metadata service (e.g., http://169.254.169.254) to retrieve IAM credentials"
+      - "Internal DNS servers to poison the cache"
+      - "The web application firewall to bypass filtering rules"
+    correct_answer: 1
+    explanations:
+      correct: "In cloud environments, SSRF can be exploited to reach the Instance Metadata Service (IMDS) at the link-local address 169.254.169.254. This service returns IAM role credentials, instance identity documents, and configuration data. Retrieving IAM credentials via SSRF can lead to full cloud account compromise. AWS IMDSv2 mitigates this by requiring session-oriented tokens."
+      incorrect:
+        - "External website requests via SSRF may be used for reconnaissance or to bypass IP allowlists, but they don't provide the critical cloud infrastructure access."
+        - "Cloud IMDS credential theft is correct — this is the highest-impact SSRF exploitation path in cloud environments."
+        - "DNS cache poisoning via SSRF is theoretically possible but requires specific conditions and is not the primary critical target."
+        - "WAF bypass via SSRF is not a standard exploitation path; SSRF targets internal services, not WAF infrastructure."
+    difficulty: "hard"
+    tags: ["SSRF", "cloud-security", "IMDS", "application-security"]
+
+  - id: q-d6-069
+    domain: domain6
+    question: "An organization assesses its security controls against the CIS Controls v8 framework. The assessor finds the organization meets all 'Implementation Group 1' (IG1) controls. What does this indicate about the organization's security maturity?"
+    options:
+      - "The organization has implemented enterprise-grade security appropriate for large organizations"
+      - "The organization has implemented essential cyber hygiene safeguards suitable for small organizations with limited resources"
+      - "The organization is ready for compliance with ISO 27001"
+      - "The organization has no additional security improvement opportunities"
+    correct_answer: 1
+    explanations:
+      correct: "CIS Controls IG1 represents 'essential cyber hygiene' — the minimum security controls every organization should implement regardless of size. IG1 is specifically designed for small organizations with limited security expertise and resources. IG2 adds controls for organizations with more risk exposure, and IG3 adds advanced controls for large enterprises with sensitive data."
+      incorrect:
+        - "Enterprise-grade security describes IG2 and IG3 Implementation Groups; IG1 is the baseline for all organizations."
+        - "IG1 essential cyber hygiene for small organizations with limited resources is correct — this is CIS's explicit design intent."
+        - "CIS Controls and ISO 27001 are separate frameworks; CIS IG1 compliance does not map directly to ISO 27001 readiness."
+        - "IG1 completion is a starting point; IG2 and IG3 controls provide additional security improvements for most organizations."
+    difficulty: "medium"
+    tags: ["CIS-Controls", "security-maturity", "IG1", "cyber-hygiene"]
+
+  - id: q-d6-070
+    domain: domain6
+    question: "A security team wants to measure the effectiveness of their vulnerability management program. Which metric BEST indicates whether the program is actually reducing risk over time?"
+    options:
+      - "Total number of vulnerabilities discovered per scan"
+      - "Mean Time to Remediate (MTTR) critical vulnerabilities"
+      - "Number of security scans performed per quarter"
+      - "Percentage of systems included in vulnerability scanning coverage"
+    correct_answer: 1
+    explanations:
+      correct: "MTTR for critical vulnerabilities directly measures whether the organization is actually closing the risk window. A program that scans frequently but has a 90-day MTTR for critical findings is not effectively reducing risk. Decreasing MTTR over time demonstrates program effectiveness at actually remedying vulnerabilities."
+      incorrect:
+        - "Total vulnerabilities discovered measures scan effectiveness, not whether vulnerabilities are being remediated."
+        - "MTTR for critical vulnerabilities is correct — it measures whether the program achieves its actual goal of risk reduction."
+        - "Scan frequency is a process metric; it measures activity, not outcome (risk reduction)."
+        - "Scan coverage is an important input metric but does not measure whether found vulnerabilities are being addressed."
+    difficulty: "medium"
+    tags: ["vulnerability-management", "MTTR", "security-metrics", "risk-reduction"]
+
+  - id: q-d6-071
+    domain: domain6
+    question: "A Cross-Site Request Forgery (CSRF) attack exploits which web security property?"
+    options:
+      - "The browser trusts all JavaScript from the same origin domain"
+      - "The browser automatically includes cookies (including session tokens) in requests to sites, allowing attackers to forge requests on behalf of authenticated users"
+      - "The server trusts all requests with valid HTTP headers"
+      - "The application trusts all requests from the application's own IP address"
+    correct_answer: 1
+    explanations:
+      correct: "CSRF exploits the browser's automatic inclusion of cookies in cross-origin requests. An authenticated user visiting an attacker's page triggers requests to the target application with the user's session cookie attached. The server sees a valid session cookie and processes the malicious action. CSRF tokens and SameSite cookies mitigate this."
+      incorrect:
+        - "Same-origin policy restricts JavaScript from reading cross-origin responses but does not prevent browsers from sending cookies in cross-origin requests — which is what CSRF exploits."
+        - "Browser automatically including cookies in cross-origin requests enabling forged requests is correct — this is the CSRF mechanism."
+        - "Server header trust is a different issue; CSRF exploits the session cookie mechanism, not header validation."
+        - "IP-based trust is a different vulnerability category; CSRF works regardless of IP addressing."
+    difficulty: "medium"
+    tags: ["CSRF", "web-security", "session-management", "cookies"]
+
+  - id: q-d6-072
+    domain: domain6
+    question: "In a gray-box penetration test, what information does the tester typically receive before beginning the engagement?"
+    options:
+      - "No information about the target — the tester works only from publicly available information"
+      - "Full source code, architecture diagrams, credentials, and complete system documentation"
+      - "Partial information such as IP ranges, application URLs, and possibly low-privilege credentials"
+      - "The specific vulnerability list from the most recent vulnerability scan"
+    correct_answer: 2
+    explanations:
+      correct: "Gray-box testing provides partial knowledge — enough to focus testing efficiently without simulating a fully uninformed attacker. Typical gray-box information includes network ranges, application URLs, architecture overview, and sometimes a low-privilege test account. This balances realism with efficiency."
+      incorrect:
+        - "No prior information describes black-box testing, which simulates an external attacker with only public information."
+        - "Full documentation, credentials, and source code describes white-box testing — maximum information for comprehensive assessment."
+        - "Partial information (IP ranges, URLs, limited credentials) is correct — this defines the gray-box approach."
+        - "Providing the vulnerability scan list would bias testing toward known findings rather than discovering new ones — not standard gray-box practice."
+    difficulty: "easy"
+    tags: ["gray-box-testing", "penetration-testing", "black-box", "white-box"]
+
+  - id: q-d6-073
+    domain: domain6
+    question: "An organization undergoes a FedRAMP authorization to provide cloud services to US federal agencies. What is the primary purpose of the FedRAMP authorization process?"
+    options:
+      - "To certify that cloud providers have achieved ISO 27001 certification"
+      - "To provide standardized security assessment, authorization, and continuous monitoring for cloud products used by federal agencies"
+      - "To verify that cloud providers store all federal data within US borders"
+      - "To establish maximum contract pricing for cloud services provided to government"
+    correct_answer: 1
+    explanations:
+      correct: "FedRAMP (Federal Risk and Authorization Management Program) provides a standardized 'do once, use many times' authorization process. Cloud providers undergo rigorous third-party assessment (3PAO) and receive an Authority to Operate (ATO) that federal agencies can reuse, avoiding redundant agency-specific security reviews."
+      incorrect:
+        - "ISO 27001 is a separate international standard; FedRAMP does not certify ISO compliance and has its own distinct requirements."
+        - "Standardized security assessment and authorization for federal cloud use is correct — this is FedRAMP's stated purpose."
+        - "Data sovereignty requirements exist but FedRAMP's primary purpose is the authorization and continuous monitoring framework, not solely data location."
+        - "FedRAMP is a security authorization framework; pricing is governed by federal procurement regulations, not FedRAMP."
+    difficulty: "medium"
+    tags: ["FedRAMP", "cloud-authorization", "federal-compliance", "continuous-monitoring"]
+
+  - id: q-d6-074
+    domain: domain6
+    question: "A security assessor uses an automated tool to send thousands of invalid, random, and boundary-condition inputs to a web API. One input causes the API to return a stack trace revealing the database technology and query structure. What is the security significance of this finding?"
+    options:
+      - "The stack trace confirms the API is running on the correct technology stack"
+      - "Verbose error messages disclose implementation details that aid attackers in crafting targeted exploits"
+      - "The random input testing has successfully proven the application is vulnerable to SQL injection"
+      - "The stack trace indicates the server is experiencing legitimate errors and is not security-relevant"
+    correct_answer: 1
+    explanations:
+      correct: "Verbose error messages (stack traces, database error details, technology names) constitute information disclosure vulnerabilities. Revealing database technology and query structure gives attackers specific knowledge to craft targeted injection attacks. All production systems should return generic error messages while logging detailed errors server-side."
+      incorrect:
+        - "Technology stack confirmation is useful for developers, not attackers; the security concern is what attackers can do with this information."
+        - "Verbose error disclosing implementation details aiding targeted exploits is correct — this is an information disclosure vulnerability."
+        - "Random input triggering an error response with a stack trace shows information disclosure; SQL injection would require confirming data manipulation, not just an error message."
+        - "Error messages revealing implementation details are security-relevant regardless of whether they represent application errors."
+    difficulty: "medium"
+    tags: ["information-disclosure", "error-handling", "fuzzing", "API-security"]
+
+  - id: q-d6-075
+    domain: domain6
+    question: "The Diamond Model of Intrusion Analysis describes adversary activity using four core features. What are those features?"
+    options:
+      - "Planning, Preparation, Execution, and Exfiltration"
+      - "Adversary, Capability, Infrastructure, and Victim"
+      - "Reconnaissance, Weaponization, Delivery, and Exploitation"
+      - "Threat, Vulnerability, Likelihood, and Impact"
+    correct_answer: 1
+    explanations:
+      correct: "The Diamond Model (Caltagirone, Pendergast, Betz, 2013) describes intrusion events using four core features: Adversary (who), Capability (what tools/techniques), Infrastructure (how — C2, domains, IPs), and Victim (target). This model helps analysts pivot between features to attribute and correlate campaigns."
+      incorrect:
+        - "These phases describe parts of attack lifecycles but are not the Diamond Model's four features."
+        - "Adversary, Capability, Infrastructure, and Victim are correct — these are the four corners of the Diamond Model."
+        - "Reconnaissance, Weaponization, Delivery, and Exploitation are phases of the Cyber Kill Chain, not the Diamond Model."
+        - "Threat, Vulnerability, Likelihood, and Impact describe risk components in risk assessment frameworks."
+    difficulty: "hard"
+    tags: ["Diamond-Model", "threat-intelligence", "intrusion-analysis", "threat-attribution"]
+
+  - id: q-d6-076
+    domain: domain6
+    question: "A web application penetration tester discovers that changing the 'user_id' parameter in an API request from '123' to '124' returns another user's account data without any error. What vulnerability class does this represent?"
+    options:
+      - "SQL injection"
+      - "Insecure Direct Object Reference (IDOR) / Broken Object Level Authorization (BOLA)"
+      - "Mass assignment"
+      - "JWT algorithm confusion"
+    correct_answer: 1
+    explanations:
+      correct: "IDOR (also called BOLA in the OWASP API Security Top 10) occurs when an application uses user-controllable references (like user_id=124) to access objects without verifying the requester is authorized to access that specific object. This allows horizontal privilege escalation by guessing or incrementing identifiers."
+      incorrect:
+        - "SQL injection involves injecting SQL syntax into queries; accessing another user's record by changing an ID parameter is an authorization flaw, not SQL injection."
+        - "IDOR/BOLA allowing access to another user's data by manipulating object identifiers is correct — this is the defining characteristic."
+        - "Mass assignment allows setting unintended object properties via bulk parameter assignment; it is a different vulnerability class."
+        - "JWT algorithm confusion exploits JWT signature verification, not object-level access control."
+    difficulty: "easy"
+    tags: ["IDOR", "BOLA", "authorization", "API-security"]
+
+  - id: q-d6-077
+    domain: domain6
+    question: "What is 'war driving' and what security risk does it identify?"
+    options:
+      - "Driving near competitor offices to steal employees through aggressive recruitment"
+      - "Using a vehicle-mounted wireless scanning setup to discover and map wireless networks in an area"
+      - "A social engineering technique using false emergency scenarios to gain physical access"
+      - "Driving around to observe which buildings have visible security cameras"
+    correct_answer: 1
+    explanations:
+      correct: "War driving involves driving through an area with a wireless-enabled device (plus GPS and antenna) to discover and map wireless networks — their SSIDs, security protocols (WEP/WPA), and signal strength. It identifies poorly secured or misconfigured networks that may be vulnerable to unauthorized access."
+      incorrect:
+        - "Aggressive recruitment is an HR/competitive intelligence concern, not a security testing technique."
+        - "Vehicle-mounted wireless scanning to discover and map wireless networks is correct — this is war driving's definition."
+        - "Using false emergencies for physical access is a social engineering technique called pretexting, not war driving."
+        - "Physical surveillance of cameras is a reconnaissance technique but not what war driving describes."
+    difficulty: "easy"
+    tags: ["war-driving", "wireless-security", "reconnaissance", "physical-security"]
+
+  - id: q-d6-078
+    domain: domain6
+    question: "A security team conducts an annual penetration test but vulnerability scans show new critical vulnerabilities appearing monthly. What security testing approach would BEST complement the annual penetration test?"
+    options:
+      - "Conduct quarterly penetration tests instead of annual ones"
+      - "Implement continuous automated vulnerability scanning with defined SLAs for remediation"
+      - "Expand the annual penetration test scope to cover all systems"
+      - "Hire additional penetration testers to work full-time on testing"
+    correct_answer: 1
+    explanations:
+      correct: "Penetration tests provide point-in-time depth; continuous automated vulnerability scanning provides coverage between tests. New vulnerabilities emerge constantly (zero-days, newly deployed systems, configuration changes), making continuous scanning with remediation SLAs essential for maintaining ongoing risk visibility between periodic manual assessments."
+      incorrect:
+        - "More frequent penetration tests increase depth coverage but are still point-in-time; they don't address the between-test window."
+        - "Continuous automated scanning with remediation SLAs is correct — it provides the ongoing coverage that complements periodic deep testing."
+        - "Expanding scope of one annual test helps coverage but doesn't address the time gap between tests."
+        - "Full-time testers could increase frequency but automated scanning is more scalable and cost-effective for continuous coverage."
+    difficulty: "medium"
+    tags: ["vulnerability-scanning", "penetration-testing", "continuous-monitoring", "security-program"]
+
+  - id: q-d6-079
+    domain: domain6
+    question: "An SOC2 Type II audit covers a 6-month period. During month 3, an auditor discovers that the organization implemented a new access control process that was more effective than the previous one. How should this change be documented in the report?"
+    options:
+      - "The entire 6-month audit period is invalidated and must restart"
+      - "The auditor notes the change in the report and tests controls under both the old and new processes for the respective periods"
+      - "Only the new control is tested; the old control period is ignored"
+      - "The organization can retroactively apply the new control to the entire audit period"
+    correct_answer: 1
+    explanations:
+      correct: "SOC 2 Type II audits assess controls over a period of time. When controls change mid-period, auditors document the change, test the effectiveness of the old controls for the period they were in place, and test the new controls for the remaining period. The report describes both the change and operating effectiveness for each sub-period."
+      incorrect:
+        - "Mid-period control changes are common in real audits; invalidating the entire period would make SOC 2 audits impractical."
+        - "Testing controls under both processes for their respective periods is correct — auditors document the transition and test both states."
+        - "Ignoring the old control period would leave an untested gap in the audit coverage, which is not acceptable."
+        - "Retroactive application of controls is not possible in a SOC 2 Type II context; the audit assesses what actually happened."
+    difficulty: "hard"
+    tags: ["SOC2", "audit", "control-testing", "operational-effectiveness"]
+
+  - id: q-d6-080
+    domain: domain6
+    question: "A penetration tester uses Metasploit to exploit a vulnerability and gains a Meterpreter session on a target server. The tester is in the 'exploitation' phase. What activity follows exploitation in the penetration testing lifecycle?"
+    options:
+      - "Reconnaissance — to gather more information about connected systems"
+      - "Post-exploitation — privilege escalation, lateral movement, persistence, and data exfiltration to demonstrate real-world impact"
+      - "Reporting — immediately documenting the successful exploit"
+      - "Remediation — patching the exploited vulnerability"
+    correct_answer: 1
+    explanations:
+      correct: "Post-exploitation follows initial access to demonstrate the real-world impact of the compromise: privilege escalation (gaining higher-level access), lateral movement (pivoting to other systems), establishing persistence, and simulating data exfiltration. This shows the organization what a real attacker could accomplish beyond the initial foothold."
+      incorrect:
+        - "Reconnaissance occurs at the beginning of the engagement; after gaining access, testers move to post-exploitation activities."
+        - "Post-exploitation activities (privilege escalation, lateral movement, data exfiltration simulation) is correct — this demonstrates attacker impact."
+        - "Reporting is the final phase after all testing is complete, not immediately after each successful exploit."
+        - "Remediation is the organization's responsibility after receiving the report; it is not a penetration tester activity during the test."
+    difficulty: "medium"
+    tags: ["penetration-testing", "post-exploitation", "Metasploit", "attack-lifecycle"]
+
+  - id: q-d6-081
+    domain: domain6
+    question: "An organization's security baseline specifies that all Windows servers must have Windows Defender enabled, automatic updates configured, and unused services disabled. A vulnerability scan finds 15% of servers do not meet this baseline. What is the FIRST action the security team should take?"
+    options:
+      - "Immediately shut down all non-compliant servers until they are remediated"
+      - "Document the deviation as an accepted risk and move on"
+      - "Investigate the cause (missed patch cycle, new deployments, configuration drift) and prioritize remediation based on server criticality"
+      - "Report the finding to executive leadership as a critical security incident"
+    correct_answer: 2
+    explanations:
+      correct: "Before remediating, the team should understand why 15% are non-compliant — is it configuration drift, deployment process gaps, or exemption mismanagement? Investigation enables root cause remediation, not just symptom fixing. Prioritizing by server criticality ensures highest-risk systems are addressed first."
+      incorrect:
+        - "Immediately shutting down servers could cause business disruption disproportionate to the risk; remediation should be risk-prioritized."
+        - "Documenting as accepted risk without investigation and remediation is inappropriate for baseline compliance gaps."
+        - "Root cause investigation and risk-prioritized remediation is correct — this is the standard vulnerability management response."
+        - "Executive reporting may be appropriate for executive-level metrics reporting but should come after investigation, not as the first action."
+    difficulty: "medium"
+    tags: ["security-baseline", "configuration-management", "vulnerability-remediation", "compliance"]
+
+  - id: q-d6-082
+    domain: domain6
+    question: "Mobile application security testing involves which unique challenge compared to web application testing?"
+    options:
+      - "Mobile applications do not use HTTP/HTTPS, making traffic interception impossible"
+      - "Mobile applications involve both client-side code (app binary) and API backends, requiring certificate pinning bypass for traffic inspection"
+      - "Mobile applications have smaller attack surfaces than web applications"
+      - "Mobile application security is entirely handled by the app store review process"
+    correct_answer: 1
+    explanations:
+      correct: "Mobile security testing requires both static analysis of the app binary (reverse engineering APK/IPA to find hardcoded secrets, insecure data storage, debug code) and dynamic testing of API calls. Many apps implement certificate pinning to prevent traffic interception, which testers must bypass using tools like Frida or objection to inspect TLS traffic."
+      incorrect:
+        - "Mobile applications use HTTP/HTTPS; they communicate with backend APIs over standard protocols."
+        - "Binary analysis plus certificate pinning bypass for traffic inspection is correct — these are mobile-specific testing challenges."
+        - "Mobile attack surface includes the app binary, local data storage, IPC mechanisms, and backend APIs — not necessarily smaller."
+        - "App store review catches some malware but does not constitute a comprehensive security assessment of business logic or API security."
+    difficulty: "medium"
+    tags: ["mobile-security", "certificate-pinning", "app-testing", "binary-analysis"]
+
+  - id: q-d6-083
+    domain: domain6
+    question: "Which of the following threat modeling methodologies uses attack trees to systematically enumerate how an attacker could achieve a goal?"
+    options:
+      - "STRIDE"
+      - "PASTA (Process for Attack Simulation and Threat Analysis)"
+      - "DREAD"
+      - "OCTAVE"
+    correct_answer: 1
+    explanations:
+      correct: "PASTA is a risk-centric threat modeling methodology that includes attack tree construction as part of its 7-stage process. Attack trees systematically decompose attacker goals into sub-goals, with branches representing alternative attack paths. This enables comprehensive enumeration of attack scenarios and their associated risks."
+      incorrect:
+        - "STRIDE is a Microsoft methodology classifying threats by type (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege); it doesn't inherently use attack trees."
+        - "PASTA using attack trees for systematic attack path enumeration is correct — this is a distinguishing feature of the PASTA methodology."
+        - "DREAD is a risk scoring model (Damage, Reproducibility, Exploitability, Affected Users, Discoverability) for prioritizing threats, not a methodology using attack trees."
+        - "OCTAVE (Operationally Critical Threat, Asset, and Vulnerability Evaluation) is an organizational risk assessment framework, not a development threat modeling methodology using attack trees."
+    difficulty: "hard"
+    tags: ["threat-modeling", "PASTA", "attack-trees", "STRIDE"]
+
+  - id: q-d6-084
+    domain: domain6
+    question: "An organization wants to assess whether employees can detect and avoid phishing emails. The security team sends simulated phishing emails to all employees. What additional step transforms this from a measurement into a security improvement?"
+    options:
+      - "Publishing the click rate statistics to shame employees who failed"
+      - "Providing immediate, contextual security awareness training to employees who click simulated phishing links"
+      - "Disciplining employees who click phishing links with formal warnings"
+      - "Only testing executives and managers, not general employees"
+    correct_answer: 1
+    explanations:
+      correct: "The most effective phishing simulation programs immediately show employees who click that they've been phished, explain the indicators they missed, and provide brief security awareness content. This 'teachable moment' approach leverages the engagement created by the simulation to change behavior — measurement without feedback only measures, it doesn't improve."
+      incorrect:
+        - "Public shaming creates fear and resentment, reducing trust in the security team and discouraging honest reporting of actual phishing."
+        - "Immediate contextual training at the moment of simulated phishing click is correct — this is the evidence-based approach to behavior change."
+        - "Disciplinary action for failing simulations discourages reporting and creates adversarial security culture; awareness programs work better with a supportive approach."
+        - "Testing only executives misses the broader employee population; most attacks target the full workforce."
+    difficulty: "easy"
+    tags: ["phishing-simulation", "security-awareness", "behavior-change", "training"]
+
+  - id: q-d6-085
+    domain: domain6
+    question: "A security engineer is reviewing a penetration test report and notices a finding rated 'Critical' with CVSS 9.8 on an isolated development server that contains only synthetic test data. Should the organization treat this with the same urgency as the same vulnerability on a production database server?"
+    options:
+      - "Yes — all Critical vulnerabilities must be patched within 24 hours regardless of context"
+      - "No — risk is contextual; the CVSS base score does not account for asset criticality, exposure, and actual data sensitivity"
+      - "Yes — CVSS scores are absolute and must not be modified by organizational context"
+      - "No — vulnerabilities in development environments are always low priority"
+    correct_answer: 1
+    explanations:
+      correct: "CVSS base scores are environment-agnostic. The same vulnerability has a very different risk profile on an isolated dev server with synthetic data versus a production database server with sensitive customer data. The CVSS Environmental score exists precisely to modify the base score for organizational context. Risk-based vulnerability management prioritizes remediation based on actual business risk, not just base CVSS scores."
+      incorrect:
+        - "Uniform 24-hour remediation for all Critical vulnerabilities ignores context and may allocate remediation resources inefficiently."
+        - "Contextual risk adjustment based on asset criticality and data sensitivity is correct — CVSS base scores are starting points, not absolute mandates."
+        - "CVSS base scores are explicitly designed to be starting points; the Environmental metric is provided for organizational context adjustment."
+        - "Development environment vulnerabilities may be deprioritized relative to production, but blanket low-priority treatment is an overgeneralization."
+    difficulty: "medium"
+    tags: ["CVSS", "risk-prioritization", "vulnerability-management", "context"]
+
+  - id: q-d6-086
+    domain: domain6
+    question: "A penetration tester successfully demonstrates a cross-site scripting (XSS) vulnerability by injecting a script that displays an alert box. The client asks why this matters if it just shows an alert. What is the most impactful real-world consequence of a stored XSS vulnerability?"
+    options:
+      - "It can slow down the web server through script execution overhead"
+      - "Attackers can steal session cookies, redirect users to phishing pages, or perform actions as authenticated users at scale"
+      - "It breaks the application's UI, causing user confusion"
+      - "It allows attackers to read the web server's file system"
+    correct_answer: 1
+    explanations:
+      correct: "Stored XSS executes malicious scripts in the browsers of every user who views the affected page. This enables session cookie theft (account takeover), keylogging, credential harvesting via overlay forms, browser-based cryptomining, and drive-by malware delivery — all executed silently at scale against legitimate users. Alert boxes are only used in proof-of-concept to demonstrate code execution."
+      incorrect:
+        - "Server performance impact from client-side JavaScript execution is negligible; XSS executes in the victim's browser, not the server."
+        - "Session cookie theft, phishing redirects, and actions as authenticated users is correct — these are the real XSS impacts."
+        - "UI breakage may occur but is a minor consequence; data theft and account takeover are the security-critical impacts."
+        - "XSS is client-side JavaScript execution in browsers; it does not provide file system access to the web server."
+    difficulty: "medium"
+    tags: ["XSS", "stored-XSS", "web-security", "session-hijacking"]
+
+  - id: q-d6-087
+    domain: domain6
+    question: "What is the purpose of including 'cleanup procedures' in penetration test rules of engagement?"
+    options:
+      - "To specify how the testing team should dispose of the engagement documentation"
+      - "To define how the tester will remove artifacts (exploit payloads, backdoors, test accounts, modified files) created during testing from target systems"
+      - "To establish how billing disputes are resolved after the engagement"
+      - "To describe the process for reporting findings to regulatory bodies"
+    correct_answer: 1
+    explanations:
+      correct: "Penetration testers create artifacts on target systems: exploit payloads, persistence mechanisms, test accounts, modified configuration files. Cleanup procedures define what must be removed, when, and how testers will confirm removal. Without cleanup, artifacts remain as actual vulnerabilities and may be exploited by real attackers."
+      incorrect:
+        - "Document disposal is a confidentiality procedure, not cleanup of test artifacts on target systems."
+        - "Removal of tester-created artifacts from target systems is correct — this is the purpose of cleanup procedures in rules of engagement."
+        - "Billing disputes are commercial contract provisions, not technical rules of engagement."
+        - "Regulatory reporting requirements are compliance obligations; cleanup procedures address operational test residue."
+    difficulty: "easy"
+    tags: ["penetration-testing", "rules-of-engagement", "cleanup", "test-artifacts"]
+
+  - id: q-d6-088
+    domain: domain6
+    question: "An organization wants to verify that a recently deployed application patch successfully fixed a previously discovered vulnerability without introducing new ones. What specific type of testing addresses this?"
+    options:
+      - "Full application penetration test"
+      - "Security regression testing focused on the patched vulnerability and related code areas"
+      - "Threat modeling of the entire application"
+      - "User acceptance testing with security review"
+    correct_answer: 1
+    explanations:
+      correct: "Security regression testing specifically re-tests previously identified vulnerabilities after patches are applied to verify they are truly remediated. It also tests adjacent code areas that may have been inadvertently modified. This is more targeted and efficient than a full penetration test for patch verification."
+      incorrect:
+        - "A full penetration test provides broader coverage but is resource-intensive and not specifically focused on patch verification."
+        - "Security regression testing focused on the patched vulnerability is correct — this is the targeted approach for fix verification."
+        - "Threat modeling is architectural/design-phase activity; it doesn't verify patch effectiveness."
+        - "User acceptance testing validates functional requirements; security regression testing is specifically for security fix verification."
+    difficulty: "easy"
+    tags: ["regression-testing", "patch-verification", "security-testing", "vulnerability-management"]
+
+  - id: q-d6-089
+    domain: domain6
+    question: "A penetration tester discovers evidence that the target organization has already been compromised by an unknown threat actor. Active malware is communicating with an external C2 server. What should the tester do FIRST?"
+    options:
+      - "Continue the penetration test to avoid tipping off the threat actor"
+      - "Immediately remove the malware as a courtesy to the organization"
+      - "Stop testing and immediately notify the client point of contact according to the escalation procedures defined in the rules of engagement"
+      - "Document the finding and include it in the final report without immediate notification"
+    correct_answer: 2
+    explanations:
+      correct: "Rules of engagement should define escalation procedures for discovering active compromises. An ongoing breach requires immediate notification so the organization can invoke its incident response plan. Continuing the test could contaminate forensic evidence, alert the threat actor, or inadvertently interfere with the active intrusion investigation."
+      incorrect:
+        - "Continuing the test risks contaminating forensic evidence, interfering with the active threat actor, and delaying incident response."
+        - "Removing malware could destroy forensic evidence, alert the threat actor, and is outside the penetration tester's scope and authorization."
+        - "Immediate notification per the escalation procedures is correct — active compromises are critical out-of-band findings requiring urgent client notification."
+        - "Including in the final report without immediate notification allows active exfiltration to continue; the client needs to act immediately."
+    difficulty: "medium"
+    tags: ["penetration-testing", "incident-response", "active-compromise", "rules-of-engagement"]
+
+  - id: q-d6-090
+    domain: domain6
+    question: "An organization implements a WAF (Web Application Firewall) to protect against OWASP Top 10 attacks. A security assessor notes that the WAF is in 'detection mode' (logging only). What is the primary security risk of this configuration?"
+    options:
+      - "Detection mode generates too many false positives that overwhelm security operations"
+      - "The WAF logs attacks but does not block them, providing no active protection despite the impression of security"
+      - "Detection mode consumes more network bandwidth than blocking mode"
+      - "The WAF cannot be tuned in detection mode before switching to blocking mode"
+    correct_answer: 1
+    explanations:
+      correct: "A WAF in detection (monitoring) mode logs attacks but passes all traffic through, including malicious requests. This provides visibility but no protection — attacks succeed just as if no WAF were present. The risk is a false sense of security: the organization may believe it is protected when it is not. WAFs should be moved to blocking mode after tuning."
+      incorrect:
+        - "False positives are a tuning challenge but not the primary risk of detection mode; the primary risk is that attacks are not blocked."
+        - "Logging without blocking attacks while creating a false sense of security is correct — this is the fundamental risk of detection-only mode."
+        - "Network bandwidth consumption is not a meaningful differentiator between detection and blocking modes."
+        - "WAF tuning is typically done in detection mode before switching to blocking; detection mode is specifically designed to allow tuning."
+    difficulty: "easy"
+    tags: ["WAF", "detection-mode", "false-sense-of-security", "application-security"]
+
+  - id: q-d6-091
+    domain: domain6
+    question: "Which of the following activities is part of the 'planning and reconnaissance' phase of a penetration test per NIST SP 800-115?"
+    options:
+      - "Exploiting discovered vulnerabilities to gain unauthorized access"
+      - "Documenting findings and providing remediation recommendations"
+      - "Defining scope, rules of engagement, and gathering intelligence about the target"
+      - "Escalating privileges after initial system compromise"
+    correct_answer: 2
+    explanations:
+      correct: "NIST SP 800-115 defines four penetration testing phases: Planning (scope, authorization, rules of engagement, coordination), Discovery (reconnaissance and scanning), Attack (exploitation), and Reporting. The planning phase includes defining what is in scope, establishing legal authorization, and gathering open-source intelligence about the target."
+      incorrect:
+        - "Exploiting vulnerabilities is the Attack phase of NIST SP 800-115, not the planning phase."
+        - "Documenting findings and recommendations is the Reporting phase, the final phase after testing."
+        - "Defining scope, rules of engagement, and intelligence gathering is correct — these are Planning phase activities."
+        - "Privilege escalation is a post-exploitation activity within the Attack phase."
+    difficulty: "medium"
+    tags: ["NIST-800-115", "penetration-testing", "planning", "reconnaissance"]
+
+  - id: q-d6-092
+    domain: domain6
+    question: "An organization runs a compliance-based vulnerability scan and finds no critical vulnerabilities. A subsequent risk-based assessment finds several serious vulnerabilities the compliance scan missed. What explains this discrepancy?"
+    options:
+      - "Compliance-based scans use better scanning tools than risk-based assessments"
+      - "Compliance scans check only what regulations require, potentially missing vulnerabilities outside the compliance scope"
+      - "Risk-based assessments always generate more findings due to scope creep"
+      - "Compliance scans use outdated vulnerability signatures"
+    correct_answer: 1
+    explanations:
+      correct: "Compliance-based scanning checks only the controls and vulnerabilities specified by a regulatory framework (PCI DSS, HIPAA). Vulnerabilities outside the compliance scope — even critical ones — are not checked. Risk-based assessments prioritize by actual business risk across the full attack surface, catching what compliance-only programs miss."
+      incorrect:
+        - "Tool quality is not determined by assessment methodology; compliance scans may use the same scanning tools."
+        - "Compliance scans checking only regulatory requirements and missing out-of-scope vulnerabilities is correct — this is the fundamental limitation of compliance-only security."
+        - "Scope creep could affect any assessment; risk-based assessments find more because they look at a broader scope, not due to uncontrolled expansion."
+        - "Vulnerability signature currency is not determined by whether an assessment is compliance-based or risk-based."
+    difficulty: "medium"
+    tags: ["compliance-scanning", "risk-based-assessment", "vulnerability-management", "compliance-gap"]
+
+  - id: q-d6-093
+    domain: domain6
+    question: "A security team wants to prevent developers from committing secrets (API keys, passwords, certificates) to the code repository. Which testing control is MOST effective as a preventive measure?"
+    options:
+      - "Conducting quarterly code audits to find committed secrets"
+      - "Implementing pre-commit hooks that scan for secrets patterns before code is committed"
+      - "Requiring developers to sign an acceptable use policy about secrets management"
+      - "Scanning production code repositories weekly for secrets"
+    correct_answer: 1
+    explanations:
+      correct: "Pre-commit hooks run automatically before each commit and scan staged files for patterns matching secrets (API key formats, private key headers, tokens). This prevents secrets from ever entering the repository — far more effective than detecting them after the fact when exposure has already occurred. Tools include git-secrets, detect-secrets, and truffleHog."
+      incorrect:
+        - "Quarterly audits detect secrets months after exposure; they are reactive, not preventive."
+        - "Pre-commit hooks scanning for secrets before commit is correct — prevention at the point of introduction is optimal."
+        - "Policy without technical control relies on developer compliance; pre-commit hooks enforce policy automatically."
+        - "Weekly scanning is better than quarterly but still allows up to 7 days of exposure; pre-commit hooks prevent exposure entirely."
+    difficulty: "medium"
+    tags: ["secrets-management", "pre-commit-hooks", "DevSecOps", "code-security"]
+
+  - id: q-d6-094
+    domain: domain6
+    question: "An organization conducts penetration testing of its industrial control systems (ICS/SCADA) environment. What unique consideration applies to ICS penetration testing that differs from standard IT penetration testing?"
+    options:
+      - "ICS systems use the same vulnerability databases as IT systems and require identical testing approaches"
+      - "Active exploitation in ICS environments risks disrupting physical processes that could cause safety incidents, requiring a more passive/careful approach"
+      - "ICS penetration tests must be conducted by government-certified testers"
+      - "ICS environments cannot be penetration tested and must rely solely on compliance audits"
+    correct_answer: 1
+    explanations:
+      correct: "ICS/SCADA systems control physical processes (power grids, manufacturing, water treatment). Active exploitation that works safely against IT systems could crash PLCs, trigger emergency shutdowns, or cause physical safety incidents. ICS testing requires safety analysis, often involves passive network monitoring rather than active exploitation, and may use a separate test environment to avoid production risk."
+      incorrect:
+        - "ICS uses specialized protocols (Modbus, DNP3, OPC) and has different vulnerability profiles from standard IT systems; identical approaches would be inappropriate."
+        - "Active exploitation risk to physical processes requiring careful passive approaches is correct — this is the defining unique consideration for ICS testing."
+        - "No government certification requirement for ICS testers exists as a blanket requirement; sector-specific requirements vary."
+        - "ICS environments can and should be assessed; the approach is adapted for safety, not avoided entirely."
+    difficulty: "hard"
+    tags: ["ICS-security", "SCADA", "OT-security", "penetration-testing"]
+
+  - id: q-d6-095
+    domain: domain6
+    question: "A security assessor is evaluating an organization's patch management program. They find that critical patches (CVSS 9+) are applied within 48 hours, high patches within 7 days, and medium patches within 30 days. What is this structure an example of?"
+    options:
+      - "Ad hoc patching with inconsistent timelines"
+      - "Risk-based patch prioritization with defined SLAs by severity"
+      - "Compliance-driven patching based on regulatory requirements"
+      - "Automated patching without human oversight"
+    correct_answer: 1
+    explanations:
+      correct: "Tiered SLAs mapped to vulnerability severity (CVSS-based) represent risk-based patch prioritization — the highest-risk vulnerabilities receive the most urgent response. This structure ensures resources are allocated efficiently based on risk while maintaining accountability through defined timeframes."
+      incorrect:
+        - "Defined, tiered timelines per severity indicate a structured program, not ad hoc patching."
+        - "Risk-based patch prioritization with defined severity SLAs is correct — this is the recommended patch management structure."
+        - "Compliance-driven patching follows regulatory schedules, not CVSS severity tiers; these timelines may differ from regulatory requirements."
+        - "Automated patching without oversight is a different concept; the SLA structure describes a governance framework, not automation."
+    difficulty: "easy"
+    tags: ["patch-management", "SLA", "risk-based", "vulnerability-management"]
+
+  - id: q-d6-096
+    domain: domain6
+    question: "A security team implements a RASP (Runtime Application Self-Protection) solution. What does RASP do that a traditional WAF cannot?"
+    options:
+      - "RASP operates at the network perimeter before traffic reaches the application"
+      - "RASP executes inside the application and can detect and block attacks based on application context and execution flow, not just network patterns"
+      - "RASP provides better SQL injection detection by analyzing database query logs"
+      - "RASP replaces the need for secure coding practices by automatically fixing vulnerabilities"
+    correct_answer: 1
+    explanations:
+      correct: "RASP instruments the application at runtime and intercepts function calls, data flows, and execution paths from inside the application. It can detect context-aware attacks that bypass WAF pattern matching (e.g., legitimate-looking requests that are actually attacks) because it sees what the application code actually does with the input, not just what the request looks like on the wire."
+      incorrect:
+        - "Operating at the network perimeter describes a WAF; RASP operates inside the application process."
+        - "Inside-application context-aware detection blocking attacks based on actual execution is correct — this is RASP's key differentiator."
+        - "WAFs and RASP both can detect SQLi patterns; RASP's advantage is context-aware detection, not database log analysis."
+        - "RASP detects and blocks attacks at runtime but does not fix underlying code vulnerabilities; secure development remains necessary."
+    difficulty: "hard"
+    tags: ["RASP", "WAF", "runtime-protection", "application-security"]
+
+  - id: q-d6-097
+    domain: domain6
+    question: "An organization's third-party risk program requires security assessments of all vendors with access to sensitive data. For a vendor with hundreds of small suppliers, assessing each individually would be cost-prohibitive. Which scalable approach best manages this risk?"
+    options:
+      - "Trust all third-party vendors that have SOC 2 Type II reports without additional assessment"
+      - "Use standardized security questionnaires (e.g., SIG, CAIQ) with contractual security requirements and periodic right-to-audit clauses"
+      - "Only assess vendors with direct network access; ignore those with data access only"
+      - "Require all vendors to implement identical security controls regardless of risk level"
+    correct_answer: 1
+    explanations:
+      correct: "Standardized questionnaires (SIG - Standard Information Gathering, CAIQ - Consensus Assessment Initiative Questionnaire) provide scalable assessment across many vendors. Combined with contractual security requirements and right-to-audit clauses, this creates a scalable third-party risk program without requiring individual deep assessments for every vendor."
+      incorrect:
+        - "SOC 2 reports provide valuable assurance but have scope limitations; they should inform risk decisions but not automatically waive additional assessment."
+        - "Scalable questionnaires with contractual requirements and audit rights is correct — this is the standard scalable third-party risk approach."
+        - "Data access provides as much risk as network access; vendors processing sensitive data must be assessed."
+        - "One-size-fits-all controls ignore the different risk profiles of different vendors; risk-tiered requirements are more effective and practical."
+    difficulty: "medium"
+    tags: ["third-party-risk", "vendor-assessment", "supply-chain", "security-questionnaire"]
+
+  - id: q-d6-098
+    domain: domain6
+    question: "A security engineer wants to verify that all TLS certificates in the organization's web infrastructure are from authorized CAs and have not been misissued. Which mechanism provides the most systematic view of all certificates issued for organizational domains?"
+    options:
+      - "Checking certificate expiration dates via Nagios monitoring"
+      - "Certificate Transparency (CT) logs — a public record of all certificates issued by participating CAs"
+      - "Reviewing CA invoices to identify all purchased certificates"
+      - "Running network scans with SSL Labs grading tools"
+    correct_answer: 1
+    explanations:
+      correct: "Certificate Transparency (RFC 6962) requires CAs to log all issued certificates in public, append-only logs. Organizations can monitor CT logs (via tools like certspotter, crt.sh, or Facebook CT monitoring) to detect unauthorized certificates for their domains — including certificates misissued by rogue or compromised CAs — even before the certificates are deployed."
+      incorrect:
+        - "Expiration monitoring detects expired certificates but not misissued or unauthorized certificates."
+        - "CT log monitoring of the public record of all issued certificates is correct — this is the authoritative way to find all certificates for a domain."
+        - "CA invoices only show certificates purchased from that specific CA; shadow IT certificates from other CAs or unauthorized issuances are missed."
+        - "Network scanning finds deployed certificates but misses certificates that were issued but not yet deployed or deployed on unknown hosts."
+    difficulty: "hard"
+    tags: ["certificate-transparency", "PKI", "CA", "certificate-monitoring"]
+
+  - id: q-d6-099
+    domain: domain6
+    question: "A security assessment report categorizes findings using DREAD scoring. What does the 'R' in DREAD stand for, and what does it measure?"
+    options:
+      - "Risk — the overall risk rating combining all other factors"
+      - "Reproducibility — how easily the attack can be reproduced"
+      - "Recoverability — how quickly the organization can recover from the attack"
+      - "Reachability — the percentage of users reachable by the attack"
+    correct_answer: 1
+    explanations:
+      correct: "DREAD (Damage, Reproducibility, Exploitability, Affected users, Discoverability) scores threat risk. Reproducibility measures how easily and consistently an attack can be executed — an attack that works 100% of the time on first attempt scores higher than one requiring specific conditions or multiple attempts."
+      incorrect:
+        - "Overall risk rating is the output of the DREAD model, not what 'R' specifically measures."
+        - "Reproducibility measuring attack consistency is correct — this is the DREAD 'R' component."
+        - "Recovery time is a business continuity metric not included in the DREAD model."
+        - "Affected users is the 'A' in DREAD; 'R' specifically measures attack reproducibility."
+    difficulty: "medium"
+    tags: ["DREAD", "threat-modeling", "risk-scoring", "vulnerability-assessment"]
+
+  - id: q-d6-100
+    domain: domain6
+    question: "An organization discovers that its CI/CD pipeline builds are pulling dependencies from public package registries (npm, PyPI). An attacker publishes a malicious package with the same name as an internal private package. The build system downloads and executes the malicious public package. This attack is called:"
+    options:
+      - "Supply chain poisoning via typosquatting"
+      - "Dependency confusion (namespace confusion) attack"
+      - "Malicious package injection via compromised registry credentials"
+      - "Build pipeline remote code execution"
+    correct_answer: 1
+    explanations:
+      correct: "Dependency confusion (discovered by Alex Birsan in 2021) exploits package managers that prioritize public registries over private ones when the same package name exists in both. An attacker publishes a public package with the same name as an organization's private package but a higher version number. The build system downloads the higher-versioned public package instead of the intended private one."
+      incorrect:
+        - "Typosquatting uses misspelled package names (e.g., 'reqeusts' instead of 'requests'); dependency confusion uses the exact same name as a private package."
+        - "Dependency confusion exploiting public registry priority over private registries is correct — this is the specific attack vector."
+        - "Compromised registry credentials would allow an attacker to modify existing packages; this attack doesn't require any credential access."
+        - "Remote code execution is the consequence of the attack; 'build pipeline RCE' does not name the specific attack technique."
+    difficulty: "hard"
+    tags: ["dependency-confusion", "supply-chain", "CI-CD", "package-security"]
+
+  - id: q-d6-101
+    domain: domain6
+    question: "A security team is implementing threat intelligence sharing with peer organizations in their industry sector. Which standard protocol is designed for automated machine-readable threat intelligence sharing?"
+    options:
+      - "STIX/TAXII (Structured Threat Information eXpression / Trusted Automated eXchange of Intelligence Information)"
+      - "SNMP (Simple Network Management Protocol)"
+      - "OpenIOC (Open Indicators of Compromise format)"
+      - "MISP (Malware Information Sharing Platform)"
+    correct_answer: 0
+    explanations:
+      correct: "STIX is the data format standard for expressing threat intelligence (TTPs, indicators, threat actors, campaigns) in a machine-readable way. TAXII is the transport protocol for sharing STIX content between organizations and threat intelligence platforms. Together they enable automated, standardized threat intelligence exchange."
+      incorrect:
+        - "STIX/TAXII for standardized automated threat intelligence exchange is correct — these are the OASIS standards designed for this purpose."
+        - "SNMP is a network device management protocol, not a threat intelligence sharing standard."
+        - "OpenIOC is an older Mandiant-created format for expressing indicators of compromise; it predates STIX and has less industry adoption."
+        - "MISP is a threat intelligence platform (tool) that can share intelligence; STIX/TAXII are the underlying standards that MISP supports."
+    difficulty: "medium"
+    tags: ["STIX", "TAXII", "threat-intelligence", "information-sharing"]
+
+  - id: q-d6-102
+    domain: domain6
+    question: "An organization wants to assess its incident detection capability by simulating real-world attacker behavior against live security controls. This type of assessment is BEST described as:"
+    options:
+      - "Vulnerability assessment"
+      - "Breach and Attack Simulation (BAS)"
+      - "Tabletop exercise"
+      - "Red team assessment"
+    correct_answer: 1
+    explanations:
+      correct: "Breach and Attack Simulation (BAS) platforms (e.g., SafeBreach, AttackIQ, Picus) continuously simulate real attacker behaviors mapped to MITRE ATT&CK against live security controls. This tests whether controls detect and block specific techniques, providing objective, ongoing measurement of security posture without manual penetration testing effort."
+      incorrect:
+        - "Vulnerability assessments identify weaknesses but do not simulate attack behaviors against live controls."
+        - "BAS platforms simulating real-world attacker behavior against live controls is correct — this is the definition of Breach and Attack Simulation."
+        - "Tabletop exercises are discussion-based scenarios; they do not test technical controls with actual attack simulation."
+        - "Red team assessments involve human testers using creative attack methods; BAS is automated and continuous, complementing but not replacing red teams."
+    difficulty: "medium"
+    tags: ["BAS", "breach-attack-simulation", "security-testing", "MITRE-ATT&CK"]
