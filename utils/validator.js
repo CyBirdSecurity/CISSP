@@ -31,6 +31,68 @@ const Validator = (() => {
     return errors;
   }
 
+  function validateInteractiveQuestion(q) {
+    const errors = [];
+    if (!q.id) errors.push('Missing id');
+    if (!q.domain) errors.push('Missing domain');
+    if (!q.question) errors.push('Missing question text');
+    if (!q.type) errors.push('Missing type');
+    if (!q.explanation) errors.push('Missing explanation');
+
+    switch (q.type) {
+      case 'ordering':
+        if (!Array.isArray(q.items) || q.items.length < 2) {
+          errors.push('ordering: items must be an array with at least 2 elements');
+        }
+        if (!Array.isArray(q.correct_order)) {
+          errors.push('ordering: missing correct_order array');
+        } else if (q.items && q.correct_order.length !== q.items.length) {
+          errors.push('ordering: correct_order length must match items length');
+        }
+        break;
+
+      case 'matching':
+        if (!Array.isArray(q.items) || q.items.length < 2) {
+          errors.push('matching: items must be an array with at least 2 elements');
+        }
+        if (!Array.isArray(q.categories) || q.categories.length < 2) {
+          errors.push('matching: categories must be an array with at least 2 elements');
+        }
+        if (!q.correct_mapping || typeof q.correct_mapping !== 'object') {
+          errors.push('matching: missing correct_mapping object');
+        } else if (q.items && Object.keys(q.correct_mapping).length !== q.items.length) {
+          errors.push('matching: correct_mapping must have an entry for every item');
+        }
+        break;
+
+      case 'multiselect':
+        if (!Array.isArray(q.options) || q.options.length < 2) {
+          errors.push('multiselect: options must be an array with at least 2 elements');
+        }
+        if (!Array.isArray(q.correct_answers) || q.correct_answers.length < 1) {
+          errors.push('multiselect: correct_answers must be a non-empty array');
+        }
+        break;
+
+      case 'fillblank':
+        if (!q.template || !q.template.includes('{blank}')) {
+          errors.push('fillblank: template must be a string containing {blank}');
+        }
+        if (!Array.isArray(q.choices) || q.choices.length < 2) {
+          errors.push('fillblank: choices must be an array with at least 2 elements');
+        }
+        if (q.correct_answer === undefined || q.correct_answer === null) {
+          errors.push('fillblank: missing correct_answer');
+        }
+        break;
+
+      default:
+        errors.push(`Unknown interactive question type: "${q.type}"`);
+    }
+
+    return errors;
+  }
+
   function validateDomains(domains) {
     const errors = [];
     const ids = new Set();
@@ -45,7 +107,7 @@ const Validator = (() => {
     return errors;
   }
 
-  function validateAll(domains, flashcards, questions) {
+  function validateAll(domains, flashcards, questions, interactiveQuestions = []) {
     const domainIds = new Set(domains.map(d => d.id));
     const cardIds = new Set();
     const qIds = new Set();
@@ -75,14 +137,28 @@ const Validator = (() => {
       }
     });
 
+    interactiveQuestions.forEach(q => {
+      validateInteractiveQuestion(q).forEach(e => errors.push(`[Interactive ${q.id || '?'}] ${e}`));
+      if (q.domain && !domainIds.has(q.domain)) {
+        errors.push(`[Interactive ${q.id}] Unknown domain: ${q.domain}`);
+      }
+      if (q.id) {
+        if (qIds.has(q.id)) errors.push(`Duplicate interactive question id: ${q.id}`);
+        qIds.add(q.id);
+      }
+    });
+
     if (errors.length > 0) {
       console.warn(`[Validator] ${errors.length} validation error(s):`, errors);
     } else {
-      console.info(`[Validator] All ${flashcards.length} flashcards and ${questions.length} questions are valid.`);
+      console.info(
+        `[Validator] All ${flashcards.length} flashcards, ${questions.length} questions,` +
+        ` and ${interactiveQuestions.length} interactive questions are valid.`
+      );
     }
 
     return errors;
   }
 
-  return { validateFlashcard, validateQuestion, validateDomains, validateAll };
+  return { validateFlashcard, validateQuestion, validateInteractiveQuestion, validateDomains, validateAll };
 })();

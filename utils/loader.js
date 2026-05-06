@@ -54,5 +54,32 @@ const Loader = (() => {
       .flatMap(r => r.value);
   }
 
-  return { loadDomains, loadFlashcards, loadAllFlashcards, loadQuestions, loadAllQuestions };
+  async function loadInteractiveQuestions(domainId) {
+    try {
+      const data = await fetchYAML(`./data/interactive/${domainId}.yml`);
+      return data.interactive_questions || [];
+    } catch (err) {
+      // Interactive files are optional — not all domains may have them yet
+      return [];
+    }
+  }
+
+  async function loadAllInteractiveQuestions(domains) {
+    const results = await Promise.allSettled(
+      domains.map(d => loadInteractiveQuestions(d.id))
+    );
+    return results
+      .filter(r => r.status === 'fulfilled')
+      .flatMap(r => r.value);
+  }
+
+  return {
+    loadDomains,
+    loadFlashcards,
+    loadAllFlashcards,
+    loadQuestions,
+    loadAllQuestions,
+    loadInteractiveQuestions,
+    loadAllInteractiveQuestions
+  };
 })();

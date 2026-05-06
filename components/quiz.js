@@ -5,26 +5,28 @@
 const QuizComponent = (() => {
   let _container = null;
   let _allQuestions = [];
+  let _allInteractiveQuestions = [];
   let _domains = [];
   let _phase = 'setup'; // 'setup' | 'active' | 'results' | 'review'
 
   // Setup state
   let _selectedDomains = [];
   let _questionCount = 10;
-  let _focusWeak = false;
+  let _includeInteractive = false;
 
   // Active quiz state
   let _questions = [];
   let _currentIndex = 0;
   let _answers = {};
-  let _answered = false; // has the current question been answered?
+  let _answered = false;
 
   // Review state
-  let _reviewItems = []; // incorrect results for review mode
+  let _reviewItems = [];
 
-  function init(container, questions, domains) {
+  function init(container, questions, domains, interactiveQuestions = []) {
     _container = container;
     _allQuestions = questions;
+    _allInteractiveQuestions = interactiveQuestions;
     _domains = domains;
     _phase = 'setup';
     _selectedDomains = [];
@@ -46,6 +48,7 @@ const QuizComponent = (() => {
   function _renderSetup() {
     const weakDomains = QuizEngine.getWeakDomains(_domains);
     const domainStats = Progress.getDomainStats();
+    const hasInteractive = _allInteractiveQuestions.length > 0;
 
     _container.innerHTML = `
       <div class="quiz-setup">
@@ -109,6 +112,26 @@ const QuizComponent = (() => {
           </div>
         </div>
 
+        ${hasInteractive ? `
+          <div class="setup-section">
+            <label class="setup-label">Question Types</label>
+            <label class="setup-toggle-row" id="interactive-toggle">
+              <div class="setup-toggle-info">
+                <div class="setup-toggle-title">Include Interactive Questions</div>
+                <div class="setup-toggle-desc">
+                  Mix in drag-and-drop ordering, matching, multi-select, and fill-in-the-blank questions
+                </div>
+              </div>
+              <div class="toggle-switch ${_includeInteractive ? 'is-on' : ''}">
+                <div class="toggle-knob"></div>
+              </div>
+            </label>
+            <a class="setup-interactive-link" href="#" id="interactive-only-btn">
+              Interactive practice only →
+            </a>
+          </div>
+        ` : ''}
+
         <div class="setup-actions">
           <button class="btn btn-primary btn-lg" id="start-quiz-btn">
             Start Quiz
@@ -125,8 +148,8 @@ const QuizComponent = (() => {
 
   function _bindSetupEvents() {
     document.querySelectorAll('.domain-chip').forEach(chip => {
-      chip.addEventListener('click', (e) => {
-        e.preventDefault(); // prevent label from toggling checkbox twice
+      chip.addEventListener('click', e => {
+        e.preventDefault();
         const id = chip.dataset.id;
         const idx = _selectedDomains.indexOf(id);
         if (idx >= 0) {
@@ -149,6 +172,23 @@ const QuizComponent = (() => {
       });
     });
 
+    const toggleRow = document.getElementById('interactive-toggle');
+    if (toggleRow) {
+      toggleRow.addEventListener('click', () => {
+        _includeInteractive = !_includeInteractive;
+        toggleRow.querySelector('.toggle-switch').classList.toggle('is-on', _includeInteractive);
+      });
+    }
+
+    const interactiveOnlyBtn = document.getElementById('interactive-only-btn');
+    if (interactiveOnlyBtn) {
+      interactiveOnlyBtn.addEventListener('click', e => {
+        e.preventDefault();
+        _includeInteractive = true;
+        _startQuiz(true); // true = interactive only
+      });
+    }
+
     const focusBtn = document.getElementById('focus-mode-btn');
     if (focusBtn) focusBtn.addEventListener('click', () => {
       const weakDomains = QuizEngine.getWeakDomains(_domains);
@@ -164,8 +204,17 @@ const QuizComponent = (() => {
     });
   }
 
-  function _startQuiz() {
-    _questions = QuizEngine.selectQuestions(_allQuestions, _selectedDomains, _questionCount);
+  function _startQuiz(interactiveOnly = false) {
+    let pool;
+    if (interactiveOnly) {
+      pool = [..._allInteractiveQuestions];
+    } else if (_includeInteractive) {
+      pool = [..._allQuestions, ..._allInteractiveQuestions];
+    } else {
+      pool = [..._allQuestions];
+    }
+
+    _questions = QuizEngine.selectQuestions(pool, _selectedDomains, _questionCount);
     _currentIndex = 0;
     _answers = {};
     _answered = false;
@@ -178,6 +227,7 @@ const QuizComponent = (() => {
     }
 
     Progress.updateSession();
+    _phase = 'active';
     render();
   }
 
@@ -186,8 +236,15 @@ const QuizComponent = (() => {
     if (_questions.length === 0) { _phase = 'setup'; render(); return; }
     const q = _questions[_currentIndex];
     const answered = _answers.hasOwnProperty(q.id);
-    const selectedIdx = _answers[q.id];
-    const progress = Math.round(((_currentIndex) / _questions.length) * 100);
+    const userAnswer = _answers[q.id];
+    const isInteractive = !!(q.type);
+    const progress = Math.round((_currentIndex / _questions.length) * 100);
+
+    // Reset interactive state on new unanswered question
+    if (isInteractive && !answered) {
+      // Only reset when we haven't answered yet — avoid resetting on re-renders
+      if (!_answered) InteractiveRenderer.reset(q);
+    }
 
     _container.innerHTML = `
       <div class="quiz-active">
@@ -200,35 +257,23 @@ const QuizComponent = (() => {
         </div>
 
         <div class="quiz-question-card card">
-          <div class="question-domain-tag">${_getDomainName(q.domain)}</div>
+          <div class="question-header-row">
+            <div class="question-domain-tag">${_getDomainName(q.domain)}</div>
+            ${isInteractive ? `<span class="question-type-badge">${_typeBadgeLabel(q.type)}</span>` : ''}
+          </div>
           <h3 class="question-text">${escapeHTML(q.question)}</h3>
 
-          <div class="options-list" id="options-list">
-            ${q.options.map((opt, i) => {
-              let cls = 'option-btn';
-              if (answered) {
-                if (i === q.correct_answer) cls += ' option-correct';
-                else if (i === selectedIdx) cls += ' option-wrong';
-                else cls += ' option-disabled';
-              }
-              return `
-                <button class="${cls}" data-index="${i}" ${answered ? 'disabled' : ''}>
-                  <span class="option-letter">${'ABCD'[i]}</span>
-                  <span class="option-text">${escapeHTML(opt)}</span>
-                  ${answered && i === q.correct_answer
-                    ? '<svg class="option-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
-                    : ''}
-                  ${answered && i === selectedIdx && i !== q.correct_answer
-                    ? '<svg class="option-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
-                    : ''}
-                </button>
-              `;
-            }).join('')}
+          <div id="question-body">
+            ${isInteractive
+              ? InteractiveRenderer.render(q, answered, userAnswer)
+              : _renderMCOptions(q, answered, userAnswer)}
           </div>
 
           ${answered ? `
             <div id="feedback-zone">
-              ${Feedback.render(q, selectedIdx)}
+              ${isInteractive
+                ? InteractiveRenderer.renderFeedback(q, userAnswer)
+                : Feedback.render(q, userAnswer)}
             </div>
             <div class="quiz-next-bar">
               ${_currentIndex < _questions.length - 1
@@ -241,36 +286,75 @@ const QuizComponent = (() => {
       </div>
     `;
 
-    _bindActiveEvents(q);
+    _bindActiveEvents(q, isInteractive, answered);
   }
 
-  function _bindActiveEvents(q) {
-    document.querySelectorAll('.option-btn:not([disabled])').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const selectedIdx = parseInt(btn.dataset.index);
-        _answers[q.id] = selectedIdx;
-        const isCorrect = selectedIdx === q.correct_answer;
+  function _renderMCOptions(q, answered, selectedIdx) {
+    return `
+      <div class="options-list" id="options-list">
+        ${q.options.map((opt, i) => {
+          let cls = 'option-btn';
+          if (answered) {
+            if (i === q.correct_answer) cls += ' option-correct';
+            else if (i === selectedIdx) cls += ' option-wrong';
+            else cls += ' option-disabled';
+          }
+          return `
+            <button class="${cls}" data-index="${i}" ${answered ? 'disabled' : ''}>
+              <span class="option-letter">${'ABCD'[i]}</span>
+              <span class="option-text">${escapeHTML(opt)}</span>
+              ${answered && i === q.correct_answer
+                ? '<svg class="option-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+                : ''}
+              ${answered && i === selectedIdx && i !== q.correct_answer
+                ? '<svg class="option-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+                : ''}
+            </button>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  function _bindActiveEvents(q, isInteractive, answered) {
+    // MC option selection
+    if (!isInteractive && !answered) {
+      document.querySelectorAll('.option-btn:not([disabled])').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const selectedIdx = parseInt(btn.dataset.index);
+          _answers[q.id] = selectedIdx;
+          const isCorrect = selectedIdx === q.correct_answer;
+          Progress.updateQuizProgress(q.id, q.domain, isCorrect);
+          _answered = true;
+          _renderActive();
+        });
+      });
+    }
+
+    // Interactive question events
+    if (isInteractive && !answered) {
+      InteractiveRenderer.bindEvents(q, answer => {
+        _answers[q.id] = answer;
+        const isCorrect = QuizEngine.isCorrectAnswer(q, answer);
         Progress.updateQuizProgress(q.id, q.domain, isCorrect);
         _answered = true;
         _renderActive();
       });
-    });
+    }
 
-    const nextBtn = document.getElementById('next-question-btn');
-    if (nextBtn) nextBtn.addEventListener('click', () => {
+    // Navigation
+    document.getElementById('next-question-btn')?.addEventListener('click', () => {
       _currentIndex++;
       _answered = false;
       _renderActive();
     });
 
-    const finishBtn = document.getElementById('finish-quiz-btn');
-    if (finishBtn) finishBtn.addEventListener('click', () => {
+    document.getElementById('finish-quiz-btn')?.addEventListener('click', () => {
       _phase = 'results';
       render();
     });
 
-    const quitBtn = document.getElementById('quit-quiz-btn');
-    if (quitBtn) quitBtn.addEventListener('click', () => {
+    document.getElementById('quit-quiz-btn')?.addEventListener('click', () => {
       if (confirm('Quit quiz? Your progress will be saved.')) {
         _phase = 'setup';
         render();
@@ -345,19 +429,43 @@ const QuizComponent = (() => {
         ${_reviewItems.length > 0 ? `
           <div class="results-incorrect card">
             <h3 class="section-label">Incorrect Questions (${_reviewItems.length})</h3>
-            ${_reviewItems.map((r, i) => `
-              <div class="review-item">
-                <div class="review-q">${i + 1}. ${escapeHTML(r.question.question)}</div>
-                <div class="review-answers">
-                  <div class="review-your-answer">
-                    <span class="label-wrong">Your answer:</span> ${escapeHTML(r.question.options[r.selected] || 'Unanswered')}
+            ${_reviewItems.map((r, i) => {
+              const isInteractive = !!(r.question.type);
+              let answerHtml;
+              if (isInteractive) {
+                const summary = InteractiveRenderer.summarizeAnswer(r.question, r.selected);
+                answerHtml = `
+                  <div class="review-answers">
+                    <div class="review-your-answer">
+                      <span class="label-wrong">Your answer:</span> ${summary.your}
+                    </div>
+                    <div class="review-correct-answer">
+                      <span class="label-correct">Correct:</span> ${summary.correct}
+                    </div>
                   </div>
-                  <div class="review-correct-answer">
-                    <span class="label-correct">Correct:</span> ${escapeHTML(r.question.options[r.question.correct_answer])}
+                `;
+              } else {
+                answerHtml = `
+                  <div class="review-answers">
+                    <div class="review-your-answer">
+                      <span class="label-wrong">Your answer:</span> ${escapeHTML(r.question.options[r.selected] || 'Unanswered')}
+                    </div>
+                    <div class="review-correct-answer">
+                      <span class="label-correct">Correct:</span> ${escapeHTML(r.question.options[r.question.correct_answer])}
+                    </div>
                   </div>
+                `;
+              }
+              return `
+                <div class="review-item">
+                  <div class="review-q">
+                    ${i + 1}. ${escapeHTML(r.question.question)}
+                    ${isInteractive ? `<span class="question-type-badge question-type-badge--sm">${_typeBadgeLabel(r.question.type)}</span>` : ''}
+                  </div>
+                  ${answerHtml}
                 </div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         ` : ''}
 
@@ -401,34 +509,47 @@ const QuizComponent = (() => {
           <button class="btn btn-ghost btn-sm" id="back-results-btn">← Back to Results</button>
         </div>
 
-        ${_reviewItems.map((r, i) => `
-          <div class="review-card card">
-            <div class="review-number">Question ${i + 1}</div>
-            <p class="review-question">${escapeHTML(r.question.question)}</p>
+        ${_reviewItems.map((r, i) => {
+          const isInteractive = !!(r.question.type);
+          return `
+            <div class="review-card card">
+              <div class="review-number">
+                Question ${i + 1}
+                ${isInteractive ? `<span class="question-type-badge question-type-badge--sm">${_typeBadgeLabel(r.question.type)}</span>` : ''}
+              </div>
+              <p class="review-question">${escapeHTML(r.question.question)}</p>
 
-            <div class="options-list options-list--static">
-              ${r.question.options.map((opt, idx) => {
-                let cls = 'option-btn option-disabled';
-                if (idx === r.question.correct_answer) cls += ' option-correct';
-                else if (idx === r.selected) cls += ' option-wrong';
-                return `
-                  <div class="${cls}">
-                    <span class="option-letter">${'ABCD'[idx]}</span>
-                    <span class="option-text">${escapeHTML(opt)}</span>
-                    ${idx === r.question.correct_answer
-                      ? '<svg class="option-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
-                      : ''}
-                    ${idx === r.selected && idx !== r.question.correct_answer
-                      ? '<svg class="option-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
-                      : ''}
-                  </div>
-                `;
-              }).join('')}
+              ${isInteractive
+                ? `<div class="review-interactive-body">
+                     ${InteractiveRenderer.render(r.question, true, r.selected)}
+                   </div>`
+                : `<div class="options-list options-list--static">
+                     ${r.question.options.map((opt, idx) => {
+                       let cls = 'option-btn option-disabled';
+                       if (idx === r.question.correct_answer) cls += ' option-correct';
+                       else if (idx === r.selected) cls += ' option-wrong';
+                       return `
+                         <div class="${cls}">
+                           <span class="option-letter">${'ABCD'[idx]}</span>
+                           <span class="option-text">${escapeHTML(opt)}</span>
+                           ${idx === r.question.correct_answer
+                             ? '<svg class="option-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+                             : ''}
+                           ${idx === r.selected && idx !== r.question.correct_answer
+                             ? '<svg class="option-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+                             : ''}
+                         </div>
+                       `;
+                     }).join('')}
+                   </div>`
+              }
+
+              ${isInteractive
+                ? InteractiveRenderer.renderFeedback(r.question, r.selected)
+                : Feedback.render(r.question, r.selected)}
             </div>
-
-            ${Feedback.render(r.question, r.selected)}
-          </div>
-        `).join('')}
+          `;
+        }).join('')}
 
         <div class="review-footer">
           <button class="btn btn-ghost" id="back-results-btn-2">← Back to Results</button>
@@ -442,9 +563,20 @@ const QuizComponent = (() => {
     document.getElementById('new-quiz-btn-2')?.addEventListener('click', () => { _selectedDomains = []; _phase = 'setup'; render(); });
   }
 
+  // ── Helpers ───────────────────────────────────────────────────
   function _getDomainName(domainId) {
     const d = _domains.find(d => d.id === domainId);
     return d ? d.name : domainId;
+  }
+
+  function _typeBadgeLabel(type) {
+    const labels = {
+      ordering:    'Ordering',
+      matching:    'Matching',
+      multiselect: 'Multi-Select',
+      fillblank:   'Fill-in-the-Blank'
+    };
+    return labels[type] || type;
   }
 
   function escapeHTML(str) {

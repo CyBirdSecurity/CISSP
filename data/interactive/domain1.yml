@@ -1,0 +1,167 @@
+interactive_questions:
+
+  # ── Ordering ─────────────────────────────────────────────────
+
+  - id: iq-d1-001
+    domain: domain1
+    type: ordering
+    question: "Place the NIST Risk Management Framework (RMF) steps in the correct order:"
+    items:
+      - "Prepare"
+      - "Categorize"
+      - "Select"
+      - "Implement"
+      - "Assess"
+      - "Authorize"
+      - "Monitor"
+    correct_order: [0, 1, 2, 3, 4, 5, 6]
+    explanation: >
+      The NIST RMF (SP 800-37) follows seven steps in order: Prepare establishes context and
+      priorities; Categorize classifies the information system by impact level; Select chooses
+      appropriate security controls; Implement applies those controls; Assess evaluates their
+      effectiveness; Authorize senior management accepts residual risk; Monitor provides ongoing
+      awareness and reports program effectiveness.
+
+  - id: iq-d1-002
+    domain: domain1
+    type: ordering
+    question: "Arrange the NIST Incident Response lifecycle phases in the correct order:"
+    items:
+      - "Preparation"
+      - "Detection and Analysis"
+      - "Containment, Eradication, and Recovery"
+      - "Post-Incident Activity"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      Per NIST SP 800-61: Preparation establishes the capability to respond; Detection and Analysis
+      identifies and validates incidents; Containment, Eradication, and Recovery limits damage,
+      removes the threat, and restores systems; Post-Incident Activity captures lessons learned
+      and improves the program.
+
+  # ── Matching ─────────────────────────────────────────────────
+
+  - id: iq-d1-003
+    domain: domain1
+    type: matching
+    question: "Classify each security control into its correct functional category:"
+    items:
+      - "Firewall"
+      - "CCTV Camera"
+      - "Intrusion Detection System (IDS)"
+      - "Patch Management"
+      - "Access Control List (ACL)"
+      - "Audit Logs"
+    categories:
+      - "Preventive"
+      - "Detective"
+      - "Corrective"
+    correct_mapping:
+      0: "Preventive"
+      1: "Detective"
+      2: "Detective"
+      3: "Corrective"
+      4: "Preventive"
+      5: "Detective"
+    explanation: >
+      Preventive controls block threats before they occur (firewalls, ACLs). Detective controls
+      identify threats during or after an event (CCTV, IDS, audit logs). Corrective controls
+      restore systems or reduce impact after an incident (patch management). Note that many
+      controls span categories — IDS is primarily detective, though some IPS configurations
+      add preventive capability.
+
+  - id: iq-d1-004
+    domain: domain1
+    type: matching
+    question: "Match each attack scenario to the CIA Triad property it primarily violates:"
+    items:
+      - "An attacker intercepts and reads encrypted emails"
+      - "A hacker modifies financial records in a database"
+      - "A DDoS attack takes an e-commerce site offline"
+      - "An employee copies confidential customer data to a USB drive"
+    categories:
+      - "Confidentiality"
+      - "Integrity"
+      - "Availability"
+    correct_mapping:
+      0: "Confidentiality"
+      1: "Integrity"
+      2: "Availability"
+      3: "Confidentiality"
+    explanation: >
+      Confidentiality ensures information is not disclosed to unauthorized parties (interception,
+      unauthorized copying). Integrity ensures information is accurate and unaltered
+      (database modification). Availability ensures systems and data are accessible when
+      needed (DDoS). Many real-world attacks impact multiple properties simultaneously.
+
+  # ── Multi-Select ─────────────────────────────────────────────
+
+  - id: iq-d1-005
+    domain: domain1
+    type: multiselect
+    question: "Which of the following are components of the CIA Triad? (Select all that apply)"
+    options:
+      - "Confidentiality"
+      - "Authentication"
+      - "Integrity"
+      - "Availability"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      The CIA Triad consists of Confidentiality (protecting information from unauthorized
+      disclosure), Integrity (ensuring information is accurate and unmodified), and
+      Availability (ensuring authorized users can access information when needed).
+      Authentication is an important security concept but is not part of the CIA Triad —
+      it is part of the AAA framework (Authentication, Authorization, Accounting).
+
+  - id: iq-d1-006
+    domain: domain1
+    type: multiselect
+    question: "Which of the following are valid responses to identified risk? (Select all that apply)"
+    options:
+      - "Risk Avoidance"
+      - "Risk Elimination"
+      - "Risk Transfer"
+      - "Risk Acceptance"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      The four standard risk responses are: Accept (tolerate the risk), Avoid (discontinue
+      the activity), Transfer (shift impact to a third party, e.g., insurance), and Mitigate/Reduce
+      (implement controls to lower likelihood or impact). "Risk Elimination" is not a recognized
+      standard term — risk can be reduced or avoided but rarely fully eliminated; residual risk
+      always remains.
+
+  # ── Fill-in-the-Blank ────────────────────────────────────────
+
+  - id: iq-d1-007
+    domain: domain1
+    type: fillblank
+    question: "Complete the quantitative risk formula:"
+    template: "Annual Loss Expectancy (ALE) = {blank} × Single Loss Expectancy (SLE)"
+    choices:
+      - "Annual Rate of Occurrence (ARO)"
+      - "Asset Value (AV)"
+      - "Exposure Factor (EF)"
+      - "Return on Investment (ROI)"
+    correct_answer: 0
+    explanation: >
+      ALE = ARO × SLE. The Annual Rate of Occurrence (ARO) represents how many times per year
+      a threat is expected to materialize. Single Loss Expectancy (SLE) is the expected monetary
+      loss per incident. Together they give the Annual Loss Expectancy — the expected annual cost
+      of a specific risk. This is the foundation of quantitative risk analysis in CISSP.
+
+  - id: iq-d1-008
+    domain: domain1
+    type: fillblank
+    question: "Complete the Single Loss Expectancy formula:"
+    template: "SLE = Asset Value (AV) × {blank}"
+    choices:
+      - "Annual Rate of Occurrence (ARO)"
+      - "Annual Loss Expectancy (ALE)"
+      - "Exposure Factor (EF)"
+      - "Return on Security Investment (ROSI)"
+    correct_answer: 2
+    explanation: >
+      SLE = AV × EF. The Exposure Factor (EF) is the percentage of asset value lost in a
+      single incident, expressed as a decimal (0.0–1.0). For example, if a $100,000 server
+      has a 40% chance of being fully destroyed in a fire (EF = 0.4), the SLE is $40,000.
+      Understanding SLE is critical for justifying security control costs using quantitative
+      risk analysis.
