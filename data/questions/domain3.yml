@@ -1040,3 +1040,953 @@ questions:
         - "Key escrow is a key management policy that can be applied alongside TLS/SSL — they are not incompatible."
     difficulty: "hard"
     tags: ["cryptography", "key-management", "escrow"]
+
+  - id: q-d3-056
+    domain: domain3
+    question: "Which security model was specifically designed to prevent conflicts of interest in commercial environments by preventing subjects from accessing objects of organizations that compete with organizations they have previously accessed?"
+    options:
+      - "Bell-LaPadula"
+      - "Biba"
+      - "Clark-Wilson"
+      - "Brewer-Nash (Chinese Wall)"
+    correct_answer: 3
+    explanations:
+      correct: "The Brewer-Nash (Chinese Wall) model prevents conflicts of interest by creating dynamic access restrictions based on what data a subject has previously accessed. Once a consultant accesses data from Company A, they cannot access data from Company A's direct competitors. This implements information barriers in financial, legal, and consulting contexts."
+      incorrect:
+        - "Bell-LaPadula focuses on confidentiality using mandatory access controls and clearance levels — it does not address conflict of interest between competing organizations."
+        - "Biba focuses on integrity using 'no read down, no write up' rules — it does not address conflict of interest between organizations."
+        - "Clark-Wilson focuses on integrity of commercial data through well-formed transactions and separation of duties — it does not address inter-organizational conflict of interest."
+        - "The Brewer-Nash (Chinese Wall) model was specifically designed to prevent conflicts of interest by restricting access based on an individual's access history to competing organizations."
+    difficulty: "medium"
+    tags: ["security-models", "Brewer-Nash", "access-control"]
+
+  - id: q-d3-057
+    domain: domain3
+    question: "In the context of virtualization security, what is a 'VM escape' attack?"
+    options:
+      - "An attacker using a compromised virtual machine to access the host hypervisor and other VMs"
+      - "An authorized user intentionally migrating a VM between physical hosts"
+      - "A configuration error that causes a VM to consume excessive host resources"
+      - "An attacker intercepting network traffic between virtual machines on the same host"
+    correct_answer: 0
+    explanations:
+      correct: "A VM escape attack occurs when a malicious actor in a guest virtual machine exploits a vulnerability in the hypervisor to break the isolation boundary and gain access to the host operating system or other VMs on the same host. This represents a critical security breach because it can compromise all workloads on the physical host."
+      incorrect:
+        - "VM escape is when an attacker breaks out of a guest VM to access the hypervisor or other VMs — this is the correct definition of this critical virtualization attack."
+        - "VM migration (vMotion) is an authorized administrative operation to move VMs between hosts — not an attack."
+        - "Resource exhaustion is a denial of service concern (VM sprawl, 'noisy neighbor') — it is an operational problem, not a VM escape attack."
+        - "Intercepting network traffic between VMs is a network-layer attack (ARP poisoning, VLAN hopping on virtual networks) — different from a VM escape that breaks hypervisor isolation."
+    difficulty: "medium"
+    tags: ["virtualization", "hypervisor", "attack-types"]
+
+  - id: q-d3-058
+    domain: domain3
+    question: "What is the security significance of the 'Trusted Computing Base' (TCB) boundary in a secure system design?"
+    options:
+      - "The TCB boundary defines which users have administrative privileges in the system"
+      - "Everything inside the TCB boundary is trusted and its security properties are guaranteed; components outside rely on the TCB for enforcement"
+      - "The TCB boundary separates classified information from unclassified information in government systems"
+      - "The TCB is the set of network firewalls and security appliances that protect a system"
+    correct_answer: 1
+    explanations:
+      correct: "The Trusted Computing Base (TCB) encompasses all security-critical hardware, firmware, and software components that are trusted to enforce the security policy. The TCB must be correct and complete. Components inside the TCB boundary must be verified and minimal. All security enforcement occurs through or within the TCB — other components rely on the TCB to maintain security properties. The smaller the TCB, the easier it is to verify."
+      incorrect:
+        - "The TCB boundary defines the security-enforcing components, not administrative privilege levels. Administrator accounts are not synonymous with the TCB."
+        - "The TCB encompasses all trusted security-enforcing components; everything inside is trusted to enforce security policy, and all other components rely on the TCB — this is the correct security significance."
+        - "In government systems, labels and clearances define classification boundaries. The TCB is the set of security-enforcing components, not a classification boundary."
+        - "Network security appliances may be part of a system's TCB if they enforce security policy, but the TCB concept encompasses much more — including the OS kernel, reference monitor, and hardware security mechanisms."
+    difficulty: "medium"
+    tags: ["TCB", "security-architecture", "trusted-systems"]
+
+  - id: q-d3-059
+    domain: domain3
+    question: "The RSA algorithm's security is based on the computational difficulty of which mathematical problem?"
+    options:
+      - "The discrete logarithm problem in finite fields"
+      - "Factoring the product of two large prime numbers"
+      - "Solving elliptic curve discrete logarithm problems"
+      - "Finding collisions in cryptographic hash functions"
+    correct_answer: 1
+    explanations:
+      correct: "RSA security is based on the integer factorization problem — it is computationally easy to multiply two large prime numbers (p × q = n), but computationally infeasible to reverse the operation (factor n to find p and q) with sufficiently large numbers. The public key includes n; the security relies on the inability to factor n into its prime components."
+      incorrect:
+        - "The discrete logarithm problem in finite fields is the basis for Diffie-Hellman key exchange and DSA (Digital Signature Algorithm), not RSA."
+        - "RSA security is based on the integer factorization problem — the computational difficulty of factoring the product of two large prime numbers."
+        - "Elliptic curve discrete logarithm problems are the basis for Elliptic Curve Cryptography (ECC) algorithms, not RSA."
+        - "Collision resistance is a property of cryptographic hash functions. Hash collision problems are not the basis of RSA's security."
+    difficulty: "medium"
+    tags: ["cryptography", "RSA", "asymmetric", "foundations"]
+
+  - id: q-d3-060
+    domain: domain3
+    question: "What is the primary purpose of 'certificate transparency' (CT) logs in the PKI ecosystem?"
+    options:
+      - "To provide a decentralized alternative to traditional Certificate Authorities"
+      - "To create a publicly auditable, append-only log of all issued TLS certificates enabling detection of mis-issued certificates"
+      - "To encrypt certificate content so only authorized relying parties can verify validity"
+      - "To replace Certificate Revocation Lists (CRLs) with a more efficient revocation mechanism"
+    correct_answer: 1
+    explanations:
+      correct: "Certificate Transparency (CT) creates publicly auditable, append-only Merkle tree logs of all TLS certificates issued by Certificate Authorities. Website owners can monitor CT logs to detect unauthorized certificates issued for their domains. Browsers require CT log inclusion for Extended Validation certificates. CT logs enabled discovery of fraudulent certificates (like those issued for Google by Symantec) that might otherwise go undetected."
+      incorrect:
+        - "CT logs do not replace Certificate Authorities — they add an accountability layer on top of the existing CA infrastructure. CAs still issue certificates; CT just requires public logging of those issuances."
+        - "CT logs create publicly auditable append-only records of all issued certificates, enabling detection of mis-issued certificates — this is the correct purpose of certificate transparency."
+        - "CT logs are publicly readable by design — their security value comes from transparency and public auditability, not from encrypting certificate content."
+        - "CT logs supplement but do not replace CRLs or OCSP for certificate revocation. CT addresses the mis-issuance problem; CRL/OCSP addresses the revocation problem. Both mechanisms coexist."
+    difficulty: "hard"
+    tags: ["PKI", "certificates", "TLS", "transparency"]
+
+  - id: q-d3-061
+    domain: domain3
+    question: "In a cloud environment, what is a 'cloud enclave' or 'confidential computing' technology designed to protect?"
+    options:
+      - "Data at rest against unauthorized cloud provider access to storage systems"
+      - "Data in use by providing hardware-enforced isolated execution environments where even the cloud provider cannot access code or data during processing"
+      - "Data in transit between cloud services using dedicated encrypted network paths"
+      - "Cloud management APIs against unauthorized configuration changes"
+    correct_answer: 1
+    explanations:
+      correct: "Confidential computing (using technologies like Intel SGX, AMD SEV, or ARM TrustZone) creates hardware-enforced Trusted Execution Environments (TEEs) where data is processed in encrypted memory regions. Even the cloud provider, hypervisor, or privileged OS cannot access the data during processing. This addresses the data-in-use security gap that encryption for data at rest and in transit cannot solve."
+      incorrect:
+        - "Data at rest encryption protects against unauthorized storage access. Confidential computing addresses the different problem of protecting data while actively being processed in memory."
+        - "Confidential computing provides hardware-enforced isolated execution where even the cloud provider cannot access data during processing — this is the definition of confidential computing/cloud enclaves."
+        - "Encrypted network paths (TLS, dedicated interconnects) protect data in transit. Confidential computing focuses on data in use, not in transit."
+        - "Cloud management API security is addressed by IAM, API authentication, and infrastructure security controls. Confidential computing protects workload execution environments, not management plane APIs."
+    difficulty: "hard"
+    tags: ["cloud", "confidential-computing", "data-in-use", "TEE"]
+
+  - id: q-d3-062
+    domain: domain3
+    question: "What is 'separation of privilege' as a security design principle?"
+    options:
+      - "Ensuring that privileged users' accounts are separate from their standard user accounts"
+      - "Requiring two or more independent conditions to be met before a security-critical operation is permitted"
+      - "Segregating network traffic from privileged management systems and regular user traffic"
+      - "Assigning different privilege levels to different security domains in a multilevel security system"
+    correct_answer: 1
+    explanations:
+      correct: "Separation of privilege requires that two or more independent conditions (e.g., two different keys, two different principals, or two separate authentication mechanisms) must be satisfied before a system grants access or performs a sensitive operation. This prevents a single compromised factor from authorizing critical actions. Examples: two-person integrity requirements, multi-party authorization for key ceremonies."
+      incorrect:
+        - "Using separate accounts for privileged and standard tasks is 'separation of accounts' or 'least privilege' implementation — it is a related but distinct concept from separation of privilege."
+        - "Separation of privilege requires two or more independent conditions before permitting a security-critical operation — this prevents single-point authorization of sensitive actions."
+        - "Segregating management network traffic is network segmentation or out-of-band management — a network architecture control, not the separation of privilege design principle."
+        - "Assigning different privilege levels to security domains describes multilevel security labeling or mandatory access control — different from the two-condition authorization requirement of separation of privilege."
+    difficulty: "medium"
+    tags: ["principles", "security-design", "access-control"]
+
+  - id: q-d3-063
+    domain: domain3
+    question: "Why are 'nonces' used in cryptographic protocols such as TLS?"
+    options:
+      - "To provide data integrity by hashing message content with a secret key"
+      - "To prevent replay attacks by ensuring each session uses a unique, unpredictable value"
+      - "To replace symmetric keys in authenticated key exchange protocols"
+      - "To extend the effective key length of symmetric encryption algorithms"
+    correct_answer: 1
+    explanations:
+      correct: "A nonce (number used once) is a random or sequential value included in cryptographic protocols to ensure uniqueness. In TLS, nonces are used in the handshake to generate session-specific key material and prevent replay attacks — an attacker cannot reuse a captured session because the nonce value would be different in a legitimate new session. Nonces ensure each cryptographic operation is unique and bound to a specific context."
+      incorrect:
+        - "Providing data integrity through hashing with a secret key describes a Message Authentication Code (MAC) or HMAC — not the purpose of nonces."
+        - "Nonces prevent replay attacks by ensuring each session or cryptographic operation uses a unique, unpredictable value — this is the correct purpose."
+        - "Nonces supplement key exchange but do not replace symmetric keys. They contribute to deriving session-specific key material in combination with the exchanged key secrets."
+        - "Key stretching and padding techniques extend effective key length. Nonces address uniqueness and replay prevention, not key strength."
+    difficulty: "medium"
+    tags: ["cryptography", "protocols", "TLS", "replay-attacks"]
+
+  - id: q-d3-064
+    domain: domain3
+    question: "What is the primary security concern with using 'Electronic Codebook' (ECB) mode for encrypting images or structured data?"
+    options:
+      - "ECB mode does not support hardware acceleration, making it too slow for image encryption"
+      - "ECB encrypts each block independently, so identical plaintext blocks produce identical ciphertext blocks, revealing data patterns"
+      - "ECB mode requires a different encryption key for each block, creating key management challenges"
+      - "ECB is vulnerable to padding oracle attacks that allow decryption without the key"
+    correct_answer: 1
+    explanations:
+      correct: "ECB mode encrypts each plaintext block independently with the same key. This means identical plaintext blocks produce identical ciphertext blocks. For images, this means visual patterns in the original image remain visible in the encrypted version (the famous encrypted 'ECB penguin' example). For structured data, recurring values (like account status codes) create recognizable patterns that can leak information without breaking the encryption."
+      incorrect:
+        - "ECB mode has no special hardware acceleration limitations — it is one of the simpler modes to implement. The problem is statistical pattern preservation, not performance."
+        - "ECB encrypts each block independently using the same key, causing identical plaintext blocks to produce identical ciphertext — this pattern preservation is the fundamental security flaw."
+        - "ECB uses the same key for all blocks. It is the lack of an initialization vector or chaining that causes the pattern problem, not key management complexity."
+        - "Padding oracle attacks (BEAST, POODLE) primarily affect CBC mode implementations — not ECB. ECB's security weakness is the pattern preservation problem."
+    difficulty: "medium"
+    tags: ["cryptography", "ECB", "block-ciphers", "modes"]
+
+  - id: q-d3-065
+    domain: domain3
+    question: "A security architect is designing a system that must maintain security even if any single security control fails. Which security design principle does this represent?"
+    options:
+      - "Fail secure — the system fails to a secure state when a control malfunctions"
+      - "Defense in depth — multiple independent layers of controls so that failure of any single layer does not compromise security"
+      - "Least privilege — limiting each component's access minimizes the impact of any single failure"
+      - "Economy of mechanism — simpler systems have fewer failure points"
+    correct_answer: 1
+    explanations:
+      correct: "Defense in depth designs security with multiple independent, overlapping layers so that the compromise or failure of any single control does not result in a complete security failure. The requirement that security is maintained even if any single control fails is the defining characteristic of defense in depth. Examples: perimeter firewall + network IDS + host-based firewall + EDR + DLP."
+      incorrect:
+        - "Fail secure means a system defaults to a secure state when it fails (a door that locks when power is cut vs. unlocks). It addresses what happens during a failure, not maintaining security across multiple control failures."
+        - "Defense in depth — layering multiple independent controls so that failure of any single layer does not compromise security — is the correct principle described."
+        - "Least privilege limits access scope but does not by itself ensure security is maintained if a control fails. Least privilege is a complementary principle."
+        - "Economy of mechanism reduces complexity to minimize vulnerabilities and attack surface, not specifically to maintain security when controls fail."
+    difficulty: "easy"
+    tags: ["principles", "defense-in-depth", "security-design"]
+
+  - id: q-d3-066
+    domain: domain3
+    question: "In PKI, what is the significance of the 'root CA' being kept offline in most enterprise PKI deployments?"
+    options:
+      - "Offline root CAs enable faster certificate issuance by distributing signing operations to subordinate CAs"
+      - "If the root CA private key is compromised, all certificates in the hierarchy are untrusted — keeping it offline minimizes exposure"
+      - "Offline root CAs are required by the X.509 standard for regulatory compliance"
+      - "Offline storage prevents the root CA from being discovered by certificate transparency log monitors"
+    correct_answer: 1
+    explanations:
+      correct: "The root CA's private key is the ultimate trust anchor for the entire PKI hierarchy. If it is compromised, every certificate issued by or under that root must be considered untrusted. By keeping the root CA offline (air-gapped, in a HSM, physically secured), organizations dramatically reduce the attack surface. Subordinate (intermediate) CAs, which are online, are used for day-to-day certificate issuance."
+      incorrect:
+        - "Offline root CAs actually slow down certificate issuance — all issuance goes through subordinate CAs specifically because the root is offline. Speed is sacrificed for security."
+        - "Keeping the root CA offline minimizes the risk of key compromise — because all trust in the PKI hierarchy flows from the root, protecting its private key is the highest priority."
+        - "X.509 does not mandate offline root CAs. The offline practice is a security best practice (recommended by NIST, CABF Baseline Requirements) but not an X.509 protocol requirement."
+        - "Certificate transparency logs are designed to capture all certificates issued — keeping the root offline does not affect CT log visibility. CT monitors what certificates are issued, not where the CA is."
+    difficulty: "medium"
+    tags: ["PKI", "CA", "key-management", "trust"]
+
+  - id: q-d3-067
+    domain: domain3
+    question: "What distinguishes a 'side-channel attack' from a 'cryptanalytic attack' on a cryptographic implementation?"
+    options:
+      - "Side-channel attacks require physical access; cryptanalytic attacks can be performed remotely"
+      - "Side-channel attacks exploit information leaked by the physical implementation (timing, power, EM emissions) rather than weaknesses in the algorithm itself"
+      - "Side-channel attacks target the encryption key directly; cryptanalytic attacks target the plaintext"
+      - "Side-channel attacks require custom hardware; cryptanalytic attacks use only software tools"
+    correct_answer: 1
+    explanations:
+      correct: "Side-channel attacks exploit information inadvertently leaked by the physical implementation of a cryptographic system — not weaknesses in the algorithm. Examples: timing attacks (execution time varies with key bits), power analysis (power consumption reveals key operations), electromagnetic emanations, acoustic attacks. The algorithm may be perfectly secure, but its implementation leaks information through physical channels."
+      incorrect:
+        - "Some side-channel attacks can be performed remotely (timing attacks over networks). Requiring physical access is not the defining characteristic — the physical information leakage channel is."
+        - "Side-channel attacks exploit information leaked by physical implementation (timing, power, emissions) rather than mathematical weaknesses in the algorithm — this is the correct distinction."
+        - "Both attack types ultimately aim to recover key material or plaintext. The distinction is the attack vector (physical implementation vs. mathematical properties), not the ultimate target."
+        - "Timing attacks are a form of side-channel attack that requires only network access and no custom hardware. Physical hardware tools are needed for power analysis but not all side-channel attacks."
+    difficulty: "medium"
+    tags: ["cryptography", "side-channel", "attacks", "implementation"]
+
+  - id: q-d3-068
+    domain: domain3
+    question: "What is 'homomorphic encryption' and what security problem does it solve?"
+    options:
+      - "Encryption that uses the same key for both encryption and decryption operations"
+      - "Encryption that allows computation on encrypted data without decrypting it first, enabling processing by untrusted parties"
+      - "Encryption that automatically adapts its algorithm based on the sensitivity of the data being protected"
+      - "A cryptographic technique that combines multiple encryption algorithms for increased security"
+    correct_answer: 1
+    explanations:
+      correct: "Homomorphic encryption allows mathematical operations to be performed directly on encrypted (ciphertext) data, producing an encrypted result that, when decrypted, equals the result of performing the same operations on the plaintext. This enables cloud providers and third parties to process sensitive data without ever seeing the plaintext — solving the data-in-use security problem. It is computationally expensive but advancing rapidly."
+      incorrect:
+        - "Using the same key for both encryption and decryption describes symmetric encryption. Homomorphic encryption can be asymmetric and specifically enables computation on ciphertext."
+        - "Homomorphic encryption allows computation on encrypted data without decryption, enabling untrusted parties to process sensitive data — this is the correct definition."
+        - "Adaptive encryption is not a standard cryptographic concept. Homomorphic encryption has a fixed mathematical structure that enables computation on ciphertext."
+        - "Combining multiple encryption algorithms describes hybrid encryption or layered encryption. Homomorphic encryption is a specific property of certain mathematical systems that enables ciphertext computation."
+    difficulty: "hard"
+    tags: ["cryptography", "homomorphic", "advanced", "data-in-use"]
+
+  - id: q-d3-069
+    domain: domain3
+    question: "What is the 'confinement problem' in computer security and which concept does it relate to?"
+    options:
+      - "The challenge of preventing malware from modifying the kernel — related to system integrity"
+      - "The challenge of preventing a process from leaking information to unauthorized parties through covert channels, even when direct data flows are controlled"
+      - "The problem of confining user access to specific directories on a file system"
+      - "The difficulty of isolating virtual machines on shared physical hardware"
+    correct_answer: 1
+    explanations:
+      correct: "The confinement problem (Lampson 1973) addresses whether it is possible to prevent a process from leaking information to unauthorized parties, including through covert channels. Even if all direct communication channels are controlled, a confined process might leak information through covert channels (timing variations, resource usage, storage patterns). Complete confinement — preventing all possible information leakage — is generally considered impossible to achieve in practice."
+      incorrect:
+        - "Preventing kernel modification is addressed by integrity controls (Trusted Platform Module, Secure Boot, code signing). The confinement problem specifically addresses information leakage through covert channels."
+        - "The confinement problem addresses preventing a process from leaking information through covert channels even when direct data flows are controlled — this is Lampson's classic security research question."
+        - "Filesystem directory restriction is access control (chroot jails, mandatory access control). The confinement problem is specifically about covert information leakage, not explicit file access."
+        - "VM isolation is the hypervisor isolation problem — a related but distinct challenge. The confinement problem specifically addresses covert information leakage from a supposedly confined process."
+    difficulty: "hard"
+    tags: ["security-models", "covert-channels", "confinement", "theory"]
+
+  - id: q-d3-070
+    domain: domain3
+    question: "In the context of physical security, what is a 'mantrap' (also called an airlock or sally port) designed to prevent?"
+    options:
+      - "Electronic eavesdropping of sensitive conversations within secure facilities"
+      - "Tailgating — unauthorized individuals following authorized persons through access-controlled entry points"
+      - "Physical destruction of security equipment by internal employees"
+      - "Theft of portable media from secure areas by authorized staff"
+    correct_answer: 1
+    explanations:
+      correct: "A mantrap (airlock, sally port) consists of two consecutive doors/barriers where only one can be open at a time. An individual enters the first door into a small enclosed space; the first door must close and lock before the second door can be opened. This prevents tailgating (piggybacking) — an unauthorized person cannot follow an authorized user through both doors because the system requires individual authentication between the two barriers."
+      incorrect:
+        - "Electronic eavesdropping is countered by Faraday cages, TEMPEST shielding, and secure room construction — not by mantraps, which are physical access control mechanisms."
+        - "Mantraps prevent tailgating by requiring each person to authenticate individually between two interlocked doors — this is the primary purpose."
+        - "Internal employee physical destruction is addressed by video surveillance, security guards, and audit controls. Mantraps control entry/exit, not internal activity."
+        - "Preventing media theft by authorized staff requires DLP controls, bag checks, and exit screening. Mantraps control who enters the facility, not what authorized staff remove."
+    difficulty: "easy"
+    tags: ["physical-security", "access-control", "tailgating"]
+
+  - id: q-d3-071
+    domain: domain3
+    question: "What is 'post-quantum cryptography' (PQC) designed to address, and which NIST standards were finalized in 2024?"
+    options:
+      - "PQC addresses vulnerabilities in classical computers exploiting quantum random number generators; NIST standardized quantum key distribution"
+      - "PQC designs algorithms resistant to attacks by quantum computers; NIST finalized ML-KEM (CRYSTALS-Kyber), ML-DSA (CRYSTALS-Dilithium), and SLH-DSA (SPHINCS+)"
+      - "PQC adds quantum-derived randomness to existing AES and RSA implementations to increase security"
+      - "PQC addresses the threat of side-channel attacks on quantum hardware during key generation"
+    correct_answer: 1
+    explanations:
+      correct: "Post-quantum cryptography develops algorithms that remain secure against cryptanalysis by quantum computers. Shor's algorithm on a sufficiently powerful quantum computer would break RSA and ECC (by solving factoring and discrete logarithm problems). NIST finalized three PQC standards in 2024: FIPS 203 (ML-KEM/Kyber for key encapsulation), FIPS 204 (ML-DSA/Dilithium for digital signatures), and FIPS 205 (SLH-DSA/SPHINCS+ for digital signatures)."
+      incorrect:
+        - "PQC addresses threats from quantum computers running algorithms like Shor's, not from quantum random number generators. Quantum key distribution (QKD) is a different technology — it uses quantum physics properties for key exchange, not classical algorithms."
+        - "PQC develops algorithms resistant to quantum computer attacks; NIST finalized ML-KEM, ML-DSA, and SLH-DSA as the first PQC standards in 2024."
+        - "PQC replaces RSA and ECC with fundamentally different mathematical problems (lattice-based, hash-based) — it does not add randomness to existing classical algorithms."
+        - "Side-channel attacks on hardware are an implementation security concern. PQC addresses the algorithmic vulnerability to quantum computing attacks, not side-channel implementation risks."
+    difficulty: "hard"
+    tags: ["cryptography", "post-quantum", "NIST", "standards"]
+
+  - id: q-d3-072
+    domain: domain3
+    question: "What is the primary security benefit of using 'salted password hashes' compared to unsalted hashes?"
+    options:
+      - "Salted hashes use longer hash outputs, making them harder to crack"
+      - "Salts prevent precomputed hash table (rainbow table) attacks by making each hash unique even for identical passwords"
+      - "Salted hashes are encrypted before storage, adding a second layer of protection"
+      - "Salts increase the computational cost of hashing, slowing down brute-force attacks"
+    correct_answer: 1
+    explanations:
+      correct: "A salt is a random value added to each password before hashing, making the hash unique even for identical passwords. Without salts, an attacker can use precomputed rainbow tables to instantly look up common password hashes. With salts, they must hash each guess for each account individually — eliminating precomputed attack efficiency. Salts also mean two users with the same password have different hash values."
+      incorrect:
+        - "Salts do not inherently produce longer hash outputs. SHA-256 produces the same output length whether or not a salt is used. Output length is determined by the hash algorithm, not salting."
+        - "Salts prevent rainbow table attacks by making each password hash unique, even for identical passwords — this is the primary security benefit of salting."
+        - "Salts are concatenated with the password before hashing — they are stored in clear text alongside the hash because they need to be available for verification. The security comes from uniqueness, not encryption."
+        - "Increasing computational cost is the purpose of key stretching algorithms like bcrypt, scrypt, and Argon2 — these also use salts but the computational work factor addresses brute-force speed, not salts alone."
+    difficulty: "medium"
+    tags: ["cryptography", "passwords", "hashing", "salts"]
+
+  - id: q-d3-073
+    domain: domain3
+    question: "What is the primary security limitation of Wired Equivalent Privacy (WEP) that led to its deprecation?"
+    options:
+      - "WEP uses asymmetric encryption which has fundamental performance limitations"
+      - "WEP's use of RC4 with short, static initialization vectors (IVs) allows key recovery through IV reuse analysis"
+      - "WEP was designed for wired networks and does not support wireless authentication"
+      - "WEP requires certificate-based authentication that is impractical for consumer devices"
+    correct_answer: 1
+    explanations:
+      correct: "WEP uses RC4 with a 24-bit Initialization Vector (IV) that is transmitted in clear text alongside each packet. With enough traffic, IVs repeat. By analyzing packets with repeated IVs, attackers can recover the WEP key. The FMS attack and subsequent tools (like Aircrack-ng) can crack WEP keys in minutes from captured packets. The short IV space and weak IV scheduling in RC4 made WEP fundamentally broken."
+      incorrect:
+        - "WEP uses RC4 which is a symmetric stream cipher. Asymmetric encryption is not used in WEP — and the issue with WEP is weak key scheduling and IV reuse, not algorithm type."
+        - "WEP's RC4 with short, static IVs that repeat allows key recovery — this is the fundamental cryptographic flaw that made WEP deprecation necessary."
+        - "WEP was specifically designed for wireless (IEEE 802.11) networks. It was the original security protocol for Wi-Fi, not adapted from wired protocols."
+        - "WEP uses pre-shared keys — it does not use certificate-based authentication. The problem was the weak cryptographic implementation, not authentication complexity."
+    difficulty: "medium"
+    tags: ["wireless", "WEP", "cryptography", "attacks"]
+
+  - id: q-d3-074
+    domain: domain3
+    question: "In a Zero Trust Architecture, which concept BEST describes why network location alone is insufficient for access control decisions?"
+    options:
+      - "Modern networks are too complex to maintain accurate network topology maps"
+      - "Threats originate both externally and from within the network perimeter; trust should be based on identity, device health, and context — not network location"
+      - "Network-based authentication is computationally expensive compared to identity-based methods"
+      - "IPv6 eliminates the concept of internal vs. external network addresses"
+    correct_answer: 1
+    explanations:
+      correct: "Zero Trust rejects the implicit trust granted to users and devices simply because they are on the 'internal' network. Insider threats, lateral movement after external compromise, and BYOD devices mean that internal network presence does not guarantee legitimacy. Trust must be continuously evaluated based on identity verification, device health posture, request context, and behavior — not network location."
+      incorrect:
+        - "Network topology complexity is an operational challenge, not the security reason for Zero Trust. The security motivation is that network location does not indicate trustworthiness."
+        - "Zero Trust rejects network location as a trust indicator because threats originate internally as well as externally — trust must be based on identity, device health, and context."
+        - "Authentication cost is not the reason for Zero Trust adoption. Identity-based authentication may actually have higher overhead than network-based, but the security benefit justifies it."
+        - "IPv6 is a protocol upgrade — it does not eliminate the concept of network zones or resolve the trust problem that Zero Trust addresses."
+    difficulty: "medium"
+    tags: ["zero-trust", "architecture", "principles", "network"]
+
+  - id: q-d3-075
+    domain: domain3
+    question: "Which Common Criteria evaluation concept describes the specific security functions a Target of Evaluation (TOE) must provide, as expressed in a structured document?"
+    options:
+      - "Evaluation Assurance Level (EAL)"
+      - "Security Target (ST)"
+      - "Protection Profile (PP)"
+      - "Assurance Class"
+    correct_answer: 1
+    explanations:
+      correct: "A Security Target (ST) is a document written by the vendor of a specific product (the TOE) that describes the product's security functions, security requirements, and the threats it addresses. It is evaluated to verify that the product meets its claimed security properties. A Protection Profile (PP) is a similar document but written generically for a category of products, not a specific implementation."
+      incorrect:
+        - "The Evaluation Assurance Level (EAL) is the numerical rating (EAL1-EAL7) that indicates the rigor and depth of the evaluation methodology used to verify the product's security claims."
+        - "The Security Target is the vendor-written document describing the specific TOE's security functions and requirements — this is the correct answer."
+        - "A Protection Profile is a generic document specifying security requirements for a type/category of product (e.g., 'firewall PP'). It is not product-specific. Vendors write Security Targets based on or referencing Protection Profiles."
+        - "Assurance Classes are categories of requirements in the Common Criteria (like ADV for Development, ATE for Testing) that together determine the EAL level achieved."
+    difficulty: "hard"
+    tags: ["common-criteria", "evaluation", "standards", "CC"]
+
+  - id: q-d3-076
+    domain: domain3
+    question: "What is the primary security advantage of using a Trusted Platform Module (TPM) for disk encryption key storage compared to storing keys in software?"
+    options:
+      - "TPM-stored keys can be shared more easily between multiple computers in an enterprise"
+      - "The decryption key is bound to specific hardware — it cannot be extracted and used on different hardware even by someone with physical access"
+      - "TPM encryption is faster than software-based key storage due to hardware acceleration"
+      - "TPMs store keys in cloud-based secure enclaves, protecting against local hardware theft"
+    correct_answer: 1
+    explanations:
+      correct: "A TPM binds encryption keys to specific hardware measurements (PCR registers measuring boot sequence integrity). If the hard drive is removed and placed in a different computer, or if the boot sequence changes (suggesting tampering), the TPM will not release the decryption key. This 'hardware binding' prevents key extraction attacks — even with physical access, the key is protected within the TPM's secure boundary."
+      incorrect:
+        - "TPM keys are hardware-bound to a specific physical machine — they cannot and should not be shared between computers. Enterprise key recovery uses escrow systems, not TPM key sharing."
+        - "TPM binds decryption keys to specific hardware — if the drive is removed to another machine, or boot integrity changes, the key is not released — this is the primary security advantage."
+        - "While TPMs include hardware acceleration for some operations, the primary security advantage is hardware binding of keys, not performance. Software key storage can also use hardware acceleration."
+        - "TPMs are hardware chips on the physical computer's motherboard — they are entirely local hardware. They do not store keys in the cloud. Cloud HSMs are different products."
+    difficulty: "medium"
+    tags: ["TPM", "encryption", "hardware", "key-management"]
+
+  - id: q-d3-077
+    domain: domain3
+    question: "Which cryptographic algorithm is considered 'deprecated' by NIST and should be replaced due to successful collision attacks?"
+    options:
+      - "SHA-256"
+      - "AES-128"
+      - "SHA-1"
+      - "HMAC-SHA256"
+    correct_answer: 2
+    explanations:
+      correct: "SHA-1 was deprecated by NIST in 2011 and its use in digital signatures was prohibited by 2013. Practical collision attacks against SHA-1 were demonstrated (SHAttered attack in 2017 by Google/CWI), proving two different files can produce the same SHA-1 hash. Modern applications should use SHA-2 (SHA-256, SHA-384, SHA-512) or SHA-3."
+      incorrect:
+        - "SHA-256 is currently secure and is part of the SHA-2 family that replaced SHA-1. NIST recommends its continued use for hashing and digital signatures."
+        - "AES-128 remains secure for most applications. NIST recommends AES-128 for systems where higher security margins are not required and AES-256 for longer-term security."
+        - "SHA-1 has been successfully attacked with collision demonstrations and is deprecated by NIST — organizations must migrate to SHA-2 or SHA-3."
+        - "HMAC-SHA256 is currently secure and recommended. HMAC (Hash-based Message Authentication Code) using SHA-256 is not deprecated."
+    difficulty: "medium"
+    tags: ["cryptography", "hashing", "SHA-1", "deprecated"]
+
+  - id: q-d3-078
+    domain: domain3
+    question: "What is the 'Bell-LaPadula *-property (star property)' and what type of threat does it specifically prevent?"
+    options:
+      - "No read up — prevents users from reading data above their clearance level, addressing confidentiality"
+      - "No write down — prevents subjects from writing information to objects at lower classification levels, preventing data declassification by authorized users"
+      - "No execute across — prevents subjects from running code from different security domains"
+      - "No transfer right — prevents subjects from passing their access rights to other subjects"
+    correct_answer: 1
+    explanations:
+      correct: "The *-property (star property) of Bell-LaPadula states that subjects cannot write to objects at a lower security level than their current security level ('no write down'). This prevents a Top Secret-cleared user from writing Top Secret information to a Secret or Unclassified document — intentionally or accidentally declassifying information. It addresses the threat of authorized insiders leaking classified data to lower classification levels."
+      incorrect:
+        - "'No read up' is the Simple Security Property (ss-property) of Bell-LaPadula — it prevents reading above clearance. The *-property specifically addresses writing below classification level."
+        - "The *-property (no write down) prevents subjects from writing information to objects at lower classification levels — addressing accidental or intentional declassification by authorized users."
+        - "No execute across is not a Bell-LaPadula property. Bell-LaPadula focuses on read and write operations, not execution privileges."
+        - "No transfer right is part of the Take-Grant model, which models how access rights can be propagated between subjects — different from Bell-LaPadula."
+    difficulty: "medium"
+    tags: ["security-models", "Bell-LaPadula", "MAC", "confidentiality"]
+
+  - id: q-d3-079
+    domain: domain3
+    question: "What is an 'initialization vector' (IV) and why must it be random and non-reusable for security?"
+    options:
+      - "An IV is a master key used to generate session-specific encryption keys"
+      - "An IV is a random value that provides uniqueness to each encryption operation, preventing identical plaintexts from producing identical ciphertexts and enabling safe key reuse"
+      - "An IV is a digital signature appended to encrypted data to verify integrity"
+      - "An IV is the initial configuration of a cipher's S-box used in key scheduling"
+    correct_answer: 1
+    explanations:
+      correct: "An Initialization Vector (IV) is a random or pseudo-random value that provides uniqueness to each encryption operation. In CBC mode, the IV is XORed with the first plaintext block before encryption. This ensures that encrypting the same message with the same key produces different ciphertext each time (if IVs differ), preventing pattern analysis. Reusing an IV with the same key allows attackers to perform crib-dragging attacks and recover plaintext."
+      incorrect:
+        - "IVs are not master keys — they do not derive other keys. Session keys are derived through key exchange protocols or KDFs. IVs provide initialization uniqueness for block cipher modes."
+        - "An IV provides uniqueness to each encryption operation, preventing identical plaintexts from producing identical ciphertexts and enabling safe key reuse across multiple messages."
+        - "Data integrity verification is provided by MACs (Message Authentication Codes) or digital signatures. IVs are part of the encryption process, not authentication tags."
+        - "S-box initialization is part of some cipher key schedules (like DES), but that is a separate concept from IVs. IVs are provided as input to the cipher operation, not part of key scheduling."
+    difficulty: "medium"
+    tags: ["cryptography", "IV", "block-ciphers", "modes"]
+
+  - id: q-d3-080
+    domain: domain3
+    question: "A 'type 1 hypervisor' (bare-metal hypervisor) differs from a 'type 2 hypervisor' (hosted hypervisor) in which security-relevant way?"
+    options:
+      - "Type 1 hypervisors support more virtual machines; type 2 hypervisors are limited to fewer guests"
+      - "Type 1 runs directly on hardware with no host OS intermediary, providing a smaller attack surface; type 2 runs on a host OS, adding attack surface"
+      - "Type 2 hypervisors are more secure because they rely on the host OS's mature security controls"
+      - "Type 1 hypervisors encrypt all VM data automatically; type 2 requires separate encryption configuration"
+    correct_answer: 1
+    explanations:
+      correct: "A Type 1 (bare-metal) hypervisor (VMware ESXi, Microsoft Hyper-V, Xen) runs directly on hardware without an underlying host OS. The attack surface is limited to the thin hypervisor layer. A Type 2 (hosted) hypervisor (VMware Workstation, VirtualBox, Parallels) runs on top of a host OS (Windows, Linux, macOS). Any vulnerability in the host OS, its drivers, or its applications can potentially be exploited to compromise VMs — creating a larger attack surface."
+      incorrect:
+        - "The number of supported VMs depends on hardware resources and licensing, not the hypervisor type. Both type 1 and type 2 hypervisors can run multiple VMs."
+        - "Type 1 hypervisors run directly on hardware with a smaller attack surface; type 2 hypervisors add the host OS as an additional attack surface layer — this is the correct security-relevant distinction."
+        - "Type 2 hypervisors have a larger attack surface because all vulnerabilities in the host OS apply to them. A mature host OS still represents more attack surface than a minimal bare-metal hypervisor."
+        - "Encryption of VM data is not an inherent difference between Type 1 and Type 2 hypervisors. Both types support encryption through their respective management frameworks."
+    difficulty: "medium"
+    tags: ["virtualization", "hypervisor", "architecture", "security"]
+
+  - id: q-d3-081
+    domain: domain3
+    question: "Which principle of secure system design states that security mechanisms should be as simple as possible to enable verification and reduce implementation errors?"
+    options:
+      - "Defense in depth"
+      - "Economy of mechanism"
+      - "Psychological acceptability"
+      - "Open design"
+    correct_answer: 1
+    explanations:
+      correct: "Economy of mechanism (Saltzer and Schroeder, 1975) states that security mechanisms should be as simple and small as possible. Complex security mechanisms are harder to verify, more likely to contain implementation errors, and more difficult to audit. Simple, minimal mechanisms can be analyzed more thoroughly. This is related to the principle of minimizing the Trusted Computing Base (TCB)."
+      incorrect:
+        - "Defense in depth uses multiple overlapping layers of security — it actually increases complexity. Economy of mechanism advocates for simplicity in individual security mechanisms."
+        - "Economy of mechanism (Saltzer and Schroeder) advocates for simple, small security mechanisms to enable complete analysis and reduce implementation errors."
+        - "Psychological acceptability states that security mechanisms should be designed so they are easy enough to use that users don't circumvent them. This addresses usability, not simplicity of the mechanism itself."
+        - "Open design (Kerckhoffs's principle applied broadly) states that the security of a mechanism should not depend on secrecy of its design. This is a separate principle from economy of mechanism."
+    difficulty: "medium"
+    tags: ["principles", "security-design", "Saltzer-Schroeder"]
+
+  - id: d3-082
+    domain: domain3
+    question: "What is 'covert timing channel' and how does it differ from a 'covert storage channel'?"
+    options:
+      - "Timing channels are faster than storage channels; speed is the only technical distinction"
+      - "Covert timing channels modulate a shared resource's timing or performance to communicate; covert storage channels write and read from a shared storage resource"
+      - "Timing channels require network access; storage channels work only on local systems"
+      - "Storage channels are intentionally created; timing channels occur only as unintended side effects"
+    correct_answer: 1
+    explanations:
+      correct: "Covert channels allow unauthorized information transfer in violation of security policies. Covert timing channels communicate by modulating observable timing of events (CPU usage patterns, response time variations) — the receiver measures timing, not data content. Covert storage channels communicate through shared storage (file system attributes, unused protocol fields, shared memory) — the receiver reads data written to the shared storage resource."
+      incorrect:
+        - "Speed is not the defining distinction. Timing channels can be slower than storage channels. The distinction is the communication mechanism: timing patterns vs. stored data."
+        - "Covert timing channels use observable timing/performance patterns; covert storage channels use shared storage resources — this correctly distinguishes the two types."
+        - "Both types of covert channels can operate over networks or locally. Timing attacks over networks (cache timing, TCP sequence analysis) demonstrate network-capable timing channels."
+        - "Both types can be intentionally created by malicious actors or emerge as unintended side effects of system design. Intent does not distinguish them — the mechanism does."
+    difficulty: "hard"
+    tags: ["covert-channels", "security-models", "information-flow"]
+
+  - id: q-d3-083
+    domain: domain3
+    question: "In the context of physical security, what does CPTED (Crime Prevention Through Environmental Design) primarily address?"
+    options:
+      - "Designing database access controls to prevent employees from committing financial crimes"
+      - "Designing physical environments to reduce opportunities for crime through natural surveillance, access control, and territorial reinforcement"
+      - "Criminal background check procedures for employees in security-sensitive roles"
+      - "Technical controls for detecting and preventing cyber attacks on physical security systems"
+    correct_answer: 1
+    explanations:
+      correct: "Crime Prevention Through Environmental Design (CPTED) is a security philosophy that designs the physical environment to naturally deter crime and reduce attack opportunities. It uses three principles: natural surveillance (design sight lines so criminals feel observed), natural access control (landscaping, lighting, and barriers guide movement naturally), and territorial reinforcement (clear ownership signals through signs, fencing, and lighting that differentiate public from private spaces)."
+      incorrect:
+        - "CPTED addresses the physical built environment — buildings, landscaping, lighting — not database or IT access controls. The 'environmental' in CPTED refers to the physical built environment."
+        - "CPTED uses physical environmental design (surveillance, access control, territorial reinforcement) to naturally reduce crime opportunities — this is the correct definition."
+        - "Criminal background checks are personnel security controls. CPTED is about physical design, not personnel screening."
+        - "Technical cyber security controls are IT security domain. CPTED is a physical security and architectural design philosophy."
+    difficulty: "medium"
+    tags: ["physical-security", "CPTED", "design"]
+
+  - id: q-d3-084
+    domain: domain3
+    question: "What is 'cryptographic agility' and why has it become a critical requirement for modern security systems?"
+    options:
+      - "The ability of encryption hardware to automatically scale performance based on workload demands"
+      - "The ability to swap cryptographic algorithms and key sizes without requiring fundamental system redesign, enabling response to algorithm deprecation or compromise"
+      - "The use of multiple simultaneous encryption algorithms for redundant protection"
+      - "The capacity of cryptographic libraries to handle keys of varying lengths"
+    correct_answer: 1
+    explanations:
+      correct: "Cryptographic agility is the design property that allows systems to replace cryptographic algorithms and parameters (key sizes, modes, hash functions) without requiring fundamental architectural changes. It has become critical because: algorithms become deprecated (SHA-1, DES, 3DES), vulnerabilities are discovered, and the threat from quantum computers requires transition to post-quantum algorithms. Systems without cryptographic agility face expensive, risky rewrites when algorithms change."
+      incorrect:
+        - "Performance scaling based on workload describes hardware acceleration and elastic computing capacity — not cryptographic agility. Agility is about algorithm replaceability, not performance scaling."
+        - "Cryptographic agility is the ability to swap algorithms and parameters without system redesign — critical for responding to algorithm deprecation or post-quantum migration."
+        - "Running multiple simultaneous algorithms is a defense strategy that may be used during transitions but does not define cryptographic agility. Agility is about the ease of algorithm replacement, not running multiple algorithms simultaneously."
+        - "Support for varying key lengths is a basic library capability, not the architectural design property of cryptographic agility. Agility encompasses the full ability to replace algorithms without system redesign."
+    difficulty: "hard"
+    tags: ["cryptography", "agility", "architecture", "post-quantum"]
+
+  - id: q-d3-085
+    domain: domain3
+    question: "A security engineer is evaluating physical access control for a server room. Which combination of controls provides the STRONGEST access control at the entry point?"
+    options:
+      - "A keypad PIN entry with security camera monitoring"
+      - "Proximity card reader with PIN (two-factor) plus a mantrap with guard authentication"
+      - "Biometric fingerprint reader with security guard verification via intercom"
+      - "Mechanical lock and key with after-hours security patrol"
+    correct_answer: 1
+    explanations:
+      correct: "The combination of proximity card (something you have) + PIN (something you know) provides two-factor authentication at the first control point, and the mantrap physically ensures only one person passes through at a time while the guard provides identity verification and prevents tailgating. This layered approach — MFA, physical delay, and human verification — provides the strongest control against both unauthorized access and social engineering."
+      incorrect:
+        - "A keypad PIN alone is single-factor authentication (something you know). Camera monitoring is detective but not preventive. This combination is weakest of the options."
+        - "Proximity card + PIN (two-factor) at a mantrap with guard verification provides the strongest access control combining MFA, physical delay, and human authentication."
+        - "Biometric + intercom verification is strong but lacks the physical barrier of a mantrap. Without a mantrap, tailgating after biometric authentication remains possible. This is strong but not the strongest combination."
+        - "Mechanical lock and key is single-factor with no electronic monitoring. After-hours patrols are detective, not preventive. This provides the least technical control assurance."
+    difficulty: "medium"
+    tags: ["physical-security", "access-control", "authentication"]
+
+  - id: q-d3-086
+    domain: domain3
+    question: "What is the primary security purpose of 'Certificate Stapling' (OCSP Stapling) in TLS connections?"
+    options:
+      - "To attach the full certificate chain to TLS handshakes, reducing validation round trips"
+      - "To have the web server provide a cached OCSP response, preventing privacy leaks from client-direct OCSP queries to the CA and reducing latency"
+      - "To bind a TLS certificate to a specific server's hardware configuration"
+      - "To create a certificate backup that can be used if the primary certificate is revoked"
+    correct_answer: 1
+    explanations:
+      correct: "OCSP Stapling allows the web server to obtain and cache the Certificate Authority's OCSP response (certificate validity confirmation) and deliver it as part of the TLS handshake. This prevents the privacy leak where clients directly query the CA's OCSP server (revealing which websites they visit), reduces connection latency (no separate OCSP query), and provides the revocation check even if the CA's OCSP server is unavailable."
+      incorrect:
+        - "Attaching the certificate chain reduces chain-building steps but is different from stapling. Stapling specifically addresses OCSP revocation checking delivery and privacy."
+        - "OCSP Stapling delivers a cached OCSP response to prevent client-direct CA queries (eliminating privacy leaks) and reduce revocation check latency — this is the primary purpose."
+        - "Binding certificates to hardware is done through certificate pinning or TPM-based attestation. OCSP Stapling is about revocation status delivery, not hardware binding."
+        - "OCSP responses confirm current validity — they are not certificate backups and do not substitute for a revoked certificate. Stapling is a delivery mechanism for revocation status, not a backup mechanism."
+    difficulty: "hard"
+    tags: ["PKI", "TLS", "OCSP", "certificate-revocation"]
+
+  - id: q-d3-087
+    domain: domain3
+    question: "The Biba 'Invocation Property' states that a subject cannot request service from a subject at a higher integrity level. What threat does this prevent?"
+    options:
+      - "It prevents low-integrity processes from using high-integrity processes as trusted proxies to elevate their own integrity"
+      - "It prevents high-integrity processes from being overloaded by service requests from lower integrity subjects"
+      - "It prevents low-integrity subjects from reading high-integrity data indirectly through service calls"
+      - "It prevents subjects from sending messages across security domain boundaries"
+    correct_answer: 0
+    explanations:
+      correct: "The Biba Invocation Property prevents a low-integrity subject from invoking (calling) a higher-integrity subject to perform operations on its behalf. Without this restriction, a low-integrity process could use a high-integrity trusted process as a proxy — having the trusted process perform operations that the low-integrity subject cannot directly perform, effectively laundering the integrity level. This prevents privilege escalation through proxy service calls."
+      incorrect:
+        - "The Invocation Property prevents low-integrity processes from using high-integrity processes as trusted proxies to elevate their effective integrity — this is the correct threat it prevents."
+        - "Performance/availability (overloading) is not the security concern addressed by the Invocation Property. The concern is using high-integrity processes to launder privilege."
+        - "Preventing reading high-integrity data indirectly is addressed by the Biba Simple Integrity Property (no read down). The Invocation Property specifically addresses service request privilege escalation."
+        - "Cross-domain messaging restrictions are addressed by access control labels and mandatory security policies. The Invocation Property is specifically about service invocation privilege escalation."
+    difficulty: "hard"
+    tags: ["security-models", "Biba", "integrity", "MAC"]
+
+  - id: q-d3-088
+    domain: domain3
+    question: "What is 'quantum key distribution' (QKD) and what is its primary security property compared to classical key exchange?"
+    options:
+      - "QKD uses quantum computers to generate computationally unbreakable encryption keys"
+      - "QKD uses quantum physics properties to distribute keys such that any eavesdropping disturbs the quantum state and is detectable"
+      - "QKD is a post-quantum cryptographic algorithm designed to replace Diffie-Hellman key exchange"
+      - "QKD uses quantum random number generators to produce truly random keys for symmetric encryption"
+    correct_answer: 1
+    explanations:
+      correct: "Quantum Key Distribution uses quantum mechanics principles (specifically the behavior of quantum states when measured) to distribute cryptographic keys. The Heisenberg Uncertainty Principle and quantum state superposition mean that any eavesdropping attempt by an interceptor necessarily disturbs the quantum states being transmitted — making eavesdropping detectable. The security derives from physics, not computational hardness. QKD does not replace encryption; it provides physically secure key distribution."
+      incorrect:
+        - "QKD uses quantum physics for key distribution, not quantum computers for key generation. Quantum computers are the threat that post-quantum cryptography addresses — QKD is a separate technology."
+        - "QKD uses quantum physics to distribute keys where any eavesdropping disturbs the quantum state and becomes detectable — this is the correct security property."
+        - "Post-quantum cryptography (PQC) develops classical algorithms resistant to quantum computer attacks. QKD is a physics-based key distribution method — different technologies addressing different problems."
+        - "Quantum random number generators (QRNGs) produce random numbers from quantum events. QKD is about key distribution and eavesdropping detection — QRNGs are a component of some QKD systems but are not its defining property."
+    difficulty: "hard"
+    tags: ["cryptography", "quantum", "QKD", "key-exchange"]
+
+  - id: q-d3-089
+    domain: domain3
+    question: "What is 'security by obscurity' and why is it considered insufficient as a security strategy?"
+    options:
+      - "Hiding sensitive data in encrypted form is called security by obscurity — it is insufficient because encryption can be broken"
+      - "Relying solely on the secrecy of system design or implementation details as the primary security mechanism — insufficient because once the secret is discovered, all security fails"
+      - "Using obfuscated code to protect software intellectual property — insufficient for security but acceptable for IP protection"
+      - "Deploying honeypots to mislead attackers — insufficient as attackers eventually identify and bypass them"
+    correct_answer: 1
+    explanations:
+      correct: "Security by obscurity relies on keeping the design, implementation, or configuration of a security system secret as the primary security mechanism. This violates Kerckhoffs's principle, which states that a system should be secure even if everything about it except the key is public knowledge. Once the secret is discovered (through reverse engineering, insider disclosure, or vulnerability research), all security evaporates. Obscurity may be a supplementary layer but not a foundation."
+      incorrect:
+        - "Storing data in encrypted form is the opposite of obscurity — it relies on mathematical key security, not secrecy of the protection mechanism. Kerckhoffs's principle endorses this approach."
+        - "Security by obscurity relies on secrecy of system design as the primary security mechanism — insufficient because discovery of the secret eliminates all security."
+        - "Code obfuscation for IP protection is a commercial consideration, not a security strategy in the security sense. Even for IP protection, obfuscation alone is generally insufficient and is separate from information security."
+        - "Deception technologies (honeypots, decoys) are legitimate security controls that serve detection purposes — they are not 'security by obscurity' in the traditional sense."
+    difficulty: "easy"
+    tags: ["principles", "security-design", "Kerckhoffs"]
+
+  - id: q-d3-090
+    domain: domain3
+    question: "What is a 'replay attack' and which cryptographic mechanism is MOST effective at preventing it?"
+    options:
+      - "An attacker replays legitimate user credentials; best prevented by two-factor authentication"
+      - "An attacker captures and retransmits a valid authentication message to gain unauthorized access; best prevented by nonces, timestamps, or sequence numbers"
+      - "An attacker replays encrypted traffic to reconstruct plaintext without decryption; best prevented by cipher mode selection"
+      - "An attacker records and replays a complete TLS session; best prevented by certificate pinning"
+    correct_answer: 1
+    explanations:
+      correct: "A replay attack captures a legitimate authentication message (login token, signed request, Kerberos ticket) and retransmits it to gain unauthorized access without needing to break the cryptography. Defenses use time-limiting mechanisms: nonces (random values used once per transaction), timestamps (rejecting messages older than a defined window), or sequence numbers (detecting out-of-order or duplicate messages). Kerberos uses timestamps; TLS uses session nonces."
+      incorrect:
+        - "Two-factor authentication improves authentication security but does not prevent replay of a captured valid authentication message. An attacker replaying a valid MFA token within its validity window would still succeed without anti-replay mechanisms."
+        - "Replay attacks involve retransmitting captured valid messages; nonces, timestamps, or sequence numbers prevent this by binding messages to a specific time or transaction context."
+        - "Cipher mode selection (AES-GCM vs. AES-CBC) affects confidentiality and integrity of data content, not session-level replay protection. The issue is replaying the entire valid message, not decrypting encrypted traffic."
+        - "Certificate pinning addresses server impersonation by verifying the server certificate is expected. It does not prevent capturing and replaying valid client authentication messages."
+    difficulty: "medium"
+    tags: ["cryptography", "protocols", "replay-attacks", "nonces"]
+
+  - id: q-d3-091
+    domain: domain3
+    question: "UEFI Secure Boot protects against which specific threat during the system startup process?"
+    options:
+      - "Brute-force attacks against BIOS passwords set by system administrators"
+      - "Bootkit/rootkit infections that load malicious code before the OS, preventing security software from detecting them"
+      - "Unauthorized physical access to internal hardware components during maintenance"
+      - "Network-based attacks targeting the system during the PXE boot process"
+    correct_answer: 1
+    explanations:
+      correct: "UEFI Secure Boot prevents the loading of unsigned or untrusted bootloaders and OS kernels during the startup process. Bootkits and rootkits that load before the operating system (in the Master Boot Record or UEFI environment) can hide from and disable security software. Secure Boot uses a chain of trust with cryptographic signatures — each component in the boot sequence verifies the next, ensuring only trusted, signed code executes before the OS."
+      incorrect:
+        - "BIOS/UEFI passwords are physical security controls for setup configuration. Secure Boot is about software trust and boot code integrity — not brute-force password attack prevention."
+        - "Secure Boot prevents bootkit/rootkit infections that load before the OS by requiring cryptographic signatures on all boot components — allowing only trusted code to execute during startup."
+        - "Physical hardware access security is addressed by physical security controls (locks, tamper-evident seals, chassis intrusion detection). Secure Boot is a software/firmware integrity mechanism."
+        - "PXE boot security is addressed by network boot authentication and DHCP/TFTP security controls. Secure Boot can validate PXE-provided boot images if they are signed, but its primary purpose is broader boot integrity."
+    difficulty: "medium"
+    tags: ["boot-security", "UEFI", "rootkits", "hardware"]
+
+  - id: q-d3-092
+    domain: domain3
+    question: "An HMAC (Hash-based Message Authentication Code) provides which security properties that a plain hash of the same message does NOT provide?"
+    options:
+      - "Collision resistance and one-way function properties"
+      - "Authentication and integrity verification — proving the message came from a party with knowledge of the secret key"
+      - "Encryption and confidentiality of the message content"
+      - "Non-repudiation through a public key infrastructure binding"
+    correct_answer: 1
+    explanations:
+      correct: "A plain cryptographic hash provides integrity (any change to the message changes the hash) but not authentication (anyone can compute a hash). An HMAC incorporates a shared secret key into the hashing process using a specific construction (HMAC = H(K XOR opad || H(K XOR ipad || message))). Only parties with knowledge of the secret key can produce or verify the correct HMAC, providing message authentication in addition to integrity."
+      incorrect:
+        - "Both plain hashes and HMACs provide collision resistance and one-way properties. These are properties of the underlying hash function, not specifically advantages of HMAC over plain hashing."
+        - "HMAC adds authentication (proving the message came from a key holder) to the integrity property of plain hashing — this is the critical security property that distinguishes HMAC from plain hashes."
+        - "Neither plain hashes nor HMACs provide encryption or confidentiality. To protect message contents, encryption (AES-GCM, for example) is required in addition to MAC operations."
+        - "Non-repudiation through PKI requires digital signatures with asymmetric keys. HMACs use shared symmetric keys — they cannot provide non-repudiation because both parties know the key."
+    difficulty: "medium"
+    tags: ["cryptography", "HMAC", "authentication", "integrity"]
+
+  - id: q-d3-093
+    domain: domain3
+    question: "What is the significance of 'key length' in symmetric encryption, and how many bits does NIST currently recommend for long-term security?"
+    options:
+      - "Key length determines encryption speed; longer keys are always slower; NIST recommends 64-bit keys for performance"
+      - "Key length determines the size of the key space; longer keys increase brute-force resistance; NIST recommends 128-bit minimum, 256-bit for long-term security"
+      - "Key length affects only the number of rounds in block cipher operation; NIST recommends 192-bit as optimal"
+      - "Key length is standardized at 56 bits by NIST for backward compatibility with legacy DES implementations"
+    correct_answer: 1
+    explanations:
+      correct: "Key length determines the key space size (2^n possible keys). Doubling the key length squares the number of possible keys, exponentially increasing brute-force attack resistance. NIST recommends 128-bit minimum for AES in general use, providing 2^128 possible keys — computationally infeasible to brute-force. For long-term security (protecting data for decades or against future quantum computers), 256-bit AES keys are recommended."
+      incorrect:
+        - "Key length affects security, not just performance. 64-bit keys (DES-era) are insecure by modern standards — brute-force attacks are computationally feasible. NIST recommends 128-256 bit keys."
+        - "Key length determines key space size; NIST recommends 128-bit minimum, 256-bit for long-term security — this correctly describes both the significance and the NIST recommendation."
+        - "Key length is not synonymous with cipher rounds. AES number of rounds (10 for 128-bit, 12 for 192-bit, 14 for 256-bit) relates to key length but key length's primary security significance is key space size."
+        - "DES used 56-bit keys, which are now insecure. NIST deprecated DES decades ago. The current standard is AES with 128, 192, or 256-bit keys."
+    difficulty: "easy"
+    tags: ["cryptography", "symmetric", "AES", "key-length"]
+
+  - id: q-d3-094
+    domain: domain3
+    question: "An organization implements a physical security control where all laptop power supplies are connected to UPS units and server room power is supplied by a generator backup. These controls address which aspect of physical security?"
+    options:
+      - "Natural disaster prevention — reducing the probability of disasters causing system damage"
+      - "Utility and environmental systems security — ensuring continuous power availability and protecting against power-related threats"
+      - "Personnel safety — protecting employees working in the data center from electrical hazards"
+      - "Asset tracking — monitoring the location of mobile assets connected to power infrastructure"
+    correct_answer: 1
+    explanations:
+      correct: "UPS (Uninterruptible Power Supplies) and generator backup systems address utility and environmental security — specifically power continuity and protection against power-related threats (outages, surges, sags, spikes). Power failures are a significant availability threat. UPS provides short-term power conditioning and outage bridging; generators provide extended power during prolonged outages. Both support the availability component of the CIA triad."
+      incorrect:
+        - "UPS and generators do not prevent natural disasters — they provide resilience against power disruptions that may result from disasters. Disaster prevention is addressed by site selection and structural engineering."
+        - "UPS and generator backup address utility and environmental systems security, ensuring power availability and protecting against power-related threats — this is the correct physical security category."
+        - "Personnel electrical safety is addressed by electrical safety regulations and proper grounding. UPS and generators are operational continuity controls, not primarily personal safety controls."
+        - "Asset tracking uses RFID tags, GPS, or cable management systems. Power backup systems provide availability, not asset location monitoring."
+    difficulty: "easy"
+    tags: ["physical-security", "availability", "power", "environmental"]
+
+  - id: q-d3-095
+    domain: domain3
+    question: "What is 'attribute-based encryption' (ABE) and what access control model does it most closely implement?"
+    options:
+      - "Encryption using user attributes for authentication, similar to certificate-based authentication"
+      - "An encryption scheme where the decryption key is derived from attributes (role, department, clearance) — implementing policy-based access control cryptographically"
+      - "Encryption that uses biometric attributes as the encryption key material"
+      - "A format of asymmetric encryption that uses RSA with attribute-based key derivation"
+    correct_answer: 1
+    explanations:
+      correct: "Attribute-Based Encryption (ABE) encrypts data under a policy (e.g., 'Manager AND Finance-Department AND Security-Clearance-Level-2') — only users whose attributes satisfy the policy can decrypt. This cryptographically implements Attribute-Based Access Control (ABAC) — access decisions are based on attributes rather than identity. ABE enables fine-grained, policy-driven access without a central access control server."
+      incorrect:
+        - "Certificate-based authentication uses public key cryptography to verify identity — it is an authentication mechanism, not an encryption scheme that enforces access policies."
+        - "ABE encrypts data under an attribute-based policy where only users whose attributes satisfy the policy can decrypt — cryptographically implementing policy-based (ABAC) access control."
+        - "Biometric key derivation (fuzzy extractors) is a different cryptographic concept. ABE uses organizational attributes (role, department, clearance) as policy parameters, not biometric measurements."
+        - "ABE is a distinct cryptographic primitive, not a variant of RSA. It uses pairing-based or lattice-based cryptography to enable policy-based decryption."
+    difficulty: "hard"
+    tags: ["cryptography", "ABE", "access-control", "ABAC"]
+
+  - id: q-d3-096
+    domain: domain3
+    question: "What is the primary difference between a 'Type I error' (false rejection) and a 'Type II error' (false acceptance) in biometric authentication, and which is the greater security concern?"
+    options:
+      - "Type I errors waste time; Type II errors waste money — both are equally concerning"
+      - "Type I errors (False Reject Rate) inconvenience legitimate users; Type II errors (False Accept Rate) allow unauthorized access — FAR is the greater security concern"
+      - "Type I errors affect physical security; Type II errors affect logical access — they apply to different security domains"
+      - "Type I errors are more common; Type II errors are rare but more severe — all biometric systems have negligible FAR"
+    correct_answer: 1
+    explanations:
+      correct: "In biometric authentication: Type I (False Reject Rate/FRR) occurs when a legitimate user is incorrectly denied — this is an inconvenience problem reducing usability. Type II (False Accept Rate/FAR) occurs when an unauthorized person is incorrectly granted access — this is a security failure. FAR is the greater security concern because it represents unauthorized access. Security-focused deployments prioritize low FAR, often accepting higher FRR. The crossover point where FAR = FRR is the Equal Error Rate (EER)."
+      incorrect:
+        - "The costs of these errors are not simply financial vs. time costs — Type II errors represent security breaches (unauthorized access), which is the primary concern in security contexts."
+        - "False Reject Rate (Type I) inconveniences legitimate users; False Accept Rate (Type II) allows unauthorized access — FAR is the greater security concern."
+        - "Both FRR and FAR apply to both physical and logical biometric authentication. The distinction is about impact (inconvenience vs. security breach), not the security domain."
+        - "FAR is not negligible in all biometric systems — system tuning determines the FAR/FRR balance. The statement that all systems have negligible FAR is false and misrepresents the security engineering trade-off."
+    difficulty: "medium"
+    tags: ["biometrics", "authentication", "FAR", "FRR"]
+
+  - id: q-d3-097
+    domain: domain3
+    question: "What is 'steganography' and how does it differ from encryption in its security approach?"
+    options:
+      - "Steganography and encryption both protect data through mathematical transformation; the difference is key length"
+      - "Steganography hides the existence of a message within another medium (image, audio); encryption makes message content unreadable — steganography uses obscurity, encryption uses mathematics"
+      - "Steganography is a physical method of hiding data; encryption is a digital method"
+      - "Steganography provides stronger security than encryption because messages are completely invisible to attackers"
+    correct_answer: 1
+    explanations:
+      correct: "Steganography hides the existence of a communication by concealing a message within a cover medium (embedding data in image pixels' LSBs, audio files, or other innocuous media). Encryption makes a message's content unreadable but does not hide that a message exists. Steganography relies on obscurity (the hidden message is not detected); encryption provides mathematical security. Using both together provides the strongest protection: hidden AND encrypted content."
+      incorrect:
+        - "Steganography does not use mathematical transformation to protect content — it hides the message's existence through embedding. Encryption uses mathematical transformation to make content unreadable."
+        - "Steganography hides message existence in a cover medium; encryption makes content unreadable — steganography uses obscurity, encryption uses mathematics — this is the correct distinction."
+        - "Modern steganography is primarily digital (LSB embedding, spread spectrum) — it is not inherently a physical technique. Physical steganography (invisible ink) exists historically but is not the modern definition."
+        - "Steganography is not stronger than encryption — it relies on the hidden message not being discovered. Steganalysis can detect and extract steganographic content. The security is not mathematical — it is based on obscurity."
+    difficulty: "medium"
+    tags: ["steganography", "cryptography", "security-concepts"]
+
+  - id: q-d3-098
+    domain: domain3
+    question: "What is a 'Faraday cage' and which security threat does it mitigate in information security?"
+    options:
+      - "A physical vault for storing encryption keys and certificates securely"
+      - "A conductive enclosure that blocks electromagnetic fields, preventing TEMPEST/electromagnetic eavesdropping attacks"
+      - "A fire suppression system designed specifically for server rooms with electronic equipment"
+      - "A secure document destruction device that shreds paper records containing sensitive information"
+    correct_answer: 1
+    explanations:
+      correct: "A Faraday cage is a conductive mesh or solid metal enclosure that blocks electromagnetic fields — both incoming and outgoing. In information security, it prevents TEMPEST attacks (capturing electromagnetic emanations from computer equipment to reconstruct what is being processed on screens or keyboards). It also blocks radio frequency communications (cell phones, Wi-Fi, Bluetooth) within the enclosure, preventing wireless data exfiltration."
+      incorrect:
+        - "Key vaults and HSMs are used for secure key storage. A Faraday cage is an electromagnetic shielding solution, not a key storage device."
+        - "A Faraday cage blocks electromagnetic fields, preventing TEMPEST/electromagnetic eavesdropping and RF communications — this is the correct definition."
+        - "Fire suppression for server rooms uses clean agent systems (FM-200, Novec 1230) or inert gas systems. A Faraday cage is electromagnetic shielding, not fire suppression."
+        - "Document shredders destroy paper records. A Faraday cage is electromagnetic shielding — it does not destroy anything."
+    difficulty: "medium"
+    tags: ["physical-security", "TEMPEST", "electromagnetic", "shielding"]
+
+  - id: q-d3-099
+    domain: domain3
+    question: "In a PKI, what is 'cross-certification' between two separate Certificate Authorities?"
+    options:
+      - "The process of certifying that a CA's certificate management practices meet industry standards"
+      - "A mutual trust relationship where two separate CA hierarchies issue certificates to each other, allowing clients trusting one CA to also trust certificates issued by the other"
+      - "The practice of having two CAs sign each certificate for redundancy"
+      - "A validation procedure confirming that a server certificate matches the CA that issued it"
+    correct_answer: 1
+    explanations:
+      correct: "Cross-certification establishes mutual trust between two separate PKI hierarchies. CA-A issues a certificate to CA-B, and CA-B issues a certificate to CA-A. Clients that trust CA-A's root can now follow the cross-certificate chain to trust certificates issued by CA-B's hierarchy. This enables interoperability between organizations that have separate PKI deployments without requiring everyone to trust a single global root."
+      incorrect:
+        - "Certifying CA practices against industry standards describes WebTrust or ETSI audit certification of CA operations — different from PKI cross-certification between hierarchies."
+        - "Cross-certification is a mutual trust relationship where two CA hierarchies issue certificates to each other, enabling clients trusting one hierarchy to trust the other's certificates."
+        - "Requiring two CAs to sign each certificate for redundancy would be a dual-signature or co-signature arrangement — different from cross-certification. Cross-certification is about inter-hierarchy trust, not redundant signing."
+        - "Matching a server certificate to its issuing CA is certificate validation (chain building) — not cross-certification. Cross-certification is about establishing trust between separate CA hierarchies."
+    difficulty: "hard"
+    tags: ["PKI", "CA", "cross-certification", "trust"]
+
+  - id: q-d3-100
+    domain: domain3
+    question: "What is the primary security concern with 'weak random number generation' in cryptographic applications?"
+    options:
+      - "Weak random number generators are too slow, causing performance bottlenecks in key generation"
+      - "Predictable or low-entropy random numbers produce predictable keys and nonces, making cryptographic operations reversible"
+      - "Weak random numbers can only be used once, causing cryptographic agility problems"
+      - "Random number generation consumes excessive CPU resources in embedded systems"
+    correct_answer: 1
+    explanations:
+      correct: "Cryptographically Secure Pseudo-Random Number Generators (CSPRNGs) are essential for key generation, nonce creation, IV generation, and other security operations. If the random number generator produces predictable or low-entropy output (common in embedded systems, virtual machines at first boot, or systems with poor entropy sources), generated cryptographic keys become predictable. An attacker who can predict key values can perform decryption without brute force — breaking the mathematical security of the algorithm regardless of key length."
+      incorrect:
+        - "Performance is a minor concern in modern systems. CSPRNGs are optimized and fast. The security concern is predictability and entropy quality, not speed."
+        - "Predictable low-entropy random numbers produce predictable cryptographic keys and nonces — making cryptographic operations reversible regardless of algorithm strength."
+        - "Random numbers are used many times in cryptographic systems. The 'used once' concern applies to OTPs and nonces specifically, not to the general concern about CSPRNG quality."
+        - "CPU resource consumption is an engineering concern in resource-constrained devices. The primary security concern with weak RNG is the predictability that undermines all dependent cryptographic operations."
+    difficulty: "medium"
+    tags: ["cryptography", "RNG", "entropy", "fundamentals"]
+
+  - id: q-d3-101
+    domain: domain3
+    question: "The Common Criteria 'Protection Profile' (PP) concept is MOST valuable for which purpose?"
+    options:
+      - "Documenting a specific vendor's product security claims for evaluation"
+      - "Specifying a standardized set of security requirements for a class of products, enabling independent comparison of competing implementations"
+      - "Providing a universal security assurance level applicable to all evaluated products"
+      - "Creating a government-mandated minimum security standard for commercial software"
+    correct_answer: 1
+    explanations:
+      correct: "A Protection Profile specifies security requirements for a category of products (network devices, firewalls, smart cards) written independently of any specific implementation. Multiple vendor products can be evaluated against the same PP, enabling objective comparison. Government procurers can specify that purchased products must be PP-compliant, ensuring a minimum security standard without naming specific vendors. This separates requirements from implementations."
+      incorrect:
+        - "A vendor's specific product claims are documented in a Security Target (ST). The PP is generic for a product category, not specific to a vendor's implementation."
+        - "Protection Profiles specify standardized security requirements for a product class, enabling independent comparison of competing implementations — this is the primary value of PPs."
+        - "EAL (Evaluation Assurance Level) numbers provide assurance levels. PPs specify security functional requirements for product categories — these are orthogonal Common Criteria concepts."
+        - "PPs are industry and government documents developed through a consensus process — not government-mandated minimums per se. Their use in procurement can make them effectively mandatory, but the PP itself is a requirements specification, not a legal mandate."
+    difficulty: "medium"
+    tags: ["common-criteria", "evaluation", "standards", "PP"]
+
+  - id: q-d3-102
+    domain: domain3
+    question: "What is the primary security purpose of 'TEMPEST' standards and their relevance to sensitive facilities?"
+    options:
+      - "TEMPEST defines fire suppression requirements for server rooms containing critical systems"
+      - "TEMPEST specifies standards for controlling electromagnetic emanations from electronic equipment to prevent remote eavesdropping"
+      - "TEMPEST establishes protocols for secure remote access to classified networks"
+      - "TEMPEST defines physical construction requirements for blast-resistant data centers"
+    correct_answer: 1
+    explanations:
+      correct: "TEMPEST (a classified NSA/NATO program) refers to specifications and testing standards for protecting electronic equipment from emitting electromagnetic emanations that could be intercepted and used to reconstruct sensitive data. Van Eck phreaking demonstrated that CRT monitors, keyboards, and other electronics emit distinctive signals. TEMPEST-certified equipment suppresses or shields these emanations. It is particularly relevant for classified and sensitive government facilities."
+      incorrect:
+        - "Fire suppression for server rooms is addressed by fire safety codes and standards like FM-200, NFPA 75. TEMPEST addresses electromagnetic security, not fire safety."
+        - "TEMPEST specifies electromagnetic emanation control standards to prevent remote eavesdropping on electronic equipment — this is the correct definition."
+        - "Secure remote access to classified networks is addressed by cryptographic protocols, VPNs, and network security controls. TEMPEST is about physical electromagnetic security, not network access."
+        - "Blast-resistant data center construction is addressed by physical facility standards and resilience requirements. TEMPEST is electromagnetic shielding, not structural security."
+    difficulty: "medium"
+    tags: ["physical-security", "TEMPEST", "electromagnetic", "government"]
+
+  - id: q-d3-103
+    domain: domain3
+    question: "What is 'lattice-based cryptography' and why is it significant for post-quantum security?"
+    options:
+      - "Lattice-based cryptography uses lattice data structures to organize encryption keys for efficient retrieval"
+      - "Lattice-based cryptography relies on hard mathematical problems in high-dimensional lattices that are believed to be resistant to quantum computer attacks"
+      - "Lattice-based cryptography applies to network architecture design, arranging security components in a lattice topology"
+      - "Lattice-based cryptography describes the hierarchical structure of Certificate Authority chains"
+    correct_answer: 1
+    explanations:
+      correct: "Lattice-based cryptography constructs cryptographic primitives from hard problems in high-dimensional integer lattices — specifically the Shortest Vector Problem (SVP) and Learning With Errors (LWE). These problems are believed to resist both classical and quantum computer attacks (unlike RSA and ECC which are vulnerable to Shor's algorithm). NIST's post-quantum standards (ML-KEM/Kyber, ML-DSA/Dilithium) are lattice-based algorithms."
+      incorrect:
+        - "Data structure lattices are computer science constructs for organizing data. Lattice-based cryptography uses mathematical lattices (n-dimensional vector spaces) as the source of hardness."
+        - "Lattice-based cryptography uses hard lattice math problems (SVP, LWE) believed to be quantum-resistant — the basis for NIST's post-quantum cryptography standards."
+        - "Network topology lattices (mesh networks) are network architecture designs. Lattice-based cryptography refers to mathematical objects in high-dimensional spaces."
+        - "CA hierarchy structures are described as tree structures or trust chains — not lattices. Lattice-based cryptography is a mathematical cryptographic primitive design approach."
+    difficulty: "hard"
+    tags: ["cryptography", "post-quantum", "lattice", "advanced"]
+
+  - id: q-d3-104
+    domain: domain3
+    question: "A datacenter is equipped with a halon replacement gas suppression system. What is the primary security concern associated with clean agent fire suppression systems in data centers?"
+    options:
+      - "Clean agent gases are highly flammable and create secondary fire hazards when deployed"
+      - "Clean agent discharge may be triggered accidentally or maliciously, causing data center evacuation and availability disruption"
+      - "Clean agent gases are ineffective against electrical fires in data center equipment"
+      - "Clean agent systems require quarterly testing that requires complete data center downtime"
+    correct_answer: 1
+    explanations:
+      correct: "Clean agent suppression systems (FM-200, Novec 1230, inergen) suppress fires without water, protecting equipment. However, the systems can be triggered accidentally (by maintenance, sensor malfunction) or maliciously (as a denial-of-service attack on data center availability). Accidental discharge causes immediate evacuation for personnel safety, disrupts cooling, and temporarily takes systems offline. False discharge is a significant operational availability risk."
+      incorrect:
+        - "Clean agent gases are inert, non-flammable, and specifically chosen because they do not create secondary hazards. Flammability is not a concern — being safe for occupied spaces is a feature."
+        - "Accidental or malicious triggering of clean agent discharge causes evacuation and availability disruption — this is the primary operational security concern for availability."
+        - "Clean agent gases work by reducing oxygen concentration or interrupting combustion chemistry — they are effective for electrical fires. This is why they replaced water-based systems in data centers."
+        - "Clean agent systems do not require complete data center downtime for testing. Modern systems support testing under controlled conditions. This is not the primary security concern."
+    difficulty: "medium"
+    tags: ["physical-security", "fire-suppression", "availability", "datacenter"]
+
+  - id: q-d3-105
+    domain: domain3
+    question: "What is the 'Clark-Wilson' integrity model's primary mechanism for ensuring data integrity in commercial systems?"
+    options:
+      - "Using security labels and mandatory access control to prevent unauthorized data modifications"
+      - "Requiring all data modifications to occur through certified transformation procedures and enforcing separation of duties through constrained data items and well-formed transactions"
+      - "Implementing cryptographic hashing to verify data has not been modified between read operations"
+      - "Applying the 'no read down, no write up' rules to commercial data access control"
+    correct_answer: 1
+    explanations:
+      correct: "Clark-Wilson addresses commercial data integrity through two core mechanisms: (1) Constrained Data Items (CDIs) can only be modified through pre-validated, certified Transformation Procedures (TPs) — not through arbitrary user operations. (2) Separation of duties is enforced so that a TP that creates data cannot be the same as one that approves it. Together, these ensure all modifications go through validated, controlled procedures — modeling business controls like double-entry bookkeeping and approval workflows."
+      incorrect:
+        - "Security labels and mandatory access control are features of the Bell-LaPadula model (for confidentiality) and military MAC systems — not Clark-Wilson's mechanism."
+        - "Clark-Wilson uses certified transformation procedures and separation of duties to ensure all data modifications occur through validated workflows — this is the correct description."
+        - "Cryptographic hashing detects tampering after the fact (integrity verification). Clark-Wilson proactively controls how modifications occur through certified procedures, not post-hoc verification."
+        - "'No read down, no write up' rules describe the Biba integrity model — not Clark-Wilson. Clark-Wilson uses transformation procedures and separation of duties, not Biba's lattice-based rules."
+    difficulty: "medium"
+    tags: ["security-models", "Clark-Wilson", "integrity", "commercial"]
