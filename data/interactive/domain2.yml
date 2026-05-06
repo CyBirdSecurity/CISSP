@@ -8,19 +8,20 @@ interactive_questions:
     question: "Place the stages of the data lifecycle in the correct order:"
     items:
       - "Create / Acquire"
-      - "Classify"
       - "Store"
       - "Use"
+      - "Share"
       - "Archive"
       - "Destroy / Dispose"
     correct_order: [0, 1, 2, 3, 4, 5]
     explanation: >
-      The data lifecycle begins when data is created or acquired, after which it must be
-      classified based on sensitivity and value. It is then stored using appropriate
-      controls, used for its intended purpose, archived when no longer actively needed
-      (but still required for retention), and finally destroyed or disposed of securely
-      at end-of-life. Classification should occur as early as possible — ideally at creation
-      — to ensure the right controls are applied throughout.
+      The ISC² CBK data lifecycle has six stages: Create/Acquire (data comes into existence or
+      is received), Store (secured in databases, file systems, or cloud), Use (actively
+      processed for its intended purpose), Share (transmitted to authorized parties internally
+      or externally), Archive (retained in long-term storage per policy or legal hold), and
+      Destroy/Dispose (securely sanitized at end-of-life per NIST SP 800-88). Classification
+      is a governance activity that informs controls at each stage, not a standalone lifecycle
+      phase in the ISC² model.
 
   - id: iq-d2-002
     domain: domain2
@@ -30,16 +31,18 @@ interactive_questions:
       - "Top Secret"
       - "Secret"
       - "Confidential"
-      - "Sensitive But Unclassified (CUI)"
       - "Unclassified"
-    correct_order: [0, 1, 2, 3, 4]
+    correct_order: [0, 1, 2, 3]
     explanation: >
-      U.S. government classification levels from highest to lowest are: Top Secret
-      (unauthorized disclosure could cause exceptionally grave damage to national security),
-      Secret (serious damage), Confidential (damage), Sensitive But Unclassified / CUI
-      (requires safeguarding but not formally classified), and Unclassified (no harm if
-      disclosed). The classification authority is typically the data owner — usually a
-      government official — not IT or security personnel.
+      U.S. government has three formal classification levels, from highest to lowest:
+      Top Secret (unauthorized disclosure could cause exceptionally grave damage to national
+      security), Secret (serious damage), and Confidential (damage — the lowest formally
+      classified level). Unclassified data causes no national security harm if disclosed.
+      Note: Controlled Unclassified Information (CUI) / Sensitive But Unclassified (SBU) is
+      an administrative designation that requires protection but is NOT a formal classification
+      level — it sits outside the three-tier classification system. The classification
+      authority is typically the original classification authority (OCA), a trained government
+      official, not IT or security personnel.
 
   - id: iq-d2-003
     domain: domain2
@@ -144,18 +147,20 @@ interactive_questions:
     categories:
       - "Magnetic media — renders data unrecoverable by disrupting magnetic fields"
       - "Physical destruction of any media type"
-      - "Logical sanitization of reusable magnetic or flash storage"
+      - "Logical sanitization of reusable magnetic storage (not reliable for SSDs/flash)"
       - "SSDs and encrypted storage — destroy the encryption key to render data inaccessible"
     correct_mapping:
       0: "Magnetic media — renders data unrecoverable by disrupting magnetic fields"
       1: "Physical destruction of any media type"
-      2: "Logical sanitization of reusable magnetic or flash storage"
+      2: "Logical sanitization of reusable magnetic storage (not reliable for SSDs/flash)"
       3: "SSDs and encrypted storage — destroy the encryption key to render data inaccessible"
     explanation: >
       Degaussing uses a powerful magnetic field to destroy data on magnetic media (HDDs,
       tapes) but is ineffective on SSDs or optical media. Shredding/disintegration physically
       destroys any media type and is the most reliable method. Overwriting (clearing) applies
-      non-sensitive data on top of old data on reusable drives. Cryptographic Erase is the
+      non-sensitive data on top of old data on reusable magnetic drives; per NIST SP 800-88
+      Rev. 1, overwriting is NOT reliable for SSDs or flash storage because wear-leveling
+      algorithms may preserve copies in remapped blocks. Cryptographic Erase is the
       recommended method for SSDs and self-encrypting drives — destroying the key makes
       ciphertext unrecoverable without physically destroying hardware.
 

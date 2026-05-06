@@ -36,8 +36,9 @@ interactive_questions:
     explanation: >
       The 2021 OWASP Top 10 ranks Broken Access Control (#1) as the most prevalent web application
       risk, having moved up from #5 in 2017. Cryptographic Failures (#2, formerly Sensitive Data
-      Exposure) addresses weak or absent encryption. Injection (#3, which includes SQL, LDAP, and
-      OS command injection) dropped from the top spot. Insecure Design (#4) is a new category
+      Exposure) addresses weak or absent encryption. Injection (#3, expanded in 2021 to include SQL,
+      LDAP, OS command injection, and XSS — which was a separate category in 2017) dropped from the
+      top spot. Insecure Design (#4) is a new category
       focusing on missing or ineffective security controls in the design phase. Security
       Misconfiguration (#5) covers improperly configured permissions, defaults, and settings.
 
@@ -274,17 +275,17 @@ interactive_questions:
       - "Fuzz testing"
       - "Social engineering simulation"
       - "Pair programming with security focus"
-    correct_answers: [0, 1, 2, 4]
+    correct_answers: [0, 1, 4]
     explanation: >
       Static Application Security Testing (SAST) analyzes source code, bytecode, or binaries
       without executing the program, identifying vulnerabilities such as SQL injection, XSS, and
       hardcoded secrets. Manual peer review involves human reviewers examining code logic, business
-      rules, and security controls that automated tools may miss. Fuzz testing (fuzzing) sends
-      malformed or unexpected input to a program to trigger crashes and uncover input-handling
-      vulnerabilities; it is considered a code/application review technique when applied to source
-      or compiled output. Pair programming with a security focus embeds real-time review into the
-      development process. Social engineering simulation tests human behavior rather than code
-      quality and is not a code review method.
+      rules, and security controls that automated tools may miss. Pair programming with a security
+      focus embeds real-time review into the development process and is recognized as a code quality
+      and security technique. Fuzz testing (fuzzing) sends malformed inputs to a running application;
+      it is a dynamic testing technique, not a code review method — code review examines static
+      source code, while fuzzing requires executing the program. Social engineering simulation tests
+      human behavior rather than code quality and is not a code review method.
 
   # ── Fill in the Blank ────────────────────────────────────────
 

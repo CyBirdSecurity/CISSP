@@ -149,10 +149,10 @@ interactive_questions:
     categories:
       - "Uses tunneling with no built-in encryption; often paired with IPSec for security"
       - "Oldest and weakest VPN protocol; uses MPPE encryption which has known vulnerabilities"
-      - "Operates at Layer 3; provides authentication and encryption via AH and ESP"
+      - "Operates at Layer 3; AH provides authentication and integrity, ESP provides encryption"
       - "Operates at Layer 4–7; uses standard web ports (443) making it firewall-friendly"
     correct_mapping:
-      0: "Operates at Layer 3; provides authentication and encryption via AH and ESP"
+      0: "Operates at Layer 3; AH provides authentication and integrity, ESP provides encryption"
       1: "Operates at Layer 4–7; uses standard web ports (443) making it firewall-friendly"
       2: "Uses tunneling with no built-in encryption; often paired with IPSec for security"
       3: "Oldest and weakest VPN protocol; uses MPPE encryption which has known vulnerabilities"
@@ -234,9 +234,11 @@ interactive_questions:
       information such as IP address and port number without tracking connection state. Stateful
       inspection firewalls maintain a connection state table to track the state of active sessions,
       providing greater security than stateless packet filters. Application-layer firewalls (also
-      called proxy firewalls or next-generation firewalls with deep packet inspection) understand
-      specific application protocols and can inspect the payload of packets, detecting application-
-      layer attacks. "Quantum firewall" is not a recognized or standardized firewall type in network
+      called proxy firewalls) understand specific application protocols and can inspect the payload
+      of packets, detecting application-layer attacks. Next-generation firewalls (NGFW) are a
+      distinct, more advanced category adding integrated IPS, user-identity awareness, and SSL
+      inspection beyond a traditional proxy firewall — the CISSP CBK treats them separately.
+      "Quantum firewall" is not a recognized or standardized firewall type in network
       security architecture and is a distracting term.
 
   - id: iq-d4-011
@@ -245,16 +247,16 @@ interactive_questions:
     question: "Which of the following are improvements that IPv6 provides over IPv4? (Select all that apply)"
     options:
       - "128-bit address space providing vastly more unique addresses"
-      - "Built-in IPSec support for authentication and encryption"
+      - "Native IPSec support designed into the protocol (recommended, not mandatory per RFC 6434)"
       - "Elimination of broadcast traffic in favor of multicast and anycast"
       - "Automatic assignment of RFC 1918 private addresses via NAT"
     correct_answers: [0, 1, 2]
     explanation: >
       IPv6 addresses several key limitations of IPv4. The 128-bit address space provides
       approximately 3.4 x 10^38 unique addresses, effectively eliminating address exhaustion that
-      drove the widespread use of NAT in IPv4 networks. IPv6 was designed with IPSec as a mandatory
-      feature (though in practice it is optional via RFC), providing native support for
-      authentication and encryption at the network layer. IPv6 replaces broadcast with multicast
+      drove the widespread use of NAT in IPv4 networks. IPv6 was designed with native IPSec support built into the protocol architecture.
+      RFC 6434 (2011) downgraded IPSec from mandatory to recommended in IPv6 implementations,
+      so while native IPSec support exists, it is not enforced in all deployments. IPv6 replaces broadcast with multicast
       and anycast addressing, improving network efficiency and reducing unnecessary traffic overhead.
       NAT (Network Address Translation) is an IPv4 mechanism needed because of address exhaustion;
       IPv6 does not require NAT and does not use RFC 1918 private addressing in the same way, so

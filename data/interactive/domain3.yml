@@ -65,7 +65,7 @@ interactive_questions:
   - id: iq-d3-004
     domain: domain3
     type: ordering
-    question: "Arrange the phases of the Trusted Computing Base (TCB) evaluation process under Common Criteria in the correct order:"
+    question: "Arrange the phases of the Common Criteria (ISO/IEC 15408) product evaluation process in the correct order:"
     items:
       - "Define Security Target (ST) or Protection Profile (PP)"
       - "Developer creates evidence package (design docs, test results)"
@@ -145,7 +145,7 @@ interactive_questions:
     question: "Match each physical security control to its correct control type:"
     items:
       - "Security fence with warning signs"
-      - "Mantra p (man-trap) / airlock entry"
+      - "Mantrap (man-trap) / airlock entry"
       - "Motion-activated CCTV logging to off-site storage"
       - "Security guard who escorts an unauthorized individual off premises"
       - "Badge-activated door lock"
@@ -230,7 +230,8 @@ interactive_questions:
     explanation: >
       Symmetric algorithms use the same key for both encryption and decryption. AES, 3DES, and
       Blowfish are all symmetric block ciphers. RSA is an asymmetric algorithm relying on the
-      mathematical difficulty of factoring large primes. Diffie-Hellman is a key exchange protocol
+      mathematical difficulty of factoring the product of two large primes (the modulus n = p×q).
+      Diffie-Hellman is a key exchange protocol
       (asymmetric in nature) used to establish a shared secret over an untrusted channel, not an
       encryption algorithm itself. Knowing which algorithms are symmetric vs. asymmetric is a
       frequent CISSP exam topic.

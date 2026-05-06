@@ -8,11 +8,11 @@ interactive_questions:
       - "Review / Recertification"
       - "Modification"
       - "Deprovisioning"
-    correct_order: [0, 1, 2, 3]
+    correct_order: [0, 2, 1, 3]
     explanation: >
       The identity lifecycle begins with Provisioning, where an account is created and initial access rights are assigned based on job role.
-      Review and Recertification follows, ensuring that access rights remain appropriate over time through periodic access reviews.
-      Modification occurs when job responsibilities change and access must be updated to reflect new duties.
+      Modification occurs when job responsibilities change and access must be updated to reflect new duties (e.g., job transfer, promotion).
+      Review and Recertification follows, confirming that all current access rights remain appropriate and removing any that are no longer needed.
       Finally, Deprovisioning removes or disables the account and revokes all associated access rights when employment or need ends.
       Timely deprovisioning is critical to prevent unauthorized access by former employees or contractors.
 
@@ -35,7 +35,7 @@ interactive_questions:
   - id: iq-d5-003
     domain: domain5
     type: ordering
-    question: "Order the traditional authentication factor types from the weakest to the strongest assurance level, then place multi-factor authentication last as the highest assurance."
+    question: "Place the authentication factor types in sequential order by type number (Type 1 first), then place Multi-Factor Authentication last."
     items:
       - "Type 1 — Something you know (password/PIN)"
       - "Type 2 — Something you have (smart card/token)"
@@ -43,11 +43,14 @@ interactive_questions:
       - "Multi-Factor Authentication (two or more factor types combined)"
     correct_order: [0, 1, 2, 3]
     explanation: >
-      Type 1 factors (something you know) provide the weakest assurance because passwords and PINs can be guessed, phished, or stolen without physical access.
-      Type 2 factors (something you have) offer stronger assurance since an attacker must physically possess the token or smart card, though loss or theft remains a risk.
-      Type 3 factors (something you are) are considered the strongest single-factor type because biometric characteristics are inherent to the individual and difficult to replicate, though false acceptance rates must be managed.
-      Multi-Factor Authentication combines two or more different factor types, making unauthorized access significantly harder because an attacker must defeat multiple independent controls simultaneously.
-      The CISSP exam distinguishes that MFA requires different factor types, not just multiple instances of the same type (e.g., two passwords do not constitute MFA).
+      The ISC² CBK defines three single-factor types: Type 1 (something you know — passwords, PINs),
+      Type 2 (something you have — smart cards, hardware tokens), and Type 3 (something you are — biometrics).
+      Each factor type has distinct strengths and weaknesses; Type 1 is most susceptible to remote theft
+      (phishing, guessing), while Types 2 and 3 require physical presence or inherent characteristics.
+      Multi-Factor Authentication (MFA) combines two or more different factor types, making unauthorized
+      access significantly harder because an attacker must defeat multiple independent controls.
+      The CISSP exam distinguishes that MFA requires different factor types, not just multiple instances
+      of the same type (e.g., two passwords do not constitute MFA).
 
   - id: iq-d5-004
     domain: domain5
@@ -100,23 +103,25 @@ interactive_questions:
       - "Type 1 — Something you know"
       - "Type 2 — Something you have"
       - "Type 3 — Something you are"
-      - "Type 4 — Somewhere you are"
     categories:
       - "Password or PIN"
       - "Smart card or hardware OTP token"
       - "Fingerprint or retinal scan"
-      - "GPS location or IP geolocation"
     correct_mapping:
       0: "Password or PIN"
       1: "Smart card or hardware OTP token"
       2: "Fingerprint or retinal scan"
-      3: "GPS location or IP geolocation"
     explanation: >
-      Type 1 factors rely entirely on memorized secrets; they are the most widely deployed but also most vulnerable to phishing, brute force, and credential stuffing attacks.
-      Type 2 factors require physical possession of a device such as a hardware token, CAC/PIV card, or mobile authenticator app generating time-based one-time passwords (TOTP).
-      Type 3 factors use biometric measurements of physiological (fingerprint, iris, retina, face) or behavioral (keystroke dynamics, gait) characteristics unique to the individual.
-      Type 4 factors (location-based) restrict or confirm authentication based on where the user physically is, often used as an additional contextual layer in risk-based authentication.
-      Combining factors from different categories provides defense in depth, since compromising multiple distinct factor types simultaneously is significantly harder for an attacker.
+      The ISC² CBK formally defines three authentication factor types. Type 1 factors (something
+      you know) rely on memorized secrets such as passwords and PINs; they are widely deployed but
+      vulnerable to phishing, brute force, and credential stuffing. Type 2 factors (something you
+      have) require physical possession of a device such as a hardware token, CAC/PIV card, or
+      mobile authenticator app generating TOTP codes. Type 3 factors (something you are) use
+      biometric measurements — physiological (fingerprint, iris, retina, face) or behavioral
+      (keystroke dynamics, gait) — that are unique to the individual.
+      Note: "somewhere you are" (location) is sometimes discussed in industry as a contextual
+      factor but is NOT a formally defined Type 4 in the ISC² CBK.
+      Combining factors from different categories provides defense in depth.
 
   - id: iq-d5-007
     domain: domain5
@@ -232,7 +237,7 @@ interactive_questions:
       - "It supports the principle of least privilege and separation of duties through role design"
     correct_answers: [0, 2, 3]
     explanation: >
-      RBAC, defined in NIST FIPS 140 and ANSI/INCITS 359, grants permissions to roles rather than directly to individual users, which is its defining characteristic.
+      RBAC, defined in ANSI/INCITS 359 (the RBAC standard) and referenced in NIST SP 800-207, grants permissions to roles rather than directly to individual users, which is its defining characteristic.
       When permissions are attached to roles, a single administrative action (e.g., updating the "Accountant" role) propagates to all users in that role, dramatically reducing administrative overhead in large organizations.
       RBAC naturally supports least privilege when roles are carefully scoped to job functions, and separation of duties when incompatible permissions are placed in different roles that cannot be simultaneously assigned to one user.
       Dynamically evaluating subject, object, and environmental attributes is the hallmark of ABAC (Attribute-Based Access Control), not RBAC; confusing the two is a common exam mistake.
@@ -287,7 +292,7 @@ interactive_questions:
     correct_answer: 0
     explanation: >
       SSO allows a user to authenticate once and gain access to multiple applications without re-entering credentials, which directly addresses password fatigue — the tendency of users to create weak or reused passwords when they must manage many separate credentials.
-      By reducing the number of passwords users must remember and enter, SSO also reduces the likelihood of credential-related incidents such as phishing success and password spray attacks.
+      By reducing the number of passwords users must remember and enter, SSO also reduces password reuse and phishing-related risks across individual systems.
       From an administrative perspective, SSO centralizes authentication, making it easier to enforce strong authentication policies (including MFA) at a single point and to quickly revoke access across all systems when an account is deprovisioned.
       A key trade-off of SSO is that the IdP becomes a high-value target; if the SSO credential is compromised, an attacker gains access to all federated applications, making MFA at the SSO layer critically important.
       Server count, network latency, and firewall complexity are infrastructure concerns unrelated to the core IAM benefit of SSO.

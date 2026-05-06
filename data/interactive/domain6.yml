@@ -29,12 +29,13 @@ interactive_questions:
       - "Report"
       - "Remediate"
       - "Verify"
-    correct_order: [0, 1, 2, 3, 4, 5]
+    correct_order: [0, 2, 1, 3, 4, 5]
     explanation: >
       The vulnerability management lifecycle is a continuous process organizations use to systematically reduce risk from known weaknesses.
       Discovery involves scanning assets to identify all vulnerabilities present in the environment.
-      Prioritization uses risk factors such as CVSS scores, asset criticality, and exploitability to rank vulnerabilities for action.
-      Assessment evaluates each vulnerability in context to determine the true risk to the organization.
+      Assessment evaluates each vulnerability in context — factoring in asset criticality, exploitability, and business impact — to determine true risk.
+      Prioritization then uses the assessment output (contextual risk scores, CVSS, threat intelligence) to rank vulnerabilities for remediation action.
+      Assessment must precede prioritization because you cannot meaningfully rank vulnerabilities before understanding their real-world risk context.
       Reporting communicates findings to stakeholders, including metrics, trends, and remediation timelines.
       Remediation applies patches, configuration changes, or compensating controls to eliminate or reduce vulnerabilities.
       Verification confirms that remediation was successful and that the vulnerability no longer exists, closing the loop.
@@ -99,7 +100,7 @@ interactive_questions:
       Black box testing simulates an external attacker with no insider knowledge and is the most realistic but least efficient approach.
       White box testing gives the tester complete access to documentation, source code, and architecture, enabling deep and thorough coverage.
       Gray box testing, the most common approach, provides partial information such as credentials or network diagrams to simulate an insider or a partially informed attacker.
-      Crystal box is simply another name for white box testing and emphasizes full transparency into the system under test; both terms may appear on the CISSP exam.
+      Crystal box is an informal industry term for white box testing that emphasizes full transparency into the system under test; it does not appear in the ISC² CBK but may be encountered in industry literature.
 
   - id: iq-d6-006
     domain: domain6
@@ -239,13 +240,13 @@ interactive_questions:
       - "Manual code review by a security engineer examining logic and control flow"
       - "Fuzz testing by sending random or malformed inputs to discover unexpected behavior"
       - "Pair programming as a development practice that incidentally improves code quality"
-    correct_answers: [0, 1, 2, 3]
+    correct_answers: [0, 1, 2]
     explanation: >
       Multiple complementary techniques exist for identifying security defects in software, and CISSP candidates should be familiar with each.
       Static analysis tools such as Checkmarx, Veracode, or Bandit scan code for known insecure patterns, hard-coded credentials, and injection sinks without executing the program.
       Manual code review allows an experienced security professional to assess business logic flaws, insecure design patterns, and subtle vulnerabilities that automated tools frequently miss.
-      Fuzz testing (fuzzing) automatically generates and sends large volumes of random, unexpected, or malformed input to an application to trigger crashes, exceptions, or undefined behavior indicative of vulnerabilities.
-      Pair programming, while primarily a development practice, is recognized as improving code quality and security through continuous peer review, and is included in some security frameworks as a lightweight assurance technique.
+      Fuzz testing (fuzzing) automatically generates random or malformed inputs and sends them to a running application; while a valuable security testing technique, it is a dynamic testing method and not a code review technique per the CISSP CBK.
+      Pair programming is primarily a software development practice (from XP/Agile), not a security assessment technique; the CISSP CBK does not classify it as a code review method used in security assessment.
 
   - id: iq-d6-013
     domain: domain6

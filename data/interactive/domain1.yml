@@ -59,13 +59,14 @@ interactive_questions:
       0: "Preventive"
       1: "Detective"
       2: "Detective"
-      3: "Corrective"
+      3: "Preventive"
       4: "Preventive"
       5: "Detective"
     explanation: >
-      Preventive controls block threats before they occur (firewalls, ACLs). Detective controls
-      identify threats during or after an event (CCTV, IDS, audit logs). Corrective controls
-      restore systems or reduce impact after an incident (patch management). Note that many
+      Preventive controls block threats before they occur (firewalls, ACLs, patch management).
+      Detective controls identify threats during or after an event (CCTV, IDS, audit logs).
+      Patch management is primarily preventive — it closes vulnerabilities before they can be
+      exploited — though it has a corrective element when applied after a known exploit. Note that many
       controls span categories — IDS is primarily detective, though some IPS configurations
       add preventive capability.
 
@@ -204,8 +205,9 @@ interactive_questions:
       2: "Payment Card Security"
       3: "Service Organization Controls"
     explanation: >
-      NIST CSF provides a voluntary framework for managing cybersecurity risk using five
-      functions (Identify, Protect, Detect, Respond, Recover). ISO/IEC 27001 is the
+      NIST CSF provides a voluntary framework for managing cybersecurity risk. CSF 1.1 uses five
+      functions (Identify, Protect, Detect, Respond, Recover); CSF 2.0 (2024) adds a sixth — Govern.
+      ISO/IEC 27001 is the
       international standard for establishing an ISMS. PCI DSS is mandated for any
       organization that stores, processes, or transmits cardholder data. SOC 2 is an
       auditing standard for service organizations covering security, availability,
@@ -241,7 +243,9 @@ interactive_questions:
       - "Impact"
     correct_answer: 0
     explanation: >
-      The simplified risk equation is Risk = Threat × Vulnerability × Asset Value. A threat
+      The simplified qualitative risk equation is Risk = Threat × Vulnerability × Asset Value.
+      This is a conceptual model used for qualitative analysis, not a precise mathematical formula.
+      A threat
       is any circumstance or event with the potential to cause harm. Vulnerability is a
       weakness that a threat can exploit. Asset Value reflects what is at stake. This model
       shows that risk can be reduced by addressing any one of the three components — removing
@@ -266,3 +270,54 @@ interactive_questions:
       review closes the record and captures lessons learned. Skipping steps — especially
       impact assessment or approval — is one of the most common causes of unplanned outages
       and security misconfigurations in enterprise environments.
+
+  - id: iq-d1-014
+    domain: domain1
+    type: ordering
+    question: "Arrange the security policy document types from MOST to LEAST authoritative:"
+    items:
+      - "Policy"
+      - "Standard"
+      - "Baseline"
+      - "Guideline"
+      - "Procedure"
+    correct_order: [0, 1, 2, 4, 3]
+    explanation: >
+      The security documentation hierarchy from most to least authoritative is: Policy
+      (high-level mandatory statements of intent set by senior management), Standard
+      (mandatory specific requirements that support the policy), Baseline (minimum
+      mandatory security configurations required across systems), Procedure (mandatory
+      step-by-step instructions for performing specific tasks), and Guideline (recommended
+      but optional best practices). Policies, standards, baselines, and procedures are all
+      mandatory; only guidelines are discretionary. A common exam trap is placing guidelines
+      above procedures — procedures are mandatory instructions, while guidelines are
+      voluntary recommendations, making guidelines the least authoritative document type.
+
+  - id: iq-d1-015
+    domain: domain1
+    type: matching
+    question: "Match each regulation or standard to its primary industry or focus area:"
+    items:
+      - "HIPAA"
+      - "GDPR"
+      - "SOX (Sarbanes-Oxley)"
+      - "PCI DSS"
+    categories:
+      - "Healthcare data privacy and security (U.S.)"
+      - "Personal data protection for EU/EEA residents"
+      - "Financial reporting integrity for public companies (U.S.)"
+      - "Payment card data security"
+    correct_mapping:
+      0: "Healthcare data privacy and security (U.S.)"
+      1: "Personal data protection for EU/EEA residents"
+      2: "Financial reporting integrity for public companies (U.S.)"
+      3: "Payment card data security"
+    explanation: >
+      HIPAA (Health Insurance Portability and Accountability Act) protects the privacy
+      and security of Protected Health Information (PHI) in the U.S. GDPR (General Data
+      Protection Regulation) grants EU/EEA residents rights over their personal data and
+      applies to any organization processing that data globally. SOX mandates accurate
+      financial reporting and internal controls for U.S.-listed public companies — Section
+      404 directly impacts IT controls and audit trails. PCI DSS is a contractual standard
+      (not a law) set by the card brands requiring controls for any entity that stores,
+      processes, or transmits cardholder data.

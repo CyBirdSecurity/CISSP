@@ -27,30 +27,34 @@ interactive_questions:
       - "Examination"
       - "Analysis"
       - "Presentation"
-    correct_order: [0, 1, 2, 3, 4, 5]
+    correct_order: [0, 2, 1, 3, 4, 5]
     explanation: >
-      The digital forensics process follows a strict sequence to maintain evidentiary integrity. Identification
-      locates potential evidence sources. Preservation protects the evidence from alteration, often using
-      write blockers and hashing. Collection involves acquiring forensic copies of the evidence. Examination
-      extracts relevant data from the acquired image. Analysis interprets the findings to draw conclusions.
-      Presentation communicates the results in court or to stakeholders. Skipping or reordering steps
-      can render evidence inadmissible.
+      The digital forensics process follows a strict sequence per NIST SP 800-86 to maintain evidentiary
+      integrity. Identification locates potential evidence sources and scopes the investigation.
+      Collection involves acquiring forensic copies of the evidence (bit-for-bit imaging with write blockers).
+      Preservation protects the acquired evidence from alteration through hashing, sealed storage, and
+      chain-of-custody documentation — Collection and Preservation are closely linked but Collection
+      (acquiring) logically precedes Preservation (protecting what was acquired).
+      Examination extracts relevant artifacts from the forensic image. Analysis interprets the findings
+      to draw conclusions about what occurred. Presentation communicates the results in court or to
+      stakeholders. Skipping or reordering steps can render evidence inadmissible.
 
   - id: iq-d7-003
     domain: domain7
     type: ordering
     question: "Arrange the disaster recovery test types in order from least disruptive to most disruptive."
     items:
-      - "Checklist/Tabletop Review"
+      - "Checklist Review"
       - "Walkthrough/Structured Walk-Through"
       - "Simulation Test"
       - "Parallel Test"
       - "Full Interruption Test"
     correct_order: [0, 1, 2, 3, 4]
     explanation: >
-      DR tests are tiered by their operational impact. A checklist review simply verifies that the plan is
-      complete and up to date without any active simulation. A walkthrough gathers team members to talk
-      through the plan step by step. A simulation exercises specific scenarios without touching production
+      DR tests are tiered by their operational impact. A checklist review (also called document review)
+      verifies that the plan is complete, current, and distributed — it involves no team discussion or
+      simulation. A structured walk-through (tabletop exercise) gathers team members to talk through
+      the plan step by step, discussing roles and responses without activating systems. A simulation exercises specific scenarios without touching production
       systems. A parallel test brings up alternate systems alongside production to validate failover.
       A full interruption test actually shuts down primary systems and relies entirely on the DR site,
       making it the most disruptive and the most realistic test.
@@ -91,7 +95,7 @@ interactive_questions:
       - "Point-in-time logical copy of data, often used in virtualized environments"
     correct_mapping:
       0: "Copies all data; slowest to back up, fastest to restore"
-      1: "Copies only data changed since the last backup of any type; fastest to back up, slowest restore"
+      1: "Copies only data changed since the last backup of any type; fastest to back up, slowest to restore"
       2: "Copies all data changed since the last full backup; medium backup and restore time"
       3: "Point-in-time logical copy of data, often used in virtualized environments"
     explanation: >
@@ -197,8 +201,9 @@ interactive_questions:
     explanation: >
       Chain of custody ensures that evidence is trustworthy and admissible in legal proceedings. Every
       person who handles evidence must be documented to demonstrate that the evidence was not tampered
-      with. Cryptographic hashing (e.g., MD5, SHA-256) provides a verifiable fingerprint that proves
-      the evidence has not been altered since collection. Secure storage protects evidence from
+      with. Cryptographic hashing (e.g., SHA-256 or SHA-3) provides a verifiable fingerprint that proves
+      the evidence has not been altered since collection. MD5 and SHA-1 are legacy algorithms found in
+      older forensic tools but are no longer recommended due to known collision weaknesses. Secure storage protects evidence from
       unauthorized access or accidental modification. Destroying the original evidence is never
       acceptable; forensic work is always performed on a verified copy, with the original preserved
       in its pristine state.
