@@ -165,3 +165,104 @@ interactive_questions:
       has a 40% chance of being fully destroyed in a fire (EF = 0.4), the SLE is $40,000.
       Understanding SLE is critical for justifying security control costs using quantitative
       risk analysis.
+
+  - id: iq-d1-009
+    domain: domain1
+    type: ordering
+    question: "Place the Business Continuity Planning (BCP) phases in the correct order:"
+    items:
+      - "Project Scope and Planning"
+      - "Business Impact Analysis (BIA)"
+      - "Continuity Planning"
+      - "Approval and Implementation"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      The four BCP phases per ISC² are: (1) Project Scope and Planning — define objectives,
+      team, and resources; (2) Business Impact Analysis — identify critical processes and
+      quantify the impact of disruptions; (3) Continuity Planning — develop recovery
+      strategies and write the plan; (4) Approval and Implementation — gain senior management
+      sign-off and train personnel. The BIA is foundational because it drives all recovery
+      strategy decisions that follow.
+
+  - id: iq-d1-010
+    domain: domain1
+    type: matching
+    question: "Match each security framework or standard to its primary focus area:"
+    items:
+      - "NIST Cybersecurity Framework (CSF)"
+      - "ISO/IEC 27001"
+      - "PCI DSS"
+      - "SOC 2"
+    categories:
+      - "Cybersecurity Risk Management"
+      - "Information Security Management System"
+      - "Payment Card Security"
+      - "Service Organization Controls"
+    correct_mapping:
+      0: "Cybersecurity Risk Management"
+      1: "Information Security Management System"
+      2: "Payment Card Security"
+      3: "Service Organization Controls"
+    explanation: >
+      NIST CSF provides a voluntary framework for managing cybersecurity risk using five
+      functions (Identify, Protect, Detect, Respond, Recover). ISO/IEC 27001 is the
+      international standard for establishing an ISMS. PCI DSS is mandated for any
+      organization that stores, processes, or transmits cardholder data. SOC 2 is an
+      auditing standard for service organizations covering security, availability,
+      processing integrity, confidentiality, and privacy.
+
+  - id: iq-d1-011
+    domain: domain1
+    type: multiselect
+    question: "Which of the following are goals of a security awareness and training program? (Select all that apply)"
+    options:
+      - "Reduce the likelihood of human error leading to security incidents"
+      - "Eliminate the need for technical security controls"
+      - "Change employee attitudes and behaviors toward security"
+      - "Help the organization meet regulatory compliance requirements"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      Security awareness programs aim to reduce human error (the leading cause of breaches),
+      change behaviors and build a security-conscious culture, and satisfy compliance
+      obligations (e.g., HIPAA, PCI DSS training requirements). They do NOT replace technical
+      controls — defense-in-depth requires both people and technology controls operating
+      together. Awareness training is a compensating administrative control, not a substitute
+      for preventive technical ones.
+
+  - id: iq-d1-012
+    domain: domain1
+    type: fillblank
+    question: "Complete the basic risk equation used in qualitative risk analysis:"
+    template: "Risk = {blank} × Vulnerability × Asset Value"
+    choices:
+      - "Threat"
+      - "Exposure Factor (EF)"
+      - "Annual Rate of Occurrence (ARO)"
+      - "Impact"
+    correct_answer: 0
+    explanation: >
+      The simplified risk equation is Risk = Threat × Vulnerability × Asset Value. A threat
+      is any circumstance or event with the potential to cause harm. Vulnerability is a
+      weakness that a threat can exploit. Asset Value reflects what is at stake. This model
+      shows that risk can be reduced by addressing any one of the three components — removing
+      threats, patching vulnerabilities, or reducing asset exposure through segmentation or
+      classification.
+
+  - id: iq-d1-013
+    domain: domain1
+    type: ordering
+    question: "Arrange the steps of the change management process in the correct order:"
+    items:
+      - "Submit change request"
+      - "Assess impact and risk"
+      - "Obtain approval from change advisory board (CAB)"
+      - "Implement the change"
+      - "Review and close"
+    correct_order: [0, 1, 2, 3, 4]
+    explanation: >
+      A formal change management process begins with a documented request, followed by
+      impact and risk assessment to evaluate potential disruptions, then CAB approval to
+      ensure oversight. Implementation follows only after approval, and a post-implementation
+      review closes the record and captures lessons learned. Skipping steps — especially
+      impact assessment or approval — is one of the most common causes of unplanned outages
+      and security misconfigurations in enterprise environments.
