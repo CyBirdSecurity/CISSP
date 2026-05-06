@@ -986,3 +986,972 @@ questions:
         - "MAC is OS-enforced label-based access control — not a session-level authentication escalation mechanism."
     difficulty: "medium"
     tags: ["authentication", "IAM", "step-up"]
+
+  - id: q-d5-053
+    domain: domain5
+    question: "An organization uses LDAP for directory services. A developer builds an application that constructs LDAP queries using unsanitized user input: 'filter=(&(uid=' + username + ')(password=' + password + '))'. What vulnerability does this introduce?"
+    options:
+      - "SQL injection in the directory service"
+      - "LDAP injection allowing authentication bypass"
+      - "Cross-site scripting via LDAP responses"
+      - "Directory traversal through LDAP paths"
+    correct_answer: 1
+    explanations:
+      correct: "Unsanitized input in LDAP filter strings allows attackers to inject special LDAP characters (e.g., '*', ')', '|') to modify query logic, potentially bypassing authentication or retrieving unauthorized data."
+      incorrect:
+        - "SQL injection affects SQL databases; LDAP uses its own filter syntax with different injection mechanics."
+        - "LDAP injection allowing authentication bypass is correct — injecting '*' or logic operators can make filters match unintended entries."
+        - "XSS affects web output rendering, not LDAP query processing."
+        - "Directory traversal involves filesystem paths, not LDAP filter manipulation."
+    difficulty: "medium"
+    tags: ["LDAP", "injection", "directory-services", "input-validation"]
+
+  - id: q-d5-054
+    domain: domain5
+    question: "A Kerberos attack where an attacker requests a service ticket for a service account and then attempts to crack the ticket offline to recover the account's password is called:"
+    options:
+      - "Pass-the-ticket"
+      - "AS-REP roasting"
+      - "Kerberoasting"
+      - "Golden ticket attack"
+    correct_answer: 2
+    explanations:
+      correct: "Kerberoasting requests service tickets (TGS) encrypted with the service account's password hash, then cracks them offline. It targets service accounts with SPNs registered in Active Directory."
+      incorrect:
+        - "Pass-the-ticket reuses captured Kerberos tickets rather than cracking them offline."
+        - "AS-REP roasting targets accounts with pre-authentication disabled, requesting AS-REP responses encrypted with the user's hash — not service tickets."
+        - "Kerberoasting is correct — it specifically targets service tickets (TGS) for accounts with Service Principal Names (SPNs)."
+        - "A golden ticket attack forges TGTs using the KRBTGT account hash, granting domain-wide access without cracking service account passwords."
+    difficulty: "hard"
+    tags: ["Kerberos", "Kerberoasting", "credential-attacks", "Active-Directory"]
+
+  - id: q-d5-055
+    domain: domain5
+    question: "AS-REP roasting targets Kerberos accounts that have which configuration enabled, allowing an attacker to request an AS-REP response and crack it offline?"
+    options:
+      - "Service Principal Name (SPN) registration"
+      - "Kerberos constrained delegation"
+      - "Pre-authentication disabled (DONT_REQUIRE_PREAUTH)"
+      - "Kerberos unconstrained delegation"
+    correct_answer: 2
+    explanations:
+      correct: "When pre-authentication is disabled, any user can request an AS-REP for that account without proving identity first. The response is encrypted with the user's password hash, which can be cracked offline."
+      incorrect:
+        - "SPN registration is required for Kerberoasting (TGS tickets), not AS-REP roasting."
+        - "Constrained delegation limits which services an account can impersonate and is not related to AS-REP roasting."
+        - "Pre-authentication disabled is correct — this flag (DONT_REQUIRE_PREAUTH) allows unauthenticated AS-REP requests."
+        - "Unconstrained delegation allows forwarding of TGTs to any service but is not the prerequisite for AS-REP roasting."
+    difficulty: "hard"
+    tags: ["Kerberos", "AS-REP-roasting", "Active-Directory", "credential-attacks"]
+
+  - id: q-d5-056
+    domain: domain5
+    question: "An attacker who has compromised a Domain Controller extracts the KRBTGT account's NTLM hash and uses it to forge Kerberos tickets granting them domain admin rights for any user. This attack is called:"
+    options:
+      - "Silver ticket attack"
+      - "Golden ticket attack"
+      - "DCSync attack"
+      - "Pass-the-ticket"
+    correct_answer: 1
+    explanations:
+      correct: "A golden ticket is a forged TGT created using the KRBTGT account hash. Since the KDC trusts all TGTs signed with the KRBTGT key, attackers can forge tickets for any user with any privileges, with configurable expiration."
+      incorrect:
+        - "A silver ticket forges a service ticket (TGS) using a specific service account's hash — limited to that service, not domain-wide."
+        - "A golden ticket attack is correct — it uses the KRBTGT hash to forge domain-wide Kerberos tickets."
+        - "DCSync mimics a domain controller replication request to extract password hashes (including KRBTGT) but is the technique used to obtain the hash, not the ticket forging attack itself."
+        - "Pass-the-ticket reuses legitimately obtained Kerberos tickets rather than forging new ones."
+    difficulty: "hard"
+    tags: ["Kerberos", "golden-ticket", "Active-Directory", "post-exploitation"]
+
+  - id: q-d5-057
+    domain: domain5
+    question: "NIST SP 800-63-3 defines identity assurance levels (IALs) for digital identity proofing. Which IAL requires in-person or supervised remote identity proofing with verification of identity evidence?"
+    options:
+      - "IAL1 - Self-asserted identity"
+      - "IAL2 - Remote or in-person identity proofing"
+      - "IAL3 - In-person identity proofing required"
+      - "IAL0 - Anonymous access"
+    correct_answer: 2
+    explanations:
+      correct: "IAL3 requires in-person identity proofing or supervised remote proofing with verification of physical documents, biometrics, and binding to a physical authenticator. It provides the highest assurance that the claimant is who they claim to be."
+      incorrect:
+        - "IAL1 only requires self-assertion with no identity proofing — appropriate for low-risk services."
+        - "IAL2 allows remote proofing using identity documents and knowledge-based verification but does not require in-person proofing."
+        - "IAL3 is correct — it mandates in-person or supervised remote proofing with the highest level of evidence verification."
+        - "IAL0 is not a defined level in NIST SP 800-63-3; IAL1 is the lowest defined level."
+    difficulty: "medium"
+    tags: ["NIST-800-63", "identity-proofing", "IAL", "authentication"]
+
+  - id: q-d5-058
+    domain: domain5
+    question: "A user receives multiple MFA push notifications they did not initiate. They approve one of the notifications out of confusion or to stop the alerts. This attack technique is called:"
+    options:
+      - "SIM swapping"
+      - "MFA fatigue (push bombing)"
+      - "Man-in-the-middle authentication"
+      - "Credential stuffing"
+    correct_answer: 1
+    explanations:
+      correct: "MFA fatigue (also called push bombing) overwhelms users with repeated push notifications hoping they approve one. This was used in high-profile breaches including Uber (2022). Mitigations include number matching and additional context in push notifications."
+      incorrect:
+        - "SIM swapping involves porting a victim's phone number to an attacker-controlled SIM to intercept SMS codes — different from push notification abuse."
+        - "MFA fatigue/push bombing is correct — it exploits the human tendency to approve or stop repeated notifications."
+        - "MITM authentication intercepts the authentication flow but does not rely on overwhelming users with push requests."
+        - "Credential stuffing uses breached username/password pairs to attempt logins; it precedes MFA but is not the same attack."
+    difficulty: "medium"
+    tags: ["MFA", "push-bombing", "social-engineering", "authentication-attacks"]
+
+  - id: q-d5-059
+    domain: domain5
+    question: "A SIM swapping attack allows an attacker to bypass which form of multi-factor authentication?"
+    options:
+      - "TOTP authenticator app codes"
+      - "Hardware security keys (FIDO2)"
+      - "SMS-based one-time passwords"
+      - "Smart card / PIV authentication"
+    correct_answer: 2
+    explanations:
+      correct: "SIM swapping ports the victim's phone number to an attacker-controlled SIM, allowing them to receive SMS one-time passwords. This is why NIST SP 800-63B designates SMS as a 'restricted' authenticator type due to this vulnerability."
+      incorrect:
+        - "TOTP codes are generated by an app linked to the account, not the phone number, so SIM swapping does not intercept them."
+        - "FIDO2 hardware keys are phishing-resistant and tied to physical possession — SIM swapping cannot compromise them."
+        - "SMS-based OTPs are correct — SIM swapping redirects SMS messages to the attacker's device."
+        - "Smart card/PIV authentication requires physical possession of the card; SIM swapping provides no access to it."
+    difficulty: "easy"
+    tags: ["SIM-swapping", "MFA", "SMS-OTP", "authentication-attacks"]
+
+  - id: q-d5-060
+    domain: domain5
+    question: "TOTP (Time-based One-Time Password) and HOTP (HMAC-based One-Time Password) are both OTP standards. What is the key technical difference between them?"
+    options:
+      - "TOTP uses asymmetric cryptography; HOTP uses symmetric cryptography"
+      - "TOTP generates codes based on time; HOTP generates codes based on a counter"
+      - "TOTP requires internet connectivity; HOTP works offline"
+      - "TOTP is more vulnerable to replay attacks than HOTP"
+    correct_answer: 1
+    explanations:
+      correct: "TOTP (RFC 6238) generates OTPs using the current Unix timestamp as input, making codes time-limited (typically 30 seconds). HOTP (RFC 4226) uses a counter incremented on each use, making codes valid until used — which increases replay window risk."
+      incorrect:
+        - "Both TOTP and HOTP use symmetric HMAC-SHA1; neither uses asymmetric cryptography."
+        - "TOTP uses time; HOTP uses a counter — this is correct."
+        - "Both TOTP and HOTP are designed to work offline since the shared secret is pre-provisioned."
+        - "HOTP is generally more vulnerable to replay than TOTP since codes don't expire until used; TOTP has a short time window."
+    difficulty: "medium"
+    tags: ["TOTP", "HOTP", "OTP", "MFA"]
+
+  - id: q-d5-061
+    domain: domain5
+    question: "An organization issues smart cards (PIV cards) to all employees for physical and logical access. The card contains a digital certificate and private key. What security control ensures the private key cannot be extracted from the card?"
+    options:
+      - "The private key is encrypted with the user's PIN"
+      - "The private key is stored in a hardware security module on the card that prevents extraction"
+      - "The certificate authority revokes keys that leave the card"
+      - "The private key is split using secret sharing across multiple card sectors"
+    correct_answer: 1
+    explanations:
+      correct: "Smart cards use a hardware security module (HSM) chip that performs cryptographic operations internally. Private keys are generated on-card and never leave the secure element; all signing and decryption operations happen inside the chip."
+      incorrect:
+        - "PIN encryption protects card activation but does not prevent hardware-level key extraction; the protection is architectural."
+        - "The HSM chip on the smart card prevents key extraction by design — this is correct."
+        - "Certificate revocation invalidates certificates after the fact but does not prevent key extraction from happening."
+        - "Secret sharing across sectors is not a mechanism used in PIV smart card key protection."
+    difficulty: "medium"
+    tags: ["smart-card", "PIV", "HSM", "cryptographic-keys"]
+
+  - id: q-d5-062
+    domain: domain5
+    question: "An organization wants to implement passwordless authentication for enterprise users. Which approach provides the strongest phishing resistance?"
+    options:
+      - "Email magic links sent to the user's corporate email"
+      - "SMS one-time passwords sent to the user's registered phone"
+      - "FIDO2/WebAuthn hardware security keys bound to specific origins"
+      - "Push notifications to an authenticator app"
+    correct_answer: 2
+    explanations:
+      correct: "FIDO2/WebAuthn hardware keys are cryptographically bound to the specific origin (domain) during registration. Even if a user is phished to a fake site, the key will not respond to authentication challenges from non-registered origins, providing strong phishing resistance."
+      incorrect:
+        - "Email magic links can be intercepted if email is compromised and are susceptible to phishing if the user clicks a link from a fake email."
+        - "SMS OTPs are susceptible to SIM swapping, SS7 attacks, and can be entered on phishing sites."
+        - "FIDO2 hardware keys bound to specific origins are correct — origin binding prevents phishing by design."
+        - "Push notifications can be intercepted by MFA fatigue attacks and proxy phishing toolkits that relay push challenges in real time."
+    difficulty: "medium"
+    tags: ["passwordless", "FIDO2", "phishing-resistance", "authentication"]
+
+  - id: q-d5-063
+    domain: domain5
+    question: "In OAuth 2.0, the 'client credentials' grant type is designed for which use case?"
+    options:
+      - "User-facing web applications requiring delegated access"
+      - "Mobile applications accessing APIs on behalf of a user"
+      - "Machine-to-machine (M2M) communication where no user is present"
+      - "Native desktop applications requiring offline access"
+    correct_answer: 2
+    explanations:
+      correct: "The client credentials grant type is used when a machine or service needs to authenticate itself (not a user) to access an API. The client authenticates with its own credentials (client_id and client_secret) and receives an access token — no user interaction is involved."
+      incorrect:
+        - "User-facing web applications use the authorization code grant type with PKCE for delegated user access."
+        - "Mobile applications typically use the authorization code with PKCE grant for user-delegated access."
+        - "Client credentials for M2M is correct — it authenticates the application itself, not a user."
+        - "Native desktop applications use authorization code with PKCE; refresh tokens handle offline access, not client credentials."
+    difficulty: "medium"
+    tags: ["OAuth2", "client-credentials", "M2M", "API-security"]
+
+  - id: q-d5-064
+    domain: domain5
+    question: "A developer implements an OAuth 2.0 flow for a single-page application (SPA) and uses the implicit grant type. Why is this considered insecure by modern security standards (RFC 9700)?"
+    options:
+      - "Implicit grant does not support refresh tokens, causing poor user experience"
+      - "Access tokens are returned in the URL fragment, exposing them in browser history and referrer headers"
+      - "Implicit grant requires client secrets that cannot be secured in browser-side code"
+      - "Implicit grant does not support PKCE, making it incompatible with public clients"
+    correct_answer: 1
+    explanations:
+      correct: "In the implicit grant, the access token is returned directly in the URL fragment after redirect. This exposes tokens in browser history, server logs, referrer headers, and to JavaScript on the page. Modern OAuth 2.0 best practices (RFC 9700) mandate authorization code with PKCE for SPAs instead."
+      incorrect:
+        - "Lack of refresh token support is a usability issue but not the primary security concern driving its deprecation."
+        - "URL fragment token exposure is correct — tokens appear in browser-accessible locations where they can be stolen."
+        - "The implicit grant was specifically designed for public clients without client secrets; this is by design, not the security flaw."
+        - "PKCE is used with authorization code grant; its absence in implicit grant is secondary to the token exposure issue."
+    difficulty: "hard"
+    tags: ["OAuth2", "implicit-grant", "SPA", "token-security"]
+
+  - id: q-d5-065
+    domain: domain5
+    question: "An organization uses an Identity Provider (IdP) to federate with multiple Service Providers (SPs). An attacker compromises the IdP. What is the maximum blast radius of this compromise?"
+    options:
+      - "Only the SPs that were actively logged into at the time of compromise"
+      - "Only SPs that use the same authentication protocol as the attacker's session"
+      - "All SPs that trust this IdP for authentication"
+      - "Only SPs where the user has an active SSO session token"
+    correct_answer: 2
+    explanations:
+      correct: "If the IdP is compromised, the attacker can forge authentication assertions for any user to any SP that trusts this IdP. This is the fundamental risk of federated identity — all trusting parties inherit the IdP's risk profile. This is called 'IdP compromise blast radius'."
+      incorrect:
+        - "The attacker can forge assertions for any SP in the trust relationship, not just those with active sessions."
+        - "Protocol compatibility is irrelevant; if the IdP can issue assertions for a protocol, the attacker can forge them."
+        - "All trusting SPs are at risk — correct — because the attacker controls the assertion-issuing authority."
+        - "Active session tokens can be invalidated; the greater risk is that new forged assertions can be issued for any SP."
+    difficulty: "medium"
+    tags: ["federation", "IdP", "SSO", "trust-relationships"]
+
+  - id: q-d5-065b
+    domain: domain5
+    question: "A SAML assertion has an expired 'NotOnOrAfter' attribute, but the Service Provider accepts it anyway due to a misconfigured clock tolerance of 30 minutes. What attack does this configuration facilitate?"
+    options:
+      - "XML signature wrapping"
+      - "SAML assertion replay attack"
+      - "IdP impersonation"
+      - "SAML token injection"
+    correct_answer: 1
+    explanations:
+      correct: "Excessive clock tolerance allows attackers to replay captured SAML assertions after they should have expired. An attacker who captures a valid assertion can replay it within the tolerance window to authenticate. Recommended tolerance is 1-5 minutes maximum."
+      incorrect:
+        - "XML signature wrapping involves manipulating the structure of signed XML to make a valid signature cover different content — unrelated to clock tolerance."
+        - "SAML assertion replay is correct — wide clock tolerance extends the replay window for captured assertions."
+        - "IdP impersonation requires compromising or forging the IdP's signing key, not clock manipulation."
+        - "SAML token injection is not a specific standard attack category; replay is the applicable term here."
+    difficulty: "hard"
+    tags: ["SAML", "replay-attack", "clock-skew", "federation-security"]
+
+  - id: q-d5-066
+    domain: domain5
+    question: "Role explosion is a common failure mode in RBAC implementations. What does 'role explosion' describe?"
+    options:
+      - "Privilege escalation through excessive role nesting"
+      - "An unmanageable proliferation of roles that closely mirrors individual user permissions"
+      - "Roles with excessive permissions that violate least privilege"
+      - "Role conflicts that create separation of duties violations"
+    correct_answer: 1
+    explanations:
+      correct: "Role explosion occurs when organizations create so many fine-grained roles (often one per user or use case) that role management becomes as complex as managing individual user permissions. This defeats the administrative simplicity advantage of RBAC and often indicates ABAC would be more appropriate."
+      incorrect:
+        - "Privilege escalation through role nesting is a different problem; role explosion is about quantity, not hierarchy."
+        - "Proliferation of roles mirroring user permissions is correct — this undermines RBAC's administrative benefits."
+        - "Overly permissive roles describe privilege excess, not role count proliferation."
+        - "SoD conflicts are a specific compliance concern, not what 'role explosion' describes."
+    difficulty: "medium"
+    tags: ["RBAC", "role-explosion", "access-management", "IAM-design"]
+
+  - id: q-d5-067
+    domain: domain5
+    question: "What is the primary security benefit of implementing Privileged Identity Management (PIM) in cloud environments like Azure AD/Entra ID?"
+    options:
+      - "Permanent assignment of admin roles to reduce authentication delays"
+      - "Just-in-time elevation of privileges that expire after a defined period"
+      - "Automatic detection and removal of orphaned accounts"
+      - "Multi-factor authentication enforcement for all cloud users"
+    correct_answer: 1
+    explanations:
+      correct: "PIM provides just-in-time (JIT) privileged access where admin roles are assigned temporarily (e.g., 1-8 hours) on-demand with approval workflows. This minimizes the standing privilege attack surface — there are no permanently privileged accounts sitting idle waiting to be compromised."
+      incorrect:
+        - "Permanent role assignments are what PIM is designed to eliminate; they create standing privileges that increase attack surface."
+        - "JIT elevation with expiration is correct — PIM is specifically designed to replace permanent privileged role assignments."
+        - "Orphaned account detection is an IGA/governance function, not the primary purpose of PIM."
+        - "MFA enforcement is a Conditional Access policy function, separate from PIM's role management capability."
+    difficulty: "medium"
+    tags: ["PIM", "JIT-access", "privileged-access", "cloud-IAM"]
+
+  - id: q-d5-068
+    domain: domain5
+    question: "An organization's HR system uses SCIM 2.0 to provision and deprovision user accounts across SaaS applications. An employee is terminated. What is the expected behavior when the HR system updates the employee's status to 'terminated'?"
+    options:
+      - "The employee's accounts are archived for 90 days before deletion"
+      - "SCIM pushes a DELETE or PATCH (active: false) operation to connected SaaS applications, disabling access"
+      - "The IdP notifies SaaS applications via email to manually disable the account"
+      - "The SSO session token expires at the next scheduled token refresh"
+    correct_answer: 1
+    explanations:
+      correct: "SCIM 2.0 automates identity lifecycle management. When the HR system marks a user as terminated, SCIM sends a DELETE or PATCH (active: false) to each integrated application, disabling access in near-real-time across all connected systems without manual intervention."
+      incorrect:
+        - "Archiving for 90 days is a data retention policy decision, not SCIM's default behavior; SCIM executes the deprovisioning action immediately."
+        - "SCIM automated deprovisioning is correct — this is the primary value proposition of SCIM for joiner/mover/leaver workflows."
+        - "Manual email notifications eliminate the automation benefit and introduce delay; SCIM is designed to remove this manual step."
+        - "SSO token expiration only affects active sessions, not future login attempts; without deprovisioning, the user could re-authenticate."
+    difficulty: "medium"
+    tags: ["SCIM", "deprovisioning", "lifecycle-management", "IAM-automation"]
+
+  - id: q-d5-069
+    domain: domain5
+    question: "An organization implements Attribute-Based Access Control (ABAC) using policies like 'grant access if user.department=Finance AND resource.classification=Confidential AND time.hour BETWEEN 8 AND 18'. Which technology standard is commonly used to express and evaluate these ABAC policies?"
+    options:
+      - "SAML 2.0 assertion attributes"
+      - "XACML (eXtensible Access Control Markup Language)"
+      - "OAuth 2.0 scopes"
+      - "LDAP attribute filters"
+    correct_answer: 1
+    explanations:
+      correct: "XACML is an OASIS standard specifically designed for expressing and evaluating fine-grained ABAC policies. It defines a request/response protocol between a Policy Enforcement Point (PEP) and Policy Decision Point (PDP) with rich attribute-based policy expressions."
+      incorrect:
+        - "SAML carries identity attributes but is not designed for policy evaluation and enforcement logic."
+        - "XACML is correct — it is the standard policy language for ABAC with PEP/PDP architecture."
+        - "OAuth 2.0 scopes provide coarse-grained authorization based on pre-defined permission sets, not dynamic attribute-based evaluation."
+        - "LDAP filters query directory entries; they are not a policy evaluation framework for multi-attribute access decisions."
+    difficulty: "hard"
+    tags: ["ABAC", "XACML", "policy-enforcement", "access-control"]
+
+  - id: q-d5-070
+    domain: domain5
+    question: "A company implements a Zero Trust architecture. Which of the following best describes how device identity is handled in a Zero Trust model?"
+    options:
+      - "All devices on the corporate network are trusted by default"
+      - "Only domain-joined Windows devices are granted access"
+      - "Device identity, health, and compliance are continuously evaluated as part of every access decision"
+      - "Device authentication is performed once at VPN connection and trusted for the session"
+    correct_answer: 2
+    explanations:
+      correct: "Zero Trust requires continuous validation of device identity and health status (patch level, EDR presence, configuration compliance) as part of each access decision. A device that was compliant at login may be quarantined if it fails a compliance check later in the same session."
+      incorrect:
+        - "Network location trust is explicitly rejected in Zero Trust — being on the corporate network provides no inherent trust."
+        - "Platform-specific requirements (Windows only) contradict Zero Trust's goal of supporting diverse device types with consistent policy."
+        - "Continuous evaluation is correct — Zero Trust eliminates the 'trusted once, trusted for session' model."
+        - "VPN-based implicit trust is the legacy perimeter model that Zero Trust is designed to replace."
+    difficulty: "medium"
+    tags: ["Zero-Trust", "device-identity", "continuous-validation", "access-control"]
+
+  - id: q-d5-071
+    domain: domain5
+    question: "An organization stores API keys in application code and commits them to a public GitHub repository. What immediate action should the security team take when this is discovered?"
+    options:
+      - "Make the GitHub repository private to prevent further exposure"
+      - "Rotate (revoke and replace) all exposed API keys immediately"
+      - "Add the keys to .gitignore to prevent future commits"
+      - "Notify the affected API providers via their bug bounty programs"
+    correct_answer: 1
+    explanations:
+      correct: "Exposed API keys must be rotated immediately because they should be considered compromised — automated scanners harvest credentials from public repos within seconds of publication. Making the repo private does not help if keys were already scraped. The keys must be revoked and replaced."
+      incorrect:
+        - "Making the repo private is a useful step but does not invalidate already-exposed keys; scrapers may have already copied them."
+        - "Immediate key rotation is correct — this is the only action that definitively stops abuse of the exposed credentials."
+        - "Adding to .gitignore prevents future commits but does nothing to address already-committed and exposed keys."
+        - "Bug bounty notification may be appropriate for vulnerabilities in provider infrastructure, but this is a configuration mistake requiring immediate remediation, not a provider vulnerability."
+    difficulty: "easy"
+    tags: ["API-keys", "secrets-management", "credential-exposure", "incident-response"]
+
+  - id: q-d5-072
+    domain: domain5
+    question: "What is the primary purpose of a Hardware Security Module (HSM) in a PKI deployment?"
+    options:
+      - "To accelerate TLS handshakes by offloading CPU-intensive cryptographic operations"
+      - "To store and protect CA private keys in tamper-evident hardware that prevents key extraction"
+      - "To validate certificate revocation status via OCSP responses"
+      - "To manage certificate lifecycle including issuance, renewal, and expiration notifications"
+    correct_answer: 1
+    explanations:
+      correct: "In PKI, the CA's private key is the root of trust. An HSM stores this key in certified tamper-resistant hardware (FIPS 140-2 Level 3 or 4) where it can be used but never extracted. Even administrators cannot export the raw key material, preventing CA compromise even from insider threats."
+      incorrect:
+        - "Performance acceleration is a secondary benefit; the primary security purpose is key protection, not throughput."
+        - "HSM key protection for CA private keys is correct — this is the foundational security requirement for a trusted CA."
+        - "OCSP response signing is a function an HSM may support but is not the primary purpose in CA deployments."
+        - "Certificate lifecycle management is handled by CA software; the HSM's role is specifically key storage and cryptographic operations."
+    difficulty: "medium"
+    tags: ["HSM", "PKI", "CA", "key-management"]
+
+  - id: q-d5-073
+    domain: domain5
+    question: "An organization implements mutual TLS (mTLS) for service-to-service authentication in a microservices environment. What does mTLS provide that standard (server-only) TLS does not?"
+    options:
+      - "Stronger encryption algorithms than standard TLS"
+      - "Authentication of both the client and server using X.509 certificates"
+      - "Certificate transparency logging for all service certificates"
+      - "Protection against TLS downgrade attacks"
+    correct_answer: 1
+    explanations:
+      correct: "In standard TLS, only the server presents a certificate for authentication (the client is anonymous). mTLS requires both parties to present and validate X.509 certificates, providing mutual authentication — each service cryptographically proves its identity to the other."
+      incorrect:
+        - "mTLS uses the same TLS protocol and cipher suites; it does not inherently offer stronger encryption than standard TLS."
+        - "Mutual authentication of both client and server is correct — this is the defining characteristic of mTLS."
+        - "Certificate transparency logging is a CA/browser ecosystem function independent of whether mTLS is used."
+        - "TLS downgrade protection (e.g., via HSTS, TLS_FALLBACK_SCSV) is a separate TLS feature unrelated to mutual authentication."
+    difficulty: "medium"
+    tags: ["mTLS", "mutual-authentication", "microservices", "certificates"]
+
+  - id: q-d5-074
+    domain: domain5
+    question: "A DCSync attack against Active Directory is most accurately described as:"
+    options:
+      - "Brute-forcing domain controller authentication using stolen credentials"
+      - "Exploiting the domain replication protocol to extract password hashes from a DC without logging on to it"
+      - "Injecting malicious Group Policy Objects to execute code on domain controllers"
+      - "Overwriting the NTDS.DIT database file to plant backdoor credentials"
+    correct_answer: 1
+    explanations:
+      correct: "DCSync uses Microsoft's Directory Replication Service (DRS) protocol — normally used between DCs for AD replication — to request password hash data for any account, including KRBTGT and DA accounts. Attackers need Domain Replication privileges (typically DA or equivalent) to execute it."
+      incorrect:
+        - "DCSync does not require brute-forcing; it uses legitimate replication APIs with compromised high-privilege credentials."
+        - "Exploiting the replication protocol to extract hashes remotely is correct — this is what DCSync does, as implemented in Mimikatz's 'lsadump::dcsync' command."
+        - "GPO injection is a separate lateral movement technique unrelated to the replication protocol."
+        - "NTDS.DIT file attacks require physical or filesystem-level access to the DC; DCSync works remotely over the network."
+    difficulty: "hard"
+    tags: ["DCSync", "Active-Directory", "credential-attacks", "post-exploitation"]
+
+  - id: q-d5-075
+    domain: domain5
+    question: "Which of the following best describes the difference between workforce IAM and customer IAM (CIAM)?"
+    options:
+      - "Workforce IAM manages external partner access; CIAM manages internal employee access"
+      - "Workforce IAM focuses on employee/contractor access with strong central control; CIAM prioritizes user experience, self-service, and privacy for millions of external users"
+      - "Workforce IAM uses SAML; CIAM uses OAuth 2.0 — the standards are mutually exclusive"
+      - "CIAM provides stronger authentication than workforce IAM due to higher risk"
+    correct_answer: 1
+    explanations:
+      correct: "Workforce IAM manages employees and contractors with tight central control, compliance requirements, and IT-managed provisioning. CIAM manages millions of external customers requiring frictionless registration, self-service password reset, social login, consent management, and privacy compliance (GDPR/CCPA) — very different requirements from workforce IAM."
+      incorrect:
+        - "The distinction is workforce (internal) vs. customer (external), not employee vs. partner."
+        - "Both workforce and CIAM solutions use multiple protocols; the standards are not mutually exclusive to each model."
+        - "Authentication strength requirements depend on context; CIAM often emphasizes low friction for conversion rates while allowing progressive security."
+        - "Workforce IAM vs. CIAM is about scale, self-service, and UX focus — the description in B is correct."
+    difficulty: "medium"
+    tags: ["CIAM", "workforce-IAM", "customer-identity", "IAM-design"]
+
+  - id: q-d5-076
+    domain: domain5
+    question: "An organization wants to implement continuous authentication beyond the initial login event. Which technology approach best enables this?"
+    options:
+      - "Extending session token lifetimes to reduce re-authentication frequency"
+      - "Behavioral biometrics analyzing typing patterns, mouse movements, and navigation to detect session anomalies"
+      - "Requiring users to re-enter their password every 15 minutes"
+      - "Implementing certificate pinning on mobile applications"
+    correct_answer: 1
+    explanations:
+      correct: "Behavioral biometrics (typing cadence, mouse dynamics, touchscreen pressure, navigation patterns) can continuously verify that the authenticated user is still the same person, detecting session hijacking or unauthorized handoff without requiring explicit re-authentication."
+      incorrect:
+        - "Extending token lifetimes increases the hijacking window; it is the opposite of continuous authentication."
+        - "Behavioral biometrics enabling continuous passive verification is correct — it is transparent to users while providing ongoing assurance."
+        - "Frequent password re-entry is disruptive and is a form of step-up authentication, not continuous authentication."
+        - "Certificate pinning prevents MITM attacks on app-server communication; it does not authenticate the user continuously."
+    difficulty: "hard"
+    tags: ["continuous-authentication", "behavioral-biometrics", "session-security", "IAM"]
+
+  - id: q-d5-077
+    domain: domain5
+    question: "A user's account is compromised. An attacker establishes persistence by enrolling their own device in the organization's MFA system. What account recovery process design flaw allows this, and what control prevents it?"
+    options:
+      - "Flaw: weak passwords; Control: password complexity requirements"
+      - "Flaw: MFA self-enrollment without re-verification of identity; Control: requiring manager/helpdesk approval for MFA device changes"
+      - "Flaw: single-factor authentication; Control: enforcing mandatory MFA enrollment"
+      - "Flaw: shared accounts; Control: individual unique accounts per user"
+    correct_answer: 1
+    explanations:
+      correct: "If MFA device enrollment (adding a new authenticator) does not require re-verification of identity (e.g., re-authentication, manager approval, or helpdesk verification), an attacker with account access can enroll their own device and maintain persistent MFA-authenticated access. Controls include requiring current device confirmation, manager approval, or a verification call for enrolling new MFA devices."
+      incorrect:
+        - "Password weakness explains initial compromise but not how the attacker maintains MFA-authenticated persistence afterward."
+        - "Unverified MFA self-enrollment enabling attacker persistence is correct — this is a critical account recovery design flaw."
+        - "If MFA is already compromised by attacker enrollment, enforcing MFA alone doesn't solve the persistence problem."
+        - "Shared accounts are unrelated to the specific MFA enrollment persistence mechanism described."
+    difficulty: "hard"
+    tags: ["MFA", "account-recovery", "persistence", "IAM-design"]
+
+  - id: q-d5-078
+    domain: domain5
+    question: "Which access control model allows object owners to grant access to their resources at their own discretion, making it flexible but potentially inconsistent across the organization?"
+    options:
+      - "Mandatory Access Control (MAC)"
+      - "Role-Based Access Control (RBAC)"
+      - "Discretionary Access Control (DAC)"
+      - "Rule-Based Access Control"
+    correct_answer: 2
+    explanations:
+      correct: "In DAC, resource owners control who can access their objects and can grant/revoke access at their discretion. This is common in file systems (e.g., Windows NTFS ACLs, Unix permissions). The weakness is inconsistency — different owners make different decisions, leading to access sprawl and policy gaps."
+      incorrect:
+        - "MAC is enforced by the system using security labels; individual owners cannot override access policy."
+        - "RBAC centralizes access via role assignments; individual resource owners do not control access independently."
+        - "DAC allowing owner discretion is correct — it is the defining characteristic and key weakness of DAC."
+        - "Rule-based access control uses system-defined rules (e.g., time of day, IP range) enforced uniformly, not owner discretion."
+    difficulty: "easy"
+    tags: ["DAC", "access-control-models", "ACL", "IAM"]
+
+  - id: q-d5-079
+    domain: domain5
+    question: "An organization deploys workload identity for its containerized applications running in Kubernetes. Instead of using static API keys, each pod receives a dynamic short-lived identity credential. What standard mechanism does this leverage?"
+    options:
+      - "OAuth 2.0 client credentials with rotating client secrets"
+      - "Kubernetes Service Account tokens (OIDC-compliant JWTs) bound to specific pods"
+      - "Mutual TLS certificates provisioned by the container registry"
+      - "SSH key pairs injected at container startup via environment variables"
+    correct_answer: 1
+    explanations:
+      correct: "Kubernetes Service Account tokens are OIDC-compliant JWTs automatically mounted into pods. With audience-bound tokens (projected volumes), they are short-lived, specific to the requesting pod, and can be federated with cloud IAM (AWS IRSA, GCP Workload Identity) to grant cloud API access without static credentials."
+      incorrect:
+        - "Client credentials grant requires static client secrets; this reintroduces the credential management problem workload identity solves."
+        - "Kubernetes OIDC service account tokens are correct — they provide dynamic, short-lived workload identity credentials."
+        - "Container registry credentials are for image pull authentication; mTLS certificates for workload identity are provisioned by a service mesh, not the registry."
+        - "Environment variable injection of SSH keys is a static credential approach — it doesn't provide dynamic, short-lived identity."
+    difficulty: "hard"
+    tags: ["workload-identity", "Kubernetes", "OIDC", "cloud-IAM"]
+
+  - id: q-d5-080
+    domain: domain5
+    question: "An identity governance review discovers that 40% of access entitlements in the organization have never been used in the past 180 days. What is the recommended remediation approach?"
+    options:
+      - "Extend the review cycle to 365 days to reduce administrative burden"
+      - "Remove unused entitlements following least privilege principles"
+      - "Archive unused entitlements for historical audit trails"
+      - "Reclassify unused entitlements as low-risk and skip future reviews"
+    correct_answer: 1
+    explanations:
+      correct: "Unused access represents standing attack surface — if an account is compromised, unused entitlements become available to an attacker. Least privilege requires revoking access that is not demonstrably needed. Many IGA tools support automated removal of entitlements unused beyond a defined threshold."
+      incorrect:
+        - "Extending review cycles increases risk by allowing unused access to persist longer without scrutiny."
+        - "Removing unused entitlements per least privilege is correct — dormant access should be revoked, not retained."
+        - "Archiving for audit trails is a reporting function; the entitlements themselves should be removed from production."
+        - "Unused access is not inherently low-risk — it represents potential attack surface if the account is compromised."
+    difficulty: "easy"
+    tags: ["least-privilege", "IGA", "access-review", "entitlement-management"]
+
+  - id: q-d5-081
+    domain: domain5
+    question: "Risk-based authentication (adaptive authentication) adjusts the authentication requirements based on contextual signals. Which combination of signals would most likely trigger step-up authentication?"
+    options:
+      - "Login from the user's usual device at their typical work location during business hours"
+      - "Login from a new device in a foreign country at 3 AM requesting access to sensitive financial systems"
+      - "Login after a 7-day absence from any system access"
+      - "Login with a browser that has an outdated version"
+    correct_answer: 1
+    explanations:
+      correct: "Risk-based authentication aggregates signals including device novelty, geolocation anomalies, impossible travel, time of day, and resource sensitivity. A new device, foreign country, unusual time, and sensitive target represent a high-risk signal combination that would trigger step-up authentication (e.g., additional MFA factor)."
+      incorrect:
+        - "Normal device, expected location, and business hours represent a low-risk profile — step-up authentication would not be triggered."
+        - "Multiple high-risk signals (new device, anomalous location, unusual time, sensitive resource) is correct — this is the typical trigger."
+        - "A 7-day absence may trigger session expiration but is not typically a high-risk signal requiring step-up authentication."
+        - "Outdated browser is a device compliance signal that might trigger a compliance remediation flow, not typically step-up MFA."
+    difficulty: "medium"
+    tags: ["adaptive-authentication", "risk-based-authentication", "contextual-signals", "MFA"]
+
+  - id: q-d5-082
+    domain: domain5
+    question: "An organization's internal audit finds that a network engineer has accumulated admin access to the firewall management console, VPN concentrator, DNS servers, and SIEM platform over three years without any role changes. What IAM process failure does this represent?"
+    options:
+      - "Toxic combination — the engineer has conflicting role assignments"
+      - "Separation of duties violation requiring immediate access revocation"
+      - "Failure of periodic access recertification to remove access no longer tied to business need"
+      - "Privilege escalation attack by the network engineer"
+    correct_answer: 2
+    explanations:
+      correct: "This is privilege creep resulting from failure of periodic access recertification. Over time, the engineer accumulated access from various projects or role expansions that was never removed. IGA programs require managers to periodically certify that each access entitlement remains justified, with automatic removal of uncertified access."
+      incorrect:
+        - "Toxic combinations describe conflicting duties that together enable fraud (e.g., approving and paying invoices); this is accumulation, not conflict."
+        - "Whether this violates SoD depends on the specific combination; the core issue is accumulation without periodic review, not SoD conflict."
+        - "Failure of access recertification allowing privilege creep is correct — this is the textbook IGA gap."
+        - "There is no indication of malicious intent; this describes a governance failure, not an insider attack."
+    difficulty: "medium"
+    tags: ["privilege-creep", "access-recertification", "IGA", "least-privilege"]
+
+  - id: q-d5-083
+    domain: domain5
+    question: "An organization wants to grant a third-party auditor temporary read-only access to their cloud environment logs for a 2-week audit engagement. Which approach best follows least privilege and minimizes risk?"
+    options:
+      - "Create a permanent auditor account with read-only permissions that can be reused for future audits"
+      - "Share a senior engineer's credentials with the auditor under a non-disclosure agreement"
+      - "Create a time-limited account with scoped read-only permissions that automatically expires after 2 weeks"
+      - "Provide the auditor VPN access to the corporate network and rely on network-level controls"
+    correct_answer: 2
+    explanations:
+      correct: "Time-limited accounts with automatic expiration enforce both least privilege (read-only, scoped to needed resources) and temporal access limitation (no action required for deprovisioning). This eliminates the risk of forgetting to remove access after the audit ends."
+      incorrect:
+        - "Permanent accounts for temporary access violate least privilege on the temporal dimension — they persist beyond need."
+        - "Sharing credentials is a fundamental IAM control failure: it prevents individual accountability, audit trail attribution, and violates most compliance frameworks."
+        - "Time-limited, scoped read-only access with auto-expiration is correct — this is the recommended approach for third-party temporary access."
+        - "VPN access provides network connectivity but doesn't constrain what the auditor can access; scoped application-level credentials are more precise."
+    difficulty: "easy"
+    tags: ["third-party-access", "least-privilege", "temporal-access", "access-management"]
+
+  - id: q-d5-084
+    domain: domain5
+    question: "OpenID Connect (OIDC) ID tokens contain claims about the authenticated user. Which claim is the stable, unique identifier for the user that applications should use to correlate identity across sessions?"
+    options:
+      - "email — the user's email address"
+      - "name — the user's display name"
+      - "sub (subject) — a stable, unique identifier for the user at the IdP"
+      - "preferred_username — the user's login name"
+    correct_answer: 2
+    explanations:
+      correct: "The 'sub' (subject) claim is a stable, unique identifier assigned by the IdP for a specific user. It is guaranteed not to change and is unique per user per IdP. Email addresses and usernames can change; sub should be used as the primary key for linking IdP identity to application records."
+      incorrect:
+        - "Email addresses can change (e.g., name change, domain migration) and are not suitable as stable identity keys."
+        - "Display names are not unique and can change; they should never be used as identity keys."
+        - "The 'sub' claim is correct — it is the OIDC-defined stable unique identifier for user identity."
+        - "preferred_username is not guaranteed unique or stable across identity providers; it is a display hint."
+    difficulty: "medium"
+    tags: ["OIDC", "JWT", "identity-claims", "federation"]
+
+  - id: q-d5-085
+    domain: domain5
+    question: "A compromised application service account has write access to the production database. The attacker uses this account to exfiltrate 2 million customer records. Which IAM control would have MOST directly limited the impact of this compromise?"
+    options:
+      - "Enabling multi-factor authentication on the service account"
+      - "Implementing account lockout after 5 failed login attempts"
+      - "Applying least privilege so the service account has only the minimum necessary database permissions"
+      - "Requiring the service account to authenticate using a hardware token"
+    correct_answer: 2
+    explanations:
+      correct: "Least privilege on the service account would have limited what the attacker could do after compromising it. If the account only had SELECT permissions on the specific tables needed for the application's function, the attacker could not exfiltrate data from tables outside that scope. Least privilege is the direct blast radius control."
+      incorrect:
+        - "Service accounts cannot interactively use MFA; MFA would prevent the service from functioning and is architecturally inapplicable."
+        - "Account lockout applies to interactive authentication with login attempts; service account API calls typically don't trigger lockout and attacker's single connection session would not be affected."
+        - "Least privilege limiting database permissions is correct — it directly constrains what the compromised account can access."
+        - "Hardware tokens require interactive authentication; service accounts use API keys or certificates and cannot use hardware tokens."
+    difficulty: "medium"
+    tags: ["least-privilege", "service-accounts", "blast-radius", "data-breach"]
+
+  - id: q-d5-086
+    domain: domain5
+    question: "What is the primary security purpose of certificate revocation, and which mechanism provides the most real-time revocation checking?"
+    options:
+      - "Certificate revocation prevents expired certificates from being used; CRL distribution points (CDP) provide real-time checking"
+      - "Certificate revocation invalidates certificates before their scheduled expiration; OCSP (Online Certificate Status Protocol) provides near-real-time status"
+      - "Certificate revocation is used to update certificate information; OCSP Stapling reduces CA load"
+      - "Certificate revocation prevents certificate reuse; CT logs verify revocation status"
+    correct_answer: 1
+    explanations:
+      correct: "Revocation invalidates a certificate before its NotAfter date — typically due to key compromise, employee termination, or CA compromise. OCSP provides near-real-time status for individual certificates (unlike CRLs which are downloaded in bulk and may be hours old). OCSP Stapling further improves this by having the server cache the OCSP response."
+      incorrect:
+        - "CRLs are distributed periodically (often 24-hour validity) and may be many megabytes; they are not real-time. OCSP provides fresher status."
+        - "OCSP for near-real-time revocation status is correct — this is the purpose of revocation and the standard mechanism."
+        - "Revocation does not update certificate information; new certificates must be issued if information changes."
+        - "Certificate Transparency logs record certificate issuance for auditing; they do not provide revocation status."
+    difficulty: "medium"
+    tags: ["certificate-revocation", "OCSP", "CRL", "PKI"]
+
+  - id: q-d5-087
+    domain: domain5
+    question: "An organization's Active Directory uses a single forest with multiple domains. A user in the 'US' domain accesses a resource in the 'EU' domain. What Kerberos mechanism enables cross-domain authentication without requiring the user to have a separate EU domain account?"
+    options:
+      - "Kerberos protocol transition"
+      - "Cross-realm trust — the KDC provides a referral ticket for the target domain"
+      - "NTLM fallback authentication"
+      - "LDAP passthrough authentication"
+    correct_answer: 1
+    explanations:
+      correct: "In Kerberos cross-realm authentication, when a user requests access to a resource in a different realm (domain), their KDC issues a cross-realm TGT (referral ticket) for the target domain's KDC. The user presents this referral to the target KDC to obtain a service ticket for the resource. Forest trusts in AD enable this automatically."
+      incorrect:
+        - "Protocol transition (S4U2Self) allows a service to obtain a Kerberos ticket on behalf of a user — it is about impersonation, not cross-domain auth."
+        - "Cross-realm trust with KDC referral tickets is correct — this is the standard Kerberos mechanism for cross-domain resource access."
+        - "NTLM is a fallback when Kerberos fails; it is not the preferred mechanism and does not use the Kerberos ticket infrastructure."
+        - "LDAP passthrough is not a Kerberos authentication mechanism; LDAP is used for directory queries, not Kerberos ticket exchange."
+    difficulty: "hard"
+    tags: ["Kerberos", "cross-realm", "Active-Directory", "forest-trust"]
+
+  - id: q-d5-088
+    domain: domain5
+    question: "An organization's access request system requires the requester's manager to approve access, and then a second approval from the data owner. This two-layer approval process implements which security principle?"
+    options:
+      - "Least privilege"
+      - "Defense in depth for access provisioning"
+      - "Separation of duties in the approval workflow"
+      - "Need-to-know enforcement"
+    correct_answer: 2
+    explanations:
+      correct: "Requiring two independent approvals (manager + data owner) implements separation of duties in the provisioning workflow — no single person can unilaterally grant access. This reduces the risk of collusion, unauthorized provisioning, and insider threat by requiring both business justification (manager) and resource-appropriate approval (data owner)."
+      incorrect:
+        - "Least privilege governs the scope of access granted, not the approval workflow structure."
+        - "Defense in depth describes layered security controls broadly; the specific mechanism here is SoD in the approval process."
+        - "Separation of duties in the approval workflow is correct — two independent approvers prevent unilateral access grants."
+        - "Need-to-know determines whether access should be granted; the dual-approval process is how the decision is made, not the criteria."
+    difficulty: "medium"
+    tags: ["separation-of-duties", "access-provisioning", "workflow", "IAM"]
+
+  - id: q-d5-089
+    domain: domain5
+    question: "What is the difference between authentication and non-repudiation, and which cryptographic mechanism provides non-repudiation?"
+    options:
+      - "Authentication proves identity to a system; non-repudiation proves actions cannot be denied. Symmetric encryption provides non-repudiation."
+      - "Authentication proves identity; non-repudiation provides evidence that a specific entity performed a specific action that cannot later be denied. Digital signatures provide non-repudiation."
+      - "Authentication and non-repudiation are equivalent; both are achieved through MFA."
+      - "Authentication is technical; non-repudiation is legal. PKI certificates provide both."
+    correct_answer: 1
+    explanations:
+      correct: "Authentication proves who a user is at a point in time. Non-repudiation provides cryptographic proof that a specific entity performed a specific action (e.g., signed a document, sent a message) that the entity cannot later deny. Digital signatures using asymmetric cryptography provide non-repudiation because only the private key holder can create valid signatures."
+      incorrect:
+        - "Symmetric encryption provides confidentiality; since both parties share the key, either could have created the ciphertext, providing no non-repudiation."
+        - "Digital signatures for non-repudiation is correct — asymmetric key signing creates verifiable, undeniable proof of origin."
+        - "Authentication and non-repudiation are distinct concepts; MFA improves authentication assurance but does not provide cryptographic non-repudiation."
+        - "PKI certificates establish identity but non-repudiation specifically requires the act of signing, not just possessing a certificate."
+    difficulty: "medium"
+    tags: ["non-repudiation", "digital-signatures", "authentication", "cryptography"]
+
+  - id: q-d5-090
+    domain: domain5
+    question: "An organization uses an enterprise password manager with centralized vaulting. A security audit finds that 30 employees share a single 'admin' password stored in the vault for a legacy application that does not support individual accounts. What is the PRIMARY security concern?"
+    options:
+      - "The password vault may be compromised, exposing all passwords"
+      - "Shared credentials eliminate individual accountability and make attribution of actions impossible"
+      - "The legacy application's password may not meet complexity requirements"
+      - "Password rotation is more difficult with shared credentials in a vault"
+    correct_answer: 1
+    explanations:
+      correct: "Shared credentials destroy individual accountability. When 30 people use the same account, audit logs record 'admin' performed actions but cannot identify which of the 30 individuals was responsible. This prevents investigation, attribution, and detection of insider threats or unauthorized activity."
+      incorrect:
+        - "Vault compromise is a risk but is mitigated by vault security controls; it is not the primary concern specific to sharing credentials."
+        - "Loss of individual accountability and non-repudiation is correct — this is the defining risk of shared credentials."
+        - "Password complexity is a secondary concern; the identity accountability issue is the primary security risk."
+        - "Rotation difficulty is an operational concern but secondary to the audit trail and accountability problem."
+    difficulty: "easy"
+    tags: ["shared-accounts", "accountability", "non-repudiation", "IAM"]
+
+  - id: q-d5-091
+    domain: domain5
+    question: "A user attempts to log in to a web application and receives the error: 'No account found with this email.' A security-conscious developer changes the message to: 'Invalid email or password.' Why is the generic message more secure?"
+    options:
+      - "Generic messages prevent brute-force attacks by slowing down login attempts"
+      - "Generic messages prevent account enumeration by not revealing whether a username exists"
+      - "Generic messages comply with GDPR requirements for data minimization"
+      - "Generic messages prevent SQL injection by avoiding database error exposure"
+    correct_answer: 1
+    explanations:
+      correct: "Specific error messages ('No account found') allow attackers to enumerate valid usernames by trying many emails and observing which generate 'account not found' vs. 'wrong password' responses. A generic message prevents username harvesting, which is typically the first step in credential attacks."
+      incorrect:
+        - "Generic messages don't inherently slow down login attempts; rate limiting and CAPTCHA address brute force."
+        - "Preventing account enumeration is correct — not disclosing whether a username exists protects against username harvesting attacks."
+        - "While data minimization is a GDPR principle, it applies to data collection, not login error messages specifically."
+        - "SQL injection errors (stack traces, SQL syntax in messages) are a separate issue from username enumeration."
+    difficulty: "easy"
+    tags: ["account-enumeration", "error-messages", "username-harvesting", "authentication-security"]
+
+  - id: q-d5-092
+    domain: domain5
+    question: "Which of the following best describes the 'confused deputy' problem in access control?"
+    options:
+      - "A privileged user accidentally grants excessive access to a less-privileged user"
+      - "A program with elevated privileges is tricked by a less-privileged caller into performing actions the caller could not perform directly"
+      - "Two users with conflicting roles create authorization decision conflicts"
+      - "An authentication system is confused by multiple valid credentials for the same user"
+    correct_answer: 1
+    explanations:
+      correct: "The confused deputy problem occurs when a privileged program (the 'deputy') is manipulated by a less-privileged caller to misuse its authority. Example: A compiler running as root is tricked into writing output to a protected file by a malicious user. In web contexts, CSRF exploits the browser as a confused deputy."
+      incorrect:
+        - "Accidental privilege escalation is a different problem; the confused deputy involves deliberate exploitation of a trusted intermediary."
+        - "A privileged program exploited by a less-privileged caller to perform unauthorized actions is correct — this is the classic confused deputy definition."
+        - "Role conflicts describe SoD issues, not the exploitation of a trusted intermediary."
+        - "Credential conflicts are an authentication edge case unrelated to the confused deputy access control problem."
+    difficulty: "hard"
+    tags: ["confused-deputy", "privilege-escalation", "access-control", "CSRF"]
+
+  - id: q-d5-093
+    domain: domain5
+    question: "An organization uses Group Policy Objects (GPOs) in Active Directory to enforce security configurations on Windows workstations. What is the MOST important security control to apply to GPO management?"
+    options:
+      - "All users should have read access to GPOs to promote transparency"
+      - "GPO editing rights should be tightly restricted and changes should go through change management with testing"
+      - "GPOs should be backed up weekly to recover from accidental deletion"
+      - "GPOs should be version-controlled in Git for audit purposes"
+    correct_answer: 1
+    explanations:
+      correct: "GPOs control security policy for potentially thousands of machines. Unauthorized GPO modification could disable security controls, deploy malware, or create backdoors across the entire enterprise. GPO edit rights are highly privileged and must be restricted to a small number of authorized administrators with change control approval for all modifications."
+      incorrect:
+        - "Read access to GPOs is generally acceptable; however, write access is the critical control to restrict."
+        - "Restricting GPO edit rights with change management is correct — GPO modification is a high-impact, privileged operation."
+        - "Weekly backups support recovery but are not the most important security control; preventing unauthorized modification is primary."
+        - "Version control in Git is a useful audit practice but is a secondary operational control, not the most important security measure."
+    difficulty: "medium"
+    tags: ["GPO", "Active-Directory", "change-management", "privileged-access"]
+
+  - id: q-d5-094
+    domain: domain5
+    question: "An organization implements passwordless authentication using FIDO2. A user loses their hardware security key. What should the organization's account recovery procedure require to prevent account takeover?"
+    options:
+      - "The user can recover their account by providing their username and backup email"
+      - "The user can use their SMS phone number as an alternative factor to reset and enroll a new key"
+      - "Recovery requires in-person identity verification or strong out-of-band verification before enrolling a new FIDO2 credential"
+      - "The IT helpdesk can issue a temporary password to regain access without additional verification"
+    correct_answer: 2
+    explanations:
+      correct: "Account recovery procedures are a common target for bypassing strong authentication. If recovery is weaker than the primary authentication method, attackers target recovery. For FIDO2 (phishing-resistant), recovery must also be strong — typically in-person verification with government ID or multi-channel verification to prevent social engineering of the helpdesk."
+      incorrect:
+        - "Username plus backup email is weak recovery — email accounts are frequently compromised and this enables account takeover."
+        - "SMS recovery reintroduces SIM-swapping vulnerability, bypassing the security improvements of FIDO2 passwordless."
+        - "Strong out-of-band identity verification before re-enrollment is correct — recovery strength must match primary authentication strength."
+        - "Issuing a temporary password as recovery defeats passwordless and creates a credential that can be phished."
+    difficulty: "hard"
+    tags: ["FIDO2", "account-recovery", "passwordless", "authentication-design"]
+
+  - id: q-d5-095
+    domain: domain5
+    question: "What is the primary purpose of a Privileged Access Workstation (PAW) in a privileged access management program?"
+    options:
+      - "A dedicated, hardened workstation used exclusively for administrative tasks to reduce attack surface"
+      - "A workstation with extended monitoring to detect insider threats from privileged users"
+      - "A workstation with elevated performance specifications to handle administrative tooling"
+      - "A shared workstation in a secure room where all administrative tasks must be performed"
+    correct_answer: 0
+    explanations:
+      correct: "A PAW is a dedicated, hardened device used only for privileged tasks (administrative work, accessing sensitive systems). It is isolated from internet browsing, email, and general-purpose use that could expose it to malware. Using PAWs prevents credential theft via keyloggers or malware on general-use workstations."
+      incorrect:
+        - "Dedicated, hardened administrative workstation is correct — this is the purpose and definition of a PAW."
+        - "Extended monitoring is a detection control; PAW's primary purpose is attack surface reduction through isolation."
+        - "Performance specifications are irrelevant; PAWs are defined by security hardening and use-case restriction."
+        - "PAWs are typically individual workstations; shared use introduces cross-contamination risk and undermines individual accountability."
+    difficulty: "medium"
+    tags: ["PAW", "privileged-access", "hardening", "attack-surface"]
+
+  - id: q-d5-096
+    domain: domain5
+    question: "An organization discovers that a former employee's Active Directory account, disabled upon termination, still has an active Azure AD (Entra ID) session and can access Microsoft 365 resources. What explains this discrepancy?"
+    options:
+      - "Azure AD does not inherit account disable status from on-premises AD in hybrid environments"
+      - "OAuth access tokens can remain valid until expiration even after account disablement"
+      - "The Microsoft 365 license was not revoked, allowing continued access"
+      - "Azure AD Connect synchronization has a delay allowing continued access"
+    correct_answer: 1
+    explanations:
+      correct: "In OAuth/OIDC-based access, access tokens are bearer tokens valid until expiration regardless of account status changes. Disabling an account may prevent new token issuance but does not invalidate existing short-lived access tokens (typically 60-90 minutes). For immediate revocation, refresh token revocation and Continuous Access Evaluation (CAE) are required."
+      incorrect:
+        - "Azure AD does receive disable signals from on-premises AD via Azure AD Connect, though with synchronization delay."
+        - "Access token lifetime independent of account status is correct — this is a fundamental OAuth token lifecycle issue."
+        - "License revocation prevents future access but existing session tokens may still be valid."
+        - "Azure AD Connect synchronization delay (typically 30 min) is a factor but doesn't fully explain ongoing sessions."
+    difficulty: "hard"
+    tags: ["OAuth", "token-revocation", "hybrid-identity", "offboarding"]
+
+  - id: q-d5-097
+    domain: domain5
+    question: "What is 'entitlement creep' in the context of cloud IAM, and what control is most effective at preventing it?"
+    options:
+      - "The gradual accumulation of cloud permissions exceeding what workloads need; mitigated by just-in-time access"
+      - "The unauthorized use of cloud entitlements by attackers; mitigated by MFA on cloud consoles"
+      - "The slow degradation of IAM policies over time; mitigated by policy versioning"
+      - "The proliferation of IAM roles across cloud accounts; mitigated by role consolidation reviews"
+    correct_answer: 0
+    explanations:
+      correct: "Cloud IAM entitlement creep occurs when workloads, users, or roles accumulate permissions over time as requirements change but old permissions are never removed. This creates excessive standing privileges. JIT access combined with regular access reviews using tools like AWS IAM Access Analyzer prevents and detects this accumulation."
+      incorrect:
+        - "Gradual permission accumulation mitigated by JIT and access reviews is correct — this is the cloud-specific manifestation of privilege creep."
+        - "Unauthorized use by attackers is a consequence of entitlement creep, not its definition; MFA is relevant but not the primary prevention."
+        - "Policy degradation is not what entitlement creep describes; it is about permission accumulation, not policy quality."
+        - "Role proliferation ('role explosion') is a related but distinct problem from entitlement accumulation."
+    difficulty: "medium"
+    tags: ["entitlement-creep", "cloud-IAM", "least-privilege", "access-reviews"]
+
+  - id: q-d5-098
+    domain: domain5
+    question: "Which NIST SP 800-63B authenticator assurance level (AAL) requires multi-factor authentication with a cryptographic device (e.g., hardware security key), providing phishing resistance?"
+    options:
+      - "AAL1 — single factor, any authenticator type"
+      - "AAL2 — multi-factor, including software authenticators"
+      - "AAL3 — hardware-based multi-factor with verifier impersonation resistance"
+      - "AAL4 — government-issued cryptographic hardware token"
+    correct_answer: 2
+    explanations:
+      correct: "AAL3 (NIST SP 800-63B) requires hardware-based authenticators that provide verifier impersonation resistance (phishing resistance). The authenticator must be bound to the specific relying party, preventing credential use on lookalike phishing sites. Hardware FIDO2 keys meet AAL3 requirements."
+      incorrect:
+        - "AAL1 requires only single-factor authentication; any authenticator including memorized secrets qualifies."
+        - "AAL2 requires multi-factor but allows software authenticators (TOTP apps, push notifications) that are not phishing-resistant."
+        - "AAL3 with hardware MFA and phishing resistance is correct — it is the highest defined AAL in NIST SP 800-63B."
+        - "AAL4 is not a defined level in NIST SP 800-63B; AAL3 is the highest level."
+    difficulty: "hard"
+    tags: ["NIST-800-63B", "AAL", "phishing-resistance", "authenticator-assurance"]
+
+  - id: q-d5-099
+    domain: domain5
+    question: "A security engineer is designing API authentication for a public-facing REST API. The API must authenticate individual users (not applications) and authorize access to specific resources. Which OAuth 2.0 grant type with which extension best fits this requirement?"
+    options:
+      - "Client credentials grant — most efficient for user API access"
+      - "Authorization code grant with PKCE and OpenID Connect for user authentication and authorization"
+      - "Resource owner password credentials grant for direct username/password API access"
+      - "Implicit grant for the simplest token delivery to API consumers"
+    correct_answer: 1
+    explanations:
+      correct: "Authorization code with PKCE (Proof Key for Code Exchange) protects against authorization code interception for public clients. Adding OpenID Connect provides user authentication (ID token) while OAuth provides authorization (access token). This is the current best practice for user-delegated API access."
+      incorrect:
+        - "Client credentials authenticates applications, not individual users — inappropriate when user identity matters."
+        - "Authorization code + PKCE + OIDC is correct — it provides secure user authentication and authorization for API access."
+        - "Resource owner password credentials (ROPC) requires passing user credentials directly to the client, violating the OAuth design principle of not exposing credentials to third parties. Deprecated by OAuth 2.1."
+        - "Implicit grant is deprecated due to token exposure in URL fragments; modern applications use authorization code with PKCE instead."
+    difficulty: "hard"
+    tags: ["OAuth2", "PKCE", "OIDC", "API-authentication"]
+
+  - id: q-d5-100
+    domain: domain5
+    question: "An organization wants to audit all privileged session activity to satisfy regulatory requirements and investigate potential insider threats. Which PAM capability most directly supports this requirement?"
+    options:
+      - "Just-in-time access provisioning"
+      - "Password vaulting and rotation"
+      - "Session recording with full video and keystroke logging of privileged sessions"
+      - "Multi-factor authentication for privileged account login"
+    correct_answer: 2
+    explanations:
+      correct: "Session recording captures a full audit trail of all privileged activity — commands executed, files accessed, applications opened — in a format that can be reviewed for compliance audits and forensic investigation. This directly satisfies regulatory requirements for privileged activity oversight and supports insider threat investigation."
+      incorrect:
+        - "JIT access reduces standing privileges but does not create a forensic record of actions taken during the session."
+        - "Password vaulting prevents credential sharing and enforces rotation but does not record what privileged users do during sessions."
+        - "Session recording with keystroke logging is correct — it creates the tamper-evident audit trail required for compliance."
+        - "MFA verifies identity at login but does not capture what actions the authenticated user takes during the session."
+    difficulty: "easy"
+    tags: ["PAM", "session-recording", "privileged-access", "audit-trail"]
+
+  - id: q-d5-101
+    domain: domain5
+    question: "What is the key difference between identification, authentication, and authorization in the AAA (Authentication, Authorization, and Accounting) framework?"
+    options:
+      - "Identification claims identity; authentication proves identity; authorization grants access based on proven identity"
+      - "Identification grants access; authentication logs actions; authorization claims identity"
+      - "All three are equivalent steps in the login process with different names"
+      - "Identification and authentication are the same; authorization is the only distinct step"
+    correct_answer: 0
+    explanations:
+      correct: "Identification is the claim ('I am user X'), authentication is the proof ('here is my password/token proving I am X'), and authorization determines what the authenticated user is permitted to do ('user X may read but not write'). These are distinct sequential steps in the access control process."
+      incorrect:
+        - "Identification claims, authentication proves, authorization grants access — this is correct and the foundational AAA definition."
+        - "The sequence and definitions are inverted; identification is the claim, not the grant of access."
+        - "Each step serves a distinct security function; they are not equivalent."
+        - "Identification and authentication are distinct — one claims identity, the other verifies it."
+    difficulty: "easy"
+    tags: ["AAA", "identification", "authentication", "authorization"]
+
+  - id: q-d5-102
+    domain: domain5
+    question: "An organization implements a 'bring your own identity' (BYOI) model, allowing employees to use their personal Google or Apple ID to access corporate resources. What is the PRIMARY security risk of this approach?"
+    options:
+      - "BYOI increases latency due to external IdP round trips during authentication"
+      - "The organization loses control over credential management, password policies, and account lifecycle for corporate access"
+      - "BYOI is incompatible with enterprise SSO protocols like SAML and OIDC"
+      - "Personal accounts cannot support multi-factor authentication"
+    correct_answer: 1
+    explanations:
+      correct: "BYOI delegates identity management to consumer IdPs (Google, Apple) that the organization does not control. The organization cannot enforce corporate password policies, mandate MFA, disable accounts immediately upon termination, or control recovery methods. If an employee's personal Google account is compromised, corporate access is also compromised."
+      incorrect:
+        - "Authentication latency is a performance consideration, not a primary security risk."
+        - "Loss of control over credential management and lifecycle is correct — this is the defining risk of BYOI for enterprise access."
+        - "BYOI can integrate via OIDC/SAML; technical compatibility is not the primary concern."
+        - "Both Google and Apple consumer accounts support MFA; this is not the primary limitation."
+    difficulty: "medium"
+    tags: ["BYOI", "identity-federation", "credential-management", "IAM-risk"]
