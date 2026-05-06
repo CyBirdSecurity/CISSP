@@ -41,10 +41,11 @@ function router() {
 
 function renderPage(route) {
   switch (route) {
-    case 'home':       renderHome(); break;
-    case 'flashcards': renderFlashcards(); break;
-    case 'quiz':       renderQuiz(); break;
-    case 'progress':   renderProgress(); break;
+    case 'home':        renderHome(); break;
+    case 'flashcards':  renderFlashcards(); break;
+    case 'quiz':        renderQuiz(); break;
+    case 'interactive': renderInteractive(); break;
+    case 'progress':    renderProgress(); break;
   }
 }
 
@@ -131,6 +132,23 @@ function navigateToInteractive() {
   if (qc) delete qc.dataset.initialized;
   AppState.pendingInteractiveOnly = true;
   navigate('quiz');
+}
+
+// ── Interactive Page ──────────────────────────────────────────
+function renderInteractive() {
+  const container = document.getElementById('interactive-container');
+  if (container && AppState.loaded) {
+    if (!container.dataset.initialized) {
+      container.dataset.initialized = 'true';
+      QuizComponent.init(
+        container,
+        [],
+        AppState.domains,
+        AppState.interactiveQuestions
+      );
+      QuizComponent.startInteractiveOnly();
+    }
+  }
 }
 
 // ── Progress Page ─────────────────────────────────────────────
@@ -400,11 +418,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Hash-based routing
   window.addEventListener('hashchange', () => {
-    // Reset quiz state on nav away
     const currentRoute = getRoute();
     if (currentRoute !== 'quiz') {
       const qc = document.getElementById('quiz-container');
       if (qc) delete qc.dataset.initialized;
+    }
+    if (currentRoute !== 'interactive') {
+      const ic = document.getElementById('interactive-container');
+      if (ic) delete ic.dataset.initialized;
     }
     router();
   });

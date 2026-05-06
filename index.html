@@ -44,6 +44,7 @@
         <li><a class="nav-link" data-route="home">Home</a></li>
         <li><a class="nav-link" data-route="flashcards">Flashcards</a></li>
         <li><a class="nav-link" data-route="quiz">Quiz</a></li>
+        <li><a class="nav-link" data-route="interactive">Interactive Q's</a></li>
         <li><a class="nav-link" data-route="progress">Progress</a></li>
       </ul>
 
@@ -167,6 +168,19 @@
         </div>
         <div id="quiz-container">
           <!-- Rendered by QuizComponent -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Interactive Page ──────────────────────────────── -->
+    <div id="page-interactive" class="page">
+      <div class="page-container" style="padding-top: calc(var(--nav-h) + 20px);">
+        <div class="page-header">
+          <h1 class="page-title">Interactive Questions</h1>
+          <p class="page-subtitle">Drag-and-drop ordering, matching, multi-select, and fill-in-the-blank exercises</p>
+        </div>
+        <div id="interactive-container">
+          <!-- Rendered by QuizComponent in interactive-only mode -->
         </div>
       </div>
     </div>
