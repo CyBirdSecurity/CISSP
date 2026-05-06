@@ -986,3 +986,953 @@ questions:
         - "Software license management is an asset management function — configuration management focuses on security settings and configurations, not licensing."
     difficulty: "medium"
     tags: ["operations", "configuration-management"]
+
+  - id: q-d7-053
+    domain: domain7
+    question: "In disaster recovery planning, what is the difference between Recovery Time Objective (RTO) and Recovery Point Objective (RPO)?"
+    options:
+      - "RTO measures data loss tolerance; RPO measures system downtime tolerance"
+      - "RTO is the maximum acceptable time to restore a system; RPO is the maximum acceptable data loss measured in time"
+      - "RTO and RPO are equivalent metrics with different names used by different frameworks"
+      - "RTO applies to applications; RPO applies to databases only"
+    correct_answer: 1
+    explanations:
+      correct: "RTO is how long the organization can tolerate a system being unavailable — the maximum downtime before business impact becomes unacceptable. RPO is how much data loss is acceptable — if RPO is 4 hours, backups must occur every 4 hours at most. Both are determined during Business Impact Analysis."
+      incorrect:
+        - "RTO and RPO are swapped in this option; RTO is about downtime (time), RPO is about data loss (also measured in time)."
+        - "RTO as maximum recovery time and RPO as maximum acceptable data loss is correct — these are the foundational DR planning metrics."
+        - "RTO and RPO measure distinct things; they are not equivalent, and different systems within an organization may have different RTOs and RPOs."
+        - "Both metrics apply to any system with recovery and backup requirements, not restricted by system type."
+    difficulty: "easy"
+    tags: ["RTO", "RPO", "disaster-recovery", "BCP"]
+
+  - id: q-d7-054
+    domain: domain7
+    question: "A Business Impact Analysis (BIA) identifies that the organization's payment processing system has an RTO of 2 hours and an RPO of 15 minutes. What backup and recovery strategy is MOST appropriate to meet these requirements?"
+    options:
+      - "Daily full backups stored offsite with a cold site recovery facility"
+      - "Real-time database replication with a warm site pre-configured with application infrastructure"
+      - "Weekly full backups with a tape library in a secondary data center"
+      - "Daily incremental backups with a cloud-based restore process requiring 24-hour provisioning"
+    correct_answer: 1
+    explanations:
+      correct: "15-minute RPO requires near-continuous data replication (not periodic backups) to limit data loss to 15 minutes. 2-hour RTO requires pre-configured infrastructure ready to start quickly — a warm site with pre-staged systems. Real-time replication + warm site can achieve both requirements. Cold site with daily backups would fail both metrics."
+      incorrect:
+        - "Daily backups mean up to 24 hours of data loss (violating 15-min RPO), and cold sites typically take 24-72 hours to activate (violating 2-hour RTO)."
+        - "Real-time replication meeting RPO and warm site meeting RTO is correct — this combination satisfies both requirements."
+        - "Weekly backups represent up to 7 days of potential data loss — far outside the 15-minute RPO requirement."
+        - "24-hour provisioning violates the 2-hour RTO requirement; cloud recovery can meet RTOs, but provisioning must be pre-configured."
+    difficulty: "medium"
+    tags: ["RTO", "RPO", "recovery-strategy", "BIA"]
+
+  - id: q-d7-055
+    domain: domain7
+    question: "A forensic investigator is preparing to image a hard drive from a compromised system. Before creating the forensic image, what physical control must be implemented?"
+    options:
+      - "The hard drive must be connected to the internet to download the forensic software"
+      - "A write blocker must be placed between the evidence drive and the forensic workstation to prevent modification of evidence"
+      - "The drive must be encrypted before imaging to protect evidence confidentiality"
+      - "The operating system must be booted from the evidence drive to ensure accurate imaging"
+    correct_answer: 1
+    explanations:
+      correct: "Write blockers (hardware or software) prevent any write operations to the evidence drive during imaging. Without a write blocker, the forensic workstation's OS may write to the evidence drive (e.g., updating file access timestamps, swap usage, automount metadata), modifying evidence and potentially rendering it inadmissible."
+      incorrect:
+        - "Internet connectivity during forensic imaging introduces risk of evidence contamination; forensic workstations are typically isolated."
+        - "Write blocker preventing evidence modification is correct — this is the foundational forensic evidence preservation control."
+        - "Encrypting the evidence drive before imaging is not standard practice; evidence integrity is maintained through hashing, not encryption."
+        - "Booting from the evidence drive modifies it (updates last boot time, log files, swap); forensic imaging must be done without booting the subject drive."
+    difficulty: "easy"
+    tags: ["digital-forensics", "write-blocker", "evidence-preservation", "chain-of-custody"]
+
+  - id: q-d7-056
+    domain: domain7
+    question: "After imaging a forensic drive, an investigator calculates an MD5 hash of the original drive and compares it to the hash of the forensic image. Both hashes match. What does this verify?"
+    options:
+      - "That the drive does not contain encrypted data"
+      - "That the forensic image is a bit-for-bit accurate copy of the original drive with no modification"
+      - "That the evidence is legally admissible in all jurisdictions"
+      - "That the drive does not contain malware"
+    correct_answer: 1
+    explanations:
+      correct: "Cryptographic hashing (MD5, SHA-256) provides integrity verification. If the hash of the image matches the hash of the original drive, the image is provably identical to the original — any single bit difference would produce a completely different hash. This verifies forensic integrity and supports chain of custody documentation."
+      incorrect:
+        - "Encryption status cannot be determined from hash comparison; encrypted data has a hash like any other data."
+        - "Bit-for-bit accuracy verification via hash matching is correct — this is the purpose of forensic hash verification."
+        - "Admissibility requires proper chain of custody, authorization, and jurisdictional considerations beyond just hash verification."
+        - "Hash comparison verifies data integrity; malware presence requires separate analysis tools."
+    difficulty: "easy"
+    tags: ["digital-forensics", "hash-verification", "evidence-integrity", "chain-of-custody"]
+
+  - id: q-d7-057
+    domain: domain7
+    question: "During incident response, an organization receives a ransom demand from an attacker who claims to have exfiltrated sensitive data. The attacker provides a sample of files as proof. What should the organization's FIRST response be to this claim?"
+    options:
+      - "Pay the ransom immediately to prevent data publication"
+      - "Engage legal counsel and the incident response team to assess the validity of the claim and determine response options"
+      - "Publicly deny the breach occurred to prevent customer concern"
+      - "Contact the attacker to negotiate a lower ransom amount"
+    correct_answer: 1
+    explanations:
+      correct: "Extortion demands require immediate involvement of legal counsel (privilege protection for investigation communications) and the IR team (to validate the claim, assess exfiltration scope, and begin containment). Legal counsel guides ransom payment decisions, regulatory notification obligations, and law enforcement engagement — all of which must be coordinated before any response."
+      incorrect:
+        - "Paying the ransom without assessment may not prevent data publication and funds criminal activity; it is not the first response."
+        - "Legal counsel and IR team engagement for claim assessment and response coordination is correct — this is the appropriate first response."
+        - "Public denial without facts could constitute securities fraud or violate breach notification laws if a breach did occur."
+        - "Ransom negotiation may be considered later after legal and strategic assessment; it is not the first action."
+    difficulty: "medium"
+    tags: ["ransomware", "extortion", "incident-response", "legal"]
+
+  - id: q-d7-058
+    domain: domain7
+    question: "An incident response team discovers that an attacker maintained access to the network for 8 months before detection. This extended undetected period is referred to as:"
+    options:
+      - "Mean time to detect (MTTD)"
+      - "Dwell time — the period between initial compromise and detection"
+      - "Recovery time objective (RTO)"
+      - "Attack persistence window"
+    correct_answer: 1
+    explanations:
+      correct: "Dwell time measures the period from initial compromise until detection. Industry reports (e.g., Mandiant M-Trends) regularly track dwell time as a key security metric. Long dwell times allow attackers to establish persistence, conduct reconnaissance, exfiltrate data, and compromise additional systems. Reducing dwell time is a primary goal of detection engineering and threat hunting programs."
+      incorrect:
+        - "MTTD is the metric used to track average detection time across incidents, while 'dwell time' describes the specific undetected period for a given compromise."
+        - "Dwell time describing the compromise-to-detection window is correct — this is the specific term used in threat intelligence and IR contexts."
+        - "RTO is a disaster recovery planning metric for system restoration time, not attack detection timing."
+        - "'Attack persistence window' is not a standard industry term; 'dwell time' is the accepted terminology."
+    difficulty: "easy"
+    tags: ["dwell-time", "MTTD", "threat-detection", "incident-response"]
+
+  - id: q-d7-059
+    domain: domain7
+    question: "A security operations team implements a SOAR (Security Orchestration, Automation, and Response) platform. Which type of security operation is BEST suited for SOAR automation?"
+    options:
+      - "Strategic planning of the security program's 3-year roadmap"
+      - "Novel attack investigation requiring analyst judgment and creative thinking"
+      - "High-volume, repetitive tasks such as alert triage, IOC lookups, and automated containment actions for well-known attack types"
+      - "Annual penetration test execution and reporting"
+    correct_answer: 2
+    explanations:
+      correct: "SOAR excels at automating high-volume, repetitive, well-defined processes: ingesting alerts, querying threat intelligence for IOCs, cross-referencing logs, executing predefined playbooks for known threats (e.g., phishing email triage, malware isolation), and automating response actions. This frees analysts for complex investigations requiring judgment."
+      incorrect:
+        - "Strategic program planning requires human judgment, stakeholder alignment, and organizational context — not automatable."
+        - "Novel attack investigation requires analyst creativity and adaptive thinking; automation supports but cannot replace this."
+        - "High-volume repetitive tasks (alert triage, IOC enrichment, automated containment) is correct — this is SOAR's design purpose."
+        - "Penetration testing requires human expertise and creative attack thinking; it is not a SOAR use case."
+    difficulty: "easy"
+    tags: ["SOAR", "security-automation", "SOC", "incident-response"]
+
+  - id: q-d7-060
+    domain: domain7
+    question: "An incident response team needs to collect volatile evidence from a running Windows server. According to the order of volatility, which source should be collected LAST?"
+    options:
+      - "CPU registers and cache"
+      - "Running processes and network connections"
+      - "System logs stored on the hard drive"
+      - "RAM contents"
+    correct_answer: 2
+    explanations:
+      correct: "The order of volatility (most to least volatile): CPU registers > RAM/running processes > network connections > running services > hard disk contents. Hard disk data is the least volatile — it persists after shutdown and can be collected later. CPU registers and RAM must be collected immediately as they are lost on power off."
+      incorrect:
+        - "CPU registers are the MOST volatile — they change with every instruction cycle and must be collected first."
+        - "Running processes and network connections are highly volatile and should be collected early in the order."
+        - "System logs on the hard drive are the LEAST volatile — they persist after system shutdown and should be collected last."
+        - "RAM contents are volatile (lost on power off) and should be collected early, before hard disk imaging."
+    difficulty: "medium"
+    tags: ["digital-forensics", "order-of-volatility", "evidence-collection", "incident-response"]
+
+  - id: q-d7-061
+    domain: domain7
+    question: "An organization's maximum tolerable downtime (MTD) for its e-commerce platform is 4 hours. The recovery time objective (RTO) is 3 hours. What is the significance of the relationship between MTD and RTO?"
+    options:
+      - "MTD must always equal RTO for the recovery plan to be valid"
+      - "RTO must be less than MTD to provide a safety margin before business impact becomes catastrophic"
+      - "If RTO exceeds MTD, the system is operating within acceptable parameters"
+      - "MTD and RTO are independent metrics with no required relationship"
+    correct_answer: 1
+    explanations:
+      correct: "RTO must be less than MTD to ensure recovery occurs before downtime becomes catastrophic. The gap between RTO and MTD provides operational buffer. In this example, the 3-hour RTO leaves 1 hour before the 4-hour MTD is breached. If RTO exceeds MTD, the recovery plan is inadequate for the business continuity requirement."
+      incorrect:
+        - "MTD and RTO need not be equal; the requirement is that RTO ≤ MTD, with buffer preferred."
+        - "RTO less than MTD for a safety buffer before catastrophic impact is correct — this is the fundamental MTD/RTO relationship."
+        - "If RTO exceeds MTD, the recovery plan fails to prevent catastrophic business impact — the opposite of acceptable."
+        - "MTD and RTO have a required relationship; RTO must be less than MTD for a valid recovery plan."
+    difficulty: "medium"
+    tags: ["MTD", "RTO", "business-continuity", "recovery-planning"]
+
+  - id: q-d7-062
+    domain: domain7
+    question: "During a malware investigation, a security analyst uses a sandbox to execute a suspicious file. The sandbox reports no malicious behavior. What limitation of sandbox analysis could explain this false negative?"
+    options:
+      - "Sandboxes cannot analyze PE (Portable Executable) file formats"
+      - "Malware with sandbox detection capabilities delays execution or behaves differently when it detects a virtual environment"
+      - "Sandboxes only analyze network traffic and cannot inspect file system modifications"
+      - "Sandboxes require the malware to be unpackaged before analysis"
+    correct_answer: 1
+    explanations:
+      correct: "Advanced malware uses anti-analysis and anti-sandbox techniques: detecting virtualization artifacts (VMware/VirtualBox registry keys, specific hardware), sleeping for extended periods before executing (sandbox timeout), checking for user interaction (no mouse movement = sandbox), or requiring specific environment conditions. This evasion causes the sandbox to report 'no malicious activity.'"
+      incorrect:
+        - "Sandboxes routinely analyze PE/EXE files; this is one of the primary file types analyzed."
+        - "Sandbox detection and anti-analysis evasion causing false negatives is correct — this is a well-documented sandbox limitation."
+        - "Modern sandboxes monitor file system changes, registry modifications, network connections, and process behavior simultaneously."
+        - "Many sandboxes handle packed malware by monitoring the unpacking behavior; packing alone does not cause sandbox failure."
+    difficulty: "medium"
+    tags: ["malware-analysis", "sandbox-evasion", "anti-analysis", "incident-response"]
+
+  - id: q-d7-063
+    question: "A SOC analyst receives an alert that a workstation is communicating with a known malicious IP address on port 443 using HTTPS. The SOC cannot inspect the traffic content due to TLS encryption. What investigation step provides the MOST useful context?"
+    domain: domain7
+    options:
+      - "Block the IP address at the firewall and close the investigation"
+      - "Correlate the alert with endpoint logs, DNS queries, process execution, and threat intelligence to understand the full context of the communication"
+      - "Request the user to describe what they were doing at the time of the alert"
+      - "Wait for the TLS session to expire and analyze the decrypted traffic"
+    correct_answer: 1
+    explanations:
+      correct: "Alert correlation across multiple data sources builds investigation context: endpoint EDR logs show which process initiated the connection, DNS logs reveal what domain resolved to the IP, threat intelligence enrichment identifies the threat actor or malware family, and process execution logs show parent-child relationships indicating whether the process was spawned unexpectedly."
+      incorrect:
+        - "Blocking without investigation may stop the immediate communication but doesn't determine scope, persistence mechanisms, or lateral movement."
+        - "Multi-source correlation (endpoint, DNS, process, threat intel) is correct — this provides the context needed to understand and respond to the incident."
+        - "User recollection is unreliable and insufficient for technical investigation; endpoint telemetry provides objective evidence."
+        - "TLS sessions do not 'expire' and become decryptable; SSL/TLS inspection must be implemented prospectively."
+    difficulty: "medium"
+    tags: ["SOC", "alert-investigation", "SIEM", "threat-intelligence"]
+
+  - id: q-d7-064
+    domain: domain7
+    question: "An organization wants to test its incident response plan with minimal disruption. Which BCP/DR testing method involves discussion only and does not test actual technical recovery procedures?"
+    options:
+      - "Full-scale (live failover) exercise"
+      - "Tabletop exercise"
+      - "Parallel test"
+      - "Checklist review"
+    correct_answer: 1
+    explanations:
+      correct: "A tabletop exercise brings key stakeholders together to walk through a simulated incident scenario verbally, discussing their roles, decisions, and coordination without activating actual recovery systems. It tests the plan's logic and organizational coordination with minimal risk and disruption."
+      incorrect:
+        - "Full-scale (live failover) exercises actually fail over production systems to test true recovery capability — maximum disruption risk but highest fidelity."
+        - "Tabletop discussion-based exercise without technical activation is correct — this is the lowest-disruption, lowest-fidelity test type."
+        - "Parallel tests run recovery systems alongside production systems simultaneously to validate recovery without failing over — moderate disruption."
+        - "Checklist reviews verify plan documentation completeness; tabletop exercises test response process through scenario discussion."
+    difficulty: "easy"
+    tags: ["tabletop-exercise", "BCP-testing", "incident-response", "DR-testing"]
+
+  - id: q-d7-065
+    domain: domain7
+    question: "Traffic Light Protocol (TLP) is used when sharing threat intelligence. What does TLP:RED indicate?"
+    options:
+      - "Critical severity threat requiring immediate action by all recipients"
+      - "Information restricted to specific named recipients only and must not be shared further"
+      - "Information can be shared freely within the security community"
+      - "Information can be shared within the recipient's organization but not externally"
+    correct_answer: 1
+    explanations:
+      correct: "TLP:RED means information is restricted to named participants only — it cannot be shared further without the originator's explicit permission. It is used for highly sensitive information where broader disclosure could harm the source or ongoing operations. Even within organizations, TLP:RED recipients must control distribution carefully."
+      incorrect:
+        - "TLP colors indicate sharing scope, not severity; RED is about distribution restriction, not threat criticality."
+        - "TLP:RED restricting to named recipients only with no further sharing is correct — this is the most restrictive TLP designation."
+        - "TLP:WHITE (now TLP:CLEAR in TLP 2.0) allows unrestricted sharing; TLP:RED is the opposite."
+        - "TLP:AMBER+STRICT or TLP:AMBER allows organizational sharing with some constraints; TLP:RED is more restrictive."
+    difficulty: "medium"
+    tags: ["TLP", "threat-intelligence", "information-sharing", "ISAC"]
+
+  - id: q-d7-066
+    domain: domain7
+    question: "An organization's incident response plan calls for isolating a compromised system by disconnecting it from the network. However, the compromised system hosts a critical business service that 500 users depend on. What should drive the containment decision?"
+    options:
+      - "Always prioritize security — disconnect immediately regardless of business impact"
+      - "Always prioritize business continuity — never disconnect critical systems"
+      - "The decision should balance security risk (continued damage from attacker) against business impact, involving both security and business stakeholders"
+      - "Wait for the attacker to finish their activity before disconnecting to preserve evidence"
+    correct_answer: 2
+    explanations:
+      correct: "Containment decisions are not purely technical — they involve business risk trade-offs. Isolating a critical system stops attacker activity but disrupts 500 users. Alternatives may exist: network microsegmentation, blocking specific attacker traffic while maintaining user traffic, or rapid system replacement. Business stakeholders must be involved in decisions affecting critical services."
+      incorrect:
+        - "Always prioritizing security without business consideration ignores legitimate business continuity requirements; IR decisions require stakeholder coordination."
+        - "Always prioritizing business continuity allows attackers continued access, potentially causing greater long-term harm."
+        - "Balancing security risk against business impact with stakeholder involvement is correct — this is the mature IR decision framework."
+        - "Waiting for attackers to finish allows continued data exfiltration, lateral movement, and damage; this is not an acceptable containment strategy."
+    difficulty: "medium"
+    tags: ["containment", "incident-response", "business-continuity", "risk-decision"]
+
+  - id: q-d7-067
+    domain: domain7
+    question: "What is the primary security function of a Security Information and Event Management (SIEM) system's correlation rules?"
+    options:
+      - "To compress log data to reduce storage costs"
+      - "To combine multiple individually low-fidelity events into higher-fidelity alerts indicating potential security incidents"
+      - "To automatically remediate security incidents without analyst involvement"
+      - "To generate compliance reports for regulatory audits"
+    correct_answer: 1
+    explanations:
+      correct: "Correlation rules aggregate patterns across multiple events that individually may seem benign but together indicate potential attacks. Example: a single failed login is noise; 50 failed logins from the same IP followed by a success is a likely brute-force attack. Correlation reduces alert volume and increases detection confidence."
+      incorrect:
+        - "Log compression is a storage infrastructure function; SIEM correlation is for security detection, not storage optimization."
+        - "Combining low-fidelity events into high-fidelity alerts is correct — this is the core security detection function of SIEM correlation."
+        - "SOAR platforms automate response; SIEM correlation detects and alerts, requiring analyst validation before action."
+        - "Compliance reporting is a secondary SIEM function; correlation is specifically for security detection."
+    difficulty: "easy"
+    tags: ["SIEM", "correlation-rules", "alert-fidelity", "threat-detection"]
+
+  - id: q-d7-068
+    domain: domain7
+    question: "A threat hunting team conducts a hypothesis-based hunt for lateral movement activity in their environment. They hypothesize that attackers may be using WMI (Windows Management Instrumentation) for remote code execution. What data source is MOST valuable for this hunt?"
+    options:
+      - "Firewall deny logs"
+      - "Windows Security Event logs (Event IDs 4624, 4625) and WMI activity logs (Microsoft-Windows-WMI-Activity)"
+      - "DHCP server lease logs"
+      - "Web proxy access logs"
+    correct_answer: 1
+    explanations:
+      correct: "WMI-based lateral movement generates specific telemetry: Windows Security events (4624 — successful logon with network logon type) show remote authentication, and WMI activity logs capture WMI query and execution activity. EDR telemetry can also capture WMI execution chains. This combination enables hunting for anomalous remote WMI activity patterns."
+      incorrect:
+        - "Firewall deny logs show blocked traffic; WMI activity succeeding internally typically isn't blocked at the firewall."
+        - "Windows Security and WMI activity logs are correct — these contain the specific telemetry for WMI lateral movement detection."
+        - "DHCP logs show IP assignment history; they do not provide WMI execution activity."
+        - "Web proxy logs capture outbound web traffic; WMI lateral movement occurs internally without web proxy involvement."
+    difficulty: "hard"
+    tags: ["threat-hunting", "WMI", "lateral-movement", "Windows-forensics"]
+
+  - id: q-d7-069
+    domain: domain7
+    question: "An organization uses a grandfather-father-son (GFS) backup rotation scheme. In this scheme, what does the 'grandfather' backup represent?"
+    options:
+      - "Daily incremental backups retained for 7 days"
+      - "Weekly full backups retained for a month"
+      - "Monthly full backups retained for a year or longer"
+      - "Annual backups retained permanently"
+    correct_answer: 2
+    explanations:
+      correct: "GFS uses three retention tiers: Son = daily backups (retained ~7 days), Father = weekly full backups (retained ~4 weeks/month), Grandfather = monthly full backups (retained ~12 months or more). This scheme balances granular recent recovery with long-term retention for compliance and auditing."
+      incorrect:
+        - "Daily incremental backups are the 'son' in GFS — the shortest retention tier."
+        - "Weekly full backups are the 'father' — the middle retention tier."
+        - "Monthly full backups retained long-term are the 'grandfather' — the longest retention tier and correct answer."
+        - "Annual backups are not a standard GFS tier; monthly (grandfather) is the typical longest rotation."
+    difficulty: "medium"
+    tags: ["backup-rotation", "GFS", "data-backup", "recovery"]
+
+  - id: q-d7-070
+    domain: domain7
+    question: "An organization discovers that an employee has been exfiltrating confidential data to a personal cloud storage account for 6 months. Law enforcement has been notified. What must the organization do to ensure evidence is preserved and admissible?"
+    options:
+      - "Delete the employee's accounts immediately to prevent further exfiltration"
+      - "Preserve all relevant logs, emails, and system artifacts under a legal hold to prevent alteration or deletion"
+      - "Only preserve evidence on systems the employee directly accessed"
+      - "Notify the employee that their activity is under investigation to allow them to respond"
+    correct_answer: 1
+    explanations:
+      correct: "A legal hold (litigation hold) immediately suspends normal deletion/overwrite of relevant data (email, logs, access records, endpoint artifacts) to preserve evidence for legal proceedings. Failure to preserve evidence (spoliation) can result in legal sanctions. The hold must be comprehensive — all potentially relevant systems and data sources."
+      incorrect:
+        - "Deleting accounts could destroy evidence and constitute spoliation; accounts should be disabled, not deleted, to preserve access to artifacts."
+        - "Comprehensive legal hold on all relevant evidence to prevent alteration or deletion is correct — this is the mandatory first step when legal proceedings are anticipated."
+        - "Evidence scope must be comprehensive; limiting to directly accessed systems may miss relevant logs (gateway, DLP, email) that establish timeline and intent."
+        - "Notifying the subject could allow evidence destruction (deleting files, clearing browser history); this is typically done only when legally required."
+    difficulty: "medium"
+    tags: ["legal-hold", "evidence-preservation", "digital-forensics", "insider-threat"]
+
+  - id: q-d7-071
+    domain: domain7
+    question: "A security operations center (SOC) implements a tiered analyst model with Tier 1, 2, and 3 analysts. Which description best matches the responsibilities of a Tier 1 SOC analyst?"
+    options:
+      - "Developing new threat detection logic and security engineering projects"
+      - "Initial alert triage, basic investigation using playbooks, and escalation of unresolved alerts to Tier 2"
+      - "Conducting advanced threat hunting and malware reverse engineering"
+      - "Managing vendor relationships and security tool procurement"
+    correct_answer: 1
+    explanations:
+      correct: "Tier 1 analysts handle alert monitoring and initial triage — the first line of investigation using defined playbooks. They determine if alerts are false positives, gather initial context, and escalate alerts requiring deeper investigation to Tier 2. Volume handling and playbook execution are the primary Tier 1 responsibilities."
+      incorrect:
+        - "Threat detection engineering and security engineering are Tier 3 or specialized security engineering roles."
+        - "Initial triage, playbook-based investigation, and escalation is correct — these are the defining Tier 1 SOC responsibilities."
+        - "Threat hunting and malware reverse engineering are Tier 3 or specialized threat intelligence/malware analyst responsibilities."
+        - "Vendor management and procurement are security management functions, not SOC analyst responsibilities."
+    difficulty: "easy"
+    tags: ["SOC", "tiered-model", "analyst-roles", "alert-triage"]
+
+  - id: q-d7-072
+    domain: domain7
+    question: "During the post-incident lessons learned review after a significant breach, an organization determines that the incident was not detected for 6 months because a critical log source was misconfigured and not sending data to the SIEM. What type of control should be implemented to prevent recurrence?"
+    options:
+      - "A compensating control — increasing the number of security cameras in the data center"
+      - "A detective control — implementing SIEM log source health monitoring with alerts when sources stop sending data"
+      - "A preventive control — increasing password complexity requirements for all systems"
+      - "A corrective control — reimaging all systems involved in the breach"
+    correct_answer: 1
+    explanations:
+      correct: "Log source health monitoring (detecting when a source stops sending expected data) is a detective control — it detects the log gap condition that creates a detection blind spot. This directly addresses the root cause (misconfigured/offline log source) by creating visibility into log collection health before it results in a missed incident."
+      incorrect:
+        - "Security cameras address physical security; they do not detect log source misconfiguration or improve SIEM coverage."
+        - "SIEM log source health monitoring alerting on data gaps is correct — this is a detective control addressing the root cause."
+        - "Password complexity prevents unauthorized access; it does not address log collection health monitoring."
+        - "Reimaging compromised systems is corrective (eradication); it doesn't prevent future log source misconfigurations."
+    difficulty: "medium"
+    tags: ["log-management", "SIEM", "detective-controls", "lessons-learned"]
+
+  - id: q-d7-073
+    domain: domain7
+    question: "An organization wants to implement a deception technology strategy by deploying fake assets throughout the network. What is the PRIMARY security benefit of this approach?"
+    options:
+      - "Decoy assets reduce network bandwidth by absorbing scan traffic"
+      - "Any interaction with decoy assets is a high-confidence indicator of compromise since legitimate users have no reason to access them"
+      - "Decoy assets confuse attackers into thinking the network is larger than it actually is"
+      - "Decoy assets satisfy compliance requirements for network segmentation"
+    correct_answer: 1
+    explanations:
+      correct: "Because legitimate users and systems have no reason to interact with deception assets (honeypots, honeytokens, decoy shares), any access attempt is a high-confidence alert — essentially zero false positives. This provides high-fidelity early warning of attacker reconnaissance, lateral movement, or credential use."
+      incorrect:
+        - "Absorbing scan traffic is a minor side effect; deception's primary value is high-confidence threat detection."
+        - "High-confidence IOC detection from decoy interaction is correct — any touch on a decoy is presumed malicious."
+        - "Confusing attackers about network size may be a minor benefit, but early detection of attacker activity is the primary security value."
+        - "Deception technology provides detection value; it does not fulfill network segmentation compliance requirements."
+    difficulty: "medium"
+    tags: ["honeypot", "deception-technology", "threat-detection", "IOC"]
+
+  - id: q-d7-074
+    domain: domain7
+    question: "What is the Two-Person Integrity (TPI) rule, and in which operational security context is it most commonly applied?"
+    options:
+      - "Requiring two independent reviewers to approve security policies before publication"
+      - "A control requiring two authorized individuals to be physically present for access to sensitive materials or operations, preventing single-person bypass"
+      - "A dual-factor authentication requirement for privileged system access"
+      - "A backup procedure requiring two copies of data to be stored in separate locations"
+    correct_answer: 1
+    explanations:
+      correct: "Two-Person Integrity (or Two-Man Rule) requires two authorized individuals to be physically co-present for sensitive operations — one cannot act alone. It originated in nuclear weapons operations and is applied in cryptographic key ceremonies, classified material access, physical vault operations, and some administrative actions to prevent insider threats."
+      incorrect:
+        - "Policy review processes may require multiple approvers but are distinct from the physical co-presence requirement of TPI."
+        - "Two-person physical co-presence for sensitive operations preventing single-person bypass is correct — this is the definition and context of TPI."
+        - "Dual-factor authentication is a technical security control for identity verification; TPI is a physical presence control for operational integrity."
+        - "The 3-2-1 backup rule addresses data redundancy; TPI is an operational personnel control."
+    difficulty: "medium"
+    tags: ["two-person-integrity", "insider-threat", "key-ceremony", "operational-security"]
+
+  - id: q-d7-075
+    domain: domain7
+    question: "An organization's incident response team identifies a sophisticated, multi-stage attack where the attacker used spear-phishing to deliver a dropper, established C2 via DNS tunneling, moved laterally using pass-the-hash, and staged data for exfiltration. Using the Cyber Kill Chain framework, which phase involves the initial phishing email delivery?"
+    options:
+      - "Reconnaissance"
+      - "Weaponization"
+      - "Delivery"
+      - "Exploitation"
+    correct_answer: 2
+    explanations:
+      correct: "The Cyber Kill Chain (Lockheed Martin) defines seven phases: Reconnaissance, Weaponization, Delivery, Exploitation, Installation, Command & Control, and Actions on Objectives. Delivery is the phase where the attacker transmits the weapon to the target environment — spear-phishing is a delivery mechanism that transmits the weaponized email (dropper) to the target."
+      incorrect:
+        - "Reconnaissance involves information gathering about the target (researching employees for phishing targeting) — it precedes the phishing email itself."
+        - "Weaponization involves creating the malicious payload/dropper — creating the attachment, not sending it."
+        - "Delivery (sending the phishing email) is correct — this is when the weapon reaches the target environment."
+        - "Exploitation is when the dropper executes and exploits a vulnerability to run code — this occurs after the victim opens the attachment."
+    difficulty: "medium"
+    tags: ["Cyber-Kill-Chain", "phishing", "delivery-phase", "attack-lifecycle"]
+
+  - id: q-d7-076
+    domain: domain7
+    question: "An organization uses UEBA (User and Entity Behavior Analytics) to detect insider threats. What distinguishes UEBA from traditional rule-based detection in a SIEM?"
+    options:
+      - "UEBA requires more manual rule creation than SIEM-based detection"
+      - "UEBA establishes behavioral baselines and detects anomalies from normal patterns, while SIEM rules detect known attack signatures"
+      - "UEBA only analyzes user activity; SIEM analyzes network traffic"
+      - "UEBA is a subset of SIEM functionality built into all modern SIEM platforms"
+    correct_answer: 1
+    explanations:
+      correct: "UEBA uses machine learning to build behavioral baselines for each user and entity (servers, applications), then detects deviations from those baselines. Unlike SIEM rules that match known patterns, UEBA can detect unknown or novel behaviors (e.g., a user accessing 10x more data than their baseline) without a predefined signature."
+      incorrect:
+        - "UEBA relies on ML-driven models rather than manual rules; it typically requires less rule creation than traditional SIEM detection."
+        - "Behavioral baseline anomaly detection versus signature-based detection is correct — this is the key differentiator."
+        - "UEBA analyzes both user and entity behavior across multiple data sources including network, application, and endpoint."
+        - "While some SIEM platforms include UEBA capabilities, standalone UEBA platforms exist and offer distinct capabilities beyond standard SIEM."
+    difficulty: "medium"
+    tags: ["UEBA", "behavioral-analytics", "insider-threat", "anomaly-detection"]
+
+  - id: q-d7-077
+    domain: domain7
+    question: "During a forensic investigation of a suspected insider data theft, an investigator needs to recover deleted files from an NTFS-formatted drive. Which characteristic of NTFS makes this recovery often possible?"
+    options:
+      - "NTFS automatically creates encrypted backups of all files"
+      - "NTFS deletion only removes the Master File Table (MFT) entry and marks space as available; the actual data remains until overwritten"
+      - "NTFS maintains a complete file change journal that stores all file versions"
+      - "NTFS uses journaling to replicate all files to a recovery partition"
+    correct_answer: 1
+    explanations:
+      correct: "When files are deleted in NTFS, the MFT entry is marked as available and the cluster bitmap marks the storage as unallocated, but the actual file data on disk is not immediately zeroed or overwritten. Forensic tools (Autopsy, FTK, Recuva) can recover file data from 'unallocated' space by identifying and parsing former file structures."
+      incorrect:
+        - "NTFS does not automatically create encrypted backups; file system journaling logs metadata changes, not complete file backups."
+        - "Deletion removing MFT entries while data remains until overwritten is correct — this is why deleted file recovery is possible in NTFS."
+        - "The NTFS change journal (USN Journal) logs file operations metadata but does not store complete file contents for recovery."
+        - "NTFS journaling provides metadata consistency after crashes; it does not replicate files to a recovery partition."
+    difficulty: "medium"
+    tags: ["digital-forensics", "NTFS", "deleted-file-recovery", "file-system"]
+
+  - id: q-d7-078
+    domain: domain7
+    question: "An organization is negotiating a cloud disaster recovery contract with a vendor. The vendor offers an RTO of 4 hours. However, the organization's BIA determined an MTD of 2 hours for this system. What should the organization do?"
+    options:
+      - "Accept the vendor's 4-hour RTO since cloud recovery is inherently more reliable than on-premises"
+      - "Reject or renegotiate the contract — the 4-hour vendor RTO exceeds the 2-hour MTD, meaning the vendor cannot meet the business requirement"
+      - "Accept the contract and plan to manually compensate for the 2-hour gap"
+      - "Update the BIA to increase the MTD to 4 hours to match the vendor's capability"
+    correct_answer: 1
+    explanations:
+      correct: "The vendor's 4-hour RTO exceeds the organization's 2-hour MTD. If the vendor cannot restore the system within 2 hours, the organization will experience unacceptable business impact. The organization must either negotiate a shorter RTO SLA, select a different vendor, or invest in a different recovery architecture that can meet the 2-hour MTD."
+      incorrect:
+        - "Cloud reliability is not the relevant consideration; the specific RTO commitment must meet the business MTD requirement."
+        - "Rejecting or renegotiating because vendor RTO exceeds MTD is correct — this is the appropriate business continuity decision."
+        - "Manually compensating for a 2-hour gap is vague and typically impractical; the vendor commitment must meet the requirement."
+        - "Changing the BIA to match vendor capability reverses the risk-based process; business requirements should drive vendor selection, not the reverse."
+    difficulty: "medium"
+    tags: ["RTO", "MTD", "vendor-contract", "disaster-recovery"]
+
+  - id: q-d7-079
+    domain: domain7
+    question: "A SOC analyst is reviewing Windows event logs and notices Event ID 4698 followed by Event ID 4702 on multiple systems. These events relate to scheduled task creation and modification. What attack technique should the analyst investigate?"
+    options:
+      - "Pass-the-hash authentication attack"
+      - "Scheduled task persistence mechanism used by attackers to maintain access"
+      - "Kerberoasting service account attack"
+      - "NTLM relay attack against domain controllers"
+    correct_answer: 1
+    explanations:
+      correct: "Windows Event IDs 4698 (scheduled task created) and 4702 (scheduled task updated) are key indicators of scheduled task-based persistence. Attackers create or modify scheduled tasks to execute malware at startup, logon, or regular intervals, maintaining persistent access after initial compromise. MITRE ATT&CK T1053.005 documents this technique."
+      incorrect:
+        - "Pass-the-hash generates authentication events (4624/4625 with NTLMv2) not scheduled task events."
+        - "Scheduled task persistence via Event IDs 4698/4702 is correct — these events indicate task creation/modification requiring investigation."
+        - "Kerberoasting generates Kerberos service ticket request events (4769) not scheduled task events."
+        - "NTLM relay generates specific authentication sequence events, not scheduled task events."
+    difficulty: "hard"
+    tags: ["Windows-event-logs", "scheduled-tasks", "persistence", "threat-detection"]
+
+  - id: q-d7-080
+    domain: domain7
+    question: "An organization's security team receives credible threat intelligence indicating a nation-state APT group is actively targeting organizations in their industry sector using a specific spear-phishing campaign. What is the MOST APPROPRIATE proactive response?"
+    options:
+      - "Wait for an attack to occur before taking action to avoid false alarms"
+      - "Use the intelligence to implement targeted preventive and detective controls: block known IOCs, hunt for indicators of prior compromise, and brief employees"
+      - "Share the intelligence publicly on social media to warn other organizations"
+      - "Report the threat to the FBI and defer all response until they provide guidance"
+    correct_answer: 1
+    explanations:
+      correct: "Credible threat intelligence enables proactive defense: blocking known malicious domains/IPs/email patterns prevents the attack, threat hunting searches for indicators of prior compromise (the APT may already be present), and employee briefing raises awareness of the specific phishing campaign tactics. This is the value proposition of actionable threat intelligence."
+      incorrect:
+        - "Waiting for an attack wastes the value of the intelligence; proactive action is the primary reason for investing in threat intelligence."
+        - "Targeted preventive controls, hunting, and employee briefing is correct — this converts threat intelligence into defensive action."
+        - "Public social media sharing may violate TLP restrictions and could tip off the attacker; controlled sharing through ISACs/ISAOs is more appropriate."
+        - "Law enforcement reporting is appropriate but should not prevent the organization from taking immediate defensive action."
+    difficulty: "medium"
+    tags: ["threat-intelligence", "APT", "proactive-defense", "incident-prevention"]
+
+  - id: q-d7-081
+    domain: domain7
+    question: "An organization wants to implement a reciprocal agreement with a peer organization for disaster recovery. What is the PRIMARY risk of a reciprocal recovery agreement compared to a dedicated recovery facility?"
+    options:
+      - "Reciprocal agreements are more expensive than dedicated hot sites"
+      - "The partner organization may not have sufficient capacity available when a disaster occurs, especially if they are also affected by the same regional event"
+      - "Reciprocal agreements violate most compliance frameworks for data handling"
+      - "Technical incompatibility between organizations' systems makes recovery impossible"
+    correct_answer: 1
+    explanations:
+      correct: "Reciprocal agreements rely on the partner having spare capacity when needed. If both organizations are in the same geographic region and a regional disaster (hurricane, power grid failure) affects both simultaneously, neither may have capacity to assist the other. Additionally, capacity estimates may be outdated as both organizations grow."
+      incorrect:
+        - "Reciprocal agreements are typically low-cost or cost-free compared to commercial hot site contracts — cost is not the primary risk."
+        - "Insufficient capacity during a simultaneous regional disaster is correct — this is the defining risk of reciprocal agreements."
+        - "Data handling compliance depends on implementation; reciprocal agreements can include appropriate data protection terms."
+        - "Technical incompatibility is a challenge to address during agreement design but can be mitigated through standardization or virtualization."
+    difficulty: "medium"
+    tags: ["reciprocal-agreement", "disaster-recovery", "BCP", "recovery-options"]
+
+  - id: q-d7-082
+    domain: domain7
+    question: "An organization discovers its network has been compromised. The CISO must decide whether to monitor the attacker's activity ('watch and learn') or immediately contain the threat. Which factor MOST strongly argues for immediate containment over monitoring?"
+    options:
+      - "Monitoring provides better forensic evidence for law enforcement prosecution"
+      - "The attacker is actively exfiltrating sensitive customer data — each additional minute of monitoring increases data loss and legal liability"
+      - "Monitoring is always preferable because it allows threat attribution"
+      - "The organization has no legal authority to monitor network traffic"
+    correct_answer: 1
+    explanations:
+      correct: "Active data exfiltration of customer data creates immediate, escalating harm: regulatory breach notification obligations, customer harm, and legal liability increase with each data record lost. The 'watch and learn' approach is most defensible when the attacker is in reconnaissance/staging phases; active data theft requires immediate containment."
+      incorrect:
+        - "Forensic value must be weighed against ongoing harm; if sensitive data is being actively stolen, continued monitoring to gather evidence is ethically and legally questionable."
+        - "Active exfiltration of customer data requiring immediate containment is correct — this is the strongest argument for containment over monitoring."
+        - "Monitoring is not always preferable; the decision depends on the current phase and impact of the attack."
+        - "Organizations have legal authority to monitor their own networks; this is not a constraint on containment decisions."
+    difficulty: "hard"
+    tags: ["containment", "incident-response", "data-exfiltration", "watch-and-learn"]
+
+  - id: q-d7-083
+    domain: domain7
+    question: "A security operations team wants to improve their detection of 'living off the land' (LotL) attacks where attackers use native OS tools (PowerShell, WMI, certutil, mshta) rather than custom malware. Which detection approach is MOST effective?"
+    options:
+      - "Signature-based antivirus — these tools are well-known and easily detected"
+      - "Behavioral detection analyzing command-line arguments, parent-child process relationships, and execution context anomalies"
+      - "Blacklisting the native OS tools used by attackers"
+      - "Network-based intrusion detection monitoring for C2 traffic patterns"
+    correct_answer: 1
+    explanations:
+      correct: "Since LotL attacks use legitimate system tools, signatures cannot distinguish malicious from legitimate use. Behavioral detection analyzes context: PowerShell downloading from the internet (Invoke-WebRequest), unusual parent processes (Word spawning PowerShell), encoded commands (-EncodedCommand), or certutil downloading and decoding files. MITRE ATT&CK helps catalog known LotL technique patterns."
+      incorrect:
+        - "Signature-based AV cannot detect LotL attacks because the tools themselves (PowerShell, WMI) are legitimate and unsigned malware isn't being used."
+        - "Behavioral analysis of command-line arguments and process relationships is correct — context-aware detection is required for LotL."
+        - "Blacklisting native OS tools (PowerShell, WMI) would break legitimate administrative functions; organizations need these tools."
+        - "Network IDS can detect C2 traffic but doesn't detect the initial LotL execution or lateral movement using built-in tools."
+    difficulty: "hard"
+    tags: ["living-off-the-land", "behavioral-detection", "PowerShell", "endpoint-security"]
+
+  - id: q-d7-084
+    domain: domain7
+    question: "An organization's security team wants to implement a 'clean room' recovery for systems compromised in a sophisticated APT incident. What does 'clean room' recovery entail?"
+    options:
+      - "Recovery performed in a physically separate, sterile room to prevent contamination"
+      - "Rebuilding all affected systems from known-good baselines (OS images, configuration standards) rather than restoring from potentially compromised backups"
+      - "Using cloud-based recovery systems that were not connected to the on-premises network"
+      - "Hiring a third-party vendor to perform recovery without involving internal IT staff"
+    correct_answer: 1
+    explanations:
+      correct: "Clean room recovery rebuilds systems from scratch using verified clean installation media and configurations, rather than restoring from backups that may contain attacker-planted persistence mechanisms. After a sophisticated APT compromise, backups made during the attack window may be contaminated — rebuilding from baselines ensures no attacker artifacts survive."
+      incorrect:
+        - "The 'clean room' terminology is metaphorical in IR — it refers to clean baselines, not a physically sterile room."
+        - "Rebuilding from known-good baselines rather than potentially contaminated backups is correct — this is the 'clean room' recovery concept."
+        - "Cloud systems may be part of clean recovery infrastructure, but 'clean room' specifically refers to the baseline rebuild approach."
+        - "Third-party involvement may be part of APT response, but 'clean room' describes the technical recovery approach, not the staffing."
+    difficulty: "hard"
+    tags: ["clean-room-recovery", "APT", "incident-recovery", "eradication"]
+
+  - id: q-d7-085
+    domain: domain7
+    question: "What is the MITRE ATT&CK 'Exfiltration Over C2 Channel' technique (T1041), and why does it make exfiltration detection difficult?"
+    options:
+      - "Attackers transmit data over DNS queries — DNS traffic is often allowed unrestricted"
+      - "Attackers send data through the existing C2 channel using the same protocol and infrastructure already communicating with the network, making exfiltration traffic blend with established C2 communication"
+      - "Attackers use VPN connections to encrypt exfiltrated data before transmission"
+      - "Attackers physically mail storage media containing exfiltrated data"
+    correct_answer: 1
+    explanations:
+      correct: "T1041 uses the established C2 channel (HTTP/S, DNS, ICMP) to exfiltrate data, making it blend with already-allowed C2 traffic. If the C2 channel is already active and partially trusted, additional data flowing through the same channel is harder to detect as exfiltration. Network detections must analyze volume anomalies and data patterns within allowed traffic."
+      incorrect:
+        - "DNS exfiltration is T1048.003 (Exfiltration Over Alternative Protocol); T1041 specifically uses the established C2 channel."
+        - "Blending exfiltration through existing C2 channels making detection difficult is correct — this is the T1041 technique."
+        - "VPN encryption describes a transport mechanism; T1041 is about using the established C2 channel, regardless of encryption."
+        - "Physical media theft (T1052) is a separate, lower-frequency exfiltration technique."
+    difficulty: "hard"
+    tags: ["MITRE-ATT&CK", "exfiltration", "C2", "threat-detection"]
+
+  - id: q-d7-086
+    domain: domain7
+    question: "An organization implements a network-based intrusion prevention system (NIPS) at the perimeter. A sophisticated attacker sends a malicious payload split across multiple TCP segments with out-of-order sequencing. What attack technique is the attacker using, and how should the NIPS handle it?"
+    options:
+      - "IP fragmentation — the NIPS should drop all fragmented packets"
+      - "TCP session splicing/fragmentation — a properly implemented NIPS should reassemble TCP streams before inspecting content"
+      - "Protocol tunneling — the NIPS should block all non-standard ports"
+      - "Encryption evasion — the NIPS should require TLS decryption for all traffic"
+    correct_answer: 1
+    explanations:
+      correct: "TCP session splicing sends malicious payload split across multiple out-of-order or fragmented TCP segments. Naive IDS/IPS systems inspect each packet individually and miss the attack. A properly implemented stateful NIPS reassembles the full TCP stream before pattern matching, defeating fragmentation-based IDS evasion."
+      incorrect:
+        - "IP fragmentation is related but distinct; TCP session splicing specifically manipulates TCP segment sequencing, not IP-layer fragmentation."
+        - "TCP session splicing requiring stateful stream reassembly for proper inspection is correct — this is the evasion technique and countermeasure."
+        - "Protocol tunneling uses one protocol to encapsulate another; this scenario describes TCP fragmentation, not tunneling."
+        - "Encryption evasion is separate; this attack uses unencrypted fragmented segments to evade pattern matching."
+    difficulty: "hard"
+    tags: ["IPS", "TCP-splicing", "evasion", "network-security"]
+
+  - id: q-d7-087
+    domain: domain7
+    question: "After a major security incident, the organization's legal team advises that all communications related to the incident investigation should be conducted through legal counsel. What is the purpose of this 'attorney-client privilege' protection?"
+    options:
+      - "To prevent employees from discussing the incident with each other"
+      - "To protect incident investigation communications from compulsory disclosure in litigation, allowing frank internal assessment without those communications becoming evidence"
+      - "To limit breach notification obligations to affected customers"
+      - "To shift legal liability for the breach to external legal counsel"
+    correct_answer: 1
+    explanations:
+      correct: "When legal counsel directs an incident investigation, communications between the organization and its lawyers may be protected by attorney-client privilege and work-product doctrine. This allows frank internal assessment of what happened, what liability exists, and what communications are appropriate — without those frank discussions being compellable as evidence if the organization is sued."
+      incorrect:
+        - "Internal communications are not restricted by legal privilege; privilege specifically protects attorney-client communications."
+        - "Protecting investigation communications from compulsory disclosure in litigation while allowing frank assessment is correct — this is the strategic purpose."
+        - "Breach notification obligations are determined by applicable law regardless of privilege; legal counsel advises on those obligations but cannot eliminate them."
+        - "Legal liability cannot be transferred through legal engagement; counsel provides advice, not liability assumption."
+    difficulty: "hard"
+    tags: ["attorney-client-privilege", "incident-response", "legal", "breach-notification"]
+
+  - id: q-d7-088
+    domain: domain7
+    question: "An organization classifies its incidents by severity level. A ransomware attack that encrypts all file servers and halts business operations would be classified as which severity level?"
+    options:
+      - "Low — ransomware is common and well-understood"
+      - "Medium — the encrypted data can be restored from backups"
+      - "Critical — complete business operation halted with potential for significant data loss and financial impact"
+      - "High — ransomware affects availability but not confidentiality"
+    correct_answer: 2
+    explanations:
+      correct: "Severity classification is based on business impact, not technical complexity. A ransomware event halting all business operations is Critical: immediate operational impact, significant financial damage (business interruption), potential regulatory breach notification obligations, reputational harm, and potentially unrecoverable if backups are also compromised."
+      incorrect:
+        - "Familiarity does not reduce severity; the business impact determines classification regardless of how common the threat is."
+        - "Backup availability is a recovery factor; the incident itself — complete operational halt — warrants Critical classification during the active incident."
+        - "Critical classification for complete business operational halt is correct — severity reflects actual business impact."
+        - "Ransomware may also involve data exfiltration (double extortion), affecting all three CIA triad components; availability impact alone justifies Critical."
+    difficulty: "easy"
+    tags: ["incident-classification", "severity", "ransomware", "business-impact"]
+
+  - id: q-d7-089
+    domain: domain7
+    question: "What distinguishes an 'indicators of attack' (IoA) approach from an 'indicators of compromise' (IoC) approach in threat detection?"
+    options:
+      - "IoAs are technical; IoCs are behavioral"
+      - "IoCs identify evidence of past compromise; IoAs identify attacker behaviors and techniques that may indicate an ongoing or imminent attack before damage occurs"
+      - "IoAs are only used by threat intelligence teams; IoCs are used by SOC analysts"
+      - "Both terms describe the same concept with different names in different frameworks"
+    correct_answer: 1
+    explanations:
+      correct: "IoCs are reactive — they indicate that a compromise has already occurred (malware hash, malicious IP, compromised credential). IoAs are proactive — they identify attacker behaviors and TTPs (e.g., process injection, credential dumping techniques) that indicate an attack in progress, enabling earlier detection before full compromise or data theft. IoA-based detection is generally more durable because IoCs change frequently while attacker techniques evolve more slowly."
+      incorrect:
+        - "Both IoAs and IoCs can be technical or behavioral; the distinction is timing (reactive vs. proactive detection), not technicality."
+        - "IoCs for past compromise and IoAs for ongoing/imminent attack detection is correct — this is the fundamental distinction."
+        - "Both IoAs and IoCs are used by SOC analysts and threat intelligence teams; neither is role-specific."
+        - "IoA and IoC describe distinct concepts with different detection philosophies, not synonyms."
+    difficulty: "medium"
+    tags: ["IoA", "IoC", "threat-detection", "proactive-security"]
+
+  - id: q-d7-090
+    domain: domain7
+    question: "An endpoint detection and response (EDR) solution alerts on a suspicious process that appears to be injecting code into the Windows lsass.exe process. What attack technique does this indicate, and what is the security significance?"
+    options:
+      - "Process hollowing — the attacker is replacing a legitimate process with malware"
+      - "Credential dumping — LSASS (Local Security Authority Subsystem Service) stores credential material; injection targets it to extract passwords and hashes"
+      - "DLL hijacking — the attacker is replacing a Windows DLL with a malicious version"
+      - "Scheduled task creation — the attacker is establishing persistence through task injection"
+    correct_answer: 1
+    explanations:
+      correct: "LSASS (lsass.exe) manages Windows authentication and stores credential material in memory (NTLM hashes, Kerberos tickets, cleartext credentials in older configurations). Code injection into LSASS is a classic credential dumping technique (as used by Mimikatz) targeting this credential store. This is ATT&CK T1003.001 (OS Credential Dumping: LSASS Memory)."
+      incorrect:
+        - "Process hollowing replaces a process's code in memory; injection into lsass specifically targets its credential storage, not hollowing."
+        - "Credential dumping targeting LSASS for password hashes and tickets is correct — this is the primary security significance of lsass.exe injection."
+        - "DLL hijacking involves loading a malicious DLL; code injection into an existing process is a different technique."
+        - "Scheduled task creation is an independent persistence technique; lsass injection is specifically for credential access."
+    difficulty: "medium"
+    tags: ["credential-dumping", "LSASS", "EDR", "Windows-security"]
+
+  - id: q-d7-091
+    domain: domain7
+    question: "An organization implements a 'canary token' (also called a honeytoken) in its AWS S3 bucket containing fake sensitive data. The canary token is an AWS access key that, when used, triggers an alert. What type of insider threat does this primarily detect?"
+    options:
+      - "Accidental data exposure by authorized users"
+      - "Unauthorized access or data theft — anyone using the canary access key has accessed and attempted to use the fake credential, indicating unauthorized data access"
+      - "Malware that automatically exfiltrates all data in S3 buckets"
+      - "Account compromise via credential stuffing attacks"
+    correct_answer: 1
+    explanations:
+      correct: "Canary tokens/honeytokens have no legitimate use — they are fake credentials planted in sensitive locations. Anyone who finds and uses the canary access key has (1) accessed the S3 bucket (potentially unauthorized), (2) read the fake sensitive file, and (3) attempted to use the credential. Each of these actions is suspicious and triggers a high-fidelity alert with essentially zero false positives."
+      incorrect:
+        - "Accidental exposure by authorized users would typically involve the authorized user's own credentials, not the canary token."
+        - "Unauthorized data access indicated by canary key usage is correct — any use of a honeytoken indicates unauthorized activity."
+        - "Malware would exfiltrate actual data; a canary token specifically catches the human action of reading and using a planted credential."
+        - "Credential stuffing targets authentication systems; the canary token catches post-access data theft behavior."
+    difficulty: "medium"
+    tags: ["honeytoken", "canary-token", "insider-threat", "deception-technology"]
+
+  - id: q-d7-092
+    domain: domain7
+    question: "During an incident response, the team discovers that the attacker used a legitimate cloud storage service (OneDrive, Dropbox) as their C2 infrastructure. Why does this technique complicate detection and response?"
+    options:
+      - "Cloud storage services encrypt all traffic, making it impossible to detect"
+      - "Traffic to legitimate cloud services blends with normal business traffic, blocking the C2 channel by domain may disrupt legitimate business operations"
+      - "Cloud services have legal immunity from law enforcement requests"
+      - "Blocking cloud storage IPs prevents all internet access for the organization"
+    correct_answer: 1
+    explanations:
+      correct: "Using legitimate cloud services (Dropbox, OneDrive, GitHub, Slack API) for C2 is called 'living off trusted sites' (LOTS). Traffic to these services is normally allowed and expected, making it difficult to distinguish malicious C2 communication from legitimate use. Blocking the entire domain would disrupt legitimate business use — the attacker exploits this dependency."
+      incorrect:
+        - "While HTTPS encryption conceals content, detection focuses on behavioral anomalies (unusual volumes, process making cloud API calls, timing patterns) — TLS interception can also help."
+        - "Blending with legitimate traffic making blocking problematic is correct — this is why LOTS/cloud C2 complicates response."
+        - "Cloud services do not have legal immunity; they comply with lawful legal process through their terms of service."
+        - "Cloud storage services share IPs with CDNs and many other services; blocking their IPs would affect far more than just that service."
+    difficulty: "hard"
+    tags: ["C2", "cloud-C2", "living-off-trusted-sites", "incident-response"]
+
+  - id: q-d7-093
+    domain: domain7
+    question: "An organization's security team is reviewing an after-action report from a security incident. They identify that the incident spread to additional systems because the initial containment team did not isolate lateral movement pathways. What type of IR improvement should be prioritized?"
+    options:
+      - "Investing in better perimeter firewalls"
+      - "Developing and practicing containment playbooks that include network isolation procedures, not just endpoint isolation"
+      - "Increasing log retention from 90 to 365 days"
+      - "Implementing stronger password policies across the organization"
+    correct_answer: 1
+    explanations:
+      correct: "The root cause was incomplete containment — isolating the initial compromised system but not blocking lateral movement pathways (network segments, shared credentials, remote administration channels). Containment playbooks must explicitly address east-west traffic isolation, account disablement, and network segmentation procedures, not just endpoint removal from the network."
+      incorrect:
+        - "Perimeter firewalls don't address internal lateral movement once an attacker is inside the network."
+        - "Containment playbooks addressing network isolation and lateral movement pathways is correct — this directly addresses the identified IR gap."
+        - "Log retention helps with detection and forensics; it doesn't prevent lateral movement during containment."
+        - "Password policies are preventive; they don't address the containment execution gap identified in the lessons learned."
+    difficulty: "medium"
+    tags: ["containment", "lateral-movement", "playbooks", "lessons-learned"]
+
+  - id: q-d7-094
+    domain: domain7
+    question: "An organization must notify affected individuals of a data breach within 72 hours under GDPR. The security team identifies a breach on Friday afternoon. What should guide the notification timeline decision?"
+    options:
+      - "The 72-hour clock starts only on the next business day since the weekend should not count"
+      - "The 72-hour clock starts when the organization becomes aware of the breach; weekends are not excluded and missing the deadline requires justification"
+      - "Notification can be delayed up to 30 days if the investigation is not complete"
+      - "The 72 hours applies only to breaches affecting EU citizens regardless of where the breach occurred"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR Article 33 requires notification to the supervisory authority 'without undue delay and, where feasible, not later than 72 hours after becoming aware.' The clock runs continuously from the moment of awareness — weekends do not pause it. If the 72-hour deadline cannot be met, the notification should be sent with a reason for the delay, and information can be supplemented once investigation progresses."
+      incorrect:
+        - "GDPR's 72-hour clock is continuous; business days are not a valid exception and missing the deadline requires explanation."
+        - "Continuous 72-hour clock from awareness with weekends not excluded is correct — this is the GDPR Article 33 requirement."
+        - "30-day extensions are not provided in GDPR; notification must occur within 72 hours with phased updates if needed."
+        - "GDPR applies to processing of EU residents' data regardless of where the breach occurred; the requirement is not limited to EU-located breaches."
+    difficulty: "medium"
+    tags: ["GDPR", "breach-notification", "72-hour", "incident-response"]
+
+  - id: q-d7-095
+    domain: domain7
+    question: "A security operations team deploys a network flow analysis solution to detect anomalous traffic patterns. Which threat is BEST detected through NetFlow/IPFIX analysis rather than deep packet inspection?"
+    options:
+      - "SQL injection attacks in HTTP POST bodies"
+      - "XSS payloads embedded in web page responses"
+      - "Encrypted C2 traffic detected through behavioral patterns: beacon intervals, data volume anomalies, and unusual connection patterns"
+      - "Malware signatures in downloaded executable files"
+    correct_answer: 2
+    explanations:
+      correct: "NetFlow/IPFIX captures connection metadata (IP, port, protocol, bytes, duration, timing) without inspecting packet content. This is ideal for behavioral analysis of encrypted traffic: C2 beacons appear as regular connection intervals; data exfiltration shows as large outbound data volumes; lateral movement appears as unusual internal scanning patterns. Content inspection is impossible in encrypted flows, but behavioral patterns remain visible."
+      incorrect:
+        - "SQL injection payloads are in packet content; NetFlow only captures metadata without payload inspection."
+        - "XSS in response bodies requires content inspection; NetFlow cannot inspect HTTP response content."
+        - "Behavioral C2 detection through connection metadata is correct — NetFlow excels at pattern analysis when content inspection is unavailable."
+        - "Malware signature detection requires file content inspection; NetFlow only captures connection metadata."
+    difficulty: "medium"
+    tags: ["NetFlow", "network-analysis", "behavioral-detection", "encrypted-traffic"]
+
+  - id: q-d7-096
+    domain: domain7
+    question: "An organization's BCP identifies that a critical business process depends on a third-party SaaS vendor. During the vendor's outage, the organization has no manual fallback. What BCP design principle has the organization failed to implement?"
+    options:
+      - "Single point of failure analysis and redundancy planning"
+      - "Business Impact Analysis (BIA) for internal systems only"
+      - "Vendor due diligence for cybersecurity posture"
+      - "Asset inventory management"
+    correct_answer: 0
+    explanations:
+      correct: "The organization has a single point of failure (the SaaS vendor) with no redundancy or fallback procedure. BCP requires identifying single points of failure — dependencies on single vendors, systems, or people — and implementing redundancy or manual fallback procedures. This applies to external vendors as much as internal systems."
+      incorrect:
+        - "Single point of failure analysis and redundancy planning is correct — this is the BCP principle the organization failed to apply."
+        - "BIA should cover all dependencies including third-party vendors; limiting to internal systems is an incomplete BIA."
+        - "Vendor cybersecurity due diligence addresses security posture; the issue here is availability/redundancy planning."
+        - "Asset inventory management tracks assets; it doesn't address single-vendor dependency risk."
+    difficulty: "medium"
+    tags: ["BCP", "single-point-of-failure", "third-party-dependency", "redundancy"]
+
+  - id: q-d7-097
+    domain: domain7
+    question: "An organization wants to improve its mean time to detect (MTTD) for security incidents. Which combination of improvements would MOST directly reduce MTTD?"
+    options:
+      - "Increasing log retention from 90 to 365 days and adding more analysts to the SOC"
+      - "Improving detection rule quality, expanding log source coverage, implementing threat hunting, and tuning alerts to reduce false positive fatigue"
+      - "Implementing stronger preventive controls to reduce the number of incidents"
+      - "Conducting more frequent penetration tests to identify vulnerabilities"
+    correct_answer: 1
+    explanations:
+      correct: "MTTD is reduced by improving detection effectiveness: better correlation rules find incidents faster, comprehensive log coverage eliminates blind spots, threat hunting proactively finds incidents that automated detection misses, and reducing false positive volume ensures analysts aren't overwhelmed and miss real incidents. All four directly contribute to faster detection."
+      incorrect:
+        - "Longer log retention improves investigation capability after detection but doesn't improve detection speed; more analysts help but without detection improvements they triage the same slow alerts."
+        - "Improving detection rules, expanding coverage, threat hunting, and reducing false positive fatigue is correct — these directly reduce time to detect."
+        - "Stronger preventive controls reduce incident frequency but don't improve detection speed for incidents that do occur."
+        - "Penetration tests identify vulnerabilities; they don't directly improve the SOC's detection speed for real incidents."
+    difficulty: "medium"
+    tags: ["MTTD", "SOC", "detection-engineering", "false-positives"]
+
+  - id: q-d7-098
+    domain: domain7
+    question: "An organization operates a 24x7 SOC and is evaluating SOC staffing models. Which model provides the most resilience for continuous coverage while maintaining deep expertise?"
+    options:
+      - "Follow-the-sun model with geographically distributed regional SOC teams covering different time zones"
+      - "Single-location 24x7 SOC with rotating overnight shifts for all analysts"
+      - "Business-hours-only SOC with automated alerting for off-hours incidents"
+      - "Fully outsourced MSSP with no in-house security operations team"
+    correct_answer: 0
+    explanations:
+      correct: "Follow-the-sun SOC models place security operations teams in different geographic regions (e.g., Americas, EMEA, APAC) that hand off coverage as business hours shift globally. Each team works normal daytime hours, avoiding overnight shifts that cause analyst fatigue. This model provides continuous coverage with engaged, well-rested analysts and regional context."
+      incorrect:
+        - "Follow-the-sun with geographically distributed regional teams is correct — this is the optimal model for 24x7 coverage quality."
+        - "Single-location overnight shifts cause analyst fatigue and lower detection quality; it is less resilient than follow-the-sun."
+        - "Business-hours-only SOC creates coverage gaps when attackers commonly operate (nights and weekends); this is a significant risk."
+        - "Fully outsourced MSSP loses institutional knowledge and organizational context; a hybrid model typically provides better outcomes."
+    difficulty: "medium"
+    tags: ["SOC", "staffing-models", "follow-the-sun", "security-operations"]
+
+  - id: q-d7-099
+    domain: domain7
+    question: "A forensic analyst is examining an image of a compromised Windows system and wants to determine what programs were recently executed, even if the files have since been deleted. Which Windows artifact provides evidence of program execution?"
+    options:
+      - "Windows Registry Run keys — programs registered for startup"
+      - "Windows Prefetch files (.pf) — records of program execution including last run time and frequency"
+      - "Windows Event Log 4688 — new process creation events"
+      - "Windows Scheduled Tasks XML — tasks configured to run programs"
+    correct_answer: 1
+    explanations:
+      correct: "Windows Prefetch files (in C:\\Windows\\Prefetch) are created by the Windows SuperFetch service and record evidence of program execution: the executable name, last run time, run count, and files accessed during execution. Even if the executable is deleted, the prefetch file may persist, providing evidence that the program was executed."
+      incorrect:
+        - "Registry Run keys show programs configured to auto-start, not a record of programs that actually executed."
+        - "Prefetch files recording execution history even after file deletion is correct — this is a primary forensic artifact for execution evidence."
+        - "Event ID 4688 provides real-time process creation logs but requires process auditing to be enabled; if logging was disabled or logs cleared, 4688 events would be missing. Prefetch files persist independently."
+        - "Scheduled Tasks XML shows configured tasks, not evidence of program execution history."
+    difficulty: "hard"
+    tags: ["Windows-forensics", "Prefetch", "execution-artifacts", "digital-forensics"]
+
+  - id: q-d7-100
+    domain: domain7
+    question: "An organization's crisis communications plan designates a single authorized spokesperson for all external communications during a security incident. What is the PRIMARY security reason for this control?"
+    options:
+      - "To reduce the number of people who must be briefed on incident details, limiting information exposure"
+      - "To ensure consistent, legally reviewed messaging and prevent accidental disclosure of sensitive investigation details or admission of liability"
+      - "To allow other staff to focus on technical response rather than communications"
+      - "To comply with SEC regulations requiring designated incident communicators"
+    correct_answer: 1
+    explanations:
+      correct: "Multiple, uncoordinated communicators risk contradictory statements, premature disclosure of investigation findings (tipping off attackers or creating legal admissions), and inconsistent messaging that damages credibility. A single spokesperson ensures all external communications are reviewed by legal counsel and PR before release, protecting the investigation and the organization's legal position."
+      incorrect:
+        - "Limiting briefings reduces information exposure risk but is a secondary benefit; the primary purpose is communication consistency and legal protection."
+        - "Consistent legally reviewed messaging preventing accidental harmful disclosures is correct — this is the primary security and legal rationale."
+        - "Staff focus on technical response is an operational benefit; the primary purpose is communication control, not resource allocation."
+        - "SEC regulations apply to publicly traded companies for material disclosure; single-spokesperson policy applies broadly, not only for SEC compliance."
+    difficulty: "medium"
+    tags: ["crisis-communications", "incident-response", "spokesperson", "legal"]
+
+  - id: q-d7-101
+    domain: domain7
+    question: "What is the difference between a 'disaster recovery plan' (DRP) and a 'business continuity plan' (BCP), and which is broader in scope?"
+    options:
+      - "DRP is broader — it covers all aspects of business recovery; BCP only addresses IT systems"
+      - "BCP is broader — it covers how the organization continues business functions during and after a disruption; DRP is a subset focused specifically on IT system and infrastructure recovery"
+      - "They are equivalent documents with different names used in different industries"
+      - "DRP covers natural disasters; BCP covers cybersecurity incidents"
+    correct_answer: 1
+    explanations:
+      correct: "BCP is the comprehensive framework for maintaining and recovering all business functions during disruptions — including people, processes, facilities, supply chains, and communications. DRP is a technical subset of BCP specifically focused on IT system and infrastructure recovery procedures. A complete BCP incorporates the DRP along with many other plans."
+      incorrect:
+        - "DRP is narrower, not broader; it is a subset of the larger BCP focused on technical IT recovery."
+        - "BCP is broader covering all business functions with DRP as a technical IT subset is correct — this is the correct hierarchical relationship."
+        - "BCP and DRP have distinct scopes and purposes; the distinction is well-established in standards (ISO 22301, NIST SP 800-34)."
+        - "Both BCP and DRP apply to all types of disruptions — natural disasters, cyber incidents, pandemics, facility failures — not separated by type."
+    difficulty: "easy"
+    tags: ["BCP", "DRP", "business-continuity", "disaster-recovery"]
+
+  - id: q-d7-102
+    domain: domain7
+    question: "An organization's SOC analyst notices that a Windows workstation is making DNS queries for randomly generated domain names (e.g., a3f7k9j2.example.com, p9x4q1b8.example.com) at regular 60-second intervals. What does this behavior indicate?"
+    options:
+      - "Normal Windows Update check-in behavior with Microsoft servers"
+      - "Domain Generation Algorithm (DGA) malware communicating with C2 infrastructure using algorithmically generated domains"
+      - "The workstation's DHCP client attempting to lease a new IP address"
+      - "The user performing automated web research using a browser extension"
+    correct_answer: 1
+    explanations:
+      correct: "Domain Generation Algorithms (DGAs) programmatically generate large numbers of pseudo-random domain names. Malware queries many DGA domains until one resolves — the attacker pre-registers that domain for C2. Regular beacon intervals (60 seconds) combined with random domain name patterns are characteristic of DGA-based malware beaconing. Detection via DNS analytics is more effective than blacklisting individual domains."
+      incorrect:
+        - "Windows Update uses static Microsoft domains (windowsupdate.com, download.microsoft.com); random domain generation is not characteristic of Windows Update."
+        - "DGA malware with regular beacon intervals is correct — this pattern is a well-known indicator of DGA-based C2 communication."
+        - "DHCP queries use broadcast or unicast to the DHCP server and do not generate random domain DNS queries."
+        - "Browser extensions may generate web traffic but not regular, systematic random domain DNS queries at machine intervals."
+    difficulty: "medium"
+    tags: ["DGA", "malware", "C2", "DNS-analysis"]
