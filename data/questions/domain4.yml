@@ -986,3 +986,953 @@ questions:
         - "Email notification alone does not enforce compliance — the device still has full network access during the time the user decides to patch."
     difficulty: "medium"
     tags: ["networking", "NAC", "access-control"]
+
+  - id: q-d4-053
+    domain: domain4
+    question: "What is the primary purpose of 'out-of-band management' for network devices?"
+    options:
+      - "Providing faster bandwidth for critical management traffic on production networks"
+      - "Separating management traffic onto a dedicated network that remains accessible even if the production network is compromised or down"
+      - "Encrypting all management traffic using separate encryption keys from production traffic"
+      - "Routing management traffic through a DMZ for security monitoring purposes"
+    correct_answer: 1
+    explanations:
+      correct: "Out-of-band (OOB) management uses a physically separate network infrastructure (dedicated management interfaces, console servers, serial connections) for device administration. Benefits: (1) Management remains accessible even when the production network is down (needed for recovery), (2) Compromise of the production network does not automatically give attackers access to management functions, (3) Management traffic is isolated from capture and analysis by users of the production network."
+      incorrect:
+        - "OOB management does not provide faster bandwidth — it may use slower connections (serial, dedicated Ethernet). The purpose is isolation and availability, not performance."
+        - "OOB management separates management traffic onto a dedicated network that remains accessible even if the production network is compromised or unavailable — this is the primary purpose."
+        - "Encryption of management traffic (SSH, HTTPS) is important but is a separate control. OOB management refers to physical network separation, not encryption key separation."
+        - "Routing management through a DMZ still uses the production network infrastructure. True OOB management uses a completely separate physical network path."
+    difficulty: "medium"
+    tags: ["network-security", "management", "OOB", "architecture"]
+
+  - id: q-d4-054
+    domain: domain4
+    question: "What is 'BGP route hijacking' and why is it difficult to prevent?"
+    options:
+      - "An attacker modifying routing tables on a local enterprise router to redirect internal traffic"
+      - "An AS announcing prefixes it does not legitimately own, redirecting internet traffic through attacker-controlled infrastructure; difficult because BGP relies on trust between ASes with no cryptographic verification by default"
+      - "An ISP intentionally throttling BGP routes to competitors to reduce their bandwidth"
+      - "A misconfiguration in BGP causing routing loops that make internet destinations unreachable"
+    correct_answer: 1
+    explanations:
+      correct: "BGP hijacking occurs when an Autonomous System (AS) fraudulently announces IP prefixes it does not own. Other ASes accept these announcements because BGP relies on trust between peering partners — there is no cryptographic verification that an AS is authorized to announce specific prefixes. This can redirect traffic through attacker infrastructure (enabling interception, MITM, or blackholing). RPKI (Resource Public Key Infrastructure) with Route Origin Validation is a partial mitigation."
+      incorrect:
+        - "Local router table modification is a different attack (IP spoofing or local routing attack). BGP hijacking is an internet-scale attack affecting routing between Autonomous Systems globally."
+        - "BGP hijacking involves an AS announcing prefixes it doesn't own, redirecting traffic; it's difficult because BGP has no cryptographic verification by default — this is the correct description."
+        - "ISP throttling is a commercial practice (net neutrality issue). BGP hijacking is a security attack involving fraudulent route announcements, not intentional throttling."
+        - "Routing loops are configuration errors or BGP path problems. Hijacking is an intentional attack involving fraudulent origin announcements to redirect traffic."
+    difficulty: "hard"
+    tags: ["network-security", "BGP", "routing", "internet"]
+
+  - id: q-d4-055
+    domain: domain4
+    question: "What is 'deep packet inspection' (DPI) and how does it differ from standard packet filtering?"
+    options:
+      - "DPI inspects packet headers and IP addresses; standard filtering inspects payload content"
+      - "DPI inspects the full packet payload including application-layer content; standard packet filtering only examines headers (IP, TCP/UDP)"
+      - "DPI decrypts all traffic before inspection; standard packet filtering only works on unencrypted traffic"
+      - "DPI operates at OSI Layer 2; standard packet filtering operates at Layer 7"
+    correct_answer: 1
+    explanations:
+      correct: "Standard (stateless/stateful) packet filtering examines packet headers — source/destination IP, port numbers, TCP flags, connection state. Deep Packet Inspection (DPI) examines the actual payload content of packets, including application-layer data, for content inspection, intrusion detection, malware scanning, and application identification. DPI enables next-generation firewall capabilities like application identification and URL filtering."
+      incorrect:
+        - "This is reversed. DPI inspects packet payload and application content; standard filtering inspects headers. Payload inspection is the defining characteristic of DPI."
+        - "DPI inspects the full packet payload including application-layer content; standard packet filtering only examines headers — this correctly describes the fundamental difference."
+        - "DPI can inspect unencrypted traffic; encrypted traffic (TLS) requires TLS inspection (HTTPS inspection) with certificate interception to decrypt before DPI. Not all DPI systems decrypt traffic."
+        - "This is reversed. DPI operates at the application layer (Layer 7); basic packet filtering typically operates at Layers 3-4. DPI requires analyzing higher-layer content."
+    difficulty: "medium"
+    tags: ["network-security", "DPI", "firewalls", "inspection"]
+
+  - id: q-d4-056
+    domain: domain4
+    question: "A security engineer wants to prevent an attacker who has compromised a workstation from pivoting to other systems on the same network segment. Which control is MOST effective?"
+    options:
+      - "Deploying a network IDS to detect lateral movement after it begins"
+      - "Implementing microsegmentation with host-based firewalls enforcing east-west traffic policies"
+      - "Using longer subnet masks to create smaller network segments"
+      - "Deploying a SIEM to correlate alerts from multiple compromised hosts"
+    correct_answer: 1
+    explanations:
+      correct: "Microsegmentation implements granular security policies between individual workloads/hosts (east-west traffic control). With microsegmentation, even hosts on the same VLAN or subnet can only communicate with other hosts for which policies explicitly allow it. A compromised workstation cannot reach other systems unless a policy permits the specific communication. This limits lateral movement to only what is explicitly authorized."
+      incorrect:
+        - "Network IDS detects lateral movement but does not prevent it. By the time detection occurs, the attacker may have already pivoted. Prevention is more effective than detection for lateral movement."
+        - "Microsegmentation with host-based firewalls enforcing east-west traffic policies directly prevents lateral movement by blocking unauthorized inter-host communication."
+        - "Smaller subnets (VLAN segmentation) limit broadcast domains but do not restrict east-west traffic within the same segment. Subnetting is a network design control, not a lateral movement prevention control."
+        - "SIEMs provide detection and correlation capabilities but do not prevent lateral movement. They would be activated after an attacker is already pivoting."
+    difficulty: "medium"
+    tags: ["network-security", "microsegmentation", "lateral-movement", "zero-trust"]
+
+  - id: q-d4-057
+    domain: domain4
+    question: "What is 'DNS over HTTPS' (DoH) and what security/privacy problem does it address?"
+    options:
+      - "DoH encrypts DNS query payloads before transmission to protect data being resolved"
+      - "DoH transmits DNS queries inside HTTPS connections, preventing ISPs and network eavesdroppers from monitoring which domains a user is resolving"
+      - "DoH replaces DNSSEC by providing stronger cryptographic authentication of DNS responses"
+      - "DoH eliminates the need for recursive DNS resolvers by caching all responses locally"
+    correct_answer: 1
+    explanations:
+      correct: "DNS queries are traditionally sent in plaintext over UDP port 53, allowing ISPs, network operators, and eavesdroppers to monitor which domains a user resolves (even without seeing the full URL or content). DNS over HTTPS (DoH) encrypts DNS queries within HTTPS traffic to a DoH resolver, making DNS queries indistinguishable from regular web traffic and preventing network-level DNS monitoring and manipulation."
+      incorrect:
+        - "DNS payloads contain domain names, not 'encrypted data.' The purpose is to encrypt the DNS query transport, not the data within the query. DoH encrypts the DNS query channel."
+        - "DoH transmits DNS queries inside HTTPS connections, preventing network-level monitoring of which domains a user resolves — this correctly describes the privacy and security benefit."
+        - "DoH and DNSSEC serve different purposes and can coexist. DNSSEC authenticates DNS records; DoH encrypts the DNS transport. DoH does not replace DNSSEC."
+        - "DoH still requires DNS resolvers. It changes the transport protocol (HTTPS vs. UDP/53) but does not eliminate the resolver infrastructure or add caching beyond standard DNS caching."
+    difficulty: "medium"
+    tags: ["DNS", "privacy", "encryption", "network"]
+
+  - id: q-d4-058
+    domain: domain4
+    question: "In an 802.11 wireless network, what is the primary security difference between WPA3-Personal and WPA2-Personal?"
+    options:
+      - "WPA3 uses AES-256 encryption while WPA2 uses AES-128"
+      - "WPA3 uses SAE (Simultaneous Authentication of Equals) instead of PSK, providing forward secrecy and resistance to offline dictionary attacks"
+      - "WPA3 requires enterprise RADIUS authentication; WPA2 supports both personal and enterprise modes"
+      - "WPA3 eliminates the need for a pre-shared key by using certificate-based authentication"
+    correct_answer: 1
+    explanations:
+      correct: "WPA3-Personal replaces WPA2's PSK (Pre-Shared Key) handshake with SAE (Simultaneous Authentication of Equals, also called Dragonfly handshake). SAE provides: (1) Forward secrecy — capturing the handshake does not allow offline dictionary attacks against the passphrase because each session generates unique key material, (2) Resistance to PMKID attacks used to capture WPA2 hashes for offline cracking, and (3) Protection against deauthentication and dictionary attacks."
+      incorrect:
+        - "Both WPA2 and WPA3 can use AES encryption. WPA3 minimum is CCMP/AES-128; WPA3-Enhanced Open and enterprise modes may use 192-bit Suite-B. The fundamental difference is the authentication mechanism (SAE vs. PSK), not just key length."
+        - "WPA3-Personal uses SAE instead of PSK, providing forward secrecy and offline dictionary attack resistance — this is the primary security improvement."
+        - "WPA3-Personal mode still uses a pre-shared passphrase but with the SAE exchange mechanism. WPA3-Enterprise uses RADIUS. WPA3-Personal does not require enterprise RADIUS."
+        - "WPA3-Personal still uses a pre-shared passphrase for authentication. The change is the authentication protocol (SAE/Dragonfly), not the elimination of shared secrets."
+    difficulty: "medium"
+    tags: ["wireless", "WPA3", "authentication", "SAE"]
+
+  - id: q-d4-059
+    domain: domain4
+    question: "Which attack exploits the way TCP connection tracking works by exhausting server resources with half-open connections?"
+    options:
+      - "Ping of Death — sending oversized ICMP packets to crash the target"
+      - "SYN Flood — sending large numbers of SYN packets without completing the three-way handshake, exhausting the server's connection table"
+      - "Teardrop attack — sending fragmented packets with overlapping fragment offsets"
+      - "UDP Flood — sending high volumes of UDP packets to random ports"
+    correct_answer: 1
+    explanations:
+      correct: "A SYN Flood attack exploits TCP's three-way handshake by sending many SYN (synchronize) packets without completing the handshake (never sending the ACK). The server responds to each SYN with SYN-ACK and allocates resources in a half-open connection table. With enough SYN packets, the connection table fills, and the server cannot accept legitimate connections. SYN cookies and rate limiting are common mitigations."
+      incorrect:
+        - "Ping of Death exploited buffer overflows in ICMP packet processing for oversized packets. This is a different attack type and is largely patched in modern systems."
+        - "SYN Flood exhausts server resources with half-open connections by sending SYN packets without completing the TCP three-way handshake."
+        - "Teardrop attacks send fragmented packets with invalid overlapping fragment offsets, causing crashes in reassembly code. Different from SYN flooding — it's a packet fragmentation attack."
+        - "UDP Flood sends high volumes of UDP packets to consume bandwidth and processing resources. It doesn't exploit TCP connection state tables — that's the SYN Flood's mechanism."
+    difficulty: "easy"
+    tags: ["network-security", "DoS", "TCP", "SYN-flood"]
+
+  - id: q-d4-060
+    domain: domain4
+    question: "What is the primary security benefit of using 'Software-Defined Networking' (SDN) in enterprise environments?"
+    options:
+      - "SDN eliminates the need for physical network hardware, reducing capital costs"
+      - "SDN separates the control plane from the data plane, enabling centralized security policy enforcement and rapid programmatic response to threats"
+      - "SDN provides automatic encryption of all network traffic between endpoints"
+      - "SDN replaces firewalls with software-based packet filtering at line speed"
+    correct_answer: 1
+    explanations:
+      correct: "SDN separates the control plane (routing and forwarding decisions) from the data plane (packet forwarding hardware) and centralizes control in an SDN controller. Security benefits include: centralized policy enforcement across the entire network, programmatic (API-driven) response to threats (instantly rerouting or blocking traffic), microsegmentation, and dynamic network reconfiguration. Security policies can be applied network-wide from a central point rather than device-by-device."
+      incorrect:
+        - "SDN typically still uses physical network hardware for data plane forwarding. It separates control software from hardware — it does not eliminate physical hardware requirements."
+        - "SDN's separation of control and data planes enables centralized security policy enforcement and rapid programmatic threat response — this is the primary security benefit."
+        - "SDN does not automatically encrypt traffic. Encryption is a separate security control (TLS, IPsec). SDN manages network control and forwarding logic."
+        - "SDN can incorporate software-based firewalling but does not inherently replace physical firewalls. It provides architectural flexibility to deploy security controls programmatically."
+    difficulty: "medium"
+    tags: ["network-security", "SDN", "architecture", "centralization"]
+
+  - id: q-d4-061
+    domain: domain4
+    question: "An attacker intercepts a TLS session by presenting a fraudulent certificate to the client while establishing a separate legitimate TLS session with the server. What attack has occurred and what prevents it?"
+    options:
+      - "A session replay attack; prevented by TLS session tickets"
+      - "A TLS MITM attack using a fraudulent certificate; prevented by certificate pinning, HSTS, or user certificate validation"
+      - "A downgrade attack forcing TLS 1.0; prevented by disabling legacy TLS versions"
+      - "A padding oracle attack on TLS CBC mode; prevented by using AES-GCM"
+    correct_answer: 1
+    explanations:
+      correct: "This is a TLS Man-in-the-Middle attack using a fraudulent certificate. The attacker presents a fake certificate to the client (obtaining trust through a compromised/rogue CA or by tricking the user to accept it) while establishing a legitimate TLS session with the real server. Defenses: certificate pinning (client refuses certificates not matching expected fingerprint), HSTS preloading (browser-enforced HTTPS), and Certificate Transparency logs (detect fraudulent certificate issuance)."
+      incorrect:
+        - "Session replay uses a captured valid session — not an active MITM with fraudulent certificates. Session tickets address resumption security, not certificate fraud attacks."
+        - "TLS MITM using a fraudulent certificate is the attack; certificate pinning, HSTS, and user certificate validation are defenses — this is the correct identification and prevention."
+        - "A downgrade attack forces less secure protocol versions. Presenting a fraudulent certificate is a different attack vector — it's not about protocol version negotiation."
+        - "Padding oracle attacks exploit CBC mode decryption oracle vulnerabilities. The described scenario is certificate-based MITM, not a cryptographic padding attack."
+    difficulty: "medium"
+    tags: ["TLS", "MITM", "certificates", "attacks"]
+
+  - id: q-d4-062
+    domain: domain4
+    question: "What is 'network topology discovery' and why is it a security concern when performed without authorization?"
+    options:
+      - "Network topology discovery is a maintenance activity that helps IT teams document their networks"
+      - "Unauthorized topology discovery provides attackers with network maps, identifying targets, paths, and defensive gaps before launching attacks"
+      - "Network topology discovery consumes excessive bandwidth that degrades network performance"
+      - "Topology discovery tools can accidentally modify network configurations during scanning"
+    correct_answer: 1
+    explanations:
+      correct: "Network topology discovery (using tools like nmap, traceroute, SNMP queries) maps network devices, IP ranges, routing paths, and open services. When performed without authorization, this constitutes reconnaissance — providing attackers with a network map to identify high-value targets, attack paths, and security gaps. Defenders should monitor for unauthorized discovery scanning and conduct their own authorized discovery to understand their attack surface."
+      incorrect:
+        - "Authorized topology discovery by IT teams is legitimate asset management. The concern is unauthorized discovery by external or internal attackers performing reconnaissance."
+        - "Unauthorized topology discovery gives attackers network maps revealing targets, paths, and defensive gaps — this is the primary security concern."
+        - "Some discovery tools do generate network traffic, but bandwidth consumption is an operational consideration, not the primary security concern. Stealthy scanning tools minimize traffic impact."
+        - "Read-only scanning tools (nmap in default mode) do not modify configurations. Active exploitation tools might, but standard topology discovery is passive observation."
+    difficulty: "easy"
+    tags: ["network-security", "reconnaissance", "scanning", "security"]
+
+  - id: q-d4-063
+    domain: domain4
+    question: "What is the security difference between 'content filtering' and 'URL filtering' in web security gateways?"
+    options:
+      - "Content filtering applies to email; URL filtering applies to web browsing — they serve different protocols"
+      - "URL filtering blocks access to websites based on domain/URL reputation or category; content filtering inspects the actual content of web pages for malicious code or policy violations"
+      - "URL filtering is performed at the DNS level; content filtering requires a proxy server"
+      - "They are synonymous terms used interchangeably in web security gateway products"
+    correct_answer: 1
+    explanations:
+      correct: "URL filtering makes allow/block decisions based on the URL or domain — blocking known-malicious sites, inappropriate categories (gambling, adult), or non-business URLs using reputation databases. Content filtering inspects the actual content delivered — scanning downloaded files for malware, detecting malicious JavaScript, or enforcing data loss prevention policies on content. Both are complementary web security controls."
+      incorrect:
+        - "Both URL and content filtering apply to web traffic (HTTP/HTTPS). Content filtering also applies to email, but the primary distinction in web security gateways is URL vs. content inspection, not protocol."
+        - "URL filtering blocks based on URL/domain reputation and categories; content filtering inspects actual web page and download content — this correctly distinguishes the two mechanisms."
+        - "URL filtering can be implemented at DNS (DNS sinkhole) or proxy layer. Content filtering requires a proxy to inspect traffic. The distinction is the inspection level (URL vs. content), not only the implementation point."
+        - "They serve different but complementary functions and are not synonymous. URL filtering is preventive based on reputation; content filtering is inspection-based for malicious content."
+    difficulty: "medium"
+    tags: ["network-security", "web-filtering", "proxy", "content"]
+
+  - id: q-d4-064
+    domain: domain4
+    question: "Which network attack exploits trust relationships between hosts by spoofing the IP address of a trusted host?"
+    options:
+      - "ARP poisoning — injecting false MAC-to-IP mappings"
+      - "IP spoofing — sending packets with a forged source IP address to bypass source-based access controls"
+      - "DNS spoofing — returning fraudulent DNS responses to redirect traffic"
+      - "ICMP redirect — injecting false routing information via ICMP messages"
+    correct_answer: 1
+    explanations:
+      correct: "IP spoofing involves sending packets with a forged source IP address. Attackers use this to: bypass IP-based access controls (firewalls that allow traffic from trusted IP ranges), launch reflection/amplification DDoS attacks, and conduct blind attacks in trust relationships (e.g., exploiting rsh/rlogin trust based on source IP). Defenses include ingress filtering (BCP38), which prevents packets with obviously spoofed source IPs from leaving a network."
+      incorrect:
+        - "ARP poisoning corrupts ARP tables to map IP addresses to attacker-controlled MAC addresses — a Layer 2 attack. IP spoofing operates at Layer 3 and involves forging source IP in packet headers."
+        - "IP spoofing forges the source IP address to exploit IP-based access controls and trust relationships — this is the correct definition."
+        - "DNS spoofing involves returning fraudulent DNS responses to redirect name resolution. It is a different attack vector than IP spoofing, though both can enable MITM attacks."
+        - "ICMP redirect attacks inject routing information to redirect traffic through an attacker-controlled path. This is a different network attack from source IP spoofing."
+    difficulty: "medium"
+    tags: ["network-security", "IP-spoofing", "attacks", "trust"]
+
+  - id: q-d4-065
+    domain: domain4
+    question: "What is 'network traffic baseline' and why is it essential for effective intrusion detection?"
+    options:
+      - "A baseline configuration of all network devices that ensures consistent security settings"
+      - "A documented profile of normal network behavior patterns used to identify anomalous activity that may indicate an attack"
+      - "The minimum bandwidth threshold required to maintain acceptable network performance"
+      - "A standard set of firewall rules applied to all new network deployments"
+    correct_answer: 1
+    explanations:
+      correct: "A network traffic baseline documents normal traffic patterns — typical bandwidth utilization, protocols in use, connection patterns, peak and off-peak volumes, and expected communication flows. Anomaly-based intrusion detection compares current traffic to this baseline to identify deviations that may indicate attacks, data exfiltration, or compromised systems. Without a baseline, anomaly detection systems generate excessive false positives or miss subtle deviations."
+      incorrect:
+        - "Device configuration baselines address security settings on individual devices. Network traffic baseline is about normal traffic behavior patterns, not configuration."
+        - "A network traffic baseline documents normal behavior patterns for anomaly detection — identifying deviations that may indicate attacks or breaches."
+        - "Bandwidth thresholds for performance management are QoS/capacity planning concerns. Traffic baselines for security capture patterns of behavior, not just bandwidth minimums."
+        - "Standard firewall rule sets are security configuration templates. Traffic baselines are behavioral profiles used for anomaly detection, not configuration standards."
+    difficulty: "medium"
+    tags: ["network-security", "IDS", "anomaly-detection", "baseline"]
+
+  - id: q-d4-066
+    domain: domain4
+    question: "What is the primary security purpose of 'network access control' (NAC) pre-admission posture assessment?"
+    options:
+      - "To authenticate users before they can access the network using multi-factor authentication"
+      - "To verify that connecting devices meet security policy requirements (patch level, AV, configuration) before granting network access"
+      - "To encrypt network traffic between endpoints before they are admitted to the network"
+      - "To identify the physical location of connecting devices for audit purposes"
+    correct_answer: 1
+    explanations:
+      correct: "NAC pre-admission posture assessment evaluates whether a connecting device meets security policy requirements before allowing it onto the network. Checks include: OS patch level, endpoint security software (AV/EDR) installed and up-to-date, approved security configuration, and certificate validity. Non-compliant devices are quarantined or given limited remediation network access. This prevents vulnerable or unmanaged devices from introducing threats to the network."
+      incorrect:
+        - "User authentication is a component of NAC but is handled by authentication systems (802.1X, RADIUS, LDAP). Pre-admission posture specifically refers to device health and compliance checking, not just user authentication."
+        - "NAC pre-admission posture assessment verifies connecting devices meet security requirements (patches, AV, configuration) before network access — this is the primary purpose."
+        - "Network encryption is handled by protocols (TLS, VPN) between endpoints. NAC posture assessment controls which devices are allowed onto the network, not encryption."
+        - "Device location identification (geolocation, physical port location) may be captured by NAC for audit but is not the primary purpose of posture assessment. The primary purpose is compliance checking."
+    difficulty: "easy"
+    tags: ["network-security", "NAC", "posture", "access-control"]
+
+  - id: q-d4-067
+    domain: domain4
+    question: "Which OSI model layer does Ethernet (IEEE 802.3) primarily operate at, and what security functions operate at this layer?"
+    options:
+      - "Layer 1 (Physical) — Ethernet handles signal transmission and cable specifications"
+      - "Layer 2 (Data Link) — Ethernet handles MAC addressing, frame delivery, and Layer 2 security functions like port security and 802.1X"
+      - "Layer 3 (Network) — Ethernet handles IP routing and Layer 3 packet filtering"
+      - "Layer 4 (Transport) — Ethernet handles connection reliability and flow control"
+    correct_answer: 1
+    explanations:
+      correct: "Ethernet (IEEE 802.3) operates at Layer 2 (Data Link) of the OSI model, using MAC addresses for frame delivery within a local network. Layer 2 security functions include: port security (limiting MAC addresses per port), 802.1X (port-based authentication), VLAN segmentation, Dynamic ARP Inspection (DAI), DHCP snooping, and storm control. Layer 2 attacks include MAC flooding, ARP poisoning, and VLAN hopping."
+      incorrect:
+        - "Layer 1 handles physical signal transmission (voltage levels, cable types, connectors). Ethernet's Layer 1 component (cabling, signaling) exists, but Ethernet as a protocol primarily operates at Layer 2 for addressing and frame delivery."
+        - "Ethernet operates at Layer 2 (Data Link), using MAC addressing and providing Layer 2 security functions like port security and 802.1X — this is correct."
+        - "IP routing is a Layer 3 function. Ethernet operates at Layer 2 using MAC addresses. IP addresses (Layer 3) are carried within Ethernet frames (Layer 2) but Ethernet itself is Layer 2."
+        - "TCP/UDP (Transport Layer) handles connection reliability and flow control. Ethernet provides Layer 2 local delivery using MAC addresses."
+    difficulty: "easy"
+    tags: ["network-security", "OSI", "Ethernet", "Layer2"]
+
+  - id: q-d4-068
+    domain: domain4
+    question: "What is 'MPLS VPN' and what security property does it provide that traditional internet-based VPNs do not?"
+    options:
+      - "MPLS VPNs provide stronger encryption than IPsec VPNs, using proprietary algorithms"
+      - "MPLS VPNs use label-switched paths to logically separate customer traffic within a provider network — providing traffic isolation without necessarily encrypting data"
+      - "MPLS VPNs eliminate the need for authentication between sites connected to the service"
+      - "MPLS VPNs are faster than internet VPNs because they bypass standard IP routing"
+    correct_answer: 1
+    explanations:
+      correct: "MPLS VPNs use label-switched paths to route customer traffic through a service provider's network with logical separation between different customers' traffic. Traffic isolation is achieved through the label forwarding mechanism — different customers' packets follow different label paths and never mix. However, MPLS VPNs do not provide end-to-end encryption by default; the security comes from logical separation (trusted provider environment), not cryptographic protection. For sensitive data, encryption (IPsec) should be layered over MPLS."
+      incorrect:
+        - "MPLS VPNs do not use proprietary encryption and are not inherently stronger than IPsec. MPLS provides logical separation; encryption is a separate layer that can be added on top."
+        - "MPLS VPNs use label-switched paths to logically separate customer traffic within a provider's network — providing isolation without necessarily encrypting data — this correctly describes the MPLS VPN security property."
+        - "MPLS VPNs still require customer edge (CE) and provider edge (PE) router authentication for the VPN provisioning. Authentication requirements are not eliminated."
+        - "MPLS provides quality of service guarantees and efficient forwarding but operates within the same provider network — performance advantages are QoS-related, not from bypassing IP routing."
+    difficulty: "hard"
+    tags: ["network-security", "VPN", "MPLS", "WAN"]
+
+  - id: q-d4-069
+    domain: domain4
+    question: "What is 'network address translation' (NAT) and what limited security benefit does it provide?"
+    options:
+      - "NAT provides strong security by encrypting all traffic between internal and external networks"
+      - "NAT translates private internal IP addresses to public addresses, providing limited security by obscuring internal network structure from external observers"
+      - "NAT provides strong authentication of outbound connections preventing unauthorized traffic leaving the network"
+      - "NAT replaces the need for firewalls by blocking all unsolicited inbound connections by design"
+    correct_answer: 1
+    explanations:
+      correct: "NAT translates private RFC 1918 IP addresses (10.x.x.x, 192.168.x.x, 172.16-31.x.x) to public IP addresses, conserving public IP space. Its limited security benefit: it obscures the internal network structure from external observers (they see only the public NAT IP, not internal hosts). However, NAT is NOT a security control — it does not prevent attacks, does not authenticate traffic, does not encrypt, and should not be relied upon as a security mechanism. A firewall is required in addition to NAT."
+      incorrect:
+        - "NAT does not encrypt traffic. The confusion arises because NAT modifies packet headers (IP addresses/port numbers) but this is not encryption. Encryption is a separate security mechanism."
+        - "NAT translates private IPs to public addresses, providing limited security through internal network obscurity — but is not a security control and does not replace firewalls."
+        - "NAT does not authenticate outbound connections. Traffic leaving the network through NAT is forwarded based on routing and NAT translation tables, not authentication."
+        - "While NAPT (PAT) blocks unsolicited inbound connections by default (no NAT table entry means no path back in), this is a side effect of stateful translation, not a designed security feature. A proper stateful firewall provides this function more reliably and configurably."
+    difficulty: "medium"
+    tags: ["network-security", "NAT", "architecture", "firewalls"]
+
+  - id: q-d4-070
+    domain: domain4
+    question: "What is the 'Internet of Things' (IoT) security challenge, and which specific risk is MOST commonly exploited by attackers?"
+    options:
+      - "IoT devices consume excessive bandwidth, creating availability problems for enterprise networks"
+      - "Default or hardcoded credentials and lack of patching capability make IoT devices easy entry points for attackers"
+      - "IoT devices are too new for malware to have been developed targeting them"
+      - "IoT security is managed entirely by device manufacturers, removing enterprise responsibility"
+    correct_answer: 1
+    explanations:
+      correct: "IoT devices present significant security challenges because they commonly ship with default or hardcoded credentials (admin/admin, vendor-specific defaults), have limited or no patch mechanisms, run outdated embedded operating systems, and cannot support endpoint security agents. Botnets like Mirai demonstrated large-scale exploitation of IoT default credentials. Additionally, IoT devices often lack encryption, logging, and security monitoring capabilities."
+      incorrect:
+        - "While some IoT devices (cameras, NAS devices) consume significant bandwidth, bandwidth consumption is an operational concern. The primary security concern is the attack surface they create as entry points."
+        - "Default/hardcoded credentials and lack of patching make IoT devices easy attack targets — this is the most commonly exploited IoT security risk."
+        - "Malware targeting IoT (Mirai, BrickerBot, and derivatives) has existed since at least 2016 and has been responsible for some of the largest DDoS attacks ever recorded."
+        - "Enterprise organizations have responsibility for managing the security of IoT devices on their networks, including network segmentation, credential management, and traffic monitoring, regardless of manufacturer obligations."
+    difficulty: "medium"
+    tags: ["network-security", "IoT", "vulnerabilities", "attacks"]
+
+  - id: q-d4-071
+    domain: domain4
+    question: "What is 'protocol tunneling' as an attack technique, and why is it difficult to detect?"
+    options:
+      - "Attackers use protocol tunneling to make encrypted traffic appear as legitimate unencrypted traffic"
+      - "Attackers encode malicious data or C2 communications inside permitted protocols (like DNS or HTTPS) to bypass network controls that block specific ports or protocols"
+      - "Protocol tunneling allows attackers to replay captured network sessions without decryption"
+      - "Attackers use tunneling to reduce the size of malware payloads for faster transmission"
+    correct_answer: 1
+    explanations:
+      correct: "Protocol tunneling encodes data or C2 (command-and-control) communications inside permitted protocols. DNS tunneling encodes data in DNS query names/responses (DNS is typically allowed outbound). HTTP/HTTPS tunneling uses web protocols to carry non-web traffic through firewalls. Since firewalls typically allow these protocols, the malicious traffic appears legitimate. Detection requires DPI and behavioral analysis (unusual DNS query patterns, excessive DNS query volume, unexpected HTTP traffic patterns)."
+      incorrect:
+        - "Making encrypted traffic appear unencrypted would be unusual — attackers generally want their traffic to blend in with legitimate encrypted traffic. Tunneling is about using allowed protocols to carry unauthorized content."
+        - "Protocol tunneling encodes malicious data inside permitted protocols (DNS, HTTPS) to bypass network controls — difficult to detect because the carrier protocol is legitimate."
+        - "Session replay is a different attack (retransmitting captured authentication tokens). Tunneling is about carrier protocol obfuscation for bypass and covert communication."
+        - "Payload compression is an optimization technique. Protocol tunneling focuses on bypassing network controls by using allowed protocols, not on reducing payload size."
+    difficulty: "medium"
+    tags: ["network-security", "tunneling", "C2", "evasion"]
+
+  - id: q-d4-072
+    domain: domain4
+    question: "What is 'DHCP snooping' and which attack does it prevent?"
+    options:
+      - "DHCP snooping monitors DHCP traffic for unusual patterns to detect network reconnaissance"
+      - "DHCP snooping creates a binding table of legitimate IP-to-MAC-to-port assignments and blocks rogue DHCP servers from providing malicious IP configuration to clients"
+      - "DHCP snooping encrypts DHCP traffic to prevent eavesdropping on IP assignment conversations"
+      - "DHCP snooping rate-limits DHCP requests to prevent DHCP starvation attacks"
+    correct_answer: 1
+    explanations:
+      correct: "DHCP snooping is a Layer 2 switch security feature that designates ports as 'trusted' (connected to legitimate DHCP servers) or 'untrusted' (client ports). It blocks DHCP server responses from untrusted ports, preventing rogue DHCP servers. It also builds a DHCP binding table (MAC-to-IP-to-port mapping) that is used by Dynamic ARP Inspection (DAI) to validate ARP traffic. Primary prevention: rogue DHCP server attacks where an attacker provides malicious default gateway or DNS server to clients."
+      incorrect:
+        - "DHCP traffic monitoring for reconnaissance describes general network monitoring/IDS. DHCP snooping is a specific switch-level control blocking rogue DHCP servers, not general pattern analysis."
+        - "DHCP snooping blocks rogue DHCP servers by building a binding table and restricting DHCP responses to trusted ports — this is the correct function and the attack it prevents."
+        - "DHCP is typically cleartext. DHCP snooping does not encrypt DHCP traffic — it controls which DHCP responses are forwarded based on trusted/untrusted port designations."
+        - "DHCP starvation (MAC flooding DHCP requests to exhaust the IP pool) is a related DoS attack. DHCP snooping can limit rate of requests per port, but its primary purpose is blocking rogue DHCP servers, not rate limiting."
+    difficulty: "medium"
+    tags: ["network-security", "DHCP", "Layer2", "rogue-DHCP"]
+
+  - id: q-d4-073
+    domain: domain4
+    question: "What is 'carrier sense multiple access with collision detection' (CSMA/CD) and why is it irrelevant in modern switched Ethernet networks?"
+    options:
+      - "CSMA/CD remains critical in modern networks for preventing network loops"
+      - "CSMA/CD was needed in shared-medium hub networks to manage collisions; switched Ethernet creates dedicated full-duplex links where collisions cannot occur"
+      - "CSMA/CD is used in modern Wi-Fi networks (802.11) to manage channel access"
+      - "CSMA/CD was replaced by token ring protocols in enterprise networks"
+    correct_answer: 1
+    explanations:
+      correct: "CSMA/CD was the contention management protocol for shared bus/hub Ethernet where all hosts shared the same collision domain. When two hosts transmitted simultaneously, a collision occurred; CSMA/CD detected it and initiated backoff/retransmission. Modern switched Ethernet creates dedicated point-to-point full-duplex connections between each host and the switch — collisions are physically impossible. Switches eliminate collision domains, making CSMA/CD irrelevant for switched wired Ethernet."
+      incorrect:
+        - "Network loops are prevented by Spanning Tree Protocol (STP), not CSMA/CD. Loop prevention is a Layer 2 topology control, unrelated to CSMA/CD collision management."
+        - "CSMA/CD was for shared-medium hub networks; switched Ethernet's dedicated full-duplex links eliminate collisions entirely, making CSMA/CD irrelevant — this is the correct explanation."
+        - "Wi-Fi uses CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance) — the 'A' is Avoidance, not Detection. Wireless cannot detect collisions (they happen at the destination), so it uses avoidance techniques instead."
+        - "Token Ring used a token-passing protocol for access control — a completely different LAN technology that competed with Ethernet historically. CSMA/CD was not 'replaced' by Token Ring."
+    difficulty: "medium"
+    tags: ["network-security", "Ethernet", "Layer2", "protocols"]
+
+  - id: q-d4-074
+    domain: domain4
+    question: "A network engineer wants to implement 'port mirroring' on a core switch. What is the primary security use case for port mirroring?"
+    options:
+      - "Doubling network ports' bandwidth by mirroring traffic across two physical connections"
+      - "Sending copies of traffic from monitored ports/VLANs to an IDS/IPS or network analysis tool without interrupting traffic flow"
+      - "Creating redundant network paths to maintain connectivity if a primary port fails"
+      - "Enforcing network access control by copying traffic to a NAC quarantine VLAN"
+    correct_answer: 1
+    explanations:
+      correct: "Port mirroring (also called SPAN — Switch Port Analyzer) copies network traffic from specified source ports or VLANs to a destination port connected to a monitoring tool (IDS, IPS, network performance monitor, packet capture). This enables passive, non-intrusive traffic analysis without being in the network path. Security teams use port mirroring to feed IDS/IPS systems and forensic capture tools without impacting production traffic."
+      incorrect:
+        - "Port mirroring creates a copy of traffic for monitoring — it does not increase the bandwidth of the mirrored ports. Link aggregation (LACP) is the technique for combining bandwidth."
+        - "Port mirroring sends traffic copies to monitoring tools (IDS/IPS, packet capture) without interrupting production traffic flow — this is the primary security use case."
+        - "Redundant network paths are created by STP, LACP, or ECMP routing — not port mirroring. Mirroring copies traffic; it does not create redundant paths."
+        - "NAC quarantine uses VLAN assignment to restrict non-compliant devices. Port mirroring is for passive traffic analysis and monitoring, not access enforcement."
+    difficulty: "medium"
+    tags: ["network-security", "monitoring", "IDS", "SPAN"]
+
+  - id: q-d4-075
+    domain: domain4
+    question: "What is the purpose of 'ingress filtering' (BCP38) at internet service provider networks?"
+    options:
+      - "Filtering malicious content from inbound web traffic at the ISP level"
+      - "Dropping packets that have source IP addresses that are clearly spoofed or do not match the IP range allocated to the customer"
+      - "Inspecting all inbound traffic from the internet for known malware signatures"
+      - "Rate-limiting inbound traffic from specific countries to prevent DDoS attacks"
+    correct_answer: 1
+    explanations:
+      correct: "BCP38 (Best Current Practice 38, RFC 2827) specifies ingress filtering — ISPs should drop packets from their customers whose source IP addresses fall outside the IP ranges allocated to that customer. This prevents customers from sending packets with spoofed source IPs (used in reflection/amplification DDoS and IP spoofing attacks). Wide BCP38 deployment would significantly reduce the effectiveness of spoofing-based attacks."
+      incorrect:
+        - "Content filtering (blocking malicious web content) is a different control from ingress filtering. BCP38 is specifically about source IP address validation, not content inspection."
+        - "BCP38 ingress filtering drops packets with source IPs not belonging to the customer's allocated IP range — preventing IP address spoofing attacks."
+        - "Malware signature inspection is performed by DPI or security gateways. BCP38 ingress filtering is specifically about source IP address validity, not content inspection."
+        - "Geographic rate-limiting is a DDoS mitigation technique. BCP38 is specifically about validating source IP addresses match the customer's allocated IP range — not geographic restrictions."
+    difficulty: "hard"
+    tags: ["network-security", "BCP38", "ingress-filtering", "spoofing"]
+
+  - id: q-d4-076
+    domain: domain4
+    question: "What is the primary difference between 'active' and 'passive' network reconnaissance?"
+    options:
+      - "Active reconnaissance uses automated tools; passive reconnaissance is performed manually"
+      - "Active reconnaissance involves direct interaction with target systems (scanning, probing); passive reconnaissance gathers information without touching target systems"
+      - "Active reconnaissance is authorized; passive reconnaissance is unauthorized by definition"
+      - "Active reconnaissance targets network devices; passive reconnaissance targets endpoints"
+    correct_answer: 1
+    explanations:
+      correct: "Active reconnaissance involves directly probing or scanning target systems — activities like port scanning (nmap), ping sweeps, vulnerability scanning, and banner grabbing generate traffic that reaches the target and may be detected and logged. Passive reconnaissance gathers information without directly interacting with the target — using OSINT (public DNS records, WHOIS, social media, job postings, shodan.io, certificate transparency logs). Passive recon is harder to detect."
+      incorrect:
+        - "Both active and passive reconnaissance can use automated tools. The distinction is whether the technique generates traffic that reaches and interacts with the target system."
+        - "Active reconnaissance directly probes target systems; passive reconnaissance gathers information without touching the target — this is the correct distinction."
+        - "Both can be authorized (penetration testing) or unauthorized (attack reconnaissance). The distinction is the interaction method, not authorization status."
+        - "Both types of reconnaissance can target any system type. The distinction is interaction (active touches the target; passive does not)."
+    difficulty: "easy"
+    tags: ["network-security", "reconnaissance", "penetration-testing"]
+
+  - id: q-d4-077
+    domain: domain4
+    question: "What is 'link-layer security' (MACsec, IEEE 802.1AE) and when is it preferred over transport-layer encryption?"
+    options:
+      - "MACsec encrypts only IP traffic; preferred when UDP performance is critical"
+      - "MACsec encrypts all traffic on a network link at Layer 2, including non-IP protocols, protecting against physical layer tapping between switches"
+      - "MACsec is a wireless security protocol that replaces WPA3 in enterprise environments"
+      - "MACsec provides application-layer encryption preferred when end-to-end security is required"
+    correct_answer: 1
+    explanations:
+      correct: "MACsec (IEEE 802.1AE) provides hop-by-hop encryption at Layer 2 (Ethernet frame level), protecting all traffic on a physical link segment between devices. Unlike TLS (which protects specific application sessions), MACsec encrypts everything on the link — including non-IP protocols, Layer 2 control traffic, and protocols that don't natively support encryption. It is preferred when protecting physical links between data center switches where traffic might be intercepted by physical layer tapping."
+      incorrect:
+        - "MACsec encrypts all Layer 2 traffic including non-IP protocols — not just IP traffic. It operates at the Ethernet frame level, before IP layer processing."
+        - "MACsec encrypts all Layer 2 traffic on a network link, including non-IP protocols, protecting against physical tapping between network devices — this correctly describes MACsec's function and use case."
+        - "MACsec (802.1AE) is a wired Ethernet security standard. WPA3 is wireless security (802.11). They are separate standards for different link types."
+        - "MACsec is Layer 2 (hop-by-hop between directly connected devices). End-to-end application security is provided by TLS/application encryption. MACsec protects the physical link, not the end-to-end application session."
+    difficulty: "hard"
+    tags: ["network-security", "MACsec", "Layer2", "encryption"]
+
+  - id: q-d4-078
+    domain: domain4
+    question: "What is an 'amplification DDoS attack' and which protocol is most commonly exploited for amplification?"
+    options:
+      - "An amplification attack multiplies the attacker's bandwidth by adding more attack sources; primarily uses TCP"
+      - "An amplification attack sends small requests to servers that respond with much larger responses, directing those responses at a victim with a spoofed source IP; UDP-based protocols like DNS, NTP, and SSDP are most commonly exploited"
+      - "An amplification attack increases the impact of malware by installing multiple copies; targets endpoint security software"
+      - "An amplification attack uses reflected traffic to confuse intrusion detection systems"
+    correct_answer: 1
+    explanations:
+      correct: "An amplification (reflection/amplification) DDoS attack exploits UDP-based protocols with a high response-to-request size ratio. The attacker sends small requests to open resolvers/servers with the victim's IP as the spoofed source address. The servers send much larger responses to the victim, amplifying traffic. DNS amplification (50x), NTP monlist amplification (700x+), and SSDP amplification (30x) are common examples. TCP is less useful because the SYN-ACK handshake prevents source spoofing for establishing connections."
+      incorrect:
+        - "Adding attack sources describes a botnet-based volumetric DDoS — not amplification. Amplification uses reflection from legitimate servers to multiply traffic without needing more attack sources."
+        - "Amplification attacks exploit UDP servers that produce large responses to small requests, directing amplified traffic at a victim using source IP spoofing — DNS, NTP, and SSDP are most commonly exploited."
+        - "Malware amplification is not a recognized network attack term. DDoS amplification is specifically about exploiting UDP protocol response ratios."
+        - "Confusing IDS systems describes evasion techniques. Amplification attacks focus on overwhelming the victim's bandwidth with high-volume reflected traffic, not IDS evasion."
+    difficulty: "medium"
+    tags: ["network-security", "DDoS", "amplification", "UDP"]
+
+  - id: q-d4-079
+    domain: domain4
+    question: "What is 'network segmentation' and what specific security benefit does it provide during an incident?"
+    options:
+      - "Network segmentation improves network performance by separating broadcast traffic"
+      - "Network segmentation limits the blast radius of a compromise by containing lateral movement — an attacker who breaches one segment cannot freely traverse to other segments"
+      - "Network segmentation provides redundant network paths to improve availability"
+      - "Network segmentation enables more granular user authentication at different network zones"
+    correct_answer: 1
+    explanations:
+      correct: "Network segmentation divides the network into separate zones (using VLANs, subnets, firewalls) with controlled access between them. During an incident, segmentation limits lateral movement — an attacker who compromises a workstation in the employee segment cannot directly reach PCI cardholder data systems in the payment segment or critical infrastructure in the OT segment. This containment limits the blast radius and reduces the scope and cost of incident response."
+      incorrect:
+        - "Reducing broadcast traffic is a performance benefit of network segmentation (VLANs). The security benefit — particularly during incidents — is lateral movement containment, not performance."
+        - "Network segmentation limits lateral movement blast radius during incidents — an attacker in one segment cannot freely traverse to other segments."
+        - "Redundant network paths are provided by routing protocols, STP, LACP, and dual-homed connections. Segmentation addresses security zones, not path redundancy."
+        - "Authentication at network boundaries is a control that can be applied to segmented networks (802.1X, firewall authentication). Segmentation itself is the network division; authentication is a control applied within that architecture."
+    difficulty: "medium"
+    tags: ["network-security", "segmentation", "incident-response", "containment"]
+
+  - id: q-d4-080
+    domain: domain4
+    question: "Which of the following BEST describes a 'cloud access security broker' (CASB)'s 'reverse proxy' deployment mode?"
+    options:
+      - "The CASB sits between the internet and the organization's cloud services, inspecting all traffic"
+      - "The CASB sits between users and cloud services, inspecting and controlling traffic for managed devices without requiring endpoint agents"
+      - "The CASB redirects cloud service traffic through an on-premises security gateway for inspection"
+      - "The CASB uses API integration with cloud providers to audit and enforce policies without sitting in the traffic path"
+    correct_answer: 1
+    explanations:
+      correct: "In reverse proxy mode, the CASB sits between users and the cloud service (traffic flows through the CASB). Users' cloud service traffic is routed through the CASB for inspection, DLP, and policy enforcement. This deployment works for managed and unmanaged devices without requiring endpoint software. The CASB typically works by redirecting cloud service URLs through its infrastructure."
+      incorrect:
+        - "The described scenario would be a forward proxy or gateway deployment. Reverse proxy specifically positions the CASB between users and cloud services, inspecting outbound access."
+        - "Reverse proxy mode positions the CASB between users and cloud services, inspecting and controlling traffic for managed devices — without requiring endpoint agents in this deployment mode."
+        - "Redirecting through on-premises gateways describes a forward proxy or PAC file deployment approach. Reverse proxy mode positions the CASB inline in the cloud service traffic path."
+        - "API integration mode (not reverse proxy) uses cloud provider APIs to audit logs and enforce policies without sitting in the traffic path. Reverse proxy is specifically an inline traffic inspection mode."
+    difficulty: "hard"
+    tags: ["network-security", "CASB", "cloud", "proxy"]
+
+  - id: q-d4-081
+    domain: domain4
+    question: "What is 'implicit deny' as a firewall rule design principle?"
+    options:
+      - "Specific traffic types are implicitly permitted without requiring explicit allow rules"
+      - "At the end of every firewall rule set, a default deny rule blocks all traffic not explicitly permitted by earlier rules"
+      - "Implicit deny allows all outbound traffic while blocking inbound traffic by default"
+      - "Firewall rules must explicitly deny each blocked traffic type — implicit denial is insufficient"
+    correct_answer: 1
+    explanations:
+      correct: "Implicit deny (deny-all-unless-explicitly-permitted or 'default deny') is the most fundamental firewall design principle: at the end of the rule set, a catch-all rule denies all traffic not explicitly permitted. This ensures that new protocols, ports, or traffic types are blocked by default — they only become accessible when explicitly authorized. Security fails open if only explicit deny rules exist (anything not specifically blocked is permitted)."
+      incorrect:
+        - "Implicit permit (allow all by default unless explicitly blocked) is the opposite and insecure approach. Implicit deny is the security-default: block all unless explicitly allowed."
+        - "Implicit deny means the final rule blocks all traffic not explicitly permitted — new traffic types are denied by default until explicitly allowed."
+        - "Blocking only inbound traffic while allowing all outbound is an overly permissive firewall design. Implicit deny applies to both directions — outbound rules should also be explicit."
+        - "Implicit deny is more secure than explicit blocking because it handles unknown/new traffic types. Explicit deny lists (blacklisting) miss any traffic type not specifically named."
+    difficulty: "easy"
+    tags: ["network-security", "firewalls", "principles", "access-control"]
+
+  - id: q-d4-082
+    domain: domain4
+    question: "What is the security risk of using 'HTTP' instead of 'HTTPS' for internal web applications?"
+    options:
+      - "HTTP is not supported by modern browsers, causing compatibility issues for users"
+      - "HTTP transmits all data in clear text, enabling eavesdropping and MITM attacks by anyone on the same network path"
+      - "HTTP cannot support authenticated sessions, making internal applications less functional"
+      - "HTTP is blocked by most enterprise firewalls, preventing internal application access"
+    correct_answer: 1
+    explanations:
+      correct: "HTTP transmits all data, including usernames, passwords, session cookies, and sensitive application data, in plaintext. Anyone on the same network segment (or with access to network infrastructure along the path) can capture and read this traffic using simple packet capture tools. Internal networks are not inherently trusted — insider threats, compromised workstations, and rogue devices can all perform passive eavesdropping. HTTPS with TLS should be used for all web applications, including internal ones."
+      incorrect:
+        - "Modern browsers support HTTP and HTTPS. Browsers increasingly warn about HTTP sites and may block some capabilities (geolocation, camera access require HTTPS), but HTTP itself is not technically blocked."
+        - "HTTP transmits all data in cleartext, enabling eavesdropping and MITM attacks by anyone on the same network path — this is the primary security risk."
+        - "HTTP can support authenticated sessions (via cookies or headers) — the risk is that those session tokens are transmitted in clear text and can be stolen. HTTP does not technically prevent sessions."
+        - "Enterprise firewalls typically allow HTTP (port 80) as well as HTTPS (port 443). HTTP is not blocked by default in most internal networks."
+    difficulty: "easy"
+    tags: ["network-security", "HTTPS", "encryption", "web"]
+
+  - id: q-d4-083
+    domain: domain4
+    question: "What is 'DNS poisoning' (DNS cache poisoning) and which DNSSEC mechanism is designed to prevent it?"
+    options:
+      - "DNS poisoning floods DNS servers with requests to exhaust resources; DNSSEC rate limiting prevents it"
+      - "DNS poisoning injects fraudulent records into DNS resolver caches redirecting users to malicious sites; DNSSEC's digital signatures on DNS records allow resolvers to verify record authenticity"
+      - "DNS poisoning modifies DNS zone files on authoritative servers; DNSSEC encrypts zone transfers"
+      - "DNS poisoning intercepts DNS queries and replaces responses with malicious IPs; prevented by DNS over TLS"
+    correct_answer: 1
+    explanations:
+      correct: "DNS cache poisoning (Kaminsky attack) injects fraudulent DNS records into recursive resolver caches. Users querying the poisoned resolver receive false IP addresses and are redirected to attacker-controlled sites. DNSSEC (DNS Security Extensions) adds digital signatures to DNS records — resolvers can cryptographically verify that records came from the authorized zone and were not tampered with, detecting poisoned records."
+      incorrect:
+        - "Resource exhaustion from DNS flooding is a DoS attack, not DNS poisoning. DNSSEC addresses record authenticity, not DoS attacks."
+        - "DNS poisoning injects fraudulent records into resolver caches; DNSSEC's digital signatures allow resolvers to verify record authenticity and detect tampered records — this is correct."
+        - "DNS zone file modification on authoritative servers is a server compromise — a different attack requiring compromise of the authoritative server infrastructure. DNSSEC zone transfers can be secured with TSIG, but that's different from DNSSEC record signing."
+        - "DNS over TLS/HTTPS (DoT/DoH) encrypts the transport, preventing eavesdropping on queries. They do not address cache poisoning (fraudulent records). DNSSEC addresses record authenticity at the protocol level."
+    difficulty: "medium"
+    tags: ["network-security", "DNS", "DNSSEC", "attacks"]
+
+  - id: q-d4-084
+    domain: domain4
+    question: "What is a 'network proxy' server and what primary security function does it provide?"
+    options:
+      - "A proxy server provides load balancing across multiple servers to prevent performance bottlenecks"
+      - "A proxy server acts as an intermediary for client requests, providing content filtering, access control, caching, and the ability to inspect and log traffic"
+      - "A proxy server encrypts all client communications using TLS, replacing the need for VPNs"
+      - "A proxy server provides DNS resolution services with enhanced security features"
+    correct_answer: 1
+    explanations:
+      correct: "A forward proxy server sits between internal clients and external services. Security functions include: URL and content filtering (blocking malicious or non-business sites), access control (restricting which sites/protocols users can access), SSL/TLS inspection (decrypting HTTPS for content inspection), traffic logging (audit trail of web activity), and caching (reducing bandwidth). It provides a centralized control point for outbound web traffic."
+      incorrect:
+        - "Load balancing is provided by reverse proxies and load balancers for distributing traffic across servers — not a primary security function of forward proxies."
+        - "A proxy server provides content filtering, access control, traffic inspection, and logging — acting as an intermediary for client requests — this is the primary security function."
+        - "VPNs provide remote access over encrypted tunnels. Proxies may use TLS for specific connections but are not tunnel-based encrypted access solutions equivalent to VPNs."
+        - "DNS resolution with enhanced security features describes DNS servers with DNSSEC, DoH, or security filtering. A proxy server operates at the HTTP/HTTPS application layer."
+    difficulty: "easy"
+    tags: ["network-security", "proxy", "web-filtering", "access-control"]
+
+  - id: q-d4-085
+    domain: domain4
+    question: "What is 'convergence time' in the context of routing protocols and why does it have security implications?"
+    options:
+      - "The time it takes to establish an encrypted tunnel between network devices"
+      - "The time routing protocols take to propagate and agree on updated network topology after a change; during convergence, traffic may be dropped or misrouted, potentially being exploited for DoS"
+      - "The time required for firewall rule updates to propagate to all network enforcement points"
+      - "The delay between when a security event occurs and when monitoring tools detect it"
+    correct_answer: 1
+    explanations:
+      correct: "Routing protocol convergence is the process where all routers in a network learn about a topology change (link failure, new route, BGP withdrawal) and update their routing tables to reflect the current state. During convergence, traffic may be dropped (black-holed), incorrectly routed, or delayed. Attackers can exploit slow convergence by triggering route flapping to cause extended outages or by manipulating convergence to create routing black holes."
+      incorrect:
+        - "Encrypted tunnel establishment (IKE in IPsec) is a separate concept from routing convergence. Convergence is specifically about routing protocol state synchronization."
+        - "Convergence time is the time for routing protocols to agree on updated topology; during convergence, traffic may be dropped or misrouted — exploitable for DoS attacks."
+        - "Firewall rule propagation time is a security policy implementation delay — a different operational concept from routing protocol convergence."
+        - "Detection latency (mean time to detect) is a security monitoring metric. Convergence time is specifically about routing protocol synchronization after topology changes."
+    difficulty: "hard"
+    tags: ["network-security", "routing", "availability", "protocols"]
+
+  - id: q-d4-086
+    domain: domain4
+    question: "What is the primary security advantage of 'SSL/TLS inspection' (HTTPS inspection) in enterprise security gateways, and what privacy concern does it raise?"
+    options:
+      - "TLS inspection improves connection speed; privacy concern is increased server load"
+      - "TLS inspection decrypts HTTPS traffic for content inspection (malware, DLP), but requires performing a MITM on users' encrypted sessions, raising privacy concerns"
+      - "TLS inspection validates server certificates; privacy concern is storing certificate details"
+      - "TLS inspection blocks all non-HTTPS traffic; privacy concern is logging unencrypted data"
+    correct_answer: 1
+    explanations:
+      correct: "TLS/SSL inspection involves the security gateway decrypting HTTPS traffic (acting as a MITM — presenting a trusted enterprise CA certificate to the client), inspecting the content (scanning for malware, applying DLP policies, blocking unauthorized content), and re-encrypting before forwarding. Security benefit: visibility into encrypted traffic that might carry malware or data exfiltration. Privacy concern: the enterprise gateway can read all HTTPS content including personal traffic, banking, healthcare — raising employee privacy and legal concerns."
+      incorrect:
+        - "TLS inspection adds latency (decrypt, inspect, re-encrypt) — it reduces, not improves, connection speed. The trade-off is security visibility vs. performance and privacy."
+        - "TLS inspection decrypts HTTPS traffic for content inspection by performing a MITM — providing security visibility while raising legitimate privacy concerns about reading users' encrypted traffic."
+        - "Certificate validation (checking server certificates are valid and trusted) is a standard TLS client function — not TLS inspection. Inspection involves actively decrypting the payload content."
+        - "TLS inspection doesn't block non-HTTPS traffic — it specifically inspects HTTPS. Unencrypted HTTP traffic is already visible to network monitoring without interception."
+    difficulty: "medium"
+    tags: ["network-security", "TLS-inspection", "privacy", "MITM"]
+
+  - id: q-d4-087
+    domain: domain4
+    question: "What is 'VLAN hopping' and which two methods are used to execute it?"
+    options:
+      - "VLAN hopping involves using VLAN ID 4095 to access all VLANs simultaneously"
+      - "VLAN hopping attacks cross VLAN boundaries using switch spoofing (impersonating a trunk port) or double tagging (exploiting native VLAN handling)"
+      - "VLAN hopping exploits misconfigured STP to gain root bridge status and intercept all traffic"
+      - "VLAN hopping uses SNMP to modify VLAN tables on managed switches"
+    correct_answer: 1
+    explanations:
+      correct: "VLAN hopping allows an attacker to send traffic to VLANs they are not authorized to access. Two methods: (1) Switch spoofing — the attacker's device negotiates a trunk port using DTP (Dynamic Trunking Protocol), gaining access to all VLANs on the trunk; (2) Double tagging — the attacker sends frames with two 802.1Q VLAN tags, exploiting the native VLAN stripping behavior so the inner tag survives to the target VLAN. Mitigations: disable DTP, disable native VLAN on trunks, use dedicated native VLANs not used for data."
+      incorrect:
+        - "VLAN ID 4095 is not used for simultaneous access to all VLANs. VLAN IDs 1-4094 are valid; 4095 is reserved. This does not describe a valid attack method."
+        - "VLAN hopping uses switch spoofing (DTP trunk negotiation) or double tagging (inner/outer 802.1Q tag exploitation) to cross VLAN boundaries — these are the two actual attack methods."
+        - "STP root bridge attacks affect network topology and can enable traffic interception through different means. VLAN hopping specifically exploits the VLAN tagging and trunk negotiation mechanisms."
+        - "SNMP VLAN table modification would require SNMP write access credentials — it's a configuration attack, not the VLAN hopping technique. VLAN hopping exploits DTP and 802.1Q tagging."
+    difficulty: "hard"
+    tags: ["network-security", "VLAN", "Layer2", "attacks"]
+
+  - id: q-d4-088
+    domain: domain4
+    question: "What is a 'wireless IDS/IPS' (WIDS/WIPS) and which threats does it detect or prevent?"
+    options:
+      - "A WIDS uses the wireless access point's existing antenna to filter malicious content from wireless traffic"
+      - "A WIDS/WIPS monitors the RF spectrum to detect rogue access points, evil twin attacks, unauthorized clients, and deauthentication flooding attacks"
+      - "A WIDS replaces WPA3 encryption by providing stronger real-time detection of encryption weaknesses"
+      - "A WIDS monitors 802.1X RADIUS authentication logs to detect brute-force password attacks"
+    correct_answer: 1
+    explanations:
+      correct: "A Wireless IDS/IPS monitors the RF (radio frequency) environment to detect threats specific to wireless networks: rogue access points (unauthorized APs connected to the corporate network), evil twin attacks (APs impersonating legitimate SSIDs), unauthorized clients (devices connecting without authorization), deauthentication/disassociation flooding attacks (forced disconnection of clients), and wireless reconnaissance scanning. WIPS can actively respond by deauthenticating unauthorized devices."
+      incorrect:
+        - "Access points filter content based on firewall/ACL rules — this is not specific to wireless IDS. WIDS/WIPS specifically monitors the RF spectrum for wireless-specific attacks."
+        - "WIDS/WIPS monitors the RF spectrum detecting rogue APs, evil twins, unauthorized clients, and deauthentication floods — these are the wireless-specific threats it addresses."
+        - "WPA3 encryption is provided by the wireless protocol. WIDS/WIPS monitors the RF environment for attacks — it does not replace or supplement encryption protocols."
+        - "802.1X authentication log analysis would be a RADIUS server log analysis function, not WIDS. WIDS monitors the physical RF environment, not authentication infrastructure logs."
+    difficulty: "medium"
+    tags: ["wireless", "IDS", "WIDS", "rogue-AP"]
+
+  - id: q-d4-089
+    domain: domain4
+    question: "What does 'confidentiality of transmission' specifically require when sending sensitive data between data centers over a leased line from a telecommunications provider?"
+    options:
+      - "A leased line provides inherent confidentiality because it is a dedicated physical circuit"
+      - "Data encryption using protocols like IPsec or MACsec is required because physical infrastructure remains subject to interception and provider staff access"
+      - "Confidentiality is ensured by MPLS traffic isolation, which is equivalent to encryption"
+      - "Leased lines only require authentication controls; confidentiality is not applicable"
+    correct_answer: 1
+    explanations:
+      correct: "While leased lines provide physical separation from shared internet traffic, they do not provide cryptographic confidentiality. Physical lines can be tapped, provider staff have access to the infrastructure, and traffic can be intercepted at provider switching equipment. For truly sensitive data, end-to-end encryption (IPsec VPN, MACsec) must be implemented over the leased line — the physical circuit is a starting point but not sufficient confidentiality protection."
+      incorrect:
+        - "Physical circuit dedication provides privacy from other customers' traffic but not confidentiality — the provider's staff and infrastructure can still access the traffic. Physical separation ≠ cryptographic confidentiality."
+        - "Data encryption (IPsec or MACsec) is required even over leased lines because physical infrastructure remains accessible to provider staff and potentially subject to interception."
+        - "MPLS provides logical traffic isolation (separate label paths) but is not equivalent to encryption. Provider staff and network equipment can still access MPLS-forwarded traffic."
+        - "Authentication controls verify identity but do not protect data from interception during transmission. Both authentication and encryption are required for confidentiality over communications links."
+    difficulty: "medium"
+    tags: ["network-security", "encryption", "WAN", "confidentiality"]
+
+  - id: q-d4-090
+    domain: domain4
+    question: "What is 'GRE tunneling' and what security limitation makes it inadequate for sensitive data transmission alone?"
+    options:
+      - "GRE tunneling provides strong encryption but lacks authentication capabilities"
+      - "GRE tunneling encapsulates packets to enable routing between different network types but provides no encryption or authentication"
+      - "GRE tunneling is insecure because it uses UDP which is connectionless and easily spoofed"
+      - "GRE tunneling only supports IPv4 and cannot protect IPv6 traffic in modern networks"
+    correct_answer: 1
+    explanations:
+      correct: "Generic Routing Encapsulation (GRE) is a tunneling protocol that encapsulates packets from one protocol inside another for routing purposes (e.g., routing multicast or non-IP protocols over IP networks). GRE provides no security — it offers no encryption and no authentication. Traffic inside GRE tunnels is transmitted in cleartext and can be captured and read. For security, GRE is commonly combined with IPsec (GRE over IPsec) which adds encryption and authentication."
+      incorrect:
+        - "GRE does not provide encryption. It is a pure encapsulation protocol with no cryptographic security properties. The statement that it provides 'strong encryption' is incorrect."
+        - "GRE encapsulates packets for routing across different network types but provides no encryption or authentication — this correctly identifies its security limitation."
+        - "GRE runs over IP (Protocol 47), not UDP. The security limitation is the complete absence of encryption and authentication, not protocol choice."
+        - "GRE supports both IPv4 and IPv6 traffic encapsulation. The limitation is the absence of security, not IPv6 support."
+    difficulty: "medium"
+    tags: ["network-security", "tunneling", "GRE", "VPN"]
+
+  - id: q-d4-091
+    domain: domain4
+    question: "A security architect is designing network controls for a PCI DSS cardholder data environment (CDE). What network control is SPECIFICALLY required by PCI DSS for systems that store, process, or transmit cardholder data?"
+    options:
+      - "All network traffic in the CDE must use IPv6 with mandatory IPsec"
+      - "The CDE must be isolated from untrusted networks using firewalls, with all traffic between zones controlled and logged"
+      - "All CDE systems must use out-of-band management networks separate from user traffic"
+      - "Wireless networks must not be used in any environment connected to the CDE"
+    correct_answer: 1
+    explanations:
+      correct: "PCI DSS Requirement 1 requires that a firewall configuration protect the cardholder data environment, controlling all traffic between trusted (CDE) and untrusted networks. Inbound and outbound traffic must be restricted to only what is necessary for business purposes, with all traffic between zones logged. This network isolation is a foundational PCI DSS control — the CDE must be a separately controlled network zone."
+      incorrect:
+        - "PCI DSS does not require IPv6 or mandatory IPsec. It requires encryption of cardholder data in transit but does not mandate specific network layer protocols."
+        - "PCI DSS requires the CDE to be isolated from untrusted networks with firewalls controlling and logging all inter-zone traffic — this is PCI DSS Requirement 1."
+        - "Out-of-band management is a security best practice but is not a specific PCI DSS requirement. PCI DSS focuses on controlling access to and from the CDE, not specifically mandating OOB management."
+        - "PCI DSS does not prohibit wireless networks connected to the CDE. It requires wireless networks to implement strong security controls (WPA3/WPA2-Enterprise, wireless IDS) and be isolated from the CDE with controlled access between them."
+    difficulty: "medium"
+    tags: ["network-security", "PCI-DSS", "compliance", "CDE"]
+
+  - id: q-d4-092
+    domain: domain4
+    question: "What is 'SD-WAN' (Software-Defined Wide Area Network) and what security consideration must be addressed in its deployment?"
+    options:
+      - "SD-WAN uses satellite links for WAN connectivity; security concern is signal interception"
+      - "SD-WAN uses software to abstract and orchestrate multiple WAN links; security concern is that internet-based connections require encryption and the centralized controller is a high-value attack target"
+      - "SD-WAN eliminates the need for firewalls at branch sites by centralizing security in the cloud"
+      - "SD-WAN is a VPN technology that automatically encrypts all traffic between branches"
+    correct_answer: 1
+    explanations:
+      correct: "SD-WAN abstracts multiple WAN connections (MPLS, broadband internet, 4G/5G) and orchestrates traffic across them programmatically. Security considerations: (1) Internet-based WAN paths require encryption (IPsec) because internet traffic can be intercepted; (2) The SD-WAN controller is a centralized management target — its compromise could affect all WAN connections; (3) Branch sites connected via internet paths lack the implicit isolation of dedicated MPLS circuits."
+      incorrect:
+        - "SD-WAN uses various WAN technologies (broadband, MPLS, cellular) — not specifically satellite. The primary security concern is the use of untrusted internet paths and controller security, not signal interception."
+        - "SD-WAN orchestrates multiple WAN links; internet-based connections require encryption and the centralized controller is a high-value attack target — these are the primary security considerations."
+        - "SD-WAN does not eliminate the need for branch site firewalls. SD-WAN provides WAN connectivity management; security still requires firewalls, access controls, and inspection at each site."
+        - "SD-WAN can incorporate VPN capabilities (IPsec over internet links) but does not automatically encrypt all traffic. Encryption must be explicitly configured. Some SD-WAN deployments include integrated security (SSE/SASE)."
+    difficulty: "medium"
+    tags: ["network-security", "SD-WAN", "WAN", "cloud"]
+
+  - id: q-d4-093
+    domain: domain4
+    question: "What is 'network time protocol security' (NTS or authenticated NTP) and why is accurate time critical for security operations?"
+    options:
+      - "Accurate time is needed for video surveillance timestamp accuracy in physical security"
+      - "Accurate, authenticated time is critical for log correlation across systems, TLS certificate validation, Kerberos ticket expiration, and forensic investigations — NTP attacks can manipulate timestamps to falsify audit trails"
+      - "Network time synchronization is needed only for SLA measurement in service provider agreements"
+      - "Time accuracy is a performance concern; security operations work well with approximate timestamps"
+    correct_answer: 1
+    explanations:
+      correct: "Accurate time is foundational to security operations: log correlation across multiple systems requires synchronized timestamps (events 1 second apart may appear in wrong order or be missed), TLS certificate validity windows require accurate time, Kerberos tickets have 5-minute maximum time skew tolerance, and forensic investigations depend on accurate timelines. NTP attacks (time poisoning) can shift system clocks to falsify audit logs, expire valid certificates, or break Kerberos authentication. NTS (Network Time Security) adds authentication to NTP."
+      incorrect:
+        - "Video surveillance timestamps are a physical security concern. Security operations (log correlation, forensics, authentication) have far more critical dependencies on accurate time."
+        - "Accurate time is critical for log correlation, TLS validation, Kerberos authentication, and forensic investigations — NTP attacks can manipulate timestamps to falsify audit trails."
+        - "SLA measurement is an operational concern. Time accuracy is a security requirement affecting authentication, log integrity, and forensic reliability."
+        - "Approximate timestamps are insufficient for security operations — correlation errors from 1-2 second time differences can cause missed detections and incorrect incident timelines."
+    difficulty: "medium"
+    tags: ["network-security", "NTP", "time", "logging"]
+
+  - id: q-d4-094
+    domain: domain4
+    question: "In IPv6, what replaced the ARP protocol used in IPv4, and what security improvement does this provide?"
+    options:
+      - "IPv6 eliminated address resolution entirely, using stateless autoconfiguration"
+      - "IPv6 uses Neighbor Discovery Protocol (NDP) with ICMPv6; security improvement comes from using SEND (Secure Neighbor Discovery) with cryptographic address verification"
+      - "IPv6 uses DHCPv6 exclusively for all address assignment and resolution"
+      - "IPv6 replaced ARP with DNSSEC, using DNS for all address-to-link-layer resolution"
+    correct_answer: 1
+    explanations:
+      correct: "IPv6 replaced ARP with Neighbor Discovery Protocol (NDP), using ICMPv6 messages for address resolution, router discovery, and prefix advertisement. NDP suffers from the same spoofing vulnerabilities as ARP (NDP spoofing/poisoning). SEND (Secure Neighbor Discovery, RFC 3971) is an extension that uses Cryptographically Generated Addresses (CGA) and digital signatures to verify address ownership, preventing NDP spoofing. SEND provides the security improvement ARP never had."
+      incorrect:
+        - "IPv6 still requires layer 2 address resolution — it maps IPv6 addresses to MAC addresses using NDP. Stateless autoconfiguration (SLAAC) generates addresses but still requires NDP for resolution."
+        - "IPv6 uses NDP (ICMPv6) instead of ARP; SEND provides cryptographic address verification as the security improvement over ARP's lack of authentication."
+        - "DHCPv6 assigns IPv6 addresses but does not handle address-to-MAC resolution (that's NDP). SLAAC and DHCPv6 are both address assignment mechanisms, not resolution protocols."
+        - "DNSSEC provides DNS record authentication — it does not resolve IPv6 addresses to MAC addresses at the link layer. NDP handles link-layer address resolution in IPv6."
+    difficulty: "hard"
+    tags: ["network-security", "IPv6", "NDP", "ARP"]
+
+  - id: q-d4-095
+    domain: domain4
+    question: "What is a 'screened subnet' (also called a 'true DMZ') architecture and how does it improve on a simple single-firewall DMZ?"
+    options:
+      - "A screened subnet uses one firewall with three interfaces separating internet, DMZ, and internal networks"
+      - "A screened subnet uses two firewalls (outer and inner) with a DMZ network between them — if the outer firewall is compromised, the inner firewall still protects the internal network"
+      - "A screened subnet encrypts all traffic between the DMZ and internal network using IPsec"
+      - "A screened subnet uses a separate management network accessible only from the internal zone"
+    correct_answer: 1
+    explanations:
+      correct: "A screened subnet (true DMZ) uses two separate firewall devices: an outer firewall separating the internet from the DMZ, and an inner firewall separating the DMZ from the internal network. This provides defense in depth — if an attacker compromises the outer firewall, they only reach the DMZ; the inner firewall still protects the internal network. A single firewall with three interfaces offers convenience but if that firewall is compromised, both DMZ and internal networks are exposed."
+      incorrect:
+        - "A single firewall with three interfaces (internet, DMZ, internal) is the simplified DMZ — not the screened subnet. Screened subnet specifically uses two separate firewall devices."
+        - "A screened subnet uses two separate firewalls with a DMZ between them — if the outer firewall is compromised, the inner firewall still protects internal systems."
+        - "Encrypting DMZ-to-internal traffic is a data protection measure — not the defining characteristic of a screened subnet architecture. The key feature is the two-firewall topology."
+        - "Out-of-band management networks are a management security best practice. The screened subnet architecture is specifically about the two-firewall topology for internet-DMZ-internal zone protection."
+    difficulty: "medium"
+    tags: ["network-security", "DMZ", "architecture", "defense-in-depth"]
+
+  - id: q-d4-096
+    domain: domain4
+    question: "What is 'SSDP amplification' and which consumer device type is most commonly exploited for this attack?"
+    options:
+      - "Smart TVs are exploited to amplify DNS queries for DDoS attacks"
+      - "Home routers, smart TVs, and other IoT devices implementing the Simple Service Discovery Protocol (UPnP) are exploited to amplify DDoS attacks using SSDP's reflection ratio"
+      - "Enterprise switches with SSDP enabled are exploited for data center DDoS attacks"
+      - "Web servers using SSDP for service discovery are exploited to amplify HTTP floods"
+    correct_answer: 1
+    explanations:
+      correct: "SSDP (Simple Service Discovery Protocol) is part of the UPnP (Universal Plug and Play) standard used by consumer IoT devices (routers, smart TVs, game consoles, printers). SSDP amplification attacks send small SSDP SEARCH requests (spoofed with victim's IP) to internet-exposed UPnP devices, which respond with much larger responses directed at the victim. The amplification factor is approximately 30x. Millions of consumer devices with UPnP exposed to the internet make this attack feasible at scale."
+      incorrect:
+        - "Smart TVs are one type of device exploited, but the attack uses the SSDP/UPnP protocol specifically and spans many IoT device types — not just DNS queries."
+        - "Home routers, smart TVs, and IoT devices implementing UPnP/SSDP are exploited for SSDP amplification DDoS attacks — this correctly identifies the protocol and device type."
+        - "Enterprise switches typically do not expose UPnP/SSDP to the internet. SSDP amplification exploits consumer IoT devices, not enterprise infrastructure."
+        - "Web servers use HTTP/HTTPS, not SSDP. SSDP is specifically for local service discovery and is not a web server protocol."
+    difficulty: "hard"
+    tags: ["network-security", "DDoS", "SSDP", "IoT", "amplification"]
+
+  - id: q-d4-097
+    domain: domain4
+    question: "An organization's web application firewall (WAF) is placed in 'detection-only' mode for the first 30 days. What is the security rationale for this deployment approach?"
+    options:
+      - "Detection mode saves bandwidth because the WAF does not need to inspect blocked traffic"
+      - "Establishing a baseline of legitimate traffic patterns to tune rules before blocking, reducing false positives that could disrupt legitimate business traffic"
+      - "Detection mode is required by PCI DSS before WAF can be placed into blocking mode"
+      - "WAFs in blocking mode require a separate license; detection mode uses the base license"
+    correct_answer: 1
+    explanations:
+      correct: "Starting a WAF in detection/monitoring mode allows security teams to: observe what traffic the current ruleset would block, identify false positives (legitimate requests that would be incorrectly blocked), tune rules to the application's specific traffic patterns, and establish a baseline. After tuning, blocking mode is enabled with confidence that legitimate business traffic will not be disrupted. Immediately enabling blocking on an untuned WAF can block legitimate users and break application functionality."
+      incorrect:
+        - "Detection mode inspects all traffic to generate alerts — it consumes similar compute resources to blocking mode. The rationale is tuning and false positive identification, not bandwidth savings."
+        - "Establishing a traffic baseline and tuning rules before blocking prevents false positives that could disrupt legitimate business traffic — this is the correct rationale for phased WAF deployment."
+        - "PCI DSS does not mandate detection mode before blocking mode. The phased approach is an operational best practice for minimizing disruption, not a compliance requirement."
+        - "WAF licensing typically does not distinguish between detection and blocking modes. The operational rationale is the primary reason for phased deployment."
+    difficulty: "medium"
+    tags: ["network-security", "WAF", "deployment", "tuning"]
+
+  - id: q-d4-098
+    domain: domain4
+    question: "What is the 'OSI Layer 4' transport layer's primary responsibility and which security attacks specifically target it?"
+    options:
+      - "Layer 4 manages physical signal transmission; targeted by signal jamming attacks"
+      - "Layer 4 provides end-to-end communication with error detection and flow control; targeted by SYN floods, session hijacking, and port scanning"
+      - "Layer 4 handles name resolution; targeted by DNS spoofing and cache poisoning"
+      - "Layer 4 manages routing between networks; targeted by BGP hijacking and route poisoning"
+    correct_answer: 1
+    explanations:
+      correct: "The Transport Layer (Layer 4) provides end-to-end communication management including: TCP (connection-oriented with reliability, flow control, error detection) and UDP (connectionless, lower overhead). Security attacks specifically targeting Layer 4 include: SYN floods (exploiting TCP connection establishment), session hijacking (manipulating TCP sequence numbers), port scanning (probing TCP/UDP ports), and some DDoS attacks targeting TCP state tables."
+      incorrect:
+        - "Physical signal transmission is Layer 1 (Physical). Layer 4 manages logical end-to-end communication, not physical signals. Jamming attacks target the physical layer."
+        - "Layer 4 manages end-to-end communication (TCP/UDP); attacks include SYN floods, session hijacking, and port scanning — this correctly identifies Layer 4's function and targeted attacks."
+        - "Name resolution is performed by DNS (Application Layer 7 and above). DNS spoofing targets the DNS application layer, not Layer 4."
+        - "Routing between networks is Layer 3 (Network/IP). BGP operates at the application layer but manages routing decisions. Layer 4 is above IP routing."
+    difficulty: "medium"
+    tags: ["network-security", "OSI", "Layer4", "transport"]
+
+  - id: q-d4-099
+    domain: domain4
+    question: "What is 'always-on VPN' (split tunneling vs. full tunnel) and what are the security trade-offs of each approach?"
+    options:
+      - "Split tunneling routes only VPN traffic through the corporate network; full tunnel routes all traffic — split is more secure"
+      - "Full tunnel routes all user traffic through the corporate security stack; split tunneling routes only corporate-destined traffic through VPN, leaving internet traffic to exit directly — full tunnel is more secure but increases bandwidth costs"
+      - "Full tunnel VPN encrypts traffic with AES-256; split tunnel uses AES-128 for performance"
+      - "Split tunneling applies to mobile devices; full tunnel is for laptop and desktop devices only"
+    correct_answer: 1
+    explanations:
+      correct: "Full tunnel VPN: all user traffic routes through the corporate security stack (inspection, filtering, DLP) regardless of destination. More secure — corporate controls apply to all traffic. Higher bandwidth costs — all internet traffic traverses the corporate network. Split tunneling: only traffic destined for corporate resources routes through VPN; internet traffic exits directly from the user's ISP. Less secure — internet traffic bypasses corporate security controls. Lower bandwidth costs. Attackers on a split-tunneled machine can potentially reach corporate resources while communicating directly with malicious internet servers."
+      incorrect:
+        - "This is reversed. Full tunnel is more secure (all traffic goes through corporate controls); split tunneling is less secure (internet traffic bypasses corporate security)."
+        - "Full tunnel routes all traffic through corporate security (more secure, higher cost); split tunneling routes only corporate traffic through VPN (less secure, lower bandwidth) — this is the correct description."
+        - "Both split and full tunnel VPNs can use the same encryption algorithms. The distinction is traffic routing policy, not encryption strength."
+        - "Split tunneling vs. full tunnel applies to all VPN client types — it is a routing policy decision, not a device type distinction."
+    difficulty: "medium"
+    tags: ["network-security", "VPN", "split-tunneling", "remote-access"]
+
+  - id: q-d4-100
+    domain: domain4
+    question: "What is the security purpose of 'SNMPv3' over its predecessors SNMPv1 and SNMPv2c?"
+    options:
+      - "SNMPv3 supports more MIB objects than earlier versions, providing broader device management"
+      - "SNMPv3 adds authentication (MD5/SHA) and encryption (DES/AES) for SNMP messages, replacing the insecure community string authentication of v1/v2c"
+      - "SNMPv3 operates over TLS, inheriting the full security properties of the TLS protocol"
+      - "SNMPv3 eliminates polling by using a push-based model that is less susceptible to interception"
+    correct_answer: 1
+    explanations:
+      correct: "SNMPv1 and SNMPv2c use community strings (essentially plaintext passwords) sent in clear text for authentication. Anyone who captures network traffic can read the community string and access SNMP data. SNMPv3 adds: authentication (HMAC-MD5 or HMAC-SHA to verify message integrity and identity), encryption (DES, AES-128/256 for message confidentiality), and access controls per user account. This replaces the fundamentally insecure community string model."
+      incorrect:
+        - "MIB support is a feature set concern, not a security improvement. SNMPv3's security innovation is authentication and encryption, not expanded MIB coverage."
+        - "SNMPv3 adds authentication and encryption replacing insecure community string authentication — this correctly describes the primary security improvement over v1/v2c."
+        - "SNMPv3 uses UDP port 161 with its own authentication and encryption mechanisms — it does not run over TLS. TLS is for TCP-based protocols."
+        - "SNMP still uses polling (manager queries agents). SNMPv3 did not change the polling model — it added security to the existing request/response model."
+    difficulty: "medium"
+    tags: ["network-security", "SNMP", "protocols", "authentication"]
+
+  - id: q-d4-101
+    domain: domain4
+    question: "What is the primary security concern with 'Wi-Fi Protected Setup' (WPS) and why should it be disabled?"
+    options:
+      - "WPS requires physical proximity to the router, making it less convenient than password setup"
+      - "WPS's PIN-based authentication allows an 8-digit PIN to be brute-forced in a practical timeframe due to a design flaw that allows testing PIN halves independently"
+      - "WPS uses insecure DES encryption that can be broken with modern hardware in hours"
+      - "WPS creates a separate SSID that is permanently vulnerable to deauthentication attacks"
+    correct_answer: 1
+    explanations:
+      correct: "WPS PIN authentication has a fundamental design flaw: the 8-digit PIN (100 million possible combinations) is validated in two halves — first 4 digits and last 4 digits (the last digit is a checksum). This reduces the effective brute-force space to 11,000 combinations (10,000 + 1,000 for the second half). Tools like Reaver can brute-force WPS PINs in hours. WPS should be disabled on all access points; use WPA3/WPA2 with strong passphrases instead."
+      incorrect:
+        - "WPS convenience is an interface consideration, not a security concern. The security flaw is the vulnerable PIN authentication mechanism, not physical access requirements."
+        - "WPS PIN's design flaw allows independent brute-force of its two halves, reducing the effective attack space to ~11,000 combinations from 100 million — this is the critical vulnerability."
+        - "WPS does not use DES encryption. It uses the existing WPA2 encryption once authenticated. The vulnerability is in the PIN authentication mechanism, not encryption."
+        - "WPS does not create a separate SSID — it is a setup method for the existing SSID. The vulnerability is the brute-forceable PIN authentication mechanism."
+    difficulty: "medium"
+    tags: ["wireless", "WPS", "vulnerabilities", "brute-force"]
+
+  - id: q-d4-102
+    domain: domain4
+    question: "What is 'east-west traffic' in modern data center network security, and why has it become a growing security concern?"
+    options:
+      - "East-west traffic refers to data center interconnects between geographically distributed sites"
+      - "East-west traffic is lateral traffic between servers/workloads within the same data center; traditional perimeter security (firewalls at the internet boundary) does not inspect this traffic, allowing lateral movement after initial compromise"
+      - "East-west traffic is the inbound traffic from internet users to web-facing applications"
+      - "East-west traffic describes backup replication traffic between primary and secondary data centers"
+    correct_answer: 1
+    explanations:
+      correct: "East-west traffic is communication between servers, applications, and workloads within the same data center (lateral traffic), as opposed to north-south traffic (client-to-server traffic entering and leaving the data center). Traditional perimeter firewalls only inspect north-south traffic at the internet boundary. East-west traffic between internal systems is often unmonitored and uninspected, allowing an attacker who compromises one server to move laterally to other servers without traversing any security controls. Microsegmentation addresses this gap."
+      incorrect:
+        - "Geographically distributed data center interconnects are typically called 'data center interconnects' (DCI) or inter-site traffic. East-west refers to intra-data-center lateral traffic."
+        - "East-west is lateral server-to-server traffic within the data center; traditional perimeter firewalls don't inspect it, enabling lateral movement after breach — this correctly defines the concern."
+        - "Inbound traffic from internet users to web applications is north-south traffic (entering from outside, going to inside). East-west is lateral, internal-to-internal traffic."
+        - "Backup replication is a specific application of east-west traffic but does not define it. East-west encompasses all server-to-server communication within the data center."
+    difficulty: "medium"
+    tags: ["network-security", "east-west", "microsegmentation", "data-center"]
