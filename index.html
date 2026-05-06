@@ -95,6 +95,14 @@
               </svg>
               Study Flashcards
             </button>
+            <button class="btn btn-ghost btn-lg" onclick="navigateToInteractive()" id="hero-interactive-btn"
+              style="border-color: rgba(6,182,212,0.3); color: var(--c-cyan-lt);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              Interactive Practice
+            </button>
           </div>
 
           <!-- Quick Stats -->
@@ -106,6 +114,10 @@
             <div class="stat-card">
               <div class="stat-card-value" id="home-total-fc">—</div>
               <div class="stat-card-label">Flashcards</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-value" id="home-total-iq">—</div>
+              <div class="stat-card-label">Interactive Questions</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-value" id="home-accuracy">—</div>
@@ -183,6 +195,7 @@
   <!-- Components -->
   <script src="components/feedback.js"></script>
   <script src="components/flashcard.js"></script>
+  <script src="components/interactive.js"></script>
   <script src="components/quiz.js"></script>
 
   <!-- Main app -->

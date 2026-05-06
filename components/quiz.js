@@ -588,5 +588,10 @@ const QuizComponent = (() => {
       .replace(/"/g, '&quot;');
   }
 
-  return { init };
+  function startInteractiveOnly() {
+    _includeInteractive = true;
+    _startQuiz(true);
+  }
+
+  return { init, startInteractiveOnly };
 })();

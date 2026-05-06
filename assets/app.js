@@ -8,6 +8,7 @@ const AppState = {
   domains: [],
   flashcards: [],
   questions: [],
+  interactiveQuestions: [],
   loaded: false
 };
 
@@ -58,7 +59,8 @@ function renderHome() {
     'home-total-q': AppState.questions.length,
     'home-total-fc': AppState.flashcards.length,
     'home-accuracy': totalStats.accuracy + '%',
-    'home-streak': sessionData.current_streak + ' days'
+    'home-streak': sessionData.current_streak + ' days',
+    'home-total-iq': AppState.interactiveQuestions.length
   };
   Object.entries(els).forEach(([id, val]) => {
     const el = document.getElementById(id);
@@ -109,9 +111,26 @@ function renderQuiz() {
     // Only re-init if not already active (preserve state across nav)
     if (!container.dataset.initialized) {
       container.dataset.initialized = 'true';
-      QuizComponent.init(container, AppState.questions, AppState.domains);
+      QuizComponent.init(
+        container,
+        AppState.questions,
+        AppState.domains,
+        AppState.interactiveQuestions
+      );
+    }
+    // Check if navigated here via the interactive practice shortcut
+    if (AppState.pendingInteractiveOnly) {
+      AppState.pendingInteractiveOnly = false;
+      QuizComponent.startInteractiveOnly();
     }
   }
+}
+
+function navigateToInteractive() {
+  const qc = document.getElementById('quiz-container');
+  if (qc) delete qc.dataset.initialized;
+  AppState.pendingInteractiveOnly = true;
+  navigate('quiz');
 }
 
 // ── Progress Page ─────────────────────────────────────────────
@@ -326,8 +345,11 @@ async function init() {
     if (loadingText) loadingText.textContent = 'Loading questions…';
     AppState.questions = await Loader.loadAllQuestions(AppState.domains);
 
+    if (loadingText) loadingText.textContent = 'Loading interactive questions…';
+    AppState.interactiveQuestions = await Loader.loadAllInteractiveQuestions(AppState.domains);
+
     // Validate data
-    Validator.validateAll(AppState.domains, AppState.flashcards, AppState.questions);
+    Validator.validateAll(AppState.domains, AppState.flashcards, AppState.questions, AppState.interactiveQuestions);
 
     AppState.loaded = true;
 
