@@ -1,0 +1,346 @@
+interactive_questions:
+
+  # ── Ordering ─────────────────────────────────────────────────
+
+  - id: iq-d4-001
+    domain: domain4
+    type: ordering
+    question: "Place the OSI model layers in order from Layer 1 (lowest) to Layer 7 (highest):"
+    items:
+      - "Physical"
+      - "Data Link"
+      - "Network"
+      - "Transport"
+      - "Session"
+      - "Presentation"
+      - "Application"
+    correct_order: [0, 1, 2, 3, 4, 5, 6]
+    explanation: >
+      The OSI model defines seven layers of network communication from bottom to top: Physical
+      (Layer 1) handles raw bit transmission over media; Data Link (Layer 2) provides node-to-node
+      framing and MAC addressing; Network (Layer 3) handles logical addressing and routing via IP;
+      Transport (Layer 4) provides reliable end-to-end delivery (TCP/UDP); Session (Layer 5) manages
+      dialog control and session establishment; Presentation (Layer 6) handles data formatting,
+      encryption, and compression; Application (Layer 7) provides network services directly to end
+      users. The mnemonic "Please Do Not Throw Sausage Pizza Away" is a common study aid.
+
+  - id: iq-d4-002
+    domain: domain4
+    type: ordering
+    question: "Place the TCP three-way handshake steps in the correct order:"
+    items:
+      - "Client sends SYN to server"
+      - "Server responds with SYN-ACK"
+      - "Client sends ACK to server"
+    correct_order: [0, 1, 2]
+    explanation: >
+      The TCP three-way handshake establishes a reliable, connection-oriented session before data
+      transfer begins. First, the client sends a SYN (synchronize) packet to the server, indicating
+      its initial sequence number. The server replies with a SYN-ACK, acknowledging the client's SYN
+      and advertising its own sequence number. Finally, the client sends an ACK to confirm receipt of
+      the server's SYN-ACK, completing the connection setup. SYN flood attacks exploit this handshake
+      by sending many SYN packets without completing the final ACK, exhausting server resources.
+
+  - id: iq-d4-003
+    domain: domain4
+    type: ordering
+    question: "Order the wireless security protocols from weakest (least secure) to strongest (most secure):"
+    items:
+      - "WEP (Wired Equivalent Privacy)"
+      - "WPA (Wi-Fi Protected Access)"
+      - "WPA2 (Wi-Fi Protected Access 2)"
+      - "WPA3 (Wi-Fi Protected Access 3)"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      WEP is the weakest standard, using the flawed RC4 cipher with static keys that can be cracked
+      in minutes using tools like Aircrack-ng due to weak initialization vectors. WPA improved on WEP
+      by introducing TKIP (Temporal Key Integrity Protocol) but still uses RC4 and is considered
+      deprecated. WPA2 introduced AES-CCMP encryption and became the long-standing industry standard,
+      though it is vulnerable to KRACK attacks and offline dictionary attacks against weak passphrases.
+      WPA3 is the current strongest standard, using SAE (Simultaneous Authentication of Equals) to
+      replace PSK, providing forward secrecy and resistance to offline password guessing attacks.
+
+  - id: iq-d4-004
+    domain: domain4
+    type: ordering
+    question: "Order the following firewall types from least sophisticated to most sophisticated:"
+    items:
+      - "Packet filtering firewall"
+      - "Stateful inspection firewall"
+      - "Application-layer (proxy) firewall"
+    correct_order: [0, 1, 2]
+    explanation: >
+      Packet filtering firewalls operate at Layer 3–4, examining individual packets based solely on
+      header fields such as source/destination IP and port number, with no awareness of connection
+      state or application content. Stateful inspection firewalls add awareness of the connection
+      state table, tracking whether a packet belongs to an established, related, or new connection,
+      providing significantly better protection against spoofing and certain DoS attacks. Application-
+      layer (proxy) firewalls are the most sophisticated, operating at Layer 7 to inspect the full
+      content of communications, understanding specific application protocols such as HTTP and FTP,
+      and able to detect application-specific attacks, malicious payloads, and policy violations.
+
+  # ── Matching ─────────────────────────────────────────────────
+
+  - id: iq-d4-005
+    domain: domain4
+    type: matching
+    question: "Match each network protocol or technology to its corresponding OSI model layer:"
+    items:
+      - "HTTP / HTTPS"
+      - "TCP"
+      - "IP"
+      - "Ethernet (MAC addressing)"
+    categories:
+      - "Application (Layer 7)"
+      - "Transport (Layer 4)"
+      - "Network (Layer 3)"
+      - "Data Link (Layer 2)"
+    correct_mapping:
+      0: "Application (Layer 7)"
+      1: "Transport (Layer 4)"
+      2: "Network (Layer 3)"
+      3: "Data Link (Layer 2)"
+    explanation: >
+      Understanding which protocols map to which OSI layers is fundamental for the CISSP exam. HTTP
+      and HTTPS are application-layer protocols that define the rules for web communication between
+      clients and servers. TCP (Transmission Control Protocol) operates at the Transport layer,
+      providing reliable, connection-oriented delivery with sequencing and error checking. IP
+      (Internet Protocol) operates at the Network layer, responsible for logical addressing and
+      routing packets across networks. Ethernet with MAC addressing operates at the Data Link layer,
+      providing node-to-node framing and physical addressing within a local network segment.
+
+  - id: iq-d4-006
+    domain: domain4
+    type: matching
+    question: "Match each network attack type to its correct description:"
+    items:
+      - "Distributed Denial of Service (DDoS)"
+      - "Man-in-the-Middle (MitM)"
+      - "Replay Attack"
+      - "ARP Spoofing"
+    categories:
+      - "Attacker intercepts and possibly alters communications between two parties who believe they are communicating directly"
+      - "Multiple compromised systems flood a target with traffic to make it unavailable"
+      - "Attacker sends a previously captured valid data transmission to fool the receiver"
+      - "Attacker broadcasts fake ARP messages to link their MAC address to a legitimate IP address"
+    correct_mapping:
+      0: "Multiple compromised systems flood a target with traffic to make it unavailable"
+      1: "Attacker intercepts and possibly alters communications between two parties who believe they are communicating directly"
+      2: "Attacker sends a previously captured valid data transmission to fool the receiver"
+      3: "Attacker broadcasts fake ARP messages to link their MAC address to a legitimate IP address"
+    explanation: >
+      DDoS attacks use a botnet of compromised hosts (zombies) to overwhelm a target's bandwidth or
+      resources, making it unavailable to legitimate users. Man-in-the-Middle attacks allow an
+      attacker to eavesdrop or modify traffic between two parties; SSL stripping and session hijacking
+      are common variants. Replay attacks capture and retransmit valid authentication tokens or
+      transactions; countermeasures include timestamps, sequence numbers, and nonces. ARP Spoofing
+      poisons the ARP cache of hosts on a local network, redirecting traffic through the attacker's
+      machine and enabling MitM attacks on the LAN.
+
+  - id: iq-d4-007
+    domain: domain4
+    type: matching
+    question: "Match each VPN protocol to its primary characteristic:"
+    items:
+      - "IPSec"
+      - "SSL/TLS VPN"
+      - "L2TP"
+      - "PPTP"
+    categories:
+      - "Uses tunneling with no built-in encryption; often paired with IPSec for security"
+      - "Oldest and weakest VPN protocol; uses MPPE encryption which has known vulnerabilities"
+      - "Operates at Layer 3; provides authentication and encryption via AH and ESP"
+      - "Operates at Layer 4–7; uses standard web ports (443) making it firewall-friendly"
+    correct_mapping:
+      0: "Operates at Layer 3; provides authentication and encryption via AH and ESP"
+      1: "Operates at Layer 4–7; uses standard web ports (443) making it firewall-friendly"
+      2: "Uses tunneling with no built-in encryption; often paired with IPSec for security"
+      3: "Oldest and weakest VPN protocol; uses MPPE encryption which has known vulnerabilities"
+    explanation: >
+      IPSec is a Layer 3 framework that secures IP communications using Authentication Header (AH)
+      for integrity and anti-replay, and Encapsulating Security Payload (ESP) for confidentiality,
+      integrity, and authentication; it is widely used for site-to-site VPNs. SSL/TLS VPNs use
+      standard HTTPS port 443, making them easy to traverse firewalls and NAT devices; they are
+      common for remote-access VPNs since they require only a browser or lightweight client. L2TP
+      (Layer 2 Tunneling Protocol) creates a tunnel but provides no encryption itself, so it is
+      nearly always deployed as L2TP/IPSec. PPTP is the oldest and least secure option, with
+      known weaknesses in its MS-CHAPv2 authentication and MPPE encryption; it should not be used
+      in modern environments.
+
+  - id: iq-d4-008
+    domain: domain4
+    type: matching
+    question: "Match each network zone to its correct security trust level or description:"
+    items:
+      - "Internet"
+      - "DMZ (Demilitarized Zone)"
+      - "Intranet"
+      - "Restricted (High-Security) Zone"
+    categories:
+      - "Untrusted external network with no security controls assumed"
+      - "Semi-trusted zone hosting publicly accessible services, isolated from the internal network"
+      - "Trusted internal network accessible by authorized employees"
+      - "Highest-trust zone containing the most sensitive systems and data, with strict access controls"
+    correct_mapping:
+      0: "Untrusted external network with no security controls assumed"
+      1: "Semi-trusted zone hosting publicly accessible services, isolated from the internal network"
+      2: "Trusted internal network accessible by authorized employees"
+      3: "Highest-trust zone containing the most sensitive systems and data, with strict access controls"
+    explanation: >
+      Network segmentation into security zones is a fundamental defense-in-depth strategy. The
+      Internet is entirely untrusted, and all traffic from it must be treated as potentially
+      hostile. The DMZ sits between the Internet and the internal network, hosting services like
+      web servers, email relays, and DNS that must be reachable from the outside, while limiting
+      exposure of internal resources. The Intranet is the internal trusted network where most
+      corporate resources and employees operate. A Restricted zone provides the highest level of
+      protection for critical assets such as databases with PII, financial systems, or industrial
+      control systems, typically requiring multi-factor authentication and strict least-privilege
+      access controls.
+
+  # ── Multiselect ──────────────────────────────────────────────
+
+  - id: iq-d4-009
+    domain: domain4
+    type: multiselect
+    question: "Which of the following are valid components of the IPSec protocol suite? (Select all that apply)"
+    options:
+      - "AH (Authentication Header)"
+      - "ESP (Encapsulating Security Payload)"
+      - "IKE (Internet Key Exchange)"
+      - "TLS (Transport Layer Security)"
+    correct_answers: [0, 1, 2]
+    explanation: >
+      IPSec consists of three main components. Authentication Header (AH) provides connectionless
+      integrity, data origin authentication, and optional anti-replay protection, but does NOT
+      provide confidentiality (no encryption). Encapsulating Security Payload (ESP) provides
+      confidentiality (encryption), data origin authentication, connectionless integrity, and
+      anti-replay services; ESP is the more commonly used component. IKE (Internet Key Exchange)
+      is the key management protocol used to negotiate security associations (SAs) and exchange
+      cryptographic keys. TLS is not part of the IPSec suite; it is a separate protocol that
+      operates at a higher layer and is used by SSL/TLS VPNs and HTTPS, not by IPSec.
+
+  - id: iq-d4-010
+    domain: domain4
+    type: multiselect
+    question: "Which of the following are recognized firewall types used in network security architectures? (Select all that apply)"
+    options:
+      - "Packet filtering firewall"
+      - "Stateful inspection firewall"
+      - "Application-layer (proxy) firewall"
+      - "Quantum firewall"
+    correct_answers: [0, 1, 2]
+    explanation: >
+      Packet filtering firewalls are the simplest type, inspecting packets based on header
+      information such as IP address and port number without tracking connection state. Stateful
+      inspection firewalls maintain a connection state table to track the state of active sessions,
+      providing greater security than stateless packet filters. Application-layer firewalls (also
+      called proxy firewalls or next-generation firewalls with deep packet inspection) understand
+      specific application protocols and can inspect the payload of packets, detecting application-
+      layer attacks. "Quantum firewall" is not a recognized or standardized firewall type in network
+      security architecture and is a distracting term.
+
+  - id: iq-d4-011
+    domain: domain4
+    type: multiselect
+    question: "Which of the following are improvements that IPv6 provides over IPv4? (Select all that apply)"
+    options:
+      - "128-bit address space providing vastly more unique addresses"
+      - "Built-in IPSec support for authentication and encryption"
+      - "Elimination of broadcast traffic in favor of multicast and anycast"
+      - "Automatic assignment of RFC 1918 private addresses via NAT"
+    correct_answers: [0, 1, 2]
+    explanation: >
+      IPv6 addresses several key limitations of IPv4. The 128-bit address space provides
+      approximately 3.4 x 10^38 unique addresses, effectively eliminating address exhaustion that
+      drove the widespread use of NAT in IPv4 networks. IPv6 was designed with IPSec as a mandatory
+      feature (though in practice it is optional via RFC), providing native support for
+      authentication and encryption at the network layer. IPv6 replaces broadcast with multicast
+      and anycast addressing, improving network efficiency and reducing unnecessary traffic overhead.
+      NAT (Network Address Translation) is an IPv4 mechanism needed because of address exhaustion;
+      IPv6 does not require NAT and does not use RFC 1918 private addressing in the same way, so
+      the fourth option is incorrect.
+
+  - id: iq-d4-012
+    domain: domain4
+    type: multiselect
+    question: "Which of the following are characteristics of a stateful inspection firewall? (Select all that apply)"
+    options:
+      - "Maintains a state table to track active network connections"
+      - "Can block packets that are not part of an established session"
+      - "Understands and inspects the content of application-layer protocols like HTTP"
+      - "Tracks the state of TCP connections (e.g., SYN, ESTABLISHED, FIN)"
+    correct_answers: [0, 1, 3]
+    explanation: >
+      A stateful inspection firewall tracks the state of network connections using a state table
+      (also called a connection tracking table), recording information such as source/destination
+      IP, ports, protocol, and current TCP state. Because it knows which packets belong to valid,
+      established sessions, it can block packets that arrive out of sequence or that do not match
+      any known connection, protecting against some spoofing and certain DoS attacks. It specifically
+      tracks TCP state transitions (SYN, SYN-ACK, ESTABLISHED, FIN, TIME-WAIT), allowing only
+      packets consistent with the expected state. However, stateful firewalls do not inspect
+      application-layer content; that capability belongs to application-layer (proxy) or next-
+      generation firewalls, making option three incorrect.
+
+  # ── Fill in the Blank ────────────────────────────────────────
+
+  - id: iq-d4-013
+    domain: domain4
+    type: fillblank
+    question: "What well-known port number is associated with HTTPS (HTTP over TLS/SSL)?"
+    template: "HTTPS uses port {blank} by default."
+    choices:
+      - "443"
+      - "80"
+      - "8080"
+      - "22"
+    correct_answer: 0
+    explanation: >
+      HTTPS (Hypertext Transfer Protocol Secure) uses TCP port 443 by default, which is the
+      standard assigned port for HTTP encrypted with TLS (or its predecessor SSL). Port 80 is
+      used by unencrypted HTTP traffic. Port 8080 is a common alternative port for HTTP often
+      used for development or proxy services. Port 22 is used by SSH (Secure Shell). On the CISSP
+      exam, candidates are expected to know common well-known port assignments, including 21 (FTP),
+      22 (SSH), 23 (Telnet), 25 (SMTP), 53 (DNS), 80 (HTTP), 110 (POP3), 143 (IMAP), 443 (HTTPS),
+      and 3389 (RDP).
+
+  - id: iq-d4-014
+    domain: domain4
+    type: fillblank
+    question: "The Address Resolution Protocol (ARP) is used to resolve a known IP address to what type of address?"
+    template: "ARP resolves an IP address to a {blank} address."
+    choices:
+      - "MAC (Media Access Control)"
+      - "Domain name"
+      - "Port number"
+      - "IPv6"
+    correct_answer: 0
+    explanation: >
+      ARP (Address Resolution Protocol) operates at the boundary of Layer 2 (Data Link) and Layer
+      3 (Network), resolving a known IPv4 address to its corresponding MAC address so that frames
+      can be delivered on the local network segment. When a host wants to communicate with an IP
+      address on the same subnet, it broadcasts an ARP request asking "who has IP x.x.x.x?" and
+      the owner replies with its MAC address. The result is cached in the ARP table. ARP Spoofing
+      (or ARP Poisoning) is a common LAN-based attack where a malicious host sends gratuitous ARP
+      replies to redirect traffic by associating the attacker's MAC address with a legitimate IP,
+      enabling man-in-the-middle attacks.
+
+  - id: iq-d4-015
+    domain: domain4
+    type: fillblank
+    question: "The network zone that sits between the untrusted Internet and the trusted internal network, hosting publicly accessible services, is known by what three-word name?"
+    template: "This semi-trusted network zone is called the {blank}."
+    choices:
+      - "Demilitarized Zone (DMZ)"
+      - "Virtual Private Network (VPN)"
+      - "Network Address Translation (NAT)"
+      - "Intrusion Detection Zone (IDZ)"
+    correct_answer: 0
+    explanation: >
+      The Demilitarized Zone (DMZ) is a network segment that acts as a buffer between the untrusted
+      Internet and the trusted internal network, designed to host services that must be accessible
+      from the outside world — such as web servers, email (SMTP) relays, DNS servers, and FTP
+      servers — while protecting the internal network from direct exposure. Traffic from the Internet
+      to the DMZ is permitted through the external firewall, but traffic from the DMZ to the
+      internal network is blocked or strictly controlled by the internal firewall. This dual-firewall
+      architecture, often called a screened subnet, is considered a best practice for defense in
+      depth. VPN, NAT, and IDZ serve different purposes and are not names for this network zone.

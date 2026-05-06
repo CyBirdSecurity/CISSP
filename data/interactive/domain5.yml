@@ -1,0 +1,293 @@
+interactive_questions:
+  - id: iq-d5-001
+    domain: domain5
+    type: ordering
+    question: "Place the identity lifecycle stages in the correct sequential order from initial creation to removal."
+    items:
+      - "Provisioning"
+      - "Review / Recertification"
+      - "Modification"
+      - "Deprovisioning"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      The identity lifecycle begins with Provisioning, where an account is created and initial access rights are assigned based on job role.
+      Review and Recertification follows, ensuring that access rights remain appropriate over time through periodic access reviews.
+      Modification occurs when job responsibilities change and access must be updated to reflect new duties.
+      Finally, Deprovisioning removes or disables the account and revokes all associated access rights when employment or need ends.
+      Timely deprovisioning is critical to prevent unauthorized access by former employees or contractors.
+
+  - id: iq-d5-002
+    domain: domain5
+    type: ordering
+    question: "Arrange the AAA framework components in the correct order of operation when a user accesses a system."
+    items:
+      - "Authentication"
+      - "Authorization"
+      - "Accounting"
+    correct_order: [0, 1, 2]
+    explanation: >
+      Authentication comes first and establishes who the user is by verifying their claimed identity through credentials such as passwords, tokens, or biometrics.
+      Authorization follows authentication and determines what resources or actions the authenticated identity is permitted to access or perform.
+      Accounting (also called auditing) occurs last and records what the authenticated and authorized user actually did during the session for audit and non-repudiation purposes.
+      The AAA model is foundational to access control and is implemented in systems like RADIUS, TACACS+, and DIAMETER.
+      Skipping or reordering these steps introduces serious security weaknesses such as privilege escalation or undetectable misuse.
+
+  - id: iq-d5-003
+    domain: domain5
+    type: ordering
+    question: "Order the traditional authentication factor types from the weakest to the strongest assurance level, then place multi-factor authentication last as the highest assurance."
+    items:
+      - "Type 1 — Something you know (password/PIN)"
+      - "Type 2 — Something you have (smart card/token)"
+      - "Type 3 — Something you are (fingerprint/retina)"
+      - "Multi-Factor Authentication (two or more factor types combined)"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      Type 1 factors (something you know) provide the weakest assurance because passwords and PINs can be guessed, phished, or stolen without physical access.
+      Type 2 factors (something you have) offer stronger assurance since an attacker must physically possess the token or smart card, though loss or theft remains a risk.
+      Type 3 factors (something you are) are considered the strongest single-factor type because biometric characteristics are inherent to the individual and difficult to replicate, though false acceptance rates must be managed.
+      Multi-Factor Authentication combines two or more different factor types, making unauthorized access significantly harder because an attacker must defeat multiple independent controls simultaneously.
+      The CISSP exam distinguishes that MFA requires different factor types, not just multiple instances of the same type (e.g., two passwords do not constitute MFA).
+
+  - id: iq-d5-004
+    domain: domain5
+    type: ordering
+    question: "A Kerberos authentication exchange involves several steps. Place the following events in the correct chronological order."
+    items:
+      - "User submits credentials to the Authentication Server (AS)"
+      - "AS issues a Ticket-Granting Ticket (TGT) to the client"
+      - "Client presents TGT to the Ticket-Granting Server (TGS) to request a service ticket"
+      - "Client uses the service ticket to access the target resource"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      Kerberos is a symmetric-key network authentication protocol developed at MIT that relies on a trusted third party called the Key Distribution Center (KDC).
+      The KDC contains two logical components: the Authentication Server (AS), which validates the user's credentials and issues a TGT, and the Ticket-Granting Server (TGS), which issues service-specific tickets.
+      The TGT serves as proof of identity without requiring the user to re-enter credentials for every service, enabling Single Sign-On within the Kerberos realm.
+      Tickets are time-stamped and have a limited validity period, reducing replay attack risk; Kerberos therefore requires synchronized clocks across all systems.
+      This sequence ensures that plaintext passwords are never transmitted over the network, providing strong mutual authentication between clients and services.
+
+  - id: iq-d5-005
+    domain: domain5
+    type: matching
+    question: "Match each access control model to its defining characteristic."
+    items:
+      - "DAC (Discretionary Access Control)"
+      - "MAC (Mandatory Access Control)"
+      - "RBAC (Role-Based Access Control)"
+      - "ABAC (Attribute-Based Access Control)"
+    categories:
+      - "Resource owner decides who can access their objects"
+      - "Access determined by security labels and clearance levels"
+      - "Access granted based on the user's assigned job role"
+      - "Access decisions evaluated against multiple attributes and policies"
+    correct_mapping:
+      0: "Resource owner decides who can access their objects"
+      1: "Access determined by security labels and clearance levels"
+      2: "Access granted based on the user's assigned job role"
+      3: "Access decisions evaluated against multiple attributes and policies"
+    explanation: >
+      DAC gives resource owners discretion to grant or revoke access to their own objects, which is flexible but can lead to access sprawl if owners are careless.
+      MAC enforces access through system-assigned sensitivity labels (e.g., Top Secret, Secret) matched against subject clearance levels, commonly used in government and military environments.
+      RBAC simplifies administration by assigning permissions to roles rather than individuals; users acquire permissions by being assigned to roles, which scales well in large organizations.
+      ABAC is the most fine-grained model, making access decisions based on a combination of subject, object, and environmental attributes evaluated against a policy, enabling dynamic and context-aware access control.
+      The CISSP exam frequently tests understanding of which model is most appropriate for a given scenario, so recognizing each model's defining trait is essential.
+
+  - id: iq-d5-006
+    domain: domain5
+    type: matching
+    question: "Match each authentication factor type to the correct real-world example."
+    items:
+      - "Type 1 — Something you know"
+      - "Type 2 — Something you have"
+      - "Type 3 — Something you are"
+      - "Type 4 — Somewhere you are"
+    categories:
+      - "Password or PIN"
+      - "Smart card or hardware OTP token"
+      - "Fingerprint or retinal scan"
+      - "GPS location or IP geolocation"
+    correct_mapping:
+      0: "Password or PIN"
+      1: "Smart card or hardware OTP token"
+      2: "Fingerprint or retinal scan"
+      3: "GPS location or IP geolocation"
+    explanation: >
+      Type 1 factors rely entirely on memorized secrets; they are the most widely deployed but also most vulnerable to phishing, brute force, and credential stuffing attacks.
+      Type 2 factors require physical possession of a device such as a hardware token, CAC/PIV card, or mobile authenticator app generating time-based one-time passwords (TOTP).
+      Type 3 factors use biometric measurements of physiological (fingerprint, iris, retina, face) or behavioral (keystroke dynamics, gait) characteristics unique to the individual.
+      Type 4 factors (location-based) restrict or confirm authentication based on where the user physically is, often used as an additional contextual layer in risk-based authentication.
+      Combining factors from different categories provides defense in depth, since compromising multiple distinct factor types simultaneously is significantly harder for an attacker.
+
+  - id: iq-d5-007
+    domain: domain5
+    type: matching
+    question: "Match each identity federation or authentication protocol to its primary use case."
+    items:
+      - "SAML 2.0"
+      - "OAuth 2.0"
+      - "OpenID Connect (OIDC)"
+      - "Kerberos"
+    categories:
+      - "Enterprise SSO via XML-based security assertions between IdP and SP"
+      - "Delegated authorization allowing third-party apps to access resources on a user's behalf"
+      - "Authentication layer built on top of OAuth 2.0 providing identity tokens (JWT)"
+      - "Internal network ticket-based authentication using a Key Distribution Center"
+    correct_mapping:
+      0: "Enterprise SSO via XML-based security assertions between IdP and SP"
+      1: "Delegated authorization allowing third-party apps to access resources on a user's behalf"
+      2: "Authentication layer built on top of OAuth 2.0 providing identity tokens (JWT)"
+      3: "Internal network ticket-based authentication using a Key Distribution Center"
+    explanation: >
+      SAML 2.0 is an XML-based open standard widely used for enterprise Single Sign-On, exchanging authentication and authorization assertions between an Identity Provider (IdP) and a Service Provider (SP).
+      OAuth 2.0 is an authorization framework — not an authentication protocol — that issues access tokens so applications can act on a user's behalf without exposing credentials; it is commonly used for API authorization.
+      OpenID Connect extends OAuth 2.0 with an identity layer, issuing a signed JWT ID token that tells the relying party who the user is, making it suitable for web and mobile authentication scenarios.
+      Kerberos uses symmetric cryptography and a trusted KDC to issue time-limited tickets, enabling SSO within a Windows Active Directory domain or other Kerberos realm without transmitting passwords.
+      A common exam trap is confusing OAuth 2.0 (authorization) with OpenID Connect (authentication); remembering that OIDC adds the ID token on top of OAuth 2.0 clarifies the distinction.
+
+  - id: iq-d5-008
+    domain: domain5
+    type: matching
+    question: "Match each account type to the primary security control required to manage its risk."
+    items:
+      - "Privileged (administrative) account"
+      - "Service account"
+      - "Guest account"
+      - "Standard user account"
+    categories:
+      - "Privileged Access Workstation (PAW) and just-in-time access with session recording"
+      - "Unique per-application credentials, no interactive login, regularly rotated secrets"
+      - "Heavily restricted permissions, time-limited access, disabled when not in use"
+      - "Least privilege assignment and periodic access recertification"
+    correct_mapping:
+      0: "Privileged Access Workstation (PAW) and just-in-time access with session recording"
+      1: "Unique per-application credentials, no interactive login, regularly rotated secrets"
+      2: "Heavily restricted permissions, time-limited access, disabled when not in use"
+      3: "Least privilege assignment and periodic access recertification"
+    explanation: >
+      Privileged accounts represent the highest risk because compromise grants broad administrative control; PAWs, just-in-time access, and session recording reduce the attack surface and provide auditability.
+      Service accounts are non-human identities used by applications and automated processes; they should never be shared between applications, should not allow interactive logins, and their credentials must be rotated regularly to limit lateral movement risk.
+      Guest accounts should be restricted to the minimum access needed for a temporary purpose, automatically disabled after a defined period, and never granted access to sensitive resources.
+      Standard user accounts follow the principle of least privilege, receiving only the permissions necessary for their job function, with access periodically reviewed to remove entitlements that are no longer needed.
+      PAM (Privileged Access Management) solutions address privileged and service account risks by vaulting credentials, enforcing just-in-time access, and providing comprehensive session logs.
+
+  - id: iq-d5-009
+    domain: domain5
+    type: multiselect
+    question: "Which of the following combinations qualify as valid Multi-Factor Authentication (MFA)? (Select all that apply)"
+    options:
+      - "Password (Type 1) + hardware OTP token (Type 2)"
+      - "Password (Type 1) + security question (Type 1)"
+      - "Fingerprint scan (Type 3) + smart card (Type 2)"
+      - "Two different passwords from two different systems (Type 1 + Type 1)"
+    correct_answers: [0, 2]
+    explanation: >
+      MFA requires the use of two or more authentication factors from different categories; using two factors of the same type (e.g., two passwords or two knowledge-based questions) does not constitute MFA.
+      A password combined with a hardware OTP token is the most common MFA deployment, combining something you know with something you have.
+      A fingerprint scan combined with a smart card is also valid MFA, combining something you are (Type 3) with something you have (Type 2).
+      Security questions are another Type 1 factor, so a password plus a security question is simply two knowledge-based factors — stronger than a single password, but not true MFA.
+      Similarly, two passwords from different systems are still both Type 1, providing no additional factor diversity and therefore not meeting the MFA definition.
+
+  - id: iq-d5-010
+    domain: domain5
+    type: multiselect
+    question: "Which of the following are core principles of the Zero Trust security model? (Select all that apply)"
+    options:
+      - "Verify explicitly — always authenticate and authorize based on all available data points"
+      - "Use least privilege access — limit access with just-in-time and just-enough-access"
+      - "Assume breach — minimize blast radius and segment access"
+      - "Trust all internal network traffic — only verify traffic crossing the perimeter"
+    correct_answers: [0, 1, 2]
+    explanation: >
+      Zero Trust, articulated by Forrester and adopted by frameworks such as NIST SP 800-207, rejects the traditional perimeter model where internal network traffic is implicitly trusted.
+      "Verify explicitly" means every access request must be authenticated and authorized using all available signals — identity, location, device health, service or workload, data classification, and anomalies.
+      "Use least privilege access" ensures users and workloads receive only the minimum permissions needed, often implemented as just-in-time (JIT) and just-enough-access (JEA) to reduce standing privilege.
+      "Assume breach" means designing controls as if the network is already compromised: segment networks, encrypt all traffic, and instrument everything to detect and contain attackers quickly.
+      Trusting all internal traffic is the opposite of Zero Trust and describes the legacy castle-and-moat model that Zero Trust is designed to replace.
+
+  - id: iq-d5-011
+    domain: domain5
+    type: multiselect
+    question: "Which of the following are recognized objectives of a Privileged Access Management (PAM) program? (Select all that apply)"
+    options:
+      - "Vault and rotate privileged credentials to prevent standing access"
+      - "Record and monitor privileged sessions for audit and forensic purposes"
+      - "Grant all IT staff permanent administrative rights for operational efficiency"
+      - "Enforce just-in-time elevation so privileges are granted only when needed"
+    correct_answers: [0, 1, 3]
+    explanation: >
+      PAM programs exist to protect high-value accounts that, if compromised, could allow an attacker to cause widespread damage across systems and data.
+      Credential vaulting stores privileged passwords in an encrypted vault and rotates them automatically, ensuring that no individual holds a persistent, memorized administrative password.
+      Session recording captures all keystrokes, commands, and screen activity during privileged sessions, supporting incident response, forensics, and compliance requirements.
+      Just-in-time (JIT) elevation removes standing privilege entirely; administrators request elevated access for a defined time window and purpose, reducing the window of opportunity for attackers.
+      Granting all IT staff permanent administrative rights is the antithesis of PAM and directly violates the principle of least privilege and separation of duties.
+
+  - id: iq-d5-012
+    domain: domain5
+    type: multiselect
+    question: "Which of the following are accurate characteristics of Role-Based Access Control (RBAC)? (Select all that apply)"
+    options:
+      - "Permissions are assigned to roles, and users acquire permissions by being assigned to roles"
+      - "Access decisions are made dynamically based on subject, object, and environmental attributes"
+      - "Administration is simplified in large organizations because role changes affect all users in that role"
+      - "It supports the principle of least privilege and separation of duties through role design"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      RBAC, defined in NIST FIPS 140 and ANSI/INCITS 359, grants permissions to roles rather than directly to individual users, which is its defining characteristic.
+      When permissions are attached to roles, a single administrative action (e.g., updating the "Accountant" role) propagates to all users in that role, dramatically reducing administrative overhead in large organizations.
+      RBAC naturally supports least privilege when roles are carefully scoped to job functions, and separation of duties when incompatible permissions are placed in different roles that cannot be simultaneously assigned to one user.
+      Dynamically evaluating subject, object, and environmental attributes is the hallmark of ABAC (Attribute-Based Access Control), not RBAC; confusing the two is a common exam mistake.
+      RBAC is the most widely implemented enterprise access control model because it aligns naturally with organizational hierarchies and is straightforward to audit.
+
+  - id: iq-d5-013
+    domain: domain5
+    type: fillblank
+    question: "What is the security principle that requires users and processes to be granted only the minimum level of access necessary to perform their job functions?"
+    template: "The principle of {blank} ensures that users receive only the permissions required for their specific role, reducing the potential damage from errors, insider threats, or compromised accounts."
+    choices:
+      - "least privilege"
+      - "need to know"
+      - "separation of duties"
+      - "defense in depth"
+    correct_answer: 0
+    explanation: >
+      The principle of least privilege (PoLP) is a foundational access control concept that limits each subject's access rights to only what is strictly necessary to complete authorized tasks.
+      Implementing least privilege reduces the blast radius of a compromised account, limits an insider's ability to cause damage or exfiltrate data, and contains malware that executes in a user's security context.
+      Need to know is a related but narrower concept focused specifically on information access — a user may have the clearance level but still must have a demonstrated need to access specific data.
+      Separation of duties is a complementary control that distributes critical tasks among multiple individuals to prevent any single person from having enough access to commit and conceal fraud.
+      Defense in depth is a broader strategy of layering multiple controls, not a specific access principle; all four options represent important IAM concepts but least privilege specifically answers the question.
+
+  - id: iq-d5-014
+    domain: domain5
+    type: fillblank
+    question: "In the Kerberos protocol, which component of the Key Distribution Center issues the initial Ticket-Granting Ticket (TGT) after verifying the user's credentials?"
+    template: "In Kerberos, the {blank} receives the user's initial authentication request, verifies the credentials, and issues the Ticket-Granting Ticket used to obtain service tickets without re-entering the password."
+    choices:
+      - "Authentication Server (AS)"
+      - "Ticket-Granting Server (TGS)"
+      - "Service Principal"
+      - "Certificate Authority (CA)"
+    correct_answer: 0
+    explanation: >
+      The Kerberos Key Distribution Center (KDC) contains two logical services: the Authentication Server (AS) and the Ticket-Granting Server (TGS), both typically running on the same physical domain controller in Active Directory environments.
+      The AS handles the initial login exchange, verifying the user's long-term secret key (derived from the password) and issuing a TGT encrypted with the TGS's secret key.
+      The TGS then accepts the TGT as proof of identity to issue service-specific tickets without requiring the user to re-authenticate, enabling Single Sign-On within the Kerberos realm.
+      The Service Principal is the target resource (e.g., a file server) that validates the service ticket issued by the TGS — it does not issue tickets.
+      A Certificate Authority is a PKI component unrelated to Kerberos ticket issuance; conflating PKI with Kerberos is a common exam distractor.
+
+  - id: iq-d5-015
+    domain: domain5
+    type: fillblank
+    question: "What is the primary security and usability benefit of implementing Single Sign-On (SSO) across an enterprise environment?"
+    template: "SSO improves security by reducing {blank}, while simultaneously improving user experience by requiring only one authentication event to access multiple systems."
+    choices:
+      - "password fatigue and the risk of weak or reused passwords across systems"
+      - "the number of servers required to host applications"
+      - "network latency for remote users"
+      - "the complexity of firewall rule sets"
+    correct_answer: 0
+    explanation: >
+      SSO allows a user to authenticate once and gain access to multiple applications without re-entering credentials, which directly addresses password fatigue — the tendency of users to create weak or reused passwords when they must manage many separate credentials.
+      By reducing the number of passwords users must remember and enter, SSO also reduces the likelihood of credential-related incidents such as phishing success and password spray attacks.
+      From an administrative perspective, SSO centralizes authentication, making it easier to enforce strong authentication policies (including MFA) at a single point and to quickly revoke access across all systems when an account is deprovisioned.
+      A key trade-off of SSO is that the IdP becomes a high-value target; if the SSO credential is compromised, an attacker gains access to all federated applications, making MFA at the SSO layer critically important.
+      Server count, network latency, and firewall complexity are infrastructure concerns unrelated to the core IAM benefit of SSO.

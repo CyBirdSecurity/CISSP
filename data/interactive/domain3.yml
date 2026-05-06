@@ -1,0 +1,335 @@
+interactive_questions:
+
+  # ── Ordering ─────────────────────────────────────────────────
+
+  - id: iq-d3-001
+    domain: domain3
+    type: ordering
+    question: "Place the OSI model layers in order from Layer 1 (lowest) to Layer 7 (highest):"
+    items:
+      - "Physical"
+      - "Data Link"
+      - "Network"
+      - "Transport"
+      - "Session"
+      - "Presentation"
+      - "Application"
+    correct_order: [0, 1, 2, 3, 4, 5, 6]
+    explanation: >
+      The OSI model's seven layers from bottom to top are: Physical (bits over medium),
+      Data Link (frames, MAC addressing), Network (packets, IP routing), Transport (segments,
+      TCP/UDP, end-to-end delivery), Session (dialog control, synchronization), Presentation
+      (encoding, encryption, compression), and Application (user-facing protocols such as HTTP
+      and SMTP). Understanding this stack is essential for mapping security controls to the
+      correct layer and diagnosing network-based attacks.
+
+  - id: iq-d3-002
+    domain: domain3
+    type: ordering
+    question: "Arrange the PKI certificate lifecycle phases in the correct order from start to finish:"
+    items:
+      - "Key Generation"
+      - "Certificate Request (CSR)"
+      - "Certificate Issuance by CA"
+      - "Certificate Distribution"
+      - "Certificate Usage"
+      - "Certificate Expiration or Revocation"
+    correct_order: [0, 1, 2, 3, 4, 5]
+    explanation: >
+      A PKI certificate begins with Key Generation (creating the public/private key pair),
+      followed by submitting a Certificate Signing Request (CSR) to a Certificate Authority (CA).
+      The CA validates identity and issues the signed certificate, which is then distributed to
+      relying parties. The certificate is used for authentication or encryption until it either
+      expires or is revoked via CRL or OCSP. Understanding this lifecycle helps security architects
+      design proper certificate management policies.
+
+  - id: iq-d3-003
+    domain: domain3
+    type: ordering
+    question: "Place the steps of symmetric key exchange using RSA (hybrid encryption) in the correct order:"
+    items:
+      - "Sender obtains recipient's RSA public key"
+      - "Sender generates a random symmetric session key"
+      - "Sender encrypts the session key with the recipient's public key"
+      - "Sender encrypts data with the symmetric session key"
+      - "Recipient decrypts the session key using their RSA private key"
+      - "Recipient decrypts data using the recovered session key"
+    correct_order: [0, 1, 2, 3, 4, 5]
+    explanation: >
+      Hybrid encryption combines asymmetric and symmetric cryptography to gain the benefits of both.
+      The sender first obtains the recipient's public key, generates a fast symmetric session key,
+      then uses RSA to encrypt (wrap) that session key. The bulk data is encrypted with the efficient
+      symmetric key. The recipient uses their private key to unwrap the session key, then decrypts
+      the data. This pattern underlies protocols like TLS and PGP.
+
+  - id: iq-d3-004
+    domain: domain3
+    type: ordering
+    question: "Arrange the phases of the Trusted Computing Base (TCB) evaluation process under Common Criteria in the correct order:"
+    items:
+      - "Define Security Target (ST) or Protection Profile (PP)"
+      - "Developer creates evidence package (design docs, test results)"
+      - "Independent evaluation lab (CCTL) assesses evidence"
+      - "Certification Body reviews and certifies"
+      - "Certified product listed on Common Criteria portal"
+    correct_order: [0, 1, 2, 3, 4]
+    explanation: >
+      Under Common Criteria (ISO/IEC 15408), evaluation begins with defining either a Protection
+      Profile (generic requirements) or a Security Target (product-specific claims). The developer
+      assembles evidence aligned with the chosen Evaluation Assurance Level (EAL). A licensed
+      evaluation lab independently tests the evidence, and then a national certification body
+      reviews the lab's findings. Once certified, the product is published on the international
+      Common Criteria portal, allowing mutual recognition among member nations.
+
+  # ── Matching ─────────────────────────────────────────────────
+
+  - id: iq-d3-005
+    domain: domain3
+    type: matching
+    question: "Match each security model to the primary security property it is designed to enforce:"
+    items:
+      - "Bell-LaPadula Model"
+      - "Biba Model"
+      - "Clark-Wilson Model"
+      - "Brewer-Nash (Chinese Wall) Model"
+    categories:
+      - "Confidentiality"
+      - "Integrity"
+      - "Integrity (Commercial)"
+      - "Conflict of Interest Prevention"
+    correct_mapping:
+      0: "Confidentiality"
+      1: "Integrity"
+      2: "Integrity (Commercial)"
+      3: "Conflict of Interest Prevention"
+    explanation: >
+      Bell-LaPadula enforces confidentiality with "no read up, no write down" in military
+      classification systems. Biba is the integrity counterpart ("no read down, no write up"),
+      preventing contamination of higher-integrity data. Clark-Wilson enforces commercial integrity
+      through well-formed transactions and separation of duties using subjects, transformation
+      procedures, and constrained data items. Brewer-Nash (Chinese Wall) prevents consultants
+      from accessing data that would create a conflict of interest between competing clients.
+
+  - id: iq-d3-006
+    domain: domain3
+    type: matching
+    question: "Match each cryptographic algorithm to its correct algorithm type:"
+    items:
+      - "AES-256"
+      - "RSA-2048"
+      - "SHA-256"
+      - "HMAC-SHA-256"
+      - "Elliptic Curve Cryptography (ECC)"
+    categories:
+      - "Symmetric Encryption"
+      - "Asymmetric Encryption"
+      - "Cryptographic Hash"
+      - "Message Authentication Code (MAC)"
+    correct_mapping:
+      0: "Symmetric Encryption"
+      1: "Asymmetric Encryption"
+      2: "Cryptographic Hash"
+      3: "Message Authentication Code (MAC)"
+      4: "Asymmetric Encryption"
+    explanation: >
+      AES is a symmetric block cipher using a shared secret key. RSA and ECC are asymmetric
+      algorithms that use public/private key pairs — ECC achieves equivalent strength to RSA with
+      much shorter keys, making it preferred for constrained environments. SHA-256 is a one-way
+      hash function that produces a fixed-length digest but provides no authentication on its own.
+      HMAC combines a hash function with a secret key to provide both data integrity and origin
+      authentication, distinguishing it from a bare hash.
+
+  - id: iq-d3-007
+    domain: domain3
+    type: matching
+    question: "Match each physical security control to its correct control type:"
+    items:
+      - "Security fence with warning signs"
+      - "Mantra p (man-trap) / airlock entry"
+      - "Motion-activated CCTV logging to off-site storage"
+      - "Security guard who escorts an unauthorized individual off premises"
+      - "Badge-activated door lock"
+    categories:
+      - "Deterrent"
+      - "Preventive"
+      - "Detective"
+      - "Corrective"
+    correct_mapping:
+      0: "Deterrent"
+      1: "Preventive"
+      2: "Detective"
+      3: "Corrective"
+      4: "Preventive"
+    explanation: >
+      Deterrent controls discourage attacks without physically stopping them — warning signs and
+      fences signal that intrusion will be noticed. Preventive controls block unauthorized access
+      before it occurs; mantrap airlocks and badge readers physically prevent entry. Detective
+      controls identify and record security events after or during occurrence, such as CCTV logging.
+      Corrective controls respond to detected incidents to minimize damage, like a guard removing
+      an intruder. Many controls serve multiple roles depending on context.
+
+  - id: iq-d3-008
+    domain: domain3
+    type: matching
+    question: "Match each fire suppression agent to the environment where it is most appropriate:"
+    items:
+      - "Halon replacement (e.g., FM-200 / HFC-227ea)"
+      - "Wet-pipe sprinkler system"
+      - "Dry-pipe sprinkler system"
+      - "CO2 suppression system"
+    categories:
+      - "Data center / server room with sensitive electronics"
+      - "Standard office or warehouse space"
+      - "Unheated space subject to freezing temperatures"
+      - "Unmanned industrial space (toxic to humans)"
+    correct_mapping:
+      0: "Data center / server room with sensitive electronics"
+      1: "Standard office or warehouse space"
+      2: "Unheated space subject to freezing temperatures"
+      3: "Unmanned industrial space (toxic to humans)"
+    explanation: >
+      Clean agent systems (FM-200, Halon replacements) suppress fire by interrupting combustion
+      chemistry without leaving residue, making them ideal for protecting electronics. Wet-pipe
+      systems keep pipes filled with water and are simple and reliable for general-purpose spaces.
+      Dry-pipe systems hold pressurized air rather than water, releasing water only when a head
+      activates — critical in unheated areas where water would freeze. CO2 displaces oxygen to
+      extinguish fire but creates a lethal atmosphere, so it is restricted to unmanned spaces.
+
+  # ── Multiselect ──────────────────────────────────────────────
+
+  - id: iq-d3-009
+    domain: domain3
+    type: multiselect
+    question: "Which of the following are required properties of a cryptographically secure hash function? (Select all that apply)"
+    options:
+      - "Pre-image resistance (one-way)"
+      - "Deterministic output for the same input"
+      - "Avalanche effect (small input change causes drastically different output)"
+      - "Collision resistance (computationally infeasible to find two inputs with the same hash)"
+      - "Reversibility using a secret key"
+    correct_answers: [0, 1, 2, 3]
+    explanation: >
+      A cryptographic hash function must be pre-image resistant (given a hash, you cannot
+      feasibly recover the original input), deterministic (the same input always yields the same
+      digest), exhibit the avalanche effect (a single bit change alters roughly 50% of output
+      bits), and be collision resistant (finding two distinct inputs that hash to the same value
+      must be computationally infeasible). Reversibility using a key is NOT a property of hash
+      functions — that describes symmetric encryption. Hash functions are inherently one-way.
+
+  - id: iq-d3-010
+    domain: domain3
+    type: multiselect
+    question: "Which of the following are considered symmetric encryption algorithms? (Select all that apply)"
+    options:
+      - "AES (Advanced Encryption Standard)"
+      - "RSA (Rivest-Shamir-Adleman)"
+      - "3DES (Triple DES)"
+      - "Blowfish"
+      - "Diffie-Hellman"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      Symmetric algorithms use the same key for both encryption and decryption. AES, 3DES, and
+      Blowfish are all symmetric block ciphers. RSA is an asymmetric algorithm relying on the
+      mathematical difficulty of factoring large primes. Diffie-Hellman is a key exchange protocol
+      (asymmetric in nature) used to establish a shared secret over an untrusted channel, not an
+      encryption algorithm itself. Knowing which algorithms are symmetric vs. asymmetric is a
+      frequent CISSP exam topic.
+
+  - id: iq-d3-011
+    domain: domain3
+    type: multiselect
+    question: "Which of the following are recognized secure design principles in security architecture? (Select all that apply)"
+    options:
+      - "Least privilege"
+      - "Defense in depth"
+      - "Fail-open (default allow on failure)"
+      - "Separation of duties"
+      - "Need to know"
+      - "Security through obscurity (as primary control)"
+    correct_answers: [0, 1, 3, 4]
+    explanation: >
+      Least privilege restricts subjects to only the access required for their role. Defense in
+      depth layers multiple independent controls so that failure of one does not compromise the
+      whole system. Separation of duties divides sensitive tasks among multiple people to prevent
+      fraud. Need to know limits access to information strictly necessary to perform a job function.
+      Fail-open (default allow) is an anti-pattern — secure systems should fail-secure (default
+      deny). Security through obscurity alone is not a recognized secure design principle because
+      it relies on hiding rather than sound architecture.
+
+  - id: iq-d3-012
+    domain: domain3
+    type: multiselect
+    question: "Which of the following statements correctly describe the Bell-LaPadula confidentiality model? (Select all that apply)"
+    options:
+      - "A subject cannot read data at a higher classification level (Simple Security Property)"
+      - "A subject cannot write data to a lower classification level (Star Property)"
+      - "A subject cannot read data at a lower classification level"
+      - "A subject cannot write data to a higher classification level"
+      - "It is primarily designed to protect data integrity in commercial environments"
+    correct_answers: [0, 1]
+    explanation: >
+      Bell-LaPadula enforces confidentiality in multi-level security (MLS) environments such as
+      military systems. The Simple Security Property ("no read up") prevents a subject from reading
+      objects at a higher clearance level. The Star Property (*-property, "no write down") prevents
+      a subject from writing information to a lower classification label, which would leak classified
+      data downward. Subjects CAN read down and write up. Bell-LaPadula does NOT address integrity —
+      that is the domain of the Biba model.
+
+  # ── Fill in the Blank ────────────────────────────────────────
+
+  - id: iq-d3-013
+    domain: domain3
+    type: fillblank
+    question: "What is Kerckhoffs's principle?"
+    template: "Kerckhoffs's principle states that a cryptosystem should be secure even if everything about the system, except the {blank}, is public knowledge."
+    choices:
+      - "key"
+      - "algorithm"
+      - "initialization vector"
+      - "plaintext"
+    correct_answer: 0
+    explanation: >
+      Kerckhoffs's principle, formulated by Auguste Kerckhoffs in 1883, holds that a cipher's
+      security must rest entirely on the secrecy of the key, not on the secrecy of the algorithm.
+      This principle underpins modern cryptography: algorithms like AES and RSA are publicly
+      documented and peer-reviewed, yet remain secure because breaking them without the key is
+      computationally infeasible. Relying on algorithm secrecy ("security through obscurity")
+      is fragile because algorithms are frequently reverse-engineered or leaked.
+
+  - id: iq-d3-014
+    domain: domain3
+    type: fillblank
+    question: "What are the two main access control properties of the Bell-LaPadula model?"
+    template: "The Bell-LaPadula model enforces confidentiality using the rules '{blank}' (Simple Security Property) and 'no write down' (Star Property)."
+    choices:
+      - "no read up"
+      - "no read down"
+      - "no write up"
+      - "read all levels"
+    correct_answer: 0
+    explanation: >
+      Bell-LaPadula uses two mandatory access control rules. The Simple Security Property ("no read
+      up") prevents subjects from reading objects classified above their clearance level. The Star
+      Property ("no write down") prevents subjects from writing or copying information to objects
+      at a lower classification, which would effectively declassify it. Together these two rules
+      ensure that classified information can never flow to a less-trusted level. The complementary
+      Biba model reverses the logic to protect integrity rather than confidentiality.
+
+  - id: iq-d3-015
+    domain: domain3
+    type: fillblank
+    question: "What is the block size used by AES (Advanced Encryption Standard) regardless of key length?"
+    template: "AES always operates on a fixed block size of {blank} bits, regardless of whether a 128-bit, 192-bit, or 256-bit key is used."
+    choices:
+      - "128"
+      - "64"
+      - "256"
+      - "512"
+    correct_answer: 0
+    explanation: >
+      AES (FIPS 197) was standardized in 2001 to replace DES and operates on a fixed 128-bit
+      (16-byte) block size. The key length can be 128, 192, or 256 bits, producing 10, 12, or 14
+      rounds of substitution-permutation respectively. The block size never changes — only the key
+      size and number of rounds vary. By contrast, the older DES standard used a 64-bit block size.
+      Knowing AES's fixed parameters (128-bit block, three key-length options) is commonly tested
+      on the CISSP exam.

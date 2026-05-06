@@ -1,0 +1,302 @@
+interactive_questions:
+  - id: iq-d6-001
+    domain: domain6
+    type: ordering
+    question: "Arrange the phases of a penetration test in the correct sequential order."
+    items:
+      - "Planning and Reconnaissance"
+      - "Scanning and Enumeration"
+      - "Exploitation"
+      - "Post-Exploitation"
+      - "Reporting"
+    correct_order: [0, 1, 2, 3, 4]
+    explanation: >
+      Penetration testing follows a structured methodology to ensure thorough and reproducible results.
+      Planning and Reconnaissance establishes scope, rules of engagement, and gathers open-source intelligence about the target.
+      Scanning and Enumeration actively probes the target to identify open ports, services, and potential vulnerabilities.
+      Exploitation attempts to leverage discovered vulnerabilities to gain unauthorized access or escalate privileges.
+      Post-Exploitation assesses the extent of compromise, establishes persistence, and pivots to other systems to demonstrate business impact.
+      Reporting documents all findings, evidence, and remediation recommendations for both technical and executive audiences.
+
+  - id: iq-d6-002
+    domain: domain6
+    type: ordering
+    question: "Arrange the steps of the vulnerability management lifecycle in the correct sequential order."
+    items:
+      - "Discover"
+      - "Prioritize"
+      - "Assess"
+      - "Report"
+      - "Remediate"
+      - "Verify"
+    correct_order: [0, 1, 2, 3, 4, 5]
+    explanation: >
+      The vulnerability management lifecycle is a continuous process organizations use to systematically reduce risk from known weaknesses.
+      Discovery involves scanning assets to identify all vulnerabilities present in the environment.
+      Prioritization uses risk factors such as CVSS scores, asset criticality, and exploitability to rank vulnerabilities for action.
+      Assessment evaluates each vulnerability in context to determine the true risk to the organization.
+      Reporting communicates findings to stakeholders, including metrics, trends, and remediation timelines.
+      Remediation applies patches, configuration changes, or compensating controls to eliminate or reduce vulnerabilities.
+      Verification confirms that remediation was successful and that the vulnerability no longer exists, closing the loop.
+
+  - id: iq-d6-003
+    domain: domain6
+    type: ordering
+    question: "Arrange the steps of a formal security audit process in the correct sequential order."
+    items:
+      - "Planning"
+      - "Fieldwork"
+      - "Reporting"
+      - "Follow-up"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      A formal security audit follows a structured four-phase approach consistent with professional auditing standards such as those from ISACA.
+      Planning defines the audit scope, objectives, criteria, and resource requirements, and identifies key controls to be tested.
+      Fieldwork is the hands-on phase where auditors gather evidence through interviews, document review, observation, and technical testing.
+      Reporting synthesizes findings into a formal audit report that identifies control deficiencies, risks, and recommended corrective actions.
+      Follow-up verifies that management has implemented corrective actions within agreed timelines, ensuring audit findings result in actual improvements.
+
+  - id: iq-d6-004
+    domain: domain6
+    type: ordering
+    question: "Arrange the steps of a log review and analysis process in the correct sequential order."
+    items:
+      - "Log Collection and Aggregation"
+      - "Normalization and Parsing"
+      - "Correlation and Analysis"
+      - "Alerting and Escalation"
+      - "Retention and Archiving"
+    correct_order: [0, 1, 2, 3, 4]
+    explanation: >
+      Effective log management is a core component of security assessment and monitoring under Domain 6.
+      Collection and aggregation pulls logs from diverse sources such as firewalls, servers, and applications into a centralized repository or SIEM.
+      Normalization and parsing converts logs into a consistent format so that events from different systems can be meaningfully compared.
+      Correlation and analysis applies rules and algorithms to identify patterns, anomalies, or sequences of events that indicate a security incident.
+      Alerting and escalation notifies security personnel when suspicious activity is detected so that timely response can occur.
+      Retention and archiving stores logs for the period required by policy, regulation, or legal hold to support future investigations and audits.
+
+  - id: iq-d6-005
+    domain: domain6
+    type: matching
+    question: "Match each penetration testing knowledge type to its correct description."
+    items:
+      - "Black Box"
+      - "White Box"
+      - "Gray Box"
+      - "Crystal Box"
+    categories:
+      - "Tester has no prior knowledge of the target environment"
+      - "Tester has full knowledge including source code and architecture"
+      - "Tester has partial knowledge such as user credentials or network diagrams"
+      - "Alternative term for white box testing with full internal visibility"
+    correct_mapping:
+      0: "Tester has no prior knowledge of the target environment"
+      1: "Tester has full knowledge including source code and architecture"
+      2: "Tester has partial knowledge such as user credentials or network diagrams"
+      3: "Alternative term for white box testing with full internal visibility"
+    explanation: >
+      The level of knowledge provided to a penetration tester significantly affects the scope, efficiency, and realism of the engagement.
+      Black box testing simulates an external attacker with no insider knowledge and is the most realistic but least efficient approach.
+      White box testing gives the tester complete access to documentation, source code, and architecture, enabling deep and thorough coverage.
+      Gray box testing, the most common approach, provides partial information such as credentials or network diagrams to simulate an insider or a partially informed attacker.
+      Crystal box is simply another name for white box testing and emphasizes full transparency into the system under test; both terms may appear on the CISSP exam.
+
+  - id: iq-d6-006
+    domain: domain6
+    type: matching
+    question: "Match each application security testing technique to its correct description."
+    items:
+      - "SAST"
+      - "DAST"
+      - "IAST"
+      - "RASP"
+    categories:
+      - "Analyzes source code or binaries before deployment without executing the application"
+      - "Tests a running application from the outside without access to source code"
+      - "Uses agents embedded inside a running application to monitor and test from within"
+      - "Protects an application at runtime by detecting and blocking attacks in production"
+    correct_mapping:
+      0: "Analyzes source code or binaries before deployment without executing the application"
+      1: "Tests a running application from the outside without access to source code"
+      2: "Uses agents embedded inside a running application to monitor and test from within"
+      3: "Protects an application at runtime by detecting and blocking attacks in production"
+    explanation: >
+      These four techniques represent a spectrum of application security testing approaches that CISSP candidates must distinguish.
+      Static Application Security Testing (SAST) is a white box technique that finds vulnerabilities early in the SDLC by analyzing code before it runs.
+      Dynamic Application Security Testing (DAST) acts as an external attacker against a running application and is effective at finding runtime issues like injection and authentication flaws.
+      Interactive Application Security Testing (IAST) combines SAST and DAST approaches by instrumenting the running application, providing high accuracy with low false positives.
+      Runtime Application Self-Protection (RASP) is not a testing tool but a production security control that intercepts malicious calls inside the application at runtime, distinguishing it from the other three.
+
+  - id: iq-d6-007
+    domain: domain6
+    type: matching
+    question: "Match each CVSS vulnerability severity level to its correct score range."
+    items:
+      - "Critical"
+      - "High"
+      - "Medium"
+      - "Low"
+    categories:
+      - "CVSS score 9.0 to 10.0"
+      - "CVSS score 7.0 to 8.9"
+      - "CVSS score 4.0 to 6.9"
+      - "CVSS score 0.1 to 3.9"
+    correct_mapping:
+      0: "CVSS score 9.0 to 10.0"
+      1: "CVSS score 7.0 to 8.9"
+      2: "CVSS score 4.0 to 6.9"
+      3: "CVSS score 0.1 to 3.9"
+    explanation: >
+      The Common Vulnerability Scoring System (CVSS) provides a standardized numerical score from 0.0 to 10.0 to communicate vulnerability severity.
+      Critical vulnerabilities (9.0-10.0) are remotely exploitable with no authentication required and often result in full system compromise, demanding immediate remediation.
+      High vulnerabilities (7.0-8.9) are serious flaws that can be exploited with minimal conditions and typically appear at the top of remediation priority lists.
+      Medium vulnerabilities (4.0-6.9) require some conditions to exploit and should be remediated within normal patching cycles.
+      Low vulnerabilities (0.1-3.9) have limited exploitability or impact and are typically addressed in routine maintenance; a score of 0.0 indicates no vulnerability.
+
+  - id: iq-d6-008
+    domain: domain6
+    type: matching
+    question: "Match each security testing technique to what it is primarily designed to find or assess."
+    items:
+      - "Penetration Test"
+      - "Vulnerability Scan"
+      - "Code Review"
+      - "Security Audit"
+    categories:
+      - "Exploitable attack paths and the actual impact of a successful breach"
+      - "Known vulnerabilities, misconfigurations, and missing patches across systems"
+      - "Security defects, logic flaws, and insecure coding practices in application source code"
+      - "Compliance with policies, standards, and controls through evidence examination"
+    correct_mapping:
+      0: "Exploitable attack paths and the actual impact of a successful breach"
+      1: "Known vulnerabilities, misconfigurations, and missing patches across systems"
+      2: "Security defects, logic flaws, and insecure coding practices in application source code"
+      3: "Compliance with policies, standards, and controls through evidence examination"
+    explanation: >
+      Understanding the purpose and scope of each security assessment technique is essential for selecting the right tool for a given objective.
+      Penetration testing goes beyond identifying vulnerabilities by actively exploiting them to demonstrate real-world business impact and attack paths.
+      Vulnerability scanning uses automated tools to compare system configurations and patch levels against databases of known vulnerabilities, providing broad but shallow coverage.
+      Code review, whether manual or automated, examines application source code to find programming errors and insecure patterns before software is deployed.
+      Security audits are formal evaluations that assess whether controls are in place, operating effectively, and aligned with applicable policies, regulations, and standards such as ISO 27001 or SOC 2.
+
+  - id: iq-d6-009
+    domain: domain6
+    type: multiselect
+    question: "Which of the following are recognized types of security audits? (Select all that apply)"
+    options:
+      - "Internal audit conducted by the organization's own audit team"
+      - "External audit conducted by an independent third-party firm"
+      - "Compliance audit against a specific regulatory standard"
+      - "Offensive red team simulation targeting physical security only"
+    correct_answers: [0, 1, 2]
+    explanation: >
+      Security audits can be categorized based on who performs them and what they assess.
+      Internal audits are performed by an organization's own audit staff and provide ongoing assurance, though they may lack full independence.
+      External audits are conducted by independent auditing firms and are required for many regulatory frameworks such as SOC 2, PCI DSS, and ISO 27001 certifications.
+      Compliance audits focus on verifying adherence to a specific standard, regulation, or contractual requirement and are a distinct and recognized audit type.
+      A red team simulation is a form of adversarial testing, not an audit; audits involve evidence review and control assessment rather than active exploitation.
+
+  - id: iq-d6-010
+    domain: domain6
+    type: multiselect
+    question: "Which of the following are typically included as deliverables in a penetration test report? (Select all that apply)"
+    options:
+      - "Executive summary describing overall risk posture and key findings"
+      - "Technical findings with evidence, CVSS scores, and remediation guidance"
+      - "Attack narrative describing the methods and path used to compromise systems"
+      - "A list of all software licenses used on target systems"
+    correct_answers: [0, 1, 2]
+    explanation: >
+      A professional penetration test report must communicate findings effectively to both executive and technical audiences.
+      The executive summary provides a high-level overview of the engagement scope, overall risk rating, and most critical findings suitable for senior leadership.
+      Technical findings detail each vulnerability discovered, including reproduction steps, evidence (such as screenshots), CVSS severity ratings, and specific remediation recommendations.
+      The attack narrative tells the story of how the tester moved through the environment, illustrating attack chains and demonstrating real business impact to help stakeholders understand exposure.
+      A software license inventory is not a penetration testing deliverable; it belongs to software asset management processes and has no bearing on security assessment findings.
+
+  - id: iq-d6-011
+    domain: domain6
+    type: multiselect
+    question: "Which of the following statements accurately describe characteristics of a vulnerability scan compared to a penetration test? (Select all that apply)"
+    options:
+      - "A vulnerability scan identifies potential weaknesses but does not exploit them"
+      - "A penetration test actively exploits vulnerabilities to determine real-world impact"
+      - "Vulnerability scans typically produce fewer false positives than penetration tests"
+      - "A penetration test requires defined scope and rules of engagement agreed upon in advance"
+    correct_answers: [0, 1, 3]
+    explanation: >
+      Vulnerability scans and penetration tests are complementary but fundamentally different assessment techniques.
+      Vulnerability scanning is a passive, automated process that flags potential weaknesses based on version numbers and signatures without confirming exploitability, which is why it often produces false positives.
+      Penetration testing actively validates that vulnerabilities are exploitable and measures the actual damage an attacker could cause, providing higher-fidelity risk information.
+      Penetration tests require formal scoping documents, statements of work, and rules of engagement to define boundaries and provide legal authorization for testing activities.
+      Vulnerability scans, not penetration tests, are more prone to false positives because they rely on signatures and heuristics rather than manual validation and active exploitation.
+
+  - id: iq-d6-012
+    domain: domain6
+    type: multiselect
+    question: "Which of the following are recognized code review techniques used in security assessment? (Select all that apply)"
+    options:
+      - "Static analysis using automated tools to scan source code for known vulnerability patterns"
+      - "Manual code review by a security engineer examining logic and control flow"
+      - "Fuzz testing by sending random or malformed inputs to discover unexpected behavior"
+      - "Pair programming as a development practice that incidentally improves code quality"
+    correct_answers: [0, 1, 2, 3]
+    explanation: >
+      Multiple complementary techniques exist for identifying security defects in software, and CISSP candidates should be familiar with each.
+      Static analysis tools such as Checkmarx, Veracode, or Bandit scan code for known insecure patterns, hard-coded credentials, and injection sinks without executing the program.
+      Manual code review allows an experienced security professional to assess business logic flaws, insecure design patterns, and subtle vulnerabilities that automated tools frequently miss.
+      Fuzz testing (fuzzing) automatically generates and sends large volumes of random, unexpected, or malformed input to an application to trigger crashes, exceptions, or undefined behavior indicative of vulnerabilities.
+      Pair programming, while primarily a development practice, is recognized as improving code quality and security through continuous peer review, and is included in some security frameworks as a lightweight assurance technique.
+
+  - id: iq-d6-013
+    domain: domain6
+    type: fillblank
+    question: "Understanding penetration testing knowledge levels is essential for CISSP."
+    template: "In a {blank} penetration test, the tester is given no prior information about the target environment and must conduct all reconnaissance independently, simulating an external attacker."
+    choices:
+      - "black box"
+      - "white box"
+      - "gray box"
+      - "crystal box"
+    correct_answer: 0
+    explanation: >
+      Black box testing is the most realistic form of penetration testing because it replicates the conditions faced by an external attacker who has no insider knowledge.
+      The tester must rely entirely on open-source intelligence (OSINT), scanning, and enumeration to map the attack surface before attempting exploitation.
+      While black box testing provides high realism, it is also the least efficient approach because significant time is spent on reconnaissance that an insider threat would not need.
+      White box testing (also called crystal box) provides full knowledge including source code, while gray box provides partial knowledge such as credentials or network diagrams.
+      Choosing the appropriate knowledge level depends on the assessment objectives, available budget, and whether the organization wants to simulate an insider or outsider threat scenario.
+
+  - id: iq-d6-014
+    domain: domain6
+    type: fillblank
+    question: "Vulnerability scoring is a foundational concept in security assessment and testing."
+    template: "The acronym CVSS stands for Common Vulnerability {blank} System, the industry-standard framework for rating the severity of security vulnerabilities on a scale from 0.0 to 10.0."
+    choices:
+      - "Scoring"
+      - "Scanning"
+      - "Security"
+      - "Standard"
+    correct_answer: 0
+    explanation: >
+      The Common Vulnerability Scoring System (CVSS) is maintained by FIRST (Forum of Incident Response and Security Teams) and provides a vendor-neutral, open standard for communicating vulnerability severity.
+      CVSS scores are calculated using a set of metrics grouped into Base, Temporal, and Environmental score groups that capture the intrinsic characteristics of a vulnerability and its context.
+      Base metrics include factors such as Attack Vector, Attack Complexity, Privileges Required, User Interaction, Scope, and the CIA impact ratings for the affected system.
+      Organizations use CVSS scores as one input in vulnerability prioritization, though the NVD and many security programs also incorporate additional factors such as asset criticality and threat intelligence.
+      CISSP candidates must know that CVSS is a scoring system, not a scanning or patching tool, and that Critical is 9.0-10.0, High is 7.0-8.9, Medium is 4.0-6.9, and Low is 0.1-3.9.
+
+  - id: iq-d6-015
+    domain: domain6
+    type: fillblank
+    question: "Fuzz testing is an important dynamic testing technique covered in Domain 6."
+    template: "Fuzz testing is a software testing technique that discovers vulnerabilities by automatically sending {blank} inputs to an application and monitoring for crashes, exceptions, or unexpected behavior."
+    choices:
+      - "random or malformed"
+      - "carefully crafted SQL injection"
+      - "encrypted and signed"
+      - "well-formed valid"
+    correct_answer: 0
+    explanation: >
+      Fuzz testing, or fuzzing, is a dynamic black box testing technique that uncovers memory corruption bugs, input validation flaws, and denial-of-service vulnerabilities that are difficult to find through code review alone.
+      A fuzzer generates large volumes of random, unexpected, or malformed data and feeds it to application inputs such as file parsers, network protocols, APIs, and user interface fields.
+      When the application crashes or behaves unexpectedly in response to fuzz input, this indicates a potential vulnerability such as a buffer overflow, format string bug, or uncaught exception.
+      Modern coverage-guided fuzzers such as AFL and libFuzzer use instrumentation to track which code paths are exercised and intelligently mutate inputs to maximize code coverage.
+      Fuzzing is particularly valuable in finding zero-day vulnerabilities and is used extensively in the security testing of browsers, operating systems, network stacks, and file format parsers.

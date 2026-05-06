@@ -1,0 +1,348 @@
+interactive_questions:
+
+  # ── Ordering ─────────────────────────────────────────────────
+
+  - id: iq-d8-001
+    domain: domain8
+    type: ordering
+    question: "Arrange the Software Development Life Cycle (SDLC) phases in the correct order:"
+    items:
+      - "Requirements"
+      - "Design"
+      - "Development/Coding"
+      - "Testing"
+      - "Deployment"
+      - "Maintenance"
+    correct_order: [0, 1, 2, 3, 4, 5]
+    explanation: >
+      The classic SDLC begins with Requirements gathering, where business and security needs are
+      defined. Design translates requirements into architecture and data-flow diagrams. Development
+      (Coding) implements the design. Testing validates functionality and identifies defects or
+      vulnerabilities. Deployment releases the product to the production environment. Maintenance
+      covers ongoing patching, enhancements, and security monitoring throughout the operational
+      lifetime of the software.
+
+  - id: iq-d8-002
+    domain: domain8
+    type: ordering
+    question: "Arrange the OWASP Top 10 (2021) entries #1 through #5 in their correct ranked order (most critical first):"
+    items:
+      - "Broken Access Control"
+      - "Cryptographic Failures"
+      - "Injection"
+      - "Insecure Design"
+      - "Security Misconfiguration"
+    correct_order: [0, 1, 2, 3, 4]
+    explanation: >
+      The 2021 OWASP Top 10 ranks Broken Access Control (#1) as the most prevalent web application
+      risk, having moved up from #5 in 2017. Cryptographic Failures (#2, formerly Sensitive Data
+      Exposure) addresses weak or absent encryption. Injection (#3, which includes SQL, LDAP, and
+      OS command injection) dropped from the top spot. Insecure Design (#4) is a new category
+      focusing on missing or ineffective security controls in the design phase. Security
+      Misconfiguration (#5) covers improperly configured permissions, defaults, and settings.
+
+  - id: iq-d8-003
+    domain: domain8
+    type: ordering
+    question: "Arrange the software testing levels in the correct progression from smallest unit to largest scope:"
+    items:
+      - "Unit Testing"
+      - "Integration Testing"
+      - "System Testing"
+      - "User Acceptance Testing (UAT)"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      Unit Testing validates individual components or functions in isolation, typically written and
+      run by developers. Integration Testing verifies that combined modules interact correctly.
+      System Testing evaluates the complete, integrated application against functional and
+      non-functional requirements, including security testing. User Acceptance Testing (UAT) is
+      performed by end users or clients to confirm the software meets business needs before final
+      deployment. Following this progression ensures defects are caught at the lowest-cost point.
+
+  - id: iq-d8-004
+    domain: domain8
+    type: ordering
+    question: "Arrange the steps of a secure code review process in the correct order:"
+    items:
+      - "Define security coding standards and scope"
+      - "Perform static analysis with automated tools"
+      - "Conduct manual peer review of flagged and critical code"
+      - "Document and triage findings by severity"
+      - "Remediate issues and verify fixes"
+    correct_order: [0, 1, 2, 3, 4]
+    explanation: >
+      A structured code review starts with establishing coding standards and defining the scope so
+      reviewers know what to look for. Automated static analysis tools then scan the codebase
+      quickly for common vulnerabilities such as injection flaws and buffer overflows. Manual peer
+      review adds human judgment to evaluate logic errors and complex flows that tools may miss.
+      Findings are documented and triaged by severity (critical, high, medium, low) to prioritize
+      remediation effort. Finally, developers fix the issues and reviewers verify the corrections,
+      closing the feedback loop before deployment.
+
+  # ── Matching ─────────────────────────────────────────────────
+
+  - id: iq-d8-005
+    domain: domain8
+    type: matching
+    question: "Match each software development model to its key characteristic:"
+    items:
+      - "Waterfall"
+      - "Agile"
+      - "Spiral"
+      - "RAD (Rapid Application Development)"
+    categories:
+      - "Sequential phases with no backtracking"
+      - "Iterative sprints with flexible requirements"
+      - "Risk-driven iterations with prototyping"
+      - "Rapid prototyping with heavy user feedback"
+    correct_mapping:
+      0: "Sequential phases with no backtracking"
+      1: "Iterative sprints with flexible requirements"
+      2: "Risk-driven iterations with prototyping"
+      3: "Rapid prototyping with heavy user feedback"
+    explanation: >
+      Waterfall is the traditional linear model where each phase must be completed before the next
+      begins, making it difficult to incorporate changes late in development. Agile breaks work into
+      short sprints, continuously incorporating stakeholder feedback and adapting to changing
+      requirements, which supports iterative security reviews. Spiral combines iterative development
+      with systematic risk analysis at each loop, making it well-suited for high-risk projects. RAD
+      focuses on producing working prototypes quickly using user feedback to guide refinement, which
+      can accelerate delivery but may introduce security shortcuts if not managed carefully.
+
+  - id: iq-d8-006
+    domain: domain8
+    type: matching
+    question: "Match each testing approach to its knowledge-level characteristic:"
+    items:
+      - "Black Box Testing"
+      - "White Box Testing"
+      - "Gray Box Testing"
+      - "Dynamic Analysis"
+    categories:
+      - "No knowledge of internal code or architecture"
+      - "Full access to source code and internal logic"
+      - "Partial knowledge of internal structure"
+      - "Testing the application while it is executing"
+    correct_mapping:
+      0: "No knowledge of internal code or architecture"
+      1: "Full access to source code and internal logic"
+      2: "Partial knowledge of internal structure"
+      3: "Testing the application while it is executing"
+    explanation: >
+      Black Box testing simulates an external attacker who has no prior knowledge of the
+      application's internals, focusing on inputs and outputs. White Box (glass box) testing gives
+      the tester complete visibility into source code, design, and architecture, enabling thorough
+      path coverage analysis. Gray Box testing combines both approaches, providing partial
+      knowledge such as an API specification or database schema, typical of authenticated
+      penetration tests. Dynamic Analysis (e.g., DAST tools) observes the behavior of a running
+      application to detect vulnerabilities that only manifest at runtime, such as race conditions
+      or memory leaks.
+
+  - id: iq-d8-007
+    domain: domain8
+    type: matching
+    question: "Match each SDLC security activity to the phase where it is primarily performed:"
+    items:
+      - "Threat modeling"
+      - "Security requirements definition"
+      - "Code review and static analysis"
+      - "Penetration testing"
+      - "Patch management"
+    categories:
+      - "Design"
+      - "Requirements"
+      - "Development"
+      - "Testing"
+      - "Maintenance"
+    correct_mapping:
+      0: "Design"
+      1: "Requirements"
+      2: "Development"
+      3: "Testing"
+      4: "Maintenance"
+    explanation: >
+      Security Requirements Definition occurs during the Requirements phase to ensure security
+      controls are built in from the start rather than bolted on. Threat Modeling is performed
+      during Design to identify attack surfaces and data flows while architecture decisions are
+      still inexpensive to change. Code Review and Static Analysis happen during Development to
+      catch vulnerabilities as code is written. Penetration Testing is conducted during the Testing
+      phase against a near-complete build to uncover exploitable vulnerabilities. Patch Management
+      is an ongoing Maintenance activity that keeps software protected against newly discovered
+      vulnerabilities throughout its operational lifetime.
+
+  - id: iq-d8-008
+    domain: domain8
+    type: matching
+    question: "Match each OWASP Top 10 (2021) vulnerability category to its best description:"
+    items:
+      - "Broken Access Control"
+      - "Injection"
+      - "Insecure Design"
+      - "Security Misconfiguration"
+    categories:
+      - "Users can act outside their intended permissions"
+      - "Untrusted data is sent to an interpreter as a command"
+      - "Missing or ineffective security control design"
+      - "Improperly configured permissions, defaults, or settings"
+    correct_mapping:
+      0: "Users can act outside their intended permissions"
+      1: "Untrusted data is sent to an interpreter as a command"
+      2: "Missing or ineffective security control design"
+      3: "Improperly configured permissions, defaults, or settings"
+    explanation: >
+      Broken Access Control (#1 in 2021) occurs when restrictions on authenticated users are not
+      properly enforced, allowing privilege escalation or unauthorized data access. Injection flaws
+      (#3) such as SQL, LDAP, and OS command injection arise when untrusted input is passed to an
+      interpreter without proper validation or escaping. Insecure Design (#4) is a new category
+      representing fundamental flaws in security architecture and design rather than implementation
+      bugs. Security Misconfiguration (#5) encompasses overly permissive cloud permissions, enabled
+      default accounts, verbose error messages, and missing security hardening across the stack.
+
+  # ── Multiselect ──────────────────────────────────────────────
+
+  - id: iq-d8-009
+    domain: domain8
+    type: multiselect
+    question: "Which of the following are recognized secure coding principles? (Select all that apply)"
+    options:
+      - "Input validation"
+      - "Trust all data from internal sources"
+      - "Fail securely"
+      - "Least privilege"
+      - "Defense in depth"
+      - "Suppress all error messages from logs"
+    correct_answers: [0, 2, 3, 4]
+    explanation: >
+      Input Validation ensures that all data—regardless of source—is checked for type, length,
+      format, and range before use, preventing injection and overflow attacks. Fail Securely means
+      that when a system encounters an error or exception it defaults to a denied or safe state
+      rather than an open one. Least Privilege limits code execution rights and database
+      permissions to only what is strictly necessary. Defense in Depth layers multiple controls so
+      that the failure of one control does not compromise the entire system. Trusting internal
+      sources without validation is dangerous because internal systems can be compromised, and
+      suppressing all error messages from logs eliminates the audit trail needed for incident
+      response.
+
+  - id: iq-d8-010
+    domain: domain8
+    type: multiselect
+    question: "Which of the following are characteristics of a DevSecOps approach? (Select all that apply)"
+    options:
+      - "Security testing is integrated into the CI/CD pipeline"
+      - "Security reviews occur only at the end of each release cycle"
+      - "Developers share responsibility for security outcomes"
+      - "Automated security gates can block vulnerable builds from deploying"
+      - "Security is treated as a separate, independent team function"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      DevSecOps embeds security continuously into the CI/CD pipeline through automated tools such
+      as SAST, DAST, dependency scanners, and container image scanners, catching vulnerabilities
+      early when they are cheapest to fix. Developers share ownership of security outcomes rather
+      than handing off to a separate security team at the end, creating a "shift left" culture.
+      Automated security gates enforce quality thresholds by breaking the build or blocking
+      deployment when critical vulnerabilities are found. Relegating security to end-of-cycle
+      reviews or treating it as a purely separate function are traditional anti-patterns that
+      DevSecOps explicitly replaces.
+
+  - id: iq-d8-011
+    domain: domain8
+    type: multiselect
+    question: "Which of the following are types of injection attacks identified in the OWASP Top 10? (Select all that apply)"
+    options:
+      - "SQL Injection"
+      - "LDAP Injection"
+      - "OS Command Injection"
+      - "Buffer Overflow"
+      - "XML/XPath Injection"
+    correct_answers: [0, 1, 2, 4]
+    explanation: >
+      Injection attacks occur when untrusted data is sent to an interpreter as part of a command or
+      query. SQL Injection targets database query interpreters and remains one of the most
+      widespread and destructive attack types. LDAP Injection manipulates directory service queries
+      to bypass authentication or enumerate directory entries. OS Command Injection passes malicious
+      commands to the operating system shell. XML/XPath Injection alters XML queries in a similar
+      manner to SQL injection. Buffer Overflow is a memory corruption vulnerability rather than an
+      injection attack, though it can also lead to arbitrary code execution.
+
+  - id: iq-d8-012
+    domain: domain8
+    type: multiselect
+    question: "Which of the following are valid code review methods used in secure software development? (Select all that apply)"
+    options:
+      - "Static analysis (SAST)"
+      - "Manual peer review"
+      - "Fuzz testing"
+      - "Social engineering simulation"
+      - "Pair programming with security focus"
+    correct_answers: [0, 1, 2, 4]
+    explanation: >
+      Static Application Security Testing (SAST) analyzes source code, bytecode, or binaries
+      without executing the program, identifying vulnerabilities such as SQL injection, XSS, and
+      hardcoded secrets. Manual peer review involves human reviewers examining code logic, business
+      rules, and security controls that automated tools may miss. Fuzz testing (fuzzing) sends
+      malformed or unexpected input to a program to trigger crashes and uncover input-handling
+      vulnerabilities; it is considered a code/application review technique when applied to source
+      or compiled output. Pair programming with a security focus embeds real-time review into the
+      development process. Social engineering simulation tests human behavior rather than code
+      quality and is not a code review method.
+
+  # ── Fill in the Blank ────────────────────────────────────────
+
+  - id: iq-d8-013
+    domain: domain8
+    type: fillblank
+    question: "The most effective countermeasure against SQL Injection is to use ________ when constructing database queries."
+    template: "The most effective countermeasure against SQL Injection is to use {blank} when constructing database queries."
+    choices:
+      - "parameterized queries (prepared statements)"
+      - "input length limits"
+      - "HTTPS encryption"
+      - "output encoding only"
+    correct_answer: 0
+    explanation: >
+      Parameterized queries (also called prepared statements) separate SQL code from user-supplied
+      data, ensuring that input is always treated as a literal value rather than executable code.
+      Even if an attacker submits SQL syntax such as ' OR '1'='1, the database engine will not
+      interpret it as a command. Input length limits and output encoding are useful supplementary
+      controls but do not prevent injection on their own. HTTPS encrypts data in transit but has
+      no effect on how the server-side application processes query parameters.
+
+  - id: iq-d8-014
+    domain: domain8
+    type: fillblank
+    question: "A penetration tester who is given no information about the target system's internal architecture is conducting a ________ test."
+    template: "A penetration tester who is given no information about the target system's internal architecture is conducting a {blank} test."
+    choices:
+      - "black box"
+      - "white box"
+      - "gray box"
+      - "regression"
+    correct_answer: 0
+    explanation: >
+      Black box testing mimics the perspective of an external attacker who has no prior knowledge
+      of the target's internal design, source code, or architecture. The tester must rely entirely
+      on reconnaissance and probing to discover the attack surface. White box testing provides full
+      access to source code and design documentation. Gray box testing grants partial knowledge,
+      such as user-level credentials or API specifications. Regression testing is a functional
+      testing technique that verifies previously working features have not been broken by new
+      changes, not a knowledge-level classification.
+
+  - id: iq-d8-015
+    domain: domain8
+    type: fillblank
+    question: "DevSecOps integrates security practices directly into ________, enabling continuous security validation throughout development."
+    template: "DevSecOps integrates security practices directly into {blank}, enabling continuous security validation throughout development."
+    choices:
+      - "the CI/CD pipeline"
+      - "the change advisory board process"
+      - "annual risk assessments"
+      - "user acceptance testing only"
+    correct_answer: 0
+    explanation: >
+      DevSecOps integrates security into the CI/CD (Continuous Integration/Continuous Delivery)
+      pipeline so that every code commit triggers automated security checks including static
+      analysis, dependency vulnerability scanning, container scanning, and dynamic testing. This
+      "shift left" approach surfaces vulnerabilities when they are cheapest and fastest to
+      remediate, rather than discovering them after deployment. Change advisory boards, annual risk
+      assessments, and UAT-only security checks are traditional, slower mechanisms that do not
+      provide the continuous feedback loop required in modern agile and DevOps environments.

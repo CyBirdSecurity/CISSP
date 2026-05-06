@@ -1,0 +1,322 @@
+interactive_questions:
+  - id: iq-d7-001
+    domain: domain7
+    type: ordering
+    question: "Arrange the NIST SP 800-61 incident response phases in the correct sequential order."
+    items:
+      - "Preparation"
+      - "Detection and Analysis"
+      - "Containment, Eradication, and Recovery"
+      - "Post-Incident Activity"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      NIST SP 800-61 defines four phases of incident response. Preparation involves establishing policies,
+      procedures, and tools before an incident occurs. Detection and Analysis focuses on identifying and
+      confirming that an incident has taken place. Containment, Eradication, and Recovery involves limiting
+      the damage, removing the threat, and restoring systems. Post-Incident Activity (also called lessons
+      learned) reviews what happened to improve future response efforts.
+
+  - id: iq-d7-002
+    domain: domain7
+    type: ordering
+    question: "Arrange the steps of the digital forensics process in the correct sequential order."
+    items:
+      - "Identification"
+      - "Preservation"
+      - "Collection"
+      - "Examination"
+      - "Analysis"
+      - "Presentation"
+    correct_order: [0, 1, 2, 3, 4, 5]
+    explanation: >
+      The digital forensics process follows a strict sequence to maintain evidentiary integrity. Identification
+      locates potential evidence sources. Preservation protects the evidence from alteration, often using
+      write blockers and hashing. Collection involves acquiring forensic copies of the evidence. Examination
+      extracts relevant data from the acquired image. Analysis interprets the findings to draw conclusions.
+      Presentation communicates the results in court or to stakeholders. Skipping or reordering steps
+      can render evidence inadmissible.
+
+  - id: iq-d7-003
+    domain: domain7
+    type: ordering
+    question: "Arrange the disaster recovery test types in order from least disruptive to most disruptive."
+    items:
+      - "Checklist/Tabletop Review"
+      - "Walkthrough/Structured Walk-Through"
+      - "Simulation Test"
+      - "Parallel Test"
+      - "Full Interruption Test"
+    correct_order: [0, 1, 2, 3, 4]
+    explanation: >
+      DR tests are tiered by their operational impact. A checklist review simply verifies that the plan is
+      complete and up to date without any active simulation. A walkthrough gathers team members to talk
+      through the plan step by step. A simulation exercises specific scenarios without touching production
+      systems. A parallel test brings up alternate systems alongside production to validate failover.
+      A full interruption test actually shuts down primary systems and relies entirely on the DR site,
+      making it the most disruptive and the most realistic test.
+
+  - id: iq-d7-004
+    domain: domain7
+    type: ordering
+    question: "Arrange the steps an incident responder should follow when discovering a potentially compromised system, in the correct order."
+    items:
+      - "Detect and confirm the incident"
+      - "Notify the incident response team"
+      - "Contain the affected system"
+      - "Collect and preserve evidence"
+      - "Eradicate the threat and restore the system"
+      - "Conduct a post-incident review"
+    correct_order: [0, 1, 2, 3, 4, 5]
+    explanation: >
+      Effective incident handling requires a disciplined sequence of actions. Confirming the incident first
+      prevents wasted resources chasing false positives. Notifying the team ensures proper authority and
+      skills are engaged early. Containment limits further damage before evidence collection begins.
+      Preserving evidence before eradication is critical for forensic and legal purposes. Eradication
+      removes the root cause, and restoration brings systems back online. The post-incident review captures
+      lessons learned to strengthen future defenses.
+
+  - id: iq-d7-005
+    domain: domain7
+    type: matching
+    question: "Match each backup type to its correct description."
+    items:
+      - "Full backup"
+      - "Incremental backup"
+      - "Differential backup"
+      - "Snapshot"
+    categories:
+      - "Copies all data; slowest to back up, fastest to restore"
+      - "Copies only data changed since the last backup of any type; fastest to back up, slowest to restore"
+      - "Copies all data changed since the last full backup; medium backup and restore time"
+      - "Point-in-time logical copy of data, often used in virtualized environments"
+    correct_mapping:
+      0: "Copies all data; slowest to back up, fastest to restore"
+      1: "Copies only data changed since the last backup of any type; fastest to back up, slowest restore"
+      2: "Copies all data changed since the last full backup; medium backup and restore time"
+      3: "Point-in-time logical copy of data, often used in virtualized environments"
+    explanation: >
+      Understanding backup types is essential for designing recovery strategies that meet RTO and RPO targets.
+      Full backups are comprehensive but time-consuming; restoration requires only the most recent full backup.
+      Incremental backups are quick but require the last full backup plus every incremental backup in sequence
+      to restore, increasing restore complexity. Differential backups grow over time but restore requires only
+      the last full and the latest differential. Snapshots are space-efficient point-in-time copies commonly
+      used in virtual machine and storage array environments.
+
+  - id: iq-d7-006
+    domain: domain7
+    type: matching
+    question: "Match each recovery metric to its correct definition."
+    items:
+      - "Recovery Time Objective (RTO)"
+      - "Recovery Point Objective (RPO)"
+      - "Maximum Tolerable Downtime (MTD)"
+      - "Work Recovery Time (WRT)"
+    categories:
+      - "The maximum acceptable length of time to restore a system or process after a disruption"
+      - "The maximum acceptable amount of data loss measured in time"
+      - "The total amount of time a business process can be unavailable before causing unacceptable harm"
+      - "The time required to restore data and verify system integrity after systems are technically back online"
+    correct_mapping:
+      0: "The maximum acceptable length of time to restore a system or process after a disruption"
+      1: "The maximum acceptable amount of data loss measured in time"
+      2: "The total amount of time a business process can be unavailable before causing unacceptable harm"
+      3: "The time required to restore data and verify system integrity after systems are technically back online"
+    explanation: >
+      These four metrics are foundational to business continuity and disaster recovery planning. RTO drives
+      the technical design of recovery solutions such as hot, warm, or cold sites. RPO determines backup
+      frequency since more frequent backups reduce potential data loss. MTD represents the outer boundary
+      of acceptable downtime beyond which the organization may suffer irreparable harm; RTO must always
+      be less than MTD. WRT is often overlooked but accounts for the time needed after technical recovery
+      to validate data integrity and resume normal operations, and RTO plus WRT must not exceed MTD.
+
+  - id: iq-d7-007
+    domain: domain7
+    type: matching
+    question: "Match each type of legal evidence to its correct description."
+    items:
+      - "Real (Physical) evidence"
+      - "Documentary evidence"
+      - "Testimonial evidence"
+      - "Demonstrative evidence"
+    categories:
+      - "Tangible objects presented in court, such as a seized hard drive or USB device"
+      - "Written or recorded records, such as log files, contracts, or emails"
+      - "Oral or written statements provided by witnesses based on their direct knowledge"
+      - "Visual aids used to illustrate or explain other evidence, such as diagrams or charts"
+    correct_mapping:
+      0: "Tangible objects presented in court, such as a seized hard drive or USB device"
+      1: "Written or recorded records, such as log files, contracts, or emails"
+      2: "Oral or written statements provided by witnesses based on their direct knowledge"
+      3: "Visual aids used to illustrate or explain other evidence, such as diagrams or charts"
+    explanation: >
+      Security professionals must understand evidence types to support legal proceedings. Real evidence is
+      the physical artifact itself and must be handled carefully to maintain chain of custody. Documentary
+      evidence such as logs and emails must be authenticated to be admissible. Testimonial evidence comes
+      from witnesses and may be challenged on grounds of expertise or bias; expert witnesses can offer
+      opinions while lay witnesses report only direct observations. Demonstrative evidence is not evidence
+      of the event itself but helps the trier of fact understand complex technical information.
+
+  - id: iq-d7-008
+    domain: domain7
+    type: matching
+    question: "Match each SIEM capability to its primary function."
+    items:
+      - "Log aggregation"
+      - "Event correlation"
+      - "Alerting"
+      - "Dashboards and reporting"
+    categories:
+      - "Collecting and centralizing log data from multiple sources across the environment"
+      - "Analyzing relationships between events from different sources to identify patterns or threats"
+      - "Generating notifications when defined thresholds or rule conditions are met"
+      - "Providing real-time visual summaries and historical reports for security monitoring"
+    correct_mapping:
+      0: "Collecting and centralizing log data from multiple sources across the environment"
+      1: "Analyzing relationships between events from different sources to identify patterns or threats"
+      2: "Generating notifications when defined thresholds or rule conditions are met"
+      3: "Providing real-time visual summaries and historical reports for security monitoring"
+    explanation: >
+      A Security Information and Event Management (SIEM) system is a core tool in security operations
+      centers. Log aggregation solves the problem of data scattered across firewalls, servers, and
+      endpoints by centralizing it in one platform. Correlation is the intelligence layer that identifies
+      attack patterns, such as a port scan followed by a failed login followed by a successful login
+      from the same IP. Alerting turns correlation rules into actionable notifications for analysts.
+      Dashboards and reporting support both real-time operational awareness and compliance reporting
+      requirements such as PCI DSS or HIPAA.
+
+  - id: iq-d7-009
+    domain: domain7
+    type: multiselect
+    question: "Which of the following are required elements of a proper chain of custody for digital evidence? (Select all that apply)"
+    options:
+      - "Documentation of everyone who handled the evidence and when"
+      - "A cryptographic hash of the evidence to verify integrity"
+      - "Destruction of the original evidence after a forensic copy is made"
+      - "Secure storage that prevents unauthorized access to the evidence"
+    correct_answers: [0, 1, 3]
+    explanation: >
+      Chain of custody ensures that evidence is trustworthy and admissible in legal proceedings. Every
+      person who handles evidence must be documented to demonstrate that the evidence was not tampered
+      with. Cryptographic hashing (e.g., MD5, SHA-256) provides a verifiable fingerprint that proves
+      the evidence has not been altered since collection. Secure storage protects evidence from
+      unauthorized access or accidental modification. Destroying the original evidence is never
+      acceptable; forensic work is always performed on a verified copy, with the original preserved
+      in its pristine state.
+
+  - id: iq-d7-010
+    domain: domain7
+    type: multiselect
+    question: "Which of the following are recognized roles typically found within a Computer Security Incident Response Team (CSIRT)? (Select all that apply)"
+    options:
+      - "Incident Response Manager"
+      - "Legal and Compliance Counsel"
+      - "Forensic Analyst"
+      - "Chief Marketing Officer"
+    correct_answers: [0, 1, 2]
+    explanation: >
+      A CSIRT brings together diverse expertise to effectively manage security incidents. The Incident
+      Response Manager coordinates the overall response effort, prioritizes actions, and communicates
+      with senior leadership. Legal and Compliance Counsel ensures that response activities comply with
+      laws, regulations, and contractual obligations, and advises on evidence preservation. Forensic
+      Analysts investigate the technical details of the incident, collect evidence, and determine scope
+      and root cause. The Chief Marketing Officer has no defined role in incident response; communications
+      to the public are typically handled by a designated communications officer working under legal
+      guidance.
+
+  - id: iq-d7-011
+    domain: domain7
+    type: multiselect
+    question: "Which of the following are valid types of disaster recovery tests that organizations commonly use? (Select all that apply)"
+    options:
+      - "Tabletop exercise"
+      - "Parallel test"
+      - "Penetration test"
+      - "Full interruption test"
+    correct_answers: [0, 1, 3]
+    explanation: >
+      Disaster recovery tests validate that plans, personnel, and technology can restore operations
+      after a disruption. A tabletop exercise is a discussion-based review where team members walk
+      through scenarios without activating systems, making it low-cost and low-risk. A parallel test
+      activates the alternate site while keeping production running, validating failover capability
+      without risk of outage. A full interruption test cuts over entirely to the DR site, providing
+      the most realistic validation but at the highest operational risk. Penetration testing is a
+      security assessment technique used to identify vulnerabilities and is not a disaster recovery
+      test type.
+
+  - id: iq-d7-012
+    domain: domain7
+    type: multiselect
+    question: "Which of the following are fundamental principles of sound digital forensics practice? (Select all that apply)"
+    options:
+      - "Always work from a verified forensic copy, never the original evidence"
+      - "Use write blockers when acquiring data from storage media"
+      - "Document every action taken and maintain detailed notes throughout the investigation"
+      - "Delete log files after analysis to prevent unauthorized disclosure"
+    correct_answers: [0, 1, 2]
+    explanation: >
+      Digital forensics relies on maintaining the integrity of evidence throughout the investigation.
+      Working from a verified copy preserves the original evidence in its unaltered state for potential
+      court proceedings. Write blockers prevent any data from being written to the source media during
+      acquisition, which would alter the evidence and break chain of custody. Thorough documentation
+      creates an auditable record that allows other examiners to reproduce the process and validates
+      findings in court. Deleting log files would constitute destruction of evidence, which is illegal
+      and could expose the organization to obstruction of justice charges.
+
+  - id: iq-d7-013
+    domain: domain7
+    type: fillblank
+    question: "What is the definition of Recovery Time Objective (RTO)?"
+    template: "RTO is the {blank} within which a system or business process must be restored following a disruption."
+    choices:
+      - "maximum acceptable period of time"
+      - "maximum acceptable amount of data loss"
+      - "total cost of downtime"
+      - "minimum backup frequency required"
+    correct_answer: 0
+    explanation: >
+      The Recovery Time Objective defines how long a system can be unavailable before the business
+      suffers unacceptable consequences, making it a time-based metric. It is determined through a
+      Business Impact Analysis (BIA) and drives decisions about recovery site types — hot sites
+      typically support very low RTOs while cold sites support longer RTOs. RTO must always be less
+      than the Maximum Tolerable Downtime (MTD); if it is not, the recovery strategy is insufficient.
+      Maximum acceptable data loss is the definition of RPO, which is a separate but related metric.
+
+  - id: iq-d7-014
+    domain: domain7
+    type: fillblank
+    question: "What does the acronym SIEM stand for in security operations?"
+    template: "SIEM stands for Security {blank} and Event Management."
+    choices:
+      - "Information"
+      - "Intelligence"
+      - "Incident"
+      - "Infrastructure"
+    correct_answer: 0
+    explanation: >
+      SIEM stands for Security Information and Event Management, a category of technology that
+      combines Security Information Management (SIM) and Security Event Management (SEM) capabilities.
+      SIM focuses on long-term storage and analysis of log data, while SEM focuses on real-time
+      monitoring and correlation of security events. Together, a SIEM platform provides centralized
+      visibility across an organization's IT environment. SIEM solutions are commonly required by
+      compliance frameworks such as PCI DSS and are a cornerstone technology in modern Security
+      Operations Centers (SOCs).
+
+  - id: iq-d7-015
+    domain: domain7
+    type: fillblank
+    question: "What is the primary purpose of maintaining a chain of custody for digital evidence?"
+    template: "The chain of custody documents the chronological history of evidence handling to {blank}."
+    choices:
+      - "demonstrate that the evidence has not been tampered with and is admissible in court"
+      - "encrypt the evidence to prevent unauthorized disclosure"
+      - "determine the monetary value of the compromised assets"
+      - "identify the attacker's country of origin"
+    correct_answer: 0
+    explanation: >
+      Chain of custody is a legal and procedural concept that tracks who collected, handled, analyzed,
+      and stored evidence at every point in time. Its primary purpose is to establish the integrity
+      and authenticity of evidence so that it will be accepted by a court of law. If the chain of
+      custody is broken — for example, if there is an unaccounted period during which someone could
+      have altered the evidence — opposing counsel can argue that the evidence is unreliable and
+      have it excluded. Maintaining chain of custody involves proper labeling, sealed tamper-evident
+      packaging, access logs, and secure storage throughout the life of the investigation.
