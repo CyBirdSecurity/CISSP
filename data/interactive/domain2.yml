@@ -1,0 +1,321 @@
+interactive_questions:
+
+  # ── Ordering ─────────────────────────────────────────────────
+
+  - id: iq-d2-001
+    domain: domain2
+    type: ordering
+    question: "Place the stages of the data lifecycle in the correct order:"
+    items:
+      - "Create / Acquire"
+      - "Classify"
+      - "Store"
+      - "Use"
+      - "Archive"
+      - "Destroy / Dispose"
+    correct_order: [0, 1, 2, 3, 4, 5]
+    explanation: >
+      The data lifecycle begins when data is created or acquired, after which it must be
+      classified based on sensitivity and value. It is then stored using appropriate
+      controls, used for its intended purpose, archived when no longer actively needed
+      (but still required for retention), and finally destroyed or disposed of securely
+      at end-of-life. Classification should occur as early as possible — ideally at creation
+      — to ensure the right controls are applied throughout.
+
+  - id: iq-d2-002
+    domain: domain2
+    type: ordering
+    question: "Arrange the U.S. government data classification levels from HIGHEST to LOWEST sensitivity:"
+    items:
+      - "Top Secret"
+      - "Secret"
+      - "Confidential"
+      - "Sensitive But Unclassified (CUI)"
+      - "Unclassified"
+    correct_order: [0, 1, 2, 3, 4]
+    explanation: >
+      U.S. government classification levels from highest to lowest are: Top Secret
+      (unauthorized disclosure could cause exceptionally grave damage to national security),
+      Secret (serious damage), Confidential (damage), Sensitive But Unclassified / CUI
+      (requires safeguarding but not formally classified), and Unclassified (no harm if
+      disclosed). The classification authority is typically the data owner — usually a
+      government official — not IT or security personnel.
+
+  - id: iq-d2-003
+    domain: domain2
+    type: ordering
+    question: "Arrange the media sanitization methods from LEAST to MOST thorough:"
+    items:
+      - "Clearing"
+      - "Purging"
+      - "Destroying"
+    correct_order: [0, 1, 2]
+    explanation: >
+      Per NIST SP 800-88, the three sanitization methods in increasing order of thoroughness
+      are: Clearing (overwriting with non-sensitive data — protects against keyboard attacks
+      but not lab recovery), Purging (degaussing or cryptographic erase — protects against
+      laboratory attacks), and Destroying (physical destruction by shredding, incineration,
+      or disintegration — renders media completely unusable). The required method depends on
+      the sensitivity of the data and the intended disposition of the media.
+
+  - id: iq-d2-004
+    domain: domain2
+    type: ordering
+    question: "Arrange the commercial data classification levels from MOST to LEAST sensitive:"
+    items:
+      - "Confidential"
+      - "Private"
+      - "Sensitive"
+      - "Public"
+    correct_order: [0, 1, 2, 3]
+    explanation: >
+      Commercial data classification from most to least sensitive: Confidential (highest
+      protection — trade secrets, intellectual property, financial data), Private (personal
+      employee and customer data requiring strong protection), Sensitive (requires extra
+      precautions beyond standard but not the highest sensitivity), Public (no disclosure
+      restrictions — marketing materials, press releases). Note that commercial and government
+      schemes are distinct; candidates must know both for the CISSP exam.
+
+  # ── Matching ─────────────────────────────────────────────────
+
+  - id: iq-d2-005
+    domain: domain2
+    type: matching
+    question: "Match each data role to its primary responsibility:"
+    items:
+      - "Data Owner"
+      - "Data Custodian"
+      - "Data User"
+      - "Data Steward"
+    categories:
+      - "Determines classification and access policy"
+      - "Implements and maintains security controls"
+      - "Accesses data for authorized job tasks"
+      - "Manages data quality and governance standards"
+    correct_mapping:
+      0: "Determines classification and access policy"
+      1: "Implements and maintains security controls"
+      2: "Accesses data for authorized job tasks"
+      3: "Manages data quality and governance standards"
+    explanation: >
+      The Data Owner (typically a senior business manager) is accountable for classifying
+      the data and defining who can access it. The Data Custodian (often IT) implements the
+      technical controls the owner specifies — backups, encryption, access controls. The Data
+      User accesses data only for authorized purposes and must follow handling policies. The
+      Data Steward (a newer role) ensures data quality, lineage, and governance compliance.
+      A common exam trap: the owner classifies data; the custodian protects it.
+
+  - id: iq-d2-006
+    domain: domain2
+    type: matching
+    question: "Match each U.S. government classification level to the harm caused by unauthorized disclosure:"
+    items:
+      - "Top Secret"
+      - "Secret"
+      - "Confidential"
+      - "Unclassified"
+    categories:
+      - "Exceptionally grave damage to national security"
+      - "Serious damage to national security"
+      - "Damage to national security"
+      - "No damage to national security"
+    correct_mapping:
+      0: "Exceptionally grave damage to national security"
+      1: "Serious damage to national security"
+      2: "Damage to national security"
+      3: "No damage to national security"
+    explanation: >
+      Each classification level is defined by the potential damage from unauthorized
+      disclosure: Top Secret = exceptionally grave damage; Secret = serious damage;
+      Confidential = damage (the lowest formally classified level). Unclassified data
+      causes no national security harm if disclosed. Sensitive But Unclassified (CUI)
+      sits between Confidential and Unclassified — it requires protection but isn't
+      formally classified. Only authorized, trained officials may originally classify data.
+
+  - id: iq-d2-007
+    domain: domain2
+    type: matching
+    question: "Match each data destruction method to its most appropriate use case:"
+    items:
+      - "Degaussing"
+      - "Shredding / Disintegration"
+      - "Overwriting"
+      - "Cryptographic Erase"
+    categories:
+      - "Magnetic media — renders data unrecoverable by disrupting magnetic fields"
+      - "Physical destruction of any media type"
+      - "Logical sanitization of reusable magnetic or flash storage"
+      - "SSDs and encrypted storage — destroy the encryption key to render data inaccessible"
+    correct_mapping:
+      0: "Magnetic media — renders data unrecoverable by disrupting magnetic fields"
+      1: "Physical destruction of any media type"
+      2: "Logical sanitization of reusable magnetic or flash storage"
+      3: "SSDs and encrypted storage — destroy the encryption key to render data inaccessible"
+    explanation: >
+      Degaussing uses a powerful magnetic field to destroy data on magnetic media (HDDs,
+      tapes) but is ineffective on SSDs or optical media. Shredding/disintegration physically
+      destroys any media type and is the most reliable method. Overwriting (clearing) applies
+      non-sensitive data on top of old data on reusable drives. Cryptographic Erase is the
+      recommended method for SSDs and self-encrypting drives — destroying the key makes
+      ciphertext unrecoverable without physically destroying hardware.
+
+  - id: iq-d2-008
+    domain: domain2
+    type: matching
+    question: "Match each commercial classification label to the type of data it typically covers:"
+    items:
+      - "Confidential"
+      - "Private"
+      - "Sensitive"
+      - "Public"
+    categories:
+      - "Trade secrets, M&A plans, source code, proprietary financials"
+      - "Employee records, HR data, personal customer information"
+      - "Internal memos, non-public business processes, budget drafts"
+      - "Marketing materials, press releases, published product info"
+    correct_mapping:
+      0: "Trade secrets, M&A plans, source code, proprietary financials"
+      1: "Employee records, HR data, personal customer information"
+      2: "Internal memos, non-public business processes, budget drafts"
+      3: "Marketing materials, press releases, published product info"
+    explanation: >
+      Confidential data represents the organization's most sensitive information —
+      disclosure could cause severe competitive or legal harm. Private data is personal
+      in nature and is often subject to privacy regulations (GDPR, HIPAA, CCPA).
+      Sensitive data is internal information that isn't the highest sensitivity but
+      still warrants controls beyond public. Public data requires no special handling
+      and is intended for external audiences.
+
+  # ── Multi-Select ─────────────────────────────────────────────
+
+  - id: iq-d2-009
+    domain: domain2
+    type: multiselect
+    question: "Which of the following are the three recognized states of data? (Select all that apply)"
+    options:
+      - "Data at rest"
+      - "Data in reserve"
+      - "Data in transit"
+      - "Data in use"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      The three recognized states of data are: Data at rest (stored on media — disk, tape,
+      database), Data in transit (moving across a network or between systems), and Data in use
+      (actively being processed in RAM or CPU registers). Each state requires different
+      security controls: encryption at rest protects stored data, TLS/VPN protects data in
+      transit, and memory protection / secure enclaves protect data in use. "Data in reserve"
+      is not a recognized state.
+
+  - id: iq-d2-010
+    domain: domain2
+    type: multiselect
+    question: "Which of the following are valid NIST SP 800-88 media sanitization categories? (Select all that apply)"
+    options:
+      - "Clearing"
+      - "Formatting"
+      - "Purging"
+      - "Destroying"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      NIST SP 800-88 defines three sanitization categories: Clearing (protects against
+      simple non-invasive recovery), Purging (protects against laboratory recovery using
+      degaussing or cryptographic erase), and Destroying (renders media physically
+      unrecoverable). Standard formatting is NOT a NIST-recognized sanitization method —
+      it only removes file system pointers, not underlying data, which can be trivially
+      recovered with widely available tools.
+
+  - id: iq-d2-011
+    domain: domain2
+    type: multiselect
+    question: "Which of the following are objectives of an asset management program? (Select all that apply)"
+    options:
+      - "Identify and maintain an inventory of all organizational assets"
+      - "Ensure all assets are accessible to all employees by default"
+      - "Assign ownership and classification to each asset"
+      - "Define handling, storage, and disposal requirements per classification"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      A formal asset management program inventories all assets (hardware, software, data,
+      people), assigns an owner accountable for each, classifies assets by value and
+      sensitivity, and specifies handling requirements through the asset lifecycle including
+      secure disposal. Making assets accessible to all employees by default violates the
+      principle of least privilege — access should be granted based on need-to-know,
+      not given openly.
+
+  - id: iq-d2-012
+    domain: domain2
+    type: multiselect
+    question: "Which of the following are recognized Fair Information Practice Principles (FIPPs)? (Select all that apply)"
+    options:
+      - "Collection Limitation — collect only the minimum data necessary"
+      - "Unlimited Retention — store data indefinitely for potential future use"
+      - "Purpose Specification — define the purpose of collection before collecting"
+      - "Use Limitation — use data only for the specified purpose"
+    correct_answers: [0, 2, 3]
+    explanation: >
+      The Fair Information Practice Principles (FIPPs), foundational to modern privacy law,
+      include Collection Limitation (data minimization — collect only what is necessary),
+      Purpose Specification (state the reason before collecting), and Use Limitation (don't
+      use data beyond its stated purpose). Unlimited Retention directly violates FIPPs —
+      data should be retained only as long as necessary for its purpose and then securely
+      destroyed. These principles underpin GDPR, HIPAA, and many other privacy frameworks.
+
+  # ── Fill-in-the-Blank ────────────────────────────────────────
+
+  - id: iq-d2-013
+    domain: domain2
+    type: fillblank
+    question: "Complete the statement about data classification responsibility:"
+    template: "The {blank} is responsible for determining the classification level assigned to a piece of data."
+    choices:
+      - "Data Owner"
+      - "Data Custodian"
+      - "Security Administrator"
+      - "Chief Information Officer (CIO)"
+    correct_answer: 0
+    explanation: >
+      The Data Owner — typically a senior business manager or department head — is
+      accountable for the data and must determine its classification level based on
+      business value, sensitivity, and regulatory requirements. The Data Custodian
+      (usually IT) then implements the technical controls the owner prescribes. The
+      Security Administrator enforces policy but does not set classification. This
+      is a frequently tested distinction on the CISSP exam.
+
+  - id: iq-d2-014
+    domain: domain2
+    type: fillblank
+    question: "Complete the definition of data remanence:"
+    template: "Residual data that persists on storage media after deletion or formatting is known as data {blank}."
+    choices:
+      - "Remanence"
+      - "Latency"
+      - "Persistence"
+      - "Entropy"
+    correct_answer: 0
+    explanation: >
+      Data remanence is the residual representation of data that remains on storage media
+      even after attempts to erase or delete it. Magnetic media retains ghost signals after
+      overwriting; SSDs have wear-leveling that may preserve copies in unused blocks;
+      RAM can retain data briefly after power-off (cold boot attacks). Addressing remanence
+      is why standards like NIST SP 800-88 exist — standard deletion commands are
+      insufficient for sensitive data.
+
+  - id: iq-d2-015
+    domain: domain2
+    type: fillblank
+    question: "Complete the statement about Digital Rights Management:"
+    template: "Technologies that enforce access controls and usage restrictions on copyrighted digital content are collectively called Digital {blank} Management (DRM)."
+    choices:
+      - "Rights"
+      - "Risk"
+      - "Record"
+      - "Resource"
+    correct_answer: 0
+    explanation: >
+      Digital Rights Management (DRM) refers to technologies that control how digital
+      content (documents, music, video, software) can be accessed, copied, printed, or
+      shared. In the enterprise context, DRM overlaps with Information Rights Management
+      (IRM) and Data Loss Prevention (DLP). DRM enforces the data owner's access policies
+      even after the file leaves the organization's control — for example, preventing a
+      recipient from forwarding a confidential email attachment. It is a key asset
+      protection control for intellectual property and sensitive documents.
