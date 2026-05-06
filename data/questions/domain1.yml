@@ -1341,3 +1341,953 @@ questions:
         - "Employee access information comes from access control reviews — the BIA focuses on business functions and operational impacts, not personnel access."
     difficulty: "medium"
     tags: ["BCP", "BIA", "analysis"]
+
+  - id: q-d1-073
+    domain: domain1
+    question: "The FAIR (Factor Analysis of Information Risk) model quantifies risk as which of the following?"
+    options:
+      - "The product of threat frequency and vulnerability severity"
+      - "The probable frequency and probable magnitude of future loss"
+      - "The annualized rate of occurrence multiplied by single loss expectancy"
+      - "The likelihood of a threat exploiting a vulnerability times asset value"
+    correct_answer: 1
+    explanations:
+      correct: "FAIR defines risk as the probable frequency and probable magnitude of future loss. It separates loss event frequency (how often bad things happen) from loss magnitude (how much value is lost when they do), enabling financially meaningful risk quantification."
+      incorrect:
+        - "Threat frequency multiplied by vulnerability severity is an informal approach, not the FAIR model definition. FAIR uses a more nuanced decomposition of frequency and magnitude."
+        - "FAIR defines risk as probable frequency and probable magnitude of future loss — this is the core FAIR definition."
+        - "ALE (ARO × SLE) is the NIST/traditional quantitative risk formula, not the FAIR model. FAIR uses a different decomposition structure."
+        - "While this approximates traditional risk formulas, FAIR specifically uses loss event frequency and loss magnitude as its primary components."
+    difficulty: "hard"
+    tags: ["risk", "FAIR", "quantitative"]
+
+  - id: q-d1-074
+    domain: domain1
+    question: "In the NIST Risk Management Framework (RMF), which step involves reviewing security controls to confirm they are implemented correctly and operating as intended?"
+    options:
+      - "Select"
+      - "Implement"
+      - "Assess"
+      - "Authorize"
+    correct_answer: 2
+    explanations:
+      correct: "The Assess step involves evaluating whether security and privacy controls are implemented correctly, operating as intended, and producing the desired outcomes. This is performed by an independent assessor and results in a Security Assessment Report (SAR)."
+      incorrect:
+        - "Select involves choosing appropriate security controls based on the system's categorization — it precedes implementation and assessment."
+        - "Implement involves deploying and configuring the selected controls — it comes before assessment."
+        - "Assess is the step where controls are reviewed for correct implementation and effectiveness."
+        - "Authorize is when the Authorizing Official (AO) reviews the SAR and makes a risk-based decision to authorize the system to operate — it follows assessment."
+    difficulty: "medium"
+    tags: ["NIST", "RMF", "governance"]
+
+  - id: q-d1-075
+    domain: domain1
+    question: "An employee is terminated for cause. Which immediate security action is MOST critical?"
+    options:
+      - "Conduct an exit interview to gather security-related feedback"
+      - "Disable all logical and physical access simultaneously upon termination"
+      - "Require the employee to sign an NDA before leaving the premises"
+      - "Perform a full forensic audit of the employee's workstation"
+    correct_answer: 1
+    explanations:
+      correct: "When an employee is terminated for cause (especially involuntary termination), the most critical immediate step is to simultaneously revoke all logical access (accounts, VPN, email) and physical access (badges, keys). Delay creates a window for insider threat activity — data theft, sabotage, or unauthorized access."
+      incorrect:
+        - "Exit interviews are valuable for knowledge transfer and gathering security feedback but are not the most critical immediate security action, especially in a termination for cause."
+        - "Disabling all logical and physical access simultaneously upon termination is the most critical immediate security action."
+        - "NDAs should already be in place from onboarding; requiring one at termination has no security benefit for for-cause terminations and may not be enforceable."
+        - "Forensic audits may be necessary if misconduct is suspected but are not the most immediately critical security action — access revocation must happen first."
+    difficulty: "easy"
+    tags: ["personnel", "insider-threat", "lifecycle"]
+
+  - id: q-d1-076
+    domain: domain1
+    question: "The Gramm-Leach-Bliley Act (GLBA) Safeguards Rule primarily applies to which type of organization?"
+    options:
+      - "Healthcare providers and their business associates"
+      - "Financial institutions that collect and use customers' nonpublic personal information"
+      - "Any organization that processes payment card data"
+      - "Federal government agencies that maintain personally identifiable information"
+    correct_answer: 1
+    explanations:
+      correct: "GLBA's Safeguards Rule applies to financial institutions — banks, credit unions, insurance companies, securities brokers, and any other company engaged in financial activities — that collect and use nonpublic personal information (NPI) from consumers. It requires them to implement an information security program."
+      incorrect:
+        - "HIPAA applies to healthcare providers and their business associates — GLBA applies to financial institutions."
+        - "GLBA's Safeguards Rule applies to financial institutions that collect and use customers' nonpublic personal information."
+        - "PCI DSS applies to organizations that process payment card data — GLBA is specifically for financial institutions under FTC/financial regulator jurisdiction."
+        - "FISMA applies to federal government agencies — GLBA applies to the private financial sector."
+    difficulty: "medium"
+    tags: ["legal", "compliance", "GLBA"]
+
+  - id: q-d1-077
+    domain: domain1
+    question: "The Computer Fraud and Abuse Act (CFAA) primarily addresses which type of activity?"
+    options:
+      - "Identity theft and financial fraud against individuals"
+      - "Unauthorized access to protected computers and computer-related fraud"
+      - "Interception of wire and electronic communications"
+      - "Copyright infringement and intellectual property theft"
+    correct_answer: 1
+    explanations:
+      correct: "The CFAA is the primary US federal law addressing computer crime. It criminalizes unauthorized access to 'protected computers' (essentially any computer connected to the internet), computer fraud, damage to computer systems, and related crimes. It applies to both external attackers and employees exceeding authorized access."
+      incorrect:
+        - "Identity theft is addressed by the Identity Theft Enforcement and Restitution Act and related laws — the CFAA focuses on unauthorized computer access."
+        - "The CFAA primarily addresses unauthorized access to protected computers and computer-related fraud."
+        - "The Electronic Communications Privacy Act (ECPA) and Wiretap Act address interception of communications — not the CFAA."
+        - "The Digital Millennium Copyright Act (DMCA) and Copyright Act address intellectual property — the CFAA focuses on unauthorized computer access."
+    difficulty: "medium"
+    tags: ["legal", "computer-crime"]
+
+  - id: q-d1-078
+    domain: domain1
+    question: "Under GDPR Article 33, an organization must notify its supervisory authority of a personal data breach within what timeframe?"
+    options:
+      - "24 hours of becoming aware of the breach"
+      - "72 hours of becoming aware of the breach, where feasible"
+      - "7 business days of confirming the breach"
+      - "30 days of discovering and investigating the breach"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR Article 33 requires data controllers to notify the supervisory authority 'without undue delay and, where feasible, not later than 72 hours after having become aware' of a personal data breach. If notification exceeds 72 hours, the controller must provide reasons for the delay."
+      incorrect:
+        - "24 hours is not the GDPR requirement. Some US state laws and sector-specific regulations use different timeframes, but GDPR requires 72 hours."
+        - "GDPR Article 33 requires supervisory authority notification within 72 hours of becoming aware, where feasible."
+        - "7 business days is not the GDPR standard. The 72-hour clock starts from when the controller becomes aware of the breach."
+        - "30 days is not the GDPR notification window. Some US state breach notification laws allow 30-45 days, but GDPR requires 72 hours."
+    difficulty: "medium"
+    tags: ["legal", "GDPR", "privacy", "breach-notification"]
+
+  - id: q-d1-079
+    domain: domain1
+    question: "Cyber liability insurance typically covers which of the following losses?"
+    options:
+      - "Losses resulting from an organization deliberately violating security regulations"
+      - "First-party costs such as breach notification, forensics, and business interruption"
+      - "Reputational damage and loss of future business opportunities"
+      - "Physical damage to hardware caused by power surges or environmental factors"
+    correct_answer: 1
+    explanations:
+      correct: "Cyber liability insurance typically covers first-party costs (notification costs, forensic investigation, data recovery, business interruption, credit monitoring) and third-party liability (customer lawsuits, regulatory fines in some policies). It is a risk transfer mechanism that shifts financial impact of cyber incidents."
+      incorrect:
+        - "Insurance policies exclude coverage for intentional acts, regulatory violations, or deliberate misconduct — intentional wrongdoing invalidates coverage."
+        - "Cyber liability insurance typically covers first-party costs like breach notification, forensic investigation, and business interruption."
+        - "Reputational damage and future business loss are generally not covered by cyber insurance policies as they are speculative and difficult to quantify."
+        - "Physical hardware damage from power surges or environmental factors is typically covered by property insurance, not cyber liability insurance."
+    difficulty: "medium"
+    tags: ["risk", "insurance", "transfer"]
+
+  - id: q-d1-080
+    domain: domain1
+    question: "Which of the following best describes a Key Risk Indicator (KRI) as distinct from a Key Performance Indicator (KPI)?"
+    options:
+      - "A KRI measures how well security controls are performing; a KPI measures potential future risk"
+      - "A KRI is a forward-looking metric that signals increasing risk exposure; a KPI measures current performance"
+      - "A KRI and KPI are interchangeable terms used in different industries"
+      - "A KRI measures compliance with policies; a KPI measures financial impact of security investments"
+    correct_answer: 1
+    explanations:
+      correct: "KRIs are leading (predictive) indicators that signal when risk is increasing — they warn of potential future problems before they materialize. KPIs measure current or historical performance of security processes and controls. KRIs help organizations proactively manage risk rather than react to incidents."
+      incorrect:
+        - "This reversal is incorrect. KPIs measure how well controls perform; KRIs signal increasing risk levels and are predictive/forward-looking."
+        - "A KRI is forward-looking and signals increasing risk exposure, while a KPI measures current or historical performance — this is the correct distinction."
+        - "KRIs and KPIs serve distinct purposes. KRIs are predictive risk signals; KPIs measure operational performance. They are not interchangeable."
+        - "While policy compliance can be measured as a KPI, the defining distinction is that KRIs are forward-looking risk signals, not compliance measures."
+    difficulty: "medium"
+    tags: ["governance", "metrics", "risk"]
+
+  - id: q-d1-081
+    domain: domain1
+    question: "The Capability Maturity Model Integration (CMMI) Level 3 is characterized by which of the following?"
+    options:
+      - "Processes are unpredictable, poorly controlled, and reactive"
+      - "Processes are characterized for the organization and are proactively managed"
+      - "Processes are measured, controlled, and quantitatively managed"
+      - "Processes focus on continuous improvement and innovation"
+    correct_answer: 1
+    explanations:
+      correct: "CMMI Level 3 (Defined) means processes are well-characterized, understood, and described in standards, procedures, and tools. They are proactively managed across the organization. Level 1 is Initial (chaotic), Level 2 is Managed (reactive), Level 3 is Defined (proactive), Level 4 is Quantitatively Managed, Level 5 is Optimizing."
+      incorrect:
+        - "This describes CMMI Level 1 (Initial) — processes are unpredictable and reactive with no established standards."
+        - "CMMI Level 3 (Defined) is characterized by processes documented, understood, and proactively managed across the organization."
+        - "Quantitative management describes CMMI Level 4 — processes are statistically measured and controlled."
+        - "Continuous improvement and innovation describe CMMI Level 5 (Optimizing) — the highest maturity level."
+    difficulty: "medium"
+    tags: ["governance", "maturity-model", "CMMI"]
+
+  - id: q-d1-082
+    domain: domain1
+    question: "Under GDPR Article 37, which condition REQUIRES an organization to appoint a Data Protection Officer (DPO)?"
+    options:
+      - "Any organization that processes personal data of more than 500 individuals"
+      - "Public authorities and organizations whose core activities involve large-scale processing of sensitive data"
+      - "Any organization subject to GDPR that operates in more than one EU member state"
+      - "Organizations with annual revenue exceeding €10 million that process personal data"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR Article 37 requires DPO appointment for: (1) public authorities or bodies, (2) organizations whose core activities require large-scale, regular, and systematic monitoring of individuals, or (3) organizations whose core activities involve large-scale processing of special categories (sensitive) data. Revenue thresholds or data subject counts are not the legal triggers."
+      incorrect:
+        - "GDPR does not specify a minimum number of data subjects to trigger DPO requirements. The triggers are the nature and scale of processing activities."
+        - "GDPR Article 37 requires a DPO for public authorities and organizations whose core activities involve large-scale processing of sensitive or systematically monitored personal data."
+        - "Operating in multiple EU member states does not automatically require a DPO. A single-country SME processing sensitive data at scale must appoint one; a multinational with minimal data processing may not need to."
+        - "Revenue thresholds are not DPO triggers under GDPR. The requirement is based on the nature and scale of data processing activities."
+    difficulty: "hard"
+    tags: ["GDPR", "privacy", "legal", "DPO"]
+
+  - id: q-d1-083
+    domain: domain1
+    question: "The California Consumer Privacy Act (CCPA) differs from GDPR most significantly in which way?"
+    options:
+      - "CCPA applies to all businesses regardless of size; GDPR only applies to large enterprises"
+      - "CCPA grants opt-out rights for data sales; GDPR requires affirmative opt-in consent for most processing"
+      - "CCPA requires 72-hour breach notification; GDPR requires 30-day notification"
+      - "CCPA applies extraterritorially to any business worldwide; GDPR applies only within the EU"
+    correct_answer: 1
+    explanations:
+      correct: "A key distinction is the consent model: CCPA gives consumers the right to opt-out of the sale of their personal information (opt-out model), while GDPR typically requires explicit, affirmative consent (opt-in) before collecting or processing personal data for many purposes. GDPR's lawful basis framework is more comprehensive than CCPA's opt-out approach."
+      incorrect:
+        - "CCPA applies to businesses meeting revenue/data thresholds ($25M revenue OR 100,000 consumers' data OR 50% revenue from selling data). Both CCPA and GDPR have thresholds — neither applies to all businesses."
+        - "CCPA's opt-out for data sales versus GDPR's opt-in consent model is the most significant philosophical distinction between the two frameworks."
+        - "GDPR requires 72-hour breach notification; CCPA does not independently set breach notification timing (California's separate data breach notification law applies). This choice reverses the actual requirement."
+        - "Both laws have extraterritorial reach. GDPR applies to any organization offering goods/services to EU residents; CCPA applies to qualifying businesses with California consumers. Neither is strictly geographically limited."
+    difficulty: "hard"
+    tags: ["legal", "privacy", "CCPA", "GDPR"]
+
+  - id: q-d1-084
+    domain: domain1
+    question: "Which of the OECD Privacy Principles requires that personal data should not be used for purposes other than those specified at the time of collection without additional consent?"
+    options:
+      - "Collection Limitation Principle"
+      - "Purpose Specification Principle"
+      - "Use Limitation Principle"
+      - "Individual Participation Principle"
+    correct_answer: 2
+    explanations:
+      correct: "The OECD Use Limitation Principle states that personal data should not be disclosed, made available, or otherwise used for purposes other than those specified under the Purpose Specification Principle, except with the consent of the data subject or by the authority of law. It limits secondary use of data."
+      incorrect:
+        - "The Collection Limitation Principle limits the collection of personal data to what is necessary and requires lawful, fair means of collection with the subject's knowledge or consent."
+        - "The Purpose Specification Principle requires that the purposes for which personal data are collected be specified at or before collection. It defines what purposes are allowed — the Use Limitation Principle enforces those limits."
+        - "The Use Limitation Principle directly addresses secondary use — using data beyond the stated purposes — and is the correct OECD principle here."
+        - "The Individual Participation Principle gives individuals the right to access their data, challenge data about them, and have data erased or corrected."
+    difficulty: "medium"
+    tags: ["privacy", "OECD", "legal"]
+
+  - id: q-d1-085
+    domain: domain1
+    question: "A SOC 2 Type II report differs from a SOC 2 Type I report primarily because it:"
+    options:
+      - "Covers a broader set of Trust Services Criteria than Type I"
+      - "Provides an auditor's opinion on the effectiveness of controls over a period of time"
+      - "Is prepared by management and reviewed by auditors, while Type I is fully auditor-prepared"
+      - "Applies to financial reporting controls, while Type I applies to security controls"
+    correct_answer: 1
+    explanations:
+      correct: "SOC 2 Type II covers the same criteria as Type I but evaluates operational effectiveness over a period of time (typically 6-12 months), not just design at a point in time. Type I only reports on whether controls are suitably designed at a specific date. Type II provides stronger assurance that controls are working consistently."
+      incorrect:
+        - "Both Type I and Type II use the same Trust Services Criteria (Security, Availability, Processing Integrity, Confidentiality, Privacy). The difference is the time horizon, not the scope of criteria."
+        - "SOC 2 Type II provides an auditor's opinion on control effectiveness over a defined period of time — this is the key distinguishing characteristic."
+        - "Both SOC 2 Type I and Type II are auditor-prepared reports. The difference is point-in-time (Type I) versus period of time (Type II) assessment."
+        - "SOC 1 covers financial reporting controls (ICFR). SOC 2 Type I and Type II both address the Trust Services Criteria for security-related controls."
+    difficulty: "medium"
+    tags: ["compliance", "auditing", "SOC"]
+
+  - id: q-d1-086
+    domain: domain1
+    question: "An employee requests a security policy exception to use personally owned cloud storage for work files. What is the MOST important element of a formal policy exception process?"
+    options:
+      - "Automatic approval for exceptions with defined duration and mandatory review date"
+      - "Documented business justification, compensating controls, risk acceptance by an appropriate authority, and time-bound review"
+      - "Immediate escalation to the CISO for all exception requests regardless of risk level"
+      - "Denial of all exceptions to maintain consistent policy enforcement"
+    correct_answer: 1
+    explanations:
+      correct: "A formal policy exception process requires: documented business justification (why the exception is needed), compensating controls (alternative mitigations), formal risk acceptance by an appropriate authority (manager, CISO, risk committee depending on risk level), and a time-bound review date (exceptions should not be permanent). This ensures exceptions are managed rather than ignored."
+      incorrect:
+        - "Automatic approval undermines the exception process — exceptions must be formally evaluated and accepted by an appropriate authority with documented justification and compensating controls."
+        - "A documented business justification, compensating controls, risk acceptance by appropriate authority, and time-bound review are all essential elements of a formal exception process."
+        - "Not all exceptions require CISO involvement. A risk-based approach delegates exception approval based on risk level — low-risk exceptions may be approved by line managers; high-risk ones escalate to senior leadership."
+        - "A blanket denial policy creates shadow IT and compliance failures. A formal exception process acknowledges business reality while managing risk through documentation, compensating controls, and time limits."
+    difficulty: "medium"
+    tags: ["governance", "policy", "risk"]
+
+  - id: q-d1-087
+    domain: domain1
+    question: "An organization's board formally sets its risk appetite at 'low' for regulatory compliance violations. An operational team proposes a control shortcut that provides 80% compliance at 20% cost. What is the correct response?"
+    options:
+      - "Implement the shortcut as it is more cost-effective than full compliance"
+      - "Reject the shortcut because it exceeds the board-defined risk appetite for compliance risk"
+      - "Implement the shortcut but document the deviation as an accepted risk"
+      - "Escalate to the CISO to make a judgment call on cost versus compliance"
+    correct_answer: 1
+    explanations:
+      correct: "When the board has formally established a low risk appetite for regulatory compliance, operational decisions must stay within that threshold. An 80% compliance approach carries residual compliance risk that exceeds the board's stated tolerance. The board's risk appetite is a governance mandate, not a suggestion. The operational team must find a fully compliant solution."
+      incorrect:
+        - "Cost-effectiveness does not override the board's risk appetite statement. A low compliance risk appetite means regulatory violations are not acceptable even if cheaper."
+        - "Rejecting the shortcut is correct because it would produce compliance risk that exceeds the board-defined low risk appetite — governance mandate overrides operational cost preference."
+        - "Documenting as accepted risk does not resolve the problem if the residual risk exceeds the board's stated appetite. Risk acceptance must align with the risk appetite framework."
+        - "The CISO cannot override a board-level risk appetite decision. The appropriate path is to find a compliant approach or present a business case to the board to revise the risk appetite."
+    difficulty: "hard"
+    tags: ["risk", "governance", "risk-appetite"]
+
+  - id: q-d1-088
+    domain: domain1
+    question: "During an employee onboarding process, which security procedure is MOST directly related to the principle of least privilege?"
+    options:
+      - "Providing the new employee with a security awareness training certificate"
+      - "Assigning access rights that correspond only to the specific duties of the new role"
+      - "Conducting a background check prior to the employee starting work"
+      - "Having the employee sign the acceptable use policy before receiving system access"
+    correct_answer: 1
+    explanations:
+      correct: "Least privilege requires that individuals are granted only the minimum access necessary to perform their specific job functions. During onboarding, this means provisioning access rights that precisely match the new employee's defined role — not granting broad access 'just in case' or replicating another user's access profile."
+      incorrect:
+        - "Security awareness training is a critical onboarding activity but is related to education and policy compliance — not directly to least privilege access provisioning."
+        - "Assigning access rights that correspond only to the specific duties of the new role directly implements the principle of least privilege during onboarding."
+        - "Background checks are a personnel security control related to trustworthiness verification — important but not directly related to least privilege."
+        - "Signing the acceptable use policy establishes the employee's acknowledgment of security responsibilities — it is a governance control, not a least privilege access control."
+    difficulty: "easy"
+    tags: ["personnel", "principles", "access-control"]
+
+  - id: q-d1-089
+    domain: domain1
+    question: "Under GDPR, which of the following is a valid lawful basis for processing personal data for marketing purposes?"
+    options:
+      - "Legitimate interest always justifies marketing data processing without consent"
+      - "Explicit consent or, where applicable, legitimate interests that are not overridden by the data subject's rights"
+      - "Contract performance is a sufficient lawful basis for all marketing activities"
+      - "Public interest automatically authorizes marketing by nonprofit organizations"
+    correct_answer: 1
+    explanations:
+      correct: "For marketing purposes, organizations typically rely on explicit consent (Article 6(1)(a)) or legitimate interests (Article 6(1)(f)), but legitimate interests requires a balancing test — the organization's interests must not be overridden by the individual's rights and expectations. Direct marketing can qualify under legitimate interests, but the data subject must always have the right to object."
+      incorrect:
+        - "Legitimate interest does not automatically justify marketing processing. It requires a three-part test: purpose test (is there a legitimate interest?), necessity test (is processing necessary?), and balancing test (do individual rights override the interest?). Blanket claims of legitimate interest are not valid."
+        - "For marketing, explicit consent or legitimate interests (with balancing test) are the appropriate lawful bases under GDPR — neither is an unlimited right."
+        - "Contract performance (Article 6(1)(b)) only covers processing necessary to fulfill the specific contract terms. Using contract data for unrelated marketing is not covered by this lawful basis."
+        - "Public interest (Article 6(1)(e)) covers tasks in the public interest or official authority — it does not authorize commercial marketing activities by nonprofits."
+    difficulty: "hard"
+    tags: ["GDPR", "privacy", "legal"]
+
+  - id: q-d1-090
+    domain: domain1
+    question: "Which of the following correctly describes the relationship between a 'security event' and a 'security incident'?"
+    options:
+      - "A security event and a security incident are synonymous terms used interchangeably"
+      - "Every security event is an incident; not all incidents generate events"
+      - "A security event is any observable occurrence; an incident is an event that adversely affects security"
+      - "A security incident is a low-severity event; a security breach is a high-severity incident"
+    correct_answer: 2
+    explanations:
+      correct: "A security event is any observable occurrence in a system or network — most events are benign (a user logging in successfully is an event). A security incident is an event or series of events that adversely affects the confidentiality, integrity, or availability of information assets and requires a response. All incidents are events, but not all events are incidents."
+      incorrect:
+        - "These are distinct terms with specific meanings in security. Using them interchangeably leads to miscommunication about severity and required response actions."
+        - "Not every event is an incident. Events include routine activities (logins, file accesses). Only events that adversely affect CIA or require response are incidents."
+        - "A security event is any observable occurrence; a security incident is an event adversely affecting security — this correctly distinguishes the two terms."
+        - "Severity levels don't define the event/incident distinction. An incident is any adverse event requiring response, regardless of severity. A 'breach' typically refers to confirmed unauthorized access or data exposure."
+    difficulty: "easy"
+    tags: ["incident-response", "fundamentals", "definitions"]
+
+  - id: q-d1-091
+    domain: domain1
+    question: "The SABSA (Sherwood Applied Business Security Architecture) framework is best described as:"
+    options:
+      - "A technical standard specifying encryption algorithms for enterprise systems"
+      - "A business-driven security architecture framework that aligns security to business objectives"
+      - "A risk scoring methodology for quantifying cybersecurity threats"
+      - "A compliance framework for regulated financial institutions"
+    correct_answer: 1
+    explanations:
+      correct: "SABSA is an enterprise security architecture framework that ensures security is derived from and aligned with business requirements. It uses a layered architecture model (similar to Zachman framework) with six layers: Contextual (Business), Conceptual (Architect), Logical (Designer), Physical (Builder), Component (Tradesman), and Operational. It is business-driven, not compliance-driven."
+      incorrect:
+        - "SABSA is an architecture framework, not a technical encryption standard. Encryption standards like AES or FIPS 140-2 address algorithm selection."
+        - "SABSA is a business-driven security architecture framework that aligns security controls and decisions with business objectives and requirements."
+        - "Risk scoring methodologies include FAIR, NIST risk frameworks, and qualitative matrices. SABSA provides architectural guidance, not a risk scoring system."
+        - "SABSA applies across industries and is not specific to financial institutions. Compliance frameworks for finance include GLBA, SOX, and PCI DSS."
+    difficulty: "medium"
+    tags: ["frameworks", "architecture", "governance"]
+
+  - id: q-d1-092
+    domain: domain1
+    question: "An organization performs a risk treatment analysis and identifies that a specific technical control will reduce the ALE from $200,000 to $50,000. The control costs $120,000 annually. What is the value of this control?"
+    options:
+      - "The control provides no value because it costs more than the residual risk"
+      - "$30,000 net benefit — the control saves $150,000 in ALE while costing $120,000"
+      - "$50,000 — equal to the residual ALE after the control is implemented"
+      - "The control should be rejected because ALE reduction should equal 100% of the control cost"
+    correct_answer: 1
+    explanations:
+      correct: "The value of a control is calculated as: ALE Before - ALE After - Annual Control Cost = $200,000 - $50,000 - $120,000 = $30,000 net benefit. Even though the control costs $120,000, it reduces losses by $150,000, producing a positive net value. Controls with positive net value are worth implementing from a cost-benefit perspective."
+      incorrect:
+        - "The control does have value. ALE reduction ($150,000) minus annual cost ($120,000) yields a $30,000 net benefit. The control costs less than the risk reduction it provides."
+        - "$30,000 is the correct net benefit: $200,000 (ALE before) - $50,000 (ALE after) - $120,000 (control cost) = $30,000 positive return."
+        - "$50,000 is the residual ALE, not the value of the control. Control value is the net financial benefit: risk reduction minus control cost."
+        - "There is no requirement for ALE reduction to equal 100% of control cost. Any positive net value (risk reduction minus control cost) justifies the control on cost-benefit grounds."
+    difficulty: "medium"
+    tags: ["risk", "quantitative", "cost-benefit"]
+
+  - id: q-d1-093
+    domain: domain1
+    question: "Under the NIST Risk Management Framework (RMF), which role has the authority to formally accept residual risk and authorize a system to operate?"
+    options:
+      - "The System Owner"
+      - "The Chief Information Security Officer (CISO)"
+      - "The Authorizing Official (AO)"
+      - "The Information System Security Officer (ISSO)"
+    correct_answer: 2
+    explanations:
+      correct: "The Authorizing Official (AO) — typically a senior organizational official — has the authority and accountability to formally accept the residual risk of a system and issue an Authorization to Operate (ATO). This is a non-delegatable senior management accountability role. The AO reviews the Security Assessment Report and Plan of Action and Milestones (POA&M) before authorizing."
+      incorrect:
+        - "The System Owner is responsible for day-to-day system operations and ensuring security controls are implemented, but they cannot authorize a system to operate — that authority belongs to the AO."
+        - "The CISO provides security policy and oversight for the organization but does not have the authority to authorize individual systems to operate under RMF. The AO is the correct role."
+        - "The AO (Authorizing Official) has the authority to formally accept residual risk and issue an Authorization to Operate."
+        - "The ISSO manages the security posture of the system and supports the assessment process but does not have authority to authorize system operation — that is the AO's role."
+    difficulty: "medium"
+    tags: ["governance", "RMF", "NIST", "roles"]
+
+  - id: q-d1-094
+    domain: domain1
+    question: "An organization using a third-party SaaS provider experiences a data breach caused by a vulnerability in the provider's software. From a governance perspective, who bears ultimate accountability to the customers whose data was breached?"
+    options:
+      - "The SaaS provider, as the technical cause of the breach is in their software"
+      - "The organization that contracted the SaaS provider, as the data controller"
+      - "The cyber insurance company, as they cover the breach costs"
+      - "Shared equally between the SaaS provider and the contracting organization"
+    correct_answer: 1
+    explanations:
+      correct: "Under GDPR and most privacy frameworks, the data controller (the contracting organization) bears ultimate accountability to data subjects for how their data is protected, even when processing is delegated to a data processor (SaaS provider). The controller must conduct due diligence, have a data processing agreement in place, and cannot transfer accountability to a vendor."
+      incorrect:
+        - "While the SaaS provider may have technical liability and contractual obligations to the contracting organization, they are typically a data processor. The data controller (the contracting organization) holds primary accountability to affected individuals."
+        - "The contracting organization, as the data controller, bears ultimate accountability to its customers — it chose and contracted the SaaS provider and is responsible for ensuring adequate protections."
+        - "Insurance covers costs but does not transfer legal accountability. Accountability to data subjects remains with the data controller regardless of insurance coverage."
+        - "While contractual liability may be shared, ultimate accountability to data subjects is not equally shared. The data controller has primary legal and regulatory accountability."
+    difficulty: "hard"
+    tags: ["governance", "GDPR", "third-party", "accountability"]
+
+  - id: q-d1-095
+    domain: domain1
+    question: "What is the Annualized Rate of Occurrence (ARO) for a threat event that is expected to happen approximately once every four years?"
+    options:
+      - "4.0"
+      - "0.25"
+      - "0.5"
+      - "25%"
+    correct_answer: 1
+    explanations:
+      correct: "ARO is the estimated frequency of a threat occurring in a one-year period. If an event occurs once every four years, the ARO = 1/4 = 0.25. This represents a 25% probability of occurrence in any given year and is used in calculating ALE (ALE = SLE × ARO)."
+      incorrect:
+        - "4.0 would mean the event occurs 4 times per year. Once every four years = 1/4 = 0.25."
+        - "0.25 is the correct ARO for an event expected to occur once every four years (1 ÷ 4 = 0.25)."
+        - "0.5 would represent once every two years. Once every four years = 0.25."
+        - "25% correctly represents the probability, but ARO is expressed as a decimal (0.25) in risk calculations, not as a percentage — though both represent the same value."
+    difficulty: "easy"
+    tags: ["risk", "quantitative", "ARO"]
+
+  - id: q-d1-096
+    domain: domain1
+    question: "The Exposure Factor (EF) in quantitative risk analysis represents which of the following?"
+    options:
+      - "The total annual cost of security controls protecting an asset"
+      - "The percentage of asset value lost if a specific threat materializes"
+      - "The probability that a vulnerability will be exploited in a given year"
+      - "The ratio of residual risk to inherent risk after controls are applied"
+    correct_answer: 1
+    explanations:
+      correct: "The Exposure Factor (EF) is the percentage of asset value expected to be lost if a specific threat event occurs. For example, if a fire would destroy 50% of a $1,000,000 building, EF = 0.50. SLE = Asset Value × EF. The EF reflects how much damage a single incident would cause."
+      incorrect:
+        - "Control costs are part of the cost-benefit analysis, not the EF. EF represents potential loss per incident as a percentage of asset value."
+        - "EF is the percentage of asset value lost if a specific threat materializes — this is the definition of Exposure Factor."
+        - "The probability of exploitation in a given year is the Annualized Rate of Occurrence (ARO), not the Exposure Factor."
+        - "The ratio of residual to inherent risk describes risk reduction effectiveness, not the Exposure Factor. EF is specific to a single threat event's damage potential."
+    difficulty: "easy"
+    tags: ["risk", "quantitative", "EF"]
+
+  - id: q-d1-097
+    domain: domain1
+    question: "COBIT 2019 is best described as a framework for which purpose?"
+    options:
+      - "Selecting and implementing security controls for federal information systems"
+      - "Governance and management of enterprise IT, supporting business goals alignment"
+      - "Evaluating cryptographic algorithm strength and key management practices"
+      - "Certifying security professionals through a standardized knowledge framework"
+    correct_answer: 1
+    explanations:
+      correct: "COBIT (Control Objectives for Information and Related Technology) is an IT governance and management framework developed by ISACA. It provides a comprehensive set of governance objectives and management practices to help organizations align IT with business goals, manage IT risks, and meet compliance requirements. It covers governance and management — not just security."
+      incorrect:
+        - "NIST SP 800-53 or the RMF is used for selecting and implementing security controls for federal information systems — not COBIT."
+        - "COBIT 2019 is a governance and management framework for enterprise IT that supports alignment with business goals — this is the correct description."
+        - "Cryptographic frameworks like FIPS 140-2 or NIST SP 800-175B address algorithm strength and key management. COBIT is a governance framework."
+        - "COBIT provides a governance framework, not a professional certification curriculum. ISACA certifications (CISM, CISA, CRISC) reference COBIT but are separate from the framework itself."
+    difficulty: "medium"
+    tags: ["frameworks", "governance", "COBIT"]
+
+  - id: q-d1-098
+    domain: domain1
+    question: "Which of the following BEST illustrates 'security risk framing' as described in NIST SP 800-39?"
+    options:
+      - "Conducting a quantitative risk assessment using ALE calculations"
+      - "Establishing the organizational context, constraints, and assumptions that define how risk decisions will be made"
+      - "Selecting appropriate security controls from NIST SP 800-53 control catalog"
+      - "Communicating risk findings to the board of directors after an assessment"
+    correct_answer: 1
+    explanations:
+      correct: "Risk framing (the first step in NIST SP 800-39's risk management process) establishes the context for risk decisions. It defines the assumptions, constraints, risk tolerances, and priorities that influence how risk is assessed, responded to, and monitored. Without framing, risk decisions lack organizational context and may be inconsistent with business objectives."
+      incorrect:
+        - "ALE calculations are part of risk assessment — the second step in NIST SP 800-39. Risk framing comes first and defines the context for those assessments."
+        - "Establishing organizational context, constraints, and assumptions for risk decision-making is the definition of risk framing — this is the correct description."
+        - "Selecting security controls is the risk response step — the third component of NIST SP 800-39. Framing precedes and informs control selection."
+        - "Communicating risk findings is part of risk monitoring and risk assessment activities — it occurs after framing has established the context for those communications."
+    difficulty: "hard"
+    tags: ["risk", "NIST", "governance"]
+
+  - id: q-d1-099
+    domain: domain1
+    question: "From a corporate governance perspective, the board of directors' primary role in cybersecurity is:"
+    options:
+      - "Reviewing and approving firewall rules and network security configurations"
+      - "Overseeing that management has established adequate risk management programs and accountability"
+      - "Directly managing security incident response and breach investigation"
+      - "Drafting security policies and standards for the organization"
+    correct_answer: 1
+    explanations:
+      correct: "The board's role is governance oversight — ensuring that management has established appropriate risk management programs, accountability structures, and that the organization is managing cyber risk within its risk appetite. The board sets direction and holds management accountable but does not manage operations or technical configurations."
+      incorrect:
+        - "Firewall rules and technical configurations are operational management tasks — far below board-level governance responsibilities. The board oversees strategy and risk, not technical controls."
+        - "The board of directors provides governance oversight by ensuring management has adequate risk management programs and accountability structures for cybersecurity."
+        - "Incident response is an operational management function. The board may be briefed on significant incidents but does not directly manage response activities."
+        - "Drafting policies and standards is management's responsibility (CISO, security team). The board approves high-level policy direction and risk appetite, not operational security documents."
+    difficulty: "medium"
+    tags: ["governance", "board", "accountability"]
+
+  - id: q-d1-100
+    domain: domain1
+    question: "Which of the following is a REQUIRED element of a contract to address third-party information security obligations?"
+    options:
+      - "Requiring the vendor to use only open-source software in their products"
+      - "Security requirements, audit rights, breach notification obligations, and data handling standards"
+      - "Requiring the vendor to carry a minimum of $100 million in cyber liability insurance"
+      - "Mandating that the vendor achieve ISO 27001 certification within one year"
+    correct_answer: 1
+    explanations:
+      correct: "Contractual security obligations should include: security requirements (what controls the vendor must implement), audit rights (ability to audit or receive audit reports), breach notification obligations (how and when to notify if a breach occurs), and data handling standards (classification, retention, destruction). These elements protect the contracting organization and establish accountability."
+      incorrect:
+        - "Requiring open-source software is not a standard security contract requirement and may be overly restrictive. Contracts should focus on security outcomes, not technology choices."
+        - "Security requirements, audit rights, breach notification, and data handling standards are the essential elements of third-party security contract provisions."
+        - "Insurance minimums may be appropriate for high-risk vendors but are not universally required for all third-party contracts. Insurance levels should be proportional to the risk and data sensitivity."
+        - "Mandating specific certifications (like ISO 27001) can be part of vendor requirements but imposing an arbitrary timeline is not a standard contract element. Many organizations accept SOC 2 reports or equivalent assurance."
+    difficulty: "medium"
+    tags: ["governance", "third-party", "contracts"]
+
+  - id: q-d1-101
+    domain: domain1
+    question: "What is the primary distinction between a 'threat agent' and a 'threat actor'?"
+    options:
+      - "Threat agents are automated systems; threat actors are always human"
+      - "Threat agent describes any entity (human or natural) that can cause harm; threat actor specifically refers to an intentional human adversary"
+      - "Threat actors operate externally; threat agents are always internal to the organization"
+      - "These terms are synonymous and can be used interchangeably in risk analysis"
+    correct_answer: 1
+    explanations:
+      correct: "A threat agent is the broader term encompassing any entity — human, environmental, or technical — capable of acting against an asset (employees, hackers, natural disasters, hardware failures). A threat actor is more specific to intentional human adversaries (nation-states, cybercriminals, hacktivists). All threat actors are threat agents but not all threat agents are threat actors."
+      incorrect:
+        - "Threat agents include both automated systems AND human actors AND natural events. The distinction is not human vs. automated."
+        - "Threat agent is the broader term including any source of harm (natural, human, technical); threat actor specifically refers to intentional human adversaries — this is the correct distinction."
+        - "Both threat agents and threat actors can be internal or external. Insider threats are both internal and intentional threat actors."
+        - "While used informally as synonyms, they have distinct meanings in formal risk analysis. Threat actor implies intentional human intent; threat agent is broader."
+    difficulty: "medium"
+    tags: ["risk", "threat-modeling", "definitions"]
+
+  - id: q-d1-102
+    domain: domain1
+    question: "What is the primary purpose of a 'Legal Hold' (litigation hold) notice from an information security perspective?"
+    options:
+      - "It authorizes security teams to increase monitoring of suspects during litigation"
+      - "It requires the preservation of electronically stored information (ESI) that may be relevant to anticipated litigation"
+      - "It restricts all data deletion and backup rotation for the entire organization during a lawsuit"
+      - "It transfers legal liability for data security from the organization to its legal counsel"
+    correct_answer: 1
+    explanations:
+      correct: "A legal hold (litigation hold) is a directive to preserve all data — including electronically stored information (ESI) such as emails, documents, and logs — that may be relevant to anticipated or actual litigation. Organizations must suspend normal data destruction and backup rotation schedules for the affected data. Failure to preserve evidence can result in sanctions for spoliation."
+      incorrect:
+        - "Legal holds are about evidence preservation, not surveillance authorization. Increased monitoring during litigation may have separate legal and HR implications unrelated to legal holds."
+        - "A legal hold requires preservation of electronically stored information that may be relevant to anticipated or actual litigation — this is the correct definition."
+        - "Legal holds apply to specific, identified data relevant to the litigation, not the entire organization's data. Normal retention schedules for unrelated data continue."
+        - "Legal holds do not transfer liability. The organization retains legal responsibility for preserving evidence and its security obligations remain unchanged."
+    difficulty: "medium"
+    tags: ["legal", "data-retention", "compliance"]
+
+  - id: q-d1-103
+    domain: domain1
+    question: "Under HIPAA, the 'minimum necessary' standard primarily requires covered entities to:"
+    options:
+      - "Use only the minimum cost security controls required by HIPAA"
+      - "Limit access to and disclosure of PHI to the minimum amount necessary to accomplish the intended purpose"
+      - "Retain patient health records for the minimum legally required period only"
+      - "Apply minimum encryption strength of 128-bit AES to all PHI"
+    correct_answer: 1
+    explanations:
+      correct: "The HIPAA minimum necessary standard (45 CFR §164.502(b)) requires covered entities and business associates to make reasonable efforts to limit access to, use of, and disclosure of protected health information (PHI) to the minimum necessary to accomplish the intended purpose. This limits data exposure and aligns with the security principle of least privilege."
+      incorrect:
+        - "The minimum necessary standard applies to PHI access and disclosure, not to selecting cheapest security controls. HIPAA requires reasonable and appropriate safeguards."
+        - "The minimum necessary standard limits PHI access and disclosure to what is minimally needed for the intended purpose — this is the correct HIPAA definition."
+        - "Data retention is covered by separate HIPAA retention requirements (6 years for policies/procedures). The minimum necessary standard addresses access and disclosure scope."
+        - "HIPAA does not mandate specific encryption algorithms or key lengths — it requires 'reasonable and appropriate' technical safeguards and addresses addressable implementation specifications."
+    difficulty: "medium"
+    tags: ["HIPAA", "privacy", "legal", "compliance"]
+
+  - id: q-d1-104
+    domain: domain1
+    question: "A pre-employment background check reveals that a candidate for a security engineer position was convicted of a misdemeanor DUI 8 years ago, unrelated to computers. What is the MOST appropriate response?"
+    options:
+      - "Automatically disqualify the candidate as any criminal record is disqualifying for security roles"
+      - "Conduct an individualized assessment considering the nature, severity, time elapsed, and relevance to the specific role"
+      - "Proceed with hiring as a DUI is not directly related to computer crime or information security"
+      - "Request the candidate provide a written explanation and automatically approve if their explanation is satisfactory"
+    correct_answer: 1
+    explanations:
+      correct: "An individualized assessment is legally required in many jurisdictions (EEOC guidance prohibits blanket exclusions based on criminal history) and is the most appropriate practice. The assessment considers: nature of the crime, time elapsed, relevance to the specific position, evidence of rehabilitation, and business necessity. A DUI from 8 years ago may have no bearing on trustworthiness for a security role."
+      incorrect:
+        - "Blanket disqualification for all criminal records is illegal in many jurisdictions under fair employment laws (EEOC, ban-the-box laws) and fails to consider whether the specific offense is relevant to the role."
+        - "An individualized assessment — considering the nature, severity, time elapsed, and job relevance — is the correct and legally appropriate approach."
+        - "Automatically proceeding with hiring without review also fails the assessment obligation. The organization must document that it considered the conviction and determined it did not disqualify the candidate based on the role's requirements."
+        - "While a written explanation may be part of the process, automatic approval based on the candidate's explanation alone bypasses the organization's own risk assessment. The decision must be made by the hiring organization, not delegated to the candidate."
+    difficulty: "hard"
+    tags: ["personnel", "legal", "hiring"]
+
+  - id: q-d1-105
+    domain: domain1
+    question: "Which of the following is a 'leading' security metric as opposed to a 'lagging' metric?"
+    options:
+      - "Number of security incidents reported last quarter"
+      - "Percentage of critical vulnerabilities patched within the SLA window"
+      - "Total cost of data breaches over the past 12 months"
+      - "Number of regulatory findings in the last external audit"
+    correct_answer: 1
+    explanations:
+      correct: "Percentage of critical vulnerabilities patched within the SLA window is a leading metric — it measures a current security program activity that predicts future security posture. High patch compliance rates suggest lower future breach risk. Leading metrics are forward-looking process measures. Lagging metrics measure past outcomes (incidents, breaches, audit findings)."
+      incorrect:
+        - "Number of incidents reported last quarter is a lagging metric — it measures what has already happened. It reflects past security failures, not current program effectiveness."
+        - "Patch compliance rate (percentage of critical vulnerabilities patched within SLA) is a leading metric — it measures current security program activities that predict future outcomes."
+        - "Total breach costs over 12 months is a lagging metric — it measures past financial impact of security failures, not predictive of future performance."
+        - "Regulatory findings in the last audit is a lagging metric — it reflects past compliance gaps that were found during the assessment period."
+    difficulty: "medium"
+    tags: ["governance", "metrics", "measurement"]
+
+  - id: q-d1-106
+    domain: domain1
+    question: "A GDPR Data Protection Impact Assessment (DPIA) is REQUIRED before processing begins in which situation?"
+    options:
+      - "Any time an organization collects email addresses from website visitors"
+      - "When processing is likely to result in a high risk to the rights and freedoms of natural persons"
+      - "Only when processing personal data of EU citizens outside of the EU"
+      - "Whenever an organization hires a new data processor vendor"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR Article 35 requires a DPIA before processing that is 'likely to result in a high risk to the rights and freedoms of natural persons.' Triggers include systematic and extensive profiling, large-scale processing of special categories of data, and systematic monitoring of public areas. The DPIA assesses risks and identifies mitigations before processing begins."
+      incorrect:
+        - "Collecting email addresses does not automatically trigger a DPIA requirement. GDPR Article 35 requires DPIAs for high-risk processing — routine email collection from website visitors is generally not high-risk processing."
+        - "GDPR Article 35 requires a DPIA when processing is likely to result in high risk to individuals' rights and freedoms — this is the correct trigger."
+        - "DPIAs are required based on the risk level of processing activities, not based on geographic location of processing or data subjects."
+        - "Hiring a new data processor requires a Data Processing Agreement (DPA) under Article 28, not necessarily a DPIA. A DPIA is required for high-risk processing activities, not for every vendor engagement."
+    difficulty: "medium"
+    tags: ["GDPR", "privacy", "DPIA"]
+
+  - id: q-d1-107
+    domain: domain1
+    question: "Which statement BEST describes how 'inherent risk' relates to 'residual risk' in risk management?"
+    options:
+      - "Inherent risk is the risk that remains after controls are applied; residual risk is risk before controls"
+      - "Inherent risk is the natural risk level without controls; residual risk is what remains after controls are applied"
+      - "They are equivalent when controls are 100% effective"
+      - "Inherent risk applies to internal threats; residual risk applies to external threats"
+    correct_answer: 1
+    explanations:
+      correct: "Inherent risk is the raw risk level that exists before any security controls or mitigations are applied. Residual risk is the risk that remains after controls are implemented. The relationship is: Inherent Risk → Apply Controls → Residual Risk. Organizations document residual risk and compare it to their risk tolerance to determine if additional controls are needed."
+      incorrect:
+        - "This is reversed. Inherent risk is before controls; residual risk is after controls. Getting this backward leads to fundamental misunderstanding of risk treatment evaluation."
+        - "Inherent risk is the natural risk level without controls applied; residual risk is what remains after applying controls — this is the correct relationship."
+        - "If controls were 100% effective, residual risk would approach zero, not equal inherent risk. They are only equal when no controls exist at all."
+        - "Both inherent and residual risk concepts apply regardless of threat source (internal or external). The internal/external distinction is about threat origin, not risk calculation methodology."
+    difficulty: "easy"
+    tags: ["risk", "fundamentals", "definitions"]
+
+  - id: q-d1-108
+    domain: domain1
+    question: "The NIST Cybersecurity Framework (CSF) 'Govern' function, added in CSF 2.0, primarily addresses which organizational need?"
+    options:
+      - "Technical controls for detecting and responding to cybersecurity threats"
+      - "Organizational context, strategy, expectations, and accountability for cybersecurity risk management"
+      - "Recovery planning and communications after a cybersecurity incident"
+      - "Supply chain risk assessment and vendor security requirements"
+    correct_answer: 1
+    explanations:
+      correct: "CSF 2.0 added the Govern function to address the organizational context and strategy required to achieve cybersecurity outcomes. It covers establishing cybersecurity risk management strategy, policy, roles, responsibilities, and oversight. Govern is the foundational function that informs how the other five functions (Identify, Protect, Detect, Respond, Recover) are implemented."
+      incorrect:
+        - "Detecting and responding to threats is addressed by the Detect and Respond functions in the CSF — not the new Govern function."
+        - "The Govern function addresses organizational context, strategy, expectations, and accountability for cybersecurity risk management — this is the primary purpose of CSF 2.0's Govern addition."
+        - "Recovery planning and communications are covered by the Recover and Respond functions. Govern addresses the strategic and accountability layer above specific response functions."
+        - "Supply chain risk is addressed within the Identify function and related Categories. While Govern provides overarching policy direction, supply chain specifics fall under Identify."
+    difficulty: "hard"
+    tags: ["NIST", "frameworks", "governance", "CSF"]
+
+  - id: q-d1-109
+    domain: domain1
+    question: "Which of the following BEST describes 'enterprise risk management' (ERM) in relation to information security risk management?"
+    options:
+      - "ERM replaces information security risk management in mature organizations"
+      - "Information security risk management is a component of ERM, which takes a holistic view of all organizational risks"
+      - "ERM focuses exclusively on financial risks, while information security manages technical risks separately"
+      - "ERM and information security risk management use identical methodologies and frameworks"
+    correct_answer: 1
+    explanations:
+      correct: "Enterprise risk management (ERM) provides a holistic, organization-wide view of all risk categories — operational, financial, strategic, reputational, legal, and technology/cybersecurity. Information security risk management is a subset of ERM focused on information and technology risks. Effective security programs integrate with ERM to ensure cybersecurity risk is viewed in the context of the overall business risk portfolio."
+      incorrect:
+        - "ERM does not replace information security risk management — it provides an overarching framework within which security risk management operates. Both are necessary."
+        - "Information security risk management is a component of the broader ERM framework — ERM takes a comprehensive organizational view of all risk types including cybersecurity."
+        - "ERM explicitly includes technology, operational, and cyber risks alongside financial risks. Treating them as separate silos undermines the holistic purpose of ERM."
+        - "ERM and security risk management share common principles (identify, assess, respond, monitor) but may use different frameworks, risk registers, and tolerance thresholds tailored to their respective domains."
+    difficulty: "medium"
+    tags: ["risk", "ERM", "governance"]
+
+  - id: q-d1-110
+    domain: domain1
+    question: "The Privacy Act of 1974 primarily governs the handling of personal information by which type of entity?"
+    options:
+      - "All US companies with more than 250 employees"
+      - "US federal government agencies that maintain systems of records on individuals"
+      - "Healthcare providers and insurance companies processing patient data"
+      - "Financial institutions receiving federal funding or insurance"
+    correct_answer: 1
+    explanations:
+      correct: "The Privacy Act of 1974 restricts how US federal government agencies may collect, maintain, use, and disseminate records about individuals. It gives US citizens and permanent residents the right to access their records held by federal agencies and to request corrections. It does not apply to private sector companies."
+      incorrect:
+        - "The Privacy Act applies to federal agencies, not to private companies based on their size. Private sector data protection is governed by sector-specific laws (HIPAA, GLBA) and state privacy laws (CCPA)."
+        - "The Privacy Act of 1974 governs US federal government agencies that maintain systems of records on individuals — this is the correct scope."
+        - "HIPAA governs healthcare providers and their business associates. The Privacy Act governs federal agencies, not private healthcare organizations."
+        - "GLBA governs financial institutions receiving federal oversight. The Privacy Act is not triggered by federal funding — it applies to federal agencies themselves."
+    difficulty: "medium"
+    tags: ["legal", "privacy", "government"]
+
+  - id: q-d1-111
+    domain: domain1
+    question: "What is the primary goal of 'security awareness' as distinguished from 'security training' and 'security education'?"
+    options:
+      - "Develop deep technical skills in configuring and operating security tools"
+      - "Create a general recognition of security risks and expected behaviors in all employees"
+      - "Prepare security professionals for certifications and advanced security roles"
+      - "Teach security concepts at an academic level for future security architects"
+    correct_answer: 1
+    explanations:
+      correct: "Security awareness aims to change attitudes and behaviors — making all employees recognize security risks, understand their responsibilities, and know how to respond. It is broad, ongoing, and targets all personnel. Training builds specific skills for particular roles. Education develops deep conceptual understanding for security professionals. The progression is: Awareness → Training → Education."
+      incorrect:
+        - "Developing technical skills for configuring security tools is the goal of role-specific security training (e.g., firewall administration training), not general security awareness."
+        - "Security awareness creates general recognition of security risks and expected behaviors across all employees — this is the correct distinction from training and education."
+        - "Preparing for certifications and advanced roles is the domain of security education and specialized training programs, not broad awareness programs."
+        - "Academic-level conceptual understanding is the domain of security education (university programs, advanced certifications) — awareness is practical and behavioral, not academic."
+    difficulty: "easy"
+    tags: ["awareness", "personnel", "training"]
+
+  - id: q-d1-112
+    domain: domain1
+    question: "An organization's security team reports that 90% of phishing simulations are being detected and reported by employees. What type of security metric is this?"
+    options:
+      - "A lagging indicator measuring past security failures"
+      - "A leading indicator measuring security program effectiveness and predicting future resilience"
+      - "A compliance metric for regulatory reporting purposes"
+      - "A financial metric measuring return on security investment"
+    correct_answer: 1
+    explanations:
+      correct: "Phishing simulation detection/reporting rates are leading indicators — they measure current security awareness program effectiveness and predict future resilience against real phishing attacks. High detection rates suggest employees are better prepared to resist actual phishing attempts. This is a predictive, forward-looking security program effectiveness metric."
+      incorrect:
+        - "Lagging indicators measure past outcomes (actual successful phishing attacks, credential compromises). Simulation detection rates measure current program effectiveness, making them leading indicators."
+        - "A phishing simulation detection rate is a leading indicator measuring awareness program effectiveness and predicting future resilience — this is the correct classification."
+        - "While this metric may be reported for compliance purposes, its primary nature is as a security effectiveness and predictive metric — not purely a compliance metric."
+        - "This metric measures security awareness program effectiveness, not financial ROI. ROI metrics would compare program costs to quantified risk reduction."
+    difficulty: "medium"
+    tags: ["governance", "metrics", "awareness"]
+
+  - id: q-d1-113
+    domain: domain1
+    question: "A multinational organization processes EU citizens' data in the US. Under GDPR, which mechanism is most commonly used to provide adequate protection for this international data transfer?"
+    options:
+      - "EU-US data residency agreements automatically approved by the European Commission"
+      - "Standard Contractual Clauses (SCCs) or adequacy decisions from the European Commission"
+      - "Storing all EU citizen data in geographically separate databases without access from the US"
+      - "Encrypting all data in transit using TLS 1.3 automatically satisfies GDPR transfer requirements"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR Chapter V requires that personal data transferred to third countries receive adequate protection. The most common mechanisms are: (1) European Commission adequacy decisions (for countries deemed to provide equivalent protection) and (2) Standard Contractual Clauses (SCCs) — pre-approved contract clauses that impose GDPR-equivalent obligations on the data importer. The EU-US Data Privacy Framework (2023) is the current adequacy mechanism for US transfers."
+      incorrect:
+        - "There is no automatic EU-US agreement covering all data transfers. Specific mechanisms (adequacy decisions, SCCs, Binding Corporate Rules) must be used. The EU-US Data Privacy Framework requires self-certification by US organizations."
+        - "Standard Contractual Clauses (SCCs) and adequacy decisions from the European Commission are the most commonly used GDPR transfer mechanisms."
+        - "Geographic data residency is one approach (keeping data in the EU) but does not enable the transfer that may be operationally necessary. The question asks about protecting international transfers, not preventing them."
+        - "Encryption protects data security but does not address GDPR's legal basis requirements for international transfers. A receiving country still needs adequate legal protections regardless of encryption."
+    difficulty: "hard"
+    tags: ["GDPR", "privacy", "international", "legal"]
+
+  - id: q-d1-114
+    domain: domain1
+    question: "An organization's risk register shows a risk rated as 'high likelihood, high impact' that has been in the register for three years with no treatment action. This most likely indicates a failure in which aspect of risk management?"
+    options:
+      - "Risk identification — the risk was not properly discovered during the initial assessment"
+      - "Risk monitoring — the risk's status has not been updated to reflect current conditions"
+      - "Risk treatment — the organization has failed to respond to an accepted risk beyond its tolerance"
+      - "Risk communication — the risk has not been communicated to the appropriate stakeholders"
+    correct_answer: 2
+    explanations:
+      correct: "A high-high risk with no treatment over three years represents a failure in risk treatment (response). Unless the organization has formally accepted this risk (and documented it as an exception within its risk tolerance), leaving a high-priority risk untreated indicates inadequate risk response governance. Risks must be treated, accepted, transferred, or avoided — they cannot simply persist without action."
+      incorrect:
+        - "The risk is in the register, which means it was identified. The failure is not in identification but in treatment — the identified risk has received no response action."
+        - "While monitoring may need improvement, the core failure is that the organization has not taken any treatment action on a high-priority risk — this is a risk treatment failure."
+        - "Risk treatment failure — the organization has not responded to an accepted risk that likely exceeds its tolerance — is the most accurate characterization of this situation."
+        - "If the risk is in the register and visible to stakeholders, communication may be occurring. The problem is not awareness — it is the absence of treatment action."
+    difficulty: "medium"
+    tags: ["risk", "governance", "risk-management"]
+
+  - id: q-d1-115
+    domain: domain1
+    question: "A security manager presents the board with both quantitative risk data (ALE calculations) and qualitative assessments. The board questions whether quantitative assessments are always more accurate than qualitative. What is the BEST response?"
+    options:
+      - "Quantitative assessments are always more objective and accurate than qualitative approaches"
+      - "Quantitative assessments appear precise but rely on estimates; qualitative assessments may better capture expert judgment when data is limited"
+      - "Qualitative assessments are always preferred because boards don't understand financial calculations"
+      - "The choice between methods is irrelevant as they always produce the same risk prioritization"
+    correct_answer: 1
+    explanations:
+      correct: "Quantitative risk assessments (ALE, SLE, ARO) appear precise with specific dollar amounts but are only as accurate as their input estimates — ARO values especially are often educated guesses. Qualitative assessments (High/Medium/Low ratings) may better capture expert judgment when historical data is scarce. Each approach has strengths: quantitative provides financial context; qualitative provides accessible expert consensus. Most mature programs use both."
+      incorrect:
+        - "Quantitative assessments are not always more accurate. Their precision is illusory if the underlying inputs (ARO, EF, asset values) are estimated without reliable historical data. Garbage in, garbage out."
+        - "Quantitative methods appear precise but depend on estimates; qualitative methods may better reflect expert judgment when empirical data is limited — this accurately describes the trade-offs."
+        - "Many boards prefer quantitative data for financial decisions. The suggestion that qualitative is 'always preferred' for boards is incorrect — the choice should be risk-based and context-dependent."
+        - "Quantitative and qualitative methods frequently produce different prioritizations because they measure different things. An extreme qualitative risk may not correspond to the highest ALE if the asset value is low."
+    difficulty: "hard"
+    tags: ["risk", "assessment", "quantitative", "qualitative"]
+
+  - id: q-d1-116
+    domain: domain1
+    question: "What is the primary purpose of a 'Security Steering Committee' in organizational governance?"
+    options:
+      - "To handle day-to-day security operations and incident response"
+      - "To provide cross-functional leadership oversight of the security program, prioritizing initiatives and aligning security with business strategy"
+      - "To conduct security audits and report findings to external regulators"
+      - "To manage the security budget and approve all security expenditures"
+    correct_answer: 1
+    explanations:
+      correct: "A Security Steering Committee provides executive and cross-functional governance for the security program. It prioritizes security initiatives, aligns security strategy with business objectives, approves significant security policies, and ensures security resources are appropriately allocated. It bridges security and business leadership, ensuring security supports organizational goals."
+      incorrect:
+        - "Day-to-day security operations and incident response are managed by the security operations team and incident response team — not the steering committee, which operates at a strategic governance level."
+        - "The Security Steering Committee provides cross-functional leadership oversight, prioritizing initiatives and aligning security with business strategy — this is the correct governance role."
+        - "Security audits are conducted by internal audit teams or external auditors. The steering committee provides governance and oversight, not audit execution."
+        - "While the steering committee may influence budget decisions, its primary role is strategic governance and cross-functional alignment, not transactional budget approval."
+    difficulty: "medium"
+    tags: ["governance", "management", "steering-committee"]
+
+  - id: q-d1-117
+    domain: domain1
+    question: "FERPA (Family Educational Rights and Privacy Act) primarily protects:"
+    options:
+      - "Financial records of students receiving federal financial aid"
+      - "Education records of students at federally funded educational institutions"
+      - "Health records of students maintained by school medical offices"
+      - "Employment records of educators and school administrators"
+    correct_answer: 1
+    explanations:
+      correct: "FERPA protects the privacy of student education records (grades, enrollment information, discipline records, academic performance) at educational institutions receiving federal funding. It gives parents (and students over 18) rights to access, amend, and control disclosure of their education records. Institutions must obtain consent before sharing records with third parties."
+      incorrect:
+        - "FERPA covers education records broadly, not just financial aid records. Financial aid records are a subset of education records covered by FERPA."
+        - "FERPA protects education records (grades, enrollment, academic performance, discipline) at federally funded educational institutions — this is the correct scope."
+        - "Student health records at school medical offices are typically protected by HIPAA, not FERPA, unless the records are maintained by the educational institution as educational records (a nuanced area of overlap)."
+        - "Employment records of educators are covered by employment law and FERPA does not protect them. FERPA is specifically about student education records."
+    difficulty: "medium"
+    tags: ["legal", "privacy", "FERPA", "compliance"]
+
+  - id: q-d1-118
+    domain: domain1
+    question: "An organization performs a cost-benefit analysis for a new security control. The expected annual benefit is $80,000 in risk reduction, the annual cost is $95,000, and the control requires $30,000 upfront implementation. What is the correct decision based purely on economic criteria?"
+    options:
+      - "Implement the control because the risk reduction ($80,000) justifies the investment"
+      - "Reject the control because annual costs ($95,000) exceed annual benefits ($80,000), producing a negative net return"
+      - "Implement the control because the total 3-year benefit ($240,000) exceeds total 3-year cost ($315,000)"
+      - "Defer the decision until the implementation cost is amortized over the control's lifecycle"
+    correct_answer: 1
+    explanations:
+      correct: "Pure economic analysis: Annual benefit = $80,000, Annual cost = $95,000. Annual net = $80,000 - $95,000 = -$15,000 loss per year. Even adding the $30,000 upfront cost does not change the negative annual return. The control costs more to operate annually than the risk reduction it provides. Based purely on economic criteria, the control should be rejected or alternatives sought."
+      incorrect:
+        - "The risk reduction ($80,000) does not justify the investment when annual costs ($95,000) exceed annual benefits ($80,000) by $15,000. The control produces a negative economic return."
+        - "Annual costs ($95,000) exceed annual benefits ($80,000) by $15,000/year, and there is an additional $30,000 upfront cost — the control should be rejected based on economic criteria."
+        - "3-year total benefit ($240,000) would be compared to 3-year total cost ($285,000 operating + $30,000 implementation = $315,000). The 3-year NPV is negative, confirming rejection."
+        - "Deferring for amortization doesn't change the economic picture. If annual operating costs exceed annual benefits indefinitely, the control will never achieve positive ROI."
+    difficulty: "hard"
+    tags: ["risk", "quantitative", "cost-benefit", "governance"]
+
+  - id: q-d1-119
+    domain: domain1
+    question: "A company's information security policy states: 'All employees must use strong passwords.' Which document type should contain the specific requirement that passwords must be at least 14 characters with complexity requirements?'"
+    options:
+      - "Policy — high-level management direction"
+      - "Standard — specific, mandatory, measurable requirement"
+      - "Procedure — step-by-step implementation instructions"
+      - "Guideline — recommended best practice"
+    correct_answer: 1
+    explanations:
+      correct: "Standards specify the specific, measurable, mandatory technical requirements that implement a policy. The policy says 'use strong passwords' (what must be done); the standard specifies '14 characters minimum, must include uppercase, lowercase, numbers, and symbols' (the specific mandatory parameters). Standards are mandatory and measurable, unlike guidelines which are optional."
+      incorrect:
+        - "Policies define high-level direction and intent (e.g., 'employees must use strong passwords'). They do not contain specific technical parameters like character counts — that granularity belongs in standards."
+        - "Standards contain the specific, mandatory, measurable requirements that implement policies — a 14-character minimum with complexity rules is a classic standard specification."
+        - "Procedures provide step-by-step instructions for implementing standards (e.g., 'Step 1: Press Ctrl+Alt+Del, Step 2: Select Change Password'). Character count requirements belong in the standard, not the procedure."
+        - "Guidelines are recommended but not mandatory. A password character count requirement is mandatory and must be in a standard, not a guideline."
+    difficulty: "easy"
+    tags: ["governance", "policy", "standards"]
+
+  - id: q-d1-120
+    domain: domain1
+    question: "Which of the following BEST describes 'Separation of Duties' (SoD) as an administrative security control?"
+    options:
+      - "Ensuring that employees rotate through multiple job roles over their tenure"
+      - "Dividing a critical or sensitive task so that no single person can complete it alone without oversight"
+      - "Requiring that all security-related tasks be performed by two separate security teams"
+      - "Ensuring that developers and operations teams work in separate organizational units"
+    correct_answer: 1
+    explanations:
+      correct: "Separation of Duties divides critical or sensitive tasks into components that require multiple different people to complete. No single individual has end-to-end control over a sensitive process — this prevents fraud, error, and misuse. Example: the person who initiates a financial transaction should not be the same person who approves it, and not the same person who reconciles it."
+      incorrect:
+        - "Rotating through multiple roles over time describes job rotation — a related but distinct control. SoD divides a single process among multiple individuals simultaneously."
+        - "SoD divides a critical task so that no single person can complete it alone — this is the definition, preventing fraud and error through shared responsibility."
+        - "SoD does not require separate organizational teams for all security tasks. It applies to specific sensitive processes where a single person's control creates unacceptable risk."
+        - "Dev/ops organizational separation may reduce certain risks but does not define SoD. SoD is about dividing access and control over specific processes, not organizational structure."
+    difficulty: "easy"
+    tags: ["principles", "access-control", "governance"]
+
+  - id: q-d1-121
+    domain: domain1
+    question: "An information security manager is preparing a briefing for non-technical executives about cyber risk. Which approach is MOST effective for communicating risk in a way that drives executive decision-making?"
+    options:
+      - "Present detailed technical vulnerability reports with CVSS scores for all open findings"
+      - "Translate cybersecurity risk into business impact terms — financial loss, operational disruption, and reputational harm"
+      - "Provide a comprehensive list of all security controls in place to demonstrate program maturity"
+      - "Show executives the firewall logs and IDS alerts to demonstrate the volume of threats"
+    correct_answer: 1
+    explanations:
+      correct: "Executives make decisions based on business impact — financial loss, operational disruption, legal/regulatory consequences, and reputational harm. Technical details (CVSS scores, firewall logs) are meaningless without business context. Effective risk communication translates technical risks into business outcomes: 'This vulnerability could result in a $2M breach' resonates more than 'CVSS 9.8 critical finding.'"
+      incorrect:
+        - "CVSS scores and vulnerability details are meaningful to technical teams but do not help executives understand business impact or make informed resource allocation decisions."
+        - "Translating cybersecurity risk into business impact terms (financial, operational, reputational) is the most effective approach for executive risk communication."
+        - "Listing controls in place describes what the security team is doing but doesn't communicate whether the organization is adequately protected or what residual risks remain."
+        - "Raw technical data (firewall logs, IDS alerts) without business context overwhelms executives and doesn't support strategic decision-making about risk priorities or investments."
+    difficulty: "medium"
+    tags: ["governance", "communication", "management"]
+
+  - id: q-d1-122
+    domain: domain1
+    question: "The 'Bow-Tie' risk analysis model is useful in security risk management because it:"
+    options:
+      - "Provides a standardized numerical score for comparing risks across different domains"
+      - "Visually represents both the causes leading to a risk event AND the consequences after it occurs, along with controls at each stage"
+      - "Automates risk assessment by analyzing threat feeds and vulnerability data simultaneously"
+      - "Replaces the need for both a threat assessment and a vulnerability assessment"
+    correct_answer: 1
+    explanations:
+      correct: "The Bow-Tie model visualizes risk as a tie-knot shape: on the left side are causes/threats leading to the central risk event; on the right are consequences/impacts. Controls on the left prevent the event (preventive controls); controls on the right limit consequences (recovery controls). This dual view helps organizations understand both prevention and response controls comprehensively."
+      incorrect:
+        - "Bow-Tie is a visual qualitative analysis tool, not a numerical scoring methodology. CVSS, DREAD, and FAIR provide numerical scoring approaches."
+        - "The Bow-Tie model visually represents causes leading to a risk event and consequences after it, along with preventive and recovery controls at each stage — this is its key value."
+        - "Bow-Tie is a conceptual modeling tool that requires human analysis. It does not automate risk assessment or integrate automated threat feeds."
+        - "Bow-Tie complements threat and vulnerability assessments by showing how identified threats and vulnerabilities connect to consequences. It does not replace either assessment."
+    difficulty: "medium"
+    tags: ["risk", "threat-modeling", "assessment"]

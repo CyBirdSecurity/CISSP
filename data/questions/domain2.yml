@@ -1343,3 +1343,953 @@ questions:
         - "The Right to Restriction (Article 18) allows data subjects to request that processing be temporarily stopped under specific circumstances — it does not enable transfer to another organization."
     difficulty: "hard"
     tags: ["privacy", "GDPR", "legal"]
+
+  - id: q-d2-073
+    domain: domain2
+    question: "A database containing medical records is classified as 'Confidential' but the organization also uses it for employee training scenarios. What data protection principle is being violated?"
+    options:
+      - "Data minimization — the database contains more data than necessary"
+      - "Purpose limitation — the data is being used beyond its original intended purpose"
+      - "Data integrity — using the data for training may corrupt the medical records"
+      - "Data availability — training use may reduce availability for clinical staff"
+    correct_answer: 1
+    explanations:
+      correct: "Purpose limitation requires that personal data be collected for specified, explicit, and legitimate purposes and not further processed in a manner incompatible with those purposes. Using real patient medical records for employee training goes beyond the clinical purpose for which the data was collected, violating purpose limitation. De-identified or synthetic data should be used for training instead."
+      incorrect:
+        - "Data minimization addresses collecting only what is necessary — this principle is not directly violated by using existing data for a secondary purpose."
+        - "Purpose limitation is violated when data collected for one purpose (medical care) is used for a different purpose (training) without a compatible lawful basis."
+        - "Using data for training does not inherently corrupt the records — data integrity addresses accuracy and completeness, not secondary use restrictions."
+        - "Availability is about ensuring data is accessible when needed — training use typically does not impact availability unless it involves production system access."
+    difficulty: "medium"
+    tags: ["privacy", "purpose-limitation", "data-management"]
+
+  - id: q-d2-074
+    domain: domain2
+    question: "Which media sanitization technique is appropriate for a solid-state drive (SSD) containing sensitive corporate data before it is donated to a school?"
+    options:
+      - "Degaussing, as it is the most reliable method for all storage media"
+      - "Single-pass overwrite using zeros, as SSDs use NAND flash memory similar to HDDs"
+      - "Cryptographic erasure or physical destruction, as SSDs have wear leveling that makes traditional overwriting unreliable"
+      - "Formatting the drive using the operating system's built-in format utility"
+    correct_answer: 2
+    explanations:
+      correct: "SSDs use NAND flash memory with wear-leveling algorithms that distribute writes across the entire storage medium — this means standard overwriting may not reach all data sectors, leaving remnant data. Cryptographic erasure (destroying the encryption key, if the drive uses encryption) or physical destruction are the most reliable methods for SSDs. NIST SP 800-88 provides guidance on this."
+      incorrect:
+        - "Degaussing works on magnetic media (HDDs, tapes) by disrupting magnetic fields. SSDs do not use magnetic storage and are not affected by degaussing — it provides no data sanitization for SSDs."
+        - "Single-pass overwriting on SSDs is unreliable due to wear-leveling, over-provisioning, and bad block remapping. Data in these areas may not be overwritten and can be recovered. This is why NIST 800-88 recommends cryptographic erasure or destruction for SSDs."
+        - "Cryptographic erasure or physical destruction is the correct approach for SSDs — wear leveling makes traditional overwriting unreliable on solid-state storage."
+        - "OS-level formatting (quick or full) does not reliably erase data on SSDs. Quick format only removes file system pointers; even full format may not reach all data due to wear leveling."
+    difficulty: "medium"
+    tags: ["sanitization", "media", "SSD", "data-destruction"]
+
+  - id: q-d2-075
+    domain: domain2
+    question: "An organization classifies data into four tiers: Public, Internal, Confidential, and Restricted. A new contract document contains pricing information visible only to executives. Which classification is MOST appropriate?"
+    options:
+      - "Public — contracts are official business documents that may need to be shared"
+      - "Internal — most employees need to understand business contracts"
+      - "Confidential — limited to specific roles with a legitimate business need"
+      - "Restricted — highest classification reserved for government secrets only"
+    correct_answer: 2
+    explanations:
+      correct: "Contract documents with executive-only pricing information should be classified at the highest internal tier available for sensitive business information. 'Confidential' (limiting access to specific roles with legitimate business need) fits — the pricing data is competitively sensitive, not for general internal consumption. 'Restricted' may apply if the organization reserves it for regulatory or legally mandated data rather than competitive business data."
+      incorrect:
+        - "Public classification means the data can be freely shared externally. Contract pricing visible only to executives is clearly not public information — disclosure could harm the organization competitively."
+        - "Internal classification is for general employee consumption. Executive-only contract pricing requires more restrictive classification than general internal data."
+        - "Confidential (limited to specific roles with business need) is the most appropriate classification for executive-only contract pricing data."
+        - "While Restricted may be technically possible, it is often reserved by organizations for regulatory data (PII, PHI, PCI) or legally classified information — competitive pricing data typically falls under Confidential in most classification schemes."
+    difficulty: "medium"
+    tags: ["classification", "governance", "data"]
+
+  - id: q-d2-076
+    domain: domain2
+    question: "What is the primary security concern with 'data at rest' encryption using a key stored in the same location as the data?"
+    options:
+      - "Performance degradation due to encryption overhead reduces availability"
+      - "If an attacker gains access to the storage system, they can access both the data and the encryption key"
+      - "Encryption algorithms used for data at rest are weaker than those used for data in transit"
+      - "Regulatory compliance requirements prohibit co-locating keys and encrypted data"
+    correct_answer: 1
+    explanations:
+      correct: "Storing encryption keys alongside encrypted data defeats the purpose of encryption. If an attacker compromises the storage system, they can access both the ciphertext and the key needed to decrypt it. Encryption keys must be stored separately from the data they protect — ideally in a Hardware Security Module (HSM) or a dedicated key management service."
+      incorrect:
+        - "Performance overhead exists but is not the primary security concern with co-located keys. Modern hardware acceleration minimizes encryption performance impact."
+        - "Storing the key with the data means an attacker who compromises the storage system can access both the key and the data, rendering encryption ineffective — this is the primary security concern."
+        - "The same strong algorithms (AES-256) are used for data at rest and in transit. Algorithm strength is not the concern — key management is."
+        - "While good practice dictates separate key storage, there is no universal regulatory prohibition specifically naming co-located key and data storage. The concern is practical security, not just compliance."
+    difficulty: "medium"
+    tags: ["encryption", "key-management", "data-at-rest"]
+
+  - id: q-d2-077
+    domain: domain2
+    question: "Under the US government classification system, information whose unauthorized disclosure could reasonably be expected to cause 'exceptionally grave damage' to national security is classified as:"
+    options:
+      - "Confidential"
+      - "Secret"
+      - "Top Secret"
+      - "Sensitive But Unclassified (SBU)"
+    correct_answer: 2
+    explanations:
+      correct: "Executive Order 13526 defines the three US government classification levels: Confidential (damage), Secret (serious damage), and Top Secret (exceptionally grave damage) to national security. Top Secret is the highest classification level for information whose disclosure could cause the most severe harm to national security."
+      incorrect:
+        - "Confidential is the lowest classification level — unauthorized disclosure could reasonably be expected to cause 'damage' (not serious or exceptionally grave) to national security."
+        - "Secret classification applies to information whose disclosure could cause 'serious damage' to national security — one level below Top Secret."
+        - "Top Secret applies to information whose unauthorized disclosure could cause 'exceptionally grave damage' to national security — this is the highest US government classification level."
+        - "Sensitive But Unclassified (SBU) — also called Controlled Unclassified Information (CUI) — is not a formal classification level under EO 13526. It applies to sensitive but not formally classified information."
+    difficulty: "easy"
+    tags: ["classification", "government", "legal"]
+
+  - id: q-d2-078
+    domain: domain2
+    question: "What is 'data sovereignty' and why is it a critical concern for organizations using multi-region cloud providers?"
+    options:
+      - "The right of data subjects to access and correct their personal information"
+      - "The legal principle that data is subject to the laws of the country where it is physically stored or processed"
+      - "An organization's exclusive ownership rights over all data it collects or generates"
+      - "The encryption standard required to protect data crossing international borders"
+    correct_answer: 1
+    explanations:
+      correct: "Data sovereignty means that digital data is subject to the laws and regulations of the country in which it is physically stored or processed. For multi-region cloud deployments, data stored in different countries becomes subject to those countries' laws — including government access requests (subpoenas), data localization requirements, and privacy regulations. This creates compliance complexity for multinational organizations."
+      incorrect:
+        - "Individual rights to access and correct their data describe data subject rights (under GDPR, CCPA) — not data sovereignty. Sovereignty is about jurisdictional law, not individual rights."
+        - "Data sovereignty is the legal principle that data is subject to the laws of the country where it is physically stored — this is the correct definition."
+        - "Ownership rights are separate from sovereignty. An organization may own its data but still be subject to foreign country laws when that data crosses borders or is stored abroad."
+        - "Data sovereignty is a legal/jurisdictional concept, not an encryption standard. Encryption requirements for cross-border transfer are a separate compliance consideration."
+    difficulty: "medium"
+    tags: ["sovereignty", "cloud", "legal", "compliance"]
+
+  - id: q-d2-079
+    domain: domain2
+    question: "An organization discovers that backup tapes for payroll data have been reused for 15 years without proper inventory tracking. Which data lifecycle phase has been neglected?"
+    options:
+      - "Creation — the data was not properly labeled when initially recorded"
+      - "Storage — the backup media was not maintained according to manufacturer specifications"
+      - "Retention and archival — without inventory tracking, legal retention requirements may not be met"
+      - "Destruction — old data on reused tapes may not have been properly sanitized"
+    correct_answer: 2
+    explanations:
+      correct: "Proper retention and archival management requires inventory tracking of media, retention schedules, and documented evidence that legal hold requirements are met. Without inventory tracking, the organization cannot confirm: what data is retained, for how long, whether retention periods are met, or when data can be legally destroyed. This represents a failure in the retention and archival phase of the data lifecycle."
+      incorrect:
+        - "The creation phase covers data labeling at origination — while labeling may also be an issue, the primary failure described is in retention tracking across the media's lifecycle."
+        - "Storage maintenance addresses physical media condition and environmental controls. The problem here is inventory management and retention policy compliance, not physical storage quality."
+        - "The retention and archival phase failure — inability to track what data is retained and for how long — is the primary neglected phase in this scenario."
+        - "Destruction would be relevant if old tapes were being reused without sanitization (which is also a concern), but the primary described failure is the retention tracking, not the destruction process."
+    difficulty: "medium"
+    tags: ["lifecycle", "retention", "data-management"]
+
+  - id: q-d2-080
+    domain: domain2
+    question: "Which of the following BEST describes 'Information Rights Management' (IRM) and its key advantage over traditional file system access controls?"
+    options:
+      - "IRM encrypts data at the network level, protecting it during transmission between offices"
+      - "IRM embeds access controls and usage rights within the data itself, protecting it beyond the organizational perimeter"
+      - "IRM provides a centralized dashboard for managing access control lists across all file systems"
+      - "IRM replaces encryption with digital watermarking for more efficient data protection"
+    correct_answer: 1
+    explanations:
+      correct: "IRM (also called Digital Rights Management or Enterprise Rights Management) embeds access controls, usage restrictions, and encryption directly within the document or file. This means access policy travels with the data — even if a file is shared externally, forwarded, or copied, the rights remain enforced. Traditional ACLs only protect data within the organizational perimeter; once a file leaves, protection is lost."
+      incorrect:
+        - "IRM controls travel with individual files, not at the network level. Network-level encryption (TLS, IPsec) protects transmission but not the file after it reaches the destination."
+        - "IRM embeds access controls and usage rights within the data itself — protecting it even outside the organizational perimeter — which is its key advantage over traditional file system access controls."
+        - "Centralized access control management describes an Identity Governance and Administration (IGA) or access management system. IRM is specifically about embedding controls within the data object."
+        - "IRM uses both encryption and policy controls. Digital watermarking alone provides tracking/attribution but not access restriction or usage enforcement."
+    difficulty: "medium"
+    tags: ["data-protection", "IRM", "access-control"]
+
+  - id: q-d2-081
+    domain: domain2
+    question: "A cloud provider's terms of service state that they may use customer data for 'service improvement' purposes. From a data governance perspective, which concern does this raise?"
+    options:
+      - "Availability risk — the provider may not maintain SLA commitments while running analytics"
+      - "Secondary use — customer data may be processed beyond the purpose for which it was disclosed"
+      - "Data accuracy — service improvement analysis may alter the accuracy of stored data"
+      - "Authentication risk — employees accessing data for analytics may misuse credentials"
+    correct_answer: 1
+    explanations:
+      correct: "Secondary use (processing data beyond its original stated purpose) is the primary data governance concern. Customers disclosed data to receive a service — using that data for 'service improvement' may involve analytics, machine learning training, or aggregation that goes beyond the contracted purpose. This may conflict with GDPR's purpose limitation principle and contractual data processing agreements."
+      incorrect:
+        - "Availability risk is about service uptime — running analytics on customer data does not inherently threaten availability, though resource contention could be a concern."
+        - "Secondary use — processing customer data beyond the disclosed purpose of service delivery — is the primary data governance concern raised by this clause."
+        - "Data accuracy is about maintaining data correctness. Read-only analytics for service improvement should not alter stored data accuracy."
+        - "Authentication risk relates to access control and credential management, not to the contractual scope of data use permitted under the terms of service."
+    difficulty: "medium"
+    tags: ["cloud", "data-governance", "privacy", "secondary-use"]
+
+  - id: q-d2-082
+    domain: domain2
+    question: "What is 'over-classification' and what are its primary risks in an organizational context?"
+    options:
+      - "Assigning too low a classification level, exposing sensitive data to unauthorized access"
+      - "Applying higher classification labels than the data warrants, causing access friction and reduced operational efficiency"
+      - "Failing to classify data at all, creating inconsistent protection across the organization"
+      - "Using too many classification levels, creating confusion among employees about proper handling"
+    correct_answer: 1
+    explanations:
+      correct: "Over-classification occurs when data is assigned a higher classification level than its sensitivity warrants. This creates operational inefficiency (unnecessary access barriers for routine information), can reduce security culture compliance (employees work around overly restrictive controls), wastes resources on inappropriate protective measures, and can actually increase risk if legitimate users lack access to information they need."
+      incorrect:
+        - "Assigning too low a classification level is under-classification — this is the opposite of over-classification and creates unauthorized disclosure risk."
+        - "Over-classification applies higher labels than warranted, creating access friction and operational inefficiency — this is the correct definition and risk."
+        - "Failing to classify data is a classification program failure, not over-classification. It creates inconsistent protection but is a different problem than excessive classification."
+        - "Having too many classification tiers can create confusion but this describes a classification scheme design problem, not over-classification of individual data elements."
+    difficulty: "medium"
+    tags: ["classification", "governance", "data"]
+
+  - id: q-d2-083
+    domain: domain2
+    question: "Under GDPR Article 4, a 'data processor' is defined as an entity that:"
+    options:
+      - "Determines the purposes and means of processing personal data on its own behalf"
+      - "Processes personal data on behalf of the data controller, following the controller's instructions"
+      - "Acts as an independent third party that verifies the legality of data processing activities"
+      - "Manages the technical infrastructure (servers and networks) hosting personal data"
+    correct_answer: 1
+    explanations:
+      correct: "A data processor processes personal data on behalf of the data controller, under the controller's instructions, and for the controller's purposes. Examples include cloud providers storing customer data, payroll processors, and SaaS platforms. Processors must have a Data Processing Agreement (DPA) with the controller and implement appropriate security measures, but the controller retains primary accountability."
+      incorrect:
+        - "Determining purposes and means of processing on its own behalf describes the data controller, not the processor. Controllers set the 'what' and 'why'; processors execute processing on their behalf."
+        - "A data processor processes personal data on behalf of the data controller under the controller's instructions — this is the GDPR Article 4 definition."
+        - "An independent verifier of lawful processing describes a supervisory authority or privacy auditor role — not the data processor definition."
+        - "Providing infrastructure is a narrower technical role. The processor role is specifically about processing data under the controller's instructions, not merely hosting infrastructure."
+    difficulty: "easy"
+    tags: ["GDPR", "privacy", "roles", "legal"]
+
+  - id: q-d2-084
+    domain: domain2
+    question: "Why is 'sanitization' — rather than simple deletion — required before releasing storage media for reuse or disposal?"
+    options:
+      - "Deletion is a slower process than sanitization; sanitization is preferred for efficiency"
+      - "Simple deletion only removes directory entries and pointers; the underlying data remains recoverable"
+      - "Regulatory requirements mandate sanitization only for government-classified data; private sector can use deletion"
+      - "Sanitization permanently damages the media, ensuring it cannot be used for malicious purposes"
+    correct_answer: 1
+    explanations:
+      correct: "When a file is 'deleted' by an operating system, typically only the file system entry (directory pointer) is removed — the actual data blocks on the storage medium remain intact and accessible with recovery tools. Sanitization (overwriting, cryptographic erasure, or physical destruction) ensures the underlying data is actually destroyed and cannot be recovered by forensic tools or adversaries who obtain the media."
+      incorrect:
+        - "Efficiency is not the rationale for sanitization over deletion. Overwriting and cryptographic erasure are often slower than deletion — the requirement is about data security, not speed."
+        - "Simple deletion only removes directory pointers while the actual data remains on the storage medium and is recoverable — this is why sanitization is required before reuse or disposal."
+        - "Sanitization requirements apply broadly based on data sensitivity, not just government-classified data. NIST SP 800-88 guidance applies to organizations with sensitive data of any type, including private sector."
+        - "Sanitization is about data erasure, not media destruction for all cases. Clearing and purging methods sanitize data while preserving the media for reuse — physical destruction is reserved for the highest sensitivity cases."
+    difficulty: "easy"
+    tags: ["sanitization", "data-destruction", "media"]
+
+  - id: q-d2-085
+    domain: domain2
+    question: "An organization deploys a Cloud Access Security Broker (CASB). Which scenario would a CASB be MOST effective at addressing?"
+    options:
+      - "Employees using cloud-hosted corporate applications from home via VPN"
+      - "Employees uploading sensitive corporate data to unauthorized personal cloud storage services"
+      - "Attackers conducting SQL injection attacks against the corporate database server"
+      - "Malware spread through infected USB drives plugged into corporate workstations"
+    correct_answer: 1
+    explanations:
+      correct: "A CASB acts as a security policy enforcement point between corporate users and cloud services. It can detect and block employees from uploading sensitive data to unauthorized personal cloud storage (shadow IT). CASBs provide visibility into cloud service usage, enforce DLP policies, and prevent data exfiltration to unauthorized cloud services — their primary value is controlling cloud-native data security."
+      incorrect:
+        - "VPN-based access to corporate cloud applications is already within the organization's control perimeter. A CASB adds value for unmanaged cloud access, not for VPN-controlled corporate app access."
+        - "CASBs are specifically designed to control and monitor access to cloud services — preventing employees from uploading sensitive data to unauthorized personal cloud storage is a primary CASB use case."
+        - "SQL injection against corporate database servers is addressed by WAFs, input validation, and database security controls — not CASBs, which focus on cloud service access."
+        - "USB-borne malware is addressed by endpoint security controls (EDR, DLP, USB port controls) — not CASBs, which focus on cloud service interactions."
+    difficulty: "medium"
+    tags: ["cloud", "CASB", "data-protection", "shadow-IT"]
+
+  - id: q-d2-086
+    domain: domain2
+    question: "What is the NIST SP 800-88 'Clear' sanitization method and when is it appropriate?"
+    options:
+      - "Physically destroying storage media through shredding — appropriate for all sensitive data"
+      - "Overwriting all addressable locations with non-sensitive data — appropriate for reuse within the same security boundary"
+      - "Degaussing magnetic media — appropriate for media leaving the organization"
+      - "Applying cryptographic erasure — appropriate for encrypted SSDs only"
+    correct_answer: 1
+    explanations:
+      correct: "NIST SP 800-88 defines 'Clear' as applying logical techniques (overwriting all addressable locations) to sanitize data. It is appropriate when media will be reused within the same security boundary (same organization, same security level), where the threat of recovery via non-laboratory techniques is acceptable. For higher risk (media leaving the organization), 'Purge' or 'Destroy' are required."
+      incorrect:
+        - "Physical destruction (Destroy) is the highest NIST SP 800-88 sanitization category — appropriate for the highest sensitivity data when media must leave the organization or be decommissioned."
+        - "Clear (overwriting all addressable locations) is appropriate for reuse within the same organizational security boundary — this is the correct NIST SP 800-88 definition."
+        - "Degaussing is part of the NIST 'Purge' category and is appropriate when media is leaving the organization or the threat model requires stronger assurance than overwriting. It is not specifically defined as the 'Clear' method."
+        - "Cryptographic erasure is categorized as a Purge technique in NIST SP 800-88. It applies to encrypted media where destroying the key renders data unrecoverable — but it is not the definition of 'Clear.'"
+    difficulty: "hard"
+    tags: ["sanitization", "NIST", "data-destruction", "media"]
+
+  - id: q-d2-087
+    domain: domain2
+    question: "An employee copies the entire customer database to a personal laptop 'for backup purposes' without authorization. From a data governance perspective, which violation occurred FIRST?"
+    options:
+      - "Data integrity — making an unauthorized copy may corrupt the original database"
+      - "Data availability — copying data reduces its availability for legitimate users"
+      - "Data ownership and access control — the employee accessed and copied data beyond their authorized scope"
+      - "Data classification — the employee may not know the data's classification level"
+    correct_answer: 2
+    explanations:
+      correct: "The primary governance violation is unauthorized access and misappropriation of data — the employee exceeded their authorized data access scope by copying an entire database to a personal device. This violates data ownership rights (the organization owns the data), access control policies (access should be limited to business necessity), and data handling requirements. All other concerns (security, classification) stem from this foundational breach."
+      incorrect:
+        - "Copying data to another location does not inherently corrupt the source. Data integrity addresses accuracy and consistency, not unauthorized copying."
+        - "Making a copy does not reduce availability of the original data for other legitimate users. Availability concerns arise when data is deleted or systems are disrupted."
+        - "Data ownership and access control violation — the employee accessed and copied data beyond their authorized scope — is the primary governance violation."
+        - "While the employee may need classification awareness training, the first violation is the unauthorized access and data exfiltration, not merely a classification awareness issue."
+    difficulty: "medium"
+    tags: ["governance", "access-control", "data-ownership", "insider-threat"]
+
+  - id: q-d2-088
+    domain: domain2
+    question: "Which technique is MOST appropriate when a development team needs realistic-looking test data that cannot be used to identify actual customers?"
+    options:
+      - "Providing the development team with direct read-only access to the production database"
+      - "Generating synthetic data or using data masking to create test datasets that preserve statistical properties without exposing real PII"
+      - "Deleting the PII fields from a copy of the production database"
+      - "Encrypting the production database and providing the encryption key to developers"
+    correct_answer: 1
+    explanations:
+      correct: "Data masking (substituting real PII with realistic but fake values that preserve format and statistical distribution) or synthetic data generation (creating artificial data that mirrors production characteristics without using real records) provides developers with usable test data that cannot identify real individuals. This supports testing and development while protecting privacy and minimizing production data exposure."
+      incorrect:
+        - "Direct production database access for development introduces unnecessary risk of data exposure, accidental modification, and privacy violations — development should always use non-production data."
+        - "Synthetic data or masked data preserves realistic data characteristics while protecting privacy — this is the most appropriate technique for development and testing environments."
+        - "Deleting PII fields creates incomplete datasets that may not support realistic testing (e.g., email address fields needed to test communication flows are missing). Data masking preserves format while protecting content."
+        - "Encrypting production data and sharing the key still exposes all real customer data to developers — encryption protects data in transit but not from authorized key holders. The goal is to protect PII, not just secure the channel."
+    difficulty: "medium"
+    tags: ["privacy", "obfuscation", "data-masking", "testing"]
+
+  - id: q-d2-089
+    domain: domain2
+    question: "Under the 'need to know' principle, an employee with a Top Secret clearance is denied access to a compartmented intelligence program. Why?"
+    options:
+      - "Their clearance level is insufficient for the compartmented information"
+      - "A clearance grants access to all information up to and including that level; this is a classification error"
+      - "Need-to-know is separate from clearance — even cleared individuals must have a specific operational need for the specific information"
+      - "Compartmented programs require a lower clearance than Top Secret to limit the pool of potential insiders"
+    correct_answer: 2
+    explanations:
+      correct: "Security clearance and 'need to know' are two separate, independent access requirements. A clearance is a determination of trustworthiness and background — it does not grant access to all information at that level. Need to know requires that the individual have a specific operational or mission need to access the specific information. Both must be satisfied: right clearance AND operational need. Compartmented programs (SCI) add additional access controls beyond standard clearance levels."
+      incorrect:
+        - "A Top Secret clearance is sufficient for most Top Secret information. Compartmented programs require a TS/SCI (Sensitive Compartmented Information) clearance plus specific program access (need to know). The issue is need to know, not clearance level insufficiency."
+        - "A clearance does not grant access to all information at that level. This misunderstanding is a common security concept error — clearance is a necessary but not sufficient condition for access."
+        - "Need-to-know is separate from clearance — both must be satisfied independently. Cleared individuals still require demonstrated operational need to access specific compartmented programs."
+        - "Compartmented programs typically require the same or higher clearance level (TS/SCI) — not lower. The additional restriction is access approval based on need to know, not a lower clearance requirement."
+    difficulty: "medium"
+    tags: ["access-control", "classification", "principles", "government"]
+
+  - id: q-d2-090
+    domain: domain2
+    question: "What is the primary security risk when an organization deploys a 'Database Activity Monitoring' (DAM) solution?"
+    options:
+      - "DAM solutions can cause performance degradation on high-throughput database systems"
+      - "DAM may log sensitive data including credentials and query results if not properly configured"
+      - "DAM solutions are ineffective at detecting SQL injection attacks"
+      - "DAM increases the attack surface by adding additional network-connected components"
+    correct_answer: 1
+    explanations:
+      correct: "Database Activity Monitoring captures SQL queries, connection details, and results. If not properly configured, DAM logs may contain sensitive data — usernames, passwords embedded in queries, PII from query results, or proprietary data. Organizations must configure DAM to mask or exclude sensitive data from logs, apply appropriate access controls to the DAM platform, and ensure logs are protected as sensitive data themselves."
+      incorrect:
+        - "Performance impact is an operational concern, not a primary security risk. Modern DAM solutions are designed for minimal performance overhead and this does not represent a security vulnerability."
+        - "DAM logging sensitive data (credentials, query results) if improperly configured is the primary security risk — the monitoring tool itself can become a data security liability."
+        - "DAM is specifically designed to detect anomalous SQL activity including injection attack patterns — this is one of its core capabilities, not a limitation."
+        - "While any networked component adds some attack surface, DAM's primary security risk is the sensitive data it captures in its logs, not its presence on the network."
+    difficulty: "hard"
+    tags: ["data-protection", "database", "monitoring"]
+
+  - id: q-d2-091
+    domain: domain2
+    question: "An organization uses 'format-preserving encryption' (FPE) for credit card numbers in its database. What is the primary advantage of FPE over standard encryption?"
+    options:
+      - "FPE is cryptographically stronger than AES-256 for protecting financial data"
+      - "FPE produces ciphertext that maintains the same format and length as the original data, minimizing application changes"
+      - "FPE allows data to be decrypted by anyone without a key for operational efficiency"
+      - "FPE eliminates the need for key management because format preservation provides sufficient security"
+    correct_answer: 1
+    explanations:
+      correct: "Format-Preserving Encryption (FPE) produces ciphertext in the same format as the plaintext — encrypting a 16-digit credit card number produces a 16-digit ciphertext number. This minimizes changes to existing systems, databases, and applications that expect data in a specific format (field length, data type). This is especially valuable for legacy systems and PCI DSS environments where retrofitting is costly."
+      incorrect:
+        - "FPE is not necessarily stronger than AES-256 — it uses AES internally but adds format preservation constraints. Security depends on implementation. FPE's advantage is operational, not cryptographic superiority."
+        - "FPE preserves format and length, minimizing application changes when encrypting legacy systems — this is its primary advantage over standard encryption modes."
+        - "FPE still requires key management — the data is encrypted and requires a key to decrypt. Format preservation does not eliminate the need for key management."
+        - "FPE requires just as rigorous key management as any other encryption scheme. Losing the key renders the data permanently inaccessible."
+    difficulty: "hard"
+    tags: ["encryption", "data-protection", "FPE", "PCI"]
+
+  - id: q-d2-092
+    domain: domain2
+    question: "A data owner assigns a document the 'Internal Use Only' classification. Who is responsible for implementing the specific access controls that enforce this classification?"
+    options:
+      - "The data owner, who must personally configure access controls for every document they classify"
+      - "The data custodian, who implements and maintains the technical controls per the data owner's classification"
+      - "The data subject, who has the right to determine how their data is protected"
+      - "The compliance officer, who ensures all classified documents meet regulatory requirements"
+    correct_answer: 1
+    explanations:
+      correct: "The data custodian (often IT or system administrators) is responsible for implementing and maintaining the technical controls (access permissions, encryption, backup) that enforce the data owner's classification decisions. The owner decides the classification and requirements; the custodian implements them. This separation of duties ensures accountability and operational expertise are appropriately distributed."
+      incorrect:
+        - "The data owner defines classification requirements and is accountable for data protection decisions, but they do not personally configure technical access controls — that is the custodian's operational responsibility."
+        - "The data custodian implements the technical controls (access permissions, encryption, backup) per the data owner's classification — this is the correct role for control implementation."
+        - "The data subject is the individual whose personal information is being processed. They have privacy rights but are not responsible for implementing organizational access controls."
+        - "The compliance officer ensures overall compliance with policies and regulations but does not implement specific access controls for individual classified documents."
+    difficulty: "easy"
+    tags: ["roles", "governance", "classification", "access-control"]
+
+  - id: q-d2-093
+    domain: domain2
+    question: "Which of the following correctly describes the difference between 'data masking' and 'tokenization'?"
+    options:
+      - "Data masking is reversible with the original value reconstructable; tokenization is irreversible"
+      - "Tokenization replaces sensitive data with a non-sensitive placeholder that maps to the original in a secure vault; masking transforms data in a way that may not preserve the original"
+      - "Data masking is used only for structured data; tokenization applies to all data types"
+      - "Tokenization is a form of encryption; data masking uses format-changing algorithms"
+    correct_answer: 1
+    explanations:
+      correct: "Tokenization replaces sensitive values (credit card numbers) with randomly generated non-sensitive tokens stored in a secure mapping vault. The token can be used in systems without exposing the real value; the real value is retrieved only when needed from the vault. Data masking transforms data (scrambles, substitutes, or shuffles) but may not preserve a mapping back to the original — masked data is typically for testing and may not be reversible."
+      incorrect:
+        - "Both masking and tokenization can be designed as reversible or irreversible depending on implementation. Static masking for test environments is typically irreversible; dynamic masking may be reversible. The defining difference is the token vault mapping, not reversibility alone."
+        - "Tokenization replaces sensitive data with a token that maps to the original in a secure vault; masking transforms the data format — this correctly describes the key operational difference."
+        - "Both masking and tokenization are commonly applied to structured data (database fields). Neither is strictly limited to structured or unstructured data."
+        - "Tokenization does not use encryption — it replaces the value with a random substitute stored in a vault. The security comes from vault protection, not mathematical transformation. Some masking techniques may use encryption internally."
+    difficulty: "hard"
+    tags: ["data-protection", "tokenization", "masking"]
+
+  - id: q-d2-094
+    domain: domain2
+    question: "An organization retains employee email for 7 years per its retention policy. An employee whose contract was terminated 8 years ago requests access to all their old emails. What is the correct response?"
+    options:
+      - "Provide all emails as the employee has a legal right to access their own communications"
+      - "The emails should have been purged per the retention policy; confirm deletion and document the response"
+      - "Deny the request as former employees lose all data access rights upon termination"
+      - "Consult legal counsel to determine if the emails must be retained as potential evidence"
+    correct_answer: 1
+    explanations:
+      correct: "If the 7-year retention period has elapsed and no legal holds apply, the emails should have been purged per policy. The correct response is to confirm the data has been deleted per the retention schedule and document the response. Retaining data beyond policy creates unnecessary legal liability and privacy risk. If the data was not purged as scheduled, this is a retention policy compliance failure to investigate."
+      incorrect:
+        - "Former employees may have some data subject rights under privacy law (GDPR right of access) for personal data, but corporate email content created in the course of employment is generally the organization's property. More importantly, if retention has expired, the data should no longer exist."
+        - "If the retention period has passed, the emails should have been purged per policy — confirming deletion and documenting the response is the correct action."
+        - "Automatically denying access without confirming whether the data exists or assessing any legal obligations is not appropriate procedure. The correct process is to verify retention status and respond accordingly."
+        - "Consulting legal counsel is prudent for complex retention scenarios, but in this straightforward case (8 years old, 7-year policy, no active litigation), the data should have been purged. Legal holds prevent deletion during active litigation — not 8 years after employment ended."
+    difficulty: "medium"
+    tags: ["retention", "lifecycle", "compliance", "data-management"]
+
+  - id: q-d2-095
+    domain: domain2
+    question: "What is a 'Software Bill of Materials' (SBOM) and why is it valuable for data and asset security?"
+    options:
+      - "A financial document tracking the cost of software licensing and maintenance"
+      - "A machine-readable inventory of software components, versions, and dependencies enabling vulnerability tracking"
+      - "A security assessment report identifying vulnerabilities in custom application code"
+      - "A compliance checklist for evaluating software against security standards"
+    correct_answer: 1
+    explanations:
+      correct: "An SBOM is a formal, machine-readable inventory of all software components, versions, licenses, and dependencies in an application or system. When a vulnerability is discovered in a component (e.g., Log4Shell), organizations with SBOMs can immediately determine which of their systems are affected. Without SBOMs, organizations cannot efficiently identify affected assets — a critical gap in vulnerability management."
+      incorrect:
+        - "An SBOM is a technical component inventory, not a financial licensing document. License information is included in SBOMs but the primary security value is vulnerability tracking."
+        - "An SBOM is a machine-readable inventory of software components and dependencies that enables rapid vulnerability impact assessment — this is the correct definition."
+        - "Security assessment reports document vulnerability findings from testing. SBOMs are component inventories that support vulnerability management, not assessment findings documents."
+        - "Compliance checklists evaluate adherence to standards. SBOMs are data inventories of software components — they support compliance activities but are not compliance checklists themselves."
+    difficulty: "medium"
+    tags: ["supply-chain", "SBOM", "asset-management", "vulnerability"]
+
+  - id: q-d2-096
+    domain: domain2
+    question: "Under the GDPR 'Right to Erasure' (Article 17), an individual requests deletion of their social media account and all associated data. The platform claims they must retain certain data for fraud prevention. Is this a valid exception?"
+    options:
+      - "No — the right to erasure is absolute and must be honored within 30 days"
+      - "Yes — Article 17 includes an exception for data processing necessary for the establishment, exercise, or defense of legal claims or compliance with legal obligations"
+      - "Yes — social media platforms are exempt from erasure requirements due to freedom of expression"
+      - "No — fraud prevention is a commercial interest that does not override individual rights"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR Article 17(3) includes exceptions to the right of erasure, including: (a) freedom of expression and information, (b) compliance with a legal obligation, (c) public health purposes, (d) archiving/scientific/historical research in the public interest, and (e) establishment, exercise, or defense of legal claims. Retaining data for fraud prevention may qualify under legal obligation or legal defense exceptions — but the platform must be specific about what data is retained, why, and for how long."
+      incorrect:
+        - "The right to erasure is not absolute. GDPR Article 17(3) lists specific exceptions. The platform must demonstrate the exception applies, but erasure can legitimately be refused when statutory exceptions are met."
+        - "GDPR Article 17(3) does include exceptions for legal compliance and legal claims — fraud prevention may qualify, but the platform must specify what data is retained and demonstrate necessity."
+        - "Freedom of expression is one narrow exception (Article 17(3)(a)) applying to journalistic and similar uses — it does not broadly exempt social media platforms from all erasure obligations."
+        - "Legal obligations (like anti-fraud regulations) can override erasure requests under Article 17(3)(b). The platform must demonstrate specific legal requirements, not just cite commercial interests."
+    difficulty: "hard"
+    tags: ["GDPR", "privacy", "erasure", "legal"]
+
+  - id: q-d2-097
+    domain: domain2
+    question: "An organization's DLP solution generates 1,500 alerts per day for potential data exfiltration. Security analysts find that 95% are false positives. What is the MOST effective way to improve the DLP program?"
+    options:
+      - "Purchase a more expensive DLP solution with better detection algorithms"
+      - "Tune DLP policies to reduce false positives by improving data classification accuracy and rule specificity"
+      - "Reduce the sensitivity of all DLP rules to eliminate false positives entirely"
+      - "Assign more analysts to manually review all 1,500 alerts daily"
+    correct_answer: 1
+    explanations:
+      correct: "A 95% false positive rate indicates DLP policies are not properly tuned to the organization's data environment. The most effective improvement is policy tuning — refining data classification accuracy (ensuring sensitive data is correctly identified), improving rule specificity (targeting actual sensitive data patterns rather than generic keywords), and validating rules against real data flows. Good DLP requires ongoing calibration to the organization's specific data types and workflows."
+      incorrect:
+        - "Purchasing a new solution without addressing the root cause (poor classification and rule specificity) will likely produce the same results. The problem is tuning and data classification, not technology capability."
+        - "Tuning DLP policies to improve classification accuracy and rule specificity is the most effective approach — this directly addresses the root cause of false positives."
+        - "Reducing DLP sensitivity to eliminate false positives will also eliminate true positive detections, creating a false sense of security. The goal is precision (high true positive rate, low false positive rate), not simply reducing alerts."
+        - "Adding analysts to review 1,500 alerts daily is unsustainable and does not address the root problem. Alert fatigue will persist, and analysts will begin ignoring or auto-closing alerts."
+    difficulty: "medium"
+    tags: ["DLP", "data-protection", "governance", "tuning"]
+
+  - id: q-d2-098
+    domain: domain2
+    question: "What is the primary security concern with 'data proliferation' in enterprise environments?"
+    options:
+      - "Data in multiple locations increases storage costs that could be spent on security controls"
+      - "When sensitive data exists in many locations and formats, consistently applying protection controls and tracking all copies becomes extremely difficult"
+      - "Data proliferation always results from security policy violations by employees"
+      - "Multiple copies of data compromise integrity by creating potential version inconsistencies"
+    correct_answer: 1
+    explanations:
+      correct: "Data proliferation — sensitive data spread across numerous systems, devices, applications, and cloud services — makes it extremely difficult to apply consistent protection controls, track all copies for compliance, ensure proper retention and disposal, and respond effectively to breaches. Organizations may not even know all locations where sensitive data exists, creating blind spots in data protection."
+      incorrect:
+        - "While storage costs are a concern, the security concern is not financial — it is the inability to consistently protect data when it exists in numerous uncontrolled locations."
+        - "When sensitive data is spread across many locations and formats, applying consistent controls and tracking all copies becomes extremely difficult — this is the primary data proliferation security concern."
+        - "Data proliferation can result from legitimate business activities (backups, business intelligence, reporting) as well as policy violations. The security concern exists regardless of the cause."
+        - "Version inconsistency is a data integrity concern but not the primary security concern of proliferation. The primary issue is loss of control and visibility over sensitive data locations."
+    difficulty: "medium"
+    tags: ["data-management", "governance", "data-protection"]
+
+  - id: q-d2-099
+    domain: domain2
+    question: "Which standard provides specific guidance for the secure sanitization of storage media, defining Clear, Purge, and Destroy as the three sanitization categories?"
+    options:
+      - "ISO/IEC 27001"
+      - "NIST SP 800-88 (Guidelines for Media Sanitization)"
+      - "PCI DSS Requirement 9"
+      - "FIPS 140-2"
+    correct_answer: 1
+    explanations:
+      correct: "NIST SP 800-88 (Guidelines for Media Sanitization) provides the authoritative US guidance on storage media sanitization, defining three categories: Clear (logical overwriting for reuse within the same security boundary), Purge (physical or cryptographic techniques for reuse outside the boundary), and Destroy (physical destruction for highest-risk data or end-of-life media)."
+      incorrect:
+        - "ISO/IEC 27001 is the ISMS standard — it provides a framework for managing information security but does not specify technical media sanitization procedures."
+        - "NIST SP 800-88 is the authoritative guidance for media sanitization, defining Clear, Purge, and Destroy sanitization categories."
+        - "PCI DSS Requirement 9 addresses physical security and media handling for cardholder data but references NIST SP 800-88 for sanitization specifics rather than defining its own sanitization categories."
+        - "FIPS 140-2 is the cryptographic module security standard — it evaluates hardware security modules and cryptographic implementations, not media sanitization procedures."
+    difficulty: "easy"
+    tags: ["sanitization", "NIST", "standards", "media"]
+
+  - id: q-d2-100
+    domain: domain2
+    question: "An organization's 'Data Classification Policy' assigns data to four tiers. However, employees frequently apply the highest classification to avoid dealing with lower-tier handling requirements. This behavior is best addressed by:"
+    options:
+      - "Implementing automated classification tools that remove the burden from employees"
+      - "Simplifying classification tiers, training employees on proper classification criteria, and making data owners accountable for accurate classification"
+      - "Requiring management approval for all Restricted classifications to reduce misuse"
+      - "Eliminating the intermediate classification tiers to reduce confusion"
+    correct_answer: 1
+    explanations:
+      correct: "Over-classification from employees avoiding lower-tier handling requirements indicates the classification program has a usability problem. Solutions include: simplifying the tier structure, providing clear classification criteria training, making data owners accountable for accurate classification decisions, and potentially simplifying handling requirements so that lower tiers don't feel burdensome. Automation can supplement but not replace a well-designed program."
+      incorrect:
+        - "Automated classification tools help but don't address the behavioral root cause — employees avoiding lower-tier requirements. Without addressing the underlying motivation, employees will override automated suggestions."
+        - "Simplifying tiers, training on criteria, and making owners accountable for accurate classification directly addresses both the behavioral motivation and the knowledge gap causing over-classification."
+        - "Requiring management approval for all Restricted classifications adds bureaucracy but doesn't help employees understand proper classification criteria or address the root motivation for over-classification."
+        - "Eliminating intermediate tiers reduces nuance and increases data protection costs (everything gets higher protection) or data exposure risk (everything gets lower protection). Simplification should improve clarity, not eliminate necessary distinctions."
+    difficulty: "medium"
+    tags: ["classification", "governance", "policy"]
+
+  - id: q-d2-101
+    domain: domain2
+    question: "A healthcare organization exports de-identified patient data for research. Later, the research team is able to re-identify 87% of patients by combining the dataset with publicly available census data. This illustrates which privacy concept?"
+    options:
+      - "Data sovereignty — the data was transferred to a different legal jurisdiction"
+      - "The aggregation problem and the limits of anonymization when combined with external datasets"
+      - "Data integrity — the research team modified the data during the re-identification process"
+      - "Access control failure — the research team exceeded their authorized data access"
+    correct_answer: 1
+    explanations:
+      correct: "This illustrates the aggregation problem and the limits of de-identification/anonymization. Even properly de-identified data can be re-identified when combined with other datasets (external sources, quasi-identifiers like ZIP code, age, sex). HIPAA's Safe Harbor and Expert Determination de-identification methods may be insufficient against adversaries with access to external datasets, highlighting that true anonymization is extremely difficult."
+      incorrect:
+        - "Data sovereignty concerns legal jurisdiction for data protection purposes — not re-identification risk from combining datasets. This is a privacy risk issue, not a jurisdictional one."
+        - "The aggregation problem — re-identifying individuals by combining de-identified data with external datasets — is the privacy concept illustrated here."
+        - "Data integrity concerns accuracy and completeness of data — re-identification is a privacy attack that reads data, not one that modifies it."
+        - "Access control failure would mean the research team accessed data they were not authorized to access. They had authorized access to the de-identified dataset — the failure was in the de-identification method's strength, not access controls."
+    difficulty: "hard"
+    tags: ["privacy", "anonymization", "aggregation", "data-protection"]
+
+  - id: q-d2-102
+    domain: domain2
+    question: "What is the key difference between 'data backup' and 'data archiving' in terms of purpose and access patterns?"
+    options:
+      - "Backup copies are for disaster recovery and are regularly overwritten; archives are for long-term retention of infrequently accessed data"
+      - "Backup is performed daily; archiving is performed annually"
+      - "Archives protect against ransomware; backups protect against hardware failure only"
+      - "They serve identical purposes and the terms are interchangeable in security contexts"
+    correct_answer: 0
+    explanations:
+      correct: "Backup and archiving serve distinct purposes. Backups are for operational recovery — they capture recent data states for restoration after failure, corruption, or accidental deletion, and older backups are regularly overwritten per the rotation schedule. Archives are for long-term retention of historical data with legal, compliance, or business value that is not regularly accessed but must be preserved and retrievable."
+      incorrect:
+        - "Backups are for operational recovery (regularly overwritten) and archives are for long-term retention — this is the correct distinction between the two."
+        - "Backup and archive schedules vary by organization and data type — defining them strictly as daily vs. annual oversimplifies the distinction. The fundamental difference is purpose (recovery vs. retention), not frequency."
+        - "Both backup and archive support ransomware resilience and disaster recovery. The distinction is not about what threats they protect against but about their purpose (recovery vs. retention) and access patterns."
+        - "Backup and archiving serve distinct and different purposes in data lifecycle management. Treating them as interchangeable leads to gaps in either recovery capability or long-term retention compliance."
+    difficulty: "easy"
+    tags: ["backup", "archiving", "lifecycle", "data-management"]
+
+  - id: q-d2-103
+    domain: domain2
+    question: "A multinational company stores customer contracts in a US data center. The EU's General Data Protection Regulation requires adequate protection for EU citizens' data transferred outside the EU. Which transfer mechanism should the company implement for contract data that includes EU citizens' personal information?"
+    options:
+      - "GDPR does not apply to contract data — only to consumer personal data"
+      - "Standard Contractual Clauses (SCCs) or an adequacy decision applicable to the US, with a Transfer Impact Assessment"
+      - "Storing all EU contracts in the EU without any transfer mechanism needed"
+      - "ISO 27001 certification of the US data center automatically satisfies GDPR transfer requirements"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR applies to all personal data of EU residents, including data within business contracts. For transfers to the US, organizations must implement an approved transfer mechanism — SCCs (Standard Contractual Clauses, updated June 2021) are the most commonly used mechanism. A Transfer Impact Assessment (TIA) should evaluate US surveillance laws' impact on data protection. The EU-US Data Privacy Framework (2023) is the current adequacy decision for self-certified US organizations."
+      incorrect:
+        - "GDPR applies to all processing of EU residents' personal data regardless of context — business contracts containing names, contact information, or other personal data are within scope."
+        - "SCCs or applicable adequacy decisions with a Transfer Impact Assessment is the correct mechanism for transferring EU personal data to the US."
+        - "Keeping contracts entirely in the EU avoids the transfer requirement but may not be operationally practical for a multinational organization with US operations and legal teams."
+        - "ISO 27001 certification demonstrates security management maturity but does not satisfy GDPR's legal transfer mechanism requirements. GDPR requires specific legal bases for international transfers, not just security certifications."
+    difficulty: "hard"
+    tags: ["GDPR", "privacy", "international", "data-transfer"]
+
+  - id: q-d2-104
+    domain: domain2
+    question: "Why is 'data labeling' an important step AFTER data classification in a security program?"
+    options:
+      - "Labels define the classification level without needing to reference the classification policy"
+      - "Labels make classification visible, enabling users and systems to apply appropriate handling controls automatically"
+      - "Labels replace the need for technical access controls by relying on user awareness alone"
+      - "Labels allow auditors to verify classification accuracy without accessing the data itself"
+    correct_answer: 1
+    explanations:
+      correct: "Classification determines the protection requirements for data; labeling makes those requirements visible by marking the data with its classification (via headers, footers, metadata, or file properties). Without labels, users may not know how to handle data properly, DLP systems cannot apply the right policies, and automated systems cannot enforce appropriate controls. Labels operationalize the classification policy."
+      incorrect:
+        - "Labels indicate the classification level, but users still need to reference the classification policy to understand the specific handling requirements associated with each label. Labels are not self-explanatory without policy context."
+        - "Labels make classification visible, enabling users and automated systems to apply appropriate handling controls — this is the key function of labeling following classification."
+        - "Labels supplement technical access controls — they enable users to understand handling requirements and systems to apply policies. Labels alone do not replace technical controls, which are necessary for enforcement."
+        - "Auditors can verify label accuracy but typically still need to sample data content to validate that classification levels are appropriately assigned."
+    difficulty: "medium"
+    tags: ["classification", "labeling", "data"]
+
+  - id: q-d2-105
+    domain: domain2
+    question: "An organization's data classification policy states that 'Restricted' data must be encrypted at rest. An employee stores Restricted data in an unencrypted folder on a shared drive. Which security control failure does this represent?"
+    options:
+      - "A policy failure — the policy does not clearly state consequences for non-compliance"
+      - "A technical control failure — the system did not prevent or detect unencrypted storage of Restricted data"
+      - "A personnel failure only — the employee is solely responsible for policy non-compliance"
+      - "A classification failure — the data should not have been classified as Restricted"
+    correct_answer: 1
+    explanations:
+      correct: "While the employee violated policy, the underlying control failure is technical — the system should have enforced encryption for Restricted data (either through automatic encryption, preventing unencrypted storage, or alerting when Restricted data is stored without encryption). Relying solely on employee compliance with policy without technical enforcement is an inadequate control design. Defense in depth requires both administrative (policy) and technical controls."
+      incorrect:
+        - "Policy clarity about consequences is a valid concern, but the more fundamental failure is that technical controls did not prevent or detect the policy violation. Clear consequences don't prevent violations if technical controls are absent."
+        - "Technical control failure — the system allowed unencrypted storage of Restricted data without prevention or detection — is the primary control failure, beyond just the employee's policy non-compliance."
+        - "Personnel failure is one component, but attributing it solely to the employee ignores the system design failure. Defense in depth requires technical controls that enforce policy regardless of individual compliance."
+        - "If the data was correctly classified as Restricted, the classification is not the failure. The failure is in the controls that enforce the Restricted data handling requirements."
+    difficulty: "medium"
+    tags: ["controls", "technical", "policy", "encryption"]
+
+  - id: q-d2-106
+    domain: domain2
+    question: "What distinguishes 'functional anonymization' from 'absolute anonymization' in data protection?"
+    options:
+      - "Functional anonymization is approved by regulators; absolute anonymization is developed internally"
+      - "Functional anonymization renders re-identification practically infeasible with available resources; absolute anonymization makes re-identification technically impossible"
+      - "They are equivalent; anonymization either removes all identifiers or it doesn't"
+      - "Absolute anonymization applies only to structured database fields; functional anonymization covers all data types"
+    correct_answer: 1
+    explanations:
+      correct: "True absolute anonymization (technically impossible to re-identify) is generally considered unachievable in practice — given sufficient auxiliary data, almost any dataset can be re-identified to some degree. Functional (or practical) anonymization reduces re-identification risk to a level that is disproportionately difficult given the resources an adversary would expend. GDPR acknowledges this by referring to data that 'cannot be re-identified' taking into account 'all means reasonably likely to be used.'"
+      incorrect:
+        - "The distinction is not about regulatory approval or development source — it is about the practical vs. theoretical standard for re-identification resistance."
+        - "Functional anonymization makes re-identification practically infeasible with reasonable resources; absolute anonymization (rarely achievable) would make it technically impossible — this correctly captures the distinction."
+        - "The two concepts are not equivalent. The distinction matters practically and legally. GDPR's standard for anonymization is closer to functional (not absolute) anonymization — taking into account 'all means reasonably likely to be used.'"
+        - "Neither type of anonymization is restricted to specific data formats. Both concepts apply across structured and unstructured data types."
+    difficulty: "hard"
+    tags: ["privacy", "anonymization", "GDPR", "data-protection"]
+
+  - id: q-d2-107
+    domain: domain2
+    question: "A security auditor discovers that an organization's data retention schedule has not been reviewed in 6 years. What is the PRIMARY risk from outdated retention schedules?"
+    options:
+      - "Performance risk — excessive data storage slows system response times"
+      - "Legal and compliance risk — regulatory requirements may have changed, causing under-retention or over-retention of legally required data"
+      - "Confidentiality risk — retained data may become accessible to unauthorized parties over time"
+      - "Integrity risk — aged data may contain inaccuracies that accumulate over time"
+    correct_answer: 1
+    explanations:
+      correct: "Retention schedules must be reviewed regularly because legal and regulatory requirements change. An outdated schedule may result in under-retention (deleting data that now has longer legal requirements — creating legal defensibility issues) or over-retention (retaining data past its legal requirement — increasing legal discovery exposure, privacy risk, and breach impact). Both directions of error create legal liability."
+      incorrect:
+        - "Performance is an operational concern, not the primary risk from outdated retention schedules. Storage costs and performance can be managed independently of retention policy correctness."
+        - "Legal and compliance risk from regulatory changes causing under- or over-retention is the primary risk — outdated schedules may violate current legal requirements in either direction."
+        - "Confidentiality risk from retained data is related to access controls, not primarily to the retention schedule's age. Proper access controls should protect retained data regardless of schedule review timing."
+        - "Data accuracy may decline over time but is an integrity concern addressed through data quality processes, not through retention schedule review."
+    difficulty: "medium"
+    tags: ["retention", "compliance", "legal", "data-management"]
+
+  - id: q-d2-108
+    domain: domain2
+    question: "What is the security significance of 'data at rest vs. data in transit vs. data in use' classifications for encryption requirements?"
+    options:
+      - "Only data in transit requires encryption; data at rest and in use are protected by access controls"
+      - "Each state presents distinct encryption challenges: in transit (network interception), at rest (storage compromise), and in use (memory attacks) — each requires different protective technologies"
+      - "Data in use does not require protection as it is only temporarily held in memory"
+      - "These three states are theoretical constructs; all real data is either stored or transmitted"
+    correct_answer: 1
+    explanations:
+      correct: "Each data state presents distinct security challenges requiring different controls: Data in transit faces network interception (protected by TLS, IPsec, VPN). Data at rest faces storage compromise (protected by disk/file encryption). Data in use faces memory scraping, cold boot attacks, and processing exposure (protected by encrypted enclaves, Trusted Execution Environments, homomorphic encryption). Complete data protection requires addressing all three states."
+      incorrect:
+        - "Data at rest requires encryption equally to transit — database breaches and stolen hard drives expose at-rest data. Access controls are a complementary, not substitute, protection for at-rest data."
+        - "Each data state (transit, rest, in use) presents distinct encryption challenges requiring different protective technologies — this is the correct comprehensive view."
+        - "Data in use is a real and significant attack surface — memory scraping attacks, cold boot attacks, and hypervisor attacks target data while it's being processed. The fact that it's temporary does not eliminate the need for protection."
+        - "Data in use is not merely theoretical — it refers to data being actively processed in CPU registers, RAM, or application memory, which is a real and targetable attack surface."
+    difficulty: "medium"
+    tags: ["data-states", "encryption", "fundamentals"]
+
+  - id: q-d2-109
+    domain: domain2
+    question: "An organization discovers that its asset inventory is 40% complete — many servers, databases, and cloud instances are unaccounted for. What is the PRIMARY security risk this creates?"
+    options:
+      - "Compliance risk — auditors may find the incomplete inventory and impose fines"
+      - "Unknown assets cannot be patched, monitored, or protected — they represent blind spots that attackers can exploit"
+      - "Financial risk — untracked assets may be underinsured or result in redundant spending"
+      - "Personnel risk — employees may be unaware of which systems they are responsible for securing"
+    correct_answer: 1
+    explanations:
+      correct: "You cannot protect what you don't know exists. Untracked assets — 'shadow IT,' forgotten servers, unmanaged cloud instances — are unpatched, unmonitored, and outside security policy coverage. Attackers actively seek these unmanaged systems as they represent easy entry points. Asset inventory is foundational to all other security functions (patch management, monitoring, access control)."
+      incorrect:
+        - "Compliance risk is real but secondary. The primary security risk is that unknown assets cannot be protected, monitored, or patched — they are active security vulnerabilities."
+        - "Unknown assets cannot be patched, monitored, or protected — they represent security blind spots that attackers can exploit — this is the primary security risk."
+        - "Financial risk from untracked assets is an operational concern. The primary security concern is the inability to protect assets you don't know exist."
+        - "Personnel responsibility clarity is an administrative concern. The primary security impact of incomplete asset inventory is the inability to apply security controls to unknown systems."
+    difficulty: "easy"
+    tags: ["asset-management", "inventory", "fundamentals"]
+
+  - id: q-d2-110
+    domain: domain2
+    question: "What is the primary purpose of establishing 'data handling procedures' that accompany a data classification policy?"
+    options:
+      - "To create legal documentation that satisfies regulatory auditor requirements"
+      - "To translate classification-level protection requirements into specific, actionable employee behaviors for each data state and handling scenario"
+      - "To assign legal liability to employees who mishandle data through documented acknowledgment"
+      - "To eliminate the need for technical controls by making employee responsibilities explicit"
+    correct_answer: 1
+    explanations:
+      correct: "Data handling procedures operationalize classification policy by specifying exactly what employees must do with data at each classification level across all relevant scenarios: how to transmit it, store it, share it, print it, transport it, and dispose of it. Without handling procedures, employees know their data is 'Confidential' but may not know what that means in practice — 'Can I email this? Can I store it in Dropbox? How do I dispose of it?'"
+      incorrect:
+        - "Creating legal documentation is a benefit but not the primary purpose. Handling procedures are operational guides for employee behavior, not primarily legal defense documents."
+        - "Handling procedures translate classification requirements into specific, actionable behaviors for each data state and handling scenario — this is their primary purpose."
+        - "While signed acknowledgment creates accountability, the primary purpose is to guide employee behavior, not to establish legal liability. Liability is a secondary benefit of documented procedures."
+        - "Handling procedures complement technical controls — they do not replace them. Both are needed for defense in depth. Technical controls enforce policy; procedures guide behavior where technical enforcement is not feasible."
+    difficulty: "medium"
+    tags: ["classification", "policy", "governance", "data"]
+
+  - id: q-d2-111
+    domain: domain2
+    question: "A financial institution discovers that customer account numbers (PAN) are stored in clear text in application log files on a web server. Which security control failure does this MOST directly represent?"
+    options:
+      - "A network security failure — the log files should not be accessible from the internet"
+      - "A data minimization and secure logging failure — sensitive data should not be logged in clear text"
+      - "An access control failure — only administrators should have access to log files"
+      - "A classification failure — the logs were not marked as containing sensitive data"
+    correct_answer: 1
+    explanations:
+      correct: "Logging sensitive data (PAN, credentials, PII) in clear text violates data minimization principles and secure coding/logging standards. PCI DSS explicitly prohibits logging PANs in clear text. The primary failure is in application design — the application should never log sensitive account numbers; if logging is necessary, values must be masked (show only last 4 digits) or excluded entirely from logs."
+      incorrect:
+        - "Network security is important but the root failure is that the data should never have been logged in clear text — even on an internal server, unmasked PANs in logs violate PCI DSS and data minimization requirements."
+        - "Data minimization and secure logging failure — sensitive data should not be logged in clear text — is the primary failure and the root cause that must be addressed."
+        - "Access control is a compensating control concern, but the fundamental failure is the secure logging design. Restricting log file access does not fix the underlying vulnerability of PANs in clear text logs."
+        - "Classification labeling is important but not the root cause. The primary failure is the application design that logged PANs in clear text — labeling the log file would not prevent the exposure."
+    difficulty: "medium"
+    tags: ["data-protection", "PCI", "logging", "secure-design"]
+
+  - id: q-d2-112
+    domain: domain2
+    question: "What is 'data quality' in the context of data security and why is it a security concern?"
+    options:
+      - "Data quality is an IT performance concern only; it has no direct relationship to information security"
+      - "Poor data quality can lead to incorrect access decisions, flawed risk assessments, and unreliable security monitoring"
+      - "Data quality ensures data availability by maintaining high-performance data systems"
+      - "Data quality only matters for databases; unstructured data quality is not a security concern"
+    correct_answer: 1
+    explanations:
+      correct: "Data quality (accuracy, completeness, consistency, timeliness) is a security concern because security decisions depend on data quality. Examples: an incomplete asset inventory means unknown assets go unprotected; inaccurate access control data leads to incorrect privilege assignments; poor quality threat intelligence produces false alerts; unreliable audit logs make forensic investigation impossible. Bad data quality undermines every aspect of a security program."
+      incorrect:
+        - "Data quality has direct security implications. Security decisions (access control, risk assessment, incident response) are only as good as the quality of the data informing them."
+        - "Poor data quality leads to incorrect access decisions, flawed risk assessments, and unreliable security monitoring — directly impacting security program effectiveness."
+        - "Data availability is about ensuring systems are accessible when needed — it is a different concept from data quality, which addresses accuracy, completeness, and consistency."
+        - "Data quality concerns apply equally to structured and unstructured data. Poor quality unstructured data (incomplete security policies, inaccurate incident reports) also creates security risks."
+    difficulty: "medium"
+    tags: ["data-quality", "governance", "integrity"]
+
+  - id: q-d2-113
+    domain: domain2
+    question: "A company acquires another organization and discovers the acquired company has no formal data classification program. What should be the FIRST step in the integration process?"
+    options:
+      - "Immediately apply the acquiring company's highest classification label to all acquired data"
+      - "Conduct a data discovery and inventory exercise to identify what data exists before classification"
+      - "Purge all acquired data that has not been classified within 30 days"
+      - "Allow the acquired company to maintain its own data practices independently"
+    correct_answer: 1
+    explanations:
+      correct: "Before classifying data, the organization must first know what data exists, where it is stored, and what it contains. Data discovery tools and manual inventory processes identify data assets and their content. Classification cannot be meaningfully applied without understanding what is being classified. Discovery is the necessary precursor to classification, especially in an M&A context with unknown data assets."
+      incorrect:
+        - "Applying the highest classification level to all data is excessive and impractical — it would impose unnecessary restrictions on non-sensitive data and waste resources. Classification should reflect actual data sensitivity."
+        - "Data discovery and inventory is the necessary first step — you cannot classify what you don't know exists. Discovery precedes classification in any data governance program."
+        - "Purging unclassified data creates legal and regulatory liability (data required for compliance or litigation may be destroyed), financial loss (valuable data may be deleted), and operational disruption. Classification programs require time to implement properly."
+        - "Allowing the acquired company to operate independently with no data classification creates ongoing data governance and compliance risks. Integration is necessary to establish consistent data protection standards."
+    difficulty: "medium"
+    tags: ["classification", "governance", "data-discovery", "M&A"]
+
+  - id: q-d2-114
+    domain: domain2
+    question: "What is 'data lineage' and why is it important from a data security perspective?"
+    options:
+      - "The legal chain of data ownership from creation through all transfers and processing"
+      - "The documented path data follows from creation through all transformations, movements, and uses, enabling impact analysis and compliance verification"
+      - "The encryption key hierarchy used to protect data throughout its lifecycle"
+      - "The regulatory citation trail that justifies data retention periods"
+    correct_answer: 1
+    explanations:
+      correct: "Data lineage tracks the complete journey of data — where it was created, how it has been transformed, which systems it has moved through, and how it has been used. From a security perspective, lineage enables: understanding data exposure scope during a breach, proving regulatory compliance (GDPR processing records), performing impact analysis when a system is compromised, and ensuring data quality and integrity through transformations."
+      incorrect:
+        - "Legal chain of ownership addresses data ownership rights — important but distinct from lineage. Lineage is about the data's technical journey, not legal ownership history."
+        - "Data lineage documents the complete path of data through creation, transformations, movements, and uses — enabling security impact analysis and compliance verification."
+        - "Encryption key hierarchies are key management concepts — they address how keys are derived and managed, not the data's journey through systems."
+        - "Retention justification involves regulatory citation, but this is a static policy consideration. Data lineage is a dynamic tracking of actual data flows and transformations."
+    difficulty: "hard"
+    tags: ["data-management", "governance", "compliance"]
+
+  - id: q-d2-115
+    domain: domain2
+    question: "An organization receives a data subject access request (DSAR) under GDPR. The individual requests all personal data held about them. What is the organization's obligation?"
+    options:
+      - "Respond only with data from the primary customer database within 30 days"
+      - "Provide a copy of all personal data held in any system, along with information about processing purposes, recipients, and retention periods, within one month"
+      - "Deny the request until the individual provides written justification for needing the data"
+      - "Charge the individual a fee not exceeding €50 for processing the request"
+    correct_answer: 1
+    explanations:
+      correct: "GDPR Article 15 grants data subjects the right to access all personal data held about them across all systems, along with information about: the purposes of processing, categories of data, recipients or categories of recipients, retention periods, and information about data subject rights. The response must be provided within one month (extendable by two months for complex requests) and is typically free of charge."
+      incorrect:
+        - "The obligation covers ALL personal data across ALL systems — not just primary databases. Organizations must search all systems, backups, and applications for personal data related to the subject."
+        - "GDPR requires providing all personal data across all systems plus processing information (purposes, recipients, retention) within one month — this is the complete obligation."
+        - "GDPR does not allow organizations to require justification for access requests. The right of access is a fundamental right that can be exercised without providing a reason."
+        - "GDPR Article 12 states that access requests must generally be fulfilled free of charge. A fee may be charged for manifestly unfounded or excessive requests (particularly repetitive requests), but not as a standard practice."
+    difficulty: "medium"
+    tags: ["GDPR", "privacy", "data-subject-rights", "legal"]
+
+  - id: q-d2-116
+    domain: domain2
+    question: "What is 'data mesh' architecture and what are its primary security implications?"
+    options:
+      - "A network topology for data center interconnects with enhanced security features"
+      - "A distributed data ownership model where individual domain teams own their data products — creating federated data governance challenges"
+      - "An encryption framework for distributing cryptographic operations across multiple systems"
+      - "A database clustering technology that improves data availability through redundancy"
+    correct_answer: 1
+    explanations:
+      correct: "Data mesh is a distributed data architecture where domain-specific teams own and manage their own data products rather than centralizing data in a monolithic data lake or warehouse. The security implications are significant: federated ownership makes consistent data classification and protection standards harder to enforce, data sharing between domains must be governed, access controls become more complex, and ensuring consistent privacy compliance across distributed teams requires a strong federated governance model."
+      incorrect:
+        - "Data mesh is an architectural and governance pattern, not a network topology. Network mesh architectures address connectivity; data mesh addresses data ownership and management responsibilities."
+        - "Data mesh is a distributed data ownership model creating federated governance challenges — this correctly describes both the architecture and its security implications."
+        - "Encryption frameworks address cryptographic operations. Data mesh addresses data ownership, management, and governance responsibilities across organizational domains."
+        - "Database clustering addresses availability and performance. Data mesh is an organizational and governance concept about who owns and manages data, not a database technology."
+    difficulty: "hard"
+    tags: ["data-governance", "architecture", "distributed"]
+
+  - id: q-d2-117
+    domain: domain2
+    question: "Under which condition should an organization apply a higher classification to a document that aggregates multiple lower-classified pieces of information?"
+    options:
+      - "Never — classification is always determined by the highest-classified component"
+      - "When combining lower-classified pieces creates new information that would be harmful if disclosed beyond the original individual pieces"
+      - "Only when the organization's legal team approves the reclassification"
+      - "Always — aggregated documents must always receive the highest possible classification"
+    correct_answer: 1
+    explanations:
+      correct: "The aggregation problem requires that organizations consider whether combining individually lower-classified pieces of information creates a whole that is more sensitive than its parts. A document that lists publicly available building locations (Public) plus operational security schedules (Internal) plus access code patterns (Internal) may create an Confidential-level document because the combination reveals attack-enabling information. Classification should reflect the document's total sensitivity, not just its highest single component."
+      incorrect:
+        - "Classification is not always determined solely by the highest-classified component — the aggregate may be more sensitive than any single component. This is the aggregation problem."
+        - "When combining lower-classified pieces creates new sensitive information, a higher classification is warranted to reflect the aggregate's actual sensitivity level."
+        - "Reclassification decisions are typically made by data owners, not legal teams, though legal review may be appropriate for particularly sensitive escalations. The data owner determines appropriate classification based on content."
+        - "Not all aggregations warrant the highest classification — only those where combining pieces creates genuinely new sensitive information. Applying maximum classification to all aggregated documents would result in over-classification."
+    difficulty: "medium"
+    tags: ["classification", "aggregation", "data-governance"]
+
+  - id: q-d2-118
+    domain: domain2
+    question: "What is the primary security concern with 'remnant data' on SSDs when an organization uses Full Disk Encryption (FDE)?"
+    options:
+      - "FDE has no security concerns with SSDs — FDE provides complete protection for all data states"
+      - "If the FDE key is lost or forgotten, the data cannot be recovered for legitimate business continuity needs"
+      - "Wear leveling may store encryption keys in predictable locations on the SSD, making key recovery easier for attackers"
+      - "FDE encryption overhead significantly degrades SSD performance for write-intensive workloads"
+    correct_answer: 1
+    explanations:
+      correct: "FDE key loss represents a critical data availability concern. If the encryption key (or the password/PIN to unlock it) is lost, forgotten, or the hardware storing the key fails, all data on the drive is permanently inaccessible. Organizations must have key management and recovery procedures — including secure backup of encryption keys — to prevent permanent data loss from FDE key failure."
+      incorrect:
+        - "FDE does have legitimate security concerns and limitations — it does not provide protection against all threats. Properly implementing FDE with key management is necessary for complete protection."
+        - "If the FDE key is lost, all data on the drive becomes permanently inaccessible — making key management and recovery procedures critical to business continuity."
+        - "While wear leveling is a concern for data erasure, well-implemented FDE stores keys in protected hardware (TPM) or under password-derived keys, not in predictable unprotected SSD locations. The more immediate concern is key loss."
+        - "Modern NVMe SSDs with hardware FDE have minimal performance overhead. Performance degradation is not a primary security concern — data availability from key loss is."
+    difficulty: "hard"
+    tags: ["encryption", "FDE", "SSD", "key-management"]
+
+  - id: q-d2-119
+    domain: domain2
+    question: "Which of the following is the MOST complete and accurate description of what 'information asset valuation' should include?"
+    options:
+      - "The replacement cost of hardware and software required to recreate the data"
+      - "The combination of direct value (replacement, recovery costs), indirect value (competitive advantage, revenue impact), and liability value (regulatory fines, legal costs) if the asset is compromised"
+      - "The market value an external buyer would pay to acquire the data"
+      - "The original cost of creating or acquiring the data plus accumulated storage costs"
+    correct_answer: 1
+    explanations:
+      correct: "Comprehensive asset valuation must include: (1) direct value — replacement/recovery cost, business value to operations; (2) indirect value — competitive advantage, intellectual property, revenue dependency; and (3) liability value — regulatory fines, litigation costs, breach notification costs, reputational damage if compromised. Using only replacement cost significantly underestimates data value and leads to inadequate security investment."
+      incorrect:
+        - "Replacement cost of hardware/software is only one component of asset value — it addresses direct replacement costs but misses competitive value, revenue dependency, and liability exposure."
+        - "Comprehensive asset valuation includes direct value, indirect value (competitive advantage), and liability value (regulatory/legal costs if compromised) — this is the most complete approach."
+        - "Market value to an external buyer is rarely determinable for most organizational data (customer records, internal processes, proprietary algorithms) and would undervalue or overvalue assets in different contexts."
+        - "Historical creation cost plus storage cost drastically undervalues assets whose value has grown over time (customer databases, proprietary processes) and doesn't account for the impact of loss."
+    difficulty: "medium"
+    tags: ["classification", "valuation", "risk"]
+
+  - id: q-d2-120
+    domain: domain2
+    question: "A security manager proposes encrypting all customer data with a single organization-wide master key for operational simplicity. Why is this approach problematic?"
+    options:
+      - "A single master key makes encryption too strong, potentially violating export control laws"
+      - "A single compromised master key would expose ALL customer data simultaneously — eliminating the compartmentalization benefit of encryption"
+      - "Regulatory frameworks require using different encryption keys for different data types"
+      - "Operational simplicity is never an acceptable trade-off for any security control"
+    correct_answer: 1
+    explanations:
+      correct: "Using a single master key for all customer data creates a single point of failure — if that key is compromised (through insider threat, cryptographic attack, or operational error), every customer's data becomes exposed at once. Key management best practices require separate keys per data category, tenant, or sensitivity level to limit the blast radius of a key compromise. Key management complexity is the cost of this security benefit."
+      incorrect:
+        - "Key strength is independent of how many keys are used. Export control laws (like US Export Administration Regulations) regulate algorithm strength and geographic distribution, not the number of keys used internally."
+        - "A single compromised master key would expose all customer data simultaneously — this is the primary risk of single-key encryption schemes and eliminates the compartmentalization benefit."
+        - "While some regulations may recommend key segmentation, the primary concern is operational security risk, not regulatory mandate. The argument stands on security merit alone."
+        - "Operational simplicity is a legitimate consideration in security design. The issue is not that simplicity is always wrong — it is that in this specific case, the security trade-off (all data exposed by one key) is unacceptably high."
+    difficulty: "medium"
+    tags: ["encryption", "key-management", "risk"]
+
+  - id: q-d2-121
+    domain: domain2
+    question: "When an organization disposes of multi-function printers (MFPs), which often contain internal hard drives with cached documents, what sanitization approach is required?"
+    options:
+      - "Factory reset using the printer's built-in restore function is always sufficient"
+      - "The internal hard drive must be sanitized using NIST SP 800-88-compliant methods appropriate to its data sensitivity"
+      - "MFP hard drives are proprietary and cannot contain persistent data, so no sanitization is needed"
+      - "Simply deleting all stored jobs from the printer queue is sufficient sanitization"
+    correct_answer: 1
+    explanations:
+      correct: "Modern MFPs contain internal hard drives that cache every document printed, scanned, copied, or faxed. These drives contain sensitive organizational data and must be sanitized before disposal using NIST SP 800-88-compliant methods (Clear, Purge, or Destroy) based on the sensitivity of the data they processed. MFP hard drives are a frequently overlooked source of sensitive data leakage during equipment disposal."
+      incorrect:
+        - "Factory reset functions on printers typically reinitialize the operating system and settings but may not securely overwrite cached document data on the internal drive. A factory reset is not NIST SP 800-88-compliant sanitization."
+        - "NIST SP 800-88-compliant sanitization of the internal hard drive is required for MFPs — these drives cache sensitive documents and must be treated like any other storage media."
+        - "Modern MFPs absolutely contain persistent internal hard drives that store document images, logs, and configurations. This is a well-documented security and privacy risk and a common source of data breaches during equipment disposal."
+        - "Deleting the print queue removes job references but not the underlying cached data on the internal drive. This is equivalent to file deletion on a computer — data remains recoverable until properly sanitized."
+    difficulty: "medium"
+    tags: ["sanitization", "media", "data-destruction", "physical-security"]
+
+  - id: q-d2-122
+    domain: domain2
+    question: "What is 'data minimization' and which specific threat does it MOST directly reduce?"
+    options:
+      - "Reducing data storage costs by compressing files — primarily reduces financial risk"
+      - "Collecting only data necessary for a specific purpose — directly reduces the volume of data exposed in a breach"
+      - "Minimizing the number of employees who handle data — primarily reduces insider threat"
+      - "Limiting data retention to the minimum legal period — primarily reduces regulatory compliance burden"
+    correct_answer: 1
+    explanations:
+      correct: "Data minimization is the principle of collecting, storing, and processing only the minimum personal data necessary for a specific, stated purpose. When a breach occurs, only the minimized dataset is exposed. If an organization collected 10 data fields when 3 were sufficient, a breach exposes 7 unnecessary data elements. Data minimization is both a GDPR requirement (Article 5(1)(c)) and a practical breach impact reduction strategy."
+      incorrect:
+        - "File compression reduces storage size but does not address data privacy or breach exposure. Data minimization is about what data is collected, not how it is stored technically."
+        - "Data minimization — collecting only necessary data — directly reduces breach impact by limiting the volume of sensitive data that could be exposed in a security incident."
+        - "Limiting employee access is the least privilege/need-to-know principle — it reduces insider threat and unauthorized access risk. Data minimization addresses how much data is collected, not who accesses it."
+        - "Minimum retention periods are part of data lifecycle management. Data minimization primarily addresses the scope of data collected at the point of collection, though retention minimization is a related concept."
+    difficulty: "easy"
+    tags: ["privacy", "data-minimization", "GDPR", "breach"]
