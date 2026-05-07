@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Audit network connections
-        uses: CyBirdSecurity/ActionLoggR@main
+        uses: CyBirdSecurity/ActionLoggR@a8616758118e118fee0e2867a6cacfc5015380d8
         
       - uses: actions/checkout@v4
 
