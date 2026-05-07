@@ -31,6 +31,5 @@ jobs:
       - name: Run data validation
         run: npm test
 
-      name: Print network report
-      if: always()
-      run: cat /tmp/actionloggr/report.json
+      - name: Print network report
+        run: cat /tmp/actionloggr/report.json
