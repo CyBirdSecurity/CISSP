@@ -301,7 +301,7 @@ const QuizComponent = (() => {
           }
           return `
             <button class="${cls}" data-index="${i}" ${answered ? 'disabled' : ''}>
-              <span class="option-letter">${'ABCD'[i]}</span>
+              <span class="option-letter">${String.fromCharCode(65 + i)}</span>
               <span class="option-text">${escapeHTML(opt)}</span>
               ${answered && i === q.correct_answer
                 ? '<svg class="option-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
@@ -530,7 +530,7 @@ const QuizComponent = (() => {
                        else if (idx === r.selected) cls += ' option-wrong';
                        return `
                          <div class="${cls}">
-                           <span class="option-letter">${'ABCD'[idx]}</span>
+                           <span class="option-letter">${String.fromCharCode(65 + idx)}</span>
                            <span class="option-text">${escapeHTML(opt)}</span>
                            ${idx === r.question.correct_answer
                              ? '<svg class="option-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'

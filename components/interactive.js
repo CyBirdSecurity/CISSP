@@ -181,7 +181,7 @@ const InteractiveRenderer = (() => {
                   ${answered && q.correct_answers.includes(i) ? _svgCheck() : ''}
                   ${answered && Array.isArray(userAnswer) && userAnswer.includes(i) && !q.correct_answers.includes(i) ? _svgX() : ''}
                 </span>
-                <span class="iq-ms-letter">${'ABCD'[i]}</span>
+                <span class="iq-ms-letter">${String.fromCharCode(65 + i)}</span>
                 <span class="iq-ms-text">${_esc(opt)}</span>
               </label>
             `;
