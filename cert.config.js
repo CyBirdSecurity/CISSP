@@ -30,7 +30,7 @@ const CERT_CONFIG = {
   // Other CyBird certification sites — shown in the nav "Other Certs" dropdown.
   // Remove an entry (or leave the array empty) to hide it until that cert launches.
   otherCerts: [
-    // { name: 'Security+', url: 'https://securityplus.cybirdsecurity.com' },
+    { name: 'Security+', url: 'https://securityplus.cybirdsecurity.com' },
     // { name: 'CASP+',     url: 'https://casp.cybirdsecurity.com' },
   ]
 };
