@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CISSP Study Tool — CyBird Security</title>
-  <meta name="description" content="Interactive CISSP exam study tool with flashcards, quizzes, and progress tracking. Covering all 8 CISSP domains.">
+  <title>Study Tool — CyBird Security</title>
+  <meta name="description" id="meta-description" content="Interactive security certification study tool with flashcards, quizzes, and progress tracking.">
   <meta name="theme-color" content="#07080f">
 
   <!-- Preload fonts -->
@@ -35,8 +35,8 @@
           </svg>
         </div>
         <div>
-          <div>CISSP Study Tool</div>
-          <div class="nav-logo-sub">By CybirdSecurity</div>
+          <div id="nav-cert-name">Study Tool</div>
+          <a class="nav-logo-sub nav-logo-sub--link" href="https://cybirdsecurity.com" target="_blank" rel="noopener">By CyBird Security</a>
         </div>
       </div>
 
@@ -46,6 +46,17 @@
         <li><a class="nav-link" data-route="quiz">Quiz</a></li>
         <li><a class="nav-link" data-route="interactive">Interactive Q's</a></li>
         <li><a class="nav-link" data-route="progress">Progress</a></li>
+        <li class="nav-dropdown" id="nav-other-certs" style="display:none">
+          <button class="nav-link nav-dropdown-trigger" id="cert-dropdown-btn" aria-expanded="false" aria-haspopup="true">
+            Other Certs
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu" id="cert-dropdown-menu" role="menu">
+            <!-- Filled by app.js from CERT_CONFIG.otherCerts -->
+          </div>
+        </li>
       </ul>
 
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
@@ -72,14 +83,14 @@
         <div class="hero-content">
           <div class="hero-eyebrow">
             <span class="eyebrow-dot"></span>
-            CISSP Exam Preparation
+            <span id="hero-eyebrow">Exam Preparation</span>
           </div>
-          <h1 class="hero-title">
+          <h1 class="hero-title" id="hero-title">
             Master the <span class="gradient-text">CISSP</span><br>All 8 Domains
           </h1>
-          <p class="hero-sub">
+          <p class="hero-sub" id="hero-sub">
             Flashcards, practice quizzes, real-time feedback, and progress tracking —
-            everything you need to pass the CISSP exam.
+            everything you need to pass the exam.
           </p>
           <div class="hero-ctas">
             <button class="btn btn-primary btn-lg" onclick="navigate('quiz')">
@@ -135,7 +146,7 @@
       <!-- Domain Overview -->
       <div class="container" style="padding-top: 20px;">
         <div style="margin-bottom: 20px;">
-          <h2 style="font-size:20px;font-weight:700;margin-bottom:6px;">CISSP Domains</h2>
+          <h2 id="domains-section-title" style="font-size:20px;font-weight:700;margin-bottom:6px;">Domains</h2>
           <p style="font-size:14px;color:var(--c-text-2)">Click a domain to start a focused quiz</p>
         </div>
         <div class="domain-cards-grid" id="home-domain-grid">
@@ -149,8 +160,8 @@
       <div class="page-container" style="padding-top: calc(var(--nav-h) + 20px);">
         <div class="page-header">
           <h1 class="page-title">Flashcards</h1>
-          <p class="page-subtitle">
-            Study key terms and concepts across all 8 CISSP domains
+          <p class="page-subtitle" id="flashcards-subtitle">
+            Study key terms and concepts across all domains
           </p>
         </div>
         <div id="flashcard-container">
@@ -197,6 +208,9 @@
   </main>
 
   <!-- ── Scripts ───────────────────────────────────────────── -->
+  <!-- Cert config — the only file to change when copying this repo -->
+  <script src="cert.config.js"></script>
+
   <!-- js-yaml for parsing YAML data files -->
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 

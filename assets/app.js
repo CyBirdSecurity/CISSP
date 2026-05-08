@@ -1,7 +1,51 @@
 /**
- * app.js — Main entry point for CISSP Study Tool
+ * app.js — Main entry point for the CyBird Security study tool
  * Handles app initialization, routing, and page rendering
  */
+
+// ── Apply cert config to static DOM elements ──────────────────
+function applyConfig() {
+  const cfg = (typeof CERT_CONFIG !== 'undefined') ? CERT_CONFIG : {};
+  const name = cfg.name || 'Study Tool';
+
+  document.title = `${name} Study Tool — CyBird Security`;
+
+  const metaDesc = document.getElementById('meta-description');
+  if (metaDesc) metaDesc.setAttribute('content',
+    `Interactive ${name} exam study tool with flashcards, quizzes, and progress tracking.`);
+
+  const navName = document.getElementById('nav-cert-name');
+  if (navName) navName.textContent = `${name} Study Tool`;
+
+  const eyebrow = document.getElementById('hero-eyebrow');
+  if (eyebrow) eyebrow.textContent = cfg.eyebrow || `${name} Exam Preparation`;
+
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) heroTitle.innerHTML =
+    `Master the <span class="gradient-text">${name}</span><br>All Domains`;
+
+  const heroSub = document.getElementById('hero-sub');
+  if (heroSub) heroSub.textContent = cfg.heroSub ||
+    `Flashcards, practice quizzes, real-time feedback, and progress tracking — everything you need to pass the ${name} exam.`;
+
+  const domainTitle = document.getElementById('domains-section-title');
+  if (domainTitle) domainTitle.textContent = cfg.domainLabel || `${name} Domains`;
+
+  const fcSubtitle = document.getElementById('flashcards-subtitle');
+  if (fcSubtitle) fcSubtitle.textContent = cfg.flashcardSubtitle ||
+    `Study key terms and concepts across all ${name} domains`;
+
+  // Build the "Other Certs" dropdown if there are sibling certs configured
+  const otherCerts = cfg.otherCerts || [];
+  const dropdownWrap = document.getElementById('nav-other-certs');
+  const dropdownMenu = document.getElementById('cert-dropdown-menu');
+  if (dropdownWrap && dropdownMenu && otherCerts.length > 0) {
+    dropdownMenu.innerHTML = otherCerts.map(c =>
+      `<a class="nav-dropdown-item" href="${c.url}" target="_blank" rel="noopener" role="menuitem">${c.name}</a>`
+    ).join('');
+    dropdownWrap.style.display = '';
+  }
+}
 
 // ── Global App State ─────────────────────────────────────────
 const AppState = {
@@ -165,7 +209,7 @@ function renderProgress() {
   container.innerHTML = `
     <div class="progress-header">
       <h1 class="progress-title">Study Progress</h1>
-      <p class="progress-subtitle">Track your CISSP exam preparation</p>
+      <p class="progress-subtitle">${(typeof CERT_CONFIG !== 'undefined' && CERT_CONFIG.progressSubtitle) ? CERT_CONFIG.progressSubtitle : 'Track your exam preparation'}</p>
     </div>
 
     <div class="progress-section">
@@ -349,6 +393,8 @@ function showToast(message, type = 'info') {
 
 // ── Init ──────────────────────────────────────────────────────
 async function init() {
+  applyConfig();
+
   // Show loading overlay
   const overlay = document.getElementById('loading-overlay');
   const loadingText = document.getElementById('loading-text');
@@ -407,6 +453,21 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.nav-links')?.classList.remove('open');
     });
   });
+
+  // Other Certs dropdown toggle
+  const dropdownBtn = document.getElementById('cert-dropdown-btn');
+  const dropdownMenu = document.getElementById('cert-dropdown-menu');
+  if (dropdownBtn && dropdownMenu) {
+    dropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dropdownMenu.classList.toggle('open');
+      dropdownBtn.setAttribute('aria-expanded', isOpen);
+    });
+    document.addEventListener('click', () => {
+      dropdownMenu.classList.remove('open');
+      dropdownBtn.setAttribute('aria-expanded', 'false');
+    });
+  }
 
   // Mobile nav toggle
   const toggle = document.getElementById('nav-toggle');

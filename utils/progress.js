@@ -3,7 +3,7 @@
  */
 
 const Progress = (() => {
-  const STORAGE_KEY = 'cissp_progress';
+  const STORAGE_KEY = (typeof CERT_CONFIG !== 'undefined' ? CERT_CONFIG.storageKey : 'cissp_progress');
   const SCHEMA_VERSION = 1;
   let _data = null;
 
