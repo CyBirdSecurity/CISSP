@@ -5,7 +5,7 @@ topics:
     title: "Controlling Physical and Logical Access to Assets"
     summary: "The subject/object model underlying all access control, and how it applies consistently to physical spaces, systems, devices, and data."
     tags: ["access control", "subject", "object"]
-    key_terms: ["Subject", "Object", "Access Control", "Physical Access Control", "Logical Access Control", "Access Control List", "Capability Table"]
+    key_terms: ["Subject", "Object", "Access Control", "Physical Access Control", "Logical Access Control", "Access Control List", "Capability Table", "Implicit Deny"]
     sections:
       - heading: "Subjects, Objects, and Access"
         blocks:
@@ -24,6 +24,14 @@ topics:
           - type: callout
             style: tip
             text: "The exam expects you to recognize that access control isn't just 'IT logins' — a locked server room door and a file permission are both access controls, evaluated with the same subject/object logic, just enforced by different mechanisms."
+      - heading: "Default Deny and Implicit Deny"
+        blocks:
+          - type: paragraph
+            text: "A well-designed access control system defaults to implicit deny: if no rule explicitly grants a subject access to an object, access is denied, rather than the system defaulting to allow anything not specifically forbidden. This is the access-control expression of the fail-secure principle from Domain 3 — an incomplete or newly-created ACL is safe by default rather than accidentally permissive. It also has a practical implication for how ACLs and firewall rule sets should be structured: rules are generally evaluated in order, with an explicit 'deny all' catch-all rule placed last to enforce implicit deny for anything the earlier rules didn't specifically address, rather than assuming the absence of a matching rule is automatically safe."
+      - heading: "Centralized vs. Decentralized Access Administration"
+        blocks:
+          - type: paragraph
+            text: "Access control decisions can be administered centrally (a dedicated security/IAM team manages access rules across the organization, e.g. through the IGA tooling covered in 5.5) or in a decentralized way (individual resource owners or local administrators manage access to their own specific resources, echoing DAC's owner-driven model from 5.4). Centralized administration provides consistency, easier auditing, and a single point of policy enforcement, but can become a bottleneck and may lack the specific business context a local resource owner has. Decentralized administration is faster and more context-aware but risks inconsistent standards across the organization and makes a comprehensive access review meaningfully harder, since there's no single system of record. Many organizations land on a hybrid: centralized policy and tooling, with resource owners retaining the actual approve/deny decision within that centrally governed framework — centralizing the 'how' while preserving decentralized 'who decides.'"
 
   - id: d5-t2
     domain: domain5
@@ -31,7 +39,7 @@ topics:
     title: "Identification and Authentication of People, Devices, and Services"
     summary: "The distinct steps of identification, authentication, and the multiple factor categories used to prove a claimed identity."
     tags: ["identification", "authentication", "multi-factor authentication", "passwordless"]
-    key_terms: ["Identification", "Authentication", "Something You Know", "Something You Have", "Something You Are", "MFA", "TOTP", "HOTP", "FIDO2/WebAuthn", "Password Entropy"]
+    key_terms: ["Identification", "Authentication", "Something You Know", "Something You Have", "Something You Are", "MFA", "TOTP", "HOTP", "FIDO2/WebAuthn", "Password Entropy", "Session Management"]
     sections:
       - heading: "Identification vs. Authentication"
         blocks:
@@ -56,6 +64,13 @@ topics:
           - type: callout
             style: tip
             text: "Password entropy (roughly, how unpredictable a password is, driven mainly by length and true randomness rather than character-class complexity rules) is the modern framing NIST 800-63B pushes toward: long, random-ish passphrases are now generally favored over short passwords forced into artificial complexity (e.g. mandatory special characters), because forced complexity rules often push users toward predictable patterns (like 'Password1!') that are easier to guess than they look."
+      - heading: "After Authentication: Session Management"
+        blocks:
+          - type: paragraph
+            text: "Authentication is a point-in-time event; session management is what maintains (and eventually ends) the authenticated state afterward, and it introduces its own attack surface separate from the authentication mechanism itself. A session identifier/token issued after successful login must itself be protected — session fixation (an attacker tricks a victim into using a session ID the attacker already knows, then hijacks it once the victim authenticates) and session hijacking (an attacker steals a valid, already-authenticated session token, e.g. via network eavesdropping or cross-site scripting) both let an attacker inherit an authenticated session without ever needing to defeat the authentication mechanism at all. Defenses include generating a fresh, unpredictable session ID at login (never reusing a pre-authentication ID), transmitting session tokens only over encrypted channels, setting reasonable session timeouts (both idle timeout and absolute maximum session length), and invalidating sessions server-side on logout rather than relying only on the client to discard the token."
+          - type: callout
+            style: tip
+            text: "This is why strong authentication alone is an incomplete answer to 'is this system secure' — a system with excellent MFA but session tokens transmitted in the clear, or with no session timeout at all, still leaves a wide-open path to unauthorized access that bypasses authentication entirely by attacking the session layer instead."
       - heading: "Authenticating Devices and Services"
         blocks:
           - type: paragraph
@@ -67,7 +82,7 @@ topics:
     title: "Federated Identity with Third-Party Services"
     summary: "How SSO and federation let an identity established with one provider be trusted by other services, using SAML and OAuth/OpenID Connect."
     tags: ["federation", "SSO", "SAML", "OAuth", "JWT", "SCIM"]
-    key_terms: ["Federated Identity", "Single Sign-On (SSO)", "SAML", "OAuth 2.0", "OpenID Connect", "Identity Provider (IdP)", "Service Provider (SP)", "JWT", "SCIM"]
+    key_terms: ["Federated Identity", "Single Sign-On (SSO)", "SAML", "OAuth 2.0", "OpenID Connect", "Identity Provider (IdP)", "Service Provider (SP)", "JWT", "SCIM", "Trust Broker"]
     sections:
       - heading: "Why Federation Exists"
         blocks:
@@ -90,6 +105,10 @@ topics:
           - type: callout
             style: tip
             text: "Exam distinction: OAuth answers 'what is this application allowed to do on my behalf?' (authorization). OpenID Connect answers 'who is this user?' (authentication). SAML historically does both together in one assertion. SCIM is a different problem entirely — provisioning accounts in the first place, not logging in to them."
+      - heading: "Federation Trust Models"
+        blocks:
+          - type: paragraph
+            text: "Federation between exactly one IdP and one SP is straightforward — the SP simply configures trust in that one specific IdP's signing keys. Federation across many organizations at once needs a broader trust model: a hub-and-spoke model routes trust through a central trust broker (a hub that maintains trust relationships with many IdPs and SPs, so each participant only needs to trust the hub rather than every other participant individually), which scales much better than every organization individually establishing bilateral trust with every other organization it federates with. Cross-domain federation extends this further, allowing identities issued by one completely separate security domain (a different company, a different government agency) to be trusted within another, generally requiring a formal trust agreement (defining what assurance level the receiving domain can expect from the issuing domain's authentication) in addition to the technical protocol configuration — the technology (SAML/OIDC) enables cross-domain federation, but the trust relationship and its governance is a separate, often contractual, decision layered on top."
 
   - id: d5-t4
     domain: domain5
@@ -97,7 +116,7 @@ topics:
     title: "Authorization Mechanisms"
     summary: "The models that decide what an authenticated subject is allowed to do — DAC, MAC, RBAC, ABAC — and where each fits best."
     tags: ["authorization", "RBAC", "ABAC", "DAC", "MAC", "risk-based access control"]
-    key_terms: ["DAC", "MAC", "RBAC", "ABAC", "Rule-Based Access Control", "Risk-Adaptive Access Control"]
+    key_terms: ["DAC", "MAC", "RBAC", "ABAC", "Rule-Based Access Control", "Risk-Adaptive Access Control", "Content-Dependent Access Control", "Constrained User Interface"]
     sections:
       - heading: "The Major Access Control Models"
         blocks:
@@ -112,6 +131,10 @@ topics:
           - type: callout
             style: example
             text: "An ABAC policy might allow access only if: role = 'Finance', resource classification ≤ 'Confidential', time is within business hours, AND the device passes a compliance check — all four attributes evaluated together at the moment of the request."
+      - heading: "Two More Specialized Models"
+        blocks:
+          - type: paragraph
+            text: "Content-dependent access control makes the access decision based on the actual content of the data being requested, not just metadata about it (e.g. a database query is filtered so a user only sees the specific rows/records they're authorized for, rather than being granted or denied access to the whole table). A constrained user interface restricts what a subject can even attempt to do at the interface level, rather than relying purely on a backend permissions check — a menu that simply doesn't display options a user isn't authorized for, or a database view that only exposes certain columns, so unauthorized actions aren't just blocked, they're never presented as a choice in the first place. Both are less a separate 'model' in the DAC/MAC/RBAC/ABAC sense and more a refinement technique layered on top of one of those models, narrowing what 'access' actually means at a finer grain than a simple allow/deny on a whole resource."
       - heading: "Policy Engines and Risk-Adaptive Access"
         blocks:
           - type: paragraph
@@ -130,7 +153,7 @@ topics:
     title: "Identity and Access Provisioning Lifecycle"
     summary: "Managing accounts and access from creation through role changes to termination, and why deprovisioning failures are a leading cause of breaches."
     tags: ["provisioning", "deprovisioning", "access review", "identity lifecycle", "identity governance"]
-    key_terms: ["Provisioning", "Deprovisioning", "Access Review", "Entitlement Creep", "Joiner-Mover-Leaver", "Identity Governance and Administration (IGA)", "Orphaned Account"]
+    key_terms: ["Provisioning", "Deprovisioning", "Access Review", "Entitlement Creep", "Joiner-Mover-Leaver", "Identity Governance and Administration (IGA)", "Orphaned Account", "Access Certification"]
     sections:
       - heading: "The Joiner-Mover-Leaver Model"
         blocks:
@@ -147,6 +170,10 @@ topics:
           - type: callout
             style: tip
             text: "Deprovisioning delay on termination is one of the highest-risk gaps in this lifecycle — a disgruntled former employee retaining even brief access after termination is a classic and well-documented insider threat scenario, which is why prompt, ideally automated, deprovisioning is emphasized on the exam."
+      - heading: "Running an Access Certification Campaign"
+        blocks:
+          - type: paragraph
+            text: "In practice, an access certification campaign follows a repeatable cycle: the IGA platform generates a list of every entitlement per user, grouped by the manager or resource owner who's accountable for confirming it; each reviewer works through their assigned list, explicitly approving or revoking each entitlement (rather than a passive 'no news is good news' default); revoked entitlements are automatically deprovisioned through the same automation used for terminations; and the campaign's results (completion rate, revocation rate, time to complete) are themselves tracked as process metrics, echoing Domain 6's process-data concepts. A campaign that reviewers rubber-stamp without genuinely evaluating each entitlement provides the appearance of governance without its substance — which is exactly why some mature programs sample-audit a subset of 'approved' certifications afterward to confirm reviewers are actually exercising judgment, not just clicking through."
 
   - id: d5-t6
     domain: domain5
@@ -154,7 +181,7 @@ topics:
     title: "Authentication Systems"
     summary: "The centralized systems and protocols (Kerberos, RADIUS, TACACS+) that implement authentication, and password/biometric authentication mechanics."
     tags: ["Kerberos", "RADIUS", "TACACS+", "biometrics", "password hashing"]
-    key_terms: ["Kerberos", "RADIUS", "TACACS+", "Ticket Granting Ticket", "FAR/FRR", "Password Vaulting", "bcrypt", "Pass-the-Hash", "Credential Stuffing"]
+    key_terms: ["Kerberos", "RADIUS", "TACACS+", "Ticket Granting Ticket", "FAR/FRR", "Password Vaulting", "bcrypt", "Pass-the-Hash", "Credential Stuffing", "LDAP", "Directory Service"]
     sections:
       - heading: "Centralized Authentication Protocols"
         blocks:
@@ -163,6 +190,10 @@ topics:
           - type: callout
             style: tip
             text: "TACACS+ is favored for administrative access to network devices (routers, switches) partly because it fully encrypts the session and separates AAA functions, giving more granular control over what an authenticated admin is authorized to do."
+      - heading: "Directory Services and LDAP"
+        blocks:
+          - type: paragraph
+            text: "Kerberos authenticates identities, but something has to actually store those identities, their attributes, and their group memberships in the first place — that's the role of a directory service (Active Directory being the most common enterprise example), a hierarchical database purpose-built for storing and querying identity and resource information efficiently at scale. LDAP (Lightweight Directory Access Protocol) is the standard protocol applications use to query and authenticate against a directory service, letting an application check credentials or look up a user's group memberships without needing to understand the directory's internal storage format. Directory services and Kerberos are complementary, not competing: the directory is the identity store and source of truth for attributes/group membership, while Kerberos is the authentication protocol layered on top that actually proves a claimed identity — an application might use LDAP to look up what a user is authorized for, after Kerberos has already confirmed who they are."
       - heading: "Attacks Against Ticket- and Hash-Based Authentication"
         blocks:
           - type: paragraph
