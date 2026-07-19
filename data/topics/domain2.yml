@@ -5,7 +5,7 @@ topics:
     title: "Identify and Classify Information and Assets"
     summary: "Building an asset inventory and applying classification schemes so protection effort matches actual sensitivity and value."
     tags: ["asset classification", "data classification", "asset inventory"]
-    key_terms: ["Asset Inventory", "Data Classification", "Sensitivity", "Asset Valuation", "Declassification"]
+    key_terms: ["Asset Inventory", "Data Classification", "Sensitivity", "Asset Valuation", "Declassification", "Data Discovery"]
     sections:
       - heading: "You Can't Protect What You Haven't Inventoried"
         blocks:
@@ -32,6 +32,14 @@ topics:
         blocks:
           - type: paragraph
             text: "Because classification isn't permanent, a mature program defines who can change it and under what conditions — both upgrading sensitivity (data that becomes more sensitive, e.g. after a regulation changes) and downgrading/declassifying it (data that no longer needs its original protection level, e.g. financial results after public announcement, or historical data whose sensitivity has genuinely diminished with age). Declassification should be a deliberate, documented decision by the data owner, not something that happens implicitly just because a control was relaxed or forgotten over time."
+      - heading: "Automated Discovery and Classification Tools"
+        blocks:
+          - type: paragraph
+            text: "Manually classifying every file an organization creates doesn't scale past a small environment, which is why most mature programs supplement manual owner-driven classification with automated data discovery and classification tooling — software that scans file shares, databases, and cloud storage for patterns matching sensitive data types (credit card number formats, government ID formats, health record keywords) and automatically tags or flags matches for review. This is especially important for finding sensitive data that was never properly classified in the first place — a spreadsheet of customer social security numbers saved to a general file share by an employee who never thought to apply a classification label at all. Automated tools reduce (but don't eliminate) reliance on humans remembering to classify correctly every time; the data owner remains accountable for confirming and acting on what the tooling finds."
+      - heading: "Classification Review Cadence"
+        blocks:
+          - type: paragraph
+            text: "Beyond event-driven reclassification (like a public earnings announcement), mature programs also review classifications on a periodic schedule — commonly annually for high-sensitivity data — since sensitivity can drift gradually rather than through one discrete triggering event (a competitive product roadmap that was highly sensitive at conception may be substantially less sensitive a few years after the product has shipped and iterated well past it). A classification scheme that's applied once at creation and never revisited tends to drift out of alignment with actual current sensitivity over time, in the same way policy documentation drifts if it's never reviewed (per Domain 1's documentation lifecycle content)."
 
   - id: d2-t2
     domain: domain2
@@ -39,7 +47,7 @@ topics:
     title: "Information and Asset Handling Requirements"
     summary: "Translating classification levels into concrete rules for labeling, handling, storing, and transmitting each type of asset."
     tags: ["handling requirements", "labeling", "marking"]
-    key_terms: ["Labeling", "Marking", "Handling Standard", "Data Owner", "Data Sovereignty"]
+    key_terms: ["Labeling", "Marking", "Handling Standard", "Data Owner", "Data Sovereignty", "Information Rights Management (IRM)"]
     sections:
       - heading: "From Classification to Concrete Rules"
         blocks:
@@ -63,6 +71,14 @@ topics:
         blocks:
           - type: paragraph
             text: "Data sovereignty is the principle that data is subject to the laws of the country/jurisdiction where it's physically stored or processed, not just the laws of the organization's home country. A handling standard for data about EU residents may need to require that data stay within specific jurisdictions, or require the cross-border transfer safeguards described under GDPR in Domain 1 (Standard Contractual Clauses, adequacy decisions) — handling requirements and legal/regulatory obligations aren't separate concerns, they converge directly at this point, where a technical decision (which region a cloud provider stores data in) becomes a compliance decision."
+      - heading: "Marking in Practice: A Worked Example Across Levels"
+        blocks:
+          - type: paragraph
+            text: "A concrete, consistent marking scheme makes handling rules self-enforcing to some degree, since anyone touching the asset can immediately see what's required just by looking at it. A Public document might carry no marking at all, or an explicit 'Public' footer confirming it's cleared for release. An Internal document typically carries a footer/banner ('Internal Use Only') and is excluded from external distribution by policy. A Confidential document adds a prominent header and footer on every page, distribution restricted to named individuals or roles, and often a document control number for tracking. A Restricted (or equivalent top-tier) document adds the strictest marking — often per-page watermarking with the viewer's identity, tracked/logged access, and explicit prohibition on printing or export without separate written approval — precisely because the marking itself is a control: it makes misuse harder to claim as accidental and easier to detect."
+      - heading: "Information Rights Management (IRM/DRM)"
+        blocks:
+          - type: paragraph
+            text: "Traditional access controls stop protecting a file the moment it's legitimately opened and copied elsewhere — from that point, the classification label is just a marking with no technical enforcement behind it. Information Rights Management (sometimes called Digital Rights Management in a broader context) embeds protection directly into the file itself: even after a legitimate recipient opens a document, IRM can persistently enforce restrictions like preventing copy/paste, printing, or forwarding, and can even revoke access to a file that's already been distributed if the classification or the recipient's authorization changes later. This extends handling requirements beyond the boundary of the organization's own systems — a Confidential file shared with an external partner can still carry its handling restrictions with it, rather than becoming an unrestricted, unmanaged copy the moment it leaves the network."
 
   - id: d2-t3
     domain: domain2
@@ -96,6 +112,14 @@ topics:
           - type: callout
             style: tip
             text: "A commonly tested exam framing: the customer's security responsibility shrinks as you move from IaaS to PaaS to SaaS, but it never reaches zero — even in SaaS, the customer remains responsible for identity/access configuration and how they classify and share their own data within the platform."
+      - heading: "A Complete Asset Onboarding Checklist"
+        blocks:
+          - type: paragraph
+            text: "Bringing the elements of secure provisioning together, a thorough onboarding process typically confirms: the asset was sourced through an approved, verified supplier (Domain 1's SCRM); it was built from (or matches) an approved golden image/baseline; default credentials have been changed and unnecessary services disabled; it's been assigned an owner, a classification-appropriate control set, and added to the asset inventory (2.1); it's enrolled in ongoing patch and configuration management (Domain 7); and, for anything handling sensitive data, it's been scoped correctly against relevant compliance requirements (Domain 1/2's compliance-mapping content) before it ever receives real production data. Skipping any single step tends to surface later as exactly the kind of untracked, unhardened, forgotten asset that Domain 2's opening topic warns creates outsized breach risk."
+      - heading: "Looking Ahead to Decommissioning"
+        blocks:
+          - type: paragraph
+            text: "Secure provisioning has a mirror-image counterpart at the other end of an asset's life: secure decommissioning, covered in depth as part of the information system lifecycle in Domain 3 and the sanitization/media-management content in Domain 7. It's worth flagging here because the two are symmetric — an asset that was provisioned with a documented owner and clear classification is far easier to decommission securely later (its owner, contents, and required disposal handling are already known), while an asset that was provisioned informally, without registration, often becomes exactly the kind of orphaned system that's later found still holding sensitive data long after anyone remembers it exists."
 
   - id: d2-t4
     domain: domain2
@@ -103,7 +127,7 @@ topics:
     title: "Data Lifecycle Management"
     summary: "The stages data passes through from creation to destruction, and the controls appropriate at each stage."
     tags: ["data lifecycle", "data at rest", "data in transit", "data in use"]
-    key_terms: ["Data at Rest", "Data in Transit", "Data in Use", "Data Lifecycle", "Sanitization", "Confidential Computing"]
+    key_terms: ["Data at Rest", "Data in Transit", "Data in Use", "Data Lifecycle", "Sanitization", "Confidential Computing", "Data Remanence"]
     sections:
       - heading: "The Stages of the Lifecycle"
         blocks:
@@ -122,6 +146,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Data in use has historically been the hardest state to protect, because traditional encryption must be reversed (decrypted) before a CPU can actually process the data, creating a window where it's exposed in plaintext in memory — accessible to a sufficiently privileged attacker, a compromised hypervisor, or even in some cases the cloud provider's own operators. Confidential computing addresses this using hardware-based trusted execution environments (the same enclave concept introduced in Domain 3) to process data inside a protected region where even the operating system or hypervisor can't observe it, extending meaningful protection all the way through the data-in-use stage rather than leaving it as the one unprotected gap in an otherwise fully encrypted lifecycle."
+      - heading: "Data Remanence by Media Type"
+        blocks:
+          - type: paragraph
+            text: "How thoroughly 'deleted' data can actually be recovered depends heavily on the underlying storage technology, which is why sanitization method must be matched to media type rather than applied as one universal process. On traditional magnetic hard drives, data can often be recovered even after a standard delete (which just removes the file system pointer, not the underlying bits) — overwriting (multiple passes of random or fixed patterns) or degaussing (exposing the drive to a strong magnetic field that scrambles the magnetic domains storing the data) are established, reliable methods. Solid-state drives (SSDs) complicate this significantly: wear-leveling algorithms mean the physical location the drive reports for a piece of data often isn't where it's actually stored, so a targeted overwrite command may not reach every physical copy, and traditional degaussing doesn't work at all on SSDs since they don't store data magnetically — cryptographic erasure (destroying the encryption key for a self-encrypting drive, instantly rendering all its data permanently unreadable regardless of physical remanence) or physical destruction are generally the only fully reliable sanitization methods for SSDs and other flash-based media."
+          - type: callout
+            style: tip
+            text: "NIST SP 800-88 is the standard reference for sanitization methods and requirements, defining Clear (protects against simple, non-invasive recovery methods), Purge (protects against laboratory-grade recovery techniques), and Destroy (physically destroys the media so it can never be reused at all) as the three general sanitization categories, each appropriate to different data sensitivity levels."
       - heading: "Why Lifecycle Thinking Matters"
         blocks:
           - type: callout
@@ -134,7 +165,7 @@ topics:
     title: "Asset Retention"
     summary: "Determining how long data and assets must be kept, balancing legal/regulatory requirements against the risk of holding data too long."
     tags: ["retention", "records management", "legal hold"]
-    key_terms: ["Retention Policy", "Legal Hold", "Records Management", "Data Minimization", "e-Discovery", "Defensible Deletion"]
+    key_terms: ["Retention Policy", "Legal Hold", "Records Management", "Data Minimization", "e-Discovery", "Defensible Deletion", "Grandfather-Father-Son"]
     sections:
       - heading: "Retention Is a Balancing Act"
         blocks:
@@ -149,10 +180,14 @@ topics:
           - type: callout
             style: example
             text: "An organization with a standard 'delete emails after 2 years' policy must suspend that deletion for any custodian's mailbox once a lawsuit is filed or reasonably anticipated, even if the 2-year mark is reached during the case."
-      - heading: "e-Discovery and Defensible Deletion"
+      - heading: "Retention Schedules Vary Widely by Data Type"
         blocks:
           - type: paragraph
-            text: "e-Discovery (electronic discovery) is the legal process of identifying, preserving, and producing electronically stored information relevant to litigation or an investigation — legal hold (above) exists specifically to make e-discovery possible by ensuring relevant data still exists when it's requested. Defensible deletion is the complementary concept for everything not under legal hold: routinely and consistently disposing of data once its retention period genuinely expires, following a documented, evenly-applied schedule, so that if the deletion is ever questioned later, the organization can demonstrate it followed a standard, good-faith policy rather than conveniently destroying something inconvenient. A retention program that's enforced sporadically or only when it's operationally convenient undermines exactly this defensibility, and can look like intentional evidence destruction even when it wasn't."
+            text: "A single organization-wide retention period is almost never appropriate, because different data categories carry very different legal minimums and business needs. Financial/tax records are frequently subject to multi-year statutory minimums (commonly cited as around seven years in many jurisdictions for core financial records). Employment records often need to be kept for a period spanning well after employment ends, to cover potential future employment-related claims. Security logs might be retained for a much shorter, operationally-driven period (e.g. 90 days to a year) unless a specific regulation or active investigation extends that. Marketing/transient data may have almost no formal retention requirement at all, and the organization's own data-minimization goals become the primary driver for how long it's kept. A well-designed retention schedule maps each meaningfully distinct data category to its own justified period, rather than defaulting everything to the strictest (or the most convenient) single number."
+      - heading: "Backup Media Rotation: Grandfather-Father-Son"
+        blocks:
+          - type: paragraph
+            text: "Retention thinking applies to backup media itself, not just the primary data. Grandfather-Father-Son (GFS) is a classic backup rotation scheme that assigns different retention periods to different backup tiers: daily backups ('son') are kept for a short period and cycled/overwritten frequently; weekly backups ('father') are kept longer, giving a mid-term recovery point; and monthly backups ('grandfather') are retained the longest, providing long-term historical recovery points without needing to keep every single daily backup indefinitely. This tiered approach balances two competing goals also seen elsewhere in retention: enough recent recovery points to support fast, granular restores (RPO-driven, per Domain 1/7), and enough long-term retention to satisfy compliance or historical-analysis needs, without the storage cost of keeping every daily backup ever made forever."
 
   - id: d2-t6
     domain: domain2
@@ -160,7 +195,7 @@ topics:
     title: "Data Security Controls and Compliance Requirements"
     summary: "Selecting the right technical controls (encryption, DLP, tokenization) to satisfy both security needs and specific regulatory obligations."
     tags: ["data security controls", "encryption", "DLP", "tokenization", "compliance", "compliance frameworks"]
-    key_terms: ["Encryption", "Tokenization", "Data Loss Prevention (DLP)", "Data Masking", "Scoping and Tailoring", "PCI DSS", "HIPAA", "GDPR"]
+    key_terms: ["Encryption", "Tokenization", "Data Loss Prevention (DLP)", "Data Masking", "Scoping and Tailoring", "PCI DSS", "HIPAA", "GDPR", "FIPS 140"]
     sections:
       - heading: "Common Data Security Controls"
         blocks:
@@ -174,6 +209,14 @@ topics:
           - type: callout
             style: example
             text: "Tokenization vs. encryption: an encrypted credit card number can be decrypted back to the original with the key. A token has no mathematical relationship to the original number — it can only be 'detokenized' by looking it up in a secure vault, which limits the blast radius if the token itself is stolen."
+      - heading: "Where DLP Actually Watches"
+        blocks:
+          - type: paragraph
+            text: "DLP isn't a single tool but a category deployed at different points, and each deployment point catches a different kind of exposure. Network DLP inspects traffic leaving the network (email, web uploads, file transfers) and blocks or flags matches against defined sensitive-data patterns. Endpoint DLP runs directly on user devices, able to catch attempts to copy sensitive data to a USB drive, paste it into an unapproved application, or print it — activity that never touches the network at all and so would be invisible to network DLP alone. Storage/discovery DLP (closely related to the automated classification tooling from 2.1) scans data at rest across file shares, databases, and cloud storage to find sensitive data sitting in places it shouldn't be, independent of any specific transfer attempt. A mature DLP program layers all three, since each catches a distinct category of exposure the others would miss."
+      - heading: "Standardizing Cryptographic Implementations: FIPS 140"
+        blocks:
+          - type: paragraph
+            text: "Selecting 'encryption' as a control isn't specific enough on its own — the exam distinguishes choosing a strong algorithm (Domain 3's cryptography content) from validating that a specific product's implementation of that algorithm is actually trustworthy. FIPS 140 (Federal Information Processing Standard 140, currently at revision 140-3) is the U.S. government standard for validating cryptographic modules — the physical or software component that actually performs encryption/decryption — testing not just the algorithm's correctness but the module's actual implementation, key handling, and tamper resistance, at graded security levels. Many regulated industries and government contracts require FIPS 140-validated cryptographic modules specifically, which is a meaningfully different (and stricter) requirement than simply 'uses AES' — an in-house implementation of a correct algorithm, never independently validated, does not satisfy a FIPS 140 requirement even if the underlying math is sound."
       - heading: "Mapping Controls to Compliance Requirements"
         blocks:
           - type: paragraph
