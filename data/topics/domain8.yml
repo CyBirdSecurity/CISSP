@@ -5,7 +5,7 @@ topics:
     title: "Security in the Software Development Life Cycle (SDLC)"
     summary: "Integrating security activities into every SDLC phase and comparing traditional (Waterfall) and iterative (Agile/DevSecOps) models."
     tags: ["SDLC", "DevSecOps", "shift left", "Agile", "maturity model"]
-    key_terms: ["SDLC", "Shift Left", "DevSecOps", "Waterfall", "Agile", "Threat Modeling (SDLC)", "Security Maturity Model"]
+    key_terms: ["SDLC", "Shift Left", "DevSecOps", "Waterfall", "Agile", "Threat Modeling (SDLC)", "Security Maturity Model", "Requirements Traceability"]
     sections:
       - heading: "Security at Every SDLC Phase"
         blocks:
@@ -27,6 +27,10 @@ topics:
           - type: callout
             style: tip
             text: "DevSecOps is essentially 'shift left' applied to Agile/DevOps: instead of a security team reviewing code after it's written, automated security checks run continuously as part of the same pipeline that builds and deploys the code."
+      - heading: "Requirements Traceability"
+        blocks:
+          - type: paragraph
+            text: "A security requirement defined at the start of the SDLC is only meaningful if it's actually verified to have been implemented by the time the software ships — requirements traceability is the discipline of explicitly linking each requirement to the design elements, code, and test cases that implement and verify it, so nothing defined early quietly gets dropped as the project moves through design, development, and testing. Without traceability, a 'shift left' security requirements exercise can become a paperwork formality — requirements get written at the start, then nobody can actually confirm months later whether the shipped software satisfies them, since there's no documented chain connecting the original requirement to a specific test that proves it was met. A traceability matrix (mapping each requirement to its corresponding design decisions and test cases) is the concrete artifact that closes this gap, and is often specifically requested as evidence during the certification/audit processes covered in Domains 3 and 6."
       - heading: "Measuring Security Maturity"
         blocks:
           - type: paragraph
@@ -37,8 +41,8 @@ topics:
     number: "8.2"
     title: "Security Controls in Software Development Ecosystems"
     summary: "Protecting the toolchain itself — source control, build systems, and CI/CD pipelines — that software is actually built with."
-    tags: ["CI/CD security", "source control", "software supply chain", "secrets management"]
-    key_terms: ["Source Code Repository", "CI/CD Pipeline", "Software Composition Analysis (SCA)", "Build Integrity", "Secrets Management", "Artifact Signing"]
+    tags: ["CI/CD security", "source control", "software supply chain", "secrets management", "container security"]
+    key_terms: ["Source Code Repository", "CI/CD Pipeline", "Software Composition Analysis (SCA)", "Build Integrity", "Secrets Management", "Artifact Signing", "Container Security"]
     sections:
       - heading: "Securing the Toolchain, Not Just the Code"
         blocks:
@@ -53,6 +57,10 @@ topics:
           - type: callout
             style: example
             text: "An attacker who compromises a CI/CD pipeline's build script doesn't need to find a bug in the application code at all — they can insert malicious code directly into the build process, which then gets distributed to every user of the resulting software, exactly the kind of software supply chain attack introduced in Domain 1."
+      - heading: "Container and Image Security"
+        blocks:
+          - type: paragraph
+            text: "Modern CI/CD pipelines frequently package software as container images, which introduces its own security surface beyond the application code itself. A container image is built up in layers, typically starting from a base image (e.g. a minimal operating system) — vulnerabilities in that base image, or in any layer added on top, ship as part of every container built from it, which is why image scanning (checking a built image's full layer stack for known vulnerabilities, similar in spirit to SCA for dependencies) is a standard pipeline step before an image is allowed to deploy. Beyond the image itself, container runtime configuration matters: a container running as root, or with excessive host-level privileges/mounted host directories, weakens the isolation containers are meant to provide, echoing the hypervisor/VM-escape isolation concerns from Domain 3 at the container level instead. Least privilege and secure-by-default configuration (Domain 3's design principles) apply just as directly to container runtime settings as they do to any other system."
       - heading: "Secrets Management"
         blocks:
           - type: paragraph
@@ -68,7 +76,7 @@ topics:
     title: "Assessing the Effectiveness of Software Security"
     summary: "Measuring whether security controls built into software actually work, using the testing techniques from Domain 6 applied specifically to code."
     tags: ["software testing", "SAST", "DAST", "fuzz testing", "security champions"]
-    key_terms: ["SAST", "DAST", "IAST", "Fuzz Testing", "Code Review", "RASP", "Security Champion", "Bug Bounty"]
+    key_terms: ["SAST", "DAST", "IAST", "Fuzz Testing", "Code Review", "RASP", "Security Champion", "Bug Bounty", "Chaos Engineering"]
     sections:
       - heading: "Testing Techniques for Software Security"
         blocks:
@@ -81,6 +89,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Runtime Application Self-Protection (RASP) takes a different approach from the testing techniques above — rather than finding vulnerabilities before release, RASP is embedded directly into a running application and can detect and actively block attacks (like an injection attempt) in real time within the application's own execution context, giving it more precise visibility into whether a given input is actually being interpreted dangerously than an external network-layer control like a WAF (Domain 4) would have. It's best understood as a compensating/defense-in-depth layer that catches what testing missed, not a replacement for the testing techniques above."
+      - heading: "Testing Resilience, Not Just Correctness: Chaos Engineering"
+        blocks:
+          - type: paragraph
+            text: "The testing techniques above validate whether software behaves correctly under normal or adversarial input; chaos engineering tests a different question entirely — whether a system remains available and behaves gracefully when parts of its own infrastructure unexpectedly fail (a dependency becomes unreachable, a server is abruptly terminated, network latency spikes). Rather than waiting for a real outage to discover a system doesn't actually handle a dependency failure gracefully, chaos engineering deliberately and often continuously injects controlled failures into a production or production-like environment to validate resilience assumptions before a real, uncontrolled failure tests them instead. This connects directly to the availability leg of CIA and to the high-availability/redundancy concepts from Domain 7 — chaos engineering is essentially a way of continuously testing whether the redundancy and failover mechanisms a system was designed with actually work as intended, rather than assuming they do because they were built correctly once."
       - heading: "Human and Crowd-Sourced Assessment"
         blocks:
           - type: paragraph
@@ -92,7 +104,7 @@ topics:
     title: "Assessing the Security Impact of Acquired Software"
     summary: "Applying the same rigor to purchased, open-source, and outsourced software as to code written in-house."
     tags: ["third-party software", "open source risk", "COTS", "end of life software"]
-    key_terms: ["Commercial Off-The-Shelf (COTS)", "Open Source Risk", "Vendor Security Assessment", "End-of-Life (EOL) Software"]
+    key_terms: ["Commercial Off-The-Shelf (COTS)", "Open Source Risk", "Vendor Security Assessment", "End-of-Life (EOL) Software", "Open Source License"]
     sections:
       - heading: "Not All Software Is Written In-House"
         blocks:
@@ -105,6 +117,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Software eventually reaches end-of-life (EOL) — the point where the vendor or maintaining community stops releasing security patches entirely, regardless of what vulnerabilities are found afterward. Continuing to run EOL software means accepting an ever-growing, permanently unpatched attack surface, since any new vulnerability discovered after EOL will never be fixed by the vendor; the only remaining options are migration to a supported alternative, or compensating controls (network isolation, extended/paid vendor support if available) if migration isn't immediately possible. Tracking EOL dates as part of the asset inventory (Domain 2) is what turns this from a surprise into a planned migration."
+      - heading: "Open Source Licensing: A Related Risk Beyond Security"
+        blocks:
+          - type: paragraph
+            text: "Open-source components carry a risk category adjacent to, but distinct from, security vulnerabilities: license compliance. Every open-source component is distributed under a specific license (permissive licenses like MIT or Apache 2.0 generally allow broad reuse with minimal obligations; copyleft licenses like the GPL can require that software incorporating the component also be released under compatible open-source terms), and using a component in a way that violates its license terms creates legal and business risk even when the code itself is perfectly secure. Software Composition Analysis tooling (8.2) commonly checks license compliance alongside vulnerability scanning for exactly this reason — an organization needs to know both whether a dependency is vulnerable and whether its license is even compatible with how the organization intends to use and potentially redistribute the resulting software, since discovering a license conflict after a product has shipped is a far more expensive problem to fix than catching it during dependency selection."
       - heading: "Ongoing Responsibility, Not a One-Time Check"
         blocks:
           - type: paragraph
@@ -116,7 +132,7 @@ topics:
     title: "Secure Coding Guidelines and Standards"
     summary: "The common vulnerability classes secure coding standards defend against, and how organizations codify and enforce coding practices."
     tags: ["secure coding", "OWASP", "input validation", "injection", "buffer overflow"]
-    key_terms: ["OWASP Top 10", "Input Validation", "Injection", "Secure Coding Standard", "Least Privilege (code)", "Buffer Overflow", "Race Condition", "SSRF"]
+    key_terms: ["OWASP Top 10", "Input Validation", "Injection", "Secure Coding Standard", "Least Privilege (code)", "Buffer Overflow", "Race Condition", "SSRF", "API Security"]
     sections:
       - heading: "Why Standardize Secure Coding"
         blocks:
@@ -140,6 +156,10 @@ topics:
         blocks:
           - type: paragraph
             text: "A buffer overflow occurs when a program writes more data into a fixed-size memory buffer than it was allocated to hold, overwriting adjacent memory — in the worst case, an attacker can craft the overflowing input so the overwritten memory redirects program execution to attacker-supplied code, achieving arbitrary code execution. This is primarily a risk in languages that manage memory manually (C/C++); memory-safe languages (which perform automatic bounds checking) eliminate this specific vulnerability class by design, which is a major reason memory-safe language adoption is increasingly recommended for new security-critical code. A race condition is a timing-dependent flaw where the correctness of a program depends on the unpredictable order or timing of concurrent operations — the Time-of-Check-to-Time-of-Use (TOCTOU) vulnerability introduced in Domain 3 is a specific, security-relevant example of a race condition, where an attacker exploits the gap between a security check and the action that check was supposed to protect."
+      - heading: "Secure API Design"
+        blocks:
+          - type: paragraph
+            text: "As applications increasingly expose functionality through APIs rather than traditional server-rendered pages, secure coding guidance increasingly needs API-specific rules beyond the general vulnerability classes above. Every API endpoint should independently enforce authentication and object-level authorization (per Domain 3's API vulnerability content — an authenticated caller must still be checked against whether they're authorized for the specific resource ID they're requesting, not just that they're logged in at all). Rate limiting protects against both brute-force/credential-stuffing attempts (Domain 5) and denial-of-service-style abuse by capping how many requests a given caller can make in a given time window. Strict, explicit schema validation (defining exactly what fields, types, and value ranges a request is allowed to contain, and rejecting anything that doesn't conform) closes off a wide class of injection and unexpected-input problems at the API boundary before that input ever reaches business logic — treating API input with the same 'never trust the caller' skepticism secure coding applies to any other untrusted input source."
       - heading: "Baseline Secure Coding Practices"
         blocks:
           - type: paragraph
