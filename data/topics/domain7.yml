@@ -227,22 +227,23 @@ topics:
     domain: domain7
     number: "7.12"
     title: "Testing Disaster Recovery Plans"
-    summary: "The escalating levels of DRP testing, from tabletop discussion to full interruption, and why untested plans can't be trusted."
-    tags: ["DRP testing", "tabletop exercise", "full interruption test"]
-    key_terms: ["Tabletop Exercise", "Walkthrough", "Simulation Test", "Parallel Test", "Full Interruption Test"]
+    summary: "The escalating levels of DRP testing, from checklist review to full interruption, and why untested plans can't be trusted."
+    tags: ["DRP testing", "checklist review", "tabletop exercise", "full interruption test"]
+    key_terms: ["Checklist Review", "Tabletop Exercise", "Walkthrough", "Simulation Test", "Parallel Test", "Full Interruption Test"]
     sections:
       - heading: "Levels of DRP Testing"
         blocks:
           - type: list
             style: numbered
             items:
-              - "Tabletop exercise / structured walkthrough — the team talks through the plan step-by-step in a discussion format; lowest cost and disruption, good for validating the plan's logic and familiarizing the team"
+              - "Checklist review / read-through — each recovery team member individually reviews the plan (or their specific section of it) for currency and completeness; no group discussion or system involvement, the lowest-cost and least realistic level"
+              - "Tabletop exercise / structured walkthrough — the team talks through the plan step-by-step together in a discussion format; low cost and disruption, good for validating the plan's logic and familiarizing the team beyond an individual read-through"
               - "Simulation test — a specific disaster scenario is simulated and the team practices their roles, but production systems aren't actually touched"
               - "Parallel test — recovery systems are actually brought up and operated alongside (in parallel with) the still-running production systems, validating that recovery actually works without risking the primary environment"
               - "Full interruption test — production is intentionally taken down and the organization actually fails over to the recovery plan; the most realistic test, but also the highest risk and cost, and typically the last stage an organization reaches only after lower-level tests have built confidence"
           - type: callout
             style: tip
-            text: "The exam expects these ordered from least to most disruptive/realistic. A question describing 'the team walked through the plan verbally without touching any systems' is a tabletop exercise; 'production was actually shut down' is a full interruption test."
+            text: "The exam expects these five levels ordered from least to most disruptive/realistic. A question describing 'each team member reviewed their section alone' is a checklist review; 'the team walked through the plan together verbally without touching any systems' is a tabletop exercise; 'production was actually shut down' is a full interruption test."
       - heading: "Why Untested Plans Fail"
         blocks:
           - type: paragraph
