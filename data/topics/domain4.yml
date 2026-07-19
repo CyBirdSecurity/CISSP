@@ -5,7 +5,7 @@ topics:
     title: "Secure Design Principles in Network Architecture"
     summary: "How the OSI and TCP/IP models organize network communication, and how segmentation and zero trust apply defense in depth to the network itself."
     tags: ["OSI model", "TCP/IP", "network segmentation", "zero trust", "VLAN"]
-    key_terms: ["OSI Model", "TCP/IP Model", "Network Segmentation", "DMZ", "Zero Trust Network Architecture", "VLAN", "Microsegmentation", "Software-Defined Networking"]
+    key_terms: ["OSI Model", "TCP/IP Model", "Network Segmentation", "DMZ", "Zero Trust Network Architecture", "VLAN", "Microsegmentation", "Software-Defined Networking", "Subnetting", "CIDR"]
     sections:
       - heading: "The OSI Model"
         blocks:
@@ -31,6 +31,13 @@ topics:
           - type: callout
             style: example
             text: "A SYN flood attack abuses TCP's handshake specifically: the attacker sends many SYN requests but never completes the handshake with the final ACK, leaving the server holding many half-open connections until its connection table is exhausted — a form of denial of service that couldn't target UDP the same way, since UDP has no handshake state to exhaust."
+      - heading: "IP Addressing and Subnetting Fundamentals"
+        blocks:
+          - type: paragraph
+            text: "Segmentation ultimately depends on the ability to define discrete IP address ranges, which is what subnetting provides. An IPv4 address combined with a subnet mask (or its CIDR notation shorthand, e.g. /24) divides an address into a network portion (identifying which subnet a device belongs to) and a host portion (identifying the specific device within that subnet) — a /24 network has 8 bits for hosts, providing 256 addresses (254 usable after reserving the network and broadcast addresses), while a /16 network has far more host capacity but represents a much larger, less granular segment. Subnetting isn't just an addressing convenience — every subnet boundary is a natural place to apply routing rules, ACLs, or firewall policy, which is exactly why security-driven network design usually starts by defining subnet boundaries around trust zones (production vs. development, cardholder data environment vs. general corporate, per PCI DSS's segmentation requirement from Domain 2) before any other control is layered on top."
+          - type: callout
+            style: tip
+            text: "The exam doesn't typically require performing detailed subnet math, but does expect recognizing that smaller subnets (a higher CIDR prefix number, e.g. /28 vs. /24) mean fewer hosts and more granular segmentation boundaries — useful for isolating small, especially sensitive groups of systems."
       - heading: "Segmentation and Zero Trust as Architectural Principles"
         blocks:
           - type: paragraph
@@ -47,7 +54,7 @@ topics:
     title: "Securing Network Components"
     summary: "The devices that make up a network — switches, routers, firewalls, IDS/IPS — and the controls that keep each of them from becoming the weak link."
     tags: ["firewalls", "IDS", "IPS", "network devices", "proxy", "load balancer"]
-    key_terms: ["Firewall", "IDS", "IPS", "NAC", "Router", "Switch", "Proxy Server", "Load Balancer", "WAF", "Port Security", "802.1X"]
+    key_terms: ["Firewall", "IDS", "IPS", "NAC", "Router", "Switch", "Proxy Server", "Load Balancer", "WAF", "Port Security", "802.1X", "Air Gap", "Content Delivery Network"]
     sections:
       - heading: "Core Network Devices"
         blocks:
@@ -79,6 +86,14 @@ topics:
         blocks:
           - type: paragraph
             text: "Port security on a switch restricts which specific MAC addresses are allowed to communicate on a given physical port, and can shut the port down automatically if an unauthorized device is plugged in — a defense against someone physically connecting a rogue device to an open network jack. Hardening every network device matters as much as the device's function: default credentials must be changed, unused management interfaces and services disabled, and firmware kept current — an unpatched router or switch is just as much an attack surface as an unpatched server."
+      - heading: "The Extreme End of Segmentation: Air Gaps"
+        blocks:
+          - type: paragraph
+            text: "An air gap takes segmentation to its logical extreme: a system or network with no physical network connection to any other network at all, used for the most sensitive environments (some ICS/SCADA safety systems, classified government systems) where even a theoretically well-controlled network connection is considered too much residual risk. Air gaps aren't a perfect guarantee of isolation in practice — data still has to move in and out somehow (via removable media, for example), and that transfer point becomes the new, narrower attack surface to control instead (as demonstrated by real-world malware specifically designed to jump air gaps via infected USB media). The exam's takeaway is less about air gaps being unbreakable and more about recognizing them as the far end of the same segmentation spectrum as VLANs and microsegmentation — trading massive operational inconvenience for the strongest achievable isolation."
+      - heading: "Content Delivery Networks"
+        blocks:
+          - type: paragraph
+            text: "A Content Delivery Network (CDN) distributes copies of content across many geographically distributed servers, so users are served from a nearby location rather than a single origin server — primarily a performance technology, but with meaningful security implications. By absorbing and distributing traffic across many edge locations, a CDN also provides significant DDoS resilience, since a volumetric attack against the CDN's distributed edge is far harder to overwhelm than a single origin server would be, and many CDNs bundle WAF and bot-mitigation capabilities directly into the same edge layer. A CDN also expands an organization's effective trust boundary in a way worth being deliberate about — it's a third party terminating TLS and handling traffic on the organization's behalf, similar in trust implications to any other outsourced service covered under Domain 1's SCRM/vendor risk content."
 
   - id: d4-t3
     domain: domain4
@@ -86,7 +101,7 @@ topics:
     title: "Secure Communication Channels"
     summary: "The protocols and technologies — TLS, IPsec, VPNs, and secure wireless — that protect data as it travels across untrusted networks."
     tags: ["TLS", "IPsec", "VPN", "wireless security", "email security", "VoIP"]
-    key_terms: ["TLS", "IPsec", "VPN", "WPA3", "Remote Access", "S/MIME", "SRTP", "Split Tunneling"]
+    key_terms: ["TLS", "IPsec", "VPN", "WPA3", "Remote Access", "S/MIME", "SRTP", "Split Tunneling", "DNSSEC", "SPF", "DKIM", "DMARC"]
     sections:
       - heading: "Encrypting Data in Transit"
         blocks:
@@ -108,6 +123,17 @@ topics:
         blocks:
           - type: paragraph
             text: "Wireless networks add the risk that traffic can be intercepted by anyone within radio range, without needing physical network access at all. WPA3 is the current wireless security standard, replacing the deprecated WEP (broken and trivially crackable) and the aging WPA2 (still reasonably strong but showing weaknesses); WPA3 adds stronger encryption and protection against offline password-guessing attacks even when a weak passphrase is used."
+      - heading: "Securing the Domain Name System: DNSSEC"
+        blocks:
+          - type: paragraph
+            text: "DNS itself, in its original design, has no built-in way to verify that a DNS response actually came from the legitimate authoritative source rather than a spoofed one — an attacker who can inject a forged DNS response (DNS spoofing/cache poisoning) can silently redirect users to a malicious server while the URL in their browser still looks correct. DNSSEC (DNS Security Extensions) addresses this by digitally signing DNS records, letting a resolver cryptographically verify that a DNS response genuinely came from the authoritative source and wasn't tampered with in transit — the same public-key signature-verification concept from Domain 3's PKI content, applied specifically to DNS records. DNSSEC protects the integrity and authenticity of DNS answers; it notably does not provide confidentiality — DNS queries protected only by DNSSEC are still visible to anyone observing the traffic, which is a separate problem addressed by encrypted DNS transport protocols (DNS over TLS/HTTPS) rather than DNSSEC itself."
+      - heading: "Email Authentication: SPF, DKIM, and DMARC"
+        blocks:
+          - type: paragraph
+            text: "Beyond the message-level encryption covered next (S/MIME/PGP), a distinct and increasingly critical email security problem is verifying that a message's claimed sender domain is legitimate at all, since SMTP was never designed with sender verification in mind — this is exactly what enables domain spoofing in phishing attacks. SPF (Sender Policy Framework) lets a domain publish which mail servers are authorized to send email on its behalf, so a receiving server can check whether an incoming message's source server matches that authorized list. DKIM (DomainKeys Identified Mail) has the sending domain digitally sign outgoing messages, letting the receiving server verify the message wasn't altered in transit and genuinely originated from a server holding that domain's private signing key. DMARC (Domain-based Message Authentication, Reporting, and Conformance) ties the two together: it lets a domain publish a policy telling receiving servers what to do when a message fails SPF and/or DKIM checks (quarantine it, reject it outright, or just report the failure), and provides aggregate reporting back to the domain owner about authentication failures across the internet — visibility that SPF and DKIM alone don't provide on their own."
+          - type: callout
+            style: tip
+            text: "Exam distinction: SPF authenticates the sending server's IP address; DKIM authenticates message integrity and origin via a digital signature; DMARC is the policy layer that tells receivers what to actually do with messages that fail those checks, and closes the loop with reporting. All three work together — none of them alone fully solves domain spoofing."
       - heading: "Securing Other Common Channels: Email and Voice/Video"
         blocks:
           - type: paragraph
