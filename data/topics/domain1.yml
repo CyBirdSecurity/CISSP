@@ -5,7 +5,7 @@ topics:
     title: "Professional Ethics"
     summary: "The (ISC)² Code of Ethics and how to apply it when duties to employer, profession, and public interest come into conflict."
     tags: ["ethics", "code of ethics", "governance"]
-    key_terms: ["(ISC)² Code of Ethics", "Ethics Complaint", "Canon"]
+    key_terms: ["(ISC)² Code of Ethics", "Ethics Complaint", "Canon", "Whistleblowing"]
     sections:
       - heading: "Why Ethics Is Tested Before Anything Else"
         blocks:
@@ -32,14 +32,21 @@ topics:
           - type: callout
             style: example
             text: "A CISSP who plants a logic bomb before resigning, or who knowingly certifies a system as compliant when it is not, violates Canon II (act honorably/legally) and can be reported regardless of whether criminal charges are ever filed."
+      - heading: "Ethics vs. Legality: They're Not the Same Question"
+        blocks:
+          - type: paragraph
+            text: "Something can be perfectly legal and still unethical under the Code, and the exam deliberately tests this gap. A manager instructing staff to quietly under-report a data breach to avoid bad press might not be breaking any specific law in a given jurisdiction, yet it clearly violates Canon I (public trust) and Canon II (act honorably). Conversely, a CISSP might have a legal obligation (a subpoena, a regulatory reporting requirement) that conflicts with a promise of confidentiality made to a colleague — legality generally wins when there's a direct legal duty, but the Code still expects the disclosure to be handled honorably (transparently, through proper channels) rather than opportunistically."
+          - type: callout
+            style: example
+            text: "Whistleblowing sits at this intersection: reporting a serious, unaddressed security failure that puts the public at risk — through appropriate internal or external channels, after reasonable attempts to escalate internally — is consistent with Canon I, even if it feels disloyal to the employer named in Canon III. The Canons' priority order exists precisely to resolve this tension in the whistleblower's favor when public harm is genuinely at stake."
 
   - id: d1-t2
     domain: domain1
     number: "1.2"
     title: "Security Concepts: CIA, DAD, and Beyond"
     summary: "The core security triad, its inverse, and the supporting concepts (authenticity, non-repudiation) that frame every control decision."
-    tags: ["CIA", "fundamentals", "non-repudiation"]
-    key_terms: ["Confidentiality", "Integrity", "Availability", "DAD Triad", "Non-repudiation", "Authenticity"]
+    tags: ["CIA", "fundamentals", "non-repudiation", "Parkerian Hexad"]
+    key_terms: ["Confidentiality", "Integrity", "Availability", "DAD Triad", "Non-repudiation", "Authenticity", "Parkerian Hexad"]
     sections:
       - heading: "The CIA Triad"
         blocks:
@@ -58,10 +65,24 @@ topics:
           - type: callout
             style: tip
             text: "If a question describes an attacker reading data they shouldn't (Disclosure), that's a confidentiality failure. Modifying data (Alteration) is an integrity failure. Taking a system offline (Destruction/Denial) is an availability failure."
-      - heading: "Supporting Concepts"
+      - heading: "Supporting Concepts: Authenticity and Non-Repudiation"
         blocks:
           - type: paragraph
             text: "Beyond CIA, the exam expects fluency with authenticity (assurance that data or a message genuinely comes from its claimed source) and non-repudiation (the sender of a message cannot later deny having sent it). Non-repudiation is typically achieved through digital signatures combined with reliable timestamping and logging, and it matters most in legal and financial contexts where a party might try to disclaim an action after the fact."
+          - type: callout
+            style: example
+            text: "A wire transfer authorization signed with the sender's private key and logged with a trusted timestamp gives the bank non-repudiation: if the sender later claims 'I never authorized that transfer,' the signature (which only their private key could have produced) and the timestamp together refute the denial."
+      - heading: "Beyond CIA: The Parkerian Hexad"
+        blocks:
+          - type: paragraph
+            text: "The Parkerian Hexad extends CIA to six properties by adding possession/control (physical or logical control over an asset, distinct from confidentiality — data can be stolen, breaking possession, without the thief being able to read it if it's encrypted, meaning confidentiality can survive even when possession is lost), authenticity (covered above, but formalized as its own property in this model rather than folded into integrity), and utility (data remaining usable in a meaningful format — technically intact data that's been converted to an unusable or unreadable format has an availability-adjacent failure that pure CIA doesn't cleanly capture). The Hexad isn't a replacement for CIA on the exam — CIA remains the primary model — but it's useful for recognizing edge cases where CIA alone doesn't fully describe what went wrong."
+          - type: callout
+            style: example
+            text: "An encrypted laptop is stolen: possession is lost (the thief has the physical device) but confidentiality may still hold (the thief can't read the encrypted data without the key) — a scenario the Parkerian Hexad describes more precisely than CIA alone, which would only have 'confidentiality' to reach for."
+      - heading: "CIA Trade-offs in Practice"
+        blocks:
+          - type: paragraph
+            text: "The three properties of CIA are not always mutually reinforcing — strengthening one can weaken another, and recognizing this tension is a recurring exam theme. Strong confidentiality controls (strict access limits, complex re-authentication) can reduce availability by making legitimate access slower or more cumbersome. Aggressive availability measures (broad, easy access for redundancy and failover) can weaken confidentiality if not carefully scoped. Security decisions are ultimately about finding the balance point appropriate to the specific asset's risk profile, not maximizing all three properties simultaneously, which is usually impossible."
 
   - id: d1-t3
     domain: domain1
@@ -162,7 +183,7 @@ topics:
     title: "Investigation Types"
     summary: "The distinct rules, goals, and standards of evidence for administrative, criminal, civil, and regulatory investigations."
     tags: ["investigations", "forensics", "evidence"]
-    key_terms: ["Chain of Custody", "Administrative Investigation", "Regulatory Investigation", "Beyond a Reasonable Doubt", "Preponderance of the Evidence"]
+    key_terms: ["Chain of Custody", "Administrative Investigation", "Regulatory Investigation", "Beyond a Reasonable Doubt", "Preponderance of the Evidence", "Best Evidence Rule", "Hearsay"]
     sections:
       - heading: "Four Investigation Types"
         blocks:
@@ -182,6 +203,22 @@ topics:
           - type: callout
             style: tip
             text: "For the exam: if a scenario asks 'what should be done first' after discovering an incident that may require legal action, the answer is almost always to preserve evidence / begin chain of custody, not to immediately remediate or rebuild the system."
+      - heading: "The Digital Forensics Process"
+        blocks:
+          - type: paragraph
+            text: "Digital forensic investigations follow a broadly consistent process regardless of which investigation type they support: identification (recognizing that potential evidence exists and where), preservation (protecting it from alteration, including the forensic imaging mentioned above), collection (gathering the evidence in a forensically sound, documented manner), examination (processing the evidence to extract relevant data), analysis (interpreting what the data means in context), and presentation (documenting and communicating findings, often for a legal or disciplinary proceeding). Skipping or rushing any step — especially preservation — can undermine everything that follows, since evidence gathered without a clean chain of custody may be challenged or excluded regardless of how conclusive it looks."
+      - heading: "Evidence Types and Admissibility"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Real evidence — tangible, physical objects (a hard drive, a seized laptop)"
+              - "Documentary evidence — written records (logs, emails, printed reports); generally must satisfy the best evidence rule, which prefers an original document over a copy or description of it, though authenticated forensic copies of digital evidence are typically treated as acceptable equivalents given the nature of digital storage"
+              - "Testimonial evidence — witness statements given under oath"
+              - "Demonstrative evidence — used to illustrate or clarify other evidence (a diagram, a chart reconstructing an attack timeline), not evidence of the underlying fact on its own"
+          - type: callout
+            style: tip
+            text: "Hearsay — an out-of-court statement offered to prove the truth of what it asserts — is generally not admissible on its own. This matters for security professionals because many computer-generated logs risk a hearsay challenge; establishing that records were generated automatically by a properly functioning, regularly maintained system (rather than being an out-of-court human assertion) is part of why solid system documentation and consistent logging practices matter for using them as evidence later."
 
   - id: d1-t6
     domain: domain1
@@ -189,7 +226,7 @@ topics:
     title: "Security Policy, Standards, Procedures, and Guidelines"
     summary: "The policy hierarchy — from high-level policy down to step-by-step procedures — and how each document type differs in scope and enforceability."
     tags: ["policy", "standards", "procedures", "guidelines"]
-    key_terms: ["Policy", "Standard", "Baseline", "Procedure", "Guideline"]
+    key_terms: ["Policy", "Standard", "Baseline", "Procedure", "Guideline", "Data Owner", "Data Custodian", "Policy Exception"]
     sections:
       - heading: "The Documentation Hierarchy"
         blocks:
@@ -205,8 +242,14 @@ topics:
           - type: callout
             style: tip
             text: "Exam trap: guidelines are the only item in this list that are NOT mandatory. If a question uses the word 'recommended' or 'discretionary,' it's describing a guideline."
-      - heading: "Keeping Documentation Effective"
+      - heading: "Who Owns Each Document — and Who Owns the Data It Protects"
         blocks:
+          - type: paragraph
+            text: "Policy documentation is only as effective as the accountability behind it. A data owner (typically a business-side executive or manager) is accountable for a given data set — deciding its classification (per Domain 2) and approving who may access it. A data custodian (typically an IT/security role) implements the technical controls the owner's decisions require, without owning the underlying business decisions themselves. A system owner is accountable for a specific system's operation and security posture. Confusing these roles is a common exam trap: the data owner decides classification and access policy; the custodian carries it out technically."
+      - heading: "Exceptions and Keeping Documentation Effective"
+        blocks:
+          - type: paragraph
+            text: "Real environments occasionally need a documented exception to a standard or baseline — a legacy system that can't meet a current encryption standard, for example — and a mature program has a formal exception process: a time-bound, risk-assessed, approved deviation with compensating controls and an accountable owner, rather than simply ignoring the requirement. An undocumented, informal exception is really just a policy violation with better excuses."
           - type: paragraph
             text: "Documentation needs an owner, a review cycle, and version control — a policy nobody has reviewed since it was written five years ago is a liability, not a control, because it likely no longer matches the actual environment or current regulatory requirements. Effective programs tie policy review to significant business or technology changes as well as a fixed periodic schedule (commonly annual)."
 
@@ -216,7 +259,7 @@ topics:
     title: "Business Continuity Requirements"
     summary: "Identifying, analyzing, and prioritizing what the organization needs to keep running through disruption, starting with the Business Impact Analysis."
     tags: ["BCP", "BIA", "business continuity"]
-    key_terms: ["Business Impact Analysis (BIA)", "MTD", "RTO", "RPO", "Critical Function"]
+    key_terms: ["Business Impact Analysis (BIA)", "MTD", "RTO", "RPO", "Critical Function", "Dependency Mapping"]
     sections:
       - heading: "The Business Impact Analysis (BIA)"
         blocks:
@@ -225,12 +268,19 @@ topics:
           - type: list
             style: bullet
             items:
-              - "Maximum Tolerable Downtime (MTD) — the absolute longest a function can be unavailable before the organization suffers unacceptable harm"
+              - "Maximum Tolerable Downtime (MTD) — the absolute longest a function can be unavailable before the organization suffers unacceptable harm (sometimes called Maximum Tolerable Period of Disruption, MTPD, in some references — the same concept under a different name)"
               - "Recovery Time Objective (RTO) — the target time to restore a function after disruption; must be less than MTD"
               - "Recovery Point Objective (RPO) — the maximum acceptable amount of data loss, measured in time (e.g. an RPO of 1 hour means backups must run at least hourly)"
           - type: callout
             style: example
             text: "If a payment system has an MTD of 8 hours, the organization should set an RTO comfortably under that (e.g. 4 hours) to leave margin for things going wrong during recovery."
+      - heading: "Dependency Mapping"
+        blocks:
+          - type: paragraph
+            text: "A thorough BIA doesn't stop at naming critical functions — it traces what each function actually depends on: specific systems, specific data, specific third-party vendors, and specific people with specialized knowledge. This dependency mapping frequently surfaces hidden single points of failure — a 'critical' business function that everyone assumed was resilient, but that turns out to depend entirely on one vendor's API, one unreplicated database, or one employee's undocumented manual process. Without this mapping step, an organization can set a confident RTO for a function while completely missing that one of its underlying dependencies can't actually meet that timeline."
+          - type: callout
+            style: example
+            text: "A BIA might rate 'process customer orders' as highly critical with a 2-hour RTO, but dependency mapping reveals it silently depends on a single legacy on-premises server with no failover and a vendor contract with no uptime SLA at all — the stated RTO is fiction until those dependencies are addressed."
       - heading: "From BIA to Prioritized Requirements"
         blocks:
           - type: paragraph
@@ -242,12 +292,12 @@ topics:
     title: "Personnel Security Policies"
     summary: "Controls applied to the employment lifecycle — screening, agreements, job rotation, and offboarding — to reduce insider risk."
     tags: ["personnel security", "background checks", "insider threat"]
-    key_terms: ["Background Check", "NDA", "Separation of Duties", "Job Rotation", "Mandatory Vacation", "Termination Procedures"]
+    key_terms: ["Background Check", "NDA", "Separation of Duties", "Job Rotation", "Mandatory Vacation", "Termination Procedures", "Third-Party Personnel Risk"]
     sections:
       - heading: "Pre-Employment Controls"
         blocks:
           - type: paragraph
-            text: "Personnel security starts before a hire ever touches a system: background checks (criminal history, credit checks for finance-sensitive roles, reference verification) and signed agreements (NDAs, acceptable use policies, non-compete clauses where legal) establish both trust and legal recourse. The depth of screening should scale with the sensitivity of the role — a systems administrator with root access warrants more scrutiny than an entry-level role with no system access."
+            text: "Personnel security starts before a hire ever touches a system: background checks (criminal history, credit checks for finance-sensitive roles, reference verification, education/employment verification, and in some roles drug screening) and signed agreements (NDAs, acceptable use policies, non-compete clauses where legal) establish both trust and legal recourse. The depth of screening should scale with the sensitivity of the role — a systems administrator with root access warrants more scrutiny than an entry-level role with no system access, and screening depth should be documented and consistently applied by role tier, not decided ad hoc, to avoid both under-screening high-risk roles and discriminatory over-screening."
       - heading: "Controls During Employment"
         blocks:
           - type: list
@@ -260,6 +310,10 @@ topics:
           - type: callout
             style: tip
             text: "Separation of duties, job rotation, and mandatory vacation all exist primarily to detect or deter fraud and insider abuse — not just to improve efficiency. If an exam question asks 'why require mandatory vacation,' the answer is fraud detection, not employee wellness."
+      - heading: "Contractors, Vendors, and Third-Party Personnel"
+        blocks:
+          - type: paragraph
+            text: "Personnel security doesn't stop at direct employees — contractors, consultants, and vendor staff who touch systems or data carry the same insider risk and need equivalent (though contractually rather than employment-based) controls: appropriate background screening requirements written into the contract, NDAs, access scoped tightly to the engagement's actual needs, and — critically — a defined process for revoking access the moment the engagement ends, which is easy to overlook precisely because third-party personnel don't appear in the same HR-driven offboarding workflow as employees."
       - heading: "Offboarding"
         blocks:
           - type: paragraph
@@ -271,12 +325,12 @@ topics:
     title: "Risk Management Concepts"
     summary: "The full risk management lifecycle: identifying assets and threats, assessing likelihood and impact, and choosing a treatment strategy."
     tags: ["risk", "risk assessment", "risk treatment"]
-    key_terms: ["Risk Assessment", "Qualitative Analysis", "Quantitative Analysis", "ALE", "SLE", "ARO", "Risk Appetite", "Residual Risk"]
+    key_terms: ["Risk Assessment", "Qualitative Analysis", "Quantitative Analysis", "ALE", "SLE", "ARO", "Risk Appetite", "Residual Risk", "Risk Register", "Delphi Technique"]
     sections:
       - heading: "Risk Assessment: Qualitative vs. Quantitative"
         blocks:
           - type: paragraph
-            text: "Qualitative risk analysis uses descriptive scales (High/Medium/Low, or a 1-5 rating) and is faster but more subjective — useful when data is scarce or for a quick prioritization pass. Quantitative risk analysis assigns real numbers, most commonly using: Single Loss Expectancy (SLE) = Asset Value × Exposure Factor; Annualized Rate of Occurrence (ARO) = how many times per year the event is expected; and Annualized Loss Expectancy (ALE) = SLE × ARO. ALE gives a dollar figure that can be directly compared to the cost of a control."
+            text: "Qualitative risk analysis uses descriptive scales (High/Medium/Low, or a 1-5 rating) and is faster but more subjective — useful when data is scarce or for a quick prioritization pass. It's often gathered through structured expert input techniques like the Delphi technique, where a group of experts anonymously and iteratively submits and refines risk estimates until they converge, specifically to avoid groupthink or a dominant voice skewing the result. Quantitative risk analysis assigns real numbers, most commonly using: Single Loss Expectancy (SLE) = Asset Value × Exposure Factor; Annualized Rate of Occurrence (ARO) = how many times per year the event is expected; and Annualized Loss Expectancy (ALE) = SLE × ARO. ALE gives a dollar figure that can be directly compared to the cost of a control."
           - type: callout
             style: example
             text: "A server worth $100,000 has a 25% exposure factor for a given threat (SLE = $25,000) and is expected to occur twice a year (ARO = 2). ALE = $25,000 × 2 = $50,000. If a control costs $10,000/year and reduces ALE to $5,000/year, it's easily justified."
@@ -291,14 +345,21 @@ topics:
               - "Transfer — shift the financial impact to a third party, most commonly via insurance or contract"
           - type: paragraph
             text: "Whatever isn't eliminated becomes residual risk — the risk remaining after controls are applied. Residual risk must fall within the organization's risk appetite (how much risk it's willing to accept in pursuit of objectives) or additional treatment is required. Risk can never be reduced to zero; the goal is to bring it within tolerance at a justifiable cost."
+          - type: callout
+            style: tip
+            text: "A control itself can introduce secondary risk — a new risk created by the treatment chosen for the original one (e.g. transferring risk via a vendor introduces new supply-chain/vendor risk, per Domain 1's SCRM content). Mature risk management re-evaluates residual and secondary risk together, not just whether the original risk shrank."
+      - heading: "Tracking Risk Over Time: The Risk Register"
+        blocks:
+          - type: paragraph
+            text: "A risk register is the living document (or system) that tracks every identified risk: its description, likelihood/impact rating, assigned owner, chosen treatment, current status, and residual risk after treatment. It turns risk management from a one-time assessment exercise into an ongoing program — risks are added as they're identified, re-scored periodically as conditions change, and reviewed by leadership as part of regular governance, tying directly back into the governance and alignment concepts from 1.3."
 
   - id: d1-t10
     domain: domain1
     number: "1.10"
     title: "Threat Modeling"
     summary: "Structured methodologies for identifying and prioritizing threats to a system before it's built or attacked, most notably STRIDE."
-    tags: ["threat modeling", "STRIDE", "attack trees"]
-    key_terms: ["STRIDE", "Attack Tree", "DREAD", "Attack Surface"]
+    tags: ["threat modeling", "STRIDE", "attack trees", "PASTA"]
+    key_terms: ["STRIDE", "Attack Tree", "DREAD", "Attack Surface", "PASTA", "Threat Actor"]
     sections:
       - heading: "Why Model Threats Proactively"
         blocks:
@@ -322,6 +383,14 @@ topics:
         blocks:
           - type: paragraph
             text: "Once threats are enumerated, they're ranked — commonly with DREAD (Damage, Reproducibility, Exploitability, Affected users, Discoverability) or simply by likelihood × impact, similar to standard risk assessment. Attack trees are another modeling tool: a root goal (e.g. 'compromise the database') is decomposed into the specific paths an attacker could take to achieve it, helping teams see which paths need controls most urgently."
+      - heading: "A Risk-Centric Alternative: PASTA"
+        blocks:
+          - type: paragraph
+            text: "PASTA (Process for Attack Simulation and Threat Analysis) is a more elaborate, risk-centric threat modeling methodology, contrasted with STRIDE's more technical, developer-centric checklist approach. Rather than starting from 'what could technically go wrong with this design,' PASTA works through seven stages that begin with defining business objectives and only later simulate specific attacks and analyze their business impact — the intent is to keep threat modeling explicitly tied to business risk throughout, rather than producing a purely technical list of theoretical weaknesses disconnected from what actually matters to the organization. STRIDE and PASTA aren't mutually exclusive on the exam — STRIDE is often the technique used within a broader PASTA-style process to actually enumerate the technical threats once business context has been established."
+      - heading: "Threat Actors: Who's Actually Behind the Threat"
+        blocks:
+          - type: paragraph
+            text: "Threat modeling is more complete when it also considers who is likely to pose the threat, not just what technique they might use. Threat actors range from unsophisticated opportunistic attackers to organized cybercriminal groups (typically financially motivated), hacktivists (ideologically motivated, often favoring disruption and public embarrassment), insiders (malicious or negligent, with unusually direct access), and advanced persistent threats (well-resourced, often nation-state-affiliated actors capable of sustained, stealthy, long-term campaigns). The realistic threat actors facing a given system should shape which STRIDE/attack-tree paths get prioritized — a system unlikely to interest a nation-state but highly attractive to financially motivated criminals should weight its threat model accordingly."
 
   - id: d1-t11
     domain: domain1
@@ -329,7 +398,7 @@ topics:
     title: "Supply Chain Risk Management (SCRM)"
     summary: "Managing the security risk introduced by third-party vendors, suppliers, and the products/components they provide."
     tags: ["supply chain", "third-party risk", "SCRM"]
-    key_terms: ["SCRM", "SLA", "Vendor Risk Assessment", "Software Bill of Materials (SBOM)"]
+    key_terms: ["SCRM", "SLA", "Vendor Risk Assessment", "Software Bill of Materials (SBOM)", "Vendor Tiering", "Counterfeit Hardware"]
     sections:
       - heading: "Why the Supply Chain Is an Attack Surface"
         blocks:
@@ -338,12 +407,17 @@ topics:
           - type: callout
             style: example
             text: "A vendor's compromised software update, once digitally signed and pushed through the normal update channel, can bypass the very controls the receiving organization trusts to only accept legitimate code."
+      - heading: "Hardware Supply Chain Risk"
+        blocks:
+          - type: paragraph
+            text: "Supply chain risk isn't limited to software — hardware components can be counterfeited (substandard parts sold as genuine, which may fail unpredictably or lack claimed security features) or tampered with during manufacturing or shipping (implants added to hardware before it ever reaches the customer). Because hardware tampering happens outside the organization's own environment entirely, defenses lean heavily on sourcing controls: purchasing only through authorized/verified distributors, verifying tamper-evident packaging on arrival, and — for especially sensitive components — third-party hardware verification or attestation (tying back to the TPM/Secure Boot integrity-verification concepts from Domain 3)."
       - heading: "Managing Third-Party Risk"
         blocks:
           - type: list
             style: bullet
             items:
               - "Vendor risk assessments — evaluating a supplier's security posture before and during the relationship (questionnaires, audits, certifications like SOC 2)"
+              - "Vendor tiering — not every vendor warrants the same scrutiny; tiering vendors by the sensitivity of what they access or the criticality of what they provide lets a limited assessment/monitoring budget focus on the vendors that pose the most risk, rather than spreading equally thin across every supplier regardless of exposure"
               - "Contractual controls — SLAs defining security/availability commitments, right-to-audit clauses, breach notification requirements"
               - "Software Bill of Materials (SBOM) — an inventory of components inside a piece of software, so known vulnerabilities in third-party/open-source components can be tracked"
               - "Ongoing monitoring — risk doesn't end at contract signature; supplier posture should be reassessed periodically, not just at onboarding"
@@ -356,7 +430,7 @@ topics:
     title: "Security Awareness, Education, and Training"
     summary: "Building a program that changes user behavior, distinguishing awareness, training, and education, and measuring effectiveness."
     tags: ["security awareness", "training", "human factor"]
-    key_terms: ["Security Awareness", "Phishing Simulation", "Training vs. Education", "Metrics"]
+    key_terms: ["Security Awareness", "Phishing Simulation", "Training vs. Education", "Metrics", "Leading Indicator", "Lagging Indicator"]
     sections:
       - heading: "Awareness, Training, and Education Are Different"
         blocks:
@@ -374,3 +448,7 @@ topics:
           - type: callout
             style: tip
             text: "The exam frames awareness training as a control, just like a firewall — it exists to reduce the likelihood of a threat (usually social engineering) succeeding, and its effectiveness should be measured the same way any other control is measured."
+      - heading: "Measuring What Actually Matters: Leading vs. Lagging Indicators"
+        blocks:
+          - type: paragraph
+            text: "Training completion rate is a lagging-indicator-adjacent vanity metric on its own — it shows people clicked through content, not that behavior actually changed. Stronger programs track leading indicators (metrics that predict future risk and can be acted on before an incident occurs, like a declining phishing simulation click rate over successive campaigns, or a rising rate of employees correctly reporting suspicious emails) alongside lagging indicators (metrics that measure what already happened, like the number of actual social-engineering-related incidents in a quarter). A program that only reports '98% completed the annual training' is reporting activity, not outcomes — the exam favors answers that tie awareness program effectiveness to measured behavior change, not participation alone."

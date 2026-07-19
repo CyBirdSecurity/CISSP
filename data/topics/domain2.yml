@@ -5,7 +5,7 @@ topics:
     title: "Identify and Classify Information and Assets"
     summary: "Building an asset inventory and applying classification schemes so protection effort matches actual sensitivity and value."
     tags: ["asset classification", "data classification", "asset inventory"]
-    key_terms: ["Asset Inventory", "Data Classification", "Sensitivity", "Asset Valuation"]
+    key_terms: ["Asset Inventory", "Data Classification", "Sensitivity", "Asset Valuation", "Declassification"]
     sections:
       - heading: "You Can't Protect What You Haven't Inventoried"
         blocks:
@@ -24,6 +24,14 @@ topics:
           - type: callout
             style: tip
             text: "The exam expects you to know that data owners (not IT or security teams) are ultimately responsible for assigning classification — they understand the business value and sensitivity best."
+      - heading: "Valuing Assets"
+        blocks:
+          - type: paragraph
+            text: "Classification depends on first understanding an asset's actual value, which isn't always its purchase price. Asset valuation considers replacement/reconstruction cost (what it would cost to rebuild or reacquire), the value of what it protects or produces (a modestly-priced database server holding a company's entire customer list has value far beyond its hardware cost), liability exposure if it's compromised, and lost productivity/revenue if it's unavailable. This is the same thinking that feeds Domain 1's quantitative risk formulas (SLE = Asset Value × Exposure Factor) — accurate asset valuation is a prerequisite for accurate risk numbers downstream, not a separate exercise."
+      - heading: "Reclassification and Declassification"
+        blocks:
+          - type: paragraph
+            text: "Because classification isn't permanent, a mature program defines who can change it and under what conditions — both upgrading sensitivity (data that becomes more sensitive, e.g. after a regulation changes) and downgrading/declassifying it (data that no longer needs its original protection level, e.g. financial results after public announcement, or historical data whose sensitivity has genuinely diminished with age). Declassification should be a deliberate, documented decision by the data owner, not something that happens implicitly just because a control was relaxed or forgotten over time."
 
   - id: d2-t2
     domain: domain2
@@ -31,7 +39,7 @@ topics:
     title: "Information and Asset Handling Requirements"
     summary: "Translating classification levels into concrete rules for labeling, handling, storing, and transmitting each type of asset."
     tags: ["handling requirements", "labeling", "marking"]
-    key_terms: ["Labeling", "Marking", "Handling Standard", "Data Owner"]
+    key_terms: ["Labeling", "Marking", "Handling Standard", "Data Owner", "Data Sovereignty"]
     sections:
       - heading: "From Classification to Concrete Rules"
         blocks:
@@ -47,14 +55,22 @@ topics:
           - type: callout
             style: example
             text: "A 'Restricted' handling standard might require: encrypted storage, no printing without approval, no external email without DLP review, and mandatory shredding (not just recycling) at end of life."
+      - heading: "Handling Physical and Non-Digital Assets"
+        blocks:
+          - type: paragraph
+            text: "Handling requirements aren't only about digital files — printed documents, whiteboards used to discuss sensitive projects, backup tapes, and even verbal discussions in shared spaces all need handling rules appropriate to the classification of what's being discussed or stored. A 'clean desk' policy (sensitive printed material isn't left visible/unattended) and controlled disposal of physical media (shredding rather than standard recycling for sensitive documents) are handling requirements just as much as an encryption standard is — the exam sometimes tests whether a candidate recognizes handling obligations apply beyond the purely digital realm."
+      - heading: "Handling Across Borders: Data Sovereignty"
+        blocks:
+          - type: paragraph
+            text: "Data sovereignty is the principle that data is subject to the laws of the country/jurisdiction where it's physically stored or processed, not just the laws of the organization's home country. A handling standard for data about EU residents may need to require that data stay within specific jurisdictions, or require the cross-border transfer safeguards described under GDPR in Domain 1 (Standard Contractual Clauses, adequacy decisions) — handling requirements and legal/regulatory obligations aren't separate concerns, they converge directly at this point, where a technical decision (which region a cloud provider stores data in) becomes a compliance decision."
 
   - id: d2-t3
     domain: domain2
     number: "2.3"
     title: "Provisioning Resources Securely"
     summary: "Building security into how hardware, software, and cloud resources are acquired and configured from the start."
-    tags: ["provisioning", "hardening", "secure acquisition"]
-    key_terms: ["Secure Provisioning", "Hardening", "Baseline Configuration", "Asset Onboarding"]
+    tags: ["provisioning", "hardening", "secure acquisition", "cloud shared responsibility"]
+    key_terms: ["Secure Provisioning", "Hardening", "Baseline Configuration", "Asset Onboarding", "Shared Responsibility Model", "Golden Image"]
     sections:
       - heading: "Security Starts at Acquisition"
         blocks:
@@ -69,6 +85,17 @@ topics:
           - type: callout
             style: tip
             text: "In cloud environments, 'secure provisioning' extends to infrastructure-as-code templates — baking hardened configuration into the template ensures every resource spun up from it inherits the same secure baseline automatically."
+      - heading: "Golden Images"
+        blocks:
+          - type: paragraph
+            text: "A golden image is a pre-hardened, pre-approved template (a virtual machine image, container image, or full system snapshot) that new instances are provisioned from, rather than every new asset being manually hardened one at a time. This makes secure provisioning consistent and repeatable at scale — the hardening work happens once, when the golden image is built and reviewed, and every subsequent instance inherits it automatically. Golden images still need a maintenance process of their own (periodically rebuilding them with current patches, since an outdated golden image just provisions consistently outdated systems)."
+      - heading: "Cloud Provisioning and the Shared Responsibility Model"
+        blocks:
+          - type: paragraph
+            text: "In cloud environments, secure provisioning is explicitly split between the provider and the customer under the shared responsibility model, and where the line falls shifts depending on the service model: in IaaS (Infrastructure as a Service), the provider secures the underlying physical infrastructure and virtualization layer, while the customer is responsible for securely provisioning and hardening everything from the guest operating system up (patching, configuration, access control). In PaaS (Platform as a Service), the provider additionally manages the operating system and runtime, leaving the customer responsible mainly for the application and its data/configuration. In SaaS (Software as a Service), the provider manages nearly everything technical, leaving the customer responsible primarily for how they configure the application (user access, data classification/sharing settings) rather than any underlying infrastructure at all."
+          - type: callout
+            style: tip
+            text: "A commonly tested exam framing: the customer's security responsibility shrinks as you move from IaaS to PaaS to SaaS, but it never reaches zero — even in SaaS, the customer remains responsible for identity/access configuration and how they classify and share their own data within the platform."
 
   - id: d2-t4
     domain: domain2
@@ -76,7 +103,7 @@ topics:
     title: "Data Lifecycle Management"
     summary: "The stages data passes through from creation to destruction, and the controls appropriate at each stage."
     tags: ["data lifecycle", "data at rest", "data in transit", "data in use"]
-    key_terms: ["Data at Rest", "Data in Transit", "Data in Use", "Data Lifecycle", "Sanitization"]
+    key_terms: ["Data at Rest", "Data in Transit", "Data in Use", "Data Lifecycle", "Sanitization", "Confidential Computing"]
     sections:
       - heading: "The Stages of the Lifecycle"
         blocks:
@@ -91,6 +118,10 @@ topics:
               - "Destroy — data reaches end of retention and is sanitized/destroyed so it cannot be recovered"
           - type: paragraph
             text: "Each state — at rest, in transit, and in use — has distinct threats and therefore distinct controls. Encrypting data at rest does nothing to protect it while it's decrypted in memory during processing (data in use), which is why sensitive processing environments add controls like restricted memory access, secure enclaves, or confidential computing techniques."
+      - heading: "Protecting Data in Use: Confidential Computing"
+        blocks:
+          - type: paragraph
+            text: "Data in use has historically been the hardest state to protect, because traditional encryption must be reversed (decrypted) before a CPU can actually process the data, creating a window where it's exposed in plaintext in memory — accessible to a sufficiently privileged attacker, a compromised hypervisor, or even in some cases the cloud provider's own operators. Confidential computing addresses this using hardware-based trusted execution environments (the same enclave concept introduced in Domain 3) to process data inside a protected region where even the operating system or hypervisor can't observe it, extending meaningful protection all the way through the data-in-use stage rather than leaving it as the one unprotected gap in an otherwise fully encrypted lifecycle."
       - heading: "Why Lifecycle Thinking Matters"
         blocks:
           - type: callout
@@ -103,7 +134,7 @@ topics:
     title: "Asset Retention"
     summary: "Determining how long data and assets must be kept, balancing legal/regulatory requirements against the risk of holding data too long."
     tags: ["retention", "records management", "legal hold"]
-    key_terms: ["Retention Policy", "Legal Hold", "Records Management", "Data Minimization"]
+    key_terms: ["Retention Policy", "Legal Hold", "Records Management", "Data Minimization", "e-Discovery", "Defensible Deletion"]
     sections:
       - heading: "Retention Is a Balancing Act"
         blocks:
@@ -118,6 +149,10 @@ topics:
           - type: callout
             style: example
             text: "An organization with a standard 'delete emails after 2 years' policy must suspend that deletion for any custodian's mailbox once a lawsuit is filed or reasonably anticipated, even if the 2-year mark is reached during the case."
+      - heading: "e-Discovery and Defensible Deletion"
+        blocks:
+          - type: paragraph
+            text: "e-Discovery (electronic discovery) is the legal process of identifying, preserving, and producing electronically stored information relevant to litigation or an investigation — legal hold (above) exists specifically to make e-discovery possible by ensuring relevant data still exists when it's requested. Defensible deletion is the complementary concept for everything not under legal hold: routinely and consistently disposing of data once its retention period genuinely expires, following a documented, evenly-applied schedule, so that if the deletion is ever questioned later, the organization can demonstrate it followed a standard, good-faith policy rather than conveniently destroying something inconvenient. A retention program that's enforced sporadically or only when it's operationally convenient undermines exactly this defensibility, and can look like intentional evidence destruction even when it wasn't."
 
   - id: d2-t6
     domain: domain2

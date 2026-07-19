@@ -5,7 +5,7 @@ topics:
     title: "Designing and Validating Assessment, Test, and Audit Strategies"
     summary: "Planning a coherent program of assessments, tests, and audits so coverage matches risk instead of happening ad hoc."
     tags: ["assessment strategy", "test strategy", "audit planning"]
-    key_terms: ["Assessment", "Audit", "Test Strategy", "Scope"]
+    key_terms: ["Assessment", "Audit", "Test Strategy", "Scope", "Rules of Engagement"]
     sections:
       - heading: "Assessment vs. Test vs. Audit"
         blocks:
@@ -18,14 +18,26 @@ topics:
         blocks:
           - type: paragraph
             text: "A mature program doesn't run tests and audits randomly — it plans a strategy: which systems get tested, how often, using which methods, and why, driven by the risk assessment (Domain 1). High-value or high-risk systems (internet-facing, holding regulated data) warrant more frequent and rigorous testing than low-risk internal tools. The strategy should also define scope and rules of engagement up front — what's in bounds, what's off-limits, and what authorization has been obtained — before any technical testing begins."
+      - heading: "What Drives Testing Frequency and Depth"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Regulatory/contractual mandate — some regimes specify minimum cadence directly (e.g. PCI DSS requiring quarterly vulnerability scans and periodic penetration testing for systems in the cardholder data environment, per Domain 2's compliance-mapping content)"
+              - "Change velocity — a system that changes frequently (frequent deployments, evolving architecture) accumulates new risk faster and needs more frequent reassessment than a stable, rarely-changed system"
+              - "Criticality and exposure — internet-facing systems and those holding regulated/high-value data warrant deeper and more frequent testing than internal, low-sensitivity tools"
+              - "Findings history — a system with a track record of recurring findings warrants closer, more frequent scrutiny until that pattern is resolved"
+          - type: callout
+            style: tip
+            text: "Rules of engagement matter beyond just 'being nice to have documented' — testing a production system without clear authorization and defined boundaries can itself look like an attack, trigger incident response, and in the worst case create legal exposure for the tester, even when the intent was purely defensive."
 
   - id: d6-t2
     domain: domain6
     number: "6.2"
     title: "Security Control Testing"
     summary: "Specific technical testing methods — vulnerability scanning, penetration testing, code review, and more — used to validate controls."
-    tags: ["vulnerability scanning", "penetration testing", "code review"]
-    key_terms: ["Vulnerability Scan", "Penetration Test", "Black Box", "White Box", "Gray Box", "Static Analysis", "Dynamic Analysis"]
+    tags: ["vulnerability scanning", "penetration testing", "code review", "red team"]
+    key_terms: ["Vulnerability Scan", "Penetration Test", "Black Box", "White Box", "Gray Box", "Static Analysis", "Dynamic Analysis", "Red Team", "Blue Team", "Purple Team"]
     sections:
       - heading: "Vulnerability Scanning vs. Penetration Testing"
         blocks:
@@ -37,10 +49,21 @@ topics:
               - "Black box testing — tester has no prior knowledge of the internal system, simulating an external attacker"
               - "White box testing — tester has full knowledge (source code, architecture diagrams, credentials), enabling deep, thorough testing"
               - "Gray box testing — tester has partial knowledge, simulating an insider or an attacker who's already gained limited access"
+      - heading: "The Phases of a Penetration Test"
+        blocks:
+          - type: paragraph
+            text: "A structured penetration test typically moves through recognizable phases: reconnaissance (gathering information about the target, passively and/or actively), scanning/enumeration (identifying live hosts, open services, and potential vulnerabilities in more detail), exploitation (actively attempting to leverage a vulnerability to gain access), post-exploitation (once access is gained, assessing what an attacker could actually do from there — privilege escalation, lateral movement, data access — to demonstrate real business impact, not just initial entry), and reporting (documenting findings, evidence, and remediation guidance, tying into 6.4). Skipping post-exploitation is a common shortcut that understates real risk — proving initial access was possible says less than proving what an attacker could reach afterward."
+      - heading: "Red Team, Blue Team, and Purple Team"
+        blocks:
+          - type: paragraph
+            text: "A red team plays the attacker, typically with a broader, more realistic, less constrained mandate than a standard penetration test — often testing detection and response capability, not just finding vulnerabilities, and sometimes without the defenders even knowing a test is underway (unlike a scheduled, disclosed penetration test). A blue team is the defensive side — the people actually monitoring and responding to what the red team (or a real attacker) does. Purple teaming isn't a separate team so much as a collaborative exercise structure: red and blue work together in real time, sharing what's being attempted and what's being detected as it happens, specifically to improve detection capability faster than a traditional 'red team attacks, blue team is graded afterward' model would."
+          - type: callout
+            style: tip
+            text: "The exam distinction that matters most: a standard penetration test is scoped to find and demonstrate vulnerabilities; a red team exercise is scoped to test the organization's actual detection and response capability under realistic attack conditions, which is a different (and often broader) goal."
       - heading: "Code-Level and Configuration Testing"
         blocks:
           - type: paragraph
-            text: "Static Application Security Testing (SAST) analyzes source code without executing it, catching insecure patterns early; Dynamic Application Security Testing (DAST) tests a running application from the outside, catching issues that only appear at runtime. Configuration and compliance scanning checks systems against a hardening baseline (e.g. CIS Benchmarks). Each method has blind spots the others cover — SAST can miss runtime-only issues, DAST can miss code paths that aren't exercised during testing — so mature programs combine multiple testing types rather than relying on just one."
+            text: "Static Application Security Testing (SAST) analyzes source code without executing it, catching insecure patterns early but potentially missing runtime-only issues. Dynamic Application Security Testing (DAST) tests a running application from the outside, like an attacker would, catching real runtime behavior but requiring a working build to test against. Configuration and compliance scanning checks systems against a hardening baseline (e.g. CIS Benchmarks). Each method has blind spots the others cover, so mature programs combine multiple testing types rather than relying on just one — the same SAST/DAST concepts are covered again, applied specifically to custom software, in Domain 8."
 
   - id: d6-t3
     domain: domain6
@@ -48,7 +71,7 @@ topics:
     title: "Collecting Security Process Data"
     summary: "Gathering the operational metrics — from account management to disaster recovery testing — that feed assessment and reporting."
     tags: ["security metrics", "log review", "KPI"]
-    key_terms: ["Security Metrics", "Log Review", "Account Management Review", "KPI/KRI"]
+    key_terms: ["Security Metrics", "Log Review", "Account Management Review", "KPI/KRI", "Continuous Control Monitoring"]
     sections:
       - heading: "Why Process Data Matters"
         blocks:
@@ -64,23 +87,31 @@ topics:
           - type: callout
             style: tip
             text: "A backup job reporting 'success' every night is not the same as a verified, working restore — the exam favors answers that emphasize testing/verifying data (e.g. actually restoring from backup) over simply collecting status logs."
+      - heading: "Continuous Control Monitoring"
+        blocks:
+          - type: paragraph
+            text: "Rather than only checking whether controls work at scheduled test intervals (an annual pen test, a quarterly access review), continuous control monitoring automates the ongoing collection of process data so drift or failure is caught close to when it happens, not months later at the next scheduled check. This is the process-data equivalent of the configuration drift monitoring introduced in Domain 7 — instead of periodically re-verifying a system's configuration against baseline, continuous control monitoring periodically (or constantly) re-verifies that security processes (account reviews happening on schedule, logs actually being reviewed, patches actually being deployed within SLA) are still functioning as designed."
 
   - id: d6-t4
     domain: domain6
     number: "6.4"
     title: "Analyzing Test Output and Generating Reports"
     summary: "Turning raw test results into prioritized, actionable findings that decision-makers can actually use."
-    tags: ["reporting", "remediation prioritization", "false positive"]
-    key_terms: ["Finding", "False Positive", "Remediation Priority", "Executive Summary"]
+    tags: ["reporting", "remediation prioritization", "false positive", "CVSS"]
+    key_terms: ["Finding", "False Positive", "Remediation Priority", "Executive Summary", "CVSS"]
     sections:
       - heading: "From Raw Output to Meaningful Findings"
         blocks:
           - type: paragraph
             text: "Raw scanner/test output is rarely useful on its own — it must be analyzed to remove false positives (results that appear to be issues but aren't, given the actual environment/context), correlate related findings, and prioritize based on real risk (exploitability, exposure, data sensitivity of the affected system), not just a generic severity score. A 'critical' vulnerability on an isolated, air-gapped test system is a lower real-world priority than a 'medium' vulnerability on an internet-facing production server holding regulated data."
+      - heading: "Standardized Severity Scoring: CVSS"
+        blocks:
+          - type: paragraph
+            text: "The Common Vulnerability Scoring System (CVSS) gives vulnerabilities a standardized numeric severity score (0-10) based on factors like attack vector (can it be exploited remotely over a network, or does it require local/physical access?), attack complexity, privileges required, and the impact to confidentiality, integrity, and availability if exploited. CVSS gives organizations a common baseline vocabulary for comparing severity across different tools and vendors, but it deliberately doesn't account for an organization's specific environment — which is exactly why analysis (correlating CVSS with actual exposure, compensating controls already in place, and business context) is still a required human step, not something CVSS alone can determine. A high CVSS score is a strong starting signal for prioritization, not the final word on it."
       - heading: "Communicating Results Effectively"
         blocks:
           - type: paragraph
-            text: "A good report serves multiple audiences: an executive summary communicates business risk and overall posture in non-technical terms for leadership, while detailed technical findings (with reproduction steps and remediation guidance) serve the teams who must actually fix the issues. Every finding should include enough detail to be actionable — what's wrong, why it matters, and what to do about it — not just a raw vulnerability name and severity score."
+            text: "A good report serves multiple audiences: an executive summary communicates business risk and overall posture in non-technical terms for leadership, while detailed technical findings (with reproduction steps and remediation guidance) serve the teams who must actually fix the issues. Every finding should include enough detail to be actionable — what's wrong, why it matters, and what to do about it — not just a raw vulnerability name and severity score. Mature programs also assign each finding a remediation SLA tied to its prioritized severity (e.g. critical findings remediated within days, low findings within a quarter) and track findings against that SLA over time — a finding that's simply reported once and never tracked to closure provides much less real risk reduction than the same finding tracked until it's actually fixed."
           - type: callout
             style: tip
             text: "The exam frames reporting as a communication exercise as much as a technical one — a report that's technically accurate but unusable by its audience has failed at its purpose."
@@ -91,7 +122,7 @@ topics:
     title: "Conducting or Facilitating Security Audits"
     summary: "The distinction between internal, external, and third-party audits, and the auditor's role versus the organization's role."
     tags: ["internal audit", "external audit", "third-party audit"]
-    key_terms: ["Internal Audit", "External Audit", "Third-Party Audit", "Auditor Independence", "SOC 2"]
+    key_terms: ["Internal Audit", "External Audit", "Third-Party Audit", "Auditor Independence", "SOC 2", "Audit Evidence"]
     sections:
       - heading: "Types of Audits"
         blocks:
@@ -104,7 +135,19 @@ topics:
           - type: callout
             style: tip
             text: "Auditor independence is core to audit credibility — an auditor should not audit a system or process they personally designed, implemented, or operate, since that creates a conflict of interest and undermines the objectivity the audit is supposed to provide."
-      - heading: "The Organization's Role in Facilitating an Audit"
+      - heading: "The Phases of an Audit"
         blocks:
           - type: paragraph
-            text: "Security teams are usually on the receiving end of an audit rather than performing it themselves — 'facilitating' means providing evidence, access, and subject-matter expertise to auditors, tracking findings to remediation, and ensuring nothing is altered or concealed during the audit period. A finding left unaddressed from a prior audit, reappearing in a subsequent one, is itself a red flag auditors specifically look for — it signals the organization isn't acting on what it already knows."
+            text: "A formal audit typically moves through: planning (defining scope, objectives, and the criteria being audited against — a specific standard, regulation, or internal policy), fieldwork (gathering evidence and testing whether controls actually operate as claimed), reporting (documenting findings, including any exceptions/deficiencies identified), and follow-up (verifying that findings from the audit are actually remediated, often as part of the next audit cycle rather than left unchecked). An audit that stops at the reporting phase and never verifies remediation risks becoming a repeat exercise — the same finding reappearing audit after audit, which auditors specifically look for as a sign of an organization not acting on what it already knows."
+      - heading: "How Auditors Gather Evidence"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Inquiry — asking personnel how a control works; the weakest form of evidence on its own, since it relies entirely on what someone says rather than independent verification"
+              - "Observation — watching a control being performed in real time; stronger than inquiry, but only proves the control worked at the specific moment observed"
+              - "Inspection — reviewing documentation or artifacts (a signed change ticket, a configuration screenshot, a log entry) as evidence a control operated as described"
+              - "Reperformance — the auditor independently redoes the control themselves to verify the claimed result; the strongest form of evidence, since it doesn't rely on trusting anyone else's account or artifact at all"
+          - type: callout
+            style: example
+            text: "Verifying that access reviews happen quarterly: inquiry is asking the access-review owner if it happens (weakest); observation is watching one occur; inspection is reviewing the signed-off access review records from the last four quarters; reperformance is the auditor independently pulling the access list and confirming it matches what the review claimed to have found (strongest)."
