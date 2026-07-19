@@ -1,0 +1,142 @@
+topics:
+  - id: d5-t1
+    domain: domain5
+    number: "5.1"
+    title: "Controlling Physical and Logical Access to Assets"
+    summary: "The subject/object model underlying all access control, and how it applies consistently to physical spaces, systems, devices, and data."
+    tags: ["access control", "subject", "object"]
+    key_terms: ["Subject", "Object", "Access Control", "Physical Access Control", "Logical Access Control"]
+    sections:
+      - heading: "Subjects, Objects, and Access"
+        blocks:
+          - type: paragraph
+            text: "Every access control decision involves a subject (an active entity requesting access — a user, process, or device) and an object (the passive resource being accessed — a file, a room, a system, an API). Access control is the set of mechanisms that decide whether a given subject may perform a given action on a given object, and every asset type needs this decision made consistently: physical spaces (badge readers, locks), systems (login), devices (device authentication before joining a network), applications (application-level permissions), and data (file/record-level permissions)."
+      - heading: "The Same Model, Every Asset Type"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Physical assets — controlled through badges, locks, mantraps, and guards (see Domain 3's site/facility controls)"
+              - "Systems and devices — controlled through login credentials, device certificates, and network access control"
+              - "Applications and data — controlled through application-level roles/permissions and file/record-level ACLs"
+          - type: callout
+            style: tip
+            text: "The exam expects you to recognize that access control isn't just 'IT logins' — a locked server room door and a file permission are both access controls, evaluated with the same subject/object logic, just enforced by different mechanisms."
+
+  - id: d5-t2
+    domain: domain5
+    number: "5.2"
+    title: "Identification and Authentication of People, Devices, and Services"
+    summary: "The distinct steps of identification, authentication, and the multiple factor categories used to prove a claimed identity."
+    tags: ["identification", "authentication", "multi-factor authentication"]
+    key_terms: ["Identification", "Authentication", "Something You Know", "Something You Have", "Something You Are", "MFA"]
+    sections:
+      - heading: "Identification vs. Authentication"
+        blocks:
+          - type: paragraph
+            text: "Identification is claiming an identity (typing a username). Authentication is proving that claim is true (providing a password, token, or biometric). The two are always sequential and distinct — you identify yourself first, then authenticate that identification. Confusing the two is a common exam trap: a username is identification, not authentication, because anyone can type it."
+      - heading: "Authentication Factor Categories"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Something you know — passwords, PINs, security questions"
+              - "Something you have — a smart card, hardware token, or phone receiving a one-time code"
+              - "Something you are — biometrics (fingerprint, iris, facial recognition)"
+              - "Something you do — behavioral biometrics (typing cadence, gait) — a less common but increasingly used fourth category"
+              - "Somewhere you are — location-based authentication (e.g. geofencing, GPS)"
+          - type: paragraph
+            text: "Multi-factor authentication (MFA) requires factors from at least two different categories — a password plus a PIN is NOT MFA (both are 'something you know'); a password plus a hardware token IS MFA (something you know + something you have)."
+      - heading: "Authenticating Devices and Services"
+        blocks:
+          - type: paragraph
+            text: "Authentication isn't limited to human users — devices authenticate to networks (via certificates or MAC-based controls, though MAC addresses alone are weak/spoofable), and services/applications authenticate to each other (via API keys, mutual TLS, or service accounts) so that machine-to-machine communication is also verified rather than implicitly trusted."
+
+  - id: d5-t3
+    domain: domain5
+    number: "5.3"
+    title: "Federated Identity with Third-Party Services"
+    summary: "How SSO and federation let an identity established with one provider be trusted by other services, using SAML and OAuth/OpenID Connect."
+    tags: ["federation", "SSO", "SAML", "OAuth"]
+    key_terms: ["Federated Identity", "Single Sign-On (SSO)", "SAML", "OAuth 2.0", "OpenID Connect", "Identity Provider (IdP)", "Service Provider (SP)"]
+    sections:
+      - heading: "Why Federation Exists"
+        blocks:
+          - type: paragraph
+            text: "Federated identity lets a user authenticate once with a trusted Identity Provider (IdP) and use that same authentication across multiple, independent Service Providers (SPs) — without each service needing to store its own copy of the user's password. This reduces password sprawl for users, centralizes authentication policy (like MFA enforcement) at the IdP, and simplifies deprovisioning (disable the account at the IdP once, and access to every federated service is cut)."
+      - heading: "Key Federation Protocols"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "SAML (Security Assertion Markup Language) — an XML-based standard for exchanging authentication/authorization assertions, common in enterprise SSO between an IdP and web applications"
+              - "OAuth 2.0 — an authorization framework that lets a user grant a third-party application limited access to their resources on another service, without sharing their password with that application"
+              - "OpenID Connect (OIDC) — an identity/authentication layer built on top of OAuth 2.0, adding a standardized way to actually verify who the user is (OAuth alone handles authorization, not authentication)"
+          - type: callout
+            style: tip
+            text: "Exam distinction: OAuth answers 'what is this application allowed to do on my behalf?' (authorization). OpenID Connect answers 'who is this user?' (authentication). SAML historically does both together in one assertion."
+
+  - id: d5-t4
+    domain: domain5
+    number: "5.4"
+    title: "Authorization Mechanisms"
+    summary: "The models that decide what an authenticated subject is allowed to do — DAC, MAC, RBAC, ABAC — and where each fits best."
+    tags: ["authorization", "RBAC", "ABAC", "DAC", "MAC"]
+    key_terms: ["DAC", "MAC", "RBAC", "ABAC", "Rule-Based Access Control"]
+    sections:
+      - heading: "The Major Access Control Models"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Discretionary Access Control (DAC) — the resource owner decides who gets access (e.g. standard Windows/Linux file permissions); flexible but inconsistent at scale and vulnerable to owners granting overly broad access"
+              - "Mandatory Access Control (MAC) — access is determined by system-enforced labels/clearances (e.g. Bell-LaPadula/Biba from Domain 3), and even the resource owner cannot override it; used where consistency and strict confidentiality matter more than flexibility (military/government)"
+              - "Role-Based Access Control (RBAC) — access is granted based on a subject's assigned role (e.g. 'HR Manager'), not the individual; simplifies administration at scale since permissions are managed per role, not per person"
+              - "Attribute-Based Access Control (ABAC) — access decisions consider multiple attributes at request time (user department, resource sensitivity, time of day, device posture, location); the most flexible and granular model, well-suited to zero trust architectures"
+          - type: callout
+            style: example
+            text: "An ABAC policy might allow access only if: role = 'Finance', resource classification ≤ 'Confidential', time is within business hours, AND the device passes a compliance check — all four attributes evaluated together at the moment of the request."
+      - heading: "Choosing a Model"
+        blocks:
+          - type: paragraph
+            text: "Real organizations often layer models rather than picking just one — RBAC for baseline role-driven access, with ABAC-style conditional rules added on top for especially sensitive resources. The exam expects you to match a described scenario (owner grants access personally = DAC; labels and clearances = MAC; access tied to job title = RBAC; access depends on multiple contextual conditions = ABAC) to the correct model name."
+
+  - id: d5-t5
+    domain: domain5
+    number: "5.5"
+    title: "Identity and Access Provisioning Lifecycle"
+    summary: "Managing accounts and access from creation through role changes to termination, and why deprovisioning failures are a leading cause of breaches."
+    tags: ["provisioning", "deprovisioning", "access review", "identity lifecycle"]
+    key_terms: ["Provisioning", "Deprovisioning", "Access Review", "Entitlement Creep", "Joiner-Mover-Leaver"]
+    sections:
+      - heading: "The Joiner-Mover-Leaver Model"
+        blocks:
+          - type: paragraph
+            text: "The identity lifecycle is commonly described as Joiner-Mover-Leaver: provisioning access when someone joins (granted per least privilege for their initial role), adjusting access as they move between roles (both adding what the new role needs and removing what the old role had), and deprovisioning access completely when they leave. Each transition is a risk point, but movers are the most commonly mishandled — access from a previous role is often left in place even after a new role is granted, quietly accumulating unnecessary entitlements over time."
+      - heading: "Entitlement Creep and Access Reviews"
+        blocks:
+          - type: paragraph
+            text: "Entitlement creep (also called privilege creep) is the gradual, unintentional accumulation of access rights an employee no longer needs, typically from role changes where old permissions were never revoked. Periodic access reviews (also called access recertification) require managers or data owners to actively re-confirm that each of their team's entitlements is still needed — access that isn't reconfirmed is revoked. This is a detective/corrective control specifically aimed at reversing entitlement creep before it becomes a serious least-privilege violation."
+          - type: callout
+            style: tip
+            text: "Deprovisioning delay on termination is one of the highest-risk gaps in this lifecycle — a disgruntled former employee retaining even brief access after termination is a classic and well-documented insider threat scenario, which is why prompt, ideally automated, deprovisioning is emphasized on the exam."
+
+  - id: d5-t6
+    domain: domain5
+    number: "5.6"
+    title: "Authentication Systems"
+    summary: "The centralized systems and protocols (Kerberos, RADIUS, TACACS+) that implement authentication, and password/biometric authentication mechanics."
+    tags: ["Kerberos", "RADIUS", "TACACS+", "biometrics"]
+    key_terms: ["Kerberos", "RADIUS", "TACACS+", "Ticket Granting Ticket", "FAR/FRR", "Password Vaulting"]
+    sections:
+      - heading: "Centralized Authentication Protocols"
+        blocks:
+          - type: paragraph
+            text: "Kerberos is a ticket-based authentication protocol (used as the default in Active Directory environments) where a trusted Key Distribution Center (KDC) issues a Ticket Granting Ticket (TGT) after initial login, which the client then uses to request service-specific tickets — meaning the user's password itself is never sent again to access additional resources, and every ticket is time-limited to reduce the impact of a stolen ticket. RADIUS and TACACS+ are both AAA (Authentication, Authorization, Accounting) protocols used mainly for network device and remote access authentication; RADIUS combines authentication and authorization into a single response and encrypts only the password in transit, while TACACS+ separates authentication, authorization, and accounting into distinct steps and encrypts the entire packet."
+          - type: callout
+            style: tip
+            text: "TACACS+ is favored for administrative access to network devices (routers, switches) partly because it fully encrypts the session and separates AAA functions, giving more granular control over what an authenticated admin is authorized to do."
+      - heading: "Biometric and Password-Based Authentication"
+        blocks:
+          - type: paragraph
+            text: "Biometric systems are evaluated using False Acceptance Rate (FAR — the rate an unauthorized person is wrongly accepted) and False Rejection Rate (FRR — the rate an authorized person is wrongly rejected); the Crossover Error Rate (CER), where FAR and FRR are equal, is used to compare the overall accuracy of different biometric systems (lower CER = better system). Password-based systems remain common and are strengthened through salted hashing (so identical passwords don't produce identical stored hashes and precomputed rainbow-table attacks are defeated), enforced complexity/length requirements, and password vaulting (secure centralized storage/rotation of privileged credentials, reducing reliance on humans to remember and protect them)."

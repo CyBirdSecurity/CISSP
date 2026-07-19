@@ -1,0 +1,81 @@
+topics:
+  - id: d4-t1
+    domain: domain4
+    number: "4.1"
+    title: "Secure Design Principles in Network Architecture"
+    summary: "How the OSI and TCP/IP models organize network communication, and how segmentation and zero trust apply defense in depth to the network itself."
+    tags: ["OSI model", "TCP/IP", "network segmentation", "zero trust"]
+    key_terms: ["OSI Model", "TCP/IP Model", "Network Segmentation", "DMZ", "Zero Trust Network Architecture"]
+    sections:
+      - heading: "The OSI Model"
+        blocks:
+          - type: paragraph
+            text: "The seven-layer OSI model is the standard mental map for where network security controls operate: Physical (cabling, signals), Data Link (MAC addresses, switches), Network (IP addresses, routers), Transport (TCP/UDP, ports, reliability), Session (managing connections between applications), Presentation (data formatting/encryption translation), and Application (the protocols applications actually use — HTTP, DNS, SMTP). The real-world TCP/IP model compresses this into four layers (Link, Internet, Transport, Application) but the OSI model remains the standard reference for describing exactly where a given attack or control operates."
+          - type: list
+            style: numbered
+            items:
+              - "7. Application — HTTP, FTP, SMTP, DNS"
+              - "6. Presentation — encryption, data formatting/translation"
+              - "5. Session — establishing/maintaining/tearing down sessions"
+              - "4. Transport — TCP, UDP; ports, reliability"
+              - "3. Network — IP, routing"
+              - "2. Data Link — MAC addresses, switches, ARP"
+              - "1. Physical — cabling, signaling, hubs"
+          - type: callout
+            style: tip
+            text: "A common exam pattern: identify the OSI layer where an attack or device operates. A switch operates at Layer 2 (MAC addresses); a router operates at Layer 3 (IP addresses); a firewall doing deep packet inspection can operate up through Layer 7."
+      - heading: "Segmentation and Zero Trust as Architectural Principles"
+        blocks:
+          - type: paragraph
+            text: "Network segmentation divides a network into isolated zones so a compromise in one zone doesn't automatically grant access to others — a DMZ (demilitarized zone) is the classic example, hosting public-facing services in a zone that's isolated from the internal network even though it's reachable from the internet. Zero trust network architecture extends this thinking to the extreme: it assumes no implicit trust based on network location at all, requiring every connection — even between two internal systems on the same segment — to be authenticated, authorized, and encrypted, on the assumption that the perimeter can and will eventually be breached."
+
+  - id: d4-t2
+    domain: domain4
+    number: "4.2"
+    title: "Securing Network Components"
+    summary: "The devices that make up a network — switches, routers, firewalls, IDS/IPS — and the controls that keep each of them from becoming the weak link."
+    tags: ["firewalls", "IDS", "IPS", "network devices"]
+    key_terms: ["Firewall", "IDS", "IPS", "NAC", "Router", "Switch"]
+    sections:
+      - heading: "Core Network Devices"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Switch — connects devices within a LAN using MAC addresses (Layer 2); VLANs on a switch create logical segmentation without separate physical hardware"
+              - "Router — forwards traffic between different networks using IP addresses (Layer 3); commonly enforces access control lists (ACLs) on traffic passing through it"
+              - "Firewall — enforces a rule set controlling what traffic is allowed between network zones; modern next-generation firewalls inspect traffic up to Layer 7 (application-aware filtering), not just ports/IPs"
+              - "Network Access Control (NAC) — verifies a device meets security requirements (patch level, antivirus status) before allowing it onto the network at all"
+      - heading: "Detecting and Preventing Intrusions"
+        blocks:
+          - type: paragraph
+            text: "An Intrusion Detection System (IDS) monitors traffic and alerts on suspicious activity but does not block it — it's a detective control. An Intrusion Prevention System (IPS) sits inline and can actively block malicious traffic in real time — it's a preventive control, but that also means a false positive can disrupt legitimate traffic, unlike a false positive from an IDS which only generates a noisy alert."
+          - type: callout
+            style: tip
+            text: "Signature-based detection matches traffic against known attack patterns (fast, low false-positive rate, but blind to new/unknown attacks). Anomaly-based (behavioral) detection flags deviation from an established baseline of normal activity (can catch novel attacks, but tends to generate more false positives until well-tuned)."
+          - type: paragraph
+            text: "Hardening every network device matters as much as the device's function: default credentials must be changed, unused management interfaces and services disabled, and firmware kept current — an unpatched router or switch is just as much an attack surface as an unpatched server."
+
+  - id: d4-t3
+    domain: domain4
+    number: "4.3"
+    title: "Secure Communication Channels"
+    summary: "The protocols and technologies — TLS, IPsec, VPNs, and secure wireless — that protect data as it travels across untrusted networks."
+    tags: ["TLS", "IPsec", "VPN", "wireless security"]
+    key_terms: ["TLS", "IPsec", "VPN", "WPA3", "Remote Access"]
+    sections:
+      - heading: "Encrypting Data in Transit"
+        blocks:
+          - type: paragraph
+            text: "Transport Layer Security (TLS) is the protocol behind HTTPS and secures most application-layer traffic on the internet today; it uses asymmetric cryptography to establish a session, then negotiates a symmetric key for the actual bulk data transfer (the hybrid approach described in Domain 3). IPsec operates at the network layer and can secure any IP traffic regardless of the application, commonly used to build site-to-site VPNs between two networks; it can run in transport mode (encrypts only the payload, endpoints see each other's real addresses) or tunnel mode (encrypts the entire original packet inside a new one, hiding the original addressing — the mode typically used for VPNs)."
+          - type: callout
+            style: tip
+            text: "IPsec has two core protocols: AH (Authentication Header — provides integrity and authentication, but not confidentiality) and ESP (Encapsulating Security Payload — provides confidentiality plus integrity and authentication). If a scenario needs encryption, it needs ESP; AH alone is not enough."
+      - heading: "VPNs and Secure Remote Access"
+        blocks:
+          - type: paragraph
+            text: "A Virtual Private Network (VPN) creates an encrypted tunnel across an untrusted network (typically the internet), letting remote users or sites communicate as if they were on the same private network. Remote access should combine an encrypted tunnel with strong authentication (ideally multi-factor) — an encrypted channel to an account protected only by a weak password still leaves the door open to credential-based attacks."
+      - heading: "Securing Wireless Communication"
+        blocks:
+          - type: paragraph
+            text: "Wireless networks add the risk that traffic can be intercepted by anyone within radio range, without needing physical network access at all. WPA3 is the current wireless security standard, replacing the deprecated WEP (broken and trivially crackable) and the aging WPA2 (still reasonably strong but showing weaknesses); WPA3 adds stronger encryption and protection against offline password-guessing attacks even when a weak passphrase is used."

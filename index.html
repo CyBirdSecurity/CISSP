@@ -42,6 +42,7 @@
 
       <ul class="nav-links" id="nav-links">
         <li><a class="nav-link" data-route="home">Home</a></li>
+        <li><a class="nav-link" data-route="study">Study Guide</a></li>
         <li><a class="nav-link" data-route="flashcards">Flashcards</a></li>
         <li><a class="nav-link" data-route="quiz">Quiz</a></li>
         <li><a class="nav-link" data-route="interactive">Interactive Q's</a></li>
@@ -93,7 +94,13 @@
             everything you need to pass the exam.
           </p>
           <div class="hero-ctas">
-            <button class="btn btn-primary btn-lg" onclick="navigate('quiz')">
+            <button class="btn btn-primary btn-lg" onclick="navigate('study')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              Open Study Guide
+            </button>
+            <button class="btn btn-ghost btn-lg" onclick="navigate('quiz')">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polygon points="5 3 19 12 5 21 5 3"/>
               </svg>
@@ -151,6 +158,19 @@
         </div>
         <div class="domain-cards-grid" id="home-domain-grid">
           <!-- Rendered by app.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Study Guide Page ──────────────────────────────── -->
+    <div id="page-study" class="page">
+      <div class="page-container page-container--wide" style="padding-top: calc(var(--nav-h) + 20px);">
+        <div class="page-header">
+          <h1 class="page-title">Study Guide</h1>
+          <p class="page-subtitle">Read through each domain topic by topic, like a textbook — instead of random flashcards or quiz questions</p>
+        </div>
+        <div id="study-container">
+          <!-- Rendered by StudyGuideComponent -->
         </div>
       </div>
     </div>
@@ -225,6 +245,7 @@
   <script src="components/flashcard.js"></script>
   <script src="components/interactive.js"></script>
   <script src="components/quiz.js"></script>
+  <script src="components/studyGuide.js"></script>
 
   <!-- Main app -->
   <script src="assets/app.js"></script>

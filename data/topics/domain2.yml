@@ -1,0 +1,145 @@
+topics:
+  - id: d2-t1
+    domain: domain2
+    number: "2.1"
+    title: "Identify and Classify Information and Assets"
+    summary: "Building an asset inventory and applying classification schemes so protection effort matches actual sensitivity and value."
+    tags: ["asset classification", "data classification", "asset inventory"]
+    key_terms: ["Asset Inventory", "Data Classification", "Sensitivity", "Asset Valuation"]
+    sections:
+      - heading: "You Can't Protect What You Haven't Inventoried"
+        blocks:
+          - type: paragraph
+            text: "Asset security begins with knowing what you have: hardware, software, and — most importantly — information assets, wherever they live (on-prem servers, endpoints, cloud storage, third-party systems). An asset inventory is the foundation for every later control; you cannot classify, protect, or retire what you don't know exists. Shadow IT and forgotten legacy systems are common sources of breaches precisely because they fall outside the inventory and its associated controls."
+      - heading: "Classification Schemes"
+        blocks:
+          - type: paragraph
+            text: "Classification assigns each asset a sensitivity level so that protection controls scale appropriately — encrypting and tightly restricting a public marketing brochure the same way you would a trade secret wastes resources, while under-protecting the trade secret creates real risk. Government/military environments commonly use Top Secret / Secret / Confidential / Unclassified; commercial organizations commonly use schemes like Public / Internal / Confidential / Restricted."
+          - type: list
+            style: bullet
+            items:
+              - "Classification should be based on the impact of unauthorized disclosure, alteration, or loss — not on how the data 'feels' subjectively sensitive"
+              - "Every classification level should have documented, corresponding handling requirements (see 2.2)"
+              - "Classification is not one-time — data can be reclassified as its sensitivity changes over time (e.g. quarterly earnings become public after an announcement)"
+          - type: callout
+            style: tip
+            text: "The exam expects you to know that data owners (not IT or security teams) are ultimately responsible for assigning classification — they understand the business value and sensitivity best."
+
+  - id: d2-t2
+    domain: domain2
+    number: "2.2"
+    title: "Information and Asset Handling Requirements"
+    summary: "Translating classification levels into concrete rules for labeling, handling, storing, and transmitting each type of asset."
+    tags: ["handling requirements", "labeling", "marking"]
+    key_terms: ["Labeling", "Marking", "Handling Standard", "Data Owner"]
+    sections:
+      - heading: "From Classification to Concrete Rules"
+        blocks:
+          - type: paragraph
+            text: "Once data is classified, a handling standard defines exactly what's required at each level: how it must be labeled/marked, where it may be stored, what encryption is required in transit and at rest, who may access it, and how it must be destroyed. Without this translation step, classification is just a label with no operational effect."
+          - type: list
+            style: bullet
+            items:
+              - "Labeling/marking — physical documents get printed classification banners; electronic files get metadata tags or headers/footers"
+              - "Storage requirements — e.g. Restricted data must be stored only on encrypted, access-controlled systems, never on removable media"
+              - "Transmission requirements — e.g. Confidential data may only leave the network over an encrypted channel or approved secure file transfer"
+              - "Access requirements — who may view/edit each classification level, typically tied to need-to-know, not just clearance level"
+          - type: callout
+            style: example
+            text: "A 'Restricted' handling standard might require: encrypted storage, no printing without approval, no external email without DLP review, and mandatory shredding (not just recycling) at end of life."
+
+  - id: d2-t3
+    domain: domain2
+    number: "2.3"
+    title: "Provisioning Resources Securely"
+    summary: "Building security into how hardware, software, and cloud resources are acquired and configured from the start."
+    tags: ["provisioning", "hardening", "secure acquisition"]
+    key_terms: ["Secure Provisioning", "Hardening", "Baseline Configuration", "Asset Onboarding"]
+    sections:
+      - heading: "Security Starts at Acquisition"
+        blocks:
+          - type: paragraph
+            text: "Secure provisioning means new hardware, software, and cloud resources are configured to an approved secure baseline before they ever touch production or handle real data — not hardened as an afterthought once something has already gone live. This includes verifying the provenance of hardware/software (to avoid counterfeit or tampered components, tying back to supply chain risk in Domain 1), applying hardening baselines, and removing default credentials and unnecessary services before deployment."
+          - type: list
+            style: bullet
+            items:
+              - "Hardening — disabling unused services/ports, changing default credentials, applying vendor security guides (e.g. CIS Benchmarks)"
+              - "Baseline configuration — a documented, approved starting configuration every new asset of a given type must match"
+              - "Asset registration — every provisioned resource is added to the inventory (2.1) with an assigned owner and classification-appropriate controls from day one"
+          - type: callout
+            style: tip
+            text: "In cloud environments, 'secure provisioning' extends to infrastructure-as-code templates — baking hardened configuration into the template ensures every resource spun up from it inherits the same secure baseline automatically."
+
+  - id: d2-t4
+    domain: domain2
+    number: "2.4"
+    title: "Data Lifecycle Management"
+    summary: "The stages data passes through from creation to destruction, and the controls appropriate at each stage."
+    tags: ["data lifecycle", "data at rest", "data in transit", "data in use"]
+    key_terms: ["Data at Rest", "Data in Transit", "Data in Use", "Data Lifecycle", "Sanitization"]
+    sections:
+      - heading: "The Stages of the Lifecycle"
+        blocks:
+          - type: list
+            style: numbered
+            items:
+              - "Create — data is generated or captured; classification should be assigned as early as possible"
+              - "Store — data at rest; protected primarily through encryption, access control, and physical security"
+              - "Use — data in use (actively being processed in memory); protected through techniques like memory encryption and strict access to processing systems"
+              - "Share — data in transit; protected primarily through encryption (TLS, VPNs) and secure transfer protocols"
+              - "Archive — data retained for compliance/business reasons but not actively used; still requires protection matching its classification"
+              - "Destroy — data reaches end of retention and is sanitized/destroyed so it cannot be recovered"
+          - type: paragraph
+            text: "Each state — at rest, in transit, and in use — has distinct threats and therefore distinct controls. Encrypting data at rest does nothing to protect it while it's decrypted in memory during processing (data in use), which is why sensitive processing environments add controls like restricted memory access, secure enclaves, or confidential computing techniques."
+      - heading: "Why Lifecycle Thinking Matters"
+        blocks:
+          - type: callout
+            style: tip
+            text: "Exam scenarios often describe a control that protects data in only one state and ask what's missing. If a scenario says data is 'encrypted on the server' but employees regularly export it to USB drives, the gap is data in transit/data leaving the controlled environment, not data at rest."
+
+  - id: d2-t5
+    domain: domain2
+    number: "2.5"
+    title: "Asset Retention"
+    summary: "Determining how long data and assets must be kept, balancing legal/regulatory requirements against the risk of holding data too long."
+    tags: ["retention", "records management", "legal hold"]
+    key_terms: ["Retention Policy", "Legal Hold", "Records Management", "Data Minimization"]
+    sections:
+      - heading: "Retention Is a Balancing Act"
+        blocks:
+          - type: paragraph
+            text: "Retention policy defines how long each category of data/asset must be kept before disposal, driven by legal and regulatory minimums (e.g. tax records, healthcare records), business need, and litigation requirements. Retaining data longer than necessary is itself a risk — it expands the amount of sensitive data an attacker could steal, increases storage/compliance cost, and can create legal exposure (data that shouldn't exist can't be subpoenaed or breached). Retaining it for too short a time can violate regulatory minimums or destroy evidence needed for a legal matter."
+          - type: list
+            style: bullet
+            items:
+              - "Retention schedules should be defined per data category, not applied as one blanket rule organization-wide"
+              - "Legal hold suspends normal disposal schedules the moment litigation is reasonably anticipated — destroying data under legal hold, even per an otherwise valid retention policy, can constitute spoliation of evidence"
+              - "Data minimization (collect and keep only what's needed) reduces retention burden and risk simultaneously"
+          - type: callout
+            style: example
+            text: "An organization with a standard 'delete emails after 2 years' policy must suspend that deletion for any custodian's mailbox once a lawsuit is filed or reasonably anticipated, even if the 2-year mark is reached during the case."
+
+  - id: d2-t6
+    domain: domain2
+    number: "2.6"
+    title: "Data Security Controls and Compliance Requirements"
+    summary: "Selecting the right technical controls (encryption, DLP, tokenization) to satisfy both security needs and specific regulatory obligations."
+    tags: ["data security controls", "encryption", "DLP", "tokenization", "compliance"]
+    key_terms: ["Encryption", "Tokenization", "Data Loss Prevention (DLP)", "Data Masking", "Scoping and Tailoring"]
+    sections:
+      - heading: "Common Data Security Controls"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Encryption — renders data unreadable without the correct key; the baseline control for confidentiality at rest and in transit"
+              - "Tokenization — replaces sensitive data with a non-sensitive substitute (a token) that has no exploitable value outside the tokenization system, commonly used for payment card data"
+              - "Data masking / de-identification — obscures or removes identifying details, often used to make production data safe for use in test/development environments"
+              - "Data Loss Prevention (DLP) — monitors and blocks unauthorized movement of sensitive data (e.g. blocking an email containing a credit card number pattern from leaving the network)"
+          - type: callout
+            style: example
+            text: "Tokenization vs. encryption: an encrypted credit card number can be decrypted back to the original with the key. A token has no mathematical relationship to the original number — it can only be 'detokenized' by looking it up in a secure vault, which limits the blast radius if the token itself is stolen."
+      - heading: "Mapping Controls to Compliance Requirements"
+        blocks:
+          - type: paragraph
+            text: "Different regulations mandate different specific controls for the same underlying data — PCI DSS dictates detailed requirements for cardholder data, HIPAA for health information, GDPR for EU personal data. Rather than building a separate control set per regulation, mature programs select a strong baseline (often mapped to a framework like NIST 800-53 or ISO 27001) and then scope/tailor it — adding the specific extra controls a given regulation requires on top of the shared baseline, rather than maintaining entirely parallel programs."

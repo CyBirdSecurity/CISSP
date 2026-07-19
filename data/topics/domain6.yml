@@ -1,0 +1,110 @@
+topics:
+  - id: d6-t1
+    domain: domain6
+    number: "6.1"
+    title: "Designing and Validating Assessment, Test, and Audit Strategies"
+    summary: "Planning a coherent program of assessments, tests, and audits so coverage matches risk instead of happening ad hoc."
+    tags: ["assessment strategy", "test strategy", "audit planning"]
+    key_terms: ["Assessment", "Audit", "Test Strategy", "Scope"]
+    sections:
+      - heading: "Assessment vs. Test vs. Audit"
+        blocks:
+          - type: paragraph
+            text: "These three terms are related but distinct. An assessment is a broad evaluation of security posture (e.g. a risk assessment or vulnerability assessment) — often less formal, aimed at understanding current state. A test is a specific, hands-on technical exercise that validates whether a control actually works as intended (e.g. penetration testing, control testing). An audit is a formal, often independent review against a defined standard or requirement (regulatory, contractual, or internal policy) that produces a documented finding of compliance or non-compliance."
+          - type: callout
+            style: tip
+            text: "The exam distinguishes these by formality and purpose: an assessment explores, a test validates, an audit certifies compliance against a standard."
+      - heading: "Building a Coherent Strategy"
+        blocks:
+          - type: paragraph
+            text: "A mature program doesn't run tests and audits randomly — it plans a strategy: which systems get tested, how often, using which methods, and why, driven by the risk assessment (Domain 1). High-value or high-risk systems (internet-facing, holding regulated data) warrant more frequent and rigorous testing than low-risk internal tools. The strategy should also define scope and rules of engagement up front — what's in bounds, what's off-limits, and what authorization has been obtained — before any technical testing begins."
+
+  - id: d6-t2
+    domain: domain6
+    number: "6.2"
+    title: "Security Control Testing"
+    summary: "Specific technical testing methods — vulnerability scanning, penetration testing, code review, and more — used to validate controls."
+    tags: ["vulnerability scanning", "penetration testing", "code review"]
+    key_terms: ["Vulnerability Scan", "Penetration Test", "Black Box", "White Box", "Gray Box", "Static Analysis", "Dynamic Analysis"]
+    sections:
+      - heading: "Vulnerability Scanning vs. Penetration Testing"
+        blocks:
+          - type: paragraph
+            text: "A vulnerability scan is an automated process that identifies known weaknesses (missing patches, misconfigurations) without actively exploiting them — breadth over depth, run frequently and cheaply. A penetration test goes further: testers actively attempt to exploit identified weaknesses to demonstrate real-world impact, showing not just that a vulnerability exists but what an attacker could actually achieve with it. Penetration tests are more resource-intensive and typically run less frequently (e.g. annually) or after significant changes."
+          - type: list
+            style: bullet
+            items:
+              - "Black box testing — tester has no prior knowledge of the internal system, simulating an external attacker"
+              - "White box testing — tester has full knowledge (source code, architecture diagrams, credentials), enabling deep, thorough testing"
+              - "Gray box testing — tester has partial knowledge, simulating an insider or an attacker who's already gained limited access"
+      - heading: "Code-Level and Configuration Testing"
+        blocks:
+          - type: paragraph
+            text: "Static Application Security Testing (SAST) analyzes source code without executing it, catching insecure patterns early; Dynamic Application Security Testing (DAST) tests a running application from the outside, catching issues that only appear at runtime. Configuration and compliance scanning checks systems against a hardening baseline (e.g. CIS Benchmarks). Each method has blind spots the others cover — SAST can miss runtime-only issues, DAST can miss code paths that aren't exercised during testing — so mature programs combine multiple testing types rather than relying on just one."
+
+  - id: d6-t3
+    domain: domain6
+    number: "6.3"
+    title: "Collecting Security Process Data"
+    summary: "Gathering the operational metrics — from account management to disaster recovery testing — that feed assessment and reporting."
+    tags: ["security metrics", "log review", "KPI"]
+    key_terms: ["Security Metrics", "Log Review", "Account Management Review", "KPI/KRI"]
+    sections:
+      - heading: "Why Process Data Matters"
+        blocks:
+          - type: paragraph
+            text: "Testing controls in isolation (6.2) only tells part of the story — ongoing security process data shows whether the security program is functioning day-to-day as designed. This includes account management data (are terminated accounts actually disabled promptly?), log review results (are alerts being triaged, or piling up unreviewed?), backup verification data (do restores actually work, not just complete?), and training completion rates."
+          - type: list
+            style: bullet
+            items:
+              - "Account management — provisioning/deprovisioning timeliness, orphaned account counts"
+              - "Backup verification — successful restore testing, not just backup job completion status"
+              - "Key performance indicators (KPIs) — measure how well a process is performing (e.g. patch deployment time)"
+              - "Key risk indicators (KRIs) — early warning metrics that a risk is trending upward (e.g. rising number of unpatched critical vulnerabilities)"
+          - type: callout
+            style: tip
+            text: "A backup job reporting 'success' every night is not the same as a verified, working restore — the exam favors answers that emphasize testing/verifying data (e.g. actually restoring from backup) over simply collecting status logs."
+
+  - id: d6-t4
+    domain: domain6
+    number: "6.4"
+    title: "Analyzing Test Output and Generating Reports"
+    summary: "Turning raw test results into prioritized, actionable findings that decision-makers can actually use."
+    tags: ["reporting", "remediation prioritization", "false positive"]
+    key_terms: ["Finding", "False Positive", "Remediation Priority", "Executive Summary"]
+    sections:
+      - heading: "From Raw Output to Meaningful Findings"
+        blocks:
+          - type: paragraph
+            text: "Raw scanner/test output is rarely useful on its own — it must be analyzed to remove false positives (results that appear to be issues but aren't, given the actual environment/context), correlate related findings, and prioritize based on real risk (exploitability, exposure, data sensitivity of the affected system), not just a generic severity score. A 'critical' vulnerability on an isolated, air-gapped test system is a lower real-world priority than a 'medium' vulnerability on an internet-facing production server holding regulated data."
+      - heading: "Communicating Results Effectively"
+        blocks:
+          - type: paragraph
+            text: "A good report serves multiple audiences: an executive summary communicates business risk and overall posture in non-technical terms for leadership, while detailed technical findings (with reproduction steps and remediation guidance) serve the teams who must actually fix the issues. Every finding should include enough detail to be actionable — what's wrong, why it matters, and what to do about it — not just a raw vulnerability name and severity score."
+          - type: callout
+            style: tip
+            text: "The exam frames reporting as a communication exercise as much as a technical one — a report that's technically accurate but unusable by its audience has failed at its purpose."
+
+  - id: d6-t5
+    domain: domain6
+    number: "6.5"
+    title: "Conducting or Facilitating Security Audits"
+    summary: "The distinction between internal, external, and third-party audits, and the auditor's role versus the organization's role."
+    tags: ["internal audit", "external audit", "third-party audit"]
+    key_terms: ["Internal Audit", "External Audit", "Third-Party Audit", "Auditor Independence", "SOC 2"]
+    sections:
+      - heading: "Types of Audits"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Internal audit — conducted by the organization's own audit function; useful for continuous self-monitoring but has less independence than an external audit"
+              - "External audit — conducted by an independent outside party (regulator or hired firm); provides higher assurance to outside stakeholders precisely because of that independence"
+              - "Third-party audit — conducted on behalf of, or requested by, an external stakeholder such as a customer or partner (e.g. a SOC 2 report an organization commissions to prove its controls to its own customers)"
+          - type: callout
+            style: tip
+            text: "Auditor independence is core to audit credibility — an auditor should not audit a system or process they personally designed, implemented, or operate, since that creates a conflict of interest and undermines the objectivity the audit is supposed to provide."
+      - heading: "The Organization's Role in Facilitating an Audit"
+        blocks:
+          - type: paragraph
+            text: "Security teams are usually on the receiving end of an audit rather than performing it themselves — 'facilitating' means providing evidence, access, and subject-matter expertise to auditors, tracking findings to remediation, and ensuring nothing is altered or concealed during the audit period. A finding left unaddressed from a prior audit, reappearing in a subsequent one, is itself a red flag auditors specifically look for — it signals the organization isn't acting on what it already knows."

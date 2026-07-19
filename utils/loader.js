@@ -73,6 +73,20 @@ const Loader = (() => {
       .flatMap(r => r.value);
   }
 
+  async function loadTopics(domainId) {
+    const data = await fetchYAML(`./data/topics/${domainId}.yml`);
+    return data.topics || [];
+  }
+
+  async function loadAllTopics(domains) {
+    const results = await Promise.allSettled(
+      domains.map(d => loadTopics(d.id))
+    );
+    return results
+      .filter(r => r.status === 'fulfilled')
+      .flatMap(r => r.value);
+  }
+
   return {
     loadDomains,
     loadFlashcards,
@@ -80,6 +94,8 @@ const Loader = (() => {
     loadQuestions,
     loadAllQuestions,
     loadInteractiveQuestions,
-    loadAllInteractiveQuestions
+    loadAllInteractiveQuestions,
+    loadTopics,
+    loadAllTopics
   };
 })();

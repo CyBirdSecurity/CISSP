@@ -4,7 +4,7 @@
 
 const Progress = (() => {
   const STORAGE_KEY = (typeof CERT_CONFIG !== 'undefined' ? CERT_CONFIG.storageKey : 'cissp_progress');
-  const SCHEMA_VERSION = 1;
+  const SCHEMA_VERSION = 2;
   let _data = null;
 
   function defaultData() {
@@ -13,6 +13,7 @@ const Progress = (() => {
       flashcards: {},
       questions: {},
       domains: {},
+      topics: {},
       sessions: {
         last_study_date: null,
         current_streak: 0,
@@ -21,14 +22,23 @@ const Progress = (() => {
     };
   }
 
+  // Fills in fields added by later schema versions so older stored/imported
+  // data keeps its history instead of being discarded on upgrade.
+  function migrate(parsed) {
+    if (!parsed.topics) parsed.topics = {};
+    parsed.version = SCHEMA_VERSION;
+    return parsed;
+  }
+
   function getProgress() {
     if (_data) return _data;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (parsed && parsed.version === SCHEMA_VERSION) {
-          _data = parsed;
+        if (parsed && typeof parsed === 'object' && typeof parsed.version === 'number' && parsed.version <= SCHEMA_VERSION) {
+          _data = migrate(parsed);
+          saveProgress();
           return _data;
         }
       }
@@ -133,18 +143,37 @@ const Progress = (() => {
   function importProgress(jsonString) {
     try {
       const parsed = JSON.parse(jsonString);
-      if (!parsed || typeof parsed !== 'object' || parsed.version !== SCHEMA_VERSION) {
+      if (!parsed || typeof parsed !== 'object' || typeof parsed.version !== 'number' || parsed.version > SCHEMA_VERSION) {
         throw new Error('Invalid format or version mismatch');
       }
       if (!parsed.flashcards || !parsed.questions || !parsed.domains || !parsed.sessions) {
         throw new Error('Missing required fields');
       }
-      _data = parsed;
+      _data = migrate(parsed);
       saveProgress();
       return { success: true };
     } catch (e) {
       return { success: false, error: e.message };
     }
+  }
+
+  function markTopicRead(topicId) {
+    const p = getProgress();
+    const now = new Date().toISOString();
+    if (!p.topics[topicId]) {
+      p.topics[topicId] = { read: true, first_read_at: now, last_read_at: now };
+    } else {
+      p.topics[topicId].read = true;
+      p.topics[topicId].last_read_at = now;
+    }
+    saveProgress();
+  }
+
+  function getDomainReadingProgress(domainId, topics) {
+    const p = getProgress();
+    const domainTopics = topics.filter(t => t.domain === domainId);
+    const readCount = domainTopics.filter(t => p.topics[t.id]?.read).length;
+    return { read: readCount, total: domainTopics.length };
   }
 
   function getFlashcardStats(flashcards) {
@@ -195,6 +224,8 @@ const Progress = (() => {
     exportProgress,
     importProgress,
     getFlashcardStats,
-    getTotalStats
+    getTotalStats,
+    markTopicRead,
+    getDomainReadingProgress
   };
 })();
