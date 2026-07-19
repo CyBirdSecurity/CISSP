@@ -4,13 +4,22 @@ topics:
     number: "8.1"
     title: "Security in the Software Development Life Cycle (SDLC)"
     summary: "Integrating security activities into every SDLC phase and comparing traditional (Waterfall) and iterative (Agile/DevSecOps) models."
-    tags: ["SDLC", "DevSecOps", "shift left", "Agile"]
-    key_terms: ["SDLC", "Shift Left", "DevSecOps", "Waterfall", "Agile"]
+    tags: ["SDLC", "DevSecOps", "shift left", "Agile", "maturity model"]
+    key_terms: ["SDLC", "Shift Left", "DevSecOps", "Waterfall", "Agile", "Threat Modeling (SDLC)", "Security Maturity Model"]
     sections:
       - heading: "Security at Every SDLC Phase"
         blocks:
           - type: paragraph
             text: "The SDLC typically runs through requirements, design, development (coding), testing, deployment, and maintenance. 'Shift left' means moving security activities as early in this sequence as possible — defining security requirements alongside functional requirements, threat modeling during design (Domain 1), rather than waiting until testing (or worse, production) to discover problems. A vulnerability caught during design review costs far less to fix than the same vulnerability caught after deployment, both financially and in terms of risk exposure."
+          - type: list
+            style: bullet
+            items:
+              - "Requirements — security requirements are defined alongside functional ones (e.g. 'all PII fields must be encrypted at rest'), not treated as separate/optional"
+              - "Design — threat modeling (STRIDE, from Domain 1) is applied to the proposed architecture before code is written, and security-relevant design decisions (authentication approach, data flow trust boundaries) are made deliberately"
+              - "Development — secure coding standards (8.5) are followed, and automated tooling (SAST, dependency scanning) runs continuously rather than only at the end"
+              - "Testing — dedicated security testing (8.3) supplements functional testing"
+              - "Deployment — the deployment pipeline itself is protected (8.2), and configuration is hardened before going live (echoing Domain 2's secure provisioning)"
+              - "Maintenance — ongoing patching and monitoring continue for as long as the software is in production"
       - heading: "Waterfall vs. Agile/DevSecOps"
         blocks:
           - type: paragraph
@@ -18,14 +27,18 @@ topics:
           - type: callout
             style: tip
             text: "DevSecOps is essentially 'shift left' applied to Agile/DevOps: instead of a security team reviewing code after it's written, automated security checks run continuously as part of the same pipeline that builds and deploys the code."
+      - heading: "Measuring Security Maturity"
+        blocks:
+          - type: paragraph
+            text: "Because 'shift left' and 'DevSecOps' can mean very different things in practice from one team to another, software security maturity models (e.g. BSIMM — Building Security In Maturity Model, or OWASP SAMM — Software Assurance Maturity Model) give organizations a structured way to assess how consistently security practices are actually applied across governance, design, implementation, verification, and operations, and to benchmark against industry norms rather than relying on a subjective sense of 'we do security.' These models are descriptive/measurement tools (what are we actually doing, and how mature is it) rather than prescriptive standards (unlike a secure coding standard, which tells developers exactly what to do)."
 
   - id: d8-t2
     domain: domain8
     number: "8.2"
     title: "Security Controls in Software Development Ecosystems"
     summary: "Protecting the toolchain itself — source control, build systems, and CI/CD pipelines — that software is actually built with."
-    tags: ["CI/CD security", "source control", "software supply chain"]
-    key_terms: ["Source Code Repository", "CI/CD Pipeline", "Software Composition Analysis (SCA)", "Build Integrity"]
+    tags: ["CI/CD security", "source control", "software supply chain", "secrets management"]
+    key_terms: ["Source Code Repository", "CI/CD Pipeline", "Software Composition Analysis (SCA)", "Build Integrity", "Secrets Management", "Artifact Signing"]
     sections:
       - heading: "Securing the Toolchain, Not Just the Code"
         blocks:
@@ -34,48 +47,64 @@ topics:
           - type: list
             style: bullet
             items:
-              - "Source code repository controls — least-privilege access, mandatory peer review before merge, signed commits"
+              - "Source code repository controls — least-privilege access, mandatory peer review before merge, signed commits, branch protection rules (e.g. preventing anyone, including admins, from pushing directly to the main branch without review)"
               - "Pipeline security — restricting who can modify build scripts/pipeline configuration, since that configuration has the power to inject code into every output"
               - "Software Composition Analysis (SCA) — automatically scans third-party/open-source dependencies for known vulnerabilities, tying back to the Software Bill of Materials (SBOM) concept from Domain 1's supply chain risk management"
           - type: callout
             style: example
             text: "An attacker who compromises a CI/CD pipeline's build script doesn't need to find a bug in the application code at all — they can insert malicious code directly into the build process, which then gets distributed to every user of the resulting software, exactly the kind of software supply chain attack introduced in Domain 1."
+      - heading: "Secrets Management"
+        blocks:
+          - type: paragraph
+            text: "Pipelines and applications routinely need credentials (database passwords, API keys, signing keys) to function, and hardcoding these directly into source code is a common and serious mistake — anyone with read access to the repository (or its history, since deleting a secret from the latest commit doesn't remove it from git history) gets the credential too. A secrets management system (a dedicated secure vault) stores these values centrally, injects them into the pipeline or application only at runtime, supports automatic rotation, and provides an audit trail of exactly which system or person accessed which secret and when — none of which a hardcoded value in source control can offer."
+      - heading: "Verifying What Actually Gets Deployed"
+        blocks:
+          - type: paragraph
+            text: "Artifact signing extends the digital-signature concepts from Domain 3 to the build output itself: after a build completes, the resulting artifact (a container image, a compiled binary, a package) is cryptographically signed, and deployment systems can be configured to refuse to run anything that isn't signed by a trusted, expected source. This closes a gap that source-code-level controls alone don't cover — even with a perfectly reviewed and protected source repository, there still needs to be a way to prove that what actually got deployed to production is the exact artifact that came from the legitimate, verified build process, and not something substituted or tampered with afterward."
 
   - id: d8-t3
     domain: domain8
     number: "8.3"
     title: "Assessing the Effectiveness of Software Security"
     summary: "Measuring whether security controls built into software actually work, using the testing techniques from Domain 6 applied specifically to code."
-    tags: ["software testing", "SAST", "DAST", "fuzz testing"]
-    key_terms: ["SAST", "DAST", "IAST", "Fuzz Testing", "Code Review"]
+    tags: ["software testing", "SAST", "DAST", "fuzz testing", "security champions"]
+    key_terms: ["SAST", "DAST", "IAST", "Fuzz Testing", "Code Review", "RASP", "Security Champion", "Bug Bounty"]
     sections:
       - heading: "Testing Techniques for Software Security"
         blocks:
           - type: paragraph
-            text: "Static Application Security Testing (SAST) examines source code without running it, catching insecure patterns early but potentially missing runtime-only issues. Dynamic Application Security Testing (DAST) tests a running application from the outside, like an attacker would, catching real runtime behavior but requiring a working build to test against. Interactive Application Security Testing (IAST) combines both, instrumenting the running application to observe internal behavior during dynamic testing. Fuzz testing feeds a program large volumes of malformed, unexpected, or random input to find crashes and unhandled edge cases that structured test cases might never think to try."
+            text: "Static Application Security Testing (SAST) examines source code without executing it, catching insecure patterns early but potentially missing runtime-only issues. Dynamic Application Security Testing (DAST) tests a running application from the outside, like an attacker would, catching real runtime behavior but requiring a working build to test against. Interactive Application Security Testing (IAST) combines both, instrumenting the running application to observe internal behavior during dynamic testing. Fuzz testing feeds a program large volumes of malformed, unexpected, or random input to find crashes and unhandled edge cases that structured test cases might never think to try."
           - type: callout
             style: tip
             text: "This directly extends Domain 6's testing concepts (6.2), applied specifically to custom-developed software rather than infrastructure — the same static/dynamic distinction applies, just at the code level."
-      - heading: "Manual Code Review"
+      - heading: "Protecting the Running Application Itself"
         blocks:
           - type: paragraph
-            text: "Automated tools can't catch everything — logic flaws, business-rule violations, and subtle authorization bugs often require a human reviewer who understands the application's intended behavior. Peer code review (a second developer examining code before merge) catches many of these issues cheaply, before the code ever reaches a dedicated security test phase, and is considered a baseline practice rather than optional."
+            text: "Runtime Application Self-Protection (RASP) takes a different approach from the testing techniques above — rather than finding vulnerabilities before release, RASP is embedded directly into a running application and can detect and actively block attacks (like an injection attempt) in real time within the application's own execution context, giving it more precise visibility into whether a given input is actually being interpreted dangerously than an external network-layer control like a WAF (Domain 4) would have. It's best understood as a compensating/defense-in-depth layer that catches what testing missed, not a replacement for the testing techniques above."
+      - heading: "Human and Crowd-Sourced Assessment"
+        blocks:
+          - type: paragraph
+            text: "Automated tools can't catch everything — logic flaws, business-rule violations, and subtle authorization bugs often require a human reviewer who understands the application's intended behavior. Peer code review (a second developer examining code before merge) catches many of these issues cheaply, before the code ever reaches a dedicated security test phase. A security champion program embeds security-minded advocates directly within individual development teams — not full-time security staff, but developers with extra security training who help catch issues locally and act as a bridge back to the central security team, scaling security expertise further than a small central team could reach alone. Bug bounty programs extend assessment beyond internal staff entirely, inviting external researchers to find and responsibly report vulnerabilities in exchange for a reward, effectively crowd-sourcing a much larger and more diverse pool of attackers' perspectives than any internal test team could replicate — though this only works safely within a clearly defined scope and legal safe-harbor agreement, so researchers know exactly what testing is authorized."
 
   - id: d8-t4
     domain: domain8
     number: "8.4"
     title: "Assessing the Security Impact of Acquired Software"
     summary: "Applying the same rigor to purchased, open-source, and outsourced software as to code written in-house."
-    tags: ["third-party software", "open source risk", "COTS"]
-    key_terms: ["Commercial Off-The-Shelf (COTS)", "Open Source Risk", "Vendor Security Assessment"]
+    tags: ["third-party software", "open source risk", "COTS", "end of life software"]
+    key_terms: ["Commercial Off-The-Shelf (COTS)", "Open Source Risk", "Vendor Security Assessment", "End-of-Life (EOL) Software"]
     sections:
       - heading: "Not All Software Is Written In-House"
         blocks:
           - type: paragraph
-            text: "Most organizations run far more acquired software — commercial off-the-shelf (COTS) products, open-source libraries, and outsourced/contracted development — than they write themselves, and all of it carries security risk even though the organization didn't write a line of it. Acquired software should go through security assessment before adoption: vendor security questionnaires and certifications for commercial products, vulnerability history and maintenance activity for open-source components, and contractual security requirements/right-to-audit clauses for outsourced development."
+            text: "Most organizations run far more acquired software — commercial off-the-shelf (COTS) products, open-source libraries, and outsourced/contracted development — than they write themselves, and all of it carries security risk even though the organization didn't write a line of it. Acquired software should go through security assessment before adoption: vendor security questionnaires and certifications for commercial products (often the same SOC 2 / audit-report concepts from Domain 6), vulnerability history and maintenance activity for open-source components, and contractual security requirements/right-to-audit clauses for outsourced development."
           - type: callout
             style: tip
             text: "This connects directly to Domain 1's Supply Chain Risk Management and Domain 8.2's Software Composition Analysis — acquired software risk isn't a separate topic in isolation, it's the same supply-chain thinking applied specifically to the software acquisition decision."
+      - heading: "The End-of-Life Risk"
+        blocks:
+          - type: paragraph
+            text: "Software eventually reaches end-of-life (EOL) — the point where the vendor or maintaining community stops releasing security patches entirely, regardless of what vulnerabilities are found afterward. Continuing to run EOL software means accepting an ever-growing, permanently unpatched attack surface, since any new vulnerability discovered after EOL will never be fixed by the vendor; the only remaining options are migration to a supported alternative, or compensating controls (network isolation, extended/paid vendor support if available) if migration isn't immediately possible. Tracking EOL dates as part of the asset inventory (Domain 2) is what turns this from a surprise into a planned migration."
       - heading: "Ongoing Responsibility, Not a One-Time Check"
         blocks:
           - type: paragraph
@@ -86,24 +115,32 @@ topics:
     number: "8.5"
     title: "Secure Coding Guidelines and Standards"
     summary: "The common vulnerability classes secure coding standards defend against, and how organizations codify and enforce coding practices."
-    tags: ["secure coding", "OWASP", "input validation", "injection"]
-    key_terms: ["OWASP Top 10", "Input Validation", "Injection", "Secure Coding Standard", "Least Privilege (code)"]
+    tags: ["secure coding", "OWASP", "input validation", "injection", "buffer overflow"]
+    key_terms: ["OWASP Top 10", "Input Validation", "Injection", "Secure Coding Standard", "Least Privilege (code)", "Buffer Overflow", "Race Condition", "SSRF"]
     sections:
       - heading: "Why Standardize Secure Coding"
         blocks:
           - type: paragraph
-            text: "A secure coding standard gives developers concrete, enforceable rules (not just general principles) for avoiding common vulnerability classes, so security doesn't depend entirely on each individual developer's personal knowledge. Industry references like the OWASP Top 10 catalog the most common and impactful web application vulnerability classes, giving organizations a starting point for building their own standards rather than starting from scratch."
+            text: "A secure coding standard gives developers concrete, enforceable rules (not just general principles) for avoiding common vulnerability classes, so security doesn't depend entirely on each individual developer's personal knowledge. Industry references like the OWASP Top 10 catalog the most common and impactful web application vulnerability classes, and language-specific standards (e.g. CERT's secure coding standards for C/C++/Java) give more precise, language-level rules — giving organizations a starting point for building their own standards rather than starting from scratch."
       - heading: "Common Vulnerability Classes to Defend Against"
         blocks:
           - type: list
             style: bullet
             items:
               - "Injection (e.g. SQL injection) — untrusted input is interpreted as code/commands rather than data, because it wasn't properly validated or parameterized; defended against with input validation and parameterized queries/prepared statements rather than string-concatenated queries"
-              - "Broken authentication/session management — weak session handling lets attackers hijack or forge a legitimate user's session"
+              - "Broken access control — an application fails to properly enforce what an authenticated user is actually allowed to do, letting a user access another user's data or perform an admin-only action simply by changing a URL or parameter (sometimes called an Insecure Direct Object Reference), rather than any true authentication being bypassed"
+              - "Security misconfiguration — a system is deployed with insecure defaults, unnecessary features enabled, verbose error messages that leak internal details, or missing security headers, even though no single line of custom code is technically 'buggy'"
+              - "Server-Side Request Forgery (SSRF) — an application is tricked into making a network request to an internal or unintended destination on the attacker's behalf (e.g. an image-URL field that fetches attacker-supplied URLs is abused to reach an internal admin service the attacker couldn't otherwise access directly)"
               - "Cross-Site Scripting (XSS) — untrusted input is rendered back to a browser as executable script rather than plain text/data, defended against with output encoding"
               - "Insecure deserialization — untrusted data is deserialized into objects without validation, potentially allowing an attacker to manipulate application logic or execute code"
           - type: callout
             style: example
             text: "The classic SQL injection example: a query built by concatenating user input directly into a SQL string lets an attacker submit input like a value that alters the query's logic. A parameterized query treats the same input strictly as data, never as part of the query structure, closing the vulnerability regardless of what the attacker submits."
+      - heading: "Memory Safety and Timing Vulnerabilities"
+        blocks:
+          - type: paragraph
+            text: "A buffer overflow occurs when a program writes more data into a fixed-size memory buffer than it was allocated to hold, overwriting adjacent memory — in the worst case, an attacker can craft the overflowing input so the overwritten memory redirects program execution to attacker-supplied code, achieving arbitrary code execution. This is primarily a risk in languages that manage memory manually (C/C++); memory-safe languages (which perform automatic bounds checking) eliminate this specific vulnerability class by design, which is a major reason memory-safe language adoption is increasingly recommended for new security-critical code. A race condition is a timing-dependent flaw where the correctness of a program depends on the unpredictable order or timing of concurrent operations — the Time-of-Check-to-Time-of-Use (TOCTOU) vulnerability introduced in Domain 3 is a specific, security-relevant example of a race condition, where an attacker exploits the gap between a security check and the action that check was supposed to protect."
+      - heading: "Baseline Secure Coding Practices"
+        blocks:
           - type: paragraph
             text: "Beyond specific vulnerability classes, secure coding standards typically also require: least privilege in code (a component runs with only the permissions it needs, not elevated/admin rights by default), proper error handling (failures shouldn't leak sensitive details like stack traces or internal paths to users), and secure defaults (a feature ships secure out of the box, requiring deliberate action to weaken it, rather than requiring deliberate action to secure it)."

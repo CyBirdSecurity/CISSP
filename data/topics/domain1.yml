@@ -68,8 +68,8 @@ topics:
     number: "1.3"
     title: "Security Governance Principles"
     summary: "How security aligns to business strategy through governance frameworks, organizational roles, and due care/due diligence."
-    tags: ["governance", "frameworks", "due care", "due diligence"]
-    key_terms: ["Due Care", "Due Diligence", "COBIT", "Security Governance", "Alignment"]
+    tags: ["governance", "frameworks", "due care", "due diligence", "compliance frameworks"]
+    key_terms: ["Due Care", "Due Diligence", "COBIT", "Security Governance", "Alignment", "ISO/IEC 27001", "ISO/IEC 27002", "NIST CSF", "NIST SP 800-53"]
     sections:
       - heading: "Governance Is Not Management"
         blocks:
@@ -84,10 +84,24 @@ topics:
             items:
               - "COBIT — IT governance and management framework focused on aligning IT with business goals"
               - "ISO/IEC 27001 — management-system standard for establishing, operating, and improving an ISMS"
-              - "NIST Cybersecurity Framework — risk-based framework organized around Identify, Protect, Detect, Respond, Recover"
+              - "NIST Cybersecurity Framework (CSF) — risk-based framework, currently organized around six functions: Govern, Identify, Protect, Detect, Respond, and Recover (Govern was added in CSF 2.0 as a cross-cutting foundational function covering how cybersecurity risk decisions get made, sitting alongside the original five)"
           - type: callout
             style: tip
             text: "The exam won't ask you to memorize every control in these frameworks — it tests whether you understand that governance frameworks exist to provide structure and repeatability, not to replace business judgment."
+      - heading: "Comparing Governance and Security Frameworks — A Frequently Tested Contrast"
+        blocks:
+          - type: paragraph
+            text: "CISSP questions often describe a scenario and ask which framework fits, or ask you to distinguish two frameworks that sound similar but serve different purposes. The two axes that matter most: is the framework certifiable (an accredited third party can formally certify an organization against it) or is it a self-assessment/reference tool with no formal certification, and is it prescriptive (specifies detailed, specific controls) or principles-based/risk-based (sets objectives and lets the organization choose its own controls to meet them)."
+          - type: list
+            style: bullet
+            items:
+              - "COBIT (ISACA) — an IT governance and management framework, not primarily a security control catalog; it focuses on aligning IT investment and risk decisions with business goals, and on governance processes (who decides what, how is performance measured). Individuals can earn COBIT certifications, but organizations are not 'COBIT certified' the way they can be ISO 27001 certified."
+              - "ISO/IEC 27001 — an international, certifiable management-system standard: it specifies the requirements for establishing, operating, monitoring, and improving an Information Security Management System (ISMS), and accredited auditors can formally certify an organization's ISMS against it. It is deliberately risk-based and generic across industries — it tells you to run a risk assessment and select appropriate controls, without being as granular as a control catalog. ISO/IEC 27002 is its companion standard, providing detailed implementation guidance for the control set referenced by 27001 (27001 = the certifiable management-system requirements; 27002 = the 'how' behind individual controls)."
+              - "NIST Cybersecurity Framework (CSF) — a voluntary, risk-based framework, not certifiable by any formal body; organizations self-assess their current and target state against CSF's Functions/Categories/Subcategories, often expressed as Implementation Tiers (how mature/integrated risk management is) and Profiles (current-state vs. target-state comparison). It's best understood as a common vocabulary and self-assessment structure rather than a prescriptive control list."
+              - "NIST SP 800-53 — a detailed, prescriptive catalog of hundreds of specific security and privacy controls, organized into families, and mandatory for U.S. federal information systems under FISMA (enforced through the Risk Management Framework and Authorization to Operate process covered in Domain 3). It is far more granular than CSF, which is part of why CSF and 800-53 are often confused: CSF gives you the risk-based 'what to think about,' while 800-53 gives you the prescriptive 'here is the exact control and how to implement it.'"
+          - type: callout
+            style: example
+            text: "A useful way to keep these straight for the exam: COBIT governs IT decision-making broadly; ISO 27001 is the certifiable management-system standard for information security specifically; NIST CSF is a voluntary, non-certifiable risk-based self-assessment framework; NIST 800-53 is the detailed, mandatory (for U.S. federal systems) control catalog that sits underneath frameworks like CSF and RMF. If a question mentions 'formal third-party certification of an ISMS,' it's pointing at ISO 27001 — none of the others offer that for an organization as a whole."
       - heading: "Due Care and Due Diligence"
         blocks:
           - type: paragraph
@@ -98,8 +112,8 @@ topics:
     number: "1.4"
     title: "Legal, Regulatory, and Compliance Issues"
     summary: "Major legal systems, categories of law, intellectual property protections, privacy regulations, and cross-border data transfer issues."
-    tags: ["legal", "compliance", "privacy", "GDPR", "intellectual property"]
-    key_terms: ["Common Law", "Civil Law", "GDPR", "Trade Secret", "Copyright", "Patent", "Trademark"]
+    tags: ["legal", "compliance", "privacy", "GDPR", "intellectual property", "HIPAA", "PCI DSS"]
+    key_terms: ["Common Law", "Civil Law", "GDPR", "Trade Secret", "Copyright", "Patent", "Trademark", "HIPAA", "PCI DSS", "CCPA", "Data Controller", "Data Processor"]
     sections:
       - heading: "Legal Systems and Categories of Law"
         blocks:
@@ -124,6 +138,23 @@ topics:
           - type: callout
             style: tip
             text: "Know the difference between a data controller (decides why/how data is processed) and a data processor (processes data on the controller's behalf) — GDPR assigns different obligations to each."
+      - heading: "Comparing Major Compliance Regimes — Law vs. Contract, Broad vs. Sector-Specific"
+        blocks:
+          - type: paragraph
+            text: "The CISSP exam frequently tests whether you can tell these regimes apart along two dimensions: what kind of authority creates and enforces them (a government law with statutory penalties, versus a private industry body enforcing through contract), and how broad their scope is (protecting one category of data for everyone, versus protecting all personal data for people in one jurisdiction)."
+          - type: list
+            style: bullet
+            items:
+              - "GDPR — an EU law (not industry-created), protecting the personal data of people in the EU broadly, across every sector, not just one type of data. Enforced by government Data Protection Authorities with real statutory penalties (up to 4% of global annual revenue or €20 million, whichever is higher). Built on an opt-in consent model — organizations generally need a lawful basis (often affirmative consent) before processing personal data in the first place."
+              - "HIPAA — a U.S. federal law, but sector-specific: it protects Protected Health Information (PHI) and applies specifically to covered entities (healthcare providers, health plans, healthcare clearinghouses) and their business associates (vendors who handle PHI on a covered entity's behalf, bound by a contractually required Business Associate Agreement). Enforced by the U.S. Department of Health and Human Services' Office for Civil Rights, with statutory fines."
+              - "PCI DSS — not a law at all: a contractually-mandated industry standard created and maintained by the Payment Card Industry Security Standards Council (founded by the major card brands), applying specifically to any organization that stores, processes, or transmits cardholder data, regardless of industry. Compliance is validated through a Self-Assessment Questionnaire (for lower transaction volumes) or an audit by a Qualified Security Assessor (for higher volumes), and 'penalties' for non-compliance are contractual — fines from the card brands/acquiring bank, or loss of the ability to process card payments at all — rather than a government fine."
+              - "CCPA / CPRA (California) — a U.S. state law (not federal, unlike HIPAA), protecting the personal data of California residents broadly across sectors, similar in scope-breadth to GDPR but built on a different consent model: opt-out rather than GDPR's opt-in — businesses can generally process personal data by default, but must honor a consumer's right to opt out of its sale/sharing, rather than needing affirmative consent up front."
+          - type: callout
+            style: example
+            text: "A single organization can be subject to multiple regimes simultaneously and must satisfy all of them at once: a US-based hospital's patient payment portal handling EU patients' data would need to comply with HIPAA (because it's a covered entity handling PHI), PCI DSS (because it processes card payments), and GDPR (because some of its patients are in the EU) — three regimes with three different legal natures (federal law, industry contract, foreign law) and three different enforcement bodies, all applying to the same system at once."
+          - type: callout
+            style: tip
+            text: "Exam shortcut for telling these apart: if the question mentions a government agency levying a statutory fine, it's a law (GDPR, HIPAA, a state privacy law). If it mentions losing the ability to process card transactions, or an assessor/QSA, it's PCI DSS — a contractual industry standard, not a law."
 
   - id: d1-t5
     domain: domain1

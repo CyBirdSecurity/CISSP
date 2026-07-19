@@ -5,12 +5,14 @@ topics:
     title: "Controlling Physical and Logical Access to Assets"
     summary: "The subject/object model underlying all access control, and how it applies consistently to physical spaces, systems, devices, and data."
     tags: ["access control", "subject", "object"]
-    key_terms: ["Subject", "Object", "Access Control", "Physical Access Control", "Logical Access Control"]
+    key_terms: ["Subject", "Object", "Access Control", "Physical Access Control", "Logical Access Control", "Access Control List", "Capability Table"]
     sections:
       - heading: "Subjects, Objects, and Access"
         blocks:
           - type: paragraph
             text: "Every access control decision involves a subject (an active entity requesting access — a user, process, or device) and an object (the passive resource being accessed — a file, a room, a system, an API). Access control is the set of mechanisms that decide whether a given subject may perform a given action on a given object, and every asset type needs this decision made consistently: physical spaces (badge readers, locks), systems (login), devices (device authentication before joining a network), applications (application-level permissions), and data (file/record-level permissions)."
+          - type: paragraph
+            text: "There are two complementary ways to represent who can access what. An Access Control List (ACL) is attached to the object and lists which subjects (and what level of access) are permitted — this is the model behind typical file permissions, where each file 'knows' who can read/write/execute it. A capability table (or capability list) is attached instead to the subject, listing which objects that subject can access and what it can do to each — conceptually like a keyring the subject carries, rather than a guest list each door keeps. Most real systems (including standard OS file permissions) use ACLs, but the capability model shows up in some distributed/microservice architectures where a service is issued a scoped token (a 'capability') granting exactly the access it needs, rather than the resource maintaining its own list of every possible caller."
       - heading: "The Same Model, Every Asset Type"
         blocks:
           - type: list
@@ -28,8 +30,8 @@ topics:
     number: "5.2"
     title: "Identification and Authentication of People, Devices, and Services"
     summary: "The distinct steps of identification, authentication, and the multiple factor categories used to prove a claimed identity."
-    tags: ["identification", "authentication", "multi-factor authentication"]
-    key_terms: ["Identification", "Authentication", "Something You Know", "Something You Have", "Something You Are", "MFA"]
+    tags: ["identification", "authentication", "multi-factor authentication", "passwordless"]
+    key_terms: ["Identification", "Authentication", "Something You Know", "Something You Have", "Something You Are", "MFA", "TOTP", "HOTP", "FIDO2/WebAuthn", "Password Entropy"]
     sections:
       - heading: "Identification vs. Authentication"
         blocks:
@@ -47,6 +49,13 @@ topics:
               - "Somewhere you are — location-based authentication (e.g. geofencing, GPS)"
           - type: paragraph
             text: "Multi-factor authentication (MFA) requires factors from at least two different categories — a password plus a PIN is NOT MFA (both are 'something you know'); a password plus a hardware token IS MFA (something you know + something you have)."
+      - heading: "One-Time Passwords and Modern Passwordless Authentication"
+        blocks:
+          - type: paragraph
+            text: "Time-based One-Time Password (TOTP) and HMAC-based One-Time Password (HOTP) are the mechanisms behind most 'authenticator app' codes: both derive a one-time code from a shared secret established at enrollment, but TOTP also factors in the current time (so each code is valid only for a short window, typically 30 seconds) while HOTP increments a counter with each use instead of relying on clocks staying in sync. FIDO2/WebAuthn represents a newer passwordless approach: instead of a shared secret that could be phished or leaked, the user's device generates a public/private key pair specific to that site at registration, the private key never leaves the device (often protected by a local biometric or PIN unlock), and authentication is a challenge-response using that key pair — because there's no shared secret transmitted or typed, phishing a WebAuthn login is fundamentally harder than phishing a password, since a fake look-alike site simply can't obtain a valid signed response for the real site's key."
+          - type: callout
+            style: tip
+            text: "Password entropy (roughly, how unpredictable a password is, driven mainly by length and true randomness rather than character-class complexity rules) is the modern framing NIST 800-63B pushes toward: long, random-ish passphrases are now generally favored over short passwords forced into artificial complexity (e.g. mandatory special characters), because forced complexity rules often push users toward predictable patterns (like 'Password1!') that are easier to guess than they look."
       - heading: "Authenticating Devices and Services"
         blocks:
           - type: paragraph
@@ -57,32 +66,38 @@ topics:
     number: "5.3"
     title: "Federated Identity with Third-Party Services"
     summary: "How SSO and federation let an identity established with one provider be trusted by other services, using SAML and OAuth/OpenID Connect."
-    tags: ["federation", "SSO", "SAML", "OAuth"]
-    key_terms: ["Federated Identity", "Single Sign-On (SSO)", "SAML", "OAuth 2.0", "OpenID Connect", "Identity Provider (IdP)", "Service Provider (SP)"]
+    tags: ["federation", "SSO", "SAML", "OAuth", "JWT", "SCIM"]
+    key_terms: ["Federated Identity", "Single Sign-On (SSO)", "SAML", "OAuth 2.0", "OpenID Connect", "Identity Provider (IdP)", "Service Provider (SP)", "JWT", "SCIM"]
     sections:
       - heading: "Why Federation Exists"
         blocks:
           - type: paragraph
             text: "Federated identity lets a user authenticate once with a trusted Identity Provider (IdP) and use that same authentication across multiple, independent Service Providers (SPs) — without each service needing to store its own copy of the user's password. This reduces password sprawl for users, centralizes authentication policy (like MFA enforcement) at the IdP, and simplifies deprovisioning (disable the account at the IdP once, and access to every federated service is cut)."
-      - heading: "Key Federation Protocols"
+      - heading: "How a SAML Login Actually Flows"
+        blocks:
+          - type: paragraph
+            text: "A typical SAML SSO flow: the user tries to access a Service Provider (e.g. a SaaS app); the SP redirects the user to their organization's Identity Provider with an authentication request; the user authenticates directly with the IdP (which may itself require MFA); the IdP generates a signed SAML assertion — an XML document attesting 'this user is who they claim to be' — and sends it back through the user's browser to the SP; the SP validates the assertion's signature (proving it really came from the trusted IdP and wasn't tampered with) and grants access. The SP never sees or handles the user's actual password at any point in this flow — that's the core security benefit of federation."
+      - heading: "Key Federation Protocols and Formats"
         blocks:
           - type: list
             style: bullet
             items:
               - "SAML (Security Assertion Markup Language) — an XML-based standard for exchanging authentication/authorization assertions, common in enterprise SSO between an IdP and web applications"
-              - "OAuth 2.0 — an authorization framework that lets a user grant a third-party application limited access to their resources on another service, without sharing their password with that application"
+              - "OAuth 2.0 — an authorization framework that lets a user grant a third-party application limited access to their resources on another service, without sharing their password with that application; different 'grant types' fit different scenarios (e.g. the authorization code grant for a normal web app login flow, versus the client credentials grant for pure machine-to-machine access with no user involved at all)"
               - "OpenID Connect (OIDC) — an identity/authentication layer built on top of OAuth 2.0, adding a standardized way to actually verify who the user is (OAuth alone handles authorization, not authentication)"
+              - "JWT (JSON Web Token) — a compact, signed token format commonly used to carry OIDC identity claims or OAuth access tokens; because it's self-contained and digitally signed, a receiving service can verify it without an extra round-trip call back to the issuer, unlike some older token formats"
+              - "SCIM (System for Cross-domain Identity Management) — a standard specifically for automating user provisioning/deprovisioning across systems (creating, updating, and disabling accounts), complementing SSO protocols which handle login but not account lifecycle management"
           - type: callout
             style: tip
-            text: "Exam distinction: OAuth answers 'what is this application allowed to do on my behalf?' (authorization). OpenID Connect answers 'who is this user?' (authentication). SAML historically does both together in one assertion."
+            text: "Exam distinction: OAuth answers 'what is this application allowed to do on my behalf?' (authorization). OpenID Connect answers 'who is this user?' (authentication). SAML historically does both together in one assertion. SCIM is a different problem entirely — provisioning accounts in the first place, not logging in to them."
 
   - id: d5-t4
     domain: domain5
     number: "5.4"
     title: "Authorization Mechanisms"
     summary: "The models that decide what an authenticated subject is allowed to do — DAC, MAC, RBAC, ABAC — and where each fits best."
-    tags: ["authorization", "RBAC", "ABAC", "DAC", "MAC"]
-    key_terms: ["DAC", "MAC", "RBAC", "ABAC", "Rule-Based Access Control"]
+    tags: ["authorization", "RBAC", "ABAC", "DAC", "MAC", "risk-based access control"]
+    key_terms: ["DAC", "MAC", "RBAC", "ABAC", "Rule-Based Access Control", "Risk-Adaptive Access Control"]
     sections:
       - heading: "The Major Access Control Models"
         blocks:
@@ -93,30 +108,42 @@ topics:
               - "Mandatory Access Control (MAC) — access is determined by system-enforced labels/clearances (e.g. Bell-LaPadula/Biba from Domain 3), and even the resource owner cannot override it; used where consistency and strict confidentiality matter more than flexibility (military/government)"
               - "Role-Based Access Control (RBAC) — access is granted based on a subject's assigned role (e.g. 'HR Manager'), not the individual; simplifies administration at scale since permissions are managed per role, not per person"
               - "Attribute-Based Access Control (ABAC) — access decisions consider multiple attributes at request time (user department, resource sensitivity, time of day, device posture, location); the most flexible and granular model, well-suited to zero trust architectures"
+              - "Rule-Based Access Control — access is governed by a set of if/then rules configured by an administrator (e.g. a firewall's rule list, or 'deny all access outside business hours'); distinct from role-based access despite the similar name — rule-based rules apply globally based on conditions, not based on who the subject is"
           - type: callout
             style: example
             text: "An ABAC policy might allow access only if: role = 'Finance', resource classification ≤ 'Confidential', time is within business hours, AND the device passes a compliance check — all four attributes evaluated together at the moment of the request."
+      - heading: "Policy Engines and Risk-Adaptive Access"
+        blocks:
+          - type: paragraph
+            text: "ABAC policies are often expressed and enforced through a dedicated policy engine rather than hardcoded logic — XACML (eXtensible Access Control Markup Language) is a standard language for writing exactly this kind of attribute-based policy, separating the policy decision (should this be allowed?) from policy enforcement (actually blocking or allowing it), so the same centrally-defined policy can be enforced consistently across many different applications. Risk-adaptive (or risk-based) access control goes a step further than static ABAC rules: it continuously evaluates contextual risk signals (an impossible-travel login pattern, an unfamiliar device, unusual access time) and dynamically adjusts the required assurance level — for example, silently allowing a low-risk request but requiring a fresh MFA challenge, or blocking outright, for a high-risk one — rather than applying the same fixed rule to every request regardless of how suspicious it looks."
+          - type: callout
+            style: example
+            text: "A user who normally logs in from one city during business hours suddenly authenticates from a new country at 3am on an unrecognized device — a risk-adaptive system might allow the same static ABAC attributes (correct role, correct department) but still step up the authentication requirement or flag the session for review, because the contextual risk score changed even though the underlying attributes didn't."
       - heading: "Choosing a Model"
         blocks:
           - type: paragraph
-            text: "Real organizations often layer models rather than picking just one — RBAC for baseline role-driven access, with ABAC-style conditional rules added on top for especially sensitive resources. The exam expects you to match a described scenario (owner grants access personally = DAC; labels and clearances = MAC; access tied to job title = RBAC; access depends on multiple contextual conditions = ABAC) to the correct model name."
+            text: "Real organizations often layer models rather than picking just one — RBAC for baseline role-driven access, with ABAC-style conditional rules (and increasingly risk-adaptive signals) added on top for especially sensitive resources. The exam expects you to match a described scenario (owner grants access personally = DAC; labels and clearances = MAC; access tied to job title = RBAC; access depends on multiple contextual conditions = ABAC; a global if/then rule regardless of who's asking = rule-based) to the correct model name."
 
   - id: d5-t5
     domain: domain5
     number: "5.5"
     title: "Identity and Access Provisioning Lifecycle"
     summary: "Managing accounts and access from creation through role changes to termination, and why deprovisioning failures are a leading cause of breaches."
-    tags: ["provisioning", "deprovisioning", "access review", "identity lifecycle"]
-    key_terms: ["Provisioning", "Deprovisioning", "Access Review", "Entitlement Creep", "Joiner-Mover-Leaver"]
+    tags: ["provisioning", "deprovisioning", "access review", "identity lifecycle", "identity governance"]
+    key_terms: ["Provisioning", "Deprovisioning", "Access Review", "Entitlement Creep", "Joiner-Mover-Leaver", "Identity Governance and Administration (IGA)", "Orphaned Account"]
     sections:
       - heading: "The Joiner-Mover-Leaver Model"
         blocks:
           - type: paragraph
             text: "The identity lifecycle is commonly described as Joiner-Mover-Leaver: provisioning access when someone joins (granted per least privilege for their initial role), adjusting access as they move between roles (both adding what the new role needs and removing what the old role had), and deprovisioning access completely when they leave. Each transition is a risk point, but movers are the most commonly mishandled — access from a previous role is often left in place even after a new role is granted, quietly accumulating unnecessary entitlements over time."
+      - heading: "Automating Provisioning: Identity Governance and Administration"
+        blocks:
+          - type: paragraph
+            text: "At scale, manually provisioning and deprovisioning access for every system doesn't hold up — Identity Governance and Administration (IGA) platforms automate the joiner-mover-leaver lifecycle by connecting to HR systems as the source of truth (a new hire in HR automatically triggers account creation with role-appropriate access; a termination in HR automatically triggers deprovisioning across connected systems) and to individual applications for actual account creation/removal (often via SCIM, from 5.3). An orphaned account is an account that no longer has a valid, mapped owner — commonly left behind when someone leaves the organization but the deprovisioning process missed a system, or when an account was created for a purpose (a contractor engagement, a test) that ended without cleanup. Orphaned accounts are a classic finding in access reviews precisely because IGA automation depends on a clean mapping between people and accounts, and any account outside that mapping doesn't get automatically cleaned up."
       - heading: "Entitlement Creep and Access Reviews"
         blocks:
           - type: paragraph
-            text: "Entitlement creep (also called privilege creep) is the gradual, unintentional accumulation of access rights an employee no longer needs, typically from role changes where old permissions were never revoked. Periodic access reviews (also called access recertification) require managers or data owners to actively re-confirm that each of their team's entitlements is still needed — access that isn't reconfirmed is revoked. This is a detective/corrective control specifically aimed at reversing entitlement creep before it becomes a serious least-privilege violation."
+            text: "Entitlement creep (also called privilege creep) is the gradual, unintentional accumulation of access rights an employee no longer needs, typically from role changes where old permissions were never revoked. Periodic access reviews (also called access recertification or access certification campaigns) require managers or data owners to actively re-confirm that each of their team's entitlements is still needed — access that isn't reconfirmed is revoked. This is a detective/corrective control specifically aimed at reversing entitlement creep before it becomes a serious least-privilege violation, and it's also where separation-of-duties conflicts (from Domain 1) are often caught in practice — a review surfacing that one person holds both the 'create vendor' and 'approve vendor payment' entitlements simultaneously is a toxic combination that should be flagged and corrected."
           - type: callout
             style: tip
             text: "Deprovisioning delay on termination is one of the highest-risk gaps in this lifecycle — a disgruntled former employee retaining even brief access after termination is a classic and well-documented insider threat scenario, which is why prompt, ideally automated, deprovisioning is emphasized on the exam."
@@ -126,8 +153,8 @@ topics:
     number: "5.6"
     title: "Authentication Systems"
     summary: "The centralized systems and protocols (Kerberos, RADIUS, TACACS+) that implement authentication, and password/biometric authentication mechanics."
-    tags: ["Kerberos", "RADIUS", "TACACS+", "biometrics"]
-    key_terms: ["Kerberos", "RADIUS", "TACACS+", "Ticket Granting Ticket", "FAR/FRR", "Password Vaulting"]
+    tags: ["Kerberos", "RADIUS", "TACACS+", "biometrics", "password hashing"]
+    key_terms: ["Kerberos", "RADIUS", "TACACS+", "Ticket Granting Ticket", "FAR/FRR", "Password Vaulting", "bcrypt", "Pass-the-Hash", "Credential Stuffing"]
     sections:
       - heading: "Centralized Authentication Protocols"
         blocks:
@@ -136,7 +163,15 @@ topics:
           - type: callout
             style: tip
             text: "TACACS+ is favored for administrative access to network devices (routers, switches) partly because it fully encrypts the session and separates AAA functions, giving more granular control over what an authenticated admin is authorized to do."
-      - heading: "Biometric and Password-Based Authentication"
+      - heading: "Attacks Against Ticket- and Hash-Based Authentication"
         blocks:
           - type: paragraph
-            text: "Biometric systems are evaluated using False Acceptance Rate (FAR — the rate an unauthorized person is wrongly accepted) and False Rejection Rate (FRR — the rate an authorized person is wrongly rejected); the Crossover Error Rate (CER), where FAR and FRR are equal, is used to compare the overall accuracy of different biometric systems (lower CER = better system). Password-based systems remain common and are strengthened through salted hashing (so identical passwords don't produce identical stored hashes and precomputed rainbow-table attacks are defeated), enforced complexity/length requirements, and password vaulting (secure centralized storage/rotation of privileged credentials, reducing reliance on humans to remember and protect them)."
+            text: "Because Kerberos and many Windows environments rely on cached credentials/tickets rather than re-sending passwords for every request, attackers who gain a foothold target those cached artifacts directly rather than the password itself. A pass-the-hash attack uses a stolen password hash directly to authenticate to other systems, without ever needing to crack it back into the original plaintext password, since some authentication protocols will accept the hash itself as proof of knowledge. A golden ticket attack goes further in a compromised Active Directory environment: an attacker who has stolen the Kerberos service account's key material can forge their own Ticket Granting Tickets for any user (including accounts that don't really exist), essentially minting unlimited, long-lived access that bypasses normal authentication entirely. Both attacks are a strong argument for least-privilege and network segmentation (Domain 4) — limiting how far an attacker who compromises one system can reach reduces the value of any single stolen hash or ticket."
+      - heading: "Biometric Authentication"
+        blocks:
+          - type: paragraph
+            text: "Biometric systems are evaluated using False Acceptance Rate (FAR — the rate an unauthorized person is wrongly accepted) and False Rejection Rate (FRR — the rate an authorized person is wrongly rejected); the Crossover Error Rate (CER), where FAR and FRR are equal, is used to compare the overall accuracy of different biometric systems (lower CER = better system). Biometrics are also categorized as physiological (based on a physical characteristic — fingerprint, iris, facial geometry, which tend to be stable over time) versus behavioral (based on a pattern of behavior — typing cadence, gait, signature dynamics, which can drift and require periodic re-baselining but are harder for an attacker to steal or replicate outright)."
+      - heading: "Password Storage and Attack Patterns"
+        blocks:
+          - type: paragraph
+            text: "Password-based systems remain common and are strengthened through salted hashing using algorithms specifically designed to be slow (bcrypt, scrypt, Argon2, or PBKDF2), unlike general-purpose hash functions like SHA-256, which are deliberately fast — fast hashing is actually a liability for password storage because it makes brute-force guessing cheaper for an attacker, while a deliberately slow, tunable algorithm makes each guess expensive without meaningfully slowing down the single legitimate login attempt a real user performs. A credential stuffing attack is distinct from brute force: rather than guessing passwords, the attacker takes username/password pairs already leaked from an unrelated prior breach and tries them against a different site, betting on password reuse — this defeats even a perfectly strong, correctly-hashed password if the user reused it elsewhere, which is why MFA and breach-monitoring (checking new credentials against known-leaked password lists) are recommended defenses on top of hashing alone. Password vaulting (secure centralized storage/rotation of privileged credentials) further reduces reliance on humans to remember and protect high-value credentials at all."

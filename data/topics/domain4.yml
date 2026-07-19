@@ -4,8 +4,8 @@ topics:
     number: "4.1"
     title: "Secure Design Principles in Network Architecture"
     summary: "How the OSI and TCP/IP models organize network communication, and how segmentation and zero trust apply defense in depth to the network itself."
-    tags: ["OSI model", "TCP/IP", "network segmentation", "zero trust"]
-    key_terms: ["OSI Model", "TCP/IP Model", "Network Segmentation", "DMZ", "Zero Trust Network Architecture"]
+    tags: ["OSI model", "TCP/IP", "network segmentation", "zero trust", "VLAN"]
+    key_terms: ["OSI Model", "TCP/IP Model", "Network Segmentation", "DMZ", "Zero Trust Network Architecture", "VLAN", "Microsegmentation", "Software-Defined Networking"]
     sections:
       - heading: "The OSI Model"
         blocks:
@@ -23,19 +23,31 @@ topics:
               - "1. Physical — cabling, signaling, hubs"
           - type: callout
             style: tip
-            text: "A common exam pattern: identify the OSI layer where an attack or device operates. A switch operates at Layer 2 (MAC addresses); a router operates at Layer 3 (IP addresses); a firewall doing deep packet inspection can operate up through Layer 7."
+            text: "A common exam pattern: identify the OSI layer where an attack or device operates. A switch operates at Layer 2 (MAC addresses); a router operates at Layer 3 (IP addresses); a firewall doing deep packet inspection can operate up through Layer 7. ARP spoofing is a Layer 2 attack; IP spoofing is Layer 3; a SYN flood targets Layer 4; a SQL injection or XSS attack is Layer 7 — the layer tells you where the relevant control needs to sit."
+      - heading: "TCP vs. UDP"
+        blocks:
+          - type: paragraph
+            text: "TCP (Transmission Control Protocol) is connection-oriented: it performs a three-way handshake (SYN, SYN-ACK, ACK) before data flows, guarantees delivery and correct ordering through acknowledgments and retransmission, and is used where reliability matters more than speed (web browsing, file transfer, email). UDP (User Datagram Protocol) is connectionless: it sends data without any handshake or delivery guarantee, trading reliability for lower overhead and latency, and is used where speed matters more than guaranteed delivery (DNS lookups, VoIP, video streaming, where a dropped packet is preferable to the delay of retransmission)."
+          - type: callout
+            style: example
+            text: "A SYN flood attack abuses TCP's handshake specifically: the attacker sends many SYN requests but never completes the handshake with the final ACK, leaving the server holding many half-open connections until its connection table is exhausted — a form of denial of service that couldn't target UDP the same way, since UDP has no handshake state to exhaust."
       - heading: "Segmentation and Zero Trust as Architectural Principles"
         blocks:
           - type: paragraph
-            text: "Network segmentation divides a network into isolated zones so a compromise in one zone doesn't automatically grant access to others — a DMZ (demilitarized zone) is the classic example, hosting public-facing services in a zone that's isolated from the internal network even though it's reachable from the internet. Zero trust network architecture extends this thinking to the extreme: it assumes no implicit trust based on network location at all, requiring every connection — even between two internal systems on the same segment — to be authenticated, authorized, and encrypted, on the assumption that the perimeter can and will eventually be breached."
+            text: "Network segmentation divides a network into isolated zones so a compromise in one zone doesn't automatically grant access to others — a DMZ (demilitarized zone) is the classic example, hosting public-facing services in a zone that's isolated from the internal network even though it's reachable from the internet. VLANs (Virtual LANs) create logical segmentation at Layer 2 on shared switch hardware, letting traffic from different departments or trust levels stay separated even when physically connected to the same switches, without the cost of fully separate physical networks."
+          - type: paragraph
+            text: "Zero trust network architecture extends this thinking to the extreme: it assumes no implicit trust based on network location at all, requiring every connection — even between two internal systems on the same segment — to be authenticated, authorized, and encrypted, on the assumption that the perimeter can and will eventually be breached. Microsegmentation is zero trust applied at fine granularity: instead of a handful of broad zones (DMZ, internal, guest), policy is enforced down to individual workloads or applications, so that even two servers sitting in the 'same' segment can't talk to each other unless a specific policy allows it. Software-defined networking (SDN) — separating the network's control logic from the physical forwarding hardware into centrally programmable software — is a common enabling technology for this level of fine-grained, dynamically updated segmentation, since it lets policy be defined and changed centrally rather than reconfiguring individual physical devices."
+          - type: callout
+            style: tip
+            text: "The exam-relevant distinction: traditional segmentation (DMZ, VLANs) draws a moderate number of coarse boundaries around groups of systems. Zero trust/microsegmentation removes the assumption that anything inside a boundary is automatically trusted, shrinking the boundary down toward individual systems or even individual requests."
 
   - id: d4-t2
     domain: domain4
     number: "4.2"
     title: "Securing Network Components"
     summary: "The devices that make up a network — switches, routers, firewalls, IDS/IPS — and the controls that keep each of them from becoming the weak link."
-    tags: ["firewalls", "IDS", "IPS", "network devices"]
-    key_terms: ["Firewall", "IDS", "IPS", "NAC", "Router", "Switch"]
+    tags: ["firewalls", "IDS", "IPS", "network devices", "proxy", "load balancer"]
+    key_terms: ["Firewall", "IDS", "IPS", "NAC", "Router", "Switch", "Proxy Server", "Load Balancer", "WAF", "Port Security", "802.1X"]
     sections:
       - heading: "Core Network Devices"
         blocks:
@@ -44,8 +56,18 @@ topics:
             items:
               - "Switch — connects devices within a LAN using MAC addresses (Layer 2); VLANs on a switch create logical segmentation without separate physical hardware"
               - "Router — forwards traffic between different networks using IP addresses (Layer 3); commonly enforces access control lists (ACLs) on traffic passing through it"
-              - "Firewall — enforces a rule set controlling what traffic is allowed between network zones; modern next-generation firewalls inspect traffic up to Layer 7 (application-aware filtering), not just ports/IPs"
-              - "Network Access Control (NAC) — verifies a device meets security requirements (patch level, antivirus status) before allowing it onto the network at all"
+              - "Firewall — enforces a rule set controlling what traffic is allowed between network zones"
+              - "Network Access Control (NAC) — verifies a device meets security requirements (patch level, antivirus status) before allowing it onto the network at all, often working with 802.1X (a port-based network access control standard that requires authentication before a device on a wired or wireless port is granted network access at all, rather than allowing it onto the network and then restricting what it can reach)"
+              - "Proxy server — sits between clients and destination servers, forwarding requests on the client's behalf; a forward proxy represents internal clients going out to the internet (useful for content filtering, caching, and hiding internal client identities), while a reverse proxy represents external clients coming in to internal servers (useful for load distribution, TLS termination, and hiding internal server details)"
+              - "Load balancer — distributes traffic across multiple backend servers for both performance and availability; from a security standpoint it also reduces the impact of a single server being overwhelmed or compromised, and is often a natural place to terminate TLS and apply consistent security policy before traffic reaches the backend"
+              - "Web Application Firewall (WAF) — a specialized reverse-proxy-like device or service that inspects HTTP/HTTPS traffic specifically for application-layer attacks (SQL injection, XSS) that a traditional network firewall, which mostly looks at IPs and ports, wouldn't catch"
+      - heading: "Firewall Generations"
+        blocks:
+          - type: paragraph
+            text: "Firewalls have evolved through recognizable generations, and the exam expects you to distinguish them by what they actually inspect: packet-filtering firewalls (the earliest generation) make allow/deny decisions per-packet based only on source/destination IP and port, with no awareness of whether a packet belongs to a legitimate ongoing conversation. Stateful inspection firewalls track the state of active connections, so they can tell a legitimate reply packet (part of a connection the firewall itself allowed to start) apart from an unsolicited packet pretending to be one — this is a major security improvement over stateless packet filtering. Next-generation firewalls (NGFW) add deep packet inspection up through the application layer, including application awareness (distinguishing 'this is Netflix traffic' from 'this is a file upload,' even over the same port), integrated intrusion prevention, and often user-identity awareness — enforcing policy based on who is making the request, not just which IP it came from."
+          - type: callout
+            style: tip
+            text: "A stateless packet filter can be tricked more easily by an attacker crafting packets that superficially match an allowed pattern (e.g. claiming to be a reply on an allowed port) since it has no memory of what connections are actually in progress — stateful inspection closes that gap by tracking real connection state."
       - heading: "Detecting and Preventing Intrusions"
         blocks:
           - type: paragraph
@@ -53,29 +75,40 @@ topics:
           - type: callout
             style: tip
             text: "Signature-based detection matches traffic against known attack patterns (fast, low false-positive rate, but blind to new/unknown attacks). Anomaly-based (behavioral) detection flags deviation from an established baseline of normal activity (can catch novel attacks, but tends to generate more false positives until well-tuned)."
+      - heading: "Switch and Port-Level Hardening"
+        blocks:
           - type: paragraph
-            text: "Hardening every network device matters as much as the device's function: default credentials must be changed, unused management interfaces and services disabled, and firmware kept current — an unpatched router or switch is just as much an attack surface as an unpatched server."
+            text: "Port security on a switch restricts which specific MAC addresses are allowed to communicate on a given physical port, and can shut the port down automatically if an unauthorized device is plugged in — a defense against someone physically connecting a rogue device to an open network jack. Hardening every network device matters as much as the device's function: default credentials must be changed, unused management interfaces and services disabled, and firmware kept current — an unpatched router or switch is just as much an attack surface as an unpatched server."
 
   - id: d4-t3
     domain: domain4
     number: "4.3"
     title: "Secure Communication Channels"
     summary: "The protocols and technologies — TLS, IPsec, VPNs, and secure wireless — that protect data as it travels across untrusted networks."
-    tags: ["TLS", "IPsec", "VPN", "wireless security"]
-    key_terms: ["TLS", "IPsec", "VPN", "WPA3", "Remote Access"]
+    tags: ["TLS", "IPsec", "VPN", "wireless security", "email security", "VoIP"]
+    key_terms: ["TLS", "IPsec", "VPN", "WPA3", "Remote Access", "S/MIME", "SRTP", "Split Tunneling"]
     sections:
       - heading: "Encrypting Data in Transit"
         blocks:
           - type: paragraph
-            text: "Transport Layer Security (TLS) is the protocol behind HTTPS and secures most application-layer traffic on the internet today; it uses asymmetric cryptography to establish a session, then negotiates a symmetric key for the actual bulk data transfer (the hybrid approach described in Domain 3). IPsec operates at the network layer and can secure any IP traffic regardless of the application, commonly used to build site-to-site VPNs between two networks; it can run in transport mode (encrypts only the payload, endpoints see each other's real addresses) or tunnel mode (encrypts the entire original packet inside a new one, hiding the original addressing — the mode typically used for VPNs)."
+            text: "Transport Layer Security (TLS) is the protocol behind HTTPS and secures most application-layer traffic on the internet today; it uses asymmetric cryptography to establish a session, then negotiates a symmetric key for the actual bulk data transfer (the hybrid approach described in Domain 3). IPsec operates at the network layer and can secure any IP traffic regardless of the application, commonly used to build site-to-site VPNs between two networks; it can run in transport mode (encrypts only the payload, endpoints see each other's real addresses, typically used for host-to-host communication within a trusted network) or tunnel mode (encrypts the entire original packet inside a new one, hiding the original addressing — the mode typically used for VPNs, since it protects header metadata too, not just payload)."
           - type: callout
             style: tip
             text: "IPsec has two core protocols: AH (Authentication Header — provides integrity and authentication, but not confidentiality) and ESP (Encapsulating Security Payload — provides confidentiality plus integrity and authentication). If a scenario needs encryption, it needs ESP; AH alone is not enough."
       - heading: "VPNs and Secure Remote Access"
         blocks:
           - type: paragraph
-            text: "A Virtual Private Network (VPN) creates an encrypted tunnel across an untrusted network (typically the internet), letting remote users or sites communicate as if they were on the same private network. Remote access should combine an encrypted tunnel with strong authentication (ideally multi-factor) — an encrypted channel to an account protected only by a weak password still leaves the door open to credential-based attacks."
+            text: "A Virtual Private Network (VPN) creates an encrypted tunnel across an untrusted network (typically the internet), letting remote users or sites communicate as if they were on the same private network. Site-to-site VPNs connect two networks continuously (e.g. a branch office to headquarters), typically using IPsec, while remote access VPNs connect an individual user's device into the corporate network on demand, often using TLS-based VPN technology (sometimes called SSL VPN) because it's easier for end users to reach without special network configuration, or IPsec-based clients where stronger, more consistent security posture is required."
+          - type: paragraph
+            text: "Split tunneling lets a remote-access VPN user route only traffic destined for the corporate network through the encrypted tunnel, while other traffic (e.g. general internet browsing) goes directly out the user's local connection. This improves performance and reduces load on corporate infrastructure, but it's a security trade-off: it means the user's device is simultaneously connected to the trusted corporate network and the untrusted open internet, which could let an attacker who compromises the unprotected internet-bound traffic pivot into the corporate connection. Full tunneling (routing all traffic through the corporate network) avoids that risk at the cost of performance and infrastructure load."
+          - type: callout
+            style: warning
+            text: "Split tunneling is a frequently tested trade-off: convenient and efficient, but it weakens the isolation the VPN was meant to provide, since the endpoint now bridges a trusted network and an untrusted one at the same time."
       - heading: "Securing Wireless Communication"
         blocks:
           - type: paragraph
             text: "Wireless networks add the risk that traffic can be intercepted by anyone within radio range, without needing physical network access at all. WPA3 is the current wireless security standard, replacing the deprecated WEP (broken and trivially crackable) and the aging WPA2 (still reasonably strong but showing weaknesses); WPA3 adds stronger encryption and protection against offline password-guessing attacks even when a weak passphrase is used."
+      - heading: "Securing Other Common Channels: Email and Voice/Video"
+        blocks:
+          - type: paragraph
+            text: "Email is not encrypted end-to-end by default — standard SMTP transmits in the clear unless explicitly wrapped in TLS between mail servers (which protects it in transit between servers, but not necessarily from the mail providers themselves reading it). S/MIME and PGP both add end-to-end email encryption and digital signing at the message level, using the same asymmetric cryptography and PKI concepts from Domain 3, so that even the mail servers relaying the message can't read its contents. Voice and video traffic (VoIP) is vulnerable to eavesdropping just like any other unencrypted network traffic; SRTP (Secure Real-time Transport Protocol) encrypts the actual audio/video payload, while the signaling protocol that sets up the call (commonly SIP) also needs its own protection (e.g. TLS) — encrypting only the media stream while leaving call setup signaling in the clear can still leak who called whom and when, even if the conversation content itself stays protected."

@@ -124,8 +124,8 @@ topics:
     number: "2.6"
     title: "Data Security Controls and Compliance Requirements"
     summary: "Selecting the right technical controls (encryption, DLP, tokenization) to satisfy both security needs and specific regulatory obligations."
-    tags: ["data security controls", "encryption", "DLP", "tokenization", "compliance"]
-    key_terms: ["Encryption", "Tokenization", "Data Loss Prevention (DLP)", "Data Masking", "Scoping and Tailoring"]
+    tags: ["data security controls", "encryption", "DLP", "tokenization", "compliance", "compliance frameworks"]
+    key_terms: ["Encryption", "Tokenization", "Data Loss Prevention (DLP)", "Data Masking", "Scoping and Tailoring", "PCI DSS", "HIPAA", "GDPR"]
     sections:
       - heading: "Common Data Security Controls"
         blocks:
@@ -142,4 +142,16 @@ topics:
       - heading: "Mapping Controls to Compliance Requirements"
         blocks:
           - type: paragraph
-            text: "Different regulations mandate different specific controls for the same underlying data — PCI DSS dictates detailed requirements for cardholder data, HIPAA for health information, GDPR for EU personal data. Rather than building a separate control set per regulation, mature programs select a strong baseline (often mapped to a framework like NIST 800-53 or ISO 27001) and then scope/tailor it — adding the specific extra controls a given regulation requires on top of the shared baseline, rather than maintaining entirely parallel programs."
+            text: "Different regulations mandate different specific controls for the same underlying data — PCI DSS dictates detailed requirements for cardholder data, HIPAA for health information, GDPR for EU personal data. Rather than building a separate control set per regulation, mature programs select a strong baseline (often mapped to a framework like NIST 800-53 or ISO 27001, per Domain 1's governance-framework content) and then scope/tailor it — adding the specific extra controls a given regulation requires on top of the shared baseline, rather than maintaining entirely parallel programs."
+          - type: list
+            style: bullet
+            items:
+              - "PCI DSS — the most prescriptive of the three about specific technical controls: it names concrete requirements such as strong cryptography for stored and transmitted cardholder data, network segmentation to isolate the cardholder data environment, quarterly vulnerability scans, and strict limits on how long certain card data elements may be retained at all"
+              - "HIPAA — organizes its requirements as administrative, physical, and technical safeguards rather than naming specific products or algorithms; many technical safeguards (like encryption) are 'addressable' rather than strictly 'required,' meaning an organization must implement them or formally document an equivalent alternative control and the reasoning, rather than being free to simply skip them"
+              - "GDPR — even less prescriptive about specific technical controls than HIPAA; it requires 'appropriate technical and organizational measures' proportionate to risk, explicitly naming pseudonymization and encryption only as examples, and leaves the organization to justify why its chosen controls are adequate for the actual risk — which places more of the compliance burden on documented risk assessment and justification than on meeting a fixed checklist"
+          - type: callout
+            style: tip
+            text: "This is a useful spectrum to remember for the exam: PCI DSS is the most prescriptive/specific about exact controls, HIPAA sits in the middle (safeguard categories with some named but 'addressable' specifics), and GDPR is the most risk-based/principles-driven, asking for 'appropriate' measures rather than naming a fixed control list — mirroring the same prescriptive-vs-risk-based spectrum introduced for governance frameworks in Domain 1 (PCI DSS behaves like a prescriptive control catalog; GDPR behaves like a risk-based framework)."
+          - type: callout
+            style: example
+            text: "Tokenization is a good example of a control that satisfies overlapping regulations differently: PCI DSS explicitly recognizes tokenization as a way to remove systems from compliance scope entirely (if a system only ever handles tokens, not real card numbers, it faces far fewer PCI requirements), while GDPR would evaluate the same tokenization approach more generally as one possible 'appropriate technical measure' supporting its broader risk-based pseudonymization principle — same control, evaluated through two differently-structured compliance lenses."
