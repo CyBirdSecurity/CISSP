@@ -25,6 +25,13 @@ topics:
         blocks:
           - type: paragraph
             text: "A skilled attacker often actively works to defeat the investigation process itself, and recognizing anti-forensic techniques helps explain why rigorous, order-of-volatility-driven collection matters so much. Log clearing/tampering removes or falsifies the record of what happened. Timestamp manipulation alters file metadata to obscure the real timeline of an intrusion. Encryption of an attacker's own tools and payloads makes captured artifacts unreadable without a key investigators don't have. Steganography hides data (including exfiltrated data or attacker tools) inside innocuous-looking files (images, audio) to slip past both automated detection and casual human review. None of these techniques are unbeatable, but they do mean investigators can't assume system-reported evidence is complete or trustworthy at face value — corroborating evidence from multiple independent sources (a centralized log copy the attacker never touched, network traffic captured elsewhere, per Domain 7.2) becomes more valuable precisely because any single source could have been tampered with."
+      - heading: "Forensic Imaging: Preserving the Original"
+        blocks:
+          - type: paragraph
+            text: "Once responders decide to collect disk-level evidence, they don't work directly against the original media — doing so risks altering it (even mounting a drive read-write can update metadata) and destroys the ability to prove later that the evidence wasn't tampered with. Instead, forensic imaging creates a bit-for-bit copy of the original media, including deleted files, slack space, and unallocated space that a normal file-level copy would never capture, using a write blocker to guarantee the original media itself is never modified during the imaging process. The image is then cryptographically hashed (e.g. SHA-256) immediately after creation, and that hash is documented as part of the chain of custody — all subsequent analysis is performed against the image, and the original hash can be recomputed at any later point to prove the evidence hasn't been altered since collection. Analysis proceeds against a working copy of the image, never the original acquired image itself, so that a mistake during analysis can never be blamed for corrupting the one artifact the entire chain of custody depends on."
+          - type: callout
+            style: tip
+            text: "The exam's core expectation here: never analyze the original evidence directly. Image it first (with a write blocker), hash the image, and work only from copies — this is what makes forensic evidence defensible later, whether in an internal investigation or in court."
 
   - id: d7-t2
     domain: domain7
@@ -57,6 +64,10 @@ topics:
         blocks:
           - type: paragraph
             text: "A 'use case' in SIEM terminology is a specific, documented detection scenario the SIEM is tuned to catch (e.g. 'alert when a service account authenticates interactively,' since a service account logging in like a human is unusual and worth investigating). Detection engineering is the discipline of deliberately building, testing, and continuously refining these use cases — grounding them in real attacker techniques (per Domain 1's MITRE ATT&CK content) rather than generic, high-noise rules, and validating that a use case actually fires correctly (using breach and attack simulation or red team exercises from Domain 6 to confirm detection coverage genuinely works, not just that the rule was written and deployed). A SIEM with hundreds of poorly tuned rules generating constant low-value noise is a worse operational outcome than a smaller number of well-engineered, high-confidence use cases analysts can actually trust and act on quickly."
+      - heading: "Log Retention: Balancing Investigative Value Against Cost"
+        blocks:
+          - type: paragraph
+            text: "Logs have to be kept long enough to be useful when they're actually needed, which is rarely at the moment they're generated — many intrusions aren't discovered until weeks or months after initial access (the industry commonly discusses 'dwell time,' the gap between compromise and detection), so a retention period shorter than realistic dwell time can mean the very logs needed to investigate an intrusion have already been purged by the time anyone goes looking for them. Retention requirements are also frequently set externally rather than left purely to operational preference — PCI DSS specifies a minimum log retention period for systems in the cardholder data environment, and various breach-notification and regulatory regimes (Domain 1) may require logs to be retained long enough to support a post-breach investigation. Because log volume at scale is expensive to store, mature programs typically tier retention: a shorter window of logs kept 'hot' and immediately searchable in the SIEM for fast triage, with a longer window of the same data archived to cheaper 'cold' storage that can still be retrieved (more slowly) if an investigation needs to look further back."
 
   - id: d7-t3
     domain: domain7
@@ -80,6 +91,10 @@ topics:
         blocks:
           - type: paragraph
             text: "A CMDB doesn't just list assets — its real value comes from mapping relationships between Configuration Items (CIs), the individual tracked components (a server, a piece of installed software, a network device, even a business service that depends on several underlying CIs). Mapping these relationships is what lets an organization answer questions like 'if I take this database server down for maintenance, which business applications and, ultimately, which business services will be affected' — the same dependency-mapping discipline introduced in Domain 1's BIA content, but maintained continuously as an operational tool rather than produced once during planning. A CMDB with accurate CI relationships turns change management (7.9) from a guessing exercise into an informed one — a proposed change's true blast radius can be checked against documented dependencies before approval, rather than discovered the hard way after something unexpectedly breaks."
+      - heading: "Golden Image Lifecycle: Baselines Age Too"
+        blocks:
+          - type: paragraph
+            text: "A golden image (Domain 2) captures a known-good, hardened configuration at the moment it's built, but treating that image as permanently correct is itself a form of drift — the baseline stops matching current threats, current patch levels, and current hardening guidance the moment it's created, even though every new asset provisioned from it is technically 'in compliance' with an increasingly stale standard. Configuration management has to include a defined process for periodically rebuilding golden images against the latest hardening baseline and patch set, then re-provisioning or updating existing assets to match, rather than treating the original image as a one-time artifact. Without this, an organization can pass a compliance check against its own documented baseline while every asset built from that baseline is quietly less secure than current standards would require — technically compliant with an outdated definition of 'compliant.'"
 
   - id: d7-t4
     domain: domain7
@@ -113,6 +128,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Traditional privileged access is standing — an administrator account simply has elevated rights all the time, whether or not they're actively performing an administrative task at that moment, which means a compromise of that account grants an attacker the same elevated access around the clock. Just-in-time (JIT) access flips this: privileged rights are granted only for a specific, time-limited window, requested and (ideally) approved for a specific task, and automatically expire afterward, so an account has elevated access only during the narrow moments it's actually needed rather than continuously. This meaningfully shrinks the window during which a compromised privileged credential is actually useful to an attacker, and it produces a much cleaner audit trail than standing access does — every privilege elevation is tied to a specific, time-bound, approved request rather than being an undifferentiated, always-on capability."
+      - heading: "Break-Glass Access: Planning for When Normal Approval Fails"
+        blocks:
+          - type: paragraph
+            text: "JIT and PAM workflows assume the approval process itself is available when it's needed — but a severe outage or a compromised identity provider can take down the very system that's supposed to grant emergency privileged access, at precisely the moment privileged access is most urgently needed. Break-glass accounts (or 'firecall' accounts) are a deliberate, tightly controlled exception built for exactly this scenario: a small number of highly privileged credentials, sealed away from normal use (physically, e.g. in a safe, or logically, e.g. split into pieces requiring more than one person to reassemble), usable only when normal access-granting systems are unavailable or a genuine emergency justifies bypassing the standard approval chain. Because break-glass access deliberately bypasses normal controls, its use has to be compensated for elsewhere — every use is expected to trigger an immediate alert, requires after-the-fact justification and review, and the credential itself is typically rotated immediately after use, so the convenience of bypassing normal process doesn't become a standing, unmonitored backdoor."
+          - type: callout
+            style: warning
+            text: "A break-glass account that's never actually tested is a plan nobody can trust in the moment it's needed — the same testing discipline that applies to the DRP (7.12) applies here: periodically verifying the sealed credential still works and the alerting/review process actually fires is what keeps break-glass access from becoming a false sense of security."
 
   - id: d7-t5
     domain: domain7
@@ -137,6 +159,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Operationally, secure media handling extends chain-of-custody thinking (introduced for evidence in Domain 1/7.1) into routine, non-incident operations: every piece of media containing sensitive data — a backup tape being transported offsite, a decommissioned drive awaiting destruction — should have a documented, traceable custody record from the moment it's removed from active use until its destruction is verified and certified, often by a third-party destruction vendor providing a certificate of destruction as evidence the sanitization actually occurred as claimed. A gap in that custody record (media that sat unaccounted for between decommissioning and destruction) creates the same kind of doubt an evidentiary chain-of-custody gap creates in an investigation — it can't be proven the media wasn't accessed or copied during the unaccounted-for period, even if nothing actually happened."
+      - heading: "Resource Protection in Cloud Environments"
+        blocks:
+          - type: paragraph
+            text: "Cloud resources complicate resource protection because the organization no longer physically controls the underlying hardware at all — sanitization of a decommissioned virtual disk, for example, isn't something the customer can perform with a physical degausser, and instead depends entirely on the cloud provider's own attested processes for wiping or cryptographically erasing storage before it's reallocated to another tenant (crypto-shredding — destroying the encryption key rather than overwriting the data itself — is a common approach specifically because it doesn't require physical access to underlying media at all). This is a direct extension of the shared responsibility model from Domain 1's cloud content: the customer remains responsible for classifying data and choosing appropriate services, but physical media sanitization shifts to the provider, and the customer's real due-diligence task becomes verifying (via the provider's SOC 2 report or similar attestation, per Domain 6) that the provider's sanitization claims are actually true rather than simply assumed."
 
   - id: d7-t6
     domain: domain7
@@ -173,6 +199,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Following a defined lifecycle under pressure prevents costly mistakes — skipping containment to jump straight to eradication can let an incident spread further while the root cause is still being investigated; skipping lessons learned means the organization pays the same cost again the next time a similar incident occurs."
+      - heading: "Doing Lessons Learned Well: Root Cause, Not Just Symptoms"
+        blocks:
+          - type: paragraph
+            text: "A lessons-learned session that stops at 'the malware was removed and the system was restored' captures the symptom, not the cause, and tends to produce the same incident again in a different form. A genuinely useful post-incident review pushes further, asking not just what happened but why it was possible — a root cause analysis technique like the '5 whys' (repeatedly asking why the previous answer was true, until the chain of causation reaches an actual systemic gap rather than stopping at the first plausible-sounding answer) helps avoid settling for a superficial explanation. The review should also reconstruct a timeline of the incident (when did initial access actually occur vs. when was it detected vs. when was it contained — the gap between these often reveals the real story), and every honest finding, including responder mistakes made under pressure, should be captured without treating the review as a blame exercise — a team that fears blame from a lessons-learned session will quietly omit the details that would have been most useful to surface."
+          - type: callout
+            style: tip
+            text: "The exam favors a blameless post-incident review as the correct posture: the goal is identifying and fixing systemic gaps (a missing detection use case, an overly slow escalation path, a control that didn't work as designed), not assigning individual fault, since a punitive review culture actively works against getting complete, honest information about what really happened."
 
   - id: d7-t7
     domain: domain7
@@ -198,6 +231,13 @@ topics:
         blocks:
           - type: paragraph
             text: "A honeypot is a decoy system deliberately made to look valuable/vulnerable, deployed to attract and study attacker behavior in isolation from real production systems — it provides early warning (any interaction with it is inherently suspicious, since it has no legitimate business purpose) and threat intelligence without risking real assets. A honeytoken applies the same 'anything touching this is inherently suspicious' logic at a much smaller scale — a fake credential, a fake database record, or a fake API key planted specifically to detect unauthorized access, since a legitimate user would have no reason to ever use it. Sandboxing runs untrusted code (email attachments, downloaded files) in an isolated environment to observe its behavior safely before it's allowed anywhere near production systems."
+      - heading: "Operationalizing Threat Intelligence"
+        blocks:
+          - type: paragraph
+            text: "Detective controls become more effective when they're not just reacting to what they observe locally, but actively checking observed activity against what's already known to be malicious elsewhere — that's the operational role of threat intelligence feeds. An Indicator of Compromise (IOC) is a specific, concrete artifact known to be associated with malicious activity — a malicious file hash, a command-and-control IP address or domain, a known-bad registry key — and threat intelligence feeds (commercial, open-source, or shared through the ISACs introduced in Domain 1) continuously supply updated lists of current IOCs that a SIEM, firewall, or EDR platform can automatically check incoming activity against. This closes a meaningful gap that purely internal detection can't: a brand-new phishing domain registered an hour ago and already flagged by a threat intelligence feed can be blocked immediately, without waiting for that specific organization to be targeted first and generate its own local evidence that the domain is malicious."
+          - type: callout
+            style: tip
+            text: "IOC-based detection is inherently reactive to what's already been observed and shared somewhere — it complements, but doesn't replace, behavioral/heuristic detection, which can catch genuinely novel threats no feed has cataloged yet. Mature operations layer both rather than relying on either alone."
           - type: callout
             style: tip
             text: "Allowlisting is generally considered stronger than blocklisting because it defaults to deny — anything not explicitly approved is blocked, including brand-new, never-before-seen threats that a blocklist (which only knows about threats already identified) would miss entirely."
@@ -226,6 +266,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Patches must be tested before wide deployment — a poorly tested patch that breaks production availability can cause more harm than the vulnerability it was meant to fix. Most organizations use a staged rollout: test environment first, then a limited production pilot group, then full deployment, with emergency/out-of-band patching reserved for actively exploited critical vulnerabilities where the risk of waiting outweighs the risk of an untested patch. Programs commonly track Mean Time to Remediate (MTTR) — how long it actually takes, on average, from a vulnerability's discovery to its verified remediation — as a KPI (per Domain 6's process-data concepts), since a well-defined SLA that's routinely missed provides much less real protection than the SLA itself implies."
+      - heading: "When There's No Patch to Apply: End-of-Life Software"
+        blocks:
+          - type: paragraph
+            text: "The standard identify-prioritize-remediate-verify cycle assumes a patch exists to eventually apply, but a meaningful share of real vulnerability management deals with software the vendor no longer supports at all — end-of-life (EOL) operating systems, unmaintained third-party libraries, or a legacy application whose vendor has gone out of business. No forthcoming patch means remediation has to shift entirely to compensating controls: network isolation/segmentation restricting what the vulnerable system can reach and be reached by, strict allowlisting of what can run on it, enhanced monitoring specifically watching for exploitation attempts against known unpatched flaws, and virtual patching (a WAF or IPS rule that blocks the specific exploitation technique at the network layer, even though the underlying application itself remains unpatched). None of these fully closes the gap a real patch would — they reduce exploitability and blast radius rather than eliminating the vulnerability, which is why EOL software should also be a visible, tracked item in the risk register (Domain 1) with a genuine plan and timeline for replacement, not treated as permanently 'mitigated' and forgotten."
+          - type: callout
+            style: warning
+            text: "The exam favors migration/replacement as the real long-term answer for EOL software — compensating controls are a legitimate interim risk-reduction measure, but relying on them indefinitely, without ever budgeting for replacement, is exactly the kind of risk-acceptance-by-default the exam expects you to flag as inadequate."
           - type: callout
             style: tip
             text: "The exam likes scenarios where 'patch immediately' isn't automatically the right answer — a critical patch for an isolated, non-internet-facing system with no known active exploitation may reasonably go through normal testing rather than emergency deployment."
@@ -257,6 +304,10 @@ topics:
           - type: callout
             style: tip
             text: "Emergency changes (needed to fix an active incident) still require documentation and after-the-fact review — the process is expedited, not skipped, which preserves accountability even under time pressure."
+      - heading: "Measuring Change Management Itself"
+        blocks:
+          - type: paragraph
+            text: "Like patch management (7.8) and DRP testing (7.12), change management generates its own process data worth tracking rather than assuming the process is working just because it's documented. Change success rate (the percentage of changes that complete without causing an unplanned incident or requiring rollback) is a core health metric — a persistently low success rate suggests the review/testing steps aren't actually catching problems before implementation, regardless of how thorough the paperwork looks. Failed-change analysis goes a step further than the raw rate, examining what specifically went wrong across failed changes to find patterns (are failures concentrated in one team, one system, one type of change, one time window) rather than treating each failure as an isolated, unrelated event. A CAB that approves changes based only on documentation completeness, without ever feeding real change-outcome data back into how future changes are evaluated, is optimizing for process compliance rather than for the actual goal — reducing unplanned outages caused by change."
 
   - id: d7-t10
     domain: domain7
@@ -292,6 +343,13 @@ topics:
           - type: callout
             style: example
             text: "Cloud environments offer a spectrum that maps closely onto the same hot/warm/cold concepts: a 'pilot light' approach keeps only the minimal core infrastructure running in a secondary region (closer to warm/cold), while a fully duplicated, actively-synchronized standby environment in a second region behaves like a hot site — the underlying trade-off between cost and recovery speed is identical, just implemented with cloud-native tools instead of a physical facility."
+      - heading: "Cloud-Native Recovery Patterns in More Detail"
+        blocks:
+          - type: paragraph
+            text: "The cloud spectrum is commonly described with four specific patterns that map directly onto increasing RTO/RPO capability and increasing cost, worth knowing individually rather than just as a general 'cloud DR' idea. Backup and restore is the cheapest and slowest: data is backed up to the cloud, and recovery means provisioning infrastructure from scratch and restoring data onto it after a disaster, with RTO measured in many hours. Pilot light keeps only the most critical core components (typically the database, continuously replicated) running in the recovery region, with the surrounding application infrastructure defined but not running, launched on demand when failover is triggered — faster than backup/restore since the hardest-to-quickly-provision piece is already live. Warm standby runs a scaled-down but fully functional version of the entire environment continuously in the recovery region, which is scaled up to full production capacity during failover — faster still, at higher ongoing cost. Multi-site active/active runs full production capacity in more than one region simultaneously, with traffic distributed across both under normal conditions, so 'failover' is really just redirecting traffic away from the failed region rather than starting anything new — the fastest possible recovery (near-zero RTO) at the highest ongoing cost, since the standby capacity isn't standby at all, it's live production capacity paid for continuously."
+          - type: callout
+            style: example
+            text: "These four patterns are the cloud-native equivalent of cold/warm/hot sites in strict order of increasing cost and decreasing RTO: backup-and-restore ≈ cold site, pilot light and warm standby sit in the warm range, and multi-site active/active ≈ hot site taken to its logical extreme."
 
   - id: d7-t11
     domain: domain7
@@ -320,6 +378,10 @@ topics:
         blocks:
           - type: paragraph
             text: "A DRP that exists in multiple, silently diverging copies is arguably worse than no plan at all, since different responders may follow contradictory outdated instructions during the exact moment consistency matters most. Formal version control — a single authoritative current version, a documented change history, and a defined process for retiring superseded copies — should apply to the DRP with the same discipline Domain 1 expects of any policy document, and every distributed copy (physical binders, offline digital copies held by recovery team members) needs a defined process for being kept current as the plan changes, not just an initial one-time distribution when the plan is first written."
+      - heading: "Mapping Third-Party and Supply Chain Dependencies"
+        blocks:
+          - type: paragraph
+            text: "A DRP that only accounts for the organization's own systems has a significant blind spot if a critical function actually depends on a third party — a cloud provider, a payment processor, a critical SaaS vendor — whose own outage the organization has no direct ability to remediate. Mature DR planning explicitly maps these third-party dependencies (echoing the vendor risk / SCRM content from Domain 1) and asks a pointed question for each critical one: what happens to our recovery timeline if this vendor itself is unavailable, and do we have any real fallback (an alternate vendor, a manual workaround, a contractual SLA with meaningful teeth) or are we simply exposed to their downtime with no independent recovery path at all? A DRP that restores every internal system perfectly within RTO but never accounted for a critical vendor's own outage can still fail to meet the business's actual recovery objective, because the dependency it never planned for becomes the new bottleneck."
 
   - id: d7-t12
     domain: domain7
@@ -352,6 +414,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Most organizations don't run every level of test on the same schedule — lower-cost, lower-disruption tests (checklist reviews, tabletop exercises) are commonly run annually or even more frequently, while the highest-cost, highest-realism tests (parallel tests, full interruption tests) are typically run far less often (every one to three years, or after a major infrastructure change) given their operational cost and risk. The exam's practical takeaway is that 'test the DRP regularly' doesn't mean 'run a full interruption test constantly' — it means maintaining an appropriate mix across the escalating levels, so the plan is exercised often enough to stay current (lower-cost tests) while still periodically proving, at the highest-fidelity level the organization can justify, that a real failover would actually work."
+      - heading: "What Actually Breaks During a DRP Test"
+        blocks:
+          - type: paragraph
+            text: "Recognizing the common, recurring categories of test failure helps explain why testing at increasing levels of realism reveals different problems. Stale contact information (a call tree listing a phone number or role-holder who's since left the organization) is a near-universal finding in a plan's first real test, since it's invisible during a checklist review but immediately obvious the moment someone tries to actually reach that person. Undocumented dependencies surface almost exclusively during simulation or parallel tests — a system the DRP assumed could be restored independently turns out to secretly depend on another system that wasn't included in the recovery sequence at all, something a tabletop discussion rarely uncovers because nobody is actually trying to bring the system up. Insufficient bandwidth or capacity at the recovery site (a warm site sized for a partial workload that turns out to be inadequate under real production load) typically only appears during a parallel or full interruption test, since lower-fidelity tests never generate real traffic against the recovery environment. This pattern is itself a strong argument for running the full range of test levels rather than stopping at tabletop exercises — each level of realism tends to surface a different category of gap that the previous, lower-fidelity level structurally couldn't have revealed."
 
   - id: d7-t13
     domain: domain7
@@ -377,6 +443,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Like the DRP, the BCP requires regular exercises (using the same escalating levels described in 7.12 — tabletop through full interruption) to stay valid as the business, its dependencies, and its critical functions change over time. A BIA and BCP written once and never revisited will drift out of alignment with the actual business — a function once considered non-critical may become critical after a merger, a new regulatory requirement, or a shift in business strategy, and the plan needs to be updated to reflect that."
+      - heading: "Alternate Work Arrangements as a Continuity Strategy"
+        blocks:
+          - type: paragraph
+            text: "For many organizations, the simplest and most cost-effective continuity strategy for a facility-level disruption isn't a formal alternate site at all — it's the ability to shift the affected workforce to remote/telecommuting arrangements, an option that's become far more operationally credible as remote work infrastructure has matured. This isn't automatically available for every function, though, and the BCP needs to be honest about which roles genuinely support it: knowledge work with cloud-based tools and VPN/ZTNA access (Domain 4) often transitions to remote work with minimal disruption, while roles requiring specialized on-site equipment, physical inventory, or in-person customer interaction cannot simply 'go remote,' no matter how well-resourced the technology is. Where remote work is a viable continuity strategy, it still needs its own planning specifics — sufficient VPN/ZTNA licensing and bandwidth to support a sudden surge in remote connections, secure remote access already provisioned before the disruption rather than improvised during it, and equipment (laptops, secure configuration) already in employees' hands rather than needing physical distribution during the emergency itself."
 
   - id: d7-t14
     domain: domain7
@@ -402,6 +472,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Tailgating (an unauthorized person following an authorized person through a controlled door without their own credential) defeats even a well-designed badge system through simple social pressure — most people hold a door for someone behind them. Security awareness training (Domain 1) and physical controls like mantraps (Domain 3) both play a role in reducing tailgating; guards and receptionists reinforce it operationally by actively watching for and challenging unbadged individuals."
+      - heading: "Maintaining Environmental and Fire Suppression Systems"
+        blocks:
+          - type: paragraph
+            text: "Environmental controls designed under Domain 3 (fire suppression, HVAC, water detection) don't stay effective on their own — they require the same kind of ongoing operational verification as any other control, and their failure mode is unusually dangerous because it's often silent until the moment they're actually needed. Fire suppression systems require periodic inspection and testing per applicable fire codes (checking that a clean-agent system's agent hasn't leaked below effective concentration, that sprinkler heads aren't obstructed, that detection sensors still trigger correctly), and any maintenance that takes a suppression system offline needs a documented compensating measure (temporary fire watch staffing) for the gap. HVAC systems supporting data center cooling need monitored, alerted thresholds — a facility that discovers a cooling failure only when equipment starts overheating and shutting down has effectively skipped the detective-control stage entirely; humidity and temperature should be continuously monitored with alerting thresholds set well before equipment-damaging levels are reached, giving operations staff time to respond before an environmental failure becomes an availability incident."
 
   - id: d7-t15
     domain: domain7
@@ -432,3 +506,7 @@ topics:
         blocks:
           - type: paragraph
             text: "Workplace violence prevention and insider threat programs (Domain 1's personnel security content) aren't entirely separate concerns — behavioral warning signs that a threat assessment team is trained to notice (escalating grievances, explicit threats, concerning behavioral changes, particularly around a termination or disciplinary action) often overlap with the same risk indicators an insider threat program watches for, since a person in personal crisis or harboring serious grievance can pose both a physical safety risk and an information security risk simultaneously. This is why mature programs coordinate rather than silo these functions — HR, physical security, and information security sharing appropriate signals (within privacy and legal constraints) about a genuinely concerning situation, rather than each team having only a partial, disconnected picture of the same escalating risk."
+      - heading: "Personnel Support After a Critical Incident"
+        blocks:
+          - type: paragraph
+            text: "Personnel safety planning doesn't end the moment an emergency is physically resolved — a serious incident (a workplace violence event, a robbery, a major accident, or even the sustained high-pressure stress of responding to a severe security incident or disaster) can leave lasting psychological impact on the people who experienced or responded to it. Mature personnel safety programs plan for this explicitly, arranging access to employee assistance programs (EAPs) or critical incident stress debriefing for affected staff, rather than treating the incident as fully closed once physical safety and operations are restored. This matters operationally too, not just humanely — unaddressed stress and burnout among incident responders and security staff (who often bear repeated exposure to high-pressure events as part of the job) is itself a retention and performance risk, and a program that only ever measures its response by technical recovery metrics while ignoring the human cost of responding tends to see that cost show up later as attrition or degraded readiness."
