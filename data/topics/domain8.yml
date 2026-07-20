@@ -35,6 +35,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Because 'shift left' and 'DevSecOps' can mean very different things in practice from one team to another, software security maturity models (e.g. BSIMM — Building Security In Maturity Model, or OWASP SAMM — Software Assurance Maturity Model) give organizations a structured way to assess how consistently security practices are actually applied across governance, design, implementation, verification, and operations, and to benchmark against industry norms rather than relying on a subjective sense of 'we do security.' These models are descriptive/measurement tools (what are we actually doing, and how mature is it) rather than prescriptive standards (unlike a secure coding standard, which tells developers exactly what to do)."
+      - heading: "Making Security Concrete in Agile Work: Security User Stories"
+        blocks:
+          - type: paragraph
+            text: "A generic instruction to 'build this securely' rarely survives contact with a sprint's actual backlog — Agile teams work from specific, estimable, testable user stories, so security requirements that aren't expressed in that same format tend to get silently deprioritized against stories that are. Security user stories translate abstract security requirements into the same concrete, testable format as functional stories (e.g. 'As an attacker, I should not be able to view another user's order history by changing the order ID in the URL' — directly testable, unlike 'the application should enforce access control'), and security-specific acceptance criteria get added to a story's definition of done alongside functional criteria, so a story literally cannot be marked complete until its security requirements are verified, not just its functional ones. Misuse cases/abuse cases (deliberately describing how a malicious actor would try to abuse a feature, as a counterpart to the normal use case describing how a legitimate user would use it) are a related technique specifically for surfacing security requirements a purely functional user story would never think to include."
+          - type: callout
+            style: tip
+            text: "The exam's practical point: security requirements that live only in a separate policy document, disconnected from the actual sprint backlog and definition of done, are easy for a fast-moving Agile team to unintentionally deprioritize — embedding them directly into the same story format and completion criteria as functional work is what makes 'shift left' actually stick in practice."
 
   - id: d8-t2
     domain: domain8
@@ -69,6 +76,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Artifact signing extends the digital-signature concepts from Domain 3 to the build output itself: after a build completes, the resulting artifact (a container image, a compiled binary, a package) is cryptographically signed, and deployment systems can be configured to refuse to run anything that isn't signed by a trusted, expected source. This closes a gap that source-code-level controls alone don't cover — even with a perfectly reviewed and protected source repository, there still needs to be a way to prove that what actually got deployed to production is the exact artifact that came from the legitimate, verified build process, and not something substituted or tampered with afterward."
+      - heading: "Infrastructure as Code Security"
+        blocks:
+          - type: paragraph
+            text: "Modern development ecosystems increasingly define infrastructure itself (cloud resources, network configuration, access policies) as code — templates in formats like Terraform or CloudFormation that are version-controlled, reviewed, and deployed through the same pipeline as application code. This is a significant security improvement over manually clicking through a cloud console, since infrastructure changes gain the same peer review, audit trail, and repeatability as application code changes, but it also means a misconfiguration (an overly permissive storage bucket policy, a security group open to the entire internet) gets committed to version control and can be automatically and repeatedly deployed at scale, exactly like a code vulnerability would be. IaC scanning tools statically analyze these templates before deployment, checking for known-risky patterns (public storage buckets, overly broad IAM policies, disabled encryption) the same way SAST checks application source code — catching misconfigurations before they're ever actually provisioned, rather than discovering them afterward through a cloud security posture management tool scanning live infrastructure."
+          - type: callout
+            style: tip
+            text: "IaC scanning is the shift-left equivalent, applied to infrastructure, of the SAST/SCA scanning already applied to application code in this topic — the exam's broader theme of 'catch it in the pipeline, not in production' applies just as directly to infrastructure definitions as to application logic."
 
   - id: d8-t3
     domain: domain8
@@ -97,6 +111,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Automated tools can't catch everything — logic flaws, business-rule violations, and subtle authorization bugs often require a human reviewer who understands the application's intended behavior. Peer code review (a second developer examining code before merge) catches many of these issues cheaply, before the code ever reaches a dedicated security test phase. A security champion program embeds security-minded advocates directly within individual development teams — not full-time security staff, but developers with extra security training who help catch issues locally and act as a bridge back to the central security team, scaling security expertise further than a small central team could reach alone. Bug bounty programs extend assessment beyond internal staff entirely, inviting external researchers to find and responsibly report vulnerabilities in exchange for a reward, effectively crowd-sourcing a much larger and more diverse pool of attackers' perspectives than any internal test team could replicate — though this only works safely within a clearly defined scope and legal safe-harbor agreement, so researchers know exactly what testing is authorized."
+      - heading: "Test Coverage: A Useful but Incomplete Signal"
+        blocks:
+          - type: paragraph
+            text: "Code coverage (the percentage of source code actually executed by a test suite) is a commonly reported quality metric, but it's a weaker security signal than it first appears — 100% code coverage only proves every line was executed by some test at some point, not that the test actually verified correct security behavior for that line, and it says nothing at all about the enormous space of inputs and conditions a line was never tested against. A function can be 'fully covered' by a test suite that only ever passes it well-formed, expected input, while never testing what happens with the malformed, boundary-case, or adversarial input a fuzzer (8.3, above) or a real attacker would actually try. Mutation testing addresses part of this gap: it deliberately introduces small, deliberate bugs ('mutants') into the code — flipping a comparison operator, changing a boundary value — and checks whether the existing test suite actually fails when it should; a test suite with high code coverage that still fails to catch a large share of introduced mutants reveals that its coverage is broad but shallow, exercising code paths without genuinely verifying their correctness."
+          - type: callout
+            style: warning
+            text: "The exam's caution here: high code coverage is necessary but not sufficient evidence of good testing — a coverage percentage alone can create false confidence, since it measures which code ran, not whether the test suite would actually catch a real defect or security flaw in that code."
 
   - id: d8-t4
     domain: domain8
@@ -125,6 +146,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Assessing acquired software isn't a one-time gate at purchase — open-source components in particular need ongoing monitoring, since new vulnerabilities are discovered in existing code constantly (this is exactly what SCA tooling from 8.2 is for). An organization remains responsible for the security impact of software it acquires, even though it didn't write the underlying code, which is why contracts with vendors typically include security and breach-notification obligations."
+      - heading: "SBOMs in Practice: What They Actually Contain"
+        blocks:
+          - type: paragraph
+            text: "A Software Bill of Materials (introduced conceptually in Domain 1) becomes a concrete, actionable artifact in practice through standardized machine-readable formats — SPDX (Software Package Data Exchange) and CycloneDX are the two most widely adopted, both capable of listing every component in a piece of software, its version, its license, and often its known-vulnerability status, in a format tooling can automatically parse and cross-reference against vulnerability databases. This is what makes an SBOM operationally useful rather than a static compliance document: when a new critical vulnerability is disclosed in a widely used library, an organization with accurate, machine-readable SBOMs across its software inventory can immediately query which of its own products or systems actually include the affected component and its specific vulnerable version, rather than manually auditing every codebase to find out — a process that can take days during exactly the window when the vulnerability is most likely to be actively exploited."
+          - type: callout
+            style: example
+            text: "This is precisely the capability that was missing during large-scale open-source vulnerability events affecting widely embedded logging or utility libraries — organizations with accurate SBOMs could immediately identify every affected system, while organizations without one had to scramble to manually determine where a vulnerable component was even used across their software portfolio."
 
   - id: d8-t5
     domain: domain8
@@ -164,3 +192,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Beyond specific vulnerability classes, secure coding standards typically also require: least privilege in code (a component runs with only the permissions it needs, not elevated/admin rights by default), proper error handling (failures shouldn't leak sensitive details like stack traces or internal paths to users), and secure defaults (a feature ships secure out of the box, requiring deliberate action to weaken it, rather than requiring deliberate action to secure it)."
+      - heading: "Cryptographic Misuse in Code"
+        blocks:
+          - type: paragraph
+            text: "Secure coding standards also need cryptography-specific rules, since developers implementing cryptographic operations directly (rather than through a vetted library) routinely introduce subtle but serious flaws even when the underlying algorithm itself is sound. Hardcoded cryptographic keys or credentials embedded directly in source code (rather than pulled from the secrets management systems covered in 8.2) become permanently exposed to anyone with repository access, including in the commit history even after later removal. Using a non-cryptographic pseudo-random number generator (the kind built into most programming languages for general-purpose use, optimized for speed and statistical distribution rather than unpredictability) to generate security-sensitive values — session tokens, password reset tokens, encryption keys — produces values that are far more predictable than a genuinely cryptographically secure random number generator would produce, since a general-purpose PRNG's internal state can often be inferred or brute-forced. Rolling a custom encryption algorithm instead of using a vetted, standard, publicly-reviewed one (echoing Domain 3's warning against 'security through obscurity') is another recurring mistake — cryptographic algorithms are notoriously difficult to design correctly even for experts, and an unreviewed custom scheme is far more likely to contain an exploitable flaw than a widely used, publicly scrutinized standard."
+          - type: callout
+            style: tip
+            text: "The exam's consistent guidance across all of these: don't implement cryptography yourself. Use established, vetted libraries and cryptographically secure random number generators specifically designed for security-sensitive use, and manage keys through dedicated secrets management rather than embedding them in code — the same 'don't roll your own crypto' principle from Domain 3 applies directly at the coding level."
