@@ -40,6 +40,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Beyond event-driven reclassification (like a public earnings announcement), mature programs also review classifications on a periodic schedule — commonly annually for high-sensitivity data — since sensitivity can drift gradually rather than through one discrete triggering event (a competitive product roadmap that was highly sensitive at conception may be substantially less sensitive a few years after the product has shipped and iterated well past it). A classification scheme that's applied once at creation and never revisited tends to drift out of alignment with actual current sensitivity over time, in the same way policy documentation drifts if it's never reviewed (per Domain 1's documentation lifecycle content)."
+      - heading: "Sensitivity vs. Criticality: Two Different Rankings"
+        blocks:
+          - type: paragraph
+            text: "Classification (sensitivity) and criticality are related but answer different questions, and conflating them is a common exam trap. Sensitivity asks: how much harm results if this asset is disclosed, altered, or lost to an unauthorized party — a confidentiality/integrity-driven question, which is what classification schemes (Public/Internal/Confidential/Restricted) actually measure. Criticality asks: how much does the business depend on this asset's continued availability — an availability-driven question, closer to what the BIA's MTD/RTO analysis (Domain 1) measures for business functions rather than individual data assets. An asset can be highly sensitive but not very critical (an archived, rarely-accessed HR record containing personal data — sensitive to disclose, but losing access to it for a day wouldn't halt the business), or highly critical but not very sensitive (a public-facing marketing website — nothing sensitive on it, but an outage is immediately visible and damaging). Protection strategy should account for both dimensions independently rather than assuming one implies the other."
 
   - id: d2-t2
     domain: domain2
@@ -79,6 +83,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Traditional access controls stop protecting a file the moment it's legitimately opened and copied elsewhere — from that point, the classification label is just a marking with no technical enforcement behind it. Information Rights Management (sometimes called Digital Rights Management in a broader context) embeds protection directly into the file itself: even after a legitimate recipient opens a document, IRM can persistently enforce restrictions like preventing copy/paste, printing, or forwarding, and can even revoke access to a file that's already been distributed if the classification or the recipient's authorization changes later. This extends handling requirements beyond the boundary of the organization's own systems — a Confidential file shared with an external partner can still carry its handling restrictions with it, rather than becoming an unrestricted, unmanaged copy the moment it leaves the network."
+      - heading: "Handling Requirements for Cloud Sharing and Collaboration"
+        blocks:
+          - type: paragraph
+            text: "Modern cloud collaboration tools introduce a handling risk that didn't really exist in the same form with traditional file servers: the shareable link. A file shared via an overly permissive link setting ('anyone with the link can view,' rather than restricted to specific named individuals) can end up accessible to far more people than the data owner ever intended, and because the link itself can be forwarded or indexed, exposure can spread silently without any single deliberate decision to breach handling rules. A handling standard for a modern collaboration environment needs explicit rules about link-sharing settings appropriate to each classification level (e.g. Restricted data may never use link-based sharing at all, only named-recipient access), and DLP/CASB tooling (Cloud Access Security Broker, a control that monitors and enforces policy on cloud service usage) is commonly deployed specifically to detect and block overly permissive sharing configurations before they become an actual exposure."
 
   - id: d2-t3
     domain: domain2
@@ -120,6 +128,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Secure provisioning has a mirror-image counterpart at the other end of an asset's life: secure decommissioning, covered in depth as part of the information system lifecycle in Domain 3 and the sanitization/media-management content in Domain 7. It's worth flagging here because the two are symmetric — an asset that was provisioned with a documented owner and clear classification is far easier to decommission securely later (its owner, contents, and required disposal handling are already known), while an asset that was provisioned informally, without registration, often becomes exactly the kind of orphaned system that's later found still holding sensitive data long after anyone remembers it exists."
+      - heading: "Provisioning Non-Traditional Assets: IoT and OT Devices"
+        blocks:
+          - type: paragraph
+            text: "IoT and operational technology (OT) devices strain the standard secure-provisioning playbook, since many arrive with hardcoded default credentials that can't be changed, firmware that can't be meaningfully hardened or patched by the customer, and limited or no support for standard endpoint agents or logging. Provisioning these devices securely usually means leaning on compensating controls applied at the network layer instead of the device itself — placing them on a dedicated, tightly segmented network zone (per Domain 4's segmentation content) isolated from higher-value systems, restricting their network communication to only the specific destinations they legitimately need, and ensuring they're still registered in the asset inventory with an owner and a documented risk acceptance, even though the device itself can't be hardened the way a general-purpose server could be. Treating IoT/OT provisioning as 'the same process, just skipped because the device doesn't support it' leaves exactly the kind of unmanaged, unaccounted-for asset that undermines the whole point of secure provisioning."
 
   - id: d2-t4
     domain: domain2
@@ -153,6 +165,10 @@ topics:
           - type: callout
             style: tip
             text: "NIST SP 800-88 is the standard reference for sanitization methods and requirements, defining Clear (protects against simple, non-invasive recovery methods), Purge (protects against laboratory-grade recovery techniques), and Destroy (physically destroys the media so it can never be reused at all) as the three general sanitization categories, each appropriate to different data sensitivity levels."
+      - heading: "The Lifecycle Across Hybrid and Multi-Cloud Environments"
+        blocks:
+          - type: paragraph
+            text: "Data lifecycle thinking gets meaningfully harder once data routinely moves between on-premises systems and multiple cloud providers, since each transition between environments is effectively a new 'in transit' phase layered on top of the standard create-store-use-share-archive-destroy sequence, and each destination may enforce classification, retention, and sanitization controls differently (or not at all, if a destination wasn't deliberately configured to match the source environment's standards). A copy of sensitive data replicated into a secondary cloud region for disaster recovery purposes (Domain 7) needs the same classification-appropriate controls as the primary copy — encryption, access restriction, retention/destruction alignment — but it's easy for that secondary copy to silently drift out of alignment with the primary if lifecycle controls aren't deliberately extended to every location data actually lives, not just the primary system of record."
       - heading: "Why Lifecycle Thinking Matters"
         blocks:
           - type: callout
@@ -188,6 +204,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Retention thinking applies to backup media itself, not just the primary data. Grandfather-Father-Son (GFS) is a classic backup rotation scheme that assigns different retention periods to different backup tiers: daily backups ('son') are kept for a short period and cycled/overwritten frequently; weekly backups ('father') are kept longer, giving a mid-term recovery point; and monthly backups ('grandfather') are retained the longest, providing long-term historical recovery points without needing to keep every single daily backup indefinitely. This tiered approach balances two competing goals also seen elsewhere in retention: enough recent recovery points to support fast, granular restores (RPO-driven, per Domain 1/7), and enough long-term retention to satisfy compliance or historical-analysis needs, without the storage cost of keeping every daily backup ever made forever."
+      - heading: "Records Management as an Organizational Program"
+        blocks:
+          - type: paragraph
+            text: "At scale, retention isn't just a policy document — it's an operational program, commonly called records management, with its own accountable owner (often a records manager or the same governance function covered in Domain 1) responsible for maintaining the master retention schedule, ensuring it stays current as new data categories and regulations emerge, coordinating legal hold notices out to the specific custodians and systems affected when litigation arises, and periodically auditing whether defensible deletion is actually happening on schedule rather than just being documented as a policy. Litigation readiness is a specific, practical output of a well-run records management program: an organization that can quickly and confidently answer 'where does this category of data live, how long have we kept it, and can we produce or suspend deletion of it on demand' is in a fundamentally stronger position during e-discovery than one that has to scramble to even locate relevant data once a legal hold is issued."
 
   - id: d2-t6
     domain: domain2
@@ -217,6 +237,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Selecting 'encryption' as a control isn't specific enough on its own — the exam distinguishes choosing a strong algorithm (Domain 3's cryptography content) from validating that a specific product's implementation of that algorithm is actually trustworthy. FIPS 140 (Federal Information Processing Standard 140, currently at revision 140-3) is the U.S. government standard for validating cryptographic modules — the physical or software component that actually performs encryption/decryption — testing not just the algorithm's correctness but the module's actual implementation, key handling, and tamper resistance, at graded security levels. Many regulated industries and government contracts require FIPS 140-validated cryptographic modules specifically, which is a meaningfully different (and stricter) requirement than simply 'uses AES' — an in-house implementation of a correct algorithm, never independently validated, does not satisfy a FIPS 140 requirement even if the underlying math is sound."
+      - heading: "Where Encryption Actually Runs: Database-Level Approaches"
+        blocks:
+          - type: paragraph
+            text: "'Encrypt the database' can mean meaningfully different things depending on where the encryption is actually applied, and each approach protects against a different threat. Transparent Data Encryption (TDE) encrypts the entire database's files at the storage layer, protecting against someone stealing the physical disk or backup files, but data is automatically decrypted for any authenticated application/query — it does nothing to stop a compromised, authorized database account from reading plaintext data through a normal query. Column-level encryption encrypts specific sensitive fields individually (e.g. only the social security number column), so even a database administrator with broad query access sees ciphertext for that specific field without the separate decryption key, providing more granular protection than TDE at the cost of more complex application logic. Application-level encryption goes further still, encrypting data before it's ever sent to the database at all, so the database (and anyone with direct database access, including a compromised DBA account) never sees plaintext — the strongest protection of the three, but requiring the application itself to manage keys and encryption logic rather than delegating it to the database platform."
+          - type: callout
+            style: tip
+            text: "Exam framing: TDE protects against stolen media/backups but not against a legitimate but malicious/compromised database session. Column-level and application-level encryption both extend protection to exactly that scenario, trading implementation complexity for stronger confidentiality guarantees against insiders and compromised database credentials."
       - heading: "Mapping Controls to Compliance Requirements"
         blocks:
           - type: paragraph

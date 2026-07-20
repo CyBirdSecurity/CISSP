@@ -5,7 +5,7 @@ topics:
     title: "Secure Design Principles"
     summary: "The engineering principles — defense in depth, least privilege, fail secure, zero trust, and more — that should shape every system before a line of code is written."
     tags: ["secure design", "defense in depth", "zero trust", "least privilege"]
-    key_terms: ["Defense in Depth", "Least Privilege", "Fail Secure", "Zero Trust", "Separation of Duties", "Keep It Simple (KISS)", "Privacy by Design", "Kerckhoffs's Principle", "Psychological Acceptability", "Trust Boundary", "Abstraction"]
+    key_terms: ["Defense in Depth", "Least Privilege", "Fail Secure", "Zero Trust", "Separation of Duties", "Keep It Simple (KISS)", "Privacy by Design", "Kerckhoffs's Principle", "Psychological Acceptability", "Trust Boundary", "Abstraction", "Policy Decision Point"]
     sections:
       - heading: "Core Secure Design Principles"
         blocks:
@@ -45,6 +45,10 @@ topics:
         blocks:
           - type: paragraph
             text: "A trust boundary is any point where data or control crosses from one trust level to another — from an untrusted external user to an internal application, from a lower-privileged process to a higher-privileged one, from one network segment to another. Every trust boundary is a natural place an attacker will target, precisely because it's where a system must decide whether to extend trust to something it doesn't fully control. Attack surface reduction is the deliberate practice of minimizing the number and exposure of these boundaries and the entry points along them — disabling unused features, closing unnecessary network ports, removing default accounts, and limiting the number of ways an external actor can interact with a system at all. A smaller attack surface doesn't make a system perfectly secure, but it does shrink the total space defenders must monitor and attackers can probe, which is exactly why hardening (Domain 2) and least functionality are treated as foundational rather than optional design steps."
+      - heading: "The Mechanics of Zero Trust: PDP and PEP"
+        blocks:
+          - type: paragraph
+            text: "Zero trust is often described only as a philosophy ('never trust, always verify'), but architecturally it's implemented through two cooperating components repeated at every trust boundary. A Policy Decision Point (PDP) evaluates a specific access request against current policy and context (identity, device posture, resource sensitivity — the same attributes ABAC uses in Domain 5) and returns an allow/deny decision; it doesn't sit in the traffic path itself. A Policy Enforcement Point (PEP) sits directly in the path of the request, actually granting or blocking access based on the PDP's decision, and re-checks with the PDP for every request rather than caching a prior decision — this repeated re-checking is exactly what operationalizes 'never trust, always verify' rather than trusting a session once established. Separating decision-making (PDP) from enforcement (PEP) also means policy can be centrally updated in one place (the PDP) and takes effect everywhere immediately, without needing to reconfigure every individual enforcement point."
       - heading: "Applying Principles Together"
         blocks:
           - type: paragraph
@@ -94,6 +98,10 @@ topics:
           - type: callout
             style: tip
             text: "The exam is far more likely to test recognizing Bell-LaPadula/Biba rules in a scenario than to test the formal lattice/information-flow math directly — but knowing that these models share a common mathematical ancestor explains why they mirror each other so precisely (same lattice structure, opposite goal)."
+      - heading: "The Take-Grant Model"
+        blocks:
+          - type: paragraph
+            text: "The Take-Grant model addresses a narrower but practically important question the other models don't directly answer: given a starting set of access rights across a system, can a specific right ever propagate from one subject to another through some sequence of legitimate operations? It represents subjects, objects, and their rights as a directed graph, and defines a small set of formal rules for how rights can move across that graph — most notably a 'take' rule (a subject with take rights on another node can take rights that node holds) and a 'grant' rule (a subject with grant rights can pass its own rights to another node). This lets an analyst mathematically determine whether an unintended, indirect path exists for a right to reach a subject that should never have it, even through several intermediate steps — a formal way of answering 'could this permission structure eventually leak access it wasn't meant to grant' rather than only checking direct, single-hop grants."
 
   - id: d3-t3
     domain: domain3
@@ -135,6 +143,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Within Common Criteria, a Protection Profile (PP) is a standardized, reusable set of security requirements for a category of product (e.g. 'firewalls' or 'operating systems'), written independently of any specific vendor, so that different vendors' products in the same category can be evaluated against the same consistent bar. A Security Target (ST) is the vendor-specific document describing exactly what a particular product claims to do and to what assurance level, typically written to demonstrate conformance to a relevant Protection Profile. When a buyer sees a product carries Common Criteria certification against a specific Protection Profile at a specific EAL, they can compare it apples-to-apples against a competing product certified against the same Protection Profile — without a shared Protection Profile, EAL ratings alone aren't directly comparable, since a high EAL only means the vendor's own specific claims (in its Security Target) were rigorously verified, not that those claims cover everything a buyer might assume."
+      - heading: "Choosing Between Overlapping Control Options"
+        blocks:
+          - type: paragraph
+            text: "It's common for more than one control to plausibly address the same identified requirement, and the exam expects a consistent decision process rather than an arbitrary pick: prefer the control with the best-demonstrated effectiveness against the actual threat (not just theoretical coverage), the lowest total cost of ownership relative to the risk it addresses (echoing the safeguard cost-benefit math from Domain 1), the least negative impact on legitimate business operations and usability (tying back to psychological acceptability from 3.1 — a control so disruptive that people route around it provides less real protection than its specification suggests), and the strongest alignment with controls already in place elsewhere (favoring consistency and reduced operational complexity over introducing yet another distinct tool or process to maintain). When two controls are otherwise comparable, the simpler one is generally preferred, echoing the economy-of-mechanism principle from 3.1 — added complexity is itself a cost, both financially and in terms of how confidently the control's behavior can be verified."
 
   - id: d3-t4
     domain: domain3
@@ -142,7 +154,7 @@ topics:
     title: "Security Capabilities of Information Systems"
     summary: "Hardware and firmware-level security features — TPM, secure boot, memory protection — that form the trusted foundation underneath the OS and applications."
     tags: ["TPM", "secure boot", "memory protection", "trusted computing base", "virtualization security"]
-    key_terms: ["Trusted Platform Module (TPM)", "Secure Boot", "Trusted Computing Base (TCB)", "Reference Monitor", "Memory Protection", "Hardware Security Module (HSM)", "Hypervisor", "Enclave", "UEFI", "Measured Boot"]
+    key_terms: ["Trusted Platform Module (TPM)", "Secure Boot", "Trusted Computing Base (TCB)", "Reference Monitor", "Memory Protection", "Hardware Security Module (HSM)", "Hypervisor", "Enclave", "UEFI", "Measured Boot", "Root of Trust"]
     sections:
       - heading: "The Trusted Computing Base and Reference Monitor"
         blocks:
@@ -164,6 +176,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Modern systems boot through UEFI (Unified Extensible Firmware Interface), the successor to the older BIOS standard, which is what actually implements Secure Boot's signature verification at each stage of startup. Measured boot is a related but distinct capability: rather than (or in addition to) blocking unsigned code outright, measured boot records cryptographic hashes ('measurements') of each component loaded during startup into the TPM, building a verifiable record of exactly what actually ran — a remote party can later request this record (remote attestation) to confirm the system booted into a known-good, untampered state before trusting it with sensitive work, such as joining a corporate network or accessing highly sensitive data. Firmware itself is squarely part of the TCB and a growing attack target precisely because it runs before the operating system and its security tooling even loads — firmware-level malware can potentially persist through a full OS reinstall, which is why firmware update/patch management deserves the same operational discipline as OS-level patching (Domain 7), not an afterthought status."
+      - heading: "Root of Trust"
+        blocks:
+          - type: paragraph
+            text: "A root of trust is the foundational component a system's entire chain of trust ultimately depends on — something that is trusted unconditionally, by design, because there's no lower layer available to verify it. The TPM commonly serves as (or anchors) the root of trust for measurement and storage: it's trusted to accurately measure and report what code ran during boot precisely because verifying the TPM itself would require yet another trusted component, and that regress has to stop somewhere. Every layer of Secure Boot's signature chain, and every attestation measured boot produces, is only as trustworthy as the root of trust underneath it — if the root of trust itself is compromised (a supply-chain-implanted hardware backdoor, per Domain 1's hardware supply chain content), every guarantee built on top of it becomes meaningless, no matter how correctly the higher layers are implemented. This is exactly why hardware root-of-trust integrity is treated as a supply-chain and provenance problem as much as a technical design problem — the strongest cryptographic chain of trust is worthless if its very first link was tampered with before the device ever reached the organization."
       - heading: "Virtualization and Cloud Security Capabilities"
         blocks:
           - type: paragraph
@@ -175,7 +191,7 @@ topics:
     title: "Vulnerabilities in Architectures, Designs, and Solutions"
     summary: "Common weaknesses in client-based, server-based, database, cryptographic, and industrial/embedded system architectures."
     tags: ["vulnerabilities", "client-server", "database security", "ICS/SCADA", "covert channel"]
-    key_terms: ["Client-Based Vulnerability", "Server-Based Vulnerability", "Aggregation", "Inference", "ICS/SCADA", "IoT", "Covert Channel", "TOCTOU", "Jailbreaking", "API Vulnerability"]
+    key_terms: ["Client-Based Vulnerability", "Server-Based Vulnerability", "Aggregation", "Inference", "ICS/SCADA", "IoT", "Covert Channel", "TOCTOU", "Jailbreaking", "API Vulnerability", "Embedded System"]
     sections:
       - heading: "Client- and Server-Based Weaknesses"
         blocks:
@@ -202,6 +218,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Mobile platforms add architecture-specific risks beyond generic client vulnerabilities: jailbreaking/rooting (a user or attacker deliberately bypasses the device manufacturer's built-in isolation and app sandboxing to gain full control), which removes a layer of platform-level defense-in-depth that both the OS vendor and any installed security tooling were relying on. Mobile application management and sideloading (installing apps from outside an official, vetted app store) both widen the attack surface by bypassing the vetting process official app stores perform. BYOD (Bring Your Own Device) environments compound this architecturally, since the organization must enforce security requirements on hardware it doesn't own or fully control — commonly addressed through Mobile Device Management (MDM) or the narrower Mobile Application Management (MAM, which manages only the specific corporate apps/data on a device rather than the whole device), letting an organization enforce encryption, remote wipe of corporate data, and compliance checks without taking full administrative control of an employee's personal device."
+      - heading: "Embedded and Firmware-Level Vulnerabilities"
+        blocks:
+          - type: paragraph
+            text: "Embedded systems (purpose-built devices running specialized, often minimal software — medical devices, industrial controllers, network appliances themselves) share several recurring weaknesses distinct from general-purpose computing: firmware that's rarely or never updated after deployment, since many embedded devices are designed for long service lives (a decade or more) with far less vendor patching cadence than mainstream operating systems; hardcoded credentials or cryptographic keys baked into firmware at manufacture time, sometimes shared identically across an entire product line, so compromising one device's credentials compromises every device of that model; and limited or no on-device logging/monitoring capability, making an embedded device compromise far harder to detect than a compromise of a standard server with full EDR coverage (Domain 7). These weaknesses reinforce why embedded/OT security relies so heavily on compensating network-level controls (Domain 4's segmentation) rather than device-level hardening the device often can't support at all."
       - heading: "Covert Channels"
         blocks:
           - type: paragraph
@@ -217,7 +237,7 @@ topics:
     title: "Cryptographic Solutions"
     summary: "Symmetric and asymmetric encryption, hashing, digital signatures, and PKI — the building blocks used to select an appropriate cryptographic solution."
     tags: ["cryptography", "symmetric encryption", "asymmetric encryption", "PKI", "hashing", "key management"]
-    key_terms: ["Symmetric Encryption", "Asymmetric Encryption", "Hashing", "Digital Signature", "PKI", "Certificate Authority", "AES", "RSA", "Elliptic Curve Cryptography", "Diffie-Hellman", "Key Management", "Post-Quantum Cryptography"]
+    key_terms: ["Symmetric Encryption", "Asymmetric Encryption", "Hashing", "Digital Signature", "PKI", "Certificate Authority", "AES", "RSA", "Elliptic Curve Cryptography", "Diffie-Hellman", "Key Management", "Post-Quantum Cryptography", "TLS Handshake"]
     sections:
       - heading: "Symmetric vs. Asymmetric Encryption"
         blocks:
@@ -248,13 +268,10 @@ topics:
         blocks:
           - type: paragraph
             text: "PKI is the framework of policies, roles, and technology that manages public/private key pairs at scale. A Certificate Authority (CA) issues digital certificates that bind a public key to a verified identity; a Registration Authority (RA) verifies identity before the CA issues the certificate. Certificates can be checked for validity via a Certificate Revocation List (CRL) or the faster Online Certificate Status Protocol (OCSP), which is what allows a browser to know a compromised certificate has been revoked before its natural expiration. Beyond certificates, key management is a full lifecycle in its own right: generation (using a sufficiently random source), distribution, storage (ideally in an HSM or TPM rather than in application code or plaintext config), rotation (periodically replacing keys to limit the damage window of an undetected compromise), and destruction (ensuring retired keys can never be recovered, similar to the data-sanitization principle from Domain 2). A poorly managed key lifecycle — for example a key that's never rotated for a decade, or one stored in a source code repository — can undermine even a mathematically strong algorithm."
-      - heading: "The Quantum Computing Threat and Post-Quantum Cryptography"
+      - heading: "Putting It Together: How a TLS Handshake Actually Works"
         blocks:
           - type: paragraph
-            text: "A sufficiently powerful quantum computer running Shor's algorithm could, in principle, break RSA and ECC by efficiently solving the underlying factoring and discrete-logarithm problems those algorithms' security relies on — a capability classical computers don't have. Symmetric algorithms like AES are considered far more resilient to quantum attack (a quantum algorithm called Grover's algorithm provides at most a quadratic speedup against symmetric keys, meaningfully addressed simply by using longer symmetric keys, e.g. AES-256 instead of AES-128), which is why the quantum threat is discussed primarily in the context of asymmetric cryptography. Post-quantum cryptography (PQC) refers to a new generation of asymmetric algorithms designed to resist attack even from a quantum computer, based on different, quantum-resistant mathematical problems, and standardization bodies (including NIST) have been formalizing PQC algorithm standards for organizations to begin migrating toward. This matters operationally today, not just in some future quantum era, because of 'harvest now, decrypt later' — an adversary can record encrypted traffic now and simply wait for quantum computing to mature enough to decrypt it retroactively, meaning data that needs to stay confidential for many years is already a migration priority even though large-scale quantum computers don't yet exist."
-          - type: callout
-            style: tip
-            text: "Exam framing: PQC concerns asymmetric algorithms specifically (RSA/ECC/Diffie-Hellman), not symmetric ones — AES remains considered quantum-resistant with adequate key length, which is a commonly tested distinction."
+            text: "A TLS handshake is the concrete, end-to-end example that ties together nearly every concept in this topic. The client and server first negotiate which cipher suite (algorithm combination) to use. The server presents its PKI certificate, and the client verifies it against a trusted CA and checks revocation status (CRL/OCSP). The two sides then perform a key exchange (commonly ephemeral Diffie-Hellman, for forward secrecy) to jointly derive a shared symmetric session key, without that key ever having been transmitted directly. From that point forward, the actual application data is protected using fast symmetric encryption (e.g. AES-GCM) with the derived session key — the asymmetric operations were only ever used briefly, to authenticate the server and establish the symmetric key, exactly the hybrid pattern described earlier in this topic. Seeing the full handshake laid out this way is a useful way to confirm each piece's role: PKI/certificates provide authentication, asymmetric key exchange solves secure key distribution, and symmetric encryption handles the actual bulk data efficiently."
 
   - id: d3-t7
     domain: domain3
@@ -262,7 +279,7 @@ topics:
     title: "Cryptanalytic Attacks"
     summary: "How cryptographic systems are attacked — from brute force to side-channel analysis — and what each attack requires the attacker to have."
     tags: ["cryptanalysis", "brute force", "side-channel attack", "replay attack"]
-    key_terms: ["Brute Force Attack", "Known-Plaintext Attack", "Chosen-Plaintext Attack", "Birthday Attack", "Side-Channel Attack", "Downgrade Attack", "Replay Attack", "Rainbow Table", "Salt", "Frequency Analysis", "Meet-in-the-Middle Attack"]
+    key_terms: ["Brute Force Attack", "Known-Plaintext Attack", "Chosen-Plaintext Attack", "Birthday Attack", "Side-Channel Attack", "Downgrade Attack", "Replay Attack", "Rainbow Table", "Salt", "Frequency Analysis", "Meet-in-the-Middle Attack", "Fault Injection"]
     sections:
       - heading: "Attacks Based on What the Attacker Has"
         blocks:
@@ -286,17 +303,10 @@ topics:
           - type: callout
             style: tip
             text: "Side-channel attacks are a good exam distinguisher: they don't 'break' the algorithm mathematically at all — they exploit the physical implementation, which is why constant-time cryptographic code (avoiding data-dependent timing) is a defense specifically against timing side-channels."
-      - heading: "Meet-in-the-Middle and Structural Weaknesses from Layering"
+      - heading: "Fault Injection: An Active Cousin of Side-Channel Attacks"
         blocks:
           - type: paragraph
-            text: "A meet-in-the-middle attack targets systems that naively apply encryption twice with two different keys expecting the combined strength to simply add together (e.g. an early, flawed approach to strengthening DES by double-encrypting it) — rather than needing to brute-force the full combined keyspace, the attacker encrypts the known plaintext forward with every possible first key and decrypts the known ciphertext backward with every possible second key, then looks for a match 'in the middle,' which is dramatically faster than brute-forcing both keys together and demonstrates that naive double-encryption doesn't multiply security the way intuition suggests. This is exactly why properly designed multi-key schemes (like genuine Triple DES, which structures its three encryption/decryption operations specifically to resist this attack) require careful formal analysis rather than simply 'encrypting twice and assuming it's twice as strong' — layering cryptographic operations without understanding the underlying structural math can silently produce something weaker than intended."
-      - heading: "Replay, Rainbow Tables, and Password-Specific Attacks"
-        blocks:
-          - type: paragraph
-            text: "A replay attack doesn't need to break any cryptography at all — the attacker captures a legitimate, validly encrypted/signed message (e.g. an authentication token) and simply resends it later to be accepted as if it were fresh, exploiting a system that doesn't distinguish a message's first arrival from a later resend. Defenses include timestamps, sequence numbers, and nonces (numbers used once) that make a captured message invalid or detectable if reused. A rainbow table is a precomputed lookup table mapping common hash outputs back to their original inputs, letting an attacker instantly reverse an unsalted password hash instead of brute-forcing it fresh each time. A salt — random data unique to each password, combined with the password before hashing — defeats rainbow tables entirely, because a precomputed table would need a separate entry for every possible salt value, making precomputation infeasible; this is exactly why salting is considered mandatory practice for password storage, not merely a nice-to-have."
-          - type: callout
-            style: example
-            text: "Without a salt, two users with the identical password 'Summer2024!' produce the identical stored hash — an attacker who cracks one instantly knows the other. With a unique salt per user, the same password produces two completely different stored hashes, and a rainbow table built for the unsalted hash is useless against either."
+            text: "Where a passive side-channel attack only observes a device (power draw, timing, emissions), a fault injection (glitching) attack actively disturbs it — deliberately introducing a voltage spike, a clock glitch, or environmental stress (temperature extremes, targeted electromagnetic pulses) at a precisely timed moment during a cryptographic operation to induce a computational error, then analyzing the resulting faulty output to recover key material that would never leak from a normally functioning device. This is a physical-access attack requiring direct hands-on manipulation of hardware, which is exactly why tamper-resistant/tamper-evident physical design (Domain 3's HSM content — HSMs are specifically engineered to detect and respond to physical tampering, sometimes by automatically zeroizing stored keys if tampering is detected) exists as a defense that pure algorithmic strength can't provide on its own."
 
   - id: d3-t8
     domain: domain3
@@ -304,7 +314,7 @@ topics:
     title: "Security Principles for Site and Facility Design"
     summary: "Applying security thinking to physical spaces before they're built, including CPTED and site selection factors."
     tags: ["CPTED", "physical security design", "site selection"]
-    key_terms: ["CPTED", "Natural Surveillance", "Natural Access Control", "Territorial Reinforcement", "Target Hardening", "Perimeter Intrusion Detection"]
+    key_terms: ["CPTED", "Natural Surveillance", "Natural Access Control", "Territorial Reinforcement", "Target Hardening", "Perimeter Intrusion Detection", "Utility Redundancy"]
     sections:
       - heading: "Crime Prevention Through Environmental Design (CPTED)"
         blocks:
@@ -329,6 +339,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Beyond CPTED's design-level thinking, perimeter security often layers dedicated Perimeter Intrusion Detection Systems (PIDS) into the site design itself: fence-mounted sensors that detect climbing or cutting, buried seismic/pressure sensors that detect footsteps or vehicles crossing a boundary, microwave or infrared beam systems that detect a break in a monitored line of sight, and video analytics that automatically flag movement in a monitored zone rather than relying purely on a human watching camera feeds continuously. These are detective physical controls, and — echoing defense in depth — are most effective layered with the preventive controls (fencing, bollards) and deterrent controls (lighting, visible signage) covered elsewhere in Domain 3's physical security content, rather than relied on as a single standalone layer."
+      - heading: "Utility Redundancy as a Site Selection Factor"
+        blocks:
+          - type: paragraph
+            text: "Redundant power and network connectivity are listed among site selection factors above, but the depth of that redundancy is worth unpacking specifically, since a site with only 'backup power' isn't automatically well-protected. True utility redundancy for a high-availability site typically means feeds from two genuinely independent sources (not two paths that both trace back to the same substation or the same regional grid segment, which would fail together in exactly the scenario redundancy is meant to prevent), combined with on-site generation (generators sized and fuel-provisioned for extended outages, not just a short bridge to grid restoration) and UPS systems to cover the gap between a power loss and generator spin-up. The same genuine-independence principle applies to network connectivity — two internet circuits from the same provider sharing a single physical conduit into the building offer far less real redundancy than they appear to on paper, since a single construction accident severing that conduit takes both circuits down simultaneously."
 
   - id: d3-t9
     domain: domain3
@@ -336,7 +350,7 @@ topics:
     title: "Site and Facility Security Controls"
     summary: "Layered physical controls, from perimeter to data center, and the environmental controls that protect equipment once inside."
     tags: ["physical security controls", "layered defense", "data center security"]
-    key_terms: ["Perimeter Security", "Mantrap", "Bollards", "HVAC", "Fire Suppression", "Fire Classes", "Biometric Access Control"]
+    key_terms: ["Perimeter Security", "Mantrap", "Bollards", "HVAC", "Fire Suppression", "Fire Classes", "Biometric Access Control", "Data Center Tier"]
     sections:
       - heading: "Layered Physical Defense"
         blocks:
@@ -363,6 +377,10 @@ topics:
           - type: callout
             style: warning
             text: "Using water on a Class C (energized electrical) fire risks electrocuting anyone in contact with the water stream, in addition to damaging equipment — power should be cut before any water-based suppression is used near electrical equipment, which is exactly why data centers avoid water-based systems for their primary suppression in the first place."
+      - heading: "Data Center Redundancy Tiers"
+        blocks:
+          - type: paragraph
+            text: "The Uptime Institute's data center tier classification is a widely referenced way of describing exactly how much redundancy a facility actually has, and the exam expects a general sense of the progression even without memorizing every specific requirement. Tier I offers basic capacity with no redundancy — a single path for power and cooling, meaning planned maintenance requires downtime. Tier II adds redundant capacity components (extra power/cooling equipment) but still only a single distribution path. Tier III introduces concurrent maintainability — multiple independent distribution paths, so any single component can be taken down for maintenance without affecting operations, though a single simultaneous failure could still cause an outage. Tier IV adds fault tolerance — the facility can withstand an unplanned failure of any single component without any impact on operations at all, the highest and most expensive tier. Higher tiers directly translate to higher achievable availability percentages, giving organizations a standardized way to specify and compare the actual resilience of a facility (their own or a colocation/cloud provider's) rather than relying on vague marketing claims of 'highly available.'"
 
   - id: d3-t10
     domain: domain3
@@ -370,7 +388,7 @@ topics:
     title: "Managing the Information System Lifecycle"
     summary: "Applying security requirements consistently across every phase a system passes through, from initial concept to secure decommissioning."
     tags: ["system lifecycle", "SDLC", "decommissioning", "authorization to operate"]
-    key_terms: ["System Development Life Cycle (SDLC)", "Change Management", "Decommissioning", "Sanitization", "Authorization to Operate (ATO)", "Risk Management Framework (RMF)", "Certification", "Accreditation"]
+    key_terms: ["System Development Life Cycle (SDLC)", "Change Management", "Decommissioning", "Sanitization", "Authorization to Operate (ATO)", "Risk Management Framework (RMF)", "Certification", "Accreditation", "Asset Retirement"]
     sections:
       - heading: "Security Across Every Phase"
         blocks:
@@ -399,3 +417,7 @@ topics:
           - type: callout
             style: tip
             text: "Skipping secure disposal is a common real-world failure: decommissioned drives sold or discarded without proper sanitization have repeatedly been found to still contain recoverable sensitive data — the lifecycle isn't complete until data destruction is verified, not just requested."
+      - heading: "Documenting Asset Retirement"
+        blocks:
+          - type: paragraph
+            text: "Beyond the technical act of sanitization, a complete retirement record ties together several threads from across this domain and Domain 2: confirmation of the specific sanitization method used and why it was appropriate to the asset's classification, a certificate of destruction where physical destruction or a third-party destruction vendor was involved (per Domain 7's media chain-of-custody content), formal removal from the asset inventory and CMDB (Domain 7) so the system stops appearing in dependency mappings and audits as if it still exists, and closure of the RMF authorization/ATO if one was in place, since an ATO for a system that no longer exists is a stale, meaningless authorization left needlessly on the books. A retirement that stops at 'we wiped the drive' without this surrounding documentation leaves exactly the kind of loose end that later confuses an audit or, worse, an incident investigation trying to determine whether a since-decommissioned system was actually involved."

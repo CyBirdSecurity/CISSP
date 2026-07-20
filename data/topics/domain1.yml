@@ -46,6 +46,13 @@ topics:
           - type: callout
             style: example
             text: "A security engineer discovers their company is silently exfiltrating more customer data than disclosed in the privacy policy. Reporting it internally first (through appropriate channels, giving the organization a chance to correct course) is generally the right first step under the Canons; only if that fails and public harm continues does escalating externally become the ethically required next step, not the first one."
+      - heading: "When a Superior Directly Orders Unethical Action"
+        blocks:
+          - type: paragraph
+            text: "A distinct and harder scenario from ordinary competing obligations is a direct, explicit order from a superior to do something the Code clearly prohibits — falsify an audit finding, conceal a known breach from regulators, or approve a system as compliant when it demonstrably isn't. The Code does not recognize 'I was following orders' as a defense; a CISSP who complies is still personally accountable to the Code and can still be reported and sanctioned, regardless of organizational pressure or hierarchy. The expected response is to refuse the order, document the refusal and the reasoning, and escalate through legitimate channels (a compliance function, an ethics hotline, higher leadership, or ultimately outside the organization if internal escalation fails and the harm is serious) — accepting personal or career risk is treated by the Code as the correct trade-off against knowingly violating Canon I or II."
+          - type: callout
+            style: tip
+            text: "This is a useful gut-check for ambiguous exam scenarios: if an answer choice involves quietly complying with an order you know violates the Code 'because it was an order,' it's wrong — the Code holds the individual accountable regardless of who directed the action."
 
   - id: d1-t2
     domain: domain1
@@ -97,6 +104,10 @@ topics:
           - type: callout
             style: tip
             text: "Exam scenarios often bundle two failures into one story specifically to test whether you can separate them — read carefully for what actually happened to the data (was it read, changed, or made unavailable) rather than reacting to the scariest-sounding word in the question."
+      - heading: "The Limits of Non-Repudiation"
+        blocks:
+          - type: paragraph
+            text: "Non-repudiation is often described as though a digital signature makes denial impossible, but the exam's more nuanced framing is that non-repudiation raises the evidentiary bar for a successful denial rather than eliminating the possibility of dispute entirely. A signer can still attempt a repudiation attack by plausibly claiming their private key was stolen or their signing device was compromised without their knowledge — if that claim is credible, the signature alone may no longer conclusively prove the signer personally authorized the action. This is exactly why non-repudiation in practice is built from multiple reinforcing layers, not a signature alone: secure key storage (an HSM or hardware token, per Domain 3, that makes key theft far less plausible), strong authentication before signing (proving the actual person, not just the key, initiated the action), and detailed audit logging (corroborating the signature with independent evidence like session logs and IP/device information) all combine to make a repudiation claim harder to sustain, even though no single mechanism makes it theoretically impossible."
 
   - id: d1-t3
     domain: domain1
@@ -144,6 +155,13 @@ topics:
           - type: callout
             style: tip
             text: "Exam distinction: the board is accountable for risk; the CISO is responsible for managing it day-to-day. Accountability can't be delegated away even when responsibility for execution is — if a major breach occurs, the board remains accountable to shareholders/regulators even though the CISO executed the actual program."
+      - heading: "The Three Lines of Defense Model"
+        blocks:
+          - type: paragraph
+            text: "The Three Lines of Defense (increasingly called the Three Lines Model) is a widely used way of structuring accountability for risk across an organization, and the exam expects you to recognize which line a described role belongs to. The first line is operational management — the business and IT teams who own and manage risk directly as part of doing their jobs (a system administrator applying security controls, a developer following secure coding standards). The second line is risk management and compliance functions (often including the security/GRC team itself) that set policy, provide oversight, and monitor whether the first line is actually managing risk effectively, without doing the operational work themselves. The third line is internal audit, providing independent, objective assurance to the board and senior management on how well both the first and second lines are actually functioning — critically, internal audit must remain independent of the first and second lines to preserve the same auditor-independence principle covered in Domain 6, since auditing your own team's second-line risk management would undermine the objectivity the third line exists to provide."
+          - type: callout
+            style: example
+            text: "A firewall administrator configuring rules is first line. A security governance team writing the firewall standard and periodically reviewing rule sets for compliance is second line. Internal audit independently testing whether the second line's review process actually catches non-compliant rules is third line."
       - heading: "Governance Maturity"
         blocks:
           - type: paragraph
@@ -208,6 +226,13 @@ topics:
         blocks:
           - type: paragraph
             text: "Strong cryptography is treated as a controlled, dual-use technology in many countries' export control regimes (in the U.S., primarily the Export Administration Regulations), meaning exporting certain cryptographic products or source code across borders can itself require government authorization, separate from any data-privacy law. This matters operationally for multinational organizations building or distributing security products — the legal question isn't only 'is our data protected,' it can also be 'are we legally permitted to send this specific encryption technology to this specific country at all.'"
+      - heading: "Basic Contract Law Concepts"
+        blocks:
+          - type: paragraph
+            text: "Because so much of security practice runs through contracts (vendor agreements, SLAs, NDAs, the contractual clauses covered later under supply chain risk management), a working knowledge of what makes a contract legally binding is relevant background. A valid contract generally requires an offer (one party proposes specific terms), acceptance (the other party agrees to those exact terms), consideration (something of value exchanged by both sides — payment, services, access), capacity (both parties are legally able to enter into the agreement), and a lawful purpose (a contract to do something illegal isn't enforceable regardless of how clearly it's written). A breach of contract occurs when a party fails to perform its obligations, and remedies typically include damages (financial compensation for the loss caused) or, less commonly, specific performance (a court order compelling the breaching party to actually fulfill the contract's terms)."
+          - type: callout
+            style: tip
+            text: "This matters practically for a security professional reviewing a vendor contract: a security commitment that isn't tied to actual consideration and enforceable remedies (e.g. a vague marketing promise rather than a specific contractual obligation with a defined breach remedy) may be far less legally meaningful than it appears, even if it reads reassuringly."
 
   - id: d1-t5
     domain: domain1
@@ -262,6 +287,10 @@ topics:
         blocks:
           - type: paragraph
             text: "An investigation spanning multiple countries adds real complexity: evidence-handling standards, what counts as admissible, and even what's legal to collect at all can differ by jurisdiction, and formally obtaining evidence located in another country often requires slow, structured international legal cooperation processes (such as a Mutual Legal Assistance Treaty request) rather than simply asking a foreign provider directly. This is a growing practical concern given how routinely cloud infrastructure, remote attackers, and multinational victim organizations span borders on a single incident — the technical investigation may be straightforward while the legal path to using that evidence in a proceeding is the actual bottleneck."
+      - heading: "Forensic Tools and Evidence Integrity"
+        blocks:
+          - type: paragraph
+            text: "Two practical mechanics underpin most digital forensic collection. A write blocker is a hardware or software tool that physically or logically prevents any write operation to a piece of original evidence media while it's connected for imaging — guaranteeing the act of collecting evidence doesn't itself alter the original, which is a foundational requirement for the evidence to be considered forensically sound. Hashing the original media (and the resulting forensic image) at the time of collection, using an algorithm like SHA-256, produces a fixed digital fingerprint that can be recalculated at any later point to prove the evidence hasn't been altered since collection — if the hash still matches years later, the integrity of the copy is mathematically demonstrated, not just asserted. Together, a write blocker (preventing alteration during collection) and hashing (proving no alteration occurred afterward) are the two concrete technical mechanisms that make the chain-of-custody promise verifiable rather than just a documented claim."
 
   - id: d1-t6
     domain: domain1
@@ -302,6 +331,10 @@ topics:
             text: "Real environments occasionally need a documented exception to a standard or baseline — a legacy system that can't meet a current encryption standard, for example — and a mature program has a formal exception process: a time-bound, risk-assessed, approved deviation with compensating controls and an accountable owner, rather than simply ignoring the requirement. An undocumented, informal exception is really just a policy violation with better excuses."
           - type: paragraph
             text: "Documentation needs an owner, a review cycle, and version control — a policy nobody has reviewed since it was written five years ago is a liability, not a control, because it likely no longer matches the actual environment or current regulatory requirements. Effective programs tie policy review to significant business or technology changes as well as a fixed periodic schedule (commonly annual)."
+      - heading: "Communicating and Acknowledging Policy"
+        blocks:
+          - type: paragraph
+            text: "A policy that exists only in a document repository nobody reads provides essentially no behavioral effect — publishing a policy and communicating it are different things, and communication (targeted announcements when a policy is new or materially changed, integration into onboarding and periodic training per Domain 1's awareness content, and easy discoverability when someone actually needs to reference it) is what turns a written policy into something that actually shapes behavior. Formal acknowledgment — an employee explicitly confirming they've read and agree to abide by a policy, typically tracked and retained as a record — serves two purposes: it reinforces genuine awareness at the individual level, and it creates documented evidence the organization can point to later (in a disciplinary action, an audit, or litigation) that the individual was on notice of the requirement, rather than the organization having to argue after the fact that a policy 'should have' been known."
 
   - id: d1-t7
     domain: domain1
@@ -335,6 +368,10 @@ topics:
           - type: callout
             style: example
             text: "A BIA might rate 'process customer orders' as highly critical with a 2-hour RTO, but dependency mapping reveals it silently depends on a single legacy on-premises server with no failover and a vendor contract with no uptime SLA at all — the stated RTO is fiction until those dependencies are addressed."
+      - heading: "How a BIA Actually Gathers Its Data"
+        blocks:
+          - type: paragraph
+            text: "A BIA's conclusions are only as good as the process used to gather them. Structured interviews with business process owners (the people who actually run a given function day-to-day) surface the real dependencies and impact estimates that a purely document-driven review would miss. Questionnaires let the BIA scale across many business units consistently, using standardized questions to gather comparable impact data across the organization, though they risk shallower answers than a direct interview. Workshops bring multiple stakeholders together to reconcile conflicting impact estimates in real time (two departments each claiming their function is 'most critical' get resolved through facilitated discussion rather than left as an unreconciled dispute). Document review (existing process documentation, prior incident records, financial reports) grounds the qualitative interview/workshop data in objective, verifiable facts. A BIA relying on only one of these methods tends to produce a skewed picture — interviews alone can overstate impact (process owners naturally believe their own function is critical), while document review alone can miss context that only the people running the process actually know."
       - heading: "From BIA to Prioritized Requirements"
         blocks:
           - type: paragraph
@@ -387,6 +424,10 @@ topics:
           - type: callout
             style: example
             text: "A standard, friendly resignation with two weeks' notice can follow a routine offboarding checklist completed by the departure date. A for-cause termination of a database administrator with standing production access needs access revoked at the moment of (or immediately before) notification — waiting even a few hours creates a window for retaliatory action that the friendly-termination process was never designed to close quickly enough."
+      - heading: "Formal Insider Threat Programs"
+        blocks:
+          - type: paragraph
+            text: "Beyond the baseline personnel controls above, larger or higher-risk organizations often stand up a dedicated insider threat program — a cross-functional effort (typically drawing on HR, security, legal, and sometimes behavioral/psychological expertise) specifically focused on identifying and managing the risk posed by trusted insiders, distinct from the perimeter-facing focus of most traditional security tooling. Such a program typically combines technical monitoring (elevated logging/UEBA-style behavioral analytics on high-risk roles, per Domain 7) with non-technical signals (HR-reported grievances, disciplinary actions, financial distress indicators where legally permissible to consider) and a defined escalation path when concerning signals combine. This is a deliberately sensitive area — insider threat programs must be built with real legal and privacy constraints in mind (works council consultation requirements in some jurisdictions, employee privacy law, anti-discrimination law) and are usually most effective when their existence and general scope are transparently communicated to the workforce, which both supports deterrence and avoids the appearance of a secret surveillance program that itself damages trust and morale."
 
   - id: d1-t9
     domain: domain1
@@ -430,6 +471,10 @@ topics:
             text: "A risk heat map plots identified risks on a grid of likelihood (one axis) against impact (the other axis), letting leadership see at a glance which risks cluster in the high-likelihood/high-impact corner that demands immediate attention versus the low-likelihood/low-impact corner that's reasonable to simply accept. This is the visual, qualitative counterpart to the quantitative ALE math above — many organizations use both together, heat-mapping a large population of risks quickly and then applying full quantitative analysis only to the smaller subset that lands in the highest-priority zone, since full quantitative analysis on every identified risk usually isn't a practical use of time."
           - type: paragraph
             text: "A risk register is the living document (or system) that tracks every identified risk: its description, likelihood/impact rating, assigned owner, chosen treatment, current status, and residual risk after treatment. It turns risk management from a one-time assessment exercise into an ongoing program — risks are added as they're identified, re-scored periodically as conditions change, and reviewed by leadership as part of regular governance, tying directly back into the governance and alignment concepts from 1.3."
+      - heading: "FAIR: A More Rigorous Quantitative Model"
+        blocks:
+          - type: paragraph
+            text: "Factor Analysis of Information Risk (FAIR) is a more formal quantitative risk model than the SLE/ARO/ALE approach above, designed to address a common weakness of simpler quantitative methods: SLE/ALE calculations often rely on single-point estimates (a specific dollar figure, a specific frequency) that convey false precision about numbers that are actually quite uncertain. FAIR instead models risk as Loss Event Frequency × Loss Magnitude, but breaks each of those down further into contributing factors (e.g. Loss Event Frequency further decomposes into Threat Event Frequency and Vulnerability, itself a function of threat capability versus the strength of resistance controls), and expresses estimates as ranges/probability distributions rather than single numbers, producing a probable range of loss outcomes rather than one falsely precise figure. FAIR is more rigorous and more work to apply than the SLE/ALE approach, and is typically reserved for higher-stakes risk decisions where the added precision and defensibility are worth the additional analytical effort — for the exam, the key distinction is that FAIR is a more granular, factor-based refinement of the same underlying quantitative philosophy as SLE/ALE, not a fundamentally different risk framework."
 
   - id: d1-t10
     domain: domain1
@@ -476,6 +521,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Threat modeling is more complete when it also considers who is likely to pose the threat, not just what technique they might use. Threat actors range from unsophisticated opportunistic attackers to organized cybercriminal groups (typically financially motivated), hacktivists (ideologically motivated, often favoring disruption and public embarrassment), insiders (malicious or negligent, with unusually direct access), and advanced persistent threats (well-resourced, often nation-state-affiliated actors capable of sustained, stealthy, long-term campaigns). The realistic threat actors facing a given system should shape which STRIDE/attack-tree paths get prioritized — a system unlikely to interest a nation-state but highly attractive to financially motivated criminals should weight its threat model accordingly."
+      - heading: "Sharing Threat Intelligence: ISACs and Structured Formats"
+        blocks:
+          - type: paragraph
+            text: "No single organization sees the full picture of what threat actors are actively doing, which is why threat intelligence sharing between organizations is a meaningful complement to internal threat modeling. An Information Sharing and Analysis Center (ISAC) is an industry-specific body (financial services, healthcare, and many other sectors each have one) through which member organizations share observed threat indicators and attack patterns with each other, on the premise that attackers frequently reuse infrastructure and techniques across multiple victims in the same sector, so early warning shared by one victim can help others avoid becoming the next one. STIX (Structured Threat Information eXpression) and TAXII (Trusted Automated eXchange of Indicator Information) are the standardized technical formats and transport protocol commonly used to actually exchange this threat intelligence in a machine-readable way, letting one organization's detection tooling automatically ingest and act on indicators shared by another organization or an ISAC, rather than requiring manual, ad hoc information exchange."
 
   - id: d1-t11
     domain: domain1
@@ -512,6 +561,10 @@ topics:
         blocks:
           - type: paragraph
             text: "Beyond a general SLA, specific contractual clauses are what actually give an organization leverage and recourse in a vendor relationship, and the exam expects familiarity with the common ones: a right-to-audit clause lets the customer (or an agreed third party) formally verify the vendor's security controls rather than relying purely on the vendor's self-reported claims; a breach notification clause specifies how quickly and in what detail the vendor must inform the customer of a security incident affecting the customer's data, which is critical for the customer to meet its own downstream regulatory notification deadlines (e.g. under GDPR or HIPAA); a data handling/return-or-destruction clause specifies exactly what happens to the customer's data at the end of the relationship; and liability/indemnification clauses allocate financial responsibility if the vendor's failure causes the customer harm. A vendor contract with strong technical security commitments but no audit rights or breach notification clause gives the customer very little practical way to verify or act on those commitments."
+      - heading: "Fourth-Party Risk"
+        blocks:
+          - type: paragraph
+            text: "A vendor's own subcontractors and suppliers — the organization's fourth parties — inherit into the risk chain even though the organization has no direct contractual relationship with them at all. A cloud-based SaaS vendor might itself depend on an underlying infrastructure provider, a payment processor, and various subcontracted support functions; a security failure at any of those fourth parties can cascade into the organization's own risk exposure exactly the same way a direct vendor's failure would, but with far less visibility and no direct contractual leverage to demand changes. Managing this realistically usually means requiring vendors, through the contract clauses above (particularly the right-to-audit and breach notification clauses), to maintain and be accountable for their own subcontractor risk management, rather than the organization attempting to directly assess every fourth party itself — SCRM at this depth is fundamentally about extending accountability down the chain contractually, since direct assessment of every subcontractor several layers removed usually isn't practical."
 
   - id: d1-t12
     domain: domain1
@@ -555,3 +608,7 @@ topics:
         blocks:
           - type: paragraph
             text: "Training completion rate is a lagging-indicator-adjacent vanity metric on its own — it shows people clicked through content, not that behavior actually changed. Stronger programs track leading indicators (metrics that predict future risk and can be acted on before an incident occurs, like a declining phishing simulation click rate over successive campaigns, or a rising rate of employees correctly reporting suspicious emails) alongside lagging indicators (metrics that measure what already happened, like the number of actual social-engineering-related incidents in a quarter). A program that only reports '98% completed the annual training' is reporting activity, not outcomes — the exam favors answers that tie awareness program effectiveness to measured behavior change, not participation alone."
+      - heading: "Building a Genuine Security Culture"
+        blocks:
+          - type: paragraph
+            text: "The most mature awareness programs aim beyond individual behaviors (don't click this, do that) toward a broader security culture — an environment where secure behavior is the unremarkable default and reporting a mistake or a suspicious event is treated as valued, not punished. A punitive culture, where employees who click a phishing simulation or report their own error face public shaming or harsh discipline, reliably backfires: it teaches people to hide mistakes and stay quiet about suspicious activity rather than report it quickly, which is precisely the opposite of what a detective control (Domain 3) needs from its human sensors to actually work. This is why mature programs favor a supportive, blameless-by-default response to good-faith reporting (reserving real consequences for genuine negligence or willful violation, not honest mistakes) — the goal is maximizing the volume and speed of genuine reporting, since a security team that hears about problems quickly can respond far more effectively than one that only learns about them after they've been concealed and have grown worse."
