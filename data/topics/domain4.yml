@@ -47,6 +47,13 @@ topics:
           - type: callout
             style: tip
             text: "The exam-relevant distinction: traditional segmentation (DMZ, VLANs) draws a moderate number of coarse boundaries around groups of systems. Zero trust/microsegmentation removes the assumption that anything inside a boundary is automatically trusted, shrinking the boundary down toward individual systems or even individual requests."
+      - heading: "East-West vs. North-South Traffic Flows"
+        blocks:
+          - type: paragraph
+            text: "Traffic direction is a useful shorthand for reasoning about where controls need to sit. North-south traffic moves between the internal network and the outside world — a user browsing the internet, or an external client reaching a public-facing web server — and it's the traffic that perimeter firewalls, DMZs, and traditional edge controls were built to inspect. East-west traffic moves laterally between systems inside the same internal network or data center — a web server talking to an application server, which talks to a database server. Historically, east-west traffic received far less scrutiny than north-south traffic, on the assumption that anything already inside the perimeter was trusted; this is precisely the assumption modern data center design has abandoned, since a large share of real intrusions succeed at the perimeter once and then move laterally, east-west, to reach their actual target."
+          - type: callout
+            style: example
+            text: "This is the direct architectural motivation for microsegmentation: a control plane that inspects and enforces policy on east-west traffic between individual workloads, not just north-south traffic at the edge, so that a compromised web server can't simply pivot laterally to the database tier just because both sit inside the same traditional network perimeter."
 
   - id: d4-t2
     domain: domain4
@@ -94,6 +101,13 @@ topics:
         blocks:
           - type: paragraph
             text: "A Content Delivery Network (CDN) distributes copies of content across many geographically distributed servers, so users are served from a nearby location rather than a single origin server — primarily a performance technology, but with meaningful security implications. By absorbing and distributing traffic across many edge locations, a CDN also provides significant DDoS resilience, since a volumetric attack against the CDN's distributed edge is far harder to overwhelm than a single origin server would be, and many CDNs bundle WAF and bot-mitigation capabilities directly into the same edge layer. A CDN also expands an organization's effective trust boundary in a way worth being deliberate about — it's a third party terminating TLS and handling traffic on the organization's behalf, similar in trust implications to any other outsourced service covered under Domain 1's SCRM/vendor risk content."
+      - heading: "Software-Defined WAN (SD-WAN)"
+        blocks:
+          - type: paragraph
+            text: "Traditional WAN links between branch offices and a data center relied on dedicated, expensive circuits (like MPLS) routed through a small number of hub locations, with all traffic — including traffic simply destined for the internet — often backhauled through a central site for inspection before being allowed out. SD-WAN abstracts WAN connectivity into a centrally managed software layer that can route traffic dynamically across multiple underlying transport types (MPLS, broadband internet, LTE/5G) based on policy, cost, and real-time link quality, rather than being locked into a single provider's fixed circuit. From a security standpoint, SD-WAN's most consequential change is enabling local internet breakout at each branch — instead of every packet transiting back to a central hub for inspection, a branch office can send internet-bound traffic straight out its local connection. That's a meaningful efficiency gain, but it also means the traditional single, well-instrumented inspection choke point is gone, so SD-WAN deployments typically pair with cloud-delivered security (a cloud-based secure web gateway or SASE — Secure Access Service Edge — architecture) to apply consistent policy and inspection at the new, distributed edge rather than losing visibility entirely."
+          - type: callout
+            style: tip
+            text: "SASE (Secure Access Service Edge) is the natural exam-relevant pairing with SD-WAN: it converges SD-WAN's dynamic, policy-based connectivity with cloud-delivered security functions (SWG, CASB, ZTNA, firewall-as-a-service) into a single service edge, so that distributed branch and remote traffic gets consistent security enforcement without backhauling everything to a central data center."
 
   - id: d4-t3
     domain: domain4
@@ -138,3 +152,12 @@ topics:
         blocks:
           - type: paragraph
             text: "Email is not encrypted end-to-end by default — standard SMTP transmits in the clear unless explicitly wrapped in TLS between mail servers (which protects it in transit between servers, but not necessarily from the mail providers themselves reading it). S/MIME and PGP both add end-to-end email encryption and digital signing at the message level, using the same asymmetric cryptography and PKI concepts from Domain 3, so that even the mail servers relaying the message can't read its contents. Voice and video traffic (VoIP) is vulnerable to eavesdropping just like any other unencrypted network traffic; SRTP (Secure Real-time Transport Protocol) encrypts the actual audio/video payload, while the signaling protocol that sets up the call (commonly SIP) also needs its own protection (e.g. TLS) — encrypting only the media stream while leaving call setup signaling in the clear can still leak who called whom and when, even if the conversation content itself stays protected."
+      - heading: "Software-Defined Perimeter and Mutual TLS"
+        blocks:
+          - type: paragraph
+            text: "A traditional VPN authenticates the user once, at connection time, and then grants broad network-level access to whatever the tunnel reaches — the user is effectively 'on the network.' A Software-Defined Perimeter (SDP), sometimes marketed as ZTNA (Zero Trust Network Access), inverts that model: rather than placing the user on the network, it grants access to individual applications only, one connection at a time, after verifying both the user's identity and the requesting device's posture (patch level, disk encryption status, managed-device status) for that specific request. Access is typically brokered through a controller that first authenticates the request out-of-band, then dynamically opens a connection only to the specific resource requested — everything else on the network stays invisible to a device that hasn't been granted access to it, an approach sometimes called 'black cloud' or 'darknet' networking, since unauthorized devices can't even see that other resources exist to attack."
+          - type: paragraph
+            text: "Mutual TLS (mTLS) is a core building block of this model at the protocol level: in standard TLS, only the server presents a certificate and the client verifies it, while the client typically authenticates some other way (a password, a token) after the encrypted channel is up. In mTLS, both sides present and verify certificates before any application data flows, so the server cryptographically verifies the client's identity too — commonly used for service-to-service authentication in zero trust architectures and microservice environments, where every east-west connection between workloads needs strong mutual identity verification, not just encryption."
+          - type: callout
+            style: tip
+            text: "Exam distinction: a VPN grants network-level access after one-time authentication; SDP/ZTNA grants per-application access after continuous, per-request verification of both user and device — the same shift from perimeter-based to zero trust thinking introduced in topic 4.1, applied specifically to remote access."
