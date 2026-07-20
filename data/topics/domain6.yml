@@ -1,0 +1,206 @@
+topics:
+  - id: d6-t1
+    domain: domain6
+    number: "6.1"
+    title: "Designing and Validating Assessment, Test, and Audit Strategies"
+    summary: "Planning a coherent program of assessments, tests, and audits so coverage matches risk instead of happening ad hoc."
+    tags: ["assessment strategy", "test strategy", "audit planning"]
+    key_terms: ["Assessment", "Audit", "Test Strategy", "Scope", "Rules of Engagement"]
+    sections:
+      - heading: "Assessment vs. Test vs. Audit"
+        blocks:
+          - type: paragraph
+            text: "These three terms are related but distinct. An assessment is a broad evaluation of security posture (e.g. a risk assessment or vulnerability assessment) — often less formal, aimed at understanding current state. A test is a specific, hands-on technical exercise that validates whether a control actually works as intended (e.g. penetration testing, control testing). An audit is a formal, often independent review against a defined standard or requirement (regulatory, contractual, or internal policy) that produces a documented finding of compliance or non-compliance."
+          - type: callout
+            style: tip
+            text: "The exam distinguishes these by formality and purpose: an assessment explores, a test validates, an audit certifies compliance against a standard."
+      - heading: "Building a Coherent Strategy"
+        blocks:
+          - type: paragraph
+            text: "A mature program doesn't run tests and audits randomly — it plans a strategy: which systems get tested, how often, using which methods, and why, driven by the risk assessment (Domain 1). High-value or high-risk systems (internet-facing, holding regulated data) warrant more frequent and rigorous testing than low-risk internal tools. The strategy should also define scope and rules of engagement up front — what's in bounds, what's off-limits, and what authorization has been obtained — before any technical testing begins."
+      - heading: "What Drives Testing Frequency and Depth"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Regulatory/contractual mandate — some regimes specify minimum cadence directly (e.g. PCI DSS requiring quarterly vulnerability scans and periodic penetration testing for systems in the cardholder data environment, per Domain 2's compliance-mapping content)"
+              - "Change velocity — a system that changes frequently (frequent deployments, evolving architecture) accumulates new risk faster and needs more frequent reassessment than a stable, rarely-changed system"
+              - "Criticality and exposure — internet-facing systems and those holding regulated/high-value data warrant deeper and more frequent testing than internal, low-sensitivity tools"
+              - "Findings history — a system with a track record of recurring findings warrants closer, more frequent scrutiny until that pattern is resolved"
+          - type: callout
+            style: tip
+            text: "Rules of engagement matter beyond just 'being nice to have documented' — testing a production system without clear authorization and defined boundaries can itself look like an attack, trigger incident response, and in the worst case create legal exposure for the tester, even when the intent was purely defensive."
+      - heading: "Matching Test Type to What It Actually Validates"
+        blocks:
+          - type: paragraph
+            text: "A well-built strategy doesn't default to the same test type everywhere — it deliberately matches technique to what actually needs validating. Compliance-driven testing exists to satisfy a specific external requirement (a PCI quarterly scan, an annual penetration test mandated by a contract) and its scope is largely defined by that requirement rather than by the organization's own judgment of risk. Assurance-driven testing exists to genuinely validate that a control works as designed, independent of any compliance checkbox, and its scope is defined by what the organization actually wants to know. The two overlap often (a rigorous compliance-driven test can also provide real assurance) but aren't guaranteed to be the same thing — a program that only ever runs the minimum testing a regulation requires, and nothing more where real risk warrants it, is optimizing for compliance rather than for security, which the exam expects you to recognize as a meaningfully different (and weaker) posture."
+      - heading: "Using Threat Modeling to Scope What Gets Tested"
+        blocks:
+          - type: paragraph
+            text: "Rather than scoping a test strategy purely around 'test everything equally' or purely around compliance mandates, mature programs use the threat modeling concepts from Domain 8 (STRIDE, attack trees, data flow diagrams) to identify which components and trust boundaries carry the most realistic attacker interest, and weight testing depth accordingly. A component that threat modeling identifies as a high-value target — one that sits on a trust boundary, handles sensitive data, or was flagged with a high-likelihood/high-impact threat during design — warrants deeper, more frequent testing than a component the same exercise rated as low-consequence, even if both are nominally in scope for the same compliance-driven test. This ties threat modeling and testing strategy together as complementary parts of the same lifecycle: modeling predicts where problems are likely to be, and testing verifies whether that prediction holds up in practice."
+
+  - id: d6-t2
+    domain: domain6
+    number: "6.2"
+    title: "Security Control Testing"
+    summary: "Specific technical testing methods — vulnerability scanning, penetration testing, code review, and more — used to validate controls."
+    tags: ["vulnerability scanning", "penetration testing", "code review", "red team"]
+    key_terms: ["Vulnerability Scan", "Penetration Test", "Black Box", "White Box", "Gray Box", "Static Analysis", "Dynamic Analysis", "Red Team", "Blue Team", "Purple Team", "Fuzz Testing", "Breach and Attack Simulation"]
+    sections:
+      - heading: "Vulnerability Scanning vs. Penetration Testing"
+        blocks:
+          - type: paragraph
+            text: "A vulnerability scan is an automated process that identifies known weaknesses (missing patches, misconfigurations) without actively exploiting them — breadth over depth, run frequently and cheaply. A penetration test goes further: testers actively attempt to exploit identified weaknesses to demonstrate real-world impact, showing not just that a vulnerability exists but what an attacker could actually achieve with it. Penetration tests are more resource-intensive and typically run less frequently (e.g. annually) or after significant changes."
+          - type: list
+            style: bullet
+            items:
+              - "Black box testing — tester has no prior knowledge of the internal system, simulating an external attacker"
+              - "White box testing — tester has full knowledge (source code, architecture diagrams, credentials), enabling deep, thorough testing"
+              - "Gray box testing — tester has partial knowledge, simulating an insider or an attacker who's already gained limited access"
+      - heading: "The Phases of a Penetration Test"
+        blocks:
+          - type: paragraph
+            text: "A structured penetration test typically moves through recognizable phases: reconnaissance (gathering information about the target, passively and/or actively), scanning/enumeration (identifying live hosts, open services, and potential vulnerabilities in more detail), exploitation (actively attempting to leverage a vulnerability to gain access), post-exploitation (once access is gained, assessing what an attacker could actually do from there — privilege escalation, lateral movement, data access — to demonstrate real business impact, not just initial entry), and reporting (documenting findings, evidence, and remediation guidance, tying into 6.4). Skipping post-exploitation is a common shortcut that understates real risk — proving initial access was possible says less than proving what an attacker could reach afterward."
+      - heading: "Red Team, Blue Team, and Purple Team"
+        blocks:
+          - type: paragraph
+            text: "A red team plays the attacker, typically with a broader, more realistic, less constrained mandate than a standard penetration test — often testing detection and response capability, not just finding vulnerabilities, and sometimes without the defenders even knowing a test is underway (unlike a scheduled, disclosed penetration test). A blue team is the defensive side — the people actually monitoring and responding to what the red team (or a real attacker) does. Purple teaming isn't a separate team so much as a collaborative exercise structure: red and blue work together in real time, sharing what's being attempted and what's being detected as it happens, specifically to improve detection capability faster than a traditional 'red team attacks, blue team is graded afterward' model would."
+          - type: callout
+            style: tip
+            text: "The exam distinction that matters most: a standard penetration test is scoped to find and demonstrate vulnerabilities; a red team exercise is scoped to test the organization's actual detection and response capability under realistic attack conditions, which is a different (and often broader) goal."
+      - heading: "Continuous Validation: Breach and Attack Simulation"
+        blocks:
+          - type: paragraph
+            text: "Traditional penetration testing and red teaming are point-in-time exercises — accurate for the moment they're performed, but potentially stale within weeks as the environment changes. Breach and Attack Simulation (BAS) tools automate the continuous, repeated execution of known attack techniques (often mapped directly to MITRE ATT&CK, from Domain 1) against production or production-like environments, providing an ongoing signal of whether detection and prevention controls still catch known techniques, rather than relying solely on an annual snapshot. BAS doesn't replace human-led penetration testing or red teaming — it lacks the creativity and novel-technique discovery a skilled human tester brings — but it fills the gap between those periodic, expensive, human-driven exercises with continuous, automated, lower-cost validation of the basics."
+      - heading: "Fuzz Testing"
+        blocks:
+          - type: paragraph
+            text: "Fuzz testing (fuzzing) feeds a target — an application, a network service, a file parser — large volumes of malformed, unexpected, boundary-case, or entirely random input, and monitors for crashes, hangs, or other abnormal behavior that reveals an unhandled edge case an attacker could potentially exploit. Unlike vulnerability scanning (which checks for already-known signatures) or structured test cases (which check for expected, anticipated behavior), fuzzing is specifically designed to surface unknown, previously undiscovered flaws by exploring input space a human tester wouldn't think to try. It's especially effective against software that parses complex or attacker-controlled input formats (file parsers, network protocol implementations, API request bodies) where a huge, hard-to-fully-enumerate space of malformed input is exactly the kind of attack surface a determined attacker would probe manually if a fuzzer hadn't already found the crash first."
+      - heading: "Code-Level and Configuration Testing"
+        blocks:
+          - type: paragraph
+            text: "Static Application Security Testing (SAST) analyzes source code without executing it, catching insecure patterns early but potentially missing runtime-only issues. Dynamic Application Security Testing (DAST) tests a running application from the outside, like an attacker would, catching real runtime behavior but requiring a working build to test against. Configuration and compliance scanning checks systems against a hardening baseline (e.g. CIS Benchmarks). Each method has blind spots the others cover, so mature programs combine multiple testing types rather than relying on just one — the same SAST/DAST concepts are covered again, applied specifically to custom software, in Domain 8."
+      - heading: "Interface Testing: UI, Network, and API"
+        blocks:
+          - type: paragraph
+            text: "A system is only as secure as every interface where something outside it can interact with it, and each interface type deserves its own deliberate testing rather than assuming coverage of one implies coverage of the others. User interface testing checks the application from the perspective of a human user, including whether client-side controls (form validation, hidden fields, disabled buttons) are actually enforced server-side too, since anything enforced only in the UI can typically be bypassed by a request crafted directly against the backend. Network interface testing examines the services and ports actually exposed at the network layer, independent of what any particular application intends to expose — a service accidentally left listening that no UI ever links to is invisible to UI-focused testing but fully reachable to network scanning. API testing has become the fastest-growing category as applications increasingly expose functionality directly through APIs consumed by mobile apps, single-page applications, and third-party integrations — API testing specifically checks for broken object-level authorization (a request for another user's resource by ID, since APIs often expose resource identifiers directly), excessive data exposure (returning more fields than the calling UI actually uses, which an attacker calling the API directly can still see), and rate-limiting gaps that a UI's own pacing would normally have masked."
+          - type: callout
+            style: tip
+            text: "The exam's takeaway: a UI-only test posture provides false confidence, because it validates only the interface most legitimate users interact with, while attackers routinely go straight for the underlying API or network service the UI merely wraps."
+
+  - id: d6-t3
+    domain: domain6
+    number: "6.3"
+    title: "Collecting Security Process Data"
+    summary: "Gathering the operational metrics — from account management to disaster recovery testing — that feed assessment and reporting."
+    tags: ["security metrics", "log review", "KPI"]
+    key_terms: ["Security Metrics", "Log Review", "Account Management Review", "KPI/KRI", "Continuous Control Monitoring"]
+    sections:
+      - heading: "Why Process Data Matters"
+        blocks:
+          - type: paragraph
+            text: "Testing controls in isolation (6.2) only tells part of the story — ongoing security process data shows whether the security program is functioning day-to-day as designed. This includes account management data (are terminated accounts actually disabled promptly?), log review results (are alerts being triaged, or piling up unreviewed?), backup verification data (do restores actually work, not just complete?), and training completion rates."
+          - type: list
+            style: bullet
+            items:
+              - "Account management — provisioning/deprovisioning timeliness, orphaned account counts"
+              - "Backup verification — successful restore testing, not just backup job completion status"
+              - "Key performance indicators (KPIs) — measure how well a process is performing (e.g. patch deployment time)"
+              - "Key risk indicators (KRIs) — early warning metrics that a risk is trending upward (e.g. rising number of unpatched critical vulnerabilities)"
+          - type: callout
+            style: tip
+            text: "A backup job reporting 'success' every night is not the same as a verified, working restore — the exam favors answers that emphasize testing/verifying data (e.g. actually restoring from backup) over simply collecting status logs."
+      - heading: "Building a Useful Metrics Program"
+        blocks:
+          - type: paragraph
+            text: "Raw metrics collected but never reviewed provide no more value than logs that are never reviewed (Domain 7's monitoring content) — a security metrics program needs a defined audience and cadence, not just a dashboard nobody opens. Good security metrics generally share a few properties: they're actionable (someone can actually do something differently based on the number), they're consistently measured over time (so trends are meaningful rather than one-off snapshots), and they're tied to a specific owner accountable for improving them if they trend the wrong way. A metric like 'number of security incidents last month' is easy to collect but has limited value on its own without normalization (incidents per number of assets, or per number of employees, to distinguish genuine trend from simple organizational growth) and without breaking it down by severity, since a rising count of trivial incidents means something very different than a rising count of severe ones."
+      - heading: "Continuous Control Monitoring"
+        blocks:
+          - type: paragraph
+            text: "Rather than only checking whether controls work at scheduled test intervals (an annual pen test, a quarterly access review), continuous control monitoring automates the ongoing collection of process data so drift or failure is caught close to when it happens, not months later at the next scheduled check. This is the process-data equivalent of the configuration drift monitoring introduced in Domain 7 — instead of periodically re-verifying a system's configuration against baseline, continuous control monitoring periodically (or constantly) re-verifies that security processes (account reviews happening on schedule, logs actually being reviewed, patches actually being deployed within SLA) are still functioning as designed."
+      - heading: "Disaster Recovery and Business Continuity Testing Data"
+        blocks:
+          - type: paragraph
+            text: "DR/BC plans (Domain 1) are only as good as the evidence that they actually work, which is why exercise results are themselves a category of process data worth collecting deliberately rather than treating a completed exercise as the end of the story. Useful DR/BC process data includes: how the actual recovery time achieved during a test compared against the plan's target RTO (a system that recovers in six hours against a four-hour RTO target is a finding, not a pass); how much data loss occurred during a simulated failure compared against the target RPO; which specific steps in the plan failed, were skipped, or required improvisation not documented in the plan itself; and how long it took to actually declare a disaster and activate the plan in the first place, since decision latency at the start of a real event often matters as much as technical recovery speed once the plan is running. Tracking this data across successive exercises, rather than treating each test as an isolated pass/fail event, is what actually drives plan maturity over time — a program that never worsens its RTO/RPO gap because each exercise's findings get fed back into plan revisions is meaningfully different from one that repeats the same gaps year after year."
+
+  - id: d6-t4
+    domain: domain6
+    number: "6.4"
+    title: "Analyzing Test Output and Generating Reports"
+    summary: "Turning raw test results into prioritized, actionable findings that decision-makers can actually use."
+    tags: ["reporting", "remediation prioritization", "false positive", "CVSS"]
+    key_terms: ["Finding", "False Positive", "Remediation Priority", "Executive Summary", "CVSS", "False Negative"]
+    sections:
+      - heading: "From Raw Output to Meaningful Findings"
+        blocks:
+          - type: paragraph
+            text: "Raw scanner/test output is rarely useful on its own — it must be analyzed to remove false positives (results that appear to be issues but aren't, given the actual environment/context), correlate related findings, and prioritize based on real risk (exploitability, exposure, data sensitivity of the affected system), not just a generic severity score. A 'critical' vulnerability on an isolated, air-gapped test system is a lower real-world priority than a 'medium' vulnerability on an internet-facing production server holding regulated data."
+      - heading: "False Positives and False Negatives"
+        blocks:
+          - type: paragraph
+            text: "A false positive (a finding that looks like a real issue but isn't) wastes remediation effort and, if they're frequent enough, trains reviewers to distrust and eventually ignore the tool's output entirely — the same 'alert fatigue' risk that applies to SIEM tuning in Domain 7. A false negative (a real issue the test failed to catch at all) is more dangerous precisely because it's invisible — the organization believes it's covered when it isn't. Tuning a testing program is a constant balance between these two failure modes: an overly aggressive scanner configuration reduces false negatives but raises false positives (and analyst workload/fatigue), while an overly conservative one reduces noise but risks missing real issues. Neither error rate can be driven to zero, which is exactly why the analysis step — human judgment applied to raw automated output — remains a required part of the process rather than something full automation can fully replace."
+      - heading: "Standardized Severity Scoring: CVSS"
+        blocks:
+          - type: paragraph
+            text: "The Common Vulnerability Scoring System (CVSS) gives vulnerabilities a standardized numeric severity score (0-10) based on factors like attack vector (can it be exploited remotely over a network, or does it require local/physical access?), attack complexity, privileges required, and the impact to confidentiality, integrity, and availability if exploited. CVSS gives organizations a common baseline vocabulary for comparing severity across different tools and vendors, but it deliberately doesn't account for an organization's specific environment — which is exactly why analysis (correlating CVSS with actual exposure, compensating controls already in place, and business context) is still a required human step, not something CVSS alone can determine. A high CVSS score is a strong starting signal for prioritization, not the final word on it."
+      - heading: "Communicating Results Effectively"
+        blocks:
+          - type: paragraph
+            text: "A good report serves multiple audiences: an executive summary communicates business risk and overall posture in non-technical terms for leadership, while detailed technical findings (with reproduction steps and remediation guidance) serve the teams who must actually fix the issues. Every finding should include enough detail to be actionable — what's wrong, why it matters, and what to do about it — not just a raw vulnerability name and severity score. Mature programs also assign each finding a remediation SLA tied to its prioritized severity (e.g. critical findings remediated within days, low findings within a quarter) and track findings against that SLA over time — a finding that's simply reported once and never tracked to closure provides much less real risk reduction than the same finding tracked until it's actually fixed."
+      - heading: "When Remediation Isn't the Right Answer: Risk Acceptance"
+        blocks:
+          - type: paragraph
+            text: "Not every finding gets remediated, and treating 'remediate everything' as the only acceptable outcome misreads what the analysis and reporting step is actually for. A finding can be formally risk-accepted (the organization consciously decides the cost or disruption of fixing it outweighs the risk it poses, and a accountable owner signs off on that decision explicitly, per Domain 1's risk response options), mitigated through a compensating control rather than a direct fix (e.g. a legacy system that can't be patched is instead isolated on its own segment), or transferred (covered by insurance rather than technically resolved). What distinguishes a defensible risk acceptance from simply ignoring a finding is documentation and ownership — a named, accountable individual explicitly accepting the risk, with the decision recorded and periodically revisited, versus a finding that's just quietly absent from the next report with no record of why. Auditors and examiners specifically look for this distinction: a documented, owned risk acceptance is a sign of a functioning program; an undocumented gap between what was found and what's still open is a red flag."
+          - type: callout
+            style: tip
+            text: "The exam frames reporting as a communication exercise as much as a technical one — a report that's technically accurate but unusable by its audience has failed at its purpose."
+
+  - id: d6-t5
+    domain: domain6
+    number: "6.5"
+    title: "Conducting or Facilitating Security Audits"
+    summary: "The distinction between internal, external, and third-party audits, and the auditor's role versus the organization's role."
+    tags: ["internal audit", "external audit", "third-party audit"]
+    key_terms: ["Internal Audit", "External Audit", "Third-Party Audit", "Auditor Independence", "SOC 2", "Audit Evidence", "SOC 1", "SOC 3", "SSAE 18"]
+    sections:
+      - heading: "Types of Audits"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Internal audit — conducted by the organization's own audit function; useful for continuous self-monitoring but has less independence than an external audit"
+              - "External audit — conducted by an independent outside party (regulator or hired firm); provides higher assurance to outside stakeholders precisely because of that independence"
+              - "Third-party audit — conducted on behalf of, or requested by, an external stakeholder such as a customer or partner (e.g. a SOC 2 report an organization commissions to prove its controls to its own customers)"
+          - type: callout
+            style: tip
+            text: "Auditor independence is core to audit credibility — an auditor should not audit a system or process they personally designed, implemented, or operate, since that creates a conflict of interest and undermines the objectivity the audit is supposed to provide."
+      - heading: "SOC Report Types"
+        blocks:
+          - type: paragraph
+            text: "SOC (System and Organization Controls) reports, issued under the SSAE 18 attestation standard by an independent CPA firm, come in several distinct flavors the exam expects you to tell apart. A SOC 1 report focuses specifically on controls relevant to a customer's financial reporting (e.g. a payroll processor's controls, since errors there could affect a customer's financial statements). A SOC 2 report focuses on the AICPA Trust Services Criteria — security, availability, processing integrity, confidentiality, and privacy — and is the report most commonly relevant to a general technology/security audience evaluating a vendor. A SOC 3 report covers the same Trust Services Criteria as SOC 2 but is a shorter, general-use summary intended for public distribution (e.g. posted on a vendor's website), whereas SOC 1 and SOC 2 reports contain detailed, sensitive information typically shared only under NDA with specific customers. Within SOC 1 and SOC 2, a Type I report assesses whether controls are suitably designed as of a specific point in time, while a Type II report assesses whether those controls actually operated effectively over an extended period (commonly six to twelve months) — Type II is significantly stronger assurance, since it demonstrates sustained operation rather than just a snapshot of design."
+          - type: callout
+            style: tip
+            text: "Exam shortcut: SOC 1 = financial reporting relevance; SOC 2 = security/availability/confidentiality relevance (the one security professionals care about most); SOC 3 = the public-facing summary version of SOC 2. Type I = design at a point in time; Type II = operating effectiveness over a period — Type II is the stronger assurance of the two."
+      - heading: "The Phases of an Audit"
+        blocks:
+          - type: paragraph
+            text: "A formal audit typically moves through: planning (defining scope, objectives, and the criteria being audited against — a specific standard, regulation, or internal policy), fieldwork (gathering evidence and testing whether controls actually operate as claimed), reporting (documenting findings, including any exceptions/deficiencies identified), and follow-up (verifying that findings from the audit are actually remediated, often as part of the next audit cycle rather than left unchecked). An audit that stops at the reporting phase and never verifies remediation risks becoming a repeat exercise — the same finding reappearing audit after audit, which auditors specifically look for as a sign of an organization not acting on what it already knows."
+      - heading: "How Auditors Gather Evidence"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Inquiry — asking personnel how a control works; the weakest form of evidence on its own, since it relies entirely on what someone says rather than independent verification"
+              - "Observation — watching a control being performed in real time; stronger than inquiry, but only proves the control worked at the specific moment observed"
+              - "Inspection — reviewing documentation or artifacts (a signed change ticket, a configuration screenshot, a log entry) as evidence a control operated as described"
+              - "Reperformance — the auditor independently redoes the control themselves to verify the claimed result; the strongest form of evidence, since it doesn't rely on trusting anyone else's account or artifact at all"
+          - type: callout
+            style: example
+            text: "Verifying that access reviews happen quarterly: inquiry is asking the access-review owner if it happens (weakest); observation is watching one occur; inspection is reviewing the signed-off access review records from the last four quarters; reperformance is the auditor independently pulling the access list and confirming it matches what the review claimed to have found (strongest)."
+      - heading: "Common Audit Pitfalls: Scope Creep and Audit Fatigue"
+        blocks:
+          - type: paragraph
+            text: "Two practical failure modes recur often enough in real audit programs to be worth recognizing directly. Scope creep happens when an audit's boundaries expand beyond what was originally agreed during planning — auditors pulling in adjacent systems or processes not part of the defined scope, which stretches timelines, increases cost, and can create exactly the kind of unclear authorization boundary that 6.1's rules-of-engagement content warns against for technical testing. A well-run audit revisits scope changes formally rather than letting them happen informally mid-fieldwork. Audit fatigue is the organizational cousin of alert fatigue: when the same systems face frequent, overlapping audits from multiple stakeholders (a customer's third-party audit, an internal audit, a regulator's external audit, all within the same year, often asking for overlapping evidence in different formats), the teams being audited start treating audit requests as a compliance chore to get through quickly rather than a genuine opportunity to surface real issues, which degrades the honesty and thoroughness of the evidence auditors actually receive."
+          - type: callout
+            style: tip
+            text: "A growing practice for managing audit fatigue is a shared control framework or unified evidence repository — mapping one set of collected evidence (system configurations, access review records, test results) to the specific requirements of multiple overlapping audits/frameworks at once, so the same underlying evidence satisfies a SOC 2 auditor, an ISO 27001 auditor, and an internal audit without the audited team re-answering the same questions three separate times in three separate formats."

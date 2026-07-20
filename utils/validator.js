@@ -93,6 +93,47 @@ const Validator = (() => {
     return errors;
   }
 
+  const TOPIC_BLOCK_TYPES = ['paragraph', 'list', 'callout'];
+  const TOPIC_CALLOUT_STYLES = ['tip', 'warning', 'example'];
+
+  function validateTopicBlock(block) {
+    const errors = [];
+    if (!TOPIC_BLOCK_TYPES.includes(block.type)) {
+      errors.push(`Unknown block type: "${block.type}"`);
+      return errors;
+    }
+    if (block.type === 'paragraph' && !block.text) errors.push('paragraph block missing text');
+    if (block.type === 'callout') {
+      if (!block.text) errors.push('callout block missing text');
+      if (!TOPIC_CALLOUT_STYLES.includes(block.style)) errors.push(`callout block has invalid style: "${block.style}"`);
+    }
+    if (block.type === 'list') {
+      if (!Array.isArray(block.items) || block.items.length === 0) errors.push('list block missing non-empty items');
+    }
+    return errors;
+  }
+
+  function validateTopic(topic) {
+    const errors = [];
+    if (!topic.id) errors.push('Missing id');
+    if (!topic.domain) errors.push('Missing domain');
+    if (!topic.number) errors.push('Missing number');
+    if (!topic.title) errors.push('Missing title');
+    if (!Array.isArray(topic.sections) || topic.sections.length === 0) {
+      errors.push('Missing non-empty sections');
+    } else {
+      topic.sections.forEach((s, i) => {
+        if (!s.heading) errors.push(`Section[${i}] missing heading`);
+        if (!Array.isArray(s.blocks) || s.blocks.length === 0) {
+          errors.push(`Section[${i}] missing non-empty blocks`);
+        } else {
+          s.blocks.forEach(b => validateTopicBlock(b).forEach(e => errors.push(`Section[${i}] ${e}`)));
+        }
+      });
+    }
+    return errors;
+  }
+
   function validateDomains(domains) {
     const errors = [];
     const ids = new Set();
@@ -107,10 +148,11 @@ const Validator = (() => {
     return errors;
   }
 
-  function validateAll(domains, flashcards, questions, interactiveQuestions = []) {
+  function validateAll(domains, flashcards, questions, interactiveQuestions = [], topics = []) {
     const domainIds = new Set(domains.map(d => d.id));
     const cardIds = new Set();
     const qIds = new Set();
+    const topicIds = new Set();
     const errors = [];
 
     validateDomains(domains).forEach(e => errors.push(`[Domain] ${e}`));
@@ -148,17 +190,35 @@ const Validator = (() => {
       }
     });
 
+    topics.forEach(t => {
+      validateTopic(t).forEach(e => errors.push(`[Topic ${t.id || '?'}] ${e}`));
+      if (t.domain && !domainIds.has(t.domain)) {
+        errors.push(`[Topic ${t.id}] Unknown domain: ${t.domain}`);
+      }
+      if (t.id) {
+        if (topicIds.has(t.id)) errors.push(`Duplicate topic id: ${t.id}`);
+        topicIds.add(t.id);
+      }
+    });
+
     if (errors.length > 0) {
       console.warn(`[Validator] ${errors.length} validation error(s):`, errors);
     } else {
       console.info(
         `[Validator] All ${flashcards.length} flashcards, ${questions.length} questions,` +
-        ` and ${interactiveQuestions.length} interactive questions are valid.`
+        ` ${interactiveQuestions.length} interactive questions, and ${topics.length} topics are valid.`
       );
     }
 
     return errors;
   }
 
-  return { validateFlashcard, validateQuestion, validateInteractiveQuestion, validateDomains, validateAll };
+  return {
+    validateFlashcard,
+    validateQuestion,
+    validateInteractiveQuestion,
+    validateTopic,
+    validateDomains,
+    validateAll
+  };
 })();

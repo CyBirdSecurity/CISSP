@@ -125,6 +125,69 @@ for (const domain of domains) {
   }
 }
 
+// ── topic files ────────────────────────────────────────────────
+const allTopicIds = new Set();
+const VALID_BLOCK_TYPES = ['paragraph', 'list', 'callout'];
+const VALID_CALLOUT_STYLES = ['tip', 'warning', 'example'];
+
+for (const domain of domains) {
+  const file     = `data/topics/${domain.id}.yml`;
+  const fullPath = path.join(ROOT, file);
+  console.log(`\n=== ${file} ===`);
+
+  let topics = [];
+  try {
+    const data = yaml.load(fs.readFileSync(fullPath, 'utf8'));
+    topics = data.topics || [];
+    pass('parses as valid YAML');
+  } catch (e) {
+    fail(`parse error: ${e.message}`);
+    continue;
+  }
+
+  check(topics.length > 0, `has at least 1 topic (got ${topics.length})`);
+
+  let structErrors = 0;
+  for (const t of topics) {
+    const id = t.id || '(missing id)';
+
+    if (!t.id)     { fail(`${id}: missing id`);     structErrors++; }
+    if (t.domain !== domain.id) { fail(`${id}: domain field "${t.domain}" should be "${domain.id}"`); structErrors++; }
+    if (!t.number) { fail(`${id}: missing number`); structErrors++; }
+    if (!t.title)  { fail(`${id}: missing title`);  structErrors++; }
+
+    if (!Array.isArray(t.sections) || t.sections.length === 0) {
+      fail(`${id}: must have at least 1 section`); structErrors++;
+    } else {
+      t.sections.forEach((s, i) => {
+        if (!s.heading) { fail(`${id}: section[${i}] missing heading`); structErrors++; }
+        if (!Array.isArray(s.blocks) || s.blocks.length === 0) {
+          fail(`${id}: section[${i}] must have at least 1 block`); structErrors++;
+        } else {
+          s.blocks.forEach((b, j) => {
+            if (!VALID_BLOCK_TYPES.includes(b.type)) {
+              fail(`${id}: section[${i}].blocks[${j}] invalid type "${b.type}"`); structErrors++;
+            } else if (b.type === 'list' && (!Array.isArray(b.items) || b.items.length === 0)) {
+              fail(`${id}: section[${i}].blocks[${j}] list block missing non-empty items`); structErrors++;
+            } else if (b.type === 'callout' && !VALID_CALLOUT_STYLES.includes(b.style)) {
+              fail(`${id}: section[${i}].blocks[${j}] callout has invalid style "${b.style}"`); structErrors++;
+            }
+          });
+        }
+      });
+    }
+
+    if (t.id) {
+      if (allTopicIds.has(t.id)) { fail(`${id}: duplicate topic id across files`); structErrors++; }
+      else allTopicIds.add(t.id);
+    }
+  }
+
+  if (structErrors === 0) {
+    pass(`all ${topics.length} topics pass structural checks`);
+  }
+}
+
 // ── summary ───────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(52)}`);
 console.log(`${passed} passed  |  ${failed} failed`);

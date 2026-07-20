@@ -1,0 +1,614 @@
+topics:
+  - id: d1-t1
+    domain: domain1
+    number: "1.1"
+    title: "Professional Ethics"
+    summary: "The (ISC)² Code of Ethics and how to apply it when duties to employer, profession, and public interest come into conflict."
+    tags: ["ethics", "code of ethics", "governance"]
+    key_terms: ["(ISC)² Code of Ethics", "Ethics Complaint", "Canon", "Whistleblowing", "Ethics Committee"]
+    sections:
+      - heading: "Why Ethics Is Tested Before Anything Else"
+        blocks:
+          - type: paragraph
+            text: "CISSP opens with ethics because every technical control in the rest of the exam is meaningless if the person running it cannot be trusted to act honestly. The (ISC)² Code of Ethics is a short, binding document — every certified member and candidate agrees to abide by it, and violations can be reported and investigated by the (ISC)² Ethics Committee, potentially resulting in revocation of certification."
+          - type: callout
+            style: tip
+            text: "Exam questions on ethics almost always have one 'technically correct but unethical' distractor. When in doubt, pick the answer that protects the public and follows the Code's Canons in order."
+      - heading: "The Four Canons"
+        blocks:
+          - type: list
+            style: numbered
+            items:
+              - "Protect society, the common good, necessary public trust and confidence, and the infrastructure."
+              - "Act honorably, honestly, justly, responsibly, and legally."
+              - "Provide diligent and competent service to principals."
+              - "Advance and protect the profession."
+          - type: paragraph
+            text: "The Canons are listed in priority order — when two Canons conflict, the earlier one wins. Protecting the public (Canon I) outranks even loyalty to an employer (part of Canon III), which is why a CISSP is expected to escalate or refuse an instruction that would put the public or critical infrastructure at risk, even if it costs them their job."
+      - heading: "Ethics Complaints and Enforcement"
+        blocks:
+          - type: paragraph
+            text: "Anyone can file an ethics complaint against a certified member with (ISC)². The Ethics Committee reviews complaints and can recommend sanctions ranging from a reprimand to permanent revocation of certification. This reinforces that the Code is not aspirational — it is an enforceable condition of holding the credential."
+          - type: callout
+            style: example
+            text: "A CISSP who plants a logic bomb before resigning, or who knowingly certifies a system as compliant when it is not, violates Canon II (act honorably/legally) and can be reported regardless of whether criminal charges are ever filed."
+      - heading: "The Complaint Process in Detail"
+        blocks:
+          - type: paragraph
+            text: "A complaint must be submitted in writing to (ISC)² and typically must relate to a violation of the Code, not simply a business disagreement or a competitive grievance. (ISC)² first reviews the complaint for jurisdiction and sufficiency (is this actually a Code violation, and is there enough substance to investigate), then, if it proceeds, an investigation gathers facts and gives the accused member an opportunity to respond — mirroring basic due-process fairness even though this is a private professional body, not a court. The Ethics Committee then reviews the investigation and recommends a sanction if a violation is substantiated, ranging from a private reprimand up to permanent revocation, with revocation being reserved for serious or repeated violations."
+          - type: callout
+            style: tip
+            text: "The exam is more interested in the fact that a real, enforceable process exists — and that anyone can trigger it — than in memorizing every procedural step. If a scenario shows a clear Canon violation with real-world harm, expect the 'correct' answer to acknowledge it's reportable, not to excuse it because the accused person is skilled or well-intentioned."
+      - heading: "Working Through Ambiguous Scenarios"
+        blocks:
+          - type: paragraph
+            text: "The hardest ethics questions on the exam don't involve a clearly bad actor — they involve two competing legitimate obligations. A common pattern: a manager asks a CISSP to delay disclosing a vulnerability until after a product launch for business reasons. Canon III (competent service to the employer) pulls one way; Canon I (protect the public) pulls the other, and Canon I wins if the vulnerability creates genuine risk to users. Another common pattern: a CISSP discovers a colleague's serious misconduct through work otherwise covered by confidentiality — Canon II's 'act legally and honorably' generally requires reporting through appropriate channels rather than staying silent, even though it feels like breaking a confidence."
+          - type: callout
+            style: example
+            text: "A security engineer discovers their company is silently exfiltrating more customer data than disclosed in the privacy policy. Reporting it internally first (through appropriate channels, giving the organization a chance to correct course) is generally the right first step under the Canons; only if that fails and public harm continues does escalating externally become the ethically required next step, not the first one."
+      - heading: "When a Superior Directly Orders Unethical Action"
+        blocks:
+          - type: paragraph
+            text: "A distinct and harder scenario from ordinary competing obligations is a direct, explicit order from a superior to do something the Code clearly prohibits — falsify an audit finding, conceal a known breach from regulators, or approve a system as compliant when it demonstrably isn't. The Code does not recognize 'I was following orders' as a defense; a CISSP who complies is still personally accountable to the Code and can still be reported and sanctioned, regardless of organizational pressure or hierarchy. The expected response is to refuse the order, document the refusal and the reasoning, and escalate through legitimate channels (a compliance function, an ethics hotline, higher leadership, or ultimately outside the organization if internal escalation fails and the harm is serious) — accepting personal or career risk is treated by the Code as the correct trade-off against knowingly violating Canon I or II."
+          - type: callout
+            style: tip
+            text: "This is a useful gut-check for ambiguous exam scenarios: if an answer choice involves quietly complying with an order you know violates the Code 'because it was an order,' it's wrong — the Code holds the individual accountable regardless of who directed the action."
+
+  - id: d1-t2
+    domain: domain1
+    number: "1.2"
+    title: "Security Concepts: CIA, DAD, and Beyond"
+    summary: "The core security triad, its inverse, and the supporting concepts (authenticity, non-repudiation) that frame every control decision."
+    tags: ["CIA", "fundamentals", "non-repudiation", "Parkerian Hexad"]
+    key_terms: ["Confidentiality", "Integrity", "Availability", "DAD Triad", "Non-repudiation", "Authenticity", "Parkerian Hexad"]
+    sections:
+      - heading: "The CIA Triad"
+        blocks:
+          - type: paragraph
+            text: "Confidentiality, Integrity, and Availability are the three properties every security control ultimately exists to protect. Confidentiality prevents unauthorized disclosure of information. Integrity ensures data is accurate, complete, and has not been altered without authorization. Availability ensures authorized users can access systems and data when they need to."
+          - type: list
+            style: bullet
+            items:
+              - "Confidentiality controls: encryption, access control lists, need-to-know classification"
+              - "Integrity controls: hashing, digital signatures, version control, change management"
+              - "Availability controls: redundancy, load balancing, backups, DDoS mitigation"
+      - heading: "The DAD Triad — What We're Defending Against"
+        blocks:
+          - type: paragraph
+            text: "Disclosure, Alteration, and Destruction (DAD) are the direct opposites of CIA — they describe the harm a threat causes rather than the property being protected. Every security incident can be described as a failure of C, I, or A that manifests as D, A, or D."
+          - type: callout
+            style: tip
+            text: "If a question describes an attacker reading data they shouldn't (Disclosure), that's a confidentiality failure. Modifying data (Alteration) is an integrity failure. Taking a system offline (Destruction/Denial) is an availability failure."
+      - heading: "Supporting Concepts: Authenticity and Non-Repudiation"
+        blocks:
+          - type: paragraph
+            text: "Beyond CIA, the exam expects fluency with authenticity (assurance that data or a message genuinely comes from its claimed source) and non-repudiation (the sender of a message cannot later deny having sent it). Non-repudiation is typically achieved through digital signatures combined with reliable timestamping and logging, and it matters most in legal and financial contexts where a party might try to disclaim an action after the fact."
+          - type: callout
+            style: example
+            text: "A wire transfer authorization signed with the sender's private key and logged with a trusted timestamp gives the bank non-repudiation: if the sender later claims 'I never authorized that transfer,' the signature (which only their private key could have produced) and the timestamp together refute the denial."
+      - heading: "Beyond CIA: The Parkerian Hexad"
+        blocks:
+          - type: paragraph
+            text: "The Parkerian Hexad extends CIA to six properties by adding possession/control (physical or logical control over an asset, distinct from confidentiality — data can be stolen, breaking possession, without the thief being able to read it if it's encrypted, meaning confidentiality can survive even when possession is lost), authenticity (covered above, but formalized as its own property in this model rather than folded into integrity), and utility (data remaining usable in a meaningful format — technically intact data that's been converted to an unusable or unreadable format has an availability-adjacent failure that pure CIA doesn't cleanly capture). The Hexad isn't a replacement for CIA on the exam — CIA remains the primary model — but it's useful for recognizing edge cases where CIA alone doesn't fully describe what went wrong."
+          - type: callout
+            style: example
+            text: "An encrypted laptop is stolen: possession is lost (the thief has the physical device) but confidentiality may still hold (the thief can't read the encrypted data without the key) — a scenario the Parkerian Hexad describes more precisely than CIA alone, which would only have 'confidentiality' to reach for."
+      - heading: "CIA Trade-offs in Practice"
+        blocks:
+          - type: paragraph
+            text: "The three properties of CIA are not always mutually reinforcing — strengthening one can weaken another, and recognizing this tension is a recurring exam theme. Strong confidentiality controls (strict access limits, complex re-authentication) can reduce availability by making legitimate access slower or more cumbersome. Aggressive availability measures (broad, easy access for redundancy and failover) can weaken confidentiality if not carefully scoped. Security decisions are ultimately about finding the balance point appropriate to the specific asset's risk profile, not maximizing all three properties simultaneously, which is usually impossible."
+      - heading: "Mapping Real Incidents to the Right Property"
+        blocks:
+          - type: paragraph
+            text: "A recurring exam skill is reading a scenario and correctly naming which CIA property actually failed, since the same underlying event can look like different failures depending on exactly what happened. Ransomware that encrypts files without exfiltrating them is primarily an availability failure (the legitimate owner can no longer access their own data), not a confidentiality failure, since the attacker isn't necessarily reading the content — though if the same attacker also stole a copy before encrypting (double-extortion ransomware), that adds a genuine confidentiality failure on top of the availability one. A misconfigured cloud storage bucket left publicly readable is a confidentiality failure the moment it's exposed, regardless of whether anyone has actually viewed the data yet — exposure itself is what matters, not confirmed viewing."
+          - type: callout
+            style: tip
+            text: "Exam scenarios often bundle two failures into one story specifically to test whether you can separate them — read carefully for what actually happened to the data (was it read, changed, or made unavailable) rather than reacting to the scariest-sounding word in the question."
+      - heading: "The Limits of Non-Repudiation"
+        blocks:
+          - type: paragraph
+            text: "Non-repudiation is often described as though a digital signature makes denial impossible, but the exam's more nuanced framing is that non-repudiation raises the evidentiary bar for a successful denial rather than eliminating the possibility of dispute entirely. A signer can still attempt a repudiation attack by plausibly claiming their private key was stolen or their signing device was compromised without their knowledge — if that claim is credible, the signature alone may no longer conclusively prove the signer personally authorized the action. This is exactly why non-repudiation in practice is built from multiple reinforcing layers, not a signature alone: secure key storage (an HSM or hardware token, per Domain 3, that makes key theft far less plausible), strong authentication before signing (proving the actual person, not just the key, initiated the action), and detailed audit logging (corroborating the signature with independent evidence like session logs and IP/device information) all combine to make a repudiation claim harder to sustain, even though no single mechanism makes it theoretically impossible."
+
+  - id: d1-t3
+    domain: domain1
+    number: "1.3"
+    title: "Security Governance Principles"
+    summary: "How security aligns to business strategy through governance frameworks, organizational roles, and due care/due diligence."
+    tags: ["governance", "frameworks", "due care", "due diligence", "compliance frameworks"]
+    key_terms: ["Due Care", "Due Diligence", "COBIT", "Security Governance", "Alignment", "ISO/IEC 27001", "ISO/IEC 27002", "NIST CSF", "NIST SP 800-53", "Steering Committee"]
+    sections:
+      - heading: "Governance Is Not Management"
+        blocks:
+          - type: paragraph
+            text: "Governance sets direction and objectives (the 'what' and 'why'); management executes to achieve them (the 'how'). Security governance means the security program is driven by business strategy — risk appetite, regulatory obligations, and organizational goals — rather than being a purely technical function that operates in isolation from the business."
+          - type: paragraph
+            text: "Good governance requires alignment: security objectives must map to business objectives, security spending must be justified in business terms (cost avoidance, regulatory compliance, reputational protection), and security leadership (often a CISO) must have a reporting line senior enough to influence real decisions — ideally independent from IT operations to avoid conflicts of interest."
+      - heading: "Governance Frameworks"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "COBIT — IT governance and management framework focused on aligning IT with business goals"
+              - "ISO/IEC 27001 — management-system standard for establishing, operating, and improving an ISMS"
+              - "NIST Cybersecurity Framework (CSF) — risk-based framework, currently organized around six functions: Govern, Identify, Protect, Detect, Respond, and Recover (Govern was added in CSF 2.0 as a cross-cutting foundational function covering how cybersecurity risk decisions get made, sitting alongside the original five)"
+          - type: callout
+            style: tip
+            text: "The exam won't ask you to memorize every control in these frameworks — it tests whether you understand that governance frameworks exist to provide structure and repeatability, not to replace business judgment."
+      - heading: "Comparing Governance and Security Frameworks — A Frequently Tested Contrast"
+        blocks:
+          - type: paragraph
+            text: "CISSP questions often describe a scenario and ask which framework fits, or ask you to distinguish two frameworks that sound similar but serve different purposes. The two axes that matter most: is the framework certifiable (an accredited third party can formally certify an organization against it) or is it a self-assessment/reference tool with no formal certification, and is it prescriptive (specifies detailed, specific controls) or principles-based/risk-based (sets objectives and lets the organization choose its own controls to meet them)."
+          - type: list
+            style: bullet
+            items:
+              - "COBIT (ISACA) — an IT governance and management framework, not primarily a security control catalog; it focuses on aligning IT investment and risk decisions with business goals, and on governance processes (who decides what, how is performance measured). Individuals can earn COBIT certifications, but organizations are not 'COBIT certified' the way they can be ISO 27001 certified."
+              - "ISO/IEC 27001 — an international, certifiable management-system standard: it specifies the requirements for establishing, operating, monitoring, and improving an Information Security Management System (ISMS), and accredited auditors can formally certify an organization's ISMS against it. It is deliberately risk-based and generic across industries — it tells you to run a risk assessment and select appropriate controls, without being as granular as a control catalog. ISO/IEC 27002 is its companion standard, providing detailed implementation guidance for the control set referenced by 27001 (27001 = the certifiable management-system requirements; 27002 = the 'how' behind individual controls)."
+              - "NIST Cybersecurity Framework (CSF) — a voluntary, risk-based framework, not certifiable by any formal body; organizations self-assess their current and target state against CSF's Functions/Categories/Subcategories, often expressed as Implementation Tiers (how mature/integrated risk management is) and Profiles (current-state vs. target-state comparison). It's best understood as a common vocabulary and self-assessment structure rather than a prescriptive control list."
+              - "NIST SP 800-53 — a detailed, prescriptive catalog of hundreds of specific security and privacy controls, organized into families, and mandatory for U.S. federal information systems under FISMA (enforced through the Risk Management Framework and Authorization to Operate process covered in Domain 3). It is far more granular than CSF, which is part of why CSF and 800-53 are often confused: CSF gives you the risk-based 'what to think about,' while 800-53 gives you the prescriptive 'here is the exact control and how to implement it.'"
+          - type: callout
+            style: example
+            text: "A useful way to keep these straight for the exam: COBIT governs IT decision-making broadly; ISO 27001 is the certifiable management-system standard for information security specifically; NIST CSF is a voluntary, non-certifiable risk-based self-assessment framework; NIST 800-53 is the detailed, mandatory (for U.S. federal systems) control catalog that sits underneath frameworks like CSF and RMF. If a question mentions 'formal third-party certification of an ISMS,' it's pointing at ISO 27001 — none of the others offer that for an organization as a whole."
+      - heading: "Governance Roles and Structures"
+        blocks:
+          - type: paragraph
+            text: "Governance is enacted through specific organizational roles and bodies, and the exam expects you to know their relative positions. The board of directors holds ultimate accountability for organizational risk, including cyber risk, even though board members are rarely security specialists themselves — this is why board-level reporting on security posture, in business terms, matters so much. Executive management (CEO, and increasingly a dedicated CISO with a direct or dotted-line reporting relationship to the board or a board risk committee) translates board-level risk appetite into an actual security strategy and program. A security steering committee — typically cross-functional, including representatives from legal, HR, IT, and major business units, not just security staff — reviews and approves major security initiatives and policy, ensuring security decisions reflect the whole business's needs rather than being made in a technical vacuum."
+          - type: callout
+            style: tip
+            text: "Exam distinction: the board is accountable for risk; the CISO is responsible for managing it day-to-day. Accountability can't be delegated away even when responsibility for execution is — if a major breach occurs, the board remains accountable to shareholders/regulators even though the CISO executed the actual program."
+      - heading: "The Three Lines of Defense Model"
+        blocks:
+          - type: paragraph
+            text: "The Three Lines of Defense (increasingly called the Three Lines Model) is a widely used way of structuring accountability for risk across an organization, and the exam expects you to recognize which line a described role belongs to. The first line is operational management — the business and IT teams who own and manage risk directly as part of doing their jobs (a system administrator applying security controls, a developer following secure coding standards). The second line is risk management and compliance functions (often including the security/GRC team itself) that set policy, provide oversight, and monitor whether the first line is actually managing risk effectively, without doing the operational work themselves. The third line is internal audit, providing independent, objective assurance to the board and senior management on how well both the first and second lines are actually functioning — critically, internal audit must remain independent of the first and second lines to preserve the same auditor-independence principle covered in Domain 6, since auditing your own team's second-line risk management would undermine the objectivity the third line exists to provide."
+          - type: callout
+            style: example
+            text: "A firewall administrator configuring rules is first line. A security governance team writing the firewall standard and periodically reviewing rule sets for compliance is second line. Internal audit independently testing whether the second line's review process actually catches non-compliant rules is third line."
+      - heading: "Governance Maturity"
+        blocks:
+          - type: paragraph
+            text: "Not every organization's governance is equally mature, and maturity models (echoing the BSIMM/SAMM concept introduced for software security in Domain 8) give a way to describe this progression: an ad hoc stage where security decisions are reactive and inconsistent, a defined stage where policies and processes exist but may not be consistently followed or measured, a managed stage where processes are consistently followed and their performance is actively measured, and an optimized stage where the program continuously improves based on measured outcomes and changing risk. The exam sometimes frames a scenario ('security decisions are made inconsistently, project by project, with no documented policy') and expects you to recognize it as low governance maturity, distinct from a technical control failure — the fix in that scenario is a governance and process fix, not a new tool."
+
+  - id: d1-t4
+    domain: domain1
+    number: "1.4"
+    title: "Legal, Regulatory, and Compliance Issues"
+    summary: "Major legal systems, categories of law, intellectual property protections, privacy regulations, and cross-border data transfer issues."
+    tags: ["legal", "compliance", "privacy", "GDPR", "intellectual property", "HIPAA", "PCI DSS"]
+    key_terms: ["Common Law", "Civil Law", "GDPR", "Trade Secret", "Copyright", "Patent", "Trademark", "HIPAA", "PCI DSS", "CCPA", "Data Controller", "Data Processor", "Liability"]
+    sections:
+      - heading: "Legal Systems and Categories of Law"
+        blocks:
+          - type: paragraph
+            text: "Common law (used in the US, UK, and Commonwealth countries) relies heavily on judicial precedent — prior case rulings shape future decisions. Civil law (used across most of continental Europe and Latin America) relies on comprehensive written codes rather than precedent. Within common law systems, law is further divided into criminal law (offenses against society, prosecuted by the state, can result in imprisonment), civil/tort law (disputes between private parties, resulting in damages), and administrative/regulatory law (rules created by government agencies to enforce statutes, e.g. financial or health regulators)."
+      - heading: "Intellectual Property"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Copyright — protects the expression of an idea (source code, documentation, artwork); automatic on creation, long duration"
+              - "Patent — protects a novel invention or process; requires registration, offers strong but time-limited protection (typically 20 years)"
+              - "Trademark — protects brand identifiers (names, logos, slogans) used in commerce"
+              - "Trade secret — protects confidential business information (e.g. a proprietary algorithm) for as long as it stays secret; no registration, no expiration, but no protection once disclosed"
+          - type: callout
+            style: example
+            text: "The exact formula for a soft drink is protected as a trade secret, not a patent, because a patent would require publicly disclosing the formula."
+      - heading: "Privacy Regulation and Cross-Border Data"
+        blocks:
+          - type: paragraph
+            text: "Privacy laws like the EU's GDPR, and sector-specific US laws like HIPAA (health) and GLBA (financial), impose obligations on how personal data is collected, processed, and transferred. GDPR in particular has extraterritorial reach — it applies to any organization processing the data of EU residents, regardless of where the organization is based — and restricts transferring personal data outside the EU unless the destination country has adequate protections or approved safeguards (such as Standard Contractual Clauses) are in place."
+          - type: callout
+            style: tip
+            text: "Know the difference between a data controller (decides why/how data is processed) and a data processor (processes data on the controller's behalf) — GDPR assigns different obligations to each."
+      - heading: "Comparing Major Compliance Regimes — Law vs. Contract, Broad vs. Sector-Specific"
+        blocks:
+          - type: paragraph
+            text: "The CISSP exam frequently tests whether you can tell these regimes apart along two dimensions: what kind of authority creates and enforces them (a government law with statutory penalties, versus a private industry body enforcing through contract), and how broad their scope is (protecting one category of data for everyone, versus protecting all personal data for people in one jurisdiction)."
+          - type: list
+            style: bullet
+            items:
+              - "GDPR — an EU law (not industry-created), protecting the personal data of people in the EU broadly, across every sector, not just one type of data. Enforced by government Data Protection Authorities with real statutory penalties (up to 4% of global annual revenue or €20 million, whichever is higher). Built on an opt-in consent model — organizations generally need a lawful basis (often affirmative consent) before processing personal data in the first place."
+              - "HIPAA — a U.S. federal law, but sector-specific: it protects Protected Health Information (PHI) and applies specifically to covered entities (healthcare providers, health plans, healthcare clearinghouses) and their business associates (vendors who handle PHI on a covered entity's behalf, bound by a contractually required Business Associate Agreement). Enforced by the U.S. Department of Health and Human Services' Office for Civil Rights, with statutory fines."
+              - "PCI DSS — not a law at all: a contractually-mandated industry standard created and maintained by the Payment Card Industry Security Standards Council (founded by the major card brands), applying specifically to any organization that stores, processes, or transmits cardholder data, regardless of industry. Compliance is validated through a Self-Assessment Questionnaire (for lower transaction volumes) or an audit by a Qualified Security Assessor (for higher volumes), and 'penalties' for non-compliance are contractual — fines from the card brands/acquiring bank, or loss of the ability to process card payments at all — rather than a government fine."
+              - "CCPA / CPRA (California) — a U.S. state law (not federal, unlike HIPAA), protecting the personal data of California residents broadly across sectors, similar in scope-breadth to GDPR but built on a different consent model: opt-out rather than GDPR's opt-in — businesses can generally process personal data by default, but must honor a consumer's right to opt out of its sale/sharing, rather than needing affirmative consent up front."
+          - type: callout
+            style: example
+            text: "A single organization can be subject to multiple regimes simultaneously and must satisfy all of them at once: a US-based hospital's patient payment portal handling EU patients' data would need to comply with HIPAA (because it's a covered entity handling PHI), PCI DSS (because it processes card payments), and GDPR (because some of its patients are in the EU) — three regimes with three different legal natures (federal law, industry contract, foreign law) and three different enforcement bodies, all applying to the same system at once."
+          - type: callout
+            style: tip
+            text: "Exam shortcut for telling these apart: if the question mentions a government agency levying a statutory fine, it's a law (GDPR, HIPAA, a state privacy law). If it mentions losing the ability to process card transactions, or an assessor/QSA, it's PCI DSS — a contractual industry standard, not a law."
+      - heading: "Liability Concepts"
+        blocks:
+          - type: paragraph
+            text: "Beyond specific regulations, general liability concepts recur across CISSP legal questions. Negligence occurs when an organization fails to exercise the due care a reasonable, similarly situated organization would have exercised, and that failure causes harm — the due care/due diligence concepts from 1.3 are exactly what a negligence claim after a breach tests against. Vicarious liability holds an organization responsible for the actions of its employees or agents performed within the scope of their role, even if the organization didn't directly order the harmful act. Downstream/contributory liability can extend responsibility to a party whose failure enabled harm to a third party — e.g. a vendor whose insecure product was the actual mechanism of a customer's breach may face liability even though the vendor didn't attack the customer themselves."
+          - type: callout
+            style: example
+            text: "A company that never patches a publicly known, actively exploited vulnerability for months, and is then breached through exactly that vulnerability, has a much weaker negligence defense than one that was breached by a genuine zero-day with no available patch — the presence or absence of demonstrated due care is often the deciding factor in how a court or regulator views the same technical outcome."
+      - heading: "Import/Export Controls on Cryptography"
+        blocks:
+          - type: paragraph
+            text: "Strong cryptography is treated as a controlled, dual-use technology in many countries' export control regimes (in the U.S., primarily the Export Administration Regulations), meaning exporting certain cryptographic products or source code across borders can itself require government authorization, separate from any data-privacy law. This matters operationally for multinational organizations building or distributing security products — the legal question isn't only 'is our data protected,' it can also be 'are we legally permitted to send this specific encryption technology to this specific country at all.'"
+      - heading: "Basic Contract Law Concepts"
+        blocks:
+          - type: paragraph
+            text: "Because so much of security practice runs through contracts (vendor agreements, SLAs, NDAs, the contractual clauses covered later under supply chain risk management), a working knowledge of what makes a contract legally binding is relevant background. A valid contract generally requires an offer (one party proposes specific terms), acceptance (the other party agrees to those exact terms), consideration (something of value exchanged by both sides — payment, services, access), capacity (both parties are legally able to enter into the agreement), and a lawful purpose (a contract to do something illegal isn't enforceable regardless of how clearly it's written). A breach of contract occurs when a party fails to perform its obligations, and remedies typically include damages (financial compensation for the loss caused) or, less commonly, specific performance (a court order compelling the breaching party to actually fulfill the contract's terms)."
+          - type: callout
+            style: tip
+            text: "This matters practically for a security professional reviewing a vendor contract: a security commitment that isn't tied to actual consideration and enforceable remedies (e.g. a vague marketing promise rather than a specific contractual obligation with a defined breach remedy) may be far less legally meaningful than it appears, even if it reads reassuringly."
+
+  - id: d1-t5
+    domain: domain1
+    number: "1.5"
+    title: "Investigation Types"
+    summary: "The distinct rules, goals, and standards of evidence for administrative, criminal, civil, and regulatory investigations."
+    tags: ["investigations", "forensics", "evidence"]
+    key_terms: ["Chain of Custody", "Administrative Investigation", "Regulatory Investigation", "Beyond a Reasonable Doubt", "Preponderance of the Evidence", "Best Evidence Rule", "Hearsay", "Fourth Amendment"]
+    sections:
+      - heading: "Four Investigation Types"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Administrative — internal, conducted by the organization itself (e.g. HR investigating a policy violation); lowest burden of proof"
+              - "Criminal — conducted by law enforcement, can result in imprisonment; requires proof 'beyond a reasonable doubt,' the highest standard"
+              - "Civil — between private parties (or an organization and an individual), resolved with damages; requires only a 'preponderance of the evidence' (more likely than not)"
+              - "Regulatory — conducted by a government agency to enforce industry-specific rules (e.g. a financial regulator); can result in fines or sanctions independent of criminal proceedings"
+          - type: paragraph
+            text: "The same incident can trigger more than one investigation type simultaneously — an employee stealing trade secrets might face an internal administrative investigation, a civil suit from the employer, and criminal charges, each with different evidentiary standards and outcomes."
+      - heading: "Evidence Handling and Chain of Custody"
+        blocks:
+          - type: paragraph
+            text: "Regardless of investigation type, evidence that may end up in a legal proceeding must be handled so its integrity can be proven later. Chain of custody documents every person who has handled a piece of evidence, when, and why — a gap in that chain can render evidence inadmissible. Best practice is to work from a forensic image of a system rather than the original, preserving the original as pristine evidence."
+          - type: callout
+            style: tip
+            text: "For the exam: if a scenario asks 'what should be done first' after discovering an incident that may require legal action, the answer is almost always to preserve evidence / begin chain of custody, not to immediately remediate or rebuild the system."
+      - heading: "The Digital Forensics Process"
+        blocks:
+          - type: paragraph
+            text: "Digital forensic investigations follow a broadly consistent process regardless of which investigation type they support: identification (recognizing that potential evidence exists and where), preservation (protecting it from alteration, including the forensic imaging mentioned above), collection (gathering the evidence in a forensically sound, documented manner), examination (processing the evidence to extract relevant data), analysis (interpreting what the data means in context), and presentation (documenting and communicating findings, often for a legal or disciplinary proceeding). Skipping or rushing any step — especially preservation — can undermine everything that follows, since evidence gathered without a clean chain of custody may be challenged or excluded regardless of how conclusive it looks."
+      - heading: "Evidence Types and Admissibility"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Real evidence — tangible, physical objects (a hard drive, a seized laptop)"
+              - "Documentary evidence — written records (logs, emails, printed reports); generally must satisfy the best evidence rule, which prefers an original document over a copy or description of it, though authenticated forensic copies of digital evidence are typically treated as acceptable equivalents given the nature of digital storage"
+              - "Testimonial evidence — witness statements given under oath"
+              - "Demonstrative evidence — used to illustrate or clarify other evidence (a diagram, a chart reconstructing an attack timeline), not evidence of the underlying fact on its own"
+          - type: callout
+            style: tip
+            text: "Hearsay — an out-of-court statement offered to prove the truth of what it asserts — is generally not admissible on its own. This matters for security professionals because many computer-generated logs risk a hearsay challenge; establishing that records were generated automatically by a properly functioning, regularly maintained system (rather than being an out-of-court human assertion) is part of why solid system documentation and consistent logging practices matter for using them as evidence later."
+      - heading: "Search, Seizure, and Employer Monitoring Rights"
+        blocks:
+          - type: paragraph
+            text: "In the U.S., the Fourth Amendment restricts government searches and seizures without a warrant or an established exception — but it restricts government action, not private employers. A private company generally has much broader latitude to search company-owned devices, monitor company networks, and access company email, provided employees have been clearly notified (typically via an acceptable use policy or banner) that they have no reasonable expectation of privacy on company systems. This distinction matters because it flips once law enforcement gets involved: if a private employer conducts its own internal investigation and later hands findings to police, that's generally fine, but if an employer searches a device at the direct request or direction of law enforcement without a warrant, courts can treat the employer as effectively acting as a government agent, potentially triggering Fourth Amendment protections that wouldn't otherwise apply."
+          - type: callout
+            style: tip
+            text: "The practical exam takeaway: a documented, employee-acknowledged monitoring/AUP banner is what gives an organization the clearest legal footing to search and monitor its own systems — the absence of that notice is what creates legal risk, not the act of monitoring itself."
+      - heading: "Complications in International and Multi-Jurisdiction Investigations"
+        blocks:
+          - type: paragraph
+            text: "An investigation spanning multiple countries adds real complexity: evidence-handling standards, what counts as admissible, and even what's legal to collect at all can differ by jurisdiction, and formally obtaining evidence located in another country often requires slow, structured international legal cooperation processes (such as a Mutual Legal Assistance Treaty request) rather than simply asking a foreign provider directly. This is a growing practical concern given how routinely cloud infrastructure, remote attackers, and multinational victim organizations span borders on a single incident — the technical investigation may be straightforward while the legal path to using that evidence in a proceeding is the actual bottleneck."
+      - heading: "Forensic Tools and Evidence Integrity"
+        blocks:
+          - type: paragraph
+            text: "Two practical mechanics underpin most digital forensic collection. A write blocker is a hardware or software tool that physically or logically prevents any write operation to a piece of original evidence media while it's connected for imaging — guaranteeing the act of collecting evidence doesn't itself alter the original, which is a foundational requirement for the evidence to be considered forensically sound. Hashing the original media (and the resulting forensic image) at the time of collection, using an algorithm like SHA-256, produces a fixed digital fingerprint that can be recalculated at any later point to prove the evidence hasn't been altered since collection — if the hash still matches years later, the integrity of the copy is mathematically demonstrated, not just asserted. Together, a write blocker (preventing alteration during collection) and hashing (proving no alteration occurred afterward) are the two concrete technical mechanisms that make the chain-of-custody promise verifiable rather than just a documented claim."
+
+  - id: d1-t6
+    domain: domain1
+    number: "1.6"
+    title: "Security Policy, Standards, Procedures, and Guidelines"
+    summary: "The policy hierarchy — from high-level policy down to step-by-step procedures — and how each document type differs in scope and enforceability."
+    tags: ["policy", "standards", "procedures", "guidelines"]
+    key_terms: ["Policy", "Standard", "Baseline", "Procedure", "Guideline", "Data Owner", "Data Custodian", "Policy Exception", "Regulatory Policy", "Advisory Policy"]
+    sections:
+      - heading: "The Documentation Hierarchy"
+        blocks:
+          - type: paragraph
+            text: "Security documentation forms a pyramid, broad and mandatory at the top, narrow and detailed at the bottom. A policy is a high-level statement of management intent (mandatory, technology-agnostic — e.g. 'all sensitive data must be encrypted at rest'). A standard specifies mandatory, specific requirements that support a policy (e.g. 'AES-256 must be used for data-at-rest encryption'). A baseline is the minimum acceptable level of security a system must meet. A procedure is a mandatory, step-by-step set of instructions for performing a task. A guideline is a recommended, non-mandatory best practice offering flexibility where a strict standard isn't appropriate."
+          - type: list
+            style: numbered
+            items:
+              - "Policy — mandatory, high-level, 'what and why'"
+              - "Standard / Baseline — mandatory, specific, measurable requirements"
+              - "Procedure — mandatory, step-by-step, 'how'"
+              - "Guideline — recommended, flexible"
+          - type: callout
+            style: tip
+            text: "Exam trap: guidelines are the only item in this list that are NOT mandatory. If a question uses the word 'recommended' or 'discretionary,' it's describing a guideline."
+      - heading: "Types of Policy by Purpose"
+        blocks:
+          - type: paragraph
+            text: "Beyond the mandatory/discretionary hierarchy, policies are also categorized by what kind of intent they express, a distinction the exam sometimes tests directly. A regulatory policy exists specifically to ensure the organization follows a particular law, regulation, or industry mandate (e.g. a policy written specifically to satisfy PCI DSS requirements) — its content is largely dictated by the external requirement. An advisory policy strongly encourages particular behavior and outlines consequences for not following it, without being tied to an external legal mandate (e.g. an acceptable use policy). An informative policy exists purely to educate — it has no enforcement teeth at all, existing only to communicate context, goals, or organizational philosophy (e.g. a policy explaining the company's overall security mission and values)."
+          - type: callout
+            style: example
+            text: "A policy titled 'Cardholder Data Handling Policy' that exists specifically because PCI DSS requires it is regulatory. A policy stating 'employees should avoid using personal email for work matters, and violations may result in disciplinary action' is advisory. A policy that simply explains 'why security matters to our mission' with no specific rules or consequences is informative."
+      - heading: "Who Owns Each Document — and Who Owns the Data It Protects"
+        blocks:
+          - type: paragraph
+            text: "Policy documentation is only as effective as the accountability behind it. A data owner (typically a business-side executive or manager) is accountable for a given data set — deciding its classification (per Domain 2) and approving who may access it. A data custodian (typically an IT/security role) implements the technical controls the owner's decisions require, without owning the underlying business decisions themselves. A system owner is accountable for a specific system's operation and security posture. Confusing these roles is a common exam trap: the data owner decides classification and access policy; the custodian carries it out technically."
+      - heading: "Exceptions and Keeping Documentation Effective"
+        blocks:
+          - type: paragraph
+            text: "Real environments occasionally need a documented exception to a standard or baseline — a legacy system that can't meet a current encryption standard, for example — and a mature program has a formal exception process: a time-bound, risk-assessed, approved deviation with compensating controls and an accountable owner, rather than simply ignoring the requirement. An undocumented, informal exception is really just a policy violation with better excuses."
+          - type: paragraph
+            text: "Documentation needs an owner, a review cycle, and version control — a policy nobody has reviewed since it was written five years ago is a liability, not a control, because it likely no longer matches the actual environment or current regulatory requirements. Effective programs tie policy review to significant business or technology changes as well as a fixed periodic schedule (commonly annual)."
+      - heading: "Communicating and Acknowledging Policy"
+        blocks:
+          - type: paragraph
+            text: "A policy that exists only in a document repository nobody reads provides essentially no behavioral effect — publishing a policy and communicating it are different things, and communication (targeted announcements when a policy is new or materially changed, integration into onboarding and periodic training per Domain 1's awareness content, and easy discoverability when someone actually needs to reference it) is what turns a written policy into something that actually shapes behavior. Formal acknowledgment — an employee explicitly confirming they've read and agree to abide by a policy, typically tracked and retained as a record — serves two purposes: it reinforces genuine awareness at the individual level, and it creates documented evidence the organization can point to later (in a disciplinary action, an audit, or litigation) that the individual was on notice of the requirement, rather than the organization having to argue after the fact that a policy 'should have' been known."
+
+  - id: d1-t7
+    domain: domain1
+    number: "1.7"
+    title: "Business Continuity Requirements"
+    summary: "Identifying, analyzing, and prioritizing what the organization needs to keep running through disruption, starting with the Business Impact Analysis."
+    tags: ["BCP", "BIA", "business continuity"]
+    key_terms: ["Business Impact Analysis (BIA)", "MTD", "RTO", "RPO", "Critical Function", "Dependency Mapping", "WRT"]
+    sections:
+      - heading: "The Business Impact Analysis (BIA)"
+        blocks:
+          - type: paragraph
+            text: "A BIA is the foundational step of business continuity planning: it identifies critical business functions, the resources they depend on, and the impact of losing them over time (financial, operational, reputational, legal). The BIA does not decide how to recover — that's the job of the BCP/DRP — it only establishes what matters and how urgently it must be restored."
+          - type: list
+            style: bullet
+            items:
+              - "Maximum Tolerable Downtime (MTD) — the absolute longest a function can be unavailable before the organization suffers unacceptable harm (sometimes called Maximum Tolerable Period of Disruption, MTPD, in some references — the same concept under a different name)"
+              - "Recovery Time Objective (RTO) — the target time to restore a function after disruption; must be less than MTD"
+              - "Recovery Point Objective (RPO) — the maximum acceptable amount of data loss, measured in time (e.g. an RPO of 1 hour means backups must run at least hourly)"
+          - type: callout
+            style: example
+            text: "If a payment system has an MTD of 8 hours, the organization should set an RTO comfortably under that (e.g. 4 hours) to leave margin for things going wrong during recovery."
+      - heading: "Work Recovery Time: The Piece Between RTO and MTD"
+        blocks:
+          - type: paragraph
+            text: "A less commonly emphasized but exam-relevant metric is Work Recovery Time (WRT) — the additional time needed after systems are technically restored (RTO reached) to actually resume normal business operations: reconciling data, catching up on backlog, verifying everything is functioning correctly, and getting people back to normal workflow. MTD is effectively the sum of RTO and WRT — a function isn't actually 'recovered' from the business's perspective the instant the server comes back online; it's recovered once WRT also completes and the business is truly back to normal. Underestimating WRT is a common real-world planning failure: a team hits its RTO for getting systems back up, declares victory, and only then discovers hours of additional manual reconciliation work stand between 'systems up' and 'business actually functioning again.'"
+      - heading: "Dependency Mapping"
+        blocks:
+          - type: paragraph
+            text: "A thorough BIA doesn't stop at naming critical functions — it traces what each function actually depends on: specific systems, specific data, specific third-party vendors, and specific people with specialized knowledge. This dependency mapping frequently surfaces hidden single points of failure — a 'critical' business function that everyone assumed was resilient, but that turns out to depend entirely on one vendor's API, one unreplicated database, or one employee's undocumented manual process. Without this mapping step, an organization can set a confident RTO for a function while completely missing that one of its underlying dependencies can't actually meet that timeline."
+          - type: callout
+            style: example
+            text: "A BIA might rate 'process customer orders' as highly critical with a 2-hour RTO, but dependency mapping reveals it silently depends on a single legacy on-premises server with no failover and a vendor contract with no uptime SLA at all — the stated RTO is fiction until those dependencies are addressed."
+      - heading: "How a BIA Actually Gathers Its Data"
+        blocks:
+          - type: paragraph
+            text: "A BIA's conclusions are only as good as the process used to gather them. Structured interviews with business process owners (the people who actually run a given function day-to-day) surface the real dependencies and impact estimates that a purely document-driven review would miss. Questionnaires let the BIA scale across many business units consistently, using standardized questions to gather comparable impact data across the organization, though they risk shallower answers than a direct interview. Workshops bring multiple stakeholders together to reconcile conflicting impact estimates in real time (two departments each claiming their function is 'most critical' get resolved through facilitated discussion rather than left as an unreconciled dispute). Document review (existing process documentation, prior incident records, financial reports) grounds the qualitative interview/workshop data in objective, verifiable facts. A BIA relying on only one of these methods tends to produce a skewed picture — interviews alone can overstate impact (process owners naturally believe their own function is critical), while document review alone can miss context that only the people running the process actually know."
+      - heading: "From BIA to Prioritized Requirements"
+        blocks:
+          - type: paragraph
+            text: "Once critical functions and their MTD/RTO/RPO are known, they are ranked to prioritize recovery resources — the functions with the shortest MTD and highest business impact get recovered first. This prioritized list drives the rest of continuity planning covered in depth under Domain 7 (Security Operations), including strategy selection and plan testing."
+
+  - id: d1-t8
+    domain: domain1
+    number: "1.8"
+    title: "Personnel Security Policies"
+    summary: "Controls applied to the employment lifecycle — screening, agreements, job rotation, and offboarding — to reduce insider risk."
+    tags: ["personnel security", "background checks", "insider threat"]
+    key_terms: ["Background Check", "NDA", "Separation of Duties", "Job Rotation", "Mandatory Vacation", "Termination Procedures", "Third-Party Personnel Risk", "Friendly Termination", "Hostile Termination"]
+    sections:
+      - heading: "Pre-Employment Controls"
+        blocks:
+          - type: paragraph
+            text: "Personnel security starts before a hire ever touches a system: background checks (criminal history, credit checks for finance-sensitive roles, reference verification, education/employment verification, and in some roles drug screening) and signed agreements (NDAs, acceptable use policies, non-compete clauses where legal) establish both trust and legal recourse. The depth of screening should scale with the sensitivity of the role — a systems administrator with root access warrants more scrutiny than an entry-level role with no system access, and screening depth should be documented and consistently applied by role tier, not decided ad hoc, to avoid both under-screening high-risk roles and discriminatory over-screening."
+      - heading: "Types of Employment Agreements"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Non-Disclosure Agreement (NDA) — legally binds an individual not to disclose specified confidential information, typically surviving after employment ends"
+              - "Acceptable Use Policy (AUP) acknowledgment — the employee formally agrees to the rules governing use of company systems, which is also what establishes the reduced expectation of privacy discussed in 1.5's monitoring content"
+              - "Non-compete agreement — restricts an employee from working for a direct competitor for a defined period after leaving; enforceability varies significantly by jurisdiction, and some regions restrict or ban them almost entirely"
+              - "Code of conduct acknowledgment — commits the employee to specific behavioral and ethical standards beyond the general employment agreement"
+          - type: callout
+            style: tip
+            text: "The exam sometimes tests that an NDA's protection generally survives termination (a former employee can still be held to it), while access-related agreements only govern behavior during active employment — these serve different, complementary purposes rather than one making the other redundant."
+      - heading: "Controls During Employment"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Separation of duties — no single person can complete a sensitive process end-to-end alone (e.g. the person who requests a payment isn't also the one who approves it)"
+              - "Job rotation — periodically moving people between roles, which both cross-trains staff and surfaces fraud that depends on one person controlling a process indefinitely"
+              - "Mandatory vacation — forcing uninterrupted time away lets someone else perform the role, surfacing anomalies (a classic fraud-detection control in finance)"
+              - "Least privilege — ongoing access reviews to ensure entitlements match current job duties, not accumulated permissions from past roles"
+          - type: callout
+            style: tip
+            text: "Separation of duties, job rotation, and mandatory vacation all exist primarily to detect or deter fraud and insider abuse — not just to improve efficiency. If an exam question asks 'why require mandatory vacation,' the answer is fraud detection, not employee wellness."
+      - heading: "Contractors, Vendors, and Third-Party Personnel"
+        blocks:
+          - type: paragraph
+            text: "Personnel security doesn't stop at direct employees — contractors, consultants, and vendor staff who touch systems or data carry the same insider risk and need equivalent (though contractually rather than employment-based) controls: appropriate background screening requirements written into the contract, NDAs, access scoped tightly to the engagement's actual needs, and — critically — a defined process for revoking access the moment the engagement ends, which is easy to overlook precisely because third-party personnel don't appear in the same HR-driven offboarding workflow as employees."
+      - heading: "Offboarding: Friendly vs. Hostile Terminations"
+        blocks:
+          - type: paragraph
+            text: "Termination procedures must be prompt and complete: disable accounts, revoke badges and remote access, recover company assets, and — for high-risk or contested terminations — coordinate the timing with HR and security so access is cut at (or just before) the moment of notification, not hours or days later. The exam distinguishes friendly terminations (routine, low-risk departures — resignation on good terms, retirement) from hostile terminations (firing, layoffs, or any departure where the individual may be angry, financially motivated, or otherwise a heightened insider-threat risk). Hostile terminations warrant a materially different process: access should typically be revoked simultaneously with (or just before) the termination conversation itself, not afterward, and security/IT should be looped in ahead of time so there's no gap where a notified-but-still-privileged employee retains access."
+          - type: callout
+            style: example
+            text: "A standard, friendly resignation with two weeks' notice can follow a routine offboarding checklist completed by the departure date. A for-cause termination of a database administrator with standing production access needs access revoked at the moment of (or immediately before) notification — waiting even a few hours creates a window for retaliatory action that the friendly-termination process was never designed to close quickly enough."
+      - heading: "Formal Insider Threat Programs"
+        blocks:
+          - type: paragraph
+            text: "Beyond the baseline personnel controls above, larger or higher-risk organizations often stand up a dedicated insider threat program — a cross-functional effort (typically drawing on HR, security, legal, and sometimes behavioral/psychological expertise) specifically focused on identifying and managing the risk posed by trusted insiders, distinct from the perimeter-facing focus of most traditional security tooling. Such a program typically combines technical monitoring (elevated logging/UEBA-style behavioral analytics on high-risk roles, per Domain 7) with non-technical signals (HR-reported grievances, disciplinary actions, financial distress indicators where legally permissible to consider) and a defined escalation path when concerning signals combine. This is a deliberately sensitive area — insider threat programs must be built with real legal and privacy constraints in mind (works council consultation requirements in some jurisdictions, employee privacy law, anti-discrimination law) and are usually most effective when their existence and general scope are transparently communicated to the workforce, which both supports deterrence and avoids the appearance of a secret surveillance program that itself damages trust and morale."
+
+  - id: d1-t9
+    domain: domain1
+    number: "1.9"
+    title: "Risk Management Concepts"
+    summary: "The full risk management lifecycle: identifying assets and threats, assessing likelihood and impact, and choosing a treatment strategy."
+    tags: ["risk", "risk assessment", "risk treatment"]
+    key_terms: ["Risk Assessment", "Qualitative Analysis", "Quantitative Analysis", "ALE", "SLE", "ARO", "Risk Appetite", "Residual Risk", "Risk Register", "Delphi Technique", "Risk Heat Map"]
+    sections:
+      - heading: "Risk Assessment: Qualitative vs. Quantitative"
+        blocks:
+          - type: paragraph
+            text: "Qualitative risk analysis uses descriptive scales (High/Medium/Low, or a 1-5 rating) and is faster but more subjective — useful when data is scarce or for a quick prioritization pass. It's often gathered through structured expert input techniques like the Delphi technique, where a group of experts anonymously and iteratively submits and refines risk estimates until they converge, specifically to avoid groupthink or a dominant voice skewing the result. Quantitative risk analysis assigns real numbers, most commonly using: Single Loss Expectancy (SLE) = Asset Value × Exposure Factor; Annualized Rate of Occurrence (ARO) = how many times per year the event is expected; and Annualized Loss Expectancy (ALE) = SLE × ARO. ALE gives a dollar figure that can be directly compared to the cost of a control."
+          - type: callout
+            style: example
+            text: "A server worth $100,000 has a 25% exposure factor for a given threat (SLE = $25,000) and is expected to occur twice a year (ARO = 2). ALE = $25,000 × 2 = $50,000. If a control costs $10,000/year and reduces ALE to $5,000/year, it's easily justified."
+      - heading: "Justifying a Control's Cost: Cost-Benefit Analysis"
+        blocks:
+          - type: paragraph
+            text: "The formal way to decide whether a control is worth its cost extends the ALE math one step further: the Value of a Safeguard = ALE (before the control) − ALE (after the control) − annual cost of the control. A positive value means the control is financially justified; a negative or near-zero value means the control costs more than the risk it removes, and the organization may be better off choosing a cheaper control, a different treatment option entirely (like transfer via insurance), or accepting the risk outright. This calculation is exactly what turns risk management from a subjective feeling into a defensible, auditable business decision — the same discipline auditors (Domain 6) expect to see documented when a risk decision is later questioned."
+          - type: callout
+            style: example
+            text: "Using the earlier example: pre-control ALE was $50,000. If a $10,000/year control reduces ALE to $5,000/year, the value of the safeguard is $50,000 − $5,000 − $10,000 = $35,000 in net annual benefit — a clearly justified investment. If that same control only reduced ALE to $45,000, the value would be $50,000 − $45,000 − $10,000 = −$5,000, meaning the control costs more than it saves and isn't justified on quantitative grounds alone."
+      - heading: "Risk Treatment Options"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Accept — acknowledge the risk and take no further action, typically because cost of treatment exceeds potential loss"
+              - "Avoid — eliminate the activity that creates the risk entirely"
+              - "Mitigate — apply controls to reduce likelihood and/or impact"
+              - "Transfer — shift the financial impact to a third party, most commonly via insurance or contract"
+          - type: paragraph
+            text: "Whatever isn't eliminated becomes residual risk — the risk remaining after controls are applied. Residual risk must fall within the organization's risk appetite (how much risk it's willing to accept in pursuit of objectives) or additional treatment is required. Risk can never be reduced to zero; the goal is to bring it within tolerance at a justifiable cost."
+          - type: callout
+            style: tip
+            text: "A control itself can introduce secondary risk — a new risk created by the treatment chosen for the original one (e.g. transferring risk via a vendor introduces new supply-chain/vendor risk, per Domain 1's SCRM content). Mature risk management re-evaluates residual and secondary risk together, not just whether the original risk shrank."
+      - heading: "Visualizing and Tracking Risk: Heat Maps and the Risk Register"
+        blocks:
+          - type: paragraph
+            text: "A risk heat map plots identified risks on a grid of likelihood (one axis) against impact (the other axis), letting leadership see at a glance which risks cluster in the high-likelihood/high-impact corner that demands immediate attention versus the low-likelihood/low-impact corner that's reasonable to simply accept. This is the visual, qualitative counterpart to the quantitative ALE math above — many organizations use both together, heat-mapping a large population of risks quickly and then applying full quantitative analysis only to the smaller subset that lands in the highest-priority zone, since full quantitative analysis on every identified risk usually isn't a practical use of time."
+          - type: paragraph
+            text: "A risk register is the living document (or system) that tracks every identified risk: its description, likelihood/impact rating, assigned owner, chosen treatment, current status, and residual risk after treatment. It turns risk management from a one-time assessment exercise into an ongoing program — risks are added as they're identified, re-scored periodically as conditions change, and reviewed by leadership as part of regular governance, tying directly back into the governance and alignment concepts from 1.3."
+      - heading: "FAIR: A More Rigorous Quantitative Model"
+        blocks:
+          - type: paragraph
+            text: "Factor Analysis of Information Risk (FAIR) is a more formal quantitative risk model than the SLE/ARO/ALE approach above, designed to address a common weakness of simpler quantitative methods: SLE/ALE calculations often rely on single-point estimates (a specific dollar figure, a specific frequency) that convey false precision about numbers that are actually quite uncertain. FAIR instead models risk as Loss Event Frequency × Loss Magnitude, but breaks each of those down further into contributing factors (e.g. Loss Event Frequency further decomposes into Threat Event Frequency and Vulnerability, itself a function of threat capability versus the strength of resistance controls), and expresses estimates as ranges/probability distributions rather than single numbers, producing a probable range of loss outcomes rather than one falsely precise figure. FAIR is more rigorous and more work to apply than the SLE/ALE approach, and is typically reserved for higher-stakes risk decisions where the added precision and defensibility are worth the additional analytical effort — for the exam, the key distinction is that FAIR is a more granular, factor-based refinement of the same underlying quantitative philosophy as SLE/ALE, not a fundamentally different risk framework."
+
+  - id: d1-t10
+    domain: domain1
+    number: "1.10"
+    title: "Threat Modeling"
+    summary: "Structured methodologies for identifying and prioritizing threats to a system before it's built or attacked, most notably STRIDE."
+    tags: ["threat modeling", "STRIDE", "attack trees", "PASTA"]
+    key_terms: ["STRIDE", "Attack Tree", "DREAD", "Attack Surface", "PASTA", "Threat Actor", "MITRE ATT&CK"]
+    sections:
+      - heading: "Why Model Threats Proactively"
+        blocks:
+          - type: paragraph
+            text: "Threat modeling identifies what could go wrong with a system's design before it's built, rather than reacting to incidents after deployment. It's most effective early in the SDLC (see Domain 8), where changing a design costs far less than patching a shipped product. Modeling typically starts with a data-flow diagram of the system to identify trust boundaries — points where data crosses from a less-trusted zone to a more-trusted one, which are natural attack surfaces."
+      - heading: "STRIDE"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Spoofing — impersonating another user, process, or system (violates authenticity)"
+              - "Tampering — unauthorized modification of data or code (violates integrity)"
+              - "Repudiation — denying having performed an action, with no way to prove otherwise (violates non-repudiation)"
+              - "Information Disclosure — exposing information to unauthorized parties (violates confidentiality)"
+              - "Denial of Service — degrading or blocking legitimate access (violates availability)"
+              - "Elevation of Privilege — gaining rights beyond what was authorized (violates authorization boundaries)"
+          - type: callout
+            style: tip
+            text: "Notice STRIDE's categories map almost directly onto CIA/authenticity/non-repudiation — it's a practical checklist for walking a system diagram and asking 'where could each of these six things happen?'"
+      - heading: "Prioritizing Identified Threats"
+        blocks:
+          - type: paragraph
+            text: "Once threats are enumerated, they're ranked — commonly with DREAD (Damage, Reproducibility, Exploitability, Affected users, Discoverability) or simply by likelihood × impact, similar to standard risk assessment. Attack trees are another modeling tool: a root goal (e.g. 'compromise the database') is decomposed into the specific paths an attacker could take to achieve it, helping teams see which paths need controls most urgently."
+      - heading: "A Risk-Centric Alternative: PASTA"
+        blocks:
+          - type: paragraph
+            text: "PASTA (Process for Attack Simulation and Threat Analysis) is a more elaborate, risk-centric threat modeling methodology, contrasted with STRIDE's more technical, developer-centric checklist approach. Rather than starting from 'what could technically go wrong with this design,' PASTA works through seven stages that begin with defining business objectives and only later simulate specific attacks and analyze their business impact — the intent is to keep threat modeling explicitly tied to business risk throughout, rather than producing a purely technical list of theoretical weaknesses disconnected from what actually matters to the organization. STRIDE and PASTA aren't mutually exclusive on the exam — STRIDE is often the technique used within a broader PASTA-style process to actually enumerate the technical threats once business context has been established."
+      - heading: "Grounding Threat Models in Real-World Attacker Behavior: MITRE ATT&CK"
+        blocks:
+          - type: paragraph
+            text: "STRIDE and attack trees are structured brainstorming techniques — they help enumerate what could theoretically happen, but don't by themselves tell you what attackers actually do in practice. MITRE ATT&CK is a curated, continuously updated knowledge base of real-world adversary tactics and techniques, organized by the attacker's goal at each stage (initial access, execution, persistence, privilege escalation, defense evasion, lateral movement, exfiltration, and more), each documented with real observed examples. Mature threat modeling and detection programs cross-reference their theoretical STRIDE-derived threats against ATT&CK's catalog of what's actually been observed in the wild, both to sanity-check that a threat model isn't missing common real attacker behavior and to prioritize detection engineering toward techniques that are actually used, not just theoretically possible."
+          - type: callout
+            style: tip
+            text: "Exam framing: STRIDE and attack trees are threat modeling techniques (used during design, proactively). MITRE ATT&CK is a threat intelligence knowledge base (grounded in observed reality) that's used both during threat modeling, to validate theoretical threats against real ones, and afterward, to guide detection engineering and incident response."
+      - heading: "Threat Actors: Who's Actually Behind the Threat"
+        blocks:
+          - type: paragraph
+            text: "Threat modeling is more complete when it also considers who is likely to pose the threat, not just what technique they might use. Threat actors range from unsophisticated opportunistic attackers to organized cybercriminal groups (typically financially motivated), hacktivists (ideologically motivated, often favoring disruption and public embarrassment), insiders (malicious or negligent, with unusually direct access), and advanced persistent threats (well-resourced, often nation-state-affiliated actors capable of sustained, stealthy, long-term campaigns). The realistic threat actors facing a given system should shape which STRIDE/attack-tree paths get prioritized — a system unlikely to interest a nation-state but highly attractive to financially motivated criminals should weight its threat model accordingly."
+      - heading: "Sharing Threat Intelligence: ISACs and Structured Formats"
+        blocks:
+          - type: paragraph
+            text: "No single organization sees the full picture of what threat actors are actively doing, which is why threat intelligence sharing between organizations is a meaningful complement to internal threat modeling. An Information Sharing and Analysis Center (ISAC) is an industry-specific body (financial services, healthcare, and many other sectors each have one) through which member organizations share observed threat indicators and attack patterns with each other, on the premise that attackers frequently reuse infrastructure and techniques across multiple victims in the same sector, so early warning shared by one victim can help others avoid becoming the next one. STIX (Structured Threat Information eXpression) and TAXII (Trusted Automated eXchange of Indicator Information) are the standardized technical formats and transport protocol commonly used to actually exchange this threat intelligence in a machine-readable way, letting one organization's detection tooling automatically ingest and act on indicators shared by another organization or an ISAC, rather than requiring manual, ad hoc information exchange."
+
+  - id: d1-t11
+    domain: domain1
+    number: "1.11"
+    title: "Supply Chain Risk Management (SCRM)"
+    summary: "Managing the security risk introduced by third-party vendors, suppliers, and the products/components they provide."
+    tags: ["supply chain", "third-party risk", "SCRM"]
+    key_terms: ["SCRM", "SLA", "Vendor Risk Assessment", "Software Bill of Materials (SBOM)", "Vendor Tiering", "Counterfeit Hardware"]
+    sections:
+      - heading: "Why the Supply Chain Is an Attack Surface"
+        blocks:
+          - type: paragraph
+            text: "An organization's security is only as strong as its weakest supplier. Attackers increasingly target trusted third parties — software vendors, hardware manufacturers, managed service providers, cloud providers — as a way into otherwise well-defended targets, because a compromise there can be distributed to every downstream customer at once (as seen in major supply-chain compromises of software build pipelines)."
+          - type: callout
+            style: example
+            text: "A vendor's compromised software update, once digitally signed and pushed through the normal update channel, can bypass the very controls the receiving organization trusts to only accept legitimate code."
+      - heading: "Hardware Supply Chain Risk"
+        blocks:
+          - type: paragraph
+            text: "Supply chain risk isn't limited to software — hardware components can be counterfeited (substandard parts sold as genuine, which may fail unpredictably or lack claimed security features) or tampered with during manufacturing or shipping (implants added to hardware before it ever reaches the customer). Because hardware tampering happens outside the organization's own environment entirely, defenses lean heavily on sourcing controls: purchasing only through authorized/verified distributors, verifying tamper-evident packaging on arrival, and — for especially sensitive components — third-party hardware verification or attestation (tying back to the TPM/Secure Boot integrity-verification concepts from Domain 3)."
+      - heading: "Managing Third-Party Risk"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Vendor risk assessments — evaluating a supplier's security posture before and during the relationship (questionnaires, audits, certifications like SOC 2)"
+              - "Vendor tiering — not every vendor warrants the same scrutiny; tiering vendors by the sensitivity of what they access or the criticality of what they provide lets a limited assessment/monitoring budget focus on the vendors that pose the most risk, rather than spreading equally thin across every supplier regardless of exposure"
+              - "Contractual controls — SLAs defining security/availability commitments, right-to-audit clauses, breach notification requirements"
+              - "Software Bill of Materials (SBOM) — an inventory of components inside a piece of software, so known vulnerabilities in third-party/open-source components can be tracked"
+              - "Ongoing monitoring — risk doesn't end at contract signature; supplier posture should be reassessed periodically, not just at onboarding"
+          - type: paragraph
+            text: "SCRM applies across the entire lifecycle: from vetting a supplier, through contractual protections during the relationship, to a secure offboarding process when a vendor relationship ends (revoking access, ensuring data return or destruction)."
+      - heading: "Key Contract Clauses for Managing Vendor Risk"
+        blocks:
+          - type: paragraph
+            text: "Beyond a general SLA, specific contractual clauses are what actually give an organization leverage and recourse in a vendor relationship, and the exam expects familiarity with the common ones: a right-to-audit clause lets the customer (or an agreed third party) formally verify the vendor's security controls rather than relying purely on the vendor's self-reported claims; a breach notification clause specifies how quickly and in what detail the vendor must inform the customer of a security incident affecting the customer's data, which is critical for the customer to meet its own downstream regulatory notification deadlines (e.g. under GDPR or HIPAA); a data handling/return-or-destruction clause specifies exactly what happens to the customer's data at the end of the relationship; and liability/indemnification clauses allocate financial responsibility if the vendor's failure causes the customer harm. A vendor contract with strong technical security commitments but no audit rights or breach notification clause gives the customer very little practical way to verify or act on those commitments."
+      - heading: "Fourth-Party Risk"
+        blocks:
+          - type: paragraph
+            text: "A vendor's own subcontractors and suppliers — the organization's fourth parties — inherit into the risk chain even though the organization has no direct contractual relationship with them at all. A cloud-based SaaS vendor might itself depend on an underlying infrastructure provider, a payment processor, and various subcontracted support functions; a security failure at any of those fourth parties can cascade into the organization's own risk exposure exactly the same way a direct vendor's failure would, but with far less visibility and no direct contractual leverage to demand changes. Managing this realistically usually means requiring vendors, through the contract clauses above (particularly the right-to-audit and breach notification clauses), to maintain and be accountable for their own subcontractor risk management, rather than the organization attempting to directly assess every fourth party itself — SCRM at this depth is fundamentally about extending accountability down the chain contractually, since direct assessment of every subcontractor several layers removed usually isn't practical."
+
+  - id: d1-t12
+    domain: domain1
+    number: "1.12"
+    title: "Security Awareness, Education, and Training"
+    summary: "Building a program that changes user behavior, distinguishing awareness, training, and education, and measuring effectiveness."
+    tags: ["security awareness", "training", "human factor"]
+    key_terms: ["Security Awareness", "Phishing Simulation", "Training vs. Education", "Metrics", "Leading Indicator", "Lagging Indicator", "Social Engineering"]
+    sections:
+      - heading: "Awareness, Training, and Education Are Different"
+        blocks:
+          - type: paragraph
+            text: "Awareness changes attitudes and habits — brief, frequent reminders (posters, phishing simulations, short videos) aimed at the whole workforce so secure behavior becomes second nature. Training builds specific skills needed for a job function (e.g. secure coding training for developers). Education builds deep understanding and the ability to apply judgment in novel situations (e.g. a formal degree or certification program, like the CISSP itself). All three are needed; a program that only does one leaves gaps — awareness alone won't teach a developer to avoid SQL injection, and training alone won't stop a general employee from clicking a phishing link."
+      - heading: "Building an Effective Program"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Tailor content to audience — executives, general staff, developers, and privileged users each need different emphasis"
+              - "Repeat and reinforce — a single annual training video has minimal lasting effect; frequent, short touchpoints work better"
+              - "Simulate real threats — phishing simulations measure actual susceptibility, not just quiz scores"
+              - "Measure outcomes — track click rates on simulated phishing, incident trends, and completion rates, and feed results back into the program"
+          - type: callout
+            style: tip
+            text: "The exam frames awareness training as a control, just like a firewall — it exists to reduce the likelihood of a threat (usually social engineering) succeeding, and its effectiveness should be measured the same way any other control is measured."
+      - heading: "Common Social Engineering Techniques to Train Against"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Phishing — fraudulent, mass-targeted messages (usually email) designed to trick recipients into revealing credentials or installing malware"
+              - "Spear phishing — the same technique, but researched and tailored to a specific individual or small group, making it far more convincing and harder to spot than generic phishing"
+              - "Whaling — spear phishing specifically targeting senior executives, who often have both high-value access and less day-to-day exposure to routine security training"
+              - "Pretexting — inventing a fabricated scenario or false identity to manipulate a target into divulging information or performing an action (e.g. impersonating IT support to obtain a password reset)"
+              - "Baiting — offering something enticing (a found USB drive, a free download) that delivers malware when the victim takes the bait"
+              - "Vishing / smishing — the same social-engineering goals as phishing, delivered by voice call or SMS text message instead of email"
+          - type: callout
+            style: example
+            text: "Whaling specifically targets executives because a successful compromise of an executive's account or judgment (e.g. a fraudulent wire transfer request that appears to come from the CEO) tends to carry outsized financial or access impact compared to compromising a typical employee — which is exactly why awareness programs often build separate, more intensive tracks for executives rather than relying on the same general-audience training."
+      - heading: "Measuring What Actually Matters: Leading vs. Lagging Indicators"
+        blocks:
+          - type: paragraph
+            text: "Training completion rate is a lagging-indicator-adjacent vanity metric on its own — it shows people clicked through content, not that behavior actually changed. Stronger programs track leading indicators (metrics that predict future risk and can be acted on before an incident occurs, like a declining phishing simulation click rate over successive campaigns, or a rising rate of employees correctly reporting suspicious emails) alongside lagging indicators (metrics that measure what already happened, like the number of actual social-engineering-related incidents in a quarter). A program that only reports '98% completed the annual training' is reporting activity, not outcomes — the exam favors answers that tie awareness program effectiveness to measured behavior change, not participation alone."
+      - heading: "Building a Genuine Security Culture"
+        blocks:
+          - type: paragraph
+            text: "The most mature awareness programs aim beyond individual behaviors (don't click this, do that) toward a broader security culture — an environment where secure behavior is the unremarkable default and reporting a mistake or a suspicious event is treated as valued, not punished. A punitive culture, where employees who click a phishing simulation or report their own error face public shaming or harsh discipline, reliably backfires: it teaches people to hide mistakes and stay quiet about suspicious activity rather than report it quickly, which is precisely the opposite of what a detective control (Domain 3) needs from its human sensors to actually work. This is why mature programs favor a supportive, blameless-by-default response to good-faith reporting (reserving real consequences for genuine negligence or willful violation, not honest mistakes) — the goal is maximizing the volume and speed of genuine reporting, since a security team that hears about problems quickly can respond far more effectively than one that only learns about them after they've been concealed and have grown worse."

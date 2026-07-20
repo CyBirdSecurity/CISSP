@@ -53,13 +53,21 @@ const AppState = {
   flashcards: [],
   questions: [],
   interactiveQuestions: [],
+  topics: [],
   loaded: false
 };
 
 // ── Router ───────────────────────────────────────────────────
+// Hash format: #route or #route/param (e.g. #study/d1-t1)
 function getRoute() {
   const hash = window.location.hash.slice(1) || 'home';
-  return hash.split('?')[0]; // strip query params
+  return hash.split('?')[0].split('/')[0]; // strip query params and any sub-route param
+}
+
+function getRouteParam() {
+  const hash = window.location.hash.slice(1) || 'home';
+  const parts = hash.split('?')[0].split('/');
+  return parts.length > 1 ? parts[1] : null;
 }
 
 function navigate(route) {
@@ -79,16 +87,17 @@ function router() {
   });
 
   if (AppState.loaded) {
-    renderPage(route);
+    renderPage(route, getRouteParam());
   }
 }
 
-function renderPage(route) {
+function renderPage(route, param) {
   switch (route) {
     case 'home':        renderHome(); break;
     case 'flashcards':  renderFlashcards(); break;
     case 'quiz':        renderQuiz(); break;
     case 'interactive': renderInteractive(); break;
+    case 'study':       renderStudyGuide(param); break;
     case 'progress':    renderProgress(); break;
   }
 }
@@ -136,6 +145,12 @@ function renderHome() {
             ${answered > 0 ? `${pct}% accuracy · ${answered} answered` : `${totalQ} questions · Not started`}
           </div>
         </div>
+        <button class="domain-card-study-link" onclick="event.stopPropagation(); navigate('study/${d.id}')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          Study this domain
+        </button>
       </div>
     `;
   }).join('');
@@ -192,6 +207,14 @@ function renderInteractive() {
       );
       QuizComponent.startInteractiveOnly();
     }
+  }
+}
+
+// ── Study Guide Page ──────────────────────────────────────────
+function renderStudyGuide(param) {
+  const container = document.getElementById('study-container');
+  if (container && AppState.loaded) {
+    StudyGuideComponent.init(container, AppState.topics, AppState.domains, param);
   }
 }
 
@@ -260,6 +283,29 @@ function renderProgress() {
               </div>
               <div class="domain-progress-bar-wrap">
                 <div class="domain-progress-bar" style="width:${pct}%;background:${barColor}"></div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-section-title">Study Guide Progress</div>
+      <div class="domain-progress-list">
+        ${AppState.domains.map(d => {
+          const reading = Progress.getDomainReadingProgress(d.id, AppState.topics);
+          const pct = reading.total > 0 ? Math.round((reading.read / reading.total) * 100) : 0;
+          return `
+            <div class="domain-progress-item">
+              <div class="domain-progress-row">
+                <div class="domain-progress-name">${d.name}</div>
+                <div class="domain-progress-stats">
+                  ${reading.total > 0 ? `${reading.read}/${reading.total} topics read (${pct}%)` : 'No topics yet'}
+                </div>
+              </div>
+              <div class="domain-progress-bar-wrap">
+                <div class="domain-progress-bar" style="width:${pct}%;background:${d.color || 'var(--c-purple)'}"></div>
               </div>
             </div>
           `;
@@ -412,8 +458,11 @@ async function init() {
     if (loadingText) loadingText.textContent = 'Loading interactive questions…';
     AppState.interactiveQuestions = await Loader.loadAllInteractiveQuestions(AppState.domains);
 
+    if (loadingText) loadingText.textContent = 'Loading study guide…';
+    AppState.topics = await Loader.loadAllTopics(AppState.domains);
+
     // Validate data
-    Validator.validateAll(AppState.domains, AppState.flashcards, AppState.questions, AppState.interactiveQuestions);
+    Validator.validateAll(AppState.domains, AppState.flashcards, AppState.questions, AppState.interactiveQuestions, AppState.topics);
 
     AppState.loaded = true;
 
