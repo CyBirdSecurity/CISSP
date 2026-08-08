@@ -38,6 +38,23 @@ try {
 
 check(domains.length === 8, `8 domains defined (got ${domains.length})`);
 
+// Domain weights drive the readiness score and mock exam composition, so they
+// must match the published ISC2 exam outline. Update these expectations (and
+// data/domains.yml) when ISC2 publishes a new outline after a Job Task Analysis.
+// Current source: CISSP Certification Exam Outline effective April 15, 2024.
+const EXPECTED_WEIGHTS = {
+  domain1: 16, domain2: 10, domain3: 13, domain4: 13,
+  domain5: 13, domain6: 12, domain7: 13, domain8: 10
+};
+{
+  const totalWeight = domains.reduce((sum, d) => sum + (d.weight || 0), 0);
+  check(totalWeight === 100, `domain weights sum to 100 (got ${totalWeight})`);
+  const mismatched = domains.filter(d => d.weight !== EXPECTED_WEIGHTS[d.id]);
+  check(mismatched.length === 0,
+    `domain weights match the April 2024 ISC2 exam outline${
+      mismatched.length ? ` (mismatched: ${mismatched.map(d => `${d.id}=${d.weight}, expected ${EXPECTED_WEIGHTS[d.id]}`).join('; ')})` : ''}`);
+}
+
 const domainIds = new Set(domains.map(d => d.id));
 domains.forEach((d, i) => {
   check(!!d.id,   `domain[${i}] has id`);
@@ -46,6 +63,8 @@ domains.forEach((d, i) => {
 
 // ── question files ────────────────────────────────────────────
 const allQuestionIds = new Set();
+const VALID_COGNITIVE_LEVELS = ['recall', 'applied'];
+const cognitiveTotals = { recall: 0, applied: 0, untagged: 0 };
 
 for (const domain of domains) {
   const file     = `data/questions/${domain.id}.yml`;
@@ -77,6 +96,14 @@ for (const domain of domains) {
     else if (q.correct_answer < 0 || q.correct_answer > 3)           { fail(`${id}: correct_answer ${q.correct_answer} out of range 0-3`); structErrors++; }
     if (!q.explanations || !q.explanations.correct)       { fail(`${id}: missing explanations.correct`); structErrors++; }
 
+    if (q.cognitive_level === undefined || q.cognitive_level === null) {
+      cognitiveTotals.untagged++;
+    } else if (!VALID_COGNITIVE_LEVELS.includes(q.cognitive_level)) {
+      fail(`${id}: invalid cognitive_level "${q.cognitive_level}"`); structErrors++;
+    } else {
+      cognitiveTotals[q.cognitive_level]++;
+    }
+
     // Cross-file duplicate ID check
     if (q.id) {
       if (allQuestionIds.has(q.id)) { fail(`${id}: duplicate question id across files`); structErrors++; }
@@ -84,9 +111,28 @@ for (const domain of domains) {
     }
   }
 
+  // Every question must be answerable as its stated id format so progress
+  // tracking stays consistent across files.
+  const badIds = questions.filter(q => q.id && !/^q-d\d+-\d+$/.test(q.id));
+  check(badIds.length === 0,
+    `all question ids follow the q-d<domain>-<number> format${badIds.length ? ` (bad: ${badIds.map(q => q.id).join(', ')})` : ''}`);
+
   if (structErrors === 0) {
     pass(`all ${questions.length} questions pass structural checks`);
   }
+}
+
+// ── cognitive-level coverage ──────────────────────────────────
+// The real exam is dominated by applied/scenario judgment rather than recall,
+// so a bank that skews heavily to recall will overstate a candidate's readiness.
+console.log('\n=== cognitive level coverage ===');
+{
+  const tagged = cognitiveTotals.recall + cognitiveTotals.applied;
+  check(cognitiveTotals.untagged === 0,
+    `every question has a cognitive_level (${cognitiveTotals.untagged} untagged)`);
+  const appliedPct = tagged > 0 ? Math.round((cognitiveTotals.applied / tagged) * 100) : 0;
+  console.log(`  INFO  ${cognitiveTotals.applied} applied / ${cognitiveTotals.recall} recall (${appliedPct}% applied)`);
+  check(appliedPct >= 30, `at least 30% of questions are applied/scenario (got ${appliedPct}%)`);
 }
 
 // ── flashcard files ───────────────────────────────────────────

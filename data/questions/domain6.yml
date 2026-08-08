@@ -16,6 +16,7 @@ questions:
         - "Black box testing with no prior information correctly describes this scenario."
         - "'Crystal box' is another name for white box testing — full knowledge access."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["pen-testing", "testing-types"]
 
   - id: q-d6-002
@@ -35,6 +36,7 @@ questions:
         - "A score of 9.5 is Critical — not just High (7.0-8.9)."
         - "Critical (9.0-10.0) is correct for 9.5 — requires immediate remediation."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["CVSS", "vulnerability"]
 
   - id: q-d6-003
@@ -54,6 +56,7 @@ questions:
         - "Both vulnerability scanning AND penetration testing require explicit written authorization. Unauthorized scanning is illegal."
         - "Both can be performed internally or by external parties — who performs the test is not the defining difference."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["pen-testing", "scanning"]
 
   - id: q-d6-004
@@ -73,6 +76,7 @@ questions:
         - "'Trust elevation' is not a STRIDE component — 'Elevation of Privilege' (E) is the related concept."
         - "'Transmission interception' is not a STRIDE component — 'Information Disclosure' (I) covers unauthorized data exposure."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "STRIDE"]
 
   - id: q-d6-005
@@ -92,6 +96,7 @@ questions:
         - "IAST (Interactive Application Security Testing) combines static and dynamic approaches — SAST is purely static."
         - "Manual code review is a human process — SAST is an automated static analysis tool."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["SAST", "testing"]
 
   - id: q-d6-006
@@ -111,6 +116,7 @@ questions:
         - "Post-exploitation involves lateral movement, privilege escalation, and maintaining access after initial compromise."
         - "Reporting is the final phase where all findings are documented and presented — this is correct."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["pen-testing", "phases"]
 
   - id: q-d6-007
@@ -130,6 +136,7 @@ questions:
         - "Disaster recovery uses backups of data and system state — log management serves a different, security-focused purpose."
         - "Employee monitoring may be a secondary use, but the primary security purpose is incident investigation and compliance."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["logs", "monitoring"]
 
   - id: q-d6-008
@@ -149,6 +156,7 @@ questions:
         - "An attack detected and blocked is a 'true positive' — the desired IPS outcome."
         - "Exploitability confirmed by pen testing relates to vulnerability management, not IDS detection accuracy."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IDS", "detection"]
 
   - id: q-d6-009
@@ -168,6 +176,7 @@ questions:
         - "Substantive testing verifies the accuracy of data/transactions (financial audit term) — not control operation."
         - "Attribute testing samples transactions to check for a specific characteristic — more common in financial auditing."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["audit", "testing"]
 
   - id: q-d6-010
@@ -187,6 +196,7 @@ questions:
         - "Red team exercises do not provide compliance certifications — they test operational security posture."
         - "Red teams conduct full-scope attacks including physical, social engineering, and internal movement — not just perimeter testing."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["red-team", "assessment"]
 
   - id: q-d6-011
@@ -206,6 +216,7 @@ questions:
         - "Fuzzing correctly describes the technique of sending unexpected inputs to discover vulnerabilities."
         - "Integration testing verifies that different components work together correctly — not security-focused random input testing."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["fuzzing", "testing"]
 
   - id: q-d6-012
@@ -225,6 +236,7 @@ questions:
         - "Both types apply to any service organization, not specific to cloud or on-premises."
         - "Both Type I and Type II require an independent certified public accountant (CPA) or qualified auditor."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["SOC2", "audit", "compliance"]
 
   - id: q-d6-013
@@ -244,6 +256,7 @@ questions:
         - "Performance testing (load testing, stress testing) is a separate testing discipline — code review focuses on correctness and security."
         - "Functional requirement testing is done by functional/acceptance testing — security code review specifically targets security defects."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["code-review", "testing"]
 
   - id: q-d6-014
@@ -263,6 +276,7 @@ questions:
         - "Both can be automated — the distinction is about execution vs. static analysis, not automation level."
         - "Both DAST and SAST test for security issues — the difference is methodology (dynamic vs. static), not the type of issue."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["DAST", "SAST", "testing"]
 
   - id: q-d6-015
@@ -282,6 +296,7 @@ questions:
         - "Common Criteria is international (ISO/IEC) — not a US government classification system, though US DoD uses it."
         - "CC evaluates all types of IT security products — not limited to network intrusion prevention."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["standards", "common-criteria"]
 
   - id: q-d6-016
@@ -301,6 +316,7 @@ questions:
         - "Threat intelligence complements vulnerability scanning — it provides context about which vulnerabilities are actively exploited."
         - "Threat intelligence informs human decisions and automated controls but doesn't automate full incident response."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["threat-intelligence", "monitoring"]
 
   - id: q-d6-017
@@ -320,6 +336,7 @@ questions:
         - "Testing backup systems is disaster recovery testing — regression testing focuses on application security after code changes."
         - "Annual penetration testing is a point-in-time assessment — regression testing is done as part of every change cycle."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["testing", "regression"]
 
   - id: q-d6-018
@@ -339,6 +356,7 @@ questions:
         - "Network performance baselines are operational metrics — security baselines define configuration requirements."
         - "Maximum privilege definitions are part of access control policies — baselines focus on system configuration."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["baselines", "configuration"]
 
   - id: q-d6-019
@@ -358,6 +376,7 @@ questions:
         - "OWASP is a non-profit organization producing open standards — it is not a government authorization body."
         - "OWASP provides methodology and checklists — not a scanning tool itself (though it references tools like OWASP ZAP)."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["OWASP", "testing"]
 
   - id: q-d6-020
@@ -377,6 +396,7 @@ questions:
         - "Query performance timing is a performance/SLA concern — not output validation."
         - "Authentication headers are part of API security configuration — output validation encodes response content to prevent XSS."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["XSS", "secure-coding", "testing"]
 
   - id: q-d6-021
@@ -396,6 +416,7 @@ questions:
         - "Remediation budgets are financial/project decisions — not part of the testing scope document."
         - "Patch timelines are post-test management decisions — scope defines what is tested, not post-test activities."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["pen-testing", "governance"]
 
   - id: q-d6-022
@@ -415,6 +436,7 @@ questions:
         - "Log encryption for compliance is a log management feature — SIEM's primary purpose is correlation and detection."
         - "Automated patching is a patch management function — SIEM detects and alerts on security events but doesn't patch."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["SIEM", "monitoring"]
 
   - id: q-d6-023
@@ -434,6 +456,7 @@ questions:
         - "Continuous penetration testing is not operationally feasible and would disrupt systems — continuous monitoring uses passive observation and automated scanning."
         - "Network performance monitoring is operational management — security continuous monitoring tracks controls and threats."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["monitoring", "NIST"]
 
   - id: q-d6-024
@@ -453,6 +476,7 @@ questions:
         - "Testing network interface cards is hardware diagnostics — application interface testing examines software interfaces."
         - "Data correctness is functional testing — security interface testing looks for vulnerabilities in how interfaces handle malformed or malicious input."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["testing", "API"]
 
   - id: q-d6-025
@@ -472,6 +496,7 @@ questions:
         - "Log encryption is a transport/storage security control — normalization is a data format standardization process."
         - "Event prioritization/triage is correlation rule processing — normalization must happen before correlation is possible."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["SIEM", "logs"]
 
   - id: q-d6-026
@@ -491,6 +516,7 @@ questions:
         - "Post-attack malware analysis is forensic investigation — attack surface analysis is proactive and pre-attack."
         - "Traffic pattern analysis is network monitoring — attack surface analysis maps what can be attacked, not what is being attacked."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "architecture"]
 
   - id: q-d6-027
@@ -510,6 +536,7 @@ questions:
         - "Both vulnerabilities and exploits can affect hardware, software, or configurations — no hardware/software distinction."
         - "This is reversed — a vulnerability is the weakness; an exploit is the developed technique to use it."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["vulnerability", "fundamentals"]
 
   - id: q-d6-028
@@ -529,6 +556,7 @@ questions:
         - "Vulnerability scanning is performed on varying schedules — Patch Tuesday is specifically Microsoft's patch release day."
         - "CISA vulnerability reporting uses different processes (CVD programs) — Patch Tuesday is Microsoft's release cycle."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["patch-management", "vulnerability"]
 
   - id: q-d6-029
@@ -548,6 +576,7 @@ questions:
         - "Both threat hunting and incident response involve skilled humans — automation assists but doesn't replace human judgment."
         - "Both can be performed by internal or external teams — neither is limited by who performs it."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["threat-hunting", "detection"]
 
   - id: q-d6-030
@@ -567,6 +596,7 @@ questions:
         - "Both produce formal reports — internal audit reports may be less formal but still document findings systematically."
         - "External audits are not free — they are typically expensive professional engagements."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["audit", "governance"]
 
   - id: q-d6-031
@@ -586,6 +616,7 @@ questions:
         - "Competitive benchmarking may be a use case but is not the primary purpose of internal security metrics."
         - "Identifying training needs may be informed by metrics but is one narrow application — the primary purpose is measuring program effectiveness."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["metrics", "governance"]
 
   - id: q-d6-032
@@ -605,6 +636,7 @@ questions:
         - "Both require authorization in penetration testing contexts — passive reconnaissance of public information generally doesn't require authorization but active probing does."
         - "Both passive and active reconnaissance apply to websites, networks, applications, and infrastructure."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["reconnaissance", "pen-testing"]
 
   - id: q-d6-033
@@ -624,6 +656,7 @@ questions:
         - "Tool configuration affects what vulnerabilities are found — the described scenario is about remediation failure, not detection gaps."
         - "A vulnerability disclosure policy governs how external researchers report vulnerabilities — not the organization's internal remediation program."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["vulnerability", "management"]
 
   - id: q-d6-034
@@ -643,6 +676,7 @@ questions:
         - "Both assessments can target web applications, networks, and systems — scope depends on engagement objectives, not the assessment type."
         - "White-box penetration testing uses source code access, but black-box pen tests do not — vulnerability assessment does not require source code."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["assessment", "pen-testing", "vulnerability"]
 
   - id: q-d6-035
@@ -662,6 +696,7 @@ questions:
         - "Low CVSS scores reflect difficult exploitation — a 9.8 Critical reflects the easiest possible exploitation conditions."
         - "Physical access would be Attack Vector: Physical — the Network vector means internet-accessible."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["vulnerability", "CVSS", "metrics"]
 
   - id: q-d6-036
@@ -681,6 +716,7 @@ questions:
         - "Neither type is exclusively required for government vs. commercial — both are used across sectors based on client requirements."
         - "Neither type examines source code — SOC 2 examines security, availability, processing integrity, confidentiality, and privacy controls."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["compliance", "audit", "SOC2"]
 
   - id: q-d6-037
@@ -700,6 +736,7 @@ questions:
         - "Information Disclosure (unauthorized access to another user's records) is the correct STRIDE category for this IDOR vulnerability."
         - "Denial of Service involves making services unavailable — unauthorized data access is an availability concern, not DoS."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "STRIDE", "assessment"]
 
   - id: q-d6-038
@@ -719,6 +756,7 @@ questions:
         - "Black box testing (no internal knowledge, tester must discover everything) is the correct answer."
         - "Crystal box is another term for white box testing (full knowledge) — not the scenario described."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["pen-testing", "testing-types"]
 
   - id: q-d6-039
@@ -738,6 +776,7 @@ questions:
         - "Manual penetration testing by an experienced tester who understands the business context is the most effective for logic vulnerabilities."
         - "Fuzzing sends random/malformed inputs to find crashes and input handling bugs — it is not effective for business logic vulnerabilities that require understanding intended behavior."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["pen-testing", "testing-types", "business-logic"]
 
   - id: q-d6-040
@@ -757,6 +796,7 @@ questions:
         - "No penetration testing engagement can guarantee complete vulnerability coverage — rules of engagement define scope and authorization, not completeness guarantees."
         - "Tool selection may be discussed but is typically the tester's professional judgment — rules of engagement focus on authorization and scope."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["pen-testing", "governance"]
 
   - id: q-d6-041
@@ -776,6 +816,7 @@ questions:
         - "Both red teams and pen testers can be internal employees or external consultants — organizational location is not the distinction."
         - "Reporting structure varies by organization and doesn't define the difference between red teaming and pen testing."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["pen-testing", "red-team", "assessment"]
 
   - id: q-d6-042
@@ -795,6 +836,7 @@ questions:
         - "Identify, Protect, Detect, Respond describes the NIST Cybersecurity Framework (CSF) functions — not SP 800-115 assessment phases."
         - "Pre-engagement, Intelligence Gathering, Vulnerability Analysis, Exploitation describes the PTES (Penetration Testing Execution Standard) — not NIST SP 800-115."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["standards", "NIST", "pen-testing", "SP800-115"]
 
   - id: q-d6-043
@@ -814,6 +856,7 @@ questions:
         - "Privilege escalation and authorization testing (testing whether lower-privileged users can access higher-privileged functionality) is the correct answer."
         - "SQL injection tests database query manipulation through user input — not testing authorization boundaries between user roles."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["pen-testing", "authorization", "assessment"]
 
   - id: q-d6-044
@@ -833,6 +876,7 @@ questions:
         - "Temporary controls during installation are operational workarounds — PCI compensating controls are formal documented alternatives, not just interim measures."
         - "Compensating controls are about meeting security requirements when primary controls can't be implemented — not about cost management."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["compliance", "PCI", "controls"]
 
   - id: q-d6-045
@@ -852,6 +896,7 @@ questions:
         - "Log review shows past attack attempts but not employee susceptibility — it doesn't reveal who would click a well-crafted phishing email."
         - "Self-reporting is highly inaccurate — employees either don't remember, underreport to avoid embarrassment, or don't recognize what constitutes suspicious behavior."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["social-engineering", "assessment", "awareness"]
 
   - id: q-d6-046
@@ -871,6 +916,7 @@ questions:
         - "Number of scanners measures tool deployment, not program effectiveness — more scanners with poor remediation is still ineffective."
         - "Budget allocated to patching measures investment but not outcomes — a large budget with poor execution produces poor results."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["vulnerability", "metrics", "management"]
 
   - id: q-d6-047
@@ -890,6 +936,7 @@ questions:
         - "Input handling crashes, buffer overflows, and format string vulnerabilities are the primary targets of fuzzing — this is correct."
         - "ORM-based queries with parameterization are generally not vulnerable to injection — and fuzzing doesn't specifically target database layer vulnerabilities."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["fuzzing", "testing", "vulnerabilities"]
 
   - id: q-d6-048
@@ -909,6 +956,7 @@ questions:
         - "Risk transfer may be appropriate but should be evaluated after considering additional mitigation options — immediate transfer without analysis may be premature."
         - "Active high-residual-risk items must remain in the risk register with updated treatment plans — removing them creates false assurance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "governance", "risk-register"]
 
   - id: q-d6-051
@@ -928,6 +976,7 @@ questions:
         - "Input validation testing is a type of functional security testing — not regression testing specifically."
         - "Performance benchmarks are non-functional testing — security regression testing focuses on verifying security fixes remain effective."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["testing", "vulnerability", "SDLC"]
 
   - id: q-d6-052
@@ -947,6 +996,7 @@ questions:
         - "MTTD/MTTR improvement over time demonstrates measurable, business-relevant security program effectiveness — these are outcome metrics executives can relate to breach risk and cost."
         - "Emails blocked is a volume metric — it shows activity but not whether the organization is more secure as a result."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["governance", "metrics", "management"]
 
   - id: q-d6-049
@@ -966,6 +1016,7 @@ questions:
         - "Physical access logs track building entry — irrelevant to detecting a web-layer attack."
         - "DNS logs might show exfiltration via DNS tunneling — but for SQL injection data exfiltration through the application, web and database logs are more directly relevant."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["monitoring", "logs", "assessment"]
 
   - id: q-d6-050
@@ -985,6 +1036,7 @@ questions:
         - "CIS Benchmarks are public, unclassified documents freely available for any organization — not government-classified requirements."
         - "CIS Benchmarks cover system and infrastructure configurations — not application source code security."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["standards", "compliance", "configuration"]
 
   - id: q-d6-053
@@ -1003,6 +1055,7 @@ questions:
         - "Coordinated notification to the vendor first is correct — government notification may follow but vendor-first is the responsible disclosure standard."
         - "Selling exploits to brokers is legal in some contexts but is not responsible disclosure and may violate the vendor's terms or applicable law."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["responsible-disclosure", "vulnerability-disclosure", "CVD", "ethics"]
 
   - id: q-d6-054
@@ -1022,6 +1075,7 @@ questions:
         - "Asset value and control effectiveness are Environmental score metrics that organizations overlay on the base score."
         - "Vulnerability age and patch availability are Temporal metrics, not base score components."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["CVSS", "vulnerability-scoring", "base-score", "metrics"]
 
   - id: q-d6-055
@@ -1041,6 +1095,7 @@ questions:
         - "Production risk is managed by scoping all team types; purple teams don't inherently reduce this risk."
         - "Purple teams complement continuous monitoring by improving detection logic; they do not replace monitoring infrastructure."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["purple-team", "red-team", "blue-team", "security-testing"]
 
   - id: q-d6-056
@@ -1060,6 +1115,7 @@ questions:
         - "Authentication weaknesses are found through DAST, code review, or threat modeling — SCA analyzes dependency versions."
         - "Cloud misconfiguration is addressed by CSPM (Cloud Security Posture Management) tools, not SCA."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["SCA", "supply-chain", "open-source", "dependency-management"]
 
   - id: q-d6-057
@@ -1079,6 +1135,7 @@ questions:
         - "Analyzing code without execution describes SAST, not IAST."
         - "Simulating external attacks describes DAST (black-box external testing), not IAST."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAST", "application-security-testing", "SAST", "DAST"]
 
   - id: q-d6-058
@@ -1098,6 +1155,7 @@ questions:
         - "Vulnerability disclosure terms are typically covered in a separate NDA or Rules of Engagement document."
         - "Payment terms and IP ownership are commercial contract provisions, not the authorization letter's function."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["penetration-testing", "authorization", "legal", "rules-of-engagement"]
 
   - id: q-d6-059
@@ -1117,6 +1175,7 @@ questions:
         - "Disclosure age affects the Temporal score's Report Confidence metric, not the environmental score."
         - "Lack of public exploit reduces the Temporal Exploitability metric, lowering the score — not raising it."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["CVSS", "environmental-score", "vulnerability-management", "risk-context"]
 
   - id: q-d6-060
@@ -1136,6 +1195,7 @@ questions:
         - "Credentialed scans perform more thorough assessment and are not necessarily faster than network-only scans."
         - "Exploit execution is the domain of penetration testing, not vulnerability scanning — scanners detect vulnerabilities, not prove them via exploitation."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["vulnerability-scanning", "credentialed-scan", "patch-management", "assessment"]
 
   - id: q-d6-061
@@ -1155,6 +1215,7 @@ questions:
         - "Insecure Design is a new category in 2021, not a rename of Security Misconfiguration (which remains a separate category)."
         - "API-specific security is covered by the OWASP API Security Top 10, a separate list."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["OWASP", "secure-design", "threat-modeling", "application-security"]
 
   - id: q-d6-062
@@ -1174,6 +1235,7 @@ questions:
         - "Preventive controls fail; defense in depth requires both prevention and detection. Relying solely on prevention leaves no visibility if prevention fails."
         - "SIEM capabilities do not determine ATT&CK coverage; detection logic is written by the security team, not the SIEM vendor."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["MITRE-ATT&CK", "detection-coverage", "threat-detection", "security-engineering"]
 
   - id: q-d6-063
@@ -1193,6 +1255,7 @@ questions:
         - "Smishing uses SMS text messages to manipulate targets — different medium from phone calls."
         - "Tailgating involves physical access — following someone through a secured door; it is a physical security attack, not voice-based."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["social-engineering", "vishing", "phishing", "security-awareness"]
 
   - id: q-d6-064
@@ -1212,6 +1275,7 @@ questions:
         - "They serve distinct purposes in a layered vulnerability taxonomy, not equivalent identifiers."
         - "CVSS scores are a separate standard; ATT&CK mapping and CVE/CWE/CPE serve different functions."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["CVE", "CWE", "CPE", "vulnerability-management"]
 
   - id: q-d6-065
@@ -1231,6 +1295,7 @@ questions:
         - "While continuous, bug bounty testing is opportunistic; coverage is not guaranteed and depends on researcher interest in the scope."
         - "Bug bounty programs cannot guarantee finding all vulnerabilities; they provide incentivized discovery, not exhaustive coverage."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["bug-bounty", "vulnerability-disclosure", "external-testing", "security-program"]
 
   - id: q-d6-066
@@ -1250,6 +1315,7 @@ questions:
         - "CCE provides unique identifiers for configuration settings, not the checklist structure itself."
         - "OCIL supports interactive questionnaire-based checks; it does not define automated configuration benchmarks."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["SCAP", "XCCDF", "OVAL", "configuration-management"]
 
   - id: q-d6-067
@@ -1269,6 +1335,7 @@ questions:
         - "CIS Benchmarks address server hardening configurations, not API endpoint discovery."
         - "Authentication testing only covers the login mechanism; it does not discover the full attack surface."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["API-security", "shadow-APIs", "security-assessment", "fuzzing"]
 
   - id: q-d6-068
@@ -1288,6 +1355,7 @@ questions:
         - "DNS cache poisoning via SSRF is theoretically possible but requires specific conditions and is not the primary critical target."
         - "WAF bypass via SSRF is not a standard exploitation path; SSRF targets internal services, not WAF infrastructure."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["SSRF", "cloud-security", "IMDS", "application-security"]
 
   - id: q-d6-069
@@ -1307,6 +1375,7 @@ questions:
         - "CIS Controls and ISO 27001 are separate frameworks; CIS IG1 compliance does not map directly to ISO 27001 readiness."
         - "IG1 completion is a starting point; IG2 and IG3 controls provide additional security improvements for most organizations."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["CIS-Controls", "security-maturity", "IG1", "cyber-hygiene"]
 
   - id: q-d6-070
@@ -1326,6 +1395,7 @@ questions:
         - "Scan frequency is a process metric; it measures activity, not outcome (risk reduction)."
         - "Scan coverage is an important input metric but does not measure whether found vulnerabilities are being addressed."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["vulnerability-management", "MTTR", "security-metrics", "risk-reduction"]
 
   - id: q-d6-071
@@ -1345,6 +1415,7 @@ questions:
         - "Server header trust is a different issue; CSRF exploits the session cookie mechanism, not header validation."
         - "IP-based trust is a different vulnerability category; CSRF works regardless of IP addressing."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["CSRF", "web-security", "session-management", "cookies"]
 
   - id: q-d6-072
@@ -1364,6 +1435,7 @@ questions:
         - "Partial information (IP ranges, URLs, limited credentials) is correct — this defines the gray-box approach."
         - "Providing the vulnerability scan list would bias testing toward known findings rather than discovering new ones — not standard gray-box practice."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["gray-box-testing", "penetration-testing", "black-box", "white-box"]
 
   - id: q-d6-073
@@ -1383,6 +1455,7 @@ questions:
         - "Data sovereignty requirements exist but FedRAMP's primary purpose is the authorization and continuous monitoring framework, not solely data location."
         - "FedRAMP is a security authorization framework; pricing is governed by federal procurement regulations, not FedRAMP."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["FedRAMP", "cloud-authorization", "federal-compliance", "continuous-monitoring"]
 
   - id: q-d6-074
@@ -1402,6 +1475,7 @@ questions:
         - "Random input triggering an error response with a stack trace shows information disclosure; SQL injection would require confirming data manipulation, not just an error message."
         - "Error messages revealing implementation details are security-relevant regardless of whether they represent application errors."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["information-disclosure", "error-handling", "fuzzing", "API-security"]
 
   - id: q-d6-075
@@ -1421,6 +1495,7 @@ questions:
         - "Reconnaissance, Weaponization, Delivery, and Exploitation are phases of the Cyber Kill Chain, not the Diamond Model."
         - "Threat, Vulnerability, Likelihood, and Impact describe risk components in risk assessment frameworks."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["Diamond-Model", "threat-intelligence", "intrusion-analysis", "threat-attribution"]
 
   - id: q-d6-076
@@ -1440,6 +1515,7 @@ questions:
         - "Mass assignment allows setting unintended object properties via bulk parameter assignment; it is a different vulnerability class."
         - "JWT algorithm confusion exploits JWT signature verification, not object-level access control."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["IDOR", "BOLA", "authorization", "API-security"]
 
   - id: q-d6-077
@@ -1459,6 +1535,7 @@ questions:
         - "Using false emergencies for physical access is a social engineering technique called pretexting, not war driving."
         - "Physical surveillance of cameras is a reconnaissance technique but not what war driving describes."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["war-driving", "wireless-security", "reconnaissance", "physical-security"]
 
   - id: q-d6-078
@@ -1478,6 +1555,7 @@ questions:
         - "Expanding scope of one annual test helps coverage but doesn't address the time gap between tests."
         - "Full-time testers could increase frequency but automated scanning is more scalable and cost-effective for continuous coverage."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["vulnerability-scanning", "penetration-testing", "continuous-monitoring", "security-program"]
 
   - id: q-d6-079
@@ -1497,6 +1575,7 @@ questions:
         - "Ignoring the old control period would leave an untested gap in the audit coverage, which is not acceptable."
         - "Retroactive application of controls is not possible in a SOC 2 Type II context; the audit assesses what actually happened."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["SOC2", "audit", "control-testing", "operational-effectiveness"]
 
   - id: q-d6-080
@@ -1516,6 +1595,7 @@ questions:
         - "Reporting is the final phase after all testing is complete, not immediately after each successful exploit."
         - "Remediation is the organization's responsibility after receiving the report; it is not a penetration tester activity during the test."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["penetration-testing", "post-exploitation", "Metasploit", "attack-lifecycle"]
 
   - id: q-d6-081
@@ -1535,6 +1615,7 @@ questions:
         - "Root cause investigation and risk-prioritized remediation is correct — this is the standard vulnerability management response."
         - "Executive reporting may be appropriate for executive-level metrics reporting but should come after investigation, not as the first action."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["security-baseline", "configuration-management", "vulnerability-remediation", "compliance"]
 
   - id: q-d6-082
@@ -1554,6 +1635,7 @@ questions:
         - "Mobile attack surface includes the app binary, local data storage, IPC mechanisms, and backend APIs — not necessarily smaller."
         - "App store review catches some malware but does not constitute a comprehensive security assessment of business logic or API security."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["mobile-security", "certificate-pinning", "app-testing", "binary-analysis"]
 
   - id: q-d6-083
@@ -1573,6 +1655,7 @@ questions:
         - "DREAD is a risk scoring model (Damage, Reproducibility, Exploitability, Affected Users, Discoverability) for prioritizing threats, not a methodology using attack trees."
         - "OCTAVE (Operationally Critical Threat, Asset, and Vulnerability Evaluation) is an organizational risk assessment framework, not a development threat modeling methodology using attack trees."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "PASTA", "attack-trees", "STRIDE"]
 
   - id: q-d6-084
@@ -1592,6 +1675,7 @@ questions:
         - "Disciplinary action for failing simulations discourages reporting and creates adversarial security culture; awareness programs work better with a supportive approach."
         - "Testing only executives misses the broader employee population; most attacks target the full workforce."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["phishing-simulation", "security-awareness", "behavior-change", "training"]
 
   - id: q-d6-085
@@ -1611,6 +1695,7 @@ questions:
         - "CVSS base scores are explicitly designed to be starting points; the Environmental metric is provided for organizational context adjustment."
         - "Development environment vulnerabilities may be deprioritized relative to production, but blanket low-priority treatment is an overgeneralization."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["CVSS", "risk-prioritization", "vulnerability-management", "context"]
 
   - id: q-d6-086
@@ -1630,6 +1715,7 @@ questions:
         - "UI breakage may occur but is a minor consequence; data theft and account takeover are the security-critical impacts."
         - "XSS is client-side JavaScript execution in browsers; it does not provide file system access to the web server."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["XSS", "stored-XSS", "web-security", "session-hijacking"]
 
   - id: q-d6-087
@@ -1649,6 +1735,7 @@ questions:
         - "Billing disputes are commercial contract provisions, not technical rules of engagement."
         - "Regulatory reporting requirements are compliance obligations; cleanup procedures address operational test residue."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["penetration-testing", "rules-of-engagement", "cleanup", "test-artifacts"]
 
   - id: q-d6-088
@@ -1668,6 +1755,7 @@ questions:
         - "Threat modeling is architectural/design-phase activity; it doesn't verify patch effectiveness."
         - "User acceptance testing validates functional requirements; security regression testing is specifically for security fix verification."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["regression-testing", "patch-verification", "security-testing", "vulnerability-management"]
 
   - id: q-d6-089
@@ -1687,6 +1775,7 @@ questions:
         - "Immediate notification per the escalation procedures is correct — active compromises are critical out-of-band findings requiring urgent client notification."
         - "Including in the final report without immediate notification allows active exfiltration to continue; the client needs to act immediately."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["penetration-testing", "incident-response", "active-compromise", "rules-of-engagement"]
 
   - id: q-d6-090
@@ -1706,6 +1795,7 @@ questions:
         - "Network bandwidth consumption is not a meaningful differentiator between detection and blocking modes."
         - "WAF tuning is typically done in detection mode before switching to blocking; detection mode is specifically designed to allow tuning."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["WAF", "detection-mode", "false-sense-of-security", "application-security"]
 
   - id: q-d6-091
@@ -1725,6 +1815,7 @@ questions:
         - "Defining scope, rules of engagement, and intelligence gathering is correct — these are Planning phase activities."
         - "Privilege escalation is a post-exploitation activity within the Attack phase."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["NIST-800-115", "penetration-testing", "planning", "reconnaissance"]
 
   - id: q-d6-092
@@ -1744,6 +1835,7 @@ questions:
         - "Scope creep could affect any assessment; risk-based assessments find more because they look at a broader scope, not due to uncontrolled expansion."
         - "Vulnerability signature currency is not determined by whether an assessment is compliance-based or risk-based."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["compliance-scanning", "risk-based-assessment", "vulnerability-management", "compliance-gap"]
 
   - id: q-d6-093
@@ -1763,6 +1855,7 @@ questions:
         - "Policy without technical control relies on developer compliance; pre-commit hooks enforce policy automatically."
         - "Weekly scanning is better than quarterly but still allows up to 7 days of exposure; pre-commit hooks prevent exposure entirely."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["secrets-management", "pre-commit-hooks", "DevSecOps", "code-security"]
 
   - id: q-d6-094
@@ -1782,6 +1875,7 @@ questions:
         - "No government certification requirement for ICS testers exists as a blanket requirement; sector-specific requirements vary."
         - "ICS environments can and should be assessed; the approach is adapted for safety, not avoided entirely."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["ICS-security", "SCADA", "OT-security", "penetration-testing"]
 
   - id: q-d6-095
@@ -1801,6 +1895,7 @@ questions:
         - "Compliance-driven patching follows regulatory schedules, not CVSS severity tiers; these timelines may differ from regulatory requirements."
         - "Automated patching without oversight is a different concept; the SLA structure describes a governance framework, not automation."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["patch-management", "SLA", "risk-based", "vulnerability-management"]
 
   - id: q-d6-096
@@ -1820,6 +1915,7 @@ questions:
         - "WAFs and RASP both can detect SQLi patterns; RASP's advantage is context-aware detection, not database log analysis."
         - "RASP detects and blocks attacks at runtime but does not fix underlying code vulnerabilities; secure development remains necessary."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["RASP", "WAF", "runtime-protection", "application-security"]
 
   - id: q-d6-097
@@ -1839,6 +1935,7 @@ questions:
         - "Data access provides as much risk as network access; vendors processing sensitive data must be assessed."
         - "One-size-fits-all controls ignore the different risk profiles of different vendors; risk-tiered requirements are more effective and practical."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["third-party-risk", "vendor-assessment", "supply-chain", "security-questionnaire"]
 
   - id: q-d6-098
@@ -1858,6 +1955,7 @@ questions:
         - "CA invoices only show certificates purchased from that specific CA; shadow IT certificates from other CAs or unauthorized issuances are missed."
         - "Network scanning finds deployed certificates but misses certificates that were issued but not yet deployed or deployed on unknown hosts."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["certificate-transparency", "PKI", "CA", "certificate-monitoring"]
 
   - id: q-d6-099
@@ -1877,6 +1975,7 @@ questions:
         - "Recovery time is a business continuity metric not included in the DREAD model."
         - "Affected users is the 'A' in DREAD; 'R' specifically measures attack reproducibility."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["DREAD", "threat-modeling", "risk-scoring", "vulnerability-assessment"]
 
   - id: q-d6-100
@@ -1896,6 +1995,7 @@ questions:
         - "Compromised registry credentials would allow an attacker to modify existing packages; this attack doesn't require any credential access."
         - "Remote code execution is the consequence of the attack; 'build pipeline RCE' does not name the specific attack technique."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["dependency-confusion", "supply-chain", "CI-CD", "package-security"]
 
   - id: q-d6-101
@@ -1915,6 +2015,7 @@ questions:
         - "OpenIOC is an older Mandiant-created format for expressing indicators of compromise; it predates STIX and has less industry adoption."
         - "MISP is a threat intelligence platform (tool) that can share intelligence; STIX/TAXII are the underlying standards that MISP supports."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["STIX", "TAXII", "threat-intelligence", "information-sharing"]
 
   - id: q-d6-102
@@ -1934,4 +2035,5 @@ questions:
         - "Tabletop exercises are discussion-based scenarios; they do not test technical controls with actual attack simulation."
         - "Red team assessments involve human testers using creative attack methods; BAS is automated and continuous, complementing but not replacing red teams."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["BAS", "breach-attack-simulation", "security-testing", "MITRE-ATT&CK"]

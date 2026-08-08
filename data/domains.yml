@@ -1,8 +1,14 @@
+# Domain weights follow the ISC2 CISSP Certification Exam Outline effective
+# April 15, 2024. That refresh raised Domain 1 from 15% to 16% and lowered
+# Domain 8 from 11% to 10%; all other weights were unchanged. These figures
+# drive the readiness score and mock exam composition, so re-check them
+# against the published outline after each ISC2 Job Task Analysis (triennial).
+# Source: https://www.isc2.org/certifications/cissp/cissp-certification-exam-outline
 domains:
   - id: domain1
     name: Security and Risk Management
     description: Governance, compliance, risk management, and the foundations of security policy
-    weight: 15
+    weight: 16
     color: "#7c3aed"
 
   - id: domain2
@@ -44,5 +50,5 @@ domains:
   - id: domain8
     name: Software Development Security
     description: Secure SDLC, secure coding practices, and software vulnerability management
-    weight: 11
+    weight: 10
     color: "#ec4899"

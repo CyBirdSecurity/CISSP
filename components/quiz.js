@@ -13,12 +13,14 @@ const QuizComponent = (() => {
   let _selectedDomains = [];
   let _questionCount = 10;
   let _includeInteractive = false;
+  let _confidenceMode = false;
 
   // Active quiz state
   let _questions = [];
   let _currentIndex = 0;
   let _answers = {};
   let _answered = false;
+  let _pendingIndex = null; // MC option selected but awaiting a confidence rating
 
   // Review state
   let _reviewItems = [];
@@ -31,6 +33,7 @@ const QuizComponent = (() => {
     _phase = 'setup';
     _selectedDomains = [];
     _answers = {};
+    _pendingIndex = null;
     render();
   }
 
@@ -49,6 +52,7 @@ const QuizComponent = (() => {
     const weakDomains = QuizEngine.getWeakDomains(_domains);
     const domainStats = Progress.getDomainStats();
     const hasInteractive = _allInteractiveQuestions.length > 0;
+    const hasAnyProgress = Progress.getTotalStats().totalAnswered > 0;
 
     _container.innerHTML = `
       <div class="quiz-setup">
@@ -103,6 +107,46 @@ const QuizComponent = (() => {
           </div>
         ` : ''}
 
+        ${_allQuestions.some(q => q.cognitive_level === 'applied') ? `
+          <div class="focus-mode-card scenario-drill-card">
+            <div class="focus-mode-info">
+              <div class="focus-mode-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                Scenario Drill
+              </div>
+              <div class="focus-mode-desc">
+                Applied questions only — situations that ask for the BEST action, the format that dominates the real exam.
+                Recall accuracy alone won't get you there.
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" id="scenario-drill-btn">
+              Start Scenario Drill
+            </button>
+          </div>
+        ` : ''}
+
+        ${hasAnyProgress ? `
+          <div class="focus-mode-card review-queue-card">
+            <div class="focus-mode-info">
+              <div class="focus-mode-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 4v6h6"/><path d="M23 20v-6h-6"/>
+                  <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                </svg>
+                Review Queue
+              </div>
+              <div class="focus-mode-desc">
+                Resurfaces questions you've missed before or haven't seen in a while — prioritized by what needs it most.
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="review-queue-btn">
+              Start Review Queue
+            </button>
+          </div>
+        ` : ''}
+
         <div class="setup-section">
           <label class="setup-label" for="q-count">Number of Questions</label>
           <div class="count-options">
@@ -131,6 +175,22 @@ const QuizComponent = (() => {
             </a>
           </div>
         ` : ''}
+
+        <div class="setup-section">
+          <label class="setup-label">Confidence Calibration</label>
+          <label class="setup-toggle-row" id="confidence-toggle">
+            <div class="setup-toggle-info">
+              <div class="setup-toggle-title">Rate your confidence before each reveal</div>
+              <div class="setup-toggle-desc">
+                On multiple-choice questions, rate how confident you are before seeing if you're right —
+                builds the same judgment-under-uncertainty the real exam requires, and flags overconfidence on your dashboard.
+              </div>
+            </div>
+            <div class="toggle-switch ${_confidenceMode ? 'is-on' : ''}">
+              <div class="toggle-knob"></div>
+            </div>
+          </label>
+        </div>
 
         <div class="setup-actions">
           <button class="btn btn-primary btn-lg" id="start-quiz-btn">
@@ -189,6 +249,14 @@ const QuizComponent = (() => {
       });
     }
 
+    const confidenceToggle = document.getElementById('confidence-toggle');
+    if (confidenceToggle) {
+      confidenceToggle.addEventListener('click', () => {
+        _confidenceMode = !_confidenceMode;
+        confidenceToggle.querySelector('.toggle-switch').classList.toggle('is-on', _confidenceMode);
+      });
+    }
+
     const focusBtn = document.getElementById('focus-mode-btn');
     if (focusBtn) focusBtn.addEventListener('click', () => {
       const weakDomains = QuizEngine.getWeakDomains(_domains);
@@ -196,6 +264,12 @@ const QuizComponent = (() => {
       _phase = 'active';
       _startQuiz();
     });
+
+    const reviewQueueBtn = document.getElementById('review-queue-btn');
+    if (reviewQueueBtn) reviewQueueBtn.addEventListener('click', () => _startReviewQueue());
+
+    const scenarioBtn = document.getElementById('scenario-drill-btn');
+    if (scenarioBtn) scenarioBtn.addEventListener('click', () => _startScenarioDrill());
 
     const startBtn = document.getElementById('start-quiz-btn');
     if (startBtn) startBtn.addEventListener('click', () => {
@@ -214,13 +288,57 @@ const QuizComponent = (() => {
       pool = [..._allQuestions];
     }
 
-    _questions = QuizEngine.selectQuestions(pool, _selectedDomains, _questionCount);
+    _questions = QuizEngine.selectQuestions(pool, _selectedDomains, _questionCount)
+      .map(q => QuizEngine.shuffleOptions(q));
     _currentIndex = 0;
     _answers = {};
     _answered = false;
+    _pendingIndex = null;
 
     if (_questions.length === 0) {
       alert('No questions available for the selected domains.');
+      _phase = 'setup';
+      render();
+      return;
+    }
+
+    Progress.updateSession();
+    _phase = 'active';
+    render();
+  }
+
+  function _startScenarioDrill() {
+    _questions = QuizEngine.selectScenarioQuestions(_allQuestions, _selectedDomains, _questionCount);
+    _currentIndex = 0;
+    _answers = {};
+    _answered = false;
+    _pendingIndex = null;
+
+    if (_questions.length === 0) {
+      alert('No scenario questions available for the selected domains.');
+      _phase = 'setup';
+      render();
+      return;
+    }
+
+    Progress.updateSession();
+    _phase = 'active';
+    render();
+  }
+
+  function _startReviewQueue() {
+    const pool = _includeInteractive
+      ? [..._allQuestions, ..._allInteractiveQuestions]
+      : [..._allQuestions];
+
+    _questions = QuizEngine.getReviewQueue(pool, _questionCount).map(q => QuizEngine.shuffleOptions(q));
+    _currentIndex = 0;
+    _answers = {};
+    _answered = false;
+    _pendingIndex = null;
+
+    if (_questions.length === 0) {
+      alert("No previously-answered questions yet — take a quiz first to build your Review Queue.");
       _phase = 'setup';
       render();
       return;
@@ -239,6 +357,7 @@ const QuizComponent = (() => {
     const userAnswer = _answers[q.id];
     const isInteractive = !!(q.type);
     const progress = Math.round((_currentIndex / _questions.length) * 100);
+    const awaitingConfidence = !isInteractive && !answered && _pendingIndex !== null;
 
     // Reset interactive state on new unanswered question
     if (isInteractive && !answered) {
@@ -266,8 +385,19 @@ const QuizComponent = (() => {
           <div id="question-body">
             ${isInteractive
               ? InteractiveRenderer.render(q, answered, userAnswer)
-              : _renderMCOptions(q, answered, userAnswer)}
+              : _renderMCOptions(q, answered, userAnswer, awaitingConfidence ? _pendingIndex : null)}
           </div>
+
+          ${awaitingConfidence ? `
+            <div id="confidence-zone" class="confidence-zone">
+              <div class="confidence-prompt">How confident are you in that answer?</div>
+              <div class="confidence-options">
+                <button class="confidence-btn confidence-btn--guessing" data-level="guessing">Guessing</button>
+                <button class="confidence-btn confidence-btn--unsure" data-level="unsure">Somewhat Sure</button>
+                <button class="confidence-btn confidence-btn--confident" data-level="confident">Confident</button>
+              </div>
+            </div>
+          ` : ''}
 
           ${answered ? `
             <div id="feedback-zone">
@@ -286,10 +416,10 @@ const QuizComponent = (() => {
       </div>
     `;
 
-    _bindActiveEvents(q, isInteractive, answered);
+    _bindActiveEvents(q, isInteractive, answered, awaitingConfidence);
   }
 
-  function _renderMCOptions(q, answered, selectedIdx) {
+  function _renderMCOptions(q, answered, selectedIdx, lockedIdx = null) {
     return `
       <div class="options-list" id="options-list">
         ${q.options.map((opt, i) => {
@@ -298,9 +428,11 @@ const QuizComponent = (() => {
             if (i === q.correct_answer) cls += ' option-correct';
             else if (i === selectedIdx) cls += ' option-wrong';
             else cls += ' option-disabled';
+          } else if (lockedIdx !== null) {
+            cls += i === lockedIdx ? ' option-locked' : ' option-disabled';
           }
           return `
-            <button class="${cls}" data-index="${i}" ${answered ? 'disabled' : ''}>
+            <button class="${cls}" data-index="${i}" ${answered || lockedIdx !== null ? 'disabled' : ''}>
               <span class="option-letter">${String.fromCharCode(65 + i)}</span>
               <span class="option-text">${escapeHTML(opt)}</span>
               ${answered && i === q.correct_answer
@@ -316,16 +448,37 @@ const QuizComponent = (() => {
     `;
   }
 
-  function _bindActiveEvents(q, isInteractive, answered) {
+  function _bindActiveEvents(q, isInteractive, answered, awaitingConfidence) {
     // MC option selection
-    if (!isInteractive && !answered) {
+    if (!isInteractive && !answered && !awaitingConfidence) {
       document.querySelectorAll('.option-btn:not([disabled])').forEach(btn => {
         btn.addEventListener('click', () => {
           const selectedIdx = parseInt(btn.dataset.index);
+          if (_confidenceMode) {
+            _pendingIndex = selectedIdx;
+            _renderActive();
+            return;
+          }
           _answers[q.id] = selectedIdx;
           const isCorrect = selectedIdx === q.correct_answer;
           Progress.updateQuizProgress(q.id, q.domain, isCorrect);
           _answered = true;
+          _renderActive();
+        });
+      });
+    }
+
+    // Confidence rating — commits the pending MC answer once a level is chosen
+    if (awaitingConfidence) {
+      document.querySelectorAll('.confidence-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const level = btn.dataset.level;
+          const selectedIdx = _pendingIndex;
+          _answers[q.id] = selectedIdx;
+          const isCorrect = selectedIdx === q.correct_answer;
+          Progress.updateQuizProgress(q.id, q.domain, isCorrect, level);
+          _answered = true;
+          _pendingIndex = null;
           _renderActive();
         });
       });
@@ -346,6 +499,7 @@ const QuizComponent = (() => {
     document.getElementById('next-question-btn')?.addEventListener('click', () => {
       _currentIndex++;
       _answered = false;
+      _pendingIndex = null;
       _renderActive();
     });
 
@@ -490,7 +644,7 @@ const QuizComponent = (() => {
       _phase = 'setup'; render();
     });
     document.getElementById('retake-btn')?.addEventListener('click', () => {
-      _currentIndex = 0; _answers = {}; _answered = false;
+      _currentIndex = 0; _answers = {}; _answered = false; _pendingIndex = null;
       _phase = 'active'; render();
     });
     document.getElementById('review-btn')?.addEventListener('click', () => {
@@ -547,6 +701,8 @@ const QuizComponent = (() => {
               ${isInteractive
                 ? InteractiveRenderer.renderFeedback(r.question, r.selected)
                 : Feedback.render(r.question, r.selected)}
+
+              ${_renderReportIssueButton(r.question)}
             </div>
           `;
         }).join('')}
@@ -561,6 +717,38 @@ const QuizComponent = (() => {
     document.getElementById('back-results-btn')?.addEventListener('click', () => { _phase = 'results'; render(); });
     document.getElementById('back-results-btn-2')?.addEventListener('click', () => { _phase = 'results'; render(); });
     document.getElementById('new-quiz-btn-2')?.addEventListener('click', () => { _selectedDomains = []; _phase = 'setup'; render(); });
+    _bindReportIssueButtons();
+  }
+
+  // ── Content Issue Reporting ─────────────────────────────────────
+  function _renderReportIssueButton(question) {
+    const alreadyReported = Progress.getReportedIssues().some(i => i.questionId === question.id);
+    return `
+      <button class="report-issue-btn ${alreadyReported ? 'is-reported' : ''}" data-qid="${question.id}" ${alreadyReported ? 'disabled' : ''}>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        ${alreadyReported ? 'Reported — thanks' : 'Something wrong with this question?'}
+      </button>
+    `;
+  }
+
+  function _bindReportIssueButtons() {
+    document.querySelectorAll('.report-issue-btn:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const qid = btn.dataset.qid;
+        const question = _reviewItems.find(r => r.question.id === qid)?.question;
+        Progress.reportQuestionIssue(qid, question ? question.question : '');
+        btn.classList.add('is-reported');
+        btn.disabled = true;
+        btn.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Reported — thanks
+        `;
+      });
+    });
   }
 
   // ── Helpers ───────────────────────────────────────────────────

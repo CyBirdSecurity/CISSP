@@ -4,7 +4,8 @@
 
 const Progress = (() => {
   const STORAGE_KEY = (typeof CERT_CONFIG !== 'undefined' ? CERT_CONFIG.storageKey : 'cissp_progress');
-  const SCHEMA_VERSION = 2;
+  const ISSUES_KEY = STORAGE_KEY + '_reported_issues';
+  const SCHEMA_VERSION = 3;
   let _data = null;
 
   function defaultData() {
@@ -14,6 +15,12 @@ const Progress = (() => {
       questions: {},
       domains: {},
       topics: {},
+      mockExams: [],
+      calibration: {
+        guessing:  { total: 0, correct: 0 },
+        unsure:    { total: 0, correct: 0 },
+        confident: { total: 0, correct: 0 }
+      },
       sessions: {
         last_study_date: null,
         current_streak: 0,
@@ -26,6 +33,14 @@ const Progress = (() => {
   // data keeps its history instead of being discarded on upgrade.
   function migrate(parsed) {
     if (!parsed.topics) parsed.topics = {};
+    if (!parsed.mockExams) parsed.mockExams = [];
+    if (!parsed.calibration) {
+      parsed.calibration = {
+        guessing:  { total: 0, correct: 0 },
+        unsure:    { total: 0, correct: 0 },
+        confident: { total: 0, correct: 0 }
+      };
+    }
     parsed.version = SCHEMA_VERSION;
     return parsed;
   }
@@ -75,15 +90,16 @@ const Progress = (() => {
     saveProgress();
   }
 
-  function updateQuizProgress(questionId, domainId, isCorrect) {
+  function updateQuizProgress(questionId, domainId, isCorrect, confidence = null) {
     const p = getProgress();
 
     if (!p.questions[questionId]) {
-      p.questions[questionId] = { times_answered: 0, times_correct: 0, times_incorrect: 0 };
+      p.questions[questionId] = { times_answered: 0, times_correct: 0, times_incorrect: 0, last_seen: null };
     }
     const q = p.questions[questionId];
     q.times_answered++;
     if (isCorrect) q.times_correct++; else q.times_incorrect++;
+    q.last_seen = new Date().toISOString();
 
     if (!p.domains[domainId]) {
       p.domains[domainId] = { total_questions_answered: 0, total_correct: 0 };
@@ -92,11 +108,75 @@ const Progress = (() => {
     d.total_questions_answered++;
     if (isCorrect) d.total_correct++;
 
+    if (confidence && p.calibration[confidence]) {
+      p.calibration[confidence].total++;
+      if (isCorrect) p.calibration[confidence].correct++;
+    }
+
     saveProgress();
   }
 
   function getDomainStats() {
     return getProgress().domains;
+  }
+
+  function getQuestionStats() {
+    return getProgress().questions;
+  }
+
+  function getCalibrationStats() {
+    return getProgress().calibration;
+  }
+
+  function addMockExamResult(result) {
+    const p = getProgress();
+    p.mockExams.push({
+      date: new Date().toISOString(),
+      ...result
+    });
+    saveProgress();
+    return p.mockExams;
+  }
+
+  function getMockExamHistory() {
+    return getProgress().mockExams;
+  }
+
+  // ── Content issue reporting ──────────────────────────────────
+  // Kept in a separate, unversioned localStorage key rather than the main
+  // progress object — it's site-owner triage data, not learner progress.
+  function getReportedIssues() {
+    try {
+      const raw = localStorage.getItem(ISSUES_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function reportQuestionIssue(questionId, questionText) {
+    const issues = getReportedIssues();
+    if (issues.some(i => i.questionId === questionId)) return issues; // already reported
+    issues.push({ questionId, questionText, reportedAt: new Date().toISOString() });
+    try {
+      localStorage.setItem(ISSUES_KEY, JSON.stringify(issues));
+    } catch (e) {
+      console.warn('[Progress] Failed to save reported issue:', e);
+    }
+    return issues;
+  }
+
+  function exportReportedIssues() {
+    const issues = getReportedIssues();
+    const blob = new Blob([JSON.stringify(issues, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `cissp_reported_issues_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   function updateSession() {
@@ -219,6 +299,13 @@ const Progress = (() => {
     updateFlashcardProgress,
     updateQuizProgress,
     getDomainStats,
+    getQuestionStats,
+    getCalibrationStats,
+    addMockExamResult,
+    getMockExamHistory,
+    getReportedIssues,
+    reportQuestionIssue,
+    exportReportedIssues,
     updateSession,
     resetProgress,
     exportProgress,

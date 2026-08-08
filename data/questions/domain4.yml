@@ -16,6 +16,7 @@ questions:
         - "Layer 7 is where application-layer firewalls (WAFs, Next-Gen Firewalls with deep packet inspection) operate."
         - "Layer 5 (Session) is not where packet filters operate — they work at network and transport layers."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["firewalls", "OSI"]
 
   - id: q-d4-002
@@ -35,6 +36,7 @@ questions:
         - "Both modes support the same encryption algorithms — the choice of mode doesn't determine encryption strength."
         - "Both endpoints must support IPsec for it to work in either mode."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["IPsec", "VPN"]
 
   - id: q-d4-003
@@ -54,6 +56,7 @@ questions:
         - "An IDS detects intrusions but does not segment traffic or prevent guest access to corporate resources."
         - "MAC address filtering is easy to bypass (MAC spoofing) and does not provide network-level traffic separation."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["VLAN", "segmentation"]
 
   - id: q-d4-004
@@ -73,6 +76,7 @@ questions:
         - "Repeatedly guessing passwords is a brute force or password spraying attack."
         - "Tricking users into visiting malicious websites is phishing or a social engineering attack."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["attacks", "networking"]
 
   - id: q-d4-005
@@ -92,6 +96,7 @@ questions:
         - "Split tunneling refers to traffic routing, not simultaneous connections."
         - "Split tunneling is about traffic routing, not key management or encryption."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["VPN", "networking"]
 
   - id: q-d4-006
@@ -111,6 +116,7 @@ questions:
         - "Reputation-based DNS filtering is done by DNS security services (e.g., Cisco Umbrella) — not DNSSEC."
         - "DNS caching improves performance but is not what DNSSEC provides."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["DNS", "protocols"]
 
   - id: q-d4-007
@@ -130,6 +136,7 @@ questions:
         - "A WPS (Wi-Fi Protected Setup) attack exploits vulnerabilities in the WPS PIN authentication protocol."
         - "KRACK (Key Reinstallation Attack) exploits vulnerabilities in the WPA2 handshake to reinstall encryption keys."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["wireless", "attacks"]
 
   - id: q-d4-008
@@ -149,6 +156,7 @@ questions:
         - "Encrypting all data in transit is a good practice but is not the defining principle of Zero Trust architecture."
         - "Blocking all incoming connections describes an egress-only firewall policy, not Zero Trust."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["zero-trust", "architecture"]
 
   - id: q-d4-009
@@ -168,6 +176,7 @@ questions:
         - "Pattern-matching is essentially signature-based detection — relying on known patterns means it cannot detect zero-days."
         - "Rule-based detection uses predefined rules similar to signatures — it cannot detect attacks that don't match known rules."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IDS", "detection"]
 
   - id: q-d4-010
@@ -187,6 +196,7 @@ questions:
         - "Redundant connectivity is provided by technologies like load balancers, HSRP, or OSPF — not a DMZ."
         - "Traffic monitoring is performed by IDS/IPS and SIEM systems — not the DMZ architecture itself."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["DMZ", "architecture"]
 
   - id: q-d4-011
@@ -206,6 +216,7 @@ questions:
         - "IPsec operates at the network layer (Layer 3) and is primarily used for VPNs — not as a replacement for SSL in web communications."
         - "SSH provides secure shell access and file transfer — it does not replace SSL for general web security."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["protocols", "TLS"]
 
   - id: q-d4-012
@@ -225,6 +236,7 @@ questions:
         - "A SYN flood correctly describes sending SYN packets without completing the handshake to exhaust connections."
         - "Session hijacking involves taking over an existing authenticated session — it requires established connections, not half-open ones."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["attacks", "DoS"]
 
   - id: q-d4-013
@@ -244,6 +256,7 @@ questions:
         - "Web application authentication uses IAM and web SSO — NAC operates at the network access layer."
         - "Email filtering is handled by email security gateways — NAC governs device access to the network."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["NAC", "networking"]
 
   - id: q-d4-014
@@ -263,6 +276,7 @@ questions:
         - "Layer 4 — Transport — handles end-to-end reliability, error detection, and flow control — this is correct."
         - "Layer 5 (Session) manages session establishment, maintenance, and termination — not data reliability."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["OSI", "networking"]
 
   - id: q-d4-015
@@ -282,6 +296,7 @@ questions:
         - "Flooding a switch with fake MACs to fill its table is a MAC flooding attack (CAM table overflow) — different from ARP poisoning."
         - "ARP poisoning is about the ARP cache in hosts — not code injection into protocol packets."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["attacks", "networking"]
 
   - id: q-d4-016
@@ -301,6 +316,7 @@ questions:
         - "Both types primarily operate at Layers 3 and 4 — stateful inspection adds session context at these layers."
         - "Both types can log traffic — logging capability is not the defining difference."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["firewalls", "networking"]
 
   - id: q-d4-017
@@ -320,6 +336,7 @@ questions:
         - "USB port scanning for unauthorized devices is a different activity (endpoint management) — not port scanning."
         - "Switch port configuration review is network management — not port scanning."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["scanning", "pen-testing"]
 
   - id: q-d4-018
@@ -339,6 +356,7 @@ questions:
         - "SSH provides encrypted management sessions and replaces Telnet — this is correct."
         - "HTTP transmits data in plaintext — HTTPS adds encryption, but SSH is the standard for device management, not HTTP/HTTPS."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["protocols", "networking"]
 
   - id: q-d4-019
@@ -358,6 +376,7 @@ questions:
         - "Gaining admin access is the goal of privilege escalation attacks — DoS attacks target availability."
         - "Intercepting communications is a MitM or eavesdropping attack — not DoS."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["attacks", "DoS"]
 
   - id: q-d4-020
@@ -377,6 +396,7 @@ questions:
         - "Traffic encryption is a separate control (TLS, IPsec) — segmentation controls network access paths."
         - "IP addressing is a network design activity — segmentation requires enforced access controls between zones, not just different address ranges."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["segmentation", "networking"]
 
   - id: q-d4-021
@@ -396,6 +416,7 @@ questions:
         - "Physical connectors are defined by other IEEE standards (like 802.3 for Ethernet) — not 802.1X."
         - "DHCP for IP assignment is managed by DHCP servers — 802.1X is an authentication protocol."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["802.1X", "NAC", "networking"]
 
   - id: q-d4-022
@@ -415,6 +436,7 @@ questions:
         - "Amplification attacks use spoofed source IPs to direct large responses at the victim — this is the correct answer."
         - "Fragmentation attacks exploit IP packet reassembly — they don't involve amplification via spoofed sources."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["attacks", "DoS"]
 
   - id: q-d4-023
@@ -434,6 +456,7 @@ questions:
         - "IPv6 networks are also vulnerable to DDoS attacks — the larger address space doesn't prevent volumetric attacks."
         - "IPv6 uses 128-bit IP addresses (not MAC addresses) — MAC addresses remain at Layer 2 in both IPv4 and IPv6."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IPv6", "networking"]
 
   - id: q-d4-024
@@ -453,6 +476,7 @@ questions:
         - "Both traditional and next-gen firewalls can use hardware or software — the distinction is inspection depth and capability."
         - "Blocking only known malicious IPs describes a simple reputation-based filter — NGFWs have far more sophisticated inspection capabilities."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["firewalls", "NGFW"]
 
   - id: q-d4-025
@@ -472,6 +496,7 @@ questions:
         - "Intercepting cellular communications involves IMSI catchers (stingrays) — wardriving focuses on Wi-Fi networks."
         - "Physical bypass of server room security is a physical intrusion attack — not wardriving."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["wireless", "reconnaissance"]
 
   - id: q-d4-026
@@ -491,6 +516,7 @@ questions:
         - "Routing packets between segments is a Layer 3 router function — proxies operate at the application layer."
         - "VPN tunnels are provided by VPN gateways (IPsec, SSL/TLS) — proxy servers are application-layer intermediaries."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["proxy", "networking"]
 
   - id: q-d4-027
@@ -510,6 +536,7 @@ questions:
         - "A backup system that activates on failure is a hot standby or failover system — not a honeypot."
         - "Employee internet monitoring is done by proxies and DLP — honeypots are for external attacker detection."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["honeypot", "detection"]
 
   - id: q-d4-028
@@ -529,6 +556,7 @@ questions:
         - "Network topology documentation is a configuration management activity — NTA is runtime threat detection."
         - "IP address management is IPAM (IP Address Management) — not network traffic analysis."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["monitoring", "detection"]
 
   - id: q-d4-029
@@ -548,6 +576,7 @@ questions:
         - "ICMP does not encrypt communications — it is a control/diagnostic protocol with no encryption capability."
         - "Routing tables are managed by routing protocols (OSPF, BGP) — ICMP handles error reporting and diagnostics."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["protocols", "networking"]
 
   - id: q-d4-030
@@ -567,6 +596,7 @@ questions:
         - "Rerouting packets is a routing attack or MitM — session hijacking targets the session credentials/tokens."
         - "Cracking encryption keys is a cryptographic attack — session hijacking steals/predicts tokens, not keys."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["attacks", "sessions"]
 
   - id: q-d4-031
@@ -586,6 +616,7 @@ questions:
         - "Equipment size is irrelevant — microsegmentation is about policy granularity, often implemented in software."
         - "Microsegmentation applies to any network (wired, wireless, cloud, virtual) — not limited to wireless."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["microsegmentation", "zero-trust"]
 
   - id: q-d4-032
@@ -605,6 +636,7 @@ questions:
         - "Dynamic web content (JavaScript, etc.) works with both HTTP and HTTPS — HTTPS doesn't add content capability."
         - "HTTPS secures the transport layer — SQL injection is an application-layer vulnerability requiring input validation, not transport encryption."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["TLS", "protocols"]
 
   - id: q-d4-033
@@ -624,6 +656,7 @@ questions:
         - "Layer 7 (Application) is where Next-Generation Firewalls (NGFWs) and WAFs perform deep packet inspection — beyond stateful inspection."
         - "Layer 1 is the physical medium — no security logic operates at this layer."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["networking", "firewalls", "OSI"]
 
   - id: q-d4-034
@@ -643,6 +676,7 @@ questions:
         - "IEEE 802.1X (port-based NAC requiring device authentication before network access) is the correct standard."
         - "IEEE 802.3 is the wired Ethernet standard — it defines physical and data link specifications, not access control."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["networking", "authentication", "NAC"]
 
   - id: q-d4-035
@@ -662,6 +696,7 @@ questions:
         - "Both can be used for VPN and network access authentication — TACACS+ is preferred for device administration due to its command-level authorization."
         - "TACACS+ separates AAA into three independent functions; RADIUS combines authentication and authorization."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["protocols", "AAA", "authentication"]
 
   - id: q-d4-036
@@ -681,6 +716,7 @@ questions:
         - "DHCP snooping prevents rogue DHCP servers — it is not related to VLAN hopping attacks."
         - "Double-tag VLAN hopping is a logical/software attack — physical access is not required."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["attacks", "networking", "VLAN"]
 
   - id: q-d4-037
@@ -700,6 +736,7 @@ questions:
         - "ARP poisoning (forging ARP replies to map legitimate IPs to attacker's MAC) is the attack indicated by the incorrect ARP table entry."
         - "IP spoofing forges the source IP address in packets — it does not modify ARP tables."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["attacks", "networking", "ARP"]
 
   - id: q-d4-038
@@ -719,6 +756,7 @@ questions:
         - "Integrity-only protection (no encryption) is provided by AH (Authentication Header) — not ESP (Encapsulating Security Payload) which always encrypts."
         - "Web application authentication is handled at the application layer (forms, OAuth) — not IPsec."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["protocols", "IPsec", "VPN"]
 
   - id: q-d4-039
@@ -738,6 +776,7 @@ questions:
         - "DNS tunneling encodes data in DNS queries/responses — DNSSEC authenticates record integrity but does not inspect or block DNS query content."
         - "Unauthorized zone transfers are prevented by ACLs on DNS servers and TSIG (Transaction Signatures) — not DNSSEC, which focuses on response authenticity."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["protocols", "DNS", "DNSSEC"]
 
   - id: q-d4-040
@@ -757,6 +796,7 @@ questions:
         - "Physical location-based trust is perimeter security thinking — Zero Trust treats all locations as potentially compromised."
         - "VPN grants network access but not implicit authorization — Zero Trust requires verification at each resource, not just at the network boundary."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["architecture", "zero-trust"]
 
   - id: q-d4-041
@@ -776,6 +816,7 @@ questions:
         - "IP visibility is a privacy concern but not the primary risk — the more critical issue is local network interception."
         - "Content filtering may be applied but is a lesser concern compared to active attack risks."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["wireless", "VPN", "attacks"]
 
   - id: q-d4-042
@@ -795,6 +836,7 @@ questions:
         - "WPA3-Personal uses passwords — it does not require certificates (that is WPA3-Enterprise using 802.1X)."
         - "WPA3-Personal still uses passwords — the improvement is in how the password is used for authentication (SAE vs. PSK handshake)."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["wireless", "WPA3", "authentication"]
 
   - id: q-d4-043
@@ -814,6 +856,7 @@ questions:
         - "Defense in depth through network segmentation is the correct security principle implemented."
         - "Fail open design defaults to permissive access during failures — network segmentation is a restrictive control that limits unauthorized access."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["networking", "architecture", "segmentation"]
 
   - id: q-d4-044
@@ -833,6 +876,7 @@ questions:
         - "Certificate validation and revocation prevent certificate spoofing — HSTS enforces HTTPS use but relies on normal certificate validation."
         - "TLS session key brute-force resistance comes from key length and algorithm strength — not HSTS."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["web-security", "TLS", "HSTS"]
 
   - id: q-d4-045
@@ -852,6 +896,7 @@ questions:
         - "Data center to backup facility connectivity is typically private WAN/MPLS — not a DMZ."
         - "Employee vs. management network segmentation is internal network segregation, not the classic internet-facing DMZ placement."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["networking", "architecture", "DMZ"]
 
   - id: q-d4-046
@@ -871,6 +916,7 @@ questions:
         - "Community strings do not expire automatically — they remain valid indefinitely until manually changed."
         - "Community strings are reusable shared secrets — they do not rotate automatically."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["protocols", "SNMP", "network-management"]
 
   - id: q-d4-047
@@ -890,6 +936,7 @@ questions:
         - "BGP is the internet's backbone routing protocol used by all ISPs, enterprises, and carriers globally."
         - "BGP routing announcements are typically transmitted in plaintext between peers — they can be monitored, which is actually how hijacking incidents are often detected."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["networking", "BGP", "attacks"]
 
   - id: q-d4-048
@@ -909,6 +956,7 @@ questions:
         - "Building management systems (HVAC, physical security) are a significant concern — they are often on converged networks but the primary requirement is isolation from untrusted networks."
         - "Executive networks are internal corporate networks — while they should be isolated from CDE, the primary concern is external-facing untrusted networks."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["networking", "PCI", "segmentation"]
 
   - id: q-d4-049
@@ -928,6 +976,7 @@ questions:
         - "TLS version does not affect IPv6 compatibility — the two are independent protocol concerns."
         - "TLS version does not affect certificate requirements — certificate management is separate from TLS protocol version."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["protocols", "TLS", "cryptography"]
 
   - id: q-d4-050
@@ -947,6 +996,7 @@ questions:
         - "NGFWs with application-layer awareness and granular application function control is the correct answer."
         - "NAT gateways translate IP addresses — they are not security inspection devices."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["networking", "firewalls", "NGFW"]
 
   - id: q-d4-051
@@ -966,6 +1016,7 @@ questions:
         - "MPLS can carry encrypted traffic (e.g., IPsec over MPLS) — there is no restriction on encrypted payloads."
         - "802.1X is a network access control standard for endpoint authentication — MPLS uses label switching, not 802.1X."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["networking", "WAN", "MPLS"]
 
   - id: q-d4-052
@@ -985,6 +1036,7 @@ questions:
         - "Permanent MAC ban is overly punitive for a patching issue — devices should be remediated and allowed back. MAC addresses can also be spoofed."
         - "Email notification alone does not enforce compliance — the device still has full network access during the time the user decides to patch."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["networking", "NAC", "access-control"]
 
   - id: q-d4-053
@@ -1004,6 +1056,7 @@ questions:
         - "Encryption of management traffic (SSH, HTTPS) is important but is a separate control. OOB management refers to physical network separation, not encryption key separation."
         - "Routing management through a DMZ still uses the production network infrastructure. True OOB management uses a completely separate physical network path."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "management", "OOB", "architecture"]
 
   - id: q-d4-054
@@ -1023,6 +1076,7 @@ questions:
         - "ISP throttling is a commercial practice (net neutrality issue). BGP hijacking is a security attack involving fraudulent route announcements, not intentional throttling."
         - "Routing loops are configuration errors or BGP path problems. Hijacking is an intentional attack involving fraudulent origin announcements to redirect traffic."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "BGP", "routing", "internet"]
 
   - id: q-d4-055
@@ -1042,6 +1096,7 @@ questions:
         - "DPI can inspect unencrypted traffic; encrypted traffic (TLS) requires TLS inspection (HTTPS inspection) with certificate interception to decrypt before DPI. Not all DPI systems decrypt traffic."
         - "This is reversed. DPI operates at the application layer (Layer 7); basic packet filtering typically operates at Layers 3-4. DPI requires analyzing higher-layer content."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "DPI", "firewalls", "inspection"]
 
   - id: q-d4-056
@@ -1061,6 +1116,7 @@ questions:
         - "Smaller subnets (VLAN segmentation) limit broadcast domains but do not restrict east-west traffic within the same segment. Subnetting is a network design control, not a lateral movement prevention control."
         - "SIEMs provide detection and correlation capabilities but do not prevent lateral movement. They would be activated after an attacker is already pivoting."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["network-security", "microsegmentation", "lateral-movement", "zero-trust"]
 
   - id: q-d4-057
@@ -1080,6 +1136,7 @@ questions:
         - "DoH and DNSSEC serve different purposes and can coexist. DNSSEC authenticates DNS records; DoH encrypts the DNS transport. DoH does not replace DNSSEC."
         - "DoH still requires DNS resolvers. It changes the transport protocol (HTTPS vs. UDP/53) but does not eliminate the resolver infrastructure or add caching beyond standard DNS caching."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["DNS", "privacy", "encryption", "network"]
 
   - id: q-d4-058
@@ -1099,6 +1156,7 @@ questions:
         - "WPA3-Personal mode still uses a pre-shared passphrase but with the SAE exchange mechanism. WPA3-Enterprise uses RADIUS. WPA3-Personal does not require enterprise RADIUS."
         - "WPA3-Personal still uses a pre-shared passphrase for authentication. The change is the authentication protocol (SAE/Dragonfly), not the elimination of shared secrets."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["wireless", "WPA3", "authentication", "SAE"]
 
   - id: q-d4-059
@@ -1118,6 +1176,7 @@ questions:
         - "Teardrop attacks send fragmented packets with invalid overlapping fragment offsets, causing crashes in reassembly code. Different from SYN flooding — it's a packet fragmentation attack."
         - "UDP Flood sends high volumes of UDP packets to consume bandwidth and processing resources. It doesn't exploit TCP connection state tables — that's the SYN Flood's mechanism."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["network-security", "DoS", "TCP", "SYN-flood"]
 
   - id: q-d4-060
@@ -1137,6 +1196,7 @@ questions:
         - "SDN does not automatically encrypt traffic. Encryption is a separate security control (TLS, IPsec). SDN manages network control and forwarding logic."
         - "SDN can incorporate software-based firewalling but does not inherently replace physical firewalls. It provides architectural flexibility to deploy security controls programmatically."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "SDN", "architecture", "centralization"]
 
   - id: q-d4-061
@@ -1156,6 +1216,7 @@ questions:
         - "A downgrade attack forces less secure protocol versions. Presenting a fraudulent certificate is a different attack vector — it's not about protocol version negotiation."
         - "Padding oracle attacks exploit CBC mode decryption oracle vulnerabilities. The described scenario is certificate-based MITM, not a cryptographic padding attack."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["TLS", "MITM", "certificates", "attacks"]
 
   - id: q-d4-062
@@ -1175,6 +1236,7 @@ questions:
         - "Some discovery tools do generate network traffic, but bandwidth consumption is an operational consideration, not the primary security concern. Stealthy scanning tools minimize traffic impact."
         - "Read-only scanning tools (nmap in default mode) do not modify configurations. Active exploitation tools might, but standard topology discovery is passive observation."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["network-security", "reconnaissance", "scanning", "security"]
 
   - id: q-d4-063
@@ -1194,6 +1256,7 @@ questions:
         - "URL filtering can be implemented at DNS (DNS sinkhole) or proxy layer. Content filtering requires a proxy to inspect traffic. The distinction is the inspection level (URL vs. content), not only the implementation point."
         - "They serve different but complementary functions and are not synonymous. URL filtering is preventive based on reputation; content filtering is inspection-based for malicious content."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "web-filtering", "proxy", "content"]
 
   - id: q-d4-064
@@ -1213,6 +1276,7 @@ questions:
         - "DNS spoofing involves returning fraudulent DNS responses to redirect name resolution. It is a different attack vector than IP spoofing, though both can enable MITM attacks."
         - "ICMP redirect attacks inject routing information to redirect traffic through an attacker-controlled path. This is a different network attack from source IP spoofing."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "IP-spoofing", "attacks", "trust"]
 
   - id: q-d4-065
@@ -1232,6 +1296,7 @@ questions:
         - "Bandwidth thresholds for performance management are QoS/capacity planning concerns. Traffic baselines for security capture patterns of behavior, not just bandwidth minimums."
         - "Standard firewall rule sets are security configuration templates. Traffic baselines are behavioral profiles used for anomaly detection, not configuration standards."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "IDS", "anomaly-detection", "baseline"]
 
   - id: q-d4-066
@@ -1251,6 +1316,7 @@ questions:
         - "Network encryption is handled by protocols (TLS, VPN) between endpoints. NAC posture assessment controls which devices are allowed onto the network, not encryption."
         - "Device location identification (geolocation, physical port location) may be captured by NAC for audit but is not the primary purpose of posture assessment. The primary purpose is compliance checking."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["network-security", "NAC", "posture", "access-control"]
 
   - id: q-d4-067
@@ -1270,6 +1336,7 @@ questions:
         - "IP routing is a Layer 3 function. Ethernet operates at Layer 2 using MAC addresses. IP addresses (Layer 3) are carried within Ethernet frames (Layer 2) but Ethernet itself is Layer 2."
         - "TCP/UDP (Transport Layer) handles connection reliability and flow control. Ethernet provides Layer 2 local delivery using MAC addresses."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["network-security", "OSI", "Ethernet", "Layer2"]
 
   - id: q-d4-068
@@ -1289,6 +1356,7 @@ questions:
         - "MPLS VPNs still require customer edge (CE) and provider edge (PE) router authentication for the VPN provisioning. Authentication requirements are not eliminated."
         - "MPLS provides quality of service guarantees and efficient forwarding but operates within the same provider network — performance advantages are QoS-related, not from bypassing IP routing."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "VPN", "MPLS", "WAN"]
 
   - id: q-d4-069
@@ -1308,6 +1376,7 @@ questions:
         - "NAT does not authenticate outbound connections. Traffic leaving the network through NAT is forwarded based on routing and NAT translation tables, not authentication."
         - "While NAPT (PAT) blocks unsolicited inbound connections by default (no NAT table entry means no path back in), this is a side effect of stateful translation, not a designed security feature. A proper stateful firewall provides this function more reliably and configurably."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "NAT", "architecture", "firewalls"]
 
   - id: q-d4-070
@@ -1327,6 +1396,7 @@ questions:
         - "Malware targeting IoT (Mirai, BrickerBot, and derivatives) has existed since at least 2016 and has been responsible for some of the largest DDoS attacks ever recorded."
         - "Enterprise organizations have responsibility for managing the security of IoT devices on their networks, including network segmentation, credential management, and traffic monitoring, regardless of manufacturer obligations."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["network-security", "IoT", "vulnerabilities", "attacks"]
 
   - id: q-d4-071
@@ -1346,6 +1416,7 @@ questions:
         - "Session replay is a different attack (retransmitting captured authentication tokens). Tunneling is about carrier protocol obfuscation for bypass and covert communication."
         - "Payload compression is an optimization technique. Protocol tunneling focuses on bypassing network controls by using allowed protocols, not on reducing payload size."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "tunneling", "C2", "evasion"]
 
   - id: q-d4-072
@@ -1365,6 +1436,7 @@ questions:
         - "DHCP is typically cleartext. DHCP snooping does not encrypt DHCP traffic — it controls which DHCP responses are forwarded based on trusted/untrusted port designations."
         - "DHCP starvation (MAC flooding DHCP requests to exhaust the IP pool) is a related DoS attack. DHCP snooping can limit rate of requests per port, but its primary purpose is blocking rogue DHCP servers, not rate limiting."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "DHCP", "Layer2", "rogue-DHCP"]
 
   - id: q-d4-073
@@ -1384,6 +1456,7 @@ questions:
         - "Wi-Fi uses CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance) — the 'A' is Avoidance, not Detection. Wireless cannot detect collisions (they happen at the destination), so it uses avoidance techniques instead."
         - "Token Ring used a token-passing protocol for access control — a completely different LAN technology that competed with Ethernet historically. CSMA/CD was not 'replaced' by Token Ring."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "Ethernet", "Layer2", "protocols"]
 
   - id: q-d4-074
@@ -1403,6 +1476,7 @@ questions:
         - "Redundant network paths are created by STP, LACP, or ECMP routing — not port mirroring. Mirroring copies traffic; it does not create redundant paths."
         - "NAC quarantine uses VLAN assignment to restrict non-compliant devices. Port mirroring is for passive traffic analysis and monitoring, not access enforcement."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["network-security", "monitoring", "IDS", "SPAN"]
 
   - id: q-d4-075
@@ -1422,6 +1496,7 @@ questions:
         - "Malware signature inspection is performed by DPI or security gateways. BCP38 ingress filtering is specifically about source IP address validity, not content inspection."
         - "Geographic rate-limiting is a DDoS mitigation technique. BCP38 is specifically about validating source IP addresses match the customer's allocated IP range — not geographic restrictions."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "BCP38", "ingress-filtering", "spoofing"]
 
   - id: q-d4-076
@@ -1441,6 +1516,7 @@ questions:
         - "Both can be authorized (penetration testing) or unauthorized (attack reconnaissance). The distinction is the interaction method, not authorization status."
         - "Both types of reconnaissance can target any system type. The distinction is interaction (active touches the target; passive does not)."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["network-security", "reconnaissance", "penetration-testing"]
 
   - id: q-d4-077
@@ -1460,6 +1536,7 @@ questions:
         - "MACsec (802.1AE) is a wired Ethernet security standard. WPA3 is wireless security (802.11). They are separate standards for different link types."
         - "MACsec is Layer 2 (hop-by-hop between directly connected devices). End-to-end application security is provided by TLS/application encryption. MACsec protects the physical link, not the end-to-end application session."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "MACsec", "Layer2", "encryption"]
 
   - id: q-d4-078
@@ -1479,6 +1556,7 @@ questions:
         - "Malware amplification is not a recognized network attack term. DDoS amplification is specifically about exploiting UDP protocol response ratios."
         - "Confusing IDS systems describes evasion techniques. Amplification attacks focus on overwhelming the victim's bandwidth with high-volume reflected traffic, not IDS evasion."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "DDoS", "amplification", "UDP"]
 
   - id: q-d4-079
@@ -1498,6 +1576,7 @@ questions:
         - "Redundant network paths are provided by routing protocols, STP, LACP, and dual-homed connections. Segmentation addresses security zones, not path redundancy."
         - "Authentication at network boundaries is a control that can be applied to segmented networks (802.1X, firewall authentication). Segmentation itself is the network division; authentication is a control applied within that architecture."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "segmentation", "incident-response", "containment"]
 
   - id: q-d4-080
@@ -1517,6 +1596,7 @@ questions:
         - "Redirecting through on-premises gateways describes a forward proxy or PAC file deployment approach. Reverse proxy mode positions the CASB inline in the cloud service traffic path."
         - "API integration mode (not reverse proxy) uses cloud provider APIs to audit logs and enforce policies without sitting in the traffic path. Reverse proxy is specifically an inline traffic inspection mode."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "CASB", "cloud", "proxy"]
 
   - id: q-d4-081
@@ -1536,6 +1616,7 @@ questions:
         - "Blocking only inbound traffic while allowing all outbound is an overly permissive firewall design. Implicit deny applies to both directions — outbound rules should also be explicit."
         - "Implicit deny is more secure than explicit blocking because it handles unknown/new traffic types. Explicit deny lists (blacklisting) miss any traffic type not specifically named."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["network-security", "firewalls", "principles", "access-control"]
 
   - id: q-d4-082
@@ -1555,6 +1636,7 @@ questions:
         - "HTTP can support authenticated sessions (via cookies or headers) — the risk is that those session tokens are transmitted in clear text and can be stolen. HTTP does not technically prevent sessions."
         - "Enterprise firewalls typically allow HTTP (port 80) as well as HTTPS (port 443). HTTP is not blocked by default in most internal networks."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["network-security", "HTTPS", "encryption", "web"]
 
   - id: q-d4-083
@@ -1574,6 +1656,7 @@ questions:
         - "DNS zone file modification on authoritative servers is a server compromise — a different attack requiring compromise of the authoritative server infrastructure. DNSSEC zone transfers can be secured with TSIG, but that's different from DNSSEC record signing."
         - "DNS over TLS/HTTPS (DoT/DoH) encrypts the transport, preventing eavesdropping on queries. They do not address cache poisoning (fraudulent records). DNSSEC addresses record authenticity at the protocol level."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "DNS", "DNSSEC", "attacks"]
 
   - id: q-d4-084
@@ -1593,6 +1676,7 @@ questions:
         - "VPNs provide remote access over encrypted tunnels. Proxies may use TLS for specific connections but are not tunnel-based encrypted access solutions equivalent to VPNs."
         - "DNS resolution with enhanced security features describes DNS servers with DNSSEC, DoH, or security filtering. A proxy server operates at the HTTP/HTTPS application layer."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["network-security", "proxy", "web-filtering", "access-control"]
 
   - id: q-d4-085
@@ -1612,6 +1696,7 @@ questions:
         - "Firewall rule propagation time is a security policy implementation delay — a different operational concept from routing protocol convergence."
         - "Detection latency (mean time to detect) is a security monitoring metric. Convergence time is specifically about routing protocol synchronization after topology changes."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "routing", "availability", "protocols"]
 
   - id: q-d4-086
@@ -1631,6 +1716,7 @@ questions:
         - "Certificate validation (checking server certificates are valid and trusted) is a standard TLS client function — not TLS inspection. Inspection involves actively decrypting the payload content."
         - "TLS inspection doesn't block non-HTTPS traffic — it specifically inspects HTTPS. Unencrypted HTTP traffic is already visible to network monitoring without interception."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "TLS-inspection", "privacy", "MITM"]
 
   - id: q-d4-087
@@ -1650,6 +1736,7 @@ questions:
         - "STP root bridge attacks affect network topology and can enable traffic interception through different means. VLAN hopping specifically exploits the VLAN tagging and trunk negotiation mechanisms."
         - "SNMP VLAN table modification would require SNMP write access credentials — it's a configuration attack, not the VLAN hopping technique. VLAN hopping exploits DTP and 802.1Q tagging."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "VLAN", "Layer2", "attacks"]
 
   - id: q-d4-088
@@ -1669,6 +1756,7 @@ questions:
         - "WPA3 encryption is provided by the wireless protocol. WIDS/WIPS monitors the RF environment for attacks — it does not replace or supplement encryption protocols."
         - "802.1X authentication log analysis would be a RADIUS server log analysis function, not WIDS. WIDS monitors the physical RF environment, not authentication infrastructure logs."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["wireless", "IDS", "WIDS", "rogue-AP"]
 
   - id: q-d4-089
@@ -1688,6 +1776,7 @@ questions:
         - "MPLS provides logical traffic isolation (separate label paths) but is not equivalent to encryption. Provider staff and network equipment can still access MPLS-forwarded traffic."
         - "Authentication controls verify identity but do not protect data from interception during transmission. Both authentication and encryption are required for confidentiality over communications links."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "encryption", "WAN", "confidentiality"]
 
   - id: q-d4-090
@@ -1707,6 +1796,7 @@ questions:
         - "GRE runs over IP (Protocol 47), not UDP. The security limitation is the complete absence of encryption and authentication, not protocol choice."
         - "GRE supports both IPv4 and IPv6 traffic encapsulation. The limitation is the absence of security, not IPv6 support."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "tunneling", "GRE", "VPN"]
 
   - id: q-d4-091
@@ -1726,6 +1816,7 @@ questions:
         - "Out-of-band management is a security best practice but is not a specific PCI DSS requirement. PCI DSS focuses on controlling access to and from the CDE, not specifically mandating OOB management."
         - "PCI DSS does not prohibit wireless networks connected to the CDE. It requires wireless networks to implement strong security controls (WPA3/WPA2-Enterprise, wireless IDS) and be isolated from the CDE with controlled access between them."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["network-security", "PCI-DSS", "compliance", "CDE"]
 
   - id: q-d4-092
@@ -1745,6 +1836,7 @@ questions:
         - "SD-WAN does not eliminate the need for branch site firewalls. SD-WAN provides WAN connectivity management; security still requires firewalls, access controls, and inspection at each site."
         - "SD-WAN can incorporate VPN capabilities (IPsec over internet links) but does not automatically encrypt all traffic. Encryption must be explicitly configured. Some SD-WAN deployments include integrated security (SSE/SASE)."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "SD-WAN", "WAN", "cloud"]
 
   - id: q-d4-093
@@ -1764,6 +1856,7 @@ questions:
         - "SLA measurement is an operational concern. Time accuracy is a security requirement affecting authentication, log integrity, and forensic reliability."
         - "Approximate timestamps are insufficient for security operations — correlation errors from 1-2 second time differences can cause missed detections and incorrect incident timelines."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "NTP", "time", "logging"]
 
   - id: q-d4-094
@@ -1783,6 +1876,7 @@ questions:
         - "DHCPv6 assigns IPv6 addresses but does not handle address-to-MAC resolution (that's NDP). SLAAC and DHCPv6 are both address assignment mechanisms, not resolution protocols."
         - "DNSSEC provides DNS record authentication — it does not resolve IPv6 addresses to MAC addresses at the link layer. NDP handles link-layer address resolution in IPv6."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "IPv6", "NDP", "ARP"]
 
   - id: q-d4-095
@@ -1802,6 +1896,7 @@ questions:
         - "Encrypting DMZ-to-internal traffic is a data protection measure — not the defining characteristic of a screened subnet architecture. The key feature is the two-firewall topology."
         - "Out-of-band management networks are a management security best practice. The screened subnet architecture is specifically about the two-firewall topology for internet-DMZ-internal zone protection."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "DMZ", "architecture", "defense-in-depth"]
 
   - id: q-d4-096
@@ -1821,6 +1916,7 @@ questions:
         - "Enterprise switches typically do not expose UPnP/SSDP to the internet. SSDP amplification exploits consumer IoT devices, not enterprise infrastructure."
         - "Web servers use HTTP/HTTPS, not SSDP. SSDP is specifically for local service discovery and is not a web server protocol."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["network-security", "DDoS", "SSDP", "IoT", "amplification"]
 
   - id: q-d4-097
@@ -1840,6 +1936,7 @@ questions:
         - "PCI DSS does not mandate detection mode before blocking mode. The phased approach is an operational best practice for minimizing disruption, not a compliance requirement."
         - "WAF licensing typically does not distinguish between detection and blocking modes. The operational rationale is the primary reason for phased deployment."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["network-security", "WAF", "deployment", "tuning"]
 
   - id: q-d4-098
@@ -1859,6 +1956,7 @@ questions:
         - "Name resolution is performed by DNS (Application Layer 7 and above). DNS spoofing targets the DNS application layer, not Layer 4."
         - "Routing between networks is Layer 3 (Network/IP). BGP operates at the application layer but manages routing decisions. Layer 4 is above IP routing."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "OSI", "Layer4", "transport"]
 
   - id: q-d4-099
@@ -1878,6 +1976,7 @@ questions:
         - "Both split and full tunnel VPNs can use the same encryption algorithms. The distinction is traffic routing policy, not encryption strength."
         - "Split tunneling vs. full tunnel applies to all VPN client types — it is a routing policy decision, not a device type distinction."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "VPN", "split-tunneling", "remote-access"]
 
   - id: q-d4-100
@@ -1897,6 +1996,7 @@ questions:
         - "SNMPv3 uses UDP port 161 with its own authentication and encryption mechanisms — it does not run over TLS. TLS is for TCP-based protocols."
         - "SNMP still uses polling (manager queries agents). SNMPv3 did not change the polling model — it added security to the existing request/response model."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "SNMP", "protocols", "authentication"]
 
   - id: q-d4-101
@@ -1916,6 +2016,7 @@ questions:
         - "WPS does not use DES encryption. It uses the existing WPA2 encryption once authenticated. The vulnerability is in the PIN authentication mechanism, not encryption."
         - "WPS does not create a separate SSID — it is a setup method for the existing SSID. The vulnerability is the brute-forceable PIN authentication mechanism."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["wireless", "WPS", "vulnerabilities", "brute-force"]
 
   - id: q-d4-102
@@ -1935,4 +2036,185 @@ questions:
         - "Inbound traffic from internet users to web applications is north-south traffic (entering from outside, going to inside). East-west is lateral, internal-to-internal traffic."
         - "Backup replication is a specific application of east-west traffic but does not define it. East-west encompasses all server-to-server communication within the data center."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["network-security", "east-west", "microsegmentation", "data-center"]
+
+  - id: q-d4-103
+    domain: domain4
+    question: "Users report that after connecting to the corporate wireless network, their traffic is being intercepted. Investigation finds a device broadcasting the same SSID as the corporate network from the building's parking garage. What attack is occurring?"
+    options:
+      - "Evil twin attack"
+      - "Deauthentication flood"
+      - "MAC flooding"
+      - "VLAN hopping via double tagging"
+    correct_answer: 0
+    explanations:
+      correct: "An evil twin is an attacker-controlled access point impersonating a legitimate SSID so victims associate with it, placing the attacker on-path for all their traffic. Mutual authentication through 802.1X with proper server certificate validation is the countermeasure."
+      incorrect:
+        - "This is the correct answer — a rogue AP impersonating the legitimate SSID is the definition of an evil twin."
+        - "A deauthentication flood forces clients to disconnect. It is often used to push victims toward an evil twin, but the interception itself is the evil twin."
+        - "MAC flooding overwhelms a switch's address table on a wired network; it is unrelated to wireless SSID impersonation."
+        - "VLAN hopping targets switch trunking configuration on wired networks, not wireless association."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["wireless", "evil twin", "attacks"]
+
+  - id: q-d4-104
+    domain: domain4
+    question: "An organization's firewall permits all outbound traffic on the assumption that internal hosts are trusted. A security architect argues this should change. What is the STRONGEST argument for restricting egress?"
+    options:
+      - "Unrestricted egress gives an attacker who gains internal access an unmonitored path for data exfiltration and command-and-control traffic"
+      - "Egress filtering reduces the bandwidth consumed by internal users"
+      - "Most compliance frameworks explicitly prohibit outbound internet access"
+      - "Egress filtering prevents attackers from initiating inbound connections"
+    correct_answer: 0
+    explanations:
+      correct: "Attackers must move stolen data out and receive instructions somehow. Restricting outbound traffic to what business genuinely requires, and alerting on the rest, converts exfiltration and beaconing from invisible to detectable."
+      incorrect:
+        - "This is the correct answer — egress control is primarily a detection and containment capability against attackers already inside."
+        - "Bandwidth management is an operational benefit, not the strongest security argument."
+        - "Compliance frameworks generally require appropriate controls rather than prohibiting outbound access outright."
+        - "Inbound connection control is the function of ingress filtering; egress governs traffic leaving the network."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["egress filtering", "exfiltration", "firewall"]
+
+  - id: q-d4-105
+    domain: domain4
+    question: "A network engineer configures a site-to-site VPN and selects IPsec with AH only, reasoning that authentication is the primary requirement. The data being transmitted includes customer financial records. What is the problem?"
+    options:
+      - "AH provides integrity and authentication but no confidentiality; ESP is required to encrypt the payload"
+      - "AH is incompatible with site-to-site VPN topologies"
+      - "AH cannot operate in tunnel mode"
+      - "AH uses deprecated cryptographic algorithms exclusively"
+    correct_answer: 0
+    explanations:
+      correct: "Authentication Header authenticates and protects integrity but transmits the payload in the clear. Encapsulating Security Payload provides confidentiality along with integrity and authentication, and is required whenever the data itself must be protected from disclosure."
+      incorrect:
+        - "This is the correct answer — if a scenario requires encryption, it requires ESP."
+        - "AH can be used in site-to-site deployments; the issue is that it does not encrypt."
+        - "AH does support tunnel mode. The limitation is the absence of confidentiality, not the mode."
+        - "The algorithm selection is configurable and is not the defect described here."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["IPsec", "AH", "ESP", "VPN"]
+
+  - id: q-d4-106
+    domain: domain4
+    question: "During an incident, responders find that an attacker moved from a compromised web server to an internal database server without crossing any firewall. Both servers reside in the same VLAN. What architectural change would MOST directly prevent recurrence?"
+    options:
+      - "Microsegmentation enforcing policy between individual workloads regardless of shared network segment"
+      - "Deploying a next-generation firewall at the internet perimeter"
+      - "Enabling full packet capture on the perimeter link"
+      - "Requiring multi-factor authentication for administrative logins"
+    correct_answer: 0
+    explanations:
+      correct: "The attacker moved east-west within a trusted segment, so no perimeter control was ever in the path. Microsegmentation enforces policy between individual workloads, meaning two servers in the same segment cannot communicate unless a specific policy permits it."
+      incorrect:
+        - "This is the correct answer — it places a control on the traffic path the attacker actually used."
+        - "A perimeter firewall inspects north-south traffic and would never see lateral movement inside the network."
+        - "Perimeter packet capture aids investigation of traffic crossing the boundary but does not observe or prevent intra-segment movement."
+        - "MFA strengthens authentication and is valuable, but it does not address the absence of network policy between the two systems."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["microsegmentation", "lateral movement", "east-west"]
+
+  - id: q-d4-107
+    domain: domain4
+    question: "A company's security team observes a sustained flood of traffic saturating the internet circuit, and the perimeter firewall is dropping packets but the link remains full. What is the MOST effective response?"
+    options:
+      - "Engage upstream DDoS scrubbing or a CDN to absorb the volume before it reaches the circuit"
+      - "Add firewall rules to block the attacking source addresses"
+      - "Increase the firewall's connection table size"
+      - "Enable SYN cookies on the affected servers"
+    correct_answer: 0
+    explanations:
+      correct: "In a volumetric attack the circuit itself is saturated, so any control downstream of the saturation point is already too late. Only upstream mitigation — scrubbing services or CDN absorption across a distributed edge — addresses traffic before it consumes the link."
+      incorrect:
+        - "This is the correct answer — you cannot filter your way out of a full pipe from behind the pipe."
+        - "Blocking sources at the firewall still requires the traffic to traverse the saturated circuit to reach the firewall."
+        - "Connection table capacity addresses protocol-based state exhaustion, not raw bandwidth saturation."
+        - "SYN cookies mitigate SYN floods that exhaust server state, which is a different attack class from volumetric saturation."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["DDoS", "volumetric", "CDN"]
+
+  - id: q-d4-108
+    domain: domain4
+    question: "An auditor notes that network switches are managed via the production network using SNMPv2c with the community string set to a shared value. What are the TWO most significant issues, and what should be recommended?"
+    options:
+      - "Community strings traverse the network in cleartext and management shares the production path; move to SNMPv3 and out-of-band management"
+      - "SNMP consumes excessive bandwidth; reduce polling frequency and compress traffic"
+      - "Switches should not be monitored at all; disable SNMP entirely"
+      - "The community string is too short; increase its length and continue using SNMPv2c"
+    correct_answer: 0
+    explanations:
+      correct: "SNMPv2c transmits community strings without encryption, so anyone capturing traffic obtains them. Managing infrastructure in-band also means an outage or attack can sever the very access needed to respond. SNMPv3 adds authentication and encryption, and out-of-band management preserves control during incidents."
+      incorrect:
+        - "This is the correct answer — it addresses both the protocol weakness and the management-path weakness."
+        - "Bandwidth is not the concern; credential exposure and management-path fragility are."
+        - "Monitoring switches is valuable and necessary. The fix is to do it securely, not to stop."
+        - "A longer community string is still transmitted in cleartext and still readable by anyone capturing traffic."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["SNMP", "out-of-band", "management plane"]
+
+  - id: q-d4-109
+    domain: domain4
+    question: "A remote worker connects to the corporate VPN with split tunneling enabled while simultaneously browsing the internet directly. A security analyst flags this configuration. What is the PRIMARY concern?"
+    options:
+      - "The endpoint bridges a trusted corporate network and the untrusted internet at the same time, creating a potential pivot path"
+      - "Split tunneling causes the VPN connection to drop intermittently"
+      - "Split tunneling prevents the user from reaching corporate resources"
+      - "Split tunneling consumes more corporate bandwidth than full tunneling"
+    correct_answer: 0
+    explanations:
+      correct: "With split tunneling the device is concurrently attached to the corporate network and the open internet. An attacker who compromises the device through its unprotected internet path can then reach corporate resources through the established tunnel."
+      incorrect:
+        - "This is the correct answer — the endpoint becomes a bridge between two trust zones."
+        - "Split tunneling does not inherently cause connection instability."
+        - "Split tunneling still routes corporate-destined traffic through the tunnel; access to corporate resources is preserved."
+        - "Split tunneling reduces corporate bandwidth consumption compared with full tunneling, which is why organizations adopt it."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["VPN", "split tunneling", "remote access"]
+
+  - id: q-d4-110
+    domain: domain4
+    question: "An organization deploys hundreds of building sensors that cannot be patched and ship with hardcoded credentials. The vendor confirms no firmware updates will be provided. What is the MOST appropriate control?"
+    options:
+      - "Place the devices on an isolated segment with tightly restricted access to and from other networks"
+      - "Install endpoint detection agents on each sensor"
+      - "Require the sensors to authenticate to the corporate directory service"
+      - "Accept the risk since the devices only collect environmental data"
+    correct_answer: 0
+    explanations:
+      correct: "When a device cannot be hardened or patched, the effective control is limiting what it can reach and what can reach it. Network segmentation contains the consequences of the compromise that cannot be prevented."
+      incorrect:
+        - "This is the correct answer — you cannot harden what the vendor will not patch, so you constrain it architecturally."
+        - "Constrained embedded devices typically cannot run endpoint agents at all."
+        - "Devices with hardcoded credentials generally cannot be integrated into enterprise directory authentication."
+        - "Even low-value sensors provide an attacker a persistent foothold on the network from which to pivot, so bare acceptance is inadequate when segmentation is available."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["IoT", "segmentation", "unpatchable devices"]
+
+  - id: q-d4-111
+    domain: domain4
+    question: "A network team enables IPv6 on all hosts for a future migration but leaves existing IPv4-only firewall rules in place. What risk does this create?"
+    options:
+      - "Hosts become reachable over IPv6 through a policy that only contemplates IPv4, creating an unfiltered path"
+      - "IPv6 and IPv4 cannot coexist on the same interface, causing outages"
+      - "IPv6 requires NAT, which the current firewall does not support"
+      - "IPv6 addresses cannot be logged by existing monitoring tools"
+    correct_answer: 0
+    explanations:
+      correct: "Dual-stack hosts are reachable over both protocols. A firewall policy written only for IPv4 silently permits IPv6 traffic, so services believed to be protected are exposed. Filtering must cover both address families."
+      incorrect:
+        - "This is the correct answer — an unfiltered parallel protocol stack defeats the intended policy entirely."
+        - "Dual-stack operation is specifically designed to allow both protocols on the same interface simultaneously."
+        - "IPv6 was designed to eliminate the need for NAT; its large address space removes the conservation driver."
+        - "Monitoring tools can generally log IPv6, and logging capability is not the primary risk here."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["IPv6", "firewall", "dual stack"]

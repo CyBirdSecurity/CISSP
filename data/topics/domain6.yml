@@ -204,3 +204,240 @@ topics:
           - type: callout
             style: tip
             text: "A growing practice for managing audit fatigue is a shared control framework or unified evidence repository — mapping one set of collected evidence (system configurations, access review records, test results) to the specific requirements of multiple overlapping audits/frameworks at once, so the same underlying evidence satisfies a SOC 2 auditor, an ISO 27001 auditor, and an internal audit without the audited team re-answering the same questions three separate times in three separate formats."
+
+  - id: d6-t6
+    domain: domain6
+    number: "6.6"
+    title: "Vulnerability Management in Practice"
+    summary: "Running a vulnerability program as a continuous lifecycle — scan types and their trade-offs, prioritization beyond raw severity, and closing the loop through verified remediation."
+    tags: ["vulnerability management", "scanning", "remediation", "CVSS", "patch management"]
+    key_terms: ["Credentialed Scan", "Agent-Based Scanning", "CVE", "CVSS", "EPSS", "KEV Catalog", "Scan Window", "Remediation SLA", "Compensating Control", "Attack Surface Management"]
+    sections:
+      - heading: "The Lifecycle, Not the Scan"
+        blocks:
+          - type: paragraph
+            text: "Organizations frequently mistake running a scanner for having a vulnerability management program. The scan is one step in a continuous loop: maintain an accurate asset inventory (you cannot scan what you do not know exists, which is why Domain 2's inventory is a hard dependency), discover vulnerabilities, prioritize them against real risk, assign ownership with a deadline, remediate, and then verify by rescanning rather than trusting a ticket marked closed. A program that produces reports nobody acts on has the same security value as no program at all, plus the cost."
+          - type: callout
+            style: warning
+            text: "The most common program failure is volume without prioritization: a scanner reporting 40,000 findings across the estate produces paralysis, not security. If a scenario describes a team overwhelmed by scan output, the answer is risk-based prioritization and asset criticality, not more scanning or more staff."
+      - heading: "Scan Types and What Each Actually Sees"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Uncredentialed (unauthenticated) scan — probes from outside like an attacker with no access; shows externally visible exposure but infers much from banners, producing more false positives"
+              - "Credentialed (authenticated) scan — logs into the target and reads actual installed versions and configuration; far more accurate and far fewer false positives, which is why it is the recommended default for internal assets"
+              - "Agent-based scanning — software resident on the endpoint reports continuously; reaches laptops that are rarely on the corporate network when scans run, and avoids scan-window scheduling entirely"
+              - "Network versus host scanning — network scans find exposed services across ranges; host scans examine one system deeply, including local configuration a network scan cannot observe"
+              - "Passive scanning — infers assets and versions by watching traffic rather than sending probes; produces zero impact on fragile systems, at the cost of only seeing what happens to communicate"
+          - type: callout
+            style: tip
+            text: "Credentialed versus uncredentialed is a favorite exam distinction. Credentialed scans give accuracy and completeness; uncredentialed scans give the attacker's-eye view of exposure. The mature answer to which you should run is both, for different questions — but if a scenario complains about false positives, credentialed scanning is the fix."
+          - type: paragraph
+            text: "Scanning is not free of risk. Aggressive scans have knocked over fragile legacy systems, medical devices, and industrial controllers, which is why production scanning needs an agreed window, change-management awareness, and gentler configurations for sensitive equipment. The correct answer for a system too fragile to scan is not to skip assessment but to substitute a safer method — passive discovery, configuration review, or testing an identical non-production instance."
+      - heading: "Prioritization Beyond the Severity Score"
+        blocks:
+          - type: paragraph
+            text: "CVSS base scores describe a vulnerability's intrinsic characteristics in isolation, not the risk it poses to a particular organization. A critical-rated flaw in an isolated lab system matters less than a medium-rated one in an internet-facing system holding regulated data. Mature prioritization combines severity with asset criticality and data sensitivity, exposure (internet-facing or internally reachable only), whether a working exploit exists publicly, and whether compensating controls already reduce exploitability."
+          - type: list
+            style: bullet
+            items:
+              - "CVE — the unique identifier for a specific publicly known vulnerability; a naming scheme, not a rating"
+              - "CVSS — the standardized severity score; note the temporal and environmental metric groups exist precisely to adjust the base score for exploit maturity and local context, and are widely ignored"
+              - "EPSS — estimates the probability a vulnerability will actually be exploited in the wild, which is a fundamentally different and often more actionable question than how bad it would be"
+              - "KEV catalog — a curated list of vulnerabilities with confirmed active exploitation; anything on it warrants emergency handling regardless of its CVSS score"
+          - type: callout
+            style: example
+            text: "A vulnerability with a CVSS of 9.8 that no one has ever exploited and that sits behind three layers of segmentation may reasonably wait, while a 6.5 under active mass exploitation on an internet-facing server is an emergency tonight. Reasoning from likelihood and impact rather than from a single number is exactly the risk-based judgment the exam rewards."
+      - heading: "Closing the Loop"
+        blocks:
+          - type: paragraph
+            text: "Remediation deadlines should be defined by policy as tiered SLAs — critical internet-facing findings in days, lower-severity internal ones in a quarter — so that urgency is an agreed standard rather than a negotiation each time. Where a fix genuinely cannot be applied, because a vendor has not released one or an application breaks under the patch, the correct outcome is a documented compensating control plus a formally accepted, time-bounded, and reviewed risk (Domain 1), not a finding that silently ages. Verification by rescan matters because patches fail to apply, get rolled back, and get reverted by image redeployment more often than anyone expects. Useful program metrics are mean time to remediate, percentage of assets covered by scanning at all, and the age distribution of open findings — coverage in particular, because unscanned assets are invisible risk rather than absent risk."
+
+  - id: d6-t7
+    domain: domain6
+    number: "6.7"
+    title: "Penetration Testing: Authorization, Methodology, and Reporting"
+    summary: "The legal and procedural scaffolding that separates a penetration test from a crime, the recognized methodologies, and how findings become organizational improvement."
+    tags: ["penetration testing", "rules of engagement", "authorization", "OSSTMM", "red team"]
+    key_terms: ["Rules of Engagement", "Get Out of Jail Free Letter", "Scope Statement", "Black Box", "White Box", "Gray Box", "PTES", "NIST SP 800-115", "OSSTMM", "Responsible Disclosure", "Deconfliction"]
+    sections:
+      - heading: "Authorization Comes First, Always"
+        blocks:
+          - type: paragraph
+            text: "The only difference between a penetration test and a computer crime is documented authorization from someone with the authority to grant it. Written approval from senior management — the informal 'get out of jail free' letter — must exist before any testing begins, and testers should carry it during physical or social engineering engagements where they may be detained by security staff who are, correctly, doing their jobs. Authorization from a system owner is insufficient when the systems sit in a third party's cloud or data center; the hosting provider's own terms and authorization requirements apply independently."
+          - type: list
+            style: bullet
+            items:
+              - "Scope — precisely which addresses, applications, facilities, and personnel are in scope, and explicitly what is out of scope"
+              - "Timing — permitted testing windows, and whether destructive or denial-of-service testing is authorized at all (usually it is not)"
+              - "Rules of engagement — permitted techniques, handling of discovered sensitive data, whether social engineering and physical entry are allowed, and required stop conditions"
+              - "Escalation and deconfliction — a named contact reachable at any hour, so a defender who detects the activity can confirm whether it is the test or an actual intrusion"
+              - "Evidence handling — how captured credentials and extracted data are stored, transmitted, and destroyed after the engagement"
+          - type: callout
+            style: warning
+            text: "Discovering evidence of a pre-existing real compromise mid-test is a defined scenario worth knowing: testing stops, the escalation contact is notified immediately, and the organization's incident response process takes over. Continuing to test through an active intrusion contaminates evidence and risks being blamed for the attacker's actions."
+      - heading: "Knowledge Levels and What Each Tests"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Black box (zero knowledge) — testers begin with nothing, simulating an external attacker; realistic reconnaissance, but budget is consumed discovering what the organization already knows, and coverage is whatever they happen to find"
+              - "White box (full knowledge) — testers receive architecture documentation, source code, and credentials; maximum coverage and depth per hour spent, at the cost of realism"
+              - "Gray box (partial knowledge) — the common middle ground, often simulating an attacker who has already achieved a foothold or an insider with ordinary user access"
+          - type: callout
+            style: tip
+            text: "A related distinction the exam draws: whether the defending team knows a test is happening. A double-blind test, where defenders are unaware, evaluates detection and response capability as much as it evaluates the controls — which is often the more valuable finding, since it measures whether the SOC actually catches what it is supposed to catch."
+      - heading: "Recognized Methodologies"
+        blocks:
+          - type: paragraph
+            text: "Using a published methodology makes results repeatable, comparable across engagements and vendors, and defensible to auditors — an ad hoc test's coverage depends entirely on the individual tester's habits. The frameworks the exam may reference include NIST SP 800-115, the U.S. federal technical guide to information security testing; PTES, the Penetration Testing Execution Standard, covering pre-engagement through reporting; OSSTMM, the Open Source Security Testing Methodology Manual, notable for its emphasis on measurable results; OWASP's testing guides for web and mobile applications specifically; and MITRE ATT&CK as the shared vocabulary for describing which adversary techniques were exercised and which were detected."
+      - heading: "Reporting and What Happens Afterward"
+        blocks:
+          - type: paragraph
+            text: "A penetration test report that only lists findings has delivered half its value. Effective reports open with an executive summary written for people who will not read the technical body, stating business risk in business terms; provide reproducible technical detail so engineers can confirm and fix each issue; rate findings by real risk to this organization rather than by generic severity; and give prioritized, actionable remediation guidance. Crucially, they should also record what defenders detected and how quickly, because a finding that the SOC never noticed the tester's lateral movement is often more important than any individual vulnerability."
+          - type: paragraph
+            text: "The report itself is among the most sensitive documents an organization possesses — a curated roadmap for compromising it — and warrants classification, restricted distribution, and encrypted storage and transmission accordingly. Findings should feed the risk register and remediation tracking rather than living in a PDF, and retesting after remediation is what converts a test from an assessment into an improvement. Where testing is performed against third parties or products, responsible disclosure practices apply: notify the owner, allow reasonable time to remediate, and coordinate any public disclosure."
+
+  - id: d6-t8
+    domain: domain6
+    number: "6.8"
+    title: "Log Review, Monitoring, and Synthetic Testing as Assessment"
+    summary: "Using operational telemetry and simulated transactions as continuous assessment activities that reveal what point-in-time testing cannot."
+    tags: ["log review", "synthetic transactions", "RUM", "monitoring", "continuous assessment"]
+    key_terms: ["Synthetic Transaction", "Real User Monitoring", "Log Review", "Baseline", "Detection Coverage", "Alert Tuning", "Canary Test", "Service Level Objective"]
+    sections:
+      - heading: "Log Review as an Assessment Technique"
+        blocks:
+          - type: paragraph
+            text: "Domain 7 covers logging as an operational capability; Domain 6 treats reviewing those logs as an assessment activity in its own right. Logs answer questions no scanner can: are the controls actually being exercised, are there failed access attempts nobody investigated, are administrative actions occurring outside change windows, do the account privileges in use match what the access review approved. A control that exists on paper and is never triggered in the logs may not be enforcing anything at all, and log review is frequently how that is discovered."
+          - type: callout
+            style: tip
+            text: "Assessing logging itself is a distinct and testable idea: are the systems that should be logging actually sending logs, are the right event types enabled, is time synchronized across sources, and is retention sufficient to investigate an intrusion discovered months later? A gap in log coverage is an assessment finding, because it is an inability to detect and investigate."
+      - heading: "Synthetic Transactions"
+        blocks:
+          - type: paragraph
+            text: "A synthetic transaction is a scripted interaction executed against a system on a schedule — log in, search, add to cart, check out — verifying that the whole path works and measuring how long it takes. Because it runs continuously and independently of whether real users are active, it detects failures at three in the morning, on paths that are rarely exercised, and in the gap between individually healthy components and an actually working end-to-end service. It also provides a consistent performance baseline that makes degradation visible before users complain."
+          - type: paragraph
+            text: "Real user monitoring is the complement, capturing what actual users experience across their real devices, networks, and geographies — data synthetic tests cannot produce because they run from fixed, known conditions. Synthetic testing gives consistency and coverage of rare paths; RUM gives reality and breadth. Neither substitutes for the other, and the security-relevant point is that both feed the availability leg of the CIA triad with evidence rather than assumption."
+          - type: callout
+            style: example
+            text: "Synthetic transactions can validate security controls directly, not just availability. A scheduled test that attempts an action which policy should block — accessing a resource without authorization, submitting input that a WAF should reject — verifies the control is still enforcing. Controls fail silently after upgrades and configuration changes far more often than anyone expects, and only an active test catches it."
+      - heading: "Validating That Detection Actually Works"
+        blocks:
+          - type: paragraph
+            text: "The most consequential monitoring assessment question is not whether alerts fire but whether the right ones do and whether anyone responds. Detection coverage is meaningfully measured by mapping deployed detections against adversary techniques (MITRE ATT&CK) and identifying which techniques would currently go unnoticed, then confirming through breach and attack simulation or purple-team exercises that the detections that supposedly exist genuinely trigger. Alert fatigue is itself an assessment finding: a queue generating thousands of low-value alerts daily is functionally equivalent to no monitoring, because analysts learn to dismiss them, and tuning is a security improvement rather than a convenience."
+
+  - id: d6-t9
+    domain: domain6
+    number: "6.9"
+    title: "Code Review, Misuse Cases, and Software Test Techniques"
+    summary: "The assessment techniques aimed specifically at software — manual and automated review, coverage analysis, and testing for what a system should refuse to do."
+    tags: ["code review", "misuse case", "test coverage", "SAST", "DAST", "regression testing"]
+    key_terms: ["Static Analysis", "Dynamic Analysis", "Interactive Analysis", "Fagan Inspection", "Peer Review", "Misuse Case", "Abuse Case", "Negative Testing", "Code Coverage", "Regression Testing", "Fuzzing"]
+    sections:
+      - heading: "Manual Review and Its Formal Variants"
+        blocks:
+          - type: paragraph
+            text: "Automated analysis finds pattern-matchable defects; humans find logic flaws, authorization mistakes, and design errors that no tool recognizes because they require understanding intent. Peer review is the lightweight, routine form. Fagan inspection is the formal, structured variant with defined roles and phases — planning, overview, preparation, inspection, rework, and follow-up — used where defect cost is very high, such as safety-critical or aerospace software. The exam-relevant point is that formality should scale with consequence: a Fagan inspection on a marketing page is waste, and unstructured peer review on flight control software is negligence."
+          - type: callout
+            style: warning
+            text: "Authorization logic is the canonical example of what only human review catches. A tool can verify that input is validated and that a query is parameterized; it generally cannot determine that a given endpoint should have checked whether this particular user owns the record being requested. Broken access control consistently ranks at the top of the OWASP list precisely because it is a logic problem, not a syntax problem."
+      - heading: "Automated Analysis Techniques"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "SAST (static) — analyzes source or binaries without executing them; runs early and pinpoints exact lines, but cannot see runtime configuration and is prone to false positives"
+              - "DAST (dynamic) — tests the running application from outside; finds real, exploitable issues including deployment and configuration flaws, but only in the paths it reaches and without pointing at the responsible code"
+              - "IAST (interactive) — instruments the running application so it observes execution from inside during testing, combining dynamic accuracy with code-level pinpointing"
+              - "SCA (software composition analysis) — identifies third-party and open-source components and their known vulnerabilities, which is where a large share of real risk lives"
+              - "Fuzzing — submits malformed, unexpected, and random input at scale to provoke crashes and unhandled conditions; particularly effective against parsers, file format handlers, and memory-unsafe code"
+          - type: callout
+            style: tip
+            text: "The clean exam distinction: static analysis reads the code without running it, dynamic analysis runs it without reading it, and interactive analysis does both at once. Each finds a different class of defect, which is why a mature program layers them rather than choosing one."
+      - heading: "Misuse Cases and Negative Testing"
+        blocks:
+          - type: paragraph
+            text: "Ordinary test cases verify that a system does what it should when used correctly. Misuse cases — sometimes called abuse cases — invert this by modeling what a hostile actor would deliberately attempt and verifying the system refuses: submitting another user's identifier to retrieve their record, replaying a completed transaction, manipulating a client-side price, skipping a required workflow step by requesting a later endpoint directly. This is where threat modeling from Domain 1 becomes concrete test cases, and it is the specific discipline that catches business logic flaws, which automated scanners essentially never find because nothing in the traffic looks malformed."
+          - type: callout
+            style: example
+            text: "Negative testing is the broader habit: confirm the system correctly rejects bad input, denies unauthorized actions, and fails safely, rather than only confirming it accepts good input. A system that has only ever been tested with valid data has been tested for functionality, not for security."
+      - heading: "Coverage and Regression"
+        blocks:
+          - type: paragraph
+            text: "Test coverage analysis measures how much of the code the test suite actually exercises — statement, branch, condition, and path coverage in increasing order of rigor. High coverage is a useful signal but a dangerous target: it proves lines were executed, not that meaningful assertions were made about their behavior, and a suite with ninety percent coverage and weak assertions can pass while the software is broken. Regression testing re-runs existing tests after every change to confirm that a fix or feature did not break something previously working, and it carries direct security weight, since security patches themselves introduce defects and a patch that quietly breaks an authorization check is worse than the vulnerability it closed."
+
+  - id: d6-t10
+    domain: domain6
+    number: "6.10"
+    title: "Assessing Account Management, Backup, and Recovery Readiness"
+    summary: "The operational assessments that verify identity hygiene, that backups can actually restore, and that recovery plans work under conditions nobody chose."
+    tags: ["access review", "account management", "backup verification", "DR testing", "recertification"]
+    key_terms: ["Access Recertification", "Orphaned Account", "Privilege Creep", "Separation of Duties Review", "Restore Test", "Tabletop Exercise", "Parallel Test", "Full Interruption Test", "RTO Validation"]
+    sections:
+      - heading: "Assessing Account Management"
+        blocks:
+          - type: paragraph
+            text: "Account management review is the recurring assessment of who has access to what and whether they should. It is unglamorous and consistently productive, because entitlements accumulate: people change roles and keep the old access (privilege creep), contractors and departed employees leave accounts behind (orphaned accounts), service accounts are provisioned broadly for convenience and never revisited, and emergency access granted during an incident is never revoked. Access recertification requires the business owner — not IT — to affirmatively confirm each person's continued need, because only the owner knows what the job actually requires."
+          - type: list
+            style: bullet
+            items:
+              - "Orphaned and dormant accounts — accounts belonging to departed staff, or unused for an extended period, both of which are attacker footholds with no one watching"
+              - "Privileged account inventory — whether the population of administrative accounts matches the approved list, and whether any standing privilege should be just-in-time instead"
+              - "Separation of duties validation — testing for toxic combinations where one identity can both initiate and approve the same sensitive transaction"
+              - "Provisioning and deprovisioning timeliness — measuring elapsed time from termination to access removal, which is a directly reportable metric and a common audit finding"
+          - type: callout
+            style: warning
+            text: "Rubber-stamped recertification is a well-known failure mode: a manager presented with two hundred entitlements approves them all in one click, producing an audit artifact with no assurance behind it. Assessing the recertification process itself — sampling approvals and testing whether the reviewer could have justified them — is the higher-order finding."
+      - heading: "Verifying Backups Actually Restore"
+        blocks:
+          - type: paragraph
+            text: "A backup job reporting success proves data was written somewhere; it does not prove the data can be read back, that it is complete, that the encryption keys are available, or that the restore fits inside the recovery time objective. The only assessment that answers those questions is an actual restore test, performed to separate hardware, on a schedule, with the elapsed time measured against the RTO the business agreed to. Organizations discover corrupted backup chains, missing databases, unavailable keys, and restore procedures nobody has ever executed most often during a real disaster, which is the worst possible moment."
+          - type: callout
+            style: tip
+            text: "Ransomware changed the assessment criteria for backups. Beyond restorability, the questions now are whether backups are immutable or offline so an attacker with domain administrator access cannot encrypt or delete them, and whether restoring would reintroduce the attacker's persistence. A backup reachable with the same credentials that compromised production is not a recovery capability."
+      - heading: "Testing Continuity and Recovery Plans"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Read-through / checklist review — participants review the plan for accuracy and gaps; lowest cost and lowest assurance, but genuinely useful for catching stale contact lists and departed staff"
+              - "Structured walkthrough / tabletop exercise — the team talks through a scenario together, surfacing coordination gaps and unstated assumptions without touching production"
+              - "Simulation test — a realistic scenario is enacted with actual response steps taken, short of failing over production systems"
+              - "Parallel test — recovery systems are brought up and processing is run alongside production, verifying the alternate site genuinely works without risking the live environment"
+              - "Full interruption test — production is actually stopped and operations run from recovery; the highest assurance and the highest risk, requiring executive approval and often reserved for the most critical functions"
+          - type: paragraph
+            text: "The progression matters because assurance and business risk rise together, and the appropriate level is driven by the criticality established in the business impact analysis. Whatever the level, the deliverable is not a passing grade but a list of gaps that update the plan — a test that finds nothing usually means the scenario was too easy or participants were too prepared, not that the organization is ready."
+
+  - id: d6-t11
+    domain: domain6
+    number: "6.11"
+    title: "Third-Party, Compliance, and Regulatory Assessment"
+    summary: "Assessing organizations you do not control, and demonstrating to regulators and customers that your own controls work."
+    tags: ["third-party assessment", "compliance", "SOC 2", "vendor risk", "attestation"]
+    key_terms: ["Right to Audit", "SOC 2 Type II", "ISO 27001 Certification", "Shared Assessment", "SIG Questionnaire", "Bridge Letter", "Complementary User Entity Control", "Continuous Monitoring", "Nth-Party Risk"]
+    sections:
+      - heading: "Assessing Vendors You Cannot Scan"
+        blocks:
+          - type: paragraph
+            text: "Third parties process an organization's data on infrastructure it does not own and usually may not scan or test. Assessment therefore relies on a graduated set of methods, chosen by how much risk the relationship actually carries: a security questionnaire completed by the vendor (cheapest, entirely self-reported, and only as honest as the respondent); an independent attestation such as a SOC 2 Type II or ISO 27001 certificate; a right-to-audit clause exercised directly; and, where contractually permitted, technical testing of the specific service. The tiering point is the testable one — a vendor handling regulated data at scale warrants a different depth of assessment than one supplying office furniture, and applying identical scrutiny to both wastes finite assessment capacity."
+          - type: callout
+            style: warning
+            text: "Right-to-audit clauses are frequently negotiated into contracts and then never exercised, which provides legal standing but no assurance. An unexercised right is not an assessment; the exam expects contractual rights to be paired with an actual program that uses them."
+      - heading: "Reading an Attestation Correctly"
+        blocks:
+          - type: paragraph
+            text: "SOC 2 Type I describes whether controls were suitably designed at a single point in time; Type II tests whether they operated effectively across a period, typically six to twelve months, and is the substantially stronger report. Reading one properly means going past the opinion letter: check the scope, since a report may cover only one product or data center and not the service you actually use; read the exceptions and management responses, because a clean opinion can still contain meaningful deviations; check the period covered and request a bridge letter for the gap between the report's end and today; and pay particular attention to complementary user entity controls, which are the things the report explicitly assumes you are doing on your side and for which the vendor accepts no responsibility."
+          - type: callout
+            style: tip
+            text: "Complementary user entity controls are a favorite exam trap. A vendor's SOC 2 may state that customers are responsible for configuring access controls, managing their own users, and enabling encryption options. An organization that read only the opinion page and assumed the vendor handled everything has an unmitigated gap that the report explicitly disclaimed."
+          - type: paragraph
+            text: "Point-in-time attestation is also increasingly recognized as insufficient on its own, since a vendor's posture can change materially the day after an audit period closes. Continuous monitoring — external attack surface monitoring, breach notification clauses, and periodic reassessment triggered by changes in the relationship — is the maturing practice. Nth-party risk extends the same logic: a critical vendor's own critical subcontractors are part of the organization's real exposure even though there is no direct contractual relationship with them."
+      - heading: "Demonstrating Your Own Compliance"
+        blocks:
+          - type: paragraph
+            text: "The mirror image of vendor assessment is proving your own controls to regulators, customers, and certification bodies. This is where evidence discipline decides outcomes: controls that work but cannot be evidenced will be recorded as findings, because an auditor can only attest to what can be demonstrated. Practical maturity means generating evidence as a byproduct of operations — automated reports, ticket trails, system-generated logs — rather than assembling it manually under deadline, which is both expensive and prone to the appearance of reconstruction after the fact."
+          - type: callout
+            style: example
+            text: "The distinction the exam draws repeatedly: compliance demonstrates that specified controls are in place, while security means the organization is actually defensible. They overlap substantially but are not the same, and an organization optimizing purely for the audit will eventually pass an assessment and still be breached. Compliance is a floor to build on, not a ceiling to stop at."

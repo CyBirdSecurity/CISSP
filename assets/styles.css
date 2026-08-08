@@ -2222,6 +2222,210 @@ img, svg { display: block; max-width: 100%; }
   white-space: nowrap;
 }
 
+/* ── Readiness Score (Progress dashboard) ───────────────────────── */
+.readiness-card { display: flex; flex-direction: column; gap: 24px; }
+.readiness-score-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.readiness-score-circle { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
+.readiness-score-circle .score-number { color: var(--readiness-color); }
+.readiness-explain { flex: 1; min-width: 240px; font-size: 13px; color: var(--c-text-2); line-height: 1.65; }
+.readiness-calibration { margin-top: 10px; padding: 8px 12px; border-radius: var(--radius-sm); background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); }
+.readiness-gate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--c-border);
+}
+.readiness-gate-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.readiness-gate-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.readiness-gate-name { flex: 1; color: var(--c-text-2); }
+.readiness-gate-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; }
+
+/* ── Mock Exam History (Progress dashboard) ─────────────────────── */
+.mock-history-list { display: flex; flex-direction: column; gap: 8px; }
+.mock-history-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto 70px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--c-bg-card);
+  border: 1px solid var(--c-border);
+}
+.mock-history-date { font-family: var(--font-mono); font-size: 12px; color: var(--c-text-3); }
+.mock-history-bar-wrap { height: 6px; background: var(--c-border); border-radius: 3px; overflow: hidden; }
+.mock-history-bar { height: 100%; border-radius: 3px; transition: width 0.6s var(--ease); }
+.mock-history-score { font-family: var(--font-mono); font-size: 12px; color: var(--c-text-2); white-space: nowrap; }
+.mock-history-status { font-size: 11px; font-weight: 700; text-transform: uppercase; text-align: right; }
+.mock-history-status.is-pass { color: var(--c-green); }
+.mock-history-status.is-fail { color: var(--c-red); }
+
+/* ── Review Queue card ───────────────────────────────────────────── */
+.review-queue-card { background: rgba(6,182,212,0.06); border-color: rgba(6,182,212,0.2); }
+.review-queue-card .focus-mode-title { color: var(--c-cyan-lt); }
+
+/* ── Scenario Drill card ─────────────────────────────────────────── */
+.scenario-drill-card { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.25); }
+.scenario-drill-card .focus-mode-title { color: var(--c-purple-lt); }
+
+/* ── Applied-competence signal on the readiness panel ────────────── */
+.readiness-applied {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(124,58,237,0.08);
+  border: 1px solid rgba(124,58,237,0.22);
+}
+.readiness-applied a { color: var(--c-purple-lt); text-decoration: underline; }
+.readiness-applied--capped { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.25); }
+.readiness-applied--good { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.22); }
+
+/* ── Confidence Calibration ──────────────────────────────────────── */
+.option-locked {
+  border-color: var(--c-purple-lt) !important;
+  background: rgba(124,58,237,0.1) !important;
+  opacity: 1;
+}
+.confidence-zone {
+  margin-top: 4px;
+  margin-bottom: 24px;
+  padding: 18px;
+  border-radius: var(--radius-sm);
+  background: var(--c-bg-card);
+  border: 1px solid var(--c-border);
+  text-align: center;
+}
+.confidence-prompt { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+.confidence-options { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.confidence-btn {
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--c-border);
+  background: var(--c-bg-card);
+  color: var(--c-text-2);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all var(--t-base);
+}
+.confidence-btn:hover { border-color: var(--c-border-hov); color: var(--c-text); }
+.confidence-btn--guessing:hover { border-color: var(--c-red); color: var(--c-red); }
+.confidence-btn--unsure:hover { border-color: var(--c-amber); color: var(--c-amber); }
+.confidence-btn--confident:hover { border-color: var(--c-green); color: var(--c-green); }
+
+/* ── Mock Exam ────────────────────────────────────────────────────── */
+.mock-exam-setup { max-width: 700px; margin: 0 auto; }
+.mock-exam-info { margin: 20px 0 28px; }
+.mock-exam-info-list { display: flex; flex-direction: column; gap: 10px; padding-left: 4px; }
+.mock-exam-info-list li { font-size: 13px; color: var(--c-text-2); line-height: 1.6; list-style: disc; margin-left: 18px; }
+.mock-exam-length-options { display: flex; gap: 12px; flex-wrap: wrap; }
+.mock-length-btn {
+  flex: 1;
+  min-width: 130px;
+  padding: 18px;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  background: var(--c-bg-card);
+  border: 1px solid var(--c-border);
+  transition: all var(--t-base);
+}
+.mock-length-btn:hover { border-color: var(--c-border-hov); }
+.mock-length-btn.is-selected { background: rgba(124,58,237,0.15); border-color: var(--c-purple-lt); }
+.mock-length-count { font-size: 24px; font-weight: 800; }
+.mock-length-sub, .mock-length-time { font-size: 12px; color: var(--c-text-3); }
+
+.mock-exam-active { max-width: 700px; margin: 0 auto; }
+.mock-exam-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.mock-exam-timer {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--c-bg-card);
+  border: 1px solid var(--c-border);
+}
+.mock-exam-timer.is-urgent { color: var(--c-red); border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
+.mock-exam-counter { font-family: var(--font-mono); font-size: 12px; color: var(--c-text-3); }
+
+.flag-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--c-border);
+  background: var(--c-bg-card);
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 600;
+  transition: all var(--t-base);
+}
+.flag-btn:hover { border-color: var(--c-amber); color: var(--c-amber); }
+.flag-btn.is-flagged { border-color: var(--c-amber); background: rgba(245,158,11,0.12); color: var(--c-amber); }
+
+.option-selected-plain {
+  border-color: var(--c-purple-lt) !important;
+  background: rgba(124,58,237,0.1) !important;
+}
+
+.mock-exam-navrow { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+.mock-exam-navigator { display: flex; flex-wrap: wrap; gap: 6px; }
+.nav-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--c-bg-card);
+  border: 1px solid var(--c-border);
+  color: var(--c-text-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  transition: all var(--t-fast);
+}
+.nav-dot:hover { border-color: var(--c-border-hov); color: var(--c-text); }
+.nav-dot.is-answered { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: var(--c-green); }
+.nav-dot.is-flagged { border-color: var(--c-amber); box-shadow: inset 0 0 0 1px var(--c-amber); }
+.nav-dot.is-current { border-color: var(--c-purple-lt); background: rgba(124,58,237,0.2); color: var(--c-text); }
+
+.mock-exam-results { max-width: 700px; margin: 0 auto; }
+.mock-pass-banner {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.mock-pass-banner.is-pass { background: rgba(16,185,129,0.12); color: var(--c-green); }
+.mock-pass-banner.is-fail { background: rgba(239,68,68,0.12); color: var(--c-red); }
+.mock-exam-disclaimer { margin-top: 16px; font-size: 12px; color: var(--c-text-3); line-height: 1.6; }
+
+/* ── Content issue report button (quiz review) ──────────────────── */
+.report-issue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--c-text-3);
+  border: 1px dashed var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  transition: all var(--t-base);
+}
+.report-issue-btn:hover { color: var(--c-amber); border-color: var(--c-amber); }
+.report-issue-btn.is-reported { color: var(--c-green); border-color: var(--c-green); border-style: solid; }
+
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .container, .page-container { padding: 0 20px; }
@@ -2272,6 +2476,13 @@ img, svg { display: block; max-width: 100%; }
   .study-sidebar { position: static; max-height: 340px; }
   .study-content { padding: 24px 20px; }
   .study-topic-title { font-size: 22px; }
+
+  .readiness-score-wrap { flex-direction: column; align-items: flex-start; }
+  .readiness-gate-grid { grid-template-columns: 1fr; }
+  .mock-history-row { grid-template-columns: 70px 1fr auto; }
+  .mock-history-status { display: none; }
+  .mock-exam-length-options { flex-direction: column; }
+  .mock-exam-topbar { justify-content: center; }
 }
 
 @media (max-width: 480px) {

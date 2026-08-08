@@ -95,6 +95,125 @@ const QuizEngine = (() => {
   }
 
   /**
+   * Return a shuffled copy of a question with its options/choices reordered
+   * and correct-answer index(es) remapped to match — so an attentive user
+   * can't memorize "the answer is always C" instead of the underlying
+   * concept. Ordering/matching questions are returned unchanged since they
+   * already randomize their own starting state.
+   */
+  function _permute(arr, perm) {
+    return perm.map(origIdx => arr[origIdx]);
+  }
+
+  function shuffleOptions(q) {
+    const type = q.type;
+
+    if (type === 'ordering' || type === 'matching') {
+      return { ...q };
+    }
+
+    if (type === 'multiselect') {
+      if (!Array.isArray(q.options)) return { ...q };
+      const perm = shuffle(q.options.map((_, i) => i));
+      const newCorrect = (q.correct_answers || [])
+        .map(orig => perm.indexOf(orig))
+        .sort((a, b) => a - b);
+      return { ...q, options: _permute(q.options, perm), correct_answers: newCorrect };
+    }
+
+    if (type === 'fillblank') {
+      if (!Array.isArray(q.choices)) return { ...q };
+      const perm = shuffle(q.choices.map((_, i) => i));
+      return { ...q, choices: _permute(q.choices, perm), correct_answer: perm.indexOf(q.correct_answer) };
+    }
+
+    // Plain multiple choice (no `type` field)
+    if (!Array.isArray(q.options)) return { ...q };
+    const perm = shuffle(q.options.map((_, i) => i));
+    const clone = {
+      ...q,
+      options: _permute(q.options, perm),
+      correct_answer: perm.indexOf(q.correct_answer)
+    };
+    if (q.explanations && Array.isArray(q.explanations.incorrect)) {
+      clone.explanations = { ...q.explanations, incorrect: _permute(q.explanations.incorrect, perm) };
+    }
+    return clone;
+  }
+
+  /**
+   * Select questions composed proportionally to each domain's ISC2 exam
+   * blueprint weight, rather than a flat random pull — so a mock exam's
+   * domain mix matches the real exam's mix. Falls back to filling from
+   * any unused question if a domain's pool can't cover its target count.
+   */
+  function selectWeightedQuestions(allQuestions, domains, totalCount) {
+    const totalWeight = domains.reduce((sum, d) => sum + (d.weight || 0), 0) || 1;
+
+    const targets = domains.map(d => {
+      const raw = (d.weight / totalWeight) * totalCount;
+      return { domain: d, raw, base: Math.floor(raw) };
+    });
+
+    let allocated = targets.reduce((sum, t) => sum + t.base, 0);
+    let leftover = totalCount - allocated;
+    targets.sort((a, b) => (b.raw - b.base) - (a.raw - a.base));
+    for (let i = 0; i < leftover && targets.length > 0; i++) {
+      targets[i % targets.length].base++;
+    }
+
+    const selected = [];
+    const usedIds = new Set();
+    targets.forEach(t => {
+      const pool = shuffle(allQuestions.filter(q => q.domain === t.domain.id));
+      const take = pool.slice(0, t.base);
+      selected.push(...take);
+      take.forEach(q => usedIds.add(q.id));
+    });
+
+    if (selected.length < totalCount) {
+      const backfillPool = shuffle(allQuestions.filter(q => !usedIds.has(q.id)));
+      selected.push(...backfillPool.slice(0, totalCount - selected.length));
+    }
+
+    return shuffle(selected).map(shuffleOptions);
+  }
+
+  /**
+   * Applied/scenario questions only — the judgment-under-a-situation format
+   * that dominates the real exam. Drilling these specifically is what closes
+   * the gap between recognizing a definition and choosing the BEST action.
+   */
+  function selectScenarioQuestions(allQuestions, domainIds, count) {
+    const scenarioOnly = allQuestions.filter(q => q.cognitive_level === 'applied');
+    return selectQuestions(scenarioOnly, domainIds, count).map(shuffleOptions);
+  }
+
+  /**
+   * Lightweight spaced-resurfacing queue: prioritizes previously-missed
+   * questions and questions not seen recently, using the per-question
+   * accuracy/last_seen stats already tracked in Progress. Not a full
+   * SM-2 scheduler — a simple heuristic consistent with the rest of the app.
+   */
+  function getReviewQueue(allQuestions, limit = 20) {
+    const qStats = Progress.getQuestionStats();
+    const now = Date.now();
+
+    return allQuestions
+      .filter(q => qStats[q.id] && qStats[q.id].times_answered > 0)
+      .map(q => {
+        const s = qStats[q.id];
+        const accuracy = s.times_correct / s.times_answered;
+        const ageDays = s.last_seen ? (now - new Date(s.last_seen).getTime()) / 86400000 : 999;
+        const priority = (1 - accuracy) * 100 + Math.min(ageDays, 30);
+        return { q, priority };
+      })
+      .sort((a, b) => b.priority - a.priority)
+      .slice(0, limit)
+      .map(x => x.q);
+  }
+
+  /**
    * Get per-domain breakdown of quiz results (type-aware).
    */
   function getDomainBreakdown(questions, answers) {
@@ -111,5 +230,8 @@ const QuizEngine = (() => {
     return byDomain;
   }
 
-  return { selectQuestions, calculateScore, isCorrectAnswer, getWeakDomains, getDomainBreakdown, shuffle };
+  return {
+    selectQuestions, calculateScore, isCorrectAnswer, getWeakDomains, getDomainBreakdown, shuffle,
+    shuffleOptions, selectWeightedQuestions, getReviewQueue, selectScenarioQuestions
+  };
 })();

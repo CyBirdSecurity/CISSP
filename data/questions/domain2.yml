@@ -15,6 +15,7 @@ questions:
         - "The data owner determines classification — not the security administrator, who helps implement technical controls."
         - "The data processor (under GDPR) processes data on behalf of the controller — they do not set classification levels."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["roles", "classification"]
 
   - id: q-d2-002
@@ -34,6 +35,7 @@ questions:
         - "Degauss and physical destruction is the correct answer for classified data — it ensures complete, irreversible elimination."
         - "OS secure delete functions vary in effectiveness and are not certified for classified data disposal."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["data-destruction", "media"]
 
   - id: q-d2-003
@@ -53,6 +55,7 @@ questions:
         - "The data controller is the correct answer — they determine purposes and means and bear primary legal responsibility."
         - "Supervisory authorities (like the ICO) enforce GDPR — they do not process or control personal data."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "GDPR"]
 
   - id: q-d2-004
@@ -72,6 +75,7 @@ questions:
         - "Unrecoverable encrypted data describes cryptographic erasure or key destruction — not remanence."
         - "Data kept beyond retention requirements is a compliance issue but not data remanence."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["data-destruction", "remanence"]
 
   - id: q-d2-005
@@ -91,6 +95,7 @@ questions:
         - "Data in use (actively processed in RAM) is the hardest state to protect — technologies like Trusted Execution Environments (TEE) and homomorphic encryption address this."
         - "Data in archive is a form of data at rest and requires storage encryption, not TLS/IPsec."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["data-states", "encryption"]
 
   - id: q-d2-006
@@ -110,6 +115,7 @@ questions:
         - "They are not equivalent — they provide different levels of assurance and are appropriate for different situations."
         - "The choice of method is based on the classification of data and the media type, not a simple SSD vs. magnetic distinction."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["sanitization", "data-destruction"]
 
   - id: q-d2-007
@@ -129,6 +135,7 @@ questions:
         - "Data retention policies determine how long data is kept — not which legal authority can compel access."
         - "Privacy by design is a framework for building privacy into systems from the start — not a legal jurisdiction concept."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["sovereignty", "legal", "cloud"]
 
   - id: q-d2-008
@@ -148,6 +155,7 @@ questions:
         - "Cryptographic erasure destroys the encryption key, making data unreadable, but relies on the strength of the encryption."
         - "Physical destruction is correct — it provides the absolute highest assurance of data elimination."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["sanitization", "data-destruction"]
 
   - id: q-d2-009
@@ -167,6 +175,7 @@ questions:
         - "Adding controls beyond the baseline is called supplementation, not scoping."
         - "Translating controls into technical configurations is implementation — scoping is a pre-implementation selection activity."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["compliance", "frameworks"]
 
   - id: q-d2-010
@@ -186,6 +195,7 @@ questions:
         - "They are distinct roles with different responsibilities, though role definitions may vary by organization."
         - "Both roles exist across all sectors, not just government."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["roles", "governance"]
 
   - id: q-d2-011
@@ -205,6 +215,7 @@ questions:
         - "Storage limitation addresses how long data is retained — not how much is collected."
         - "Accuracy requires that data be kept correct and up to date — not limited in scope."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "GDPR"]
 
   - id: q-d2-012
@@ -224,6 +235,7 @@ questions:
         - "Magnetic HDDs are correctly identified as the media type where degaussing is effective."
         - "Optical discs (CD/DVD/Blu-ray) store data using physical pits and lands on the disc surface — magnetic fields have no effect."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["sanitization", "media"]
 
   - id: q-d2-013
@@ -242,6 +254,7 @@ questions:
         - "Age does not necessarily correlate with the sensitivity or importance of data."
         - "Location is a factor for physical protection, but classification is based on the data's inherent value."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["classification", "valuation"]
 
   - id: q-d2-014
@@ -260,6 +273,7 @@ questions:
         - "The privacy officer oversees regulatory compliance regarding personal data."
         - "An auditor reviews controls but does not perform the day-to-day backup operations."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["roles"]
 
   - id: q-d2-015
@@ -278,6 +292,7 @@ questions:
         - "Searchability is a benefit of indexing, not the primary goal of security labeling."
         - "Labels are often used as a trigger *to* encrypt data, not to prevent it."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["classification", "labeling"]
 
   - id: q-d2-016
@@ -296,6 +311,7 @@ questions:
         - "Symmetric encryption is the preferred method for bulk data protection."
         - "Confidentiality is the primary goal of symmetric encryption."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["encryption", "key-management"]
 
   - id: q-d2-017
@@ -314,6 +330,7 @@ questions:
         - "Auditors verify compliance but do not own the classification process."
         - "Architects design the environment, but the Data Owner within the organization sets classification."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cloud", "roles"]
 
   - id: q-d2-018
@@ -332,6 +349,7 @@ questions:
         - "Shredding is physical destruction."
         - "Magnets (degaussing) do not work on SSDs."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["sanitization", "encryption"]
 
   - id: q-d2-019
@@ -350,6 +368,7 @@ questions:
         - "Link encryption actually *does* protect headers; end-to-end typically only protects the payload."
         - "Cost varies, but the primary security risk is exposure at intermediate nodes."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["encryption", "network-security"]
 
   - id: q-d2-020
@@ -368,6 +387,7 @@ questions:
         - "NIST 800-53 provides security controls, but EO 13526 defines the classification levels themselves."
         - "COBIT is a framework for IT governance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal", "government"]
 
   - id: q-d2-021
@@ -386,6 +406,7 @@ questions:
         - "Sprawl generally decreases performance and increases security risk."
         - "Moving data over a WAN is simply data transfer."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["data-management"]
 
   - id: q-d2-022
@@ -404,6 +425,7 @@ questions:
         - "Emails in transit are 'Data in Motion'."
         - "Backups are 'Data at Rest'."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["data-states"]
 
   - id: q-d2-023
@@ -422,6 +444,7 @@ questions:
         - "Cost is irrelevant to the effectiveness of the physics."
         - "Degaussing is a hardware-level process, but it requires magnetic media."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["sanitization", "media"]
 
   - id: q-d2-024
@@ -440,6 +463,7 @@ questions:
         - "Incineration is physical destruction, but 'Curie Temperature' is a specific magnetic threshold."
         - "Cold sites relate to business continuity, not magnetic physics."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["sanitization", "media"]
 
   - id: q-d2-025
@@ -458,6 +482,7 @@ questions:
         - "Premature deletion can violate laws and hurt business operations."
         - "Encryption is a protection mechanism, not a retention policy."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["retention", "compliance"]
 
   - id: q-d2-026
@@ -476,6 +501,7 @@ questions:
         - "Hiding extensions is a file system trick, not a data security strategy."
         - "Encryption is used for confidentiality; masking is used for usability without exposure."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "obfuscation"]
 
   - id: q-d2-027
@@ -494,6 +520,7 @@ questions:
         - "IP assignment is DHCP."
         - "DRM is a protection technology, not a hacking framework."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["drm", "protection"]
 
   - id: q-d2-028
@@ -512,6 +539,7 @@ questions:
         - "Tailoring is an internal engineering/policy process, not just a hiring action."
         - "Tailoring happens within a framework, not by replacing it."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["compliance", "frameworks"]
 
   - id: q-d2-029
@@ -530,6 +558,7 @@ questions:
         - "IPS focuses on stopping network attacks."
         - "Vulnerability scanners find weak software/configurations, not specific data types."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["dlp", "pii"]
 
   - id: q-d2-030
@@ -547,6 +576,7 @@ questions:
         - "Create is the first stage."
         - "Archive and Destroy occur much later in the life cycle."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["lifecycle"]
 
   - id: q-d2-031
@@ -565,6 +595,7 @@ questions:
         - "Procurement handles vendor costs."
         - "Power monitoring is an operational/environmental task."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["inventory", "governance"]
 
   - id: q-d2-032
@@ -583,6 +614,7 @@ questions:
         - "A cable lock prevents the theft itself, but not the data access if the lock is cut."
         - "Anti-virus does nothing to protect data on a powered-down, stolen device."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["protection", "encryption"]
 
   - id: q-d2-033
@@ -602,6 +634,7 @@ questions:
         - "Endpoint encryption is a separate control (FDE/file encryption) — DLP focuses on detecting and blocking policy violations."
         - "Backup and recovery management is a separate function handled by backup software — not DLP."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["dlp", "data-protection"]
 
   - id: q-d2-034
@@ -621,6 +654,7 @@ questions:
         - "Top Secret covers information whose disclosure could cause 'exceptionally grave damage' — a higher threshold than serious damage."
         - "SBU (Sensitive But Unclassified) covers sensitive information that doesn't meet classified thresholds — it is not a formal national security classification level."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["classification", "government"]
 
   - id: q-d2-035
@@ -640,6 +674,7 @@ questions:
         - "PbD is an engineering/design principle — not a legal framework for consent, though it supports compliance."
         - "Anonymization is one privacy technique — PbD is a broader design philosophy encompassing many privacy-enhancing approaches."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "design"]
 
   - id: q-d2-036
@@ -659,6 +694,7 @@ questions:
         - "72 hours is the correct GDPR supervisory authority notification deadline."
         - "30 days is too long — GDPR requires notification within 72 hours. Some US state laws and other regulations use 30-day windows."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "GDPR", "compliance"]
 
   - id: q-d2-037
@@ -678,6 +714,7 @@ questions:
         - "Tokenization doesn't use 'stronger algorithms' — it uses a mapping in a secure vault rather than cryptographic algorithms."
         - "Both can be used in any data state context — the distinction is about reversibility, not where data lives."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["data-protection", "tokenization"]
 
   - id: q-d2-038
@@ -697,6 +734,7 @@ questions:
         - "Full database encryption is a confidentiality control — pseudonymization specifically substitutes identifiers while keeping data functionally useful."
         - "Printing on paper is a media format change — not a pseudonymization technique."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "pseudonymization"]
 
   - id: q-d2-039
@@ -716,6 +754,7 @@ questions:
         - "Licensing violations are a legal/compliance concern — the security concern is the uncontrolled access to sensitive data."
         - "Performance is not a security concern — the risk is the lack of security oversight and controls."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "data-management"]
 
   - id: q-d2-040
@@ -735,6 +774,7 @@ questions:
         - "Password policies are addressed in NIST SP 800-63B — not SP 800-88."
         - "Network segmentation is covered in NIST SP 800-53 and other guidance — not SP 800-88."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["sanitization", "NIST"]
 
   - id: q-d2-041
@@ -754,6 +794,7 @@ questions:
         - "Both apply to all types of personal data — not just medical."
         - "This is reversed — anonymization is irreversible; pseudonymization retains a reversible link."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["privacy", "GDPR"]
 
   - id: q-d2-042
@@ -773,6 +814,7 @@ questions:
         - "Separation of duties divides critical functions among multiple people — it is about task division, not information access."
         - "Data minimization limits the collection of personal data — need to know restricts access to already-collected data."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["access-control", "principles"]
 
   - id: q-d2-043
@@ -792,6 +834,7 @@ questions:
         - "The OS does access data in use — memory-based attacks like cold boot attacks exploit this."
         - "Physical controls alone cannot protect data in use from software-based memory attacks — TEEs and hardware security modules are needed."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["data-states", "encryption"]
 
   - id: q-d2-044
@@ -811,6 +854,7 @@ questions:
         - "While classification aids compliance, the fundamental purpose is matching protection to sensitivity — not achieving simultaneous regulatory compliance."
         - "Deleting unimportant data is data lifecycle management — classification determines protection levels, not what to delete."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["classification", "fundamentals"]
 
   - id: q-d2-045
@@ -829,6 +873,7 @@ questions:
         - "In PaaS, the customer manages applications and data — more responsibility than SaaS but less than IaaS."
         - "IaaS places the most data security responsibility on the customer — the shared responsibility model differs significantly across service models."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cloud", "shared-responsibility"]
 
   - id: q-d2-046
@@ -848,6 +893,7 @@ questions:
         - "Storing data in multiple locations is replication/redundancy — not aggregation."
         - "Encrypting combined data is a protection technique — not the definition of data aggregation."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "data-management"]
 
   - id: q-d2-047
@@ -867,6 +913,7 @@ questions:
         - "Backup scheduling is an operational continuity activity — retention schedules address the lifecycle of data, not backup frequency."
         - "Data prioritization for protection is part of classification — retention schedules address timing, not protection levels."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["retention", "lifecycle"]
 
   - id: q-d2-048
@@ -886,6 +933,7 @@ questions:
         - "Implementing and maintaining technical controls as defined by the data owner is the custodian's core responsibility — this is correct."
         - "Negotiating data sharing agreements is a legal and governance function — typically data owner, legal counsel, or procurement."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["roles", "governance"]
 
   - id: q-d2-049
@@ -905,6 +953,7 @@ questions:
         - "Compression reduces storage — masking is a privacy protection technique, not a storage optimization."
         - "Test environments should not use production encryption keys — masking replaces sensitive data values, not encryption keys."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "obfuscation"]
 
   - id: q-d2-050
@@ -924,6 +973,7 @@ questions:
         - "Depreciation schedules apply to physical assets — information assets often appreciate over time and don't depreciate like hardware."
         - "Counting files measures volume, not value — a single file containing trade secrets may be worth millions."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["classification", "valuation"]
 
   - id: q-d2-051
@@ -943,6 +993,7 @@ questions:
         - "Cloud providers may have technical access to data depending on encryption arrangements — sovereignty is about legal jurisdiction, not access."
         - "Data sovereignty is about legal jurisdiction — not a restriction on who can access it by geography."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["sovereignty", "cloud", "legal"]
 
   - id: q-d2-052
@@ -962,6 +1013,7 @@ questions:
         - "Both can be technical or business concerns — the distinction is not about where they apply."
         - "Both apply to all types of data regardless of storage format."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["data-quality", "integrity"]
 
   - id: q-d2-053
@@ -981,6 +1033,7 @@ questions:
         - "Anonymization (irreversible de-identification) is the correct approach when researchers must not be able to identify individuals."
         - "Pseudonymization replaces identifiers with pseudonyms but maintains a re-identification key — pseudonymized data is still personal data under GDPR and HIPAA."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["privacy", "data-protection", "anonymization"]
 
   - id: q-d2-054
@@ -1000,6 +1053,7 @@ questions:
         - "Data Steward is an organizational role responsible for data quality and governance — not a GDPR legal designation."
         - "Data Controller (the entity determining purposes and means of processing) is the correct GDPR term."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "GDPR", "roles"]
 
   - id: q-d2-055
@@ -1019,6 +1073,7 @@ questions:
         - "Tokenization (replacing the PAN with a non-sensitive token, mapping stored in vault) is the correct answer."
         - "Digital rights management controls how digital content can be used and distributed — not applicable to payment card data handling."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["data-protection", "tokenization", "PCI"]
 
   - id: q-d2-056
@@ -1038,6 +1093,7 @@ questions:
         - "Credential stuffing is an attack where breached credentials are used against other services — not an internal account management issue."
         - "Excessive access describes active users having more permissions than needed — not accounts that should have been disabled entirely."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["IAM", "lifecycle", "accounts"]
 
   - id: q-d2-057
@@ -1057,6 +1113,7 @@ questions:
         - "Access control systems (IAM) restrict who can access systems — DLP focuses on data movement regardless of who is accessing it."
         - "Backup and recovery is a data availability function — DLP is specifically about preventing data loss through unauthorized disclosure."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["data-protection", "DLP"]
 
   - id: q-d2-058
@@ -1076,6 +1133,7 @@ questions:
         - "Tamper resistance with key zeroization on intrusion detection is the correct description of Level 3 requirements."
         - "Complete physical protection and environmental attack resistance describes Level 4, the highest FIPS 140-2 level."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["standards", "cryptography", "FIPS"]
 
   - id: q-d2-059
@@ -1095,6 +1153,7 @@ questions:
         - "GDPR does not require users to provide specific reasons for erasure requests — the organization bears the burden of justifying retention."
         - "Storage in backup systems does not excuse non-compliance — organizations must also erase data from backups, though technical feasibility affects timelines."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["privacy", "GDPR", "legal"]
 
   - id: q-d2-060
@@ -1114,6 +1173,7 @@ questions:
         - "Encryption key validity is a key management concern, not specifically a remanence issue — and properly encrypted data with deleted keys is effectively unrecoverable."
         - "Overwriting backup data is a data management concern, not a security risk specific to data remanence."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["data-destruction", "sanitization"]
 
   - id: q-d2-061
@@ -1133,6 +1193,7 @@ questions:
         - "Magnetic HDDs and tapes are the correct media type for degaussing — it destroys the magnetic data patterns."
         - "Cloud storage is logical/virtual — degaussing is a physical process that cannot be applied to cloud volumes. Cloud data destruction relies on provider controls and cryptographic erasure."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["data-destruction", "sanitization", "media"]
 
   - id: q-d2-062
@@ -1152,6 +1213,7 @@ questions:
         - "On-premises application authentication is an IAM/SSO function — CASBs focus on cloud service access and data security."
         - "Physical data center security is a physical security control — CASBs provide logical/virtual security enforcement for cloud services."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cloud", "CASB", "data-protection"]
 
   - id: q-d2-063
@@ -1171,6 +1233,7 @@ questions:
         - "Data in use (actively being processed by CPU/application) is the correct answer."
         - "Data in motion is another term for data in transit (moving across a network) — not the same as data being actively processed."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["data-states", "fundamentals"]
 
   - id: q-d2-064
@@ -1190,6 +1253,7 @@ questions:
         - "Both techniques apply across all data types — neither is restricted to medical data."
         - "They are functionally different: anonymization removes the ability to re-identify; pseudonymization maintains it through a separate key."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "GDPR", "data-protection"]
 
   - id: q-d2-065
@@ -1209,6 +1273,7 @@ questions:
         - "The data owner (typically a business manager accountable for the data's business purpose) has classification authority — not the CISO."
         - "The CISO defines the classification framework and enforces compliance but does not own specific datasets or have authority to classify them — that belongs to the business data owner."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["classification", "roles", "data"]
 
   - id: q-d2-066
@@ -1228,6 +1293,7 @@ questions:
         - "Shadow IT (unauthorized use of external cloud services for work data) is the correct answer."
         - "Insider threat implies intentional malicious action — shadow IT users are typically not acting maliciously but are creating security risks through policy violations."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["governance", "cloud", "shadow-IT"]
 
   - id: q-d2-067
@@ -1247,6 +1313,7 @@ questions:
         - "IRM is widely used in commercial environments for protecting business documents — not limited to government use."
         - "IRM typically encrypts the document itself at rest and in transit — the encryption is the mechanism for enforcing rights even outside corporate systems."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["data-protection", "IRM", "access-control"]
 
   - id: q-d2-068
@@ -1266,6 +1333,7 @@ questions:
         - "Anonymization might satisfy some privacy concerns but SOX retention requirements apply to identifiable financial records — anonymization may not satisfy the regulatory requirement."
         - "This is a clear-cut legal obligation case — it does not require CISO escalation. The policy and legal requirement provide the answer."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["compliance", "data-retention", "legal"]
 
   - id: q-d2-069
@@ -1285,6 +1353,7 @@ questions:
         - "Automated scanning identifies existing controls but is not the definition of scoping and tailoring."
         - "Cost is not the criterion for control selection in scoping and tailoring — applicability and fit to the environment are."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["controls", "frameworks", "compliance"]
 
   - id: q-d2-070
@@ -1304,6 +1373,7 @@ questions:
         - "A data dictionary describes the structure, meaning, and constraints of data elements in a database — not a software component inventory."
         - "An asset register tracks organizational assets broadly — an SBOM is specifically focused on software component inventory within a single application or product."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["supply-chain", "standards", "SBOM"]
 
   - id: q-d2-071
@@ -1323,6 +1393,7 @@ questions:
         - "Automated backup decisions may use metadata but data labeling's primary purpose is guiding human handling decisions."
         - "Copyright and trademark markings are legal notices — security classification labels serve a different, security-driven purpose."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["classification", "data"]
 
   - id: q-d2-072
@@ -1342,6 +1413,7 @@ questions:
         - "Data Portability (Article 20 — allowing transfer to another organization) is the correct right being exercised."
         - "The Right to Restriction (Article 18) allows data subjects to request that processing be temporarily stopped under specific circumstances — it does not enable transfer to another organization."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["privacy", "GDPR", "legal"]
 
   - id: q-d2-073
@@ -1361,6 +1433,7 @@ questions:
         - "Using data for training does not inherently corrupt the records — data integrity addresses accuracy and completeness, not secondary use restrictions."
         - "Availability is about ensuring data is accessible when needed — training use typically does not impact availability unless it involves production system access."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["privacy", "purpose-limitation", "data-management"]
 
   - id: q-d2-074
@@ -1380,6 +1453,7 @@ questions:
         - "Cryptographic erasure or physical destruction is the correct approach for SSDs — wear leveling makes traditional overwriting unreliable on solid-state storage."
         - "OS-level formatting (quick or full) does not reliably erase data on SSDs. Quick format only removes file system pointers; even full format may not reach all data due to wear leveling."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["sanitization", "media", "SSD", "data-destruction"]
 
   - id: q-d2-075
@@ -1399,6 +1473,7 @@ questions:
         - "Confidential (limited to specific roles with business need) is the most appropriate classification for executive-only contract pricing data."
         - "While Restricted may be technically possible, it is often reserved by organizations for regulatory data (PII, PHI, PCI) or legally classified information — competitive pricing data typically falls under Confidential in most classification schemes."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["classification", "governance", "data"]
 
   - id: q-d2-076
@@ -1418,6 +1493,7 @@ questions:
         - "The same strong algorithms (AES-256) are used for data at rest and in transit. Algorithm strength is not the concern — key management is."
         - "While good practice dictates separate key storage, there is no universal regulatory prohibition specifically naming co-located key and data storage. The concern is practical security, not just compliance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["encryption", "key-management", "data-at-rest"]
 
   - id: q-d2-077
@@ -1437,6 +1513,7 @@ questions:
         - "Top Secret applies to information whose unauthorized disclosure could cause 'exceptionally grave damage' to national security — this is the highest US government classification level."
         - "Sensitive But Unclassified (SBU) — also called Controlled Unclassified Information (CUI) — is not a formal classification level under EO 13526. It applies to sensitive but not formally classified information."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["classification", "government", "legal"]
 
   - id: q-d2-078
@@ -1456,6 +1533,7 @@ questions:
         - "Ownership rights are separate from sovereignty. An organization may own its data but still be subject to foreign country laws when that data crosses borders or is stored abroad."
         - "Data sovereignty is a legal/jurisdictional concept, not an encryption standard. Encryption requirements for cross-border transfer are a separate compliance consideration."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["sovereignty", "cloud", "legal", "compliance"]
 
   - id: q-d2-079
@@ -1475,6 +1553,7 @@ questions:
         - "The retention and archival phase failure — inability to track what data is retained and for how long — is the primary neglected phase in this scenario."
         - "Destruction would be relevant if old tapes were being reused without sanitization (which is also a concern), but the primary described failure is the retention tracking, not the destruction process."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["lifecycle", "retention", "data-management"]
 
   - id: q-d2-080
@@ -1494,6 +1573,7 @@ questions:
         - "Centralized access control management describes an Identity Governance and Administration (IGA) or access management system. IRM is specifically about embedding controls within the data object."
         - "IRM uses both encryption and policy controls. Digital watermarking alone provides tracking/attribution but not access restriction or usage enforcement."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["data-protection", "IRM", "access-control"]
 
   - id: q-d2-081
@@ -1513,6 +1593,7 @@ questions:
         - "Data accuracy is about maintaining data correctness. Read-only analytics for service improvement should not alter stored data accuracy."
         - "Authentication risk relates to access control and credential management, not to the contractual scope of data use permitted under the terms of service."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["cloud", "data-governance", "privacy", "secondary-use"]
 
   - id: q-d2-082
@@ -1532,6 +1613,7 @@ questions:
         - "Failing to classify data is a classification program failure, not over-classification. It creates inconsistent protection but is a different problem than excessive classification."
         - "Having too many classification tiers can create confusion but this describes a classification scheme design problem, not over-classification of individual data elements."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["classification", "governance", "data"]
 
   - id: q-d2-083
@@ -1551,6 +1633,7 @@ questions:
         - "An independent verifier of lawful processing describes a supervisory authority or privacy auditor role — not the data processor definition."
         - "Providing infrastructure is a narrower technical role. The processor role is specifically about processing data under the controller's instructions, not merely hosting infrastructure."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["GDPR", "privacy", "roles", "legal"]
 
   - id: q-d2-084
@@ -1570,6 +1653,7 @@ questions:
         - "Sanitization requirements apply broadly based on data sensitivity, not just government-classified data. NIST SP 800-88 guidance applies to organizations with sensitive data of any type, including private sector."
         - "Sanitization is about data erasure, not media destruction for all cases. Clearing and purging methods sanitize data while preserving the media for reuse — physical destruction is reserved for the highest sensitivity cases."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["sanitization", "data-destruction", "media"]
 
   - id: q-d2-085
@@ -1589,6 +1673,7 @@ questions:
         - "SQL injection against corporate database servers is addressed by WAFs, input validation, and database security controls — not CASBs, which focus on cloud service access."
         - "USB-borne malware is addressed by endpoint security controls (EDR, DLP, USB port controls) — not CASBs, which focus on cloud service interactions."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["cloud", "CASB", "data-protection", "shadow-IT"]
 
   - id: q-d2-086
@@ -1608,6 +1693,7 @@ questions:
         - "Degaussing is part of the NIST 'Purge' category and is appropriate when media is leaving the organization or the threat model requires stronger assurance than overwriting. It is not specifically defined as the 'Clear' method."
         - "Cryptographic erasure is categorized as a Purge technique in NIST SP 800-88. It applies to encrypted media where destroying the key renders data unrecoverable — but it is not the definition of 'Clear.'"
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["sanitization", "NIST", "data-destruction", "media"]
 
   - id: q-d2-087
@@ -1627,6 +1713,7 @@ questions:
         - "Data ownership and access control violation — the employee accessed and copied data beyond their authorized scope — is the primary governance violation."
         - "While the employee may need classification awareness training, the first violation is the unauthorized access and data exfiltration, not merely a classification awareness issue."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["governance", "access-control", "data-ownership", "insider-threat"]
 
   - id: q-d2-088
@@ -1646,6 +1733,7 @@ questions:
         - "Deleting PII fields creates incomplete datasets that may not support realistic testing (e.g., email address fields needed to test communication flows are missing). Data masking preserves format while protecting content."
         - "Encrypting production data and sharing the key still exposes all real customer data to developers — encryption protects data in transit but not from authorized key holders. The goal is to protect PII, not just secure the channel."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["privacy", "obfuscation", "data-masking", "testing"]
 
   - id: q-d2-089
@@ -1665,6 +1753,7 @@ questions:
         - "Need-to-know is separate from clearance — both must be satisfied independently. Cleared individuals still require demonstrated operational need to access specific compartmented programs."
         - "Compartmented programs typically require the same or higher clearance level (TS/SCI) — not lower. The additional restriction is access approval based on need to know, not a lower clearance requirement."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["access-control", "classification", "principles", "government"]
 
   - id: q-d2-090
@@ -1684,6 +1773,7 @@ questions:
         - "DAM is specifically designed to detect anomalous SQL activity including injection attack patterns — this is one of its core capabilities, not a limitation."
         - "While any networked component adds some attack surface, DAM's primary security risk is the sensitive data it captures in its logs, not its presence on the network."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["data-protection", "database", "monitoring"]
 
   - id: q-d2-091
@@ -1703,6 +1793,7 @@ questions:
         - "FPE still requires key management — the data is encrypted and requires a key to decrypt. Format preservation does not eliminate the need for key management."
         - "FPE requires just as rigorous key management as any other encryption scheme. Losing the key renders the data permanently inaccessible."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["encryption", "data-protection", "FPE", "PCI"]
 
   - id: q-d2-092
@@ -1722,6 +1813,7 @@ questions:
         - "The data subject is the individual whose personal information is being processed. They have privacy rights but are not responsible for implementing organizational access controls."
         - "The compliance officer ensures overall compliance with policies and regulations but does not implement specific access controls for individual classified documents."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["roles", "governance", "classification", "access-control"]
 
   - id: q-d2-093
@@ -1741,6 +1833,7 @@ questions:
         - "Both masking and tokenization are commonly applied to structured data (database fields). Neither is strictly limited to structured or unstructured data."
         - "Tokenization does not use encryption — it replaces the value with a random substitute stored in a vault. The security comes from vault protection, not mathematical transformation. Some masking techniques may use encryption internally."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["data-protection", "tokenization", "masking"]
 
   - id: q-d2-094
@@ -1760,6 +1853,7 @@ questions:
         - "Automatically denying access without confirming whether the data exists or assessing any legal obligations is not appropriate procedure. The correct process is to verify retention status and respond accordingly."
         - "Consulting legal counsel is prudent for complex retention scenarios, but in this straightforward case (8 years old, 7-year policy, no active litigation), the data should have been purged. Legal holds prevent deletion during active litigation — not 8 years after employment ended."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["retention", "lifecycle", "compliance", "data-management"]
 
   - id: q-d2-095
@@ -1779,6 +1873,7 @@ questions:
         - "Security assessment reports document vulnerability findings from testing. SBOMs are component inventories that support vulnerability management, not assessment findings documents."
         - "Compliance checklists evaluate adherence to standards. SBOMs are data inventories of software components — they support compliance activities but are not compliance checklists themselves."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["supply-chain", "SBOM", "asset-management", "vulnerability"]
 
   - id: q-d2-096
@@ -1798,6 +1893,7 @@ questions:
         - "Freedom of expression is one narrow exception (Article 17(3)(a)) applying to journalistic and similar uses — it does not broadly exempt social media platforms from all erasure obligations."
         - "Legal obligations (like anti-fraud regulations) can override erasure requests under Article 17(3)(b). The platform must demonstrate specific legal requirements, not just cite commercial interests."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["GDPR", "privacy", "erasure", "legal"]
 
   - id: q-d2-097
@@ -1817,6 +1913,7 @@ questions:
         - "Reducing DLP sensitivity to eliminate false positives will also eliminate true positive detections, creating a false sense of security. The goal is precision (high true positive rate, low false positive rate), not simply reducing alerts."
         - "Adding analysts to review 1,500 alerts daily is unsustainable and does not address the root problem. Alert fatigue will persist, and analysts will begin ignoring or auto-closing alerts."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["DLP", "data-protection", "governance", "tuning"]
 
   - id: q-d2-098
@@ -1836,6 +1933,7 @@ questions:
         - "Data proliferation can result from legitimate business activities (backups, business intelligence, reporting) as well as policy violations. The security concern exists regardless of the cause."
         - "Version inconsistency is a data integrity concern but not the primary security concern of proliferation. The primary issue is loss of control and visibility over sensitive data locations."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["data-management", "governance", "data-protection"]
 
   - id: q-d2-099
@@ -1855,6 +1953,7 @@ questions:
         - "PCI DSS Requirement 9 addresses physical security and media handling for cardholder data but references NIST SP 800-88 for sanitization specifics rather than defining its own sanitization categories."
         - "FIPS 140-2 is the cryptographic module security standard — it evaluates hardware security modules and cryptographic implementations, not media sanitization procedures."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["sanitization", "NIST", "standards", "media"]
 
   - id: q-d2-100
@@ -1874,6 +1973,7 @@ questions:
         - "Requiring management approval for all Restricted classifications adds bureaucracy but doesn't help employees understand proper classification criteria or address the root motivation for over-classification."
         - "Eliminating intermediate tiers reduces nuance and increases data protection costs (everything gets higher protection) or data exposure risk (everything gets lower protection). Simplification should improve clarity, not eliminate necessary distinctions."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["classification", "governance", "policy"]
 
   - id: q-d2-101
@@ -1893,6 +1993,7 @@ questions:
         - "Data integrity concerns accuracy and completeness of data — re-identification is a privacy attack that reads data, not one that modifies it."
         - "Access control failure would mean the research team accessed data they were not authorized to access. They had authorized access to the de-identified dataset — the failure was in the de-identification method's strength, not access controls."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["privacy", "anonymization", "aggregation", "data-protection"]
 
   - id: q-d2-102
@@ -1912,6 +2013,7 @@ questions:
         - "Both backup and archive support ransomware resilience and disaster recovery. The distinction is not about what threats they protect against but about their purpose (recovery vs. retention) and access patterns."
         - "Backup and archiving serve distinct and different purposes in data lifecycle management. Treating them as interchangeable leads to gaps in either recovery capability or long-term retention compliance."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["backup", "archiving", "lifecycle", "data-management"]
 
   - id: q-d2-103
@@ -1931,6 +2033,7 @@ questions:
         - "Keeping contracts entirely in the EU avoids the transfer requirement but may not be operationally practical for a multinational organization with US operations and legal teams."
         - "ISO 27001 certification demonstrates security management maturity but does not satisfy GDPR's legal transfer mechanism requirements. GDPR requires specific legal bases for international transfers, not just security certifications."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["GDPR", "privacy", "international", "data-transfer"]
 
   - id: q-d2-104
@@ -1950,6 +2053,7 @@ questions:
         - "Labels supplement technical access controls — they enable users to understand handling requirements and systems to apply policies. Labels alone do not replace technical controls, which are necessary for enforcement."
         - "Auditors can verify label accuracy but typically still need to sample data content to validate that classification levels are appropriately assigned."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["classification", "labeling", "data"]
 
   - id: q-d2-105
@@ -1969,6 +2073,7 @@ questions:
         - "Personnel failure is one component, but attributing it solely to the employee ignores the system design failure. Defense in depth requires technical controls that enforce policy regardless of individual compliance."
         - "If the data was correctly classified as Restricted, the classification is not the failure. The failure is in the controls that enforce the Restricted data handling requirements."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["controls", "technical", "policy", "encryption"]
 
   - id: q-d2-106
@@ -1988,6 +2093,7 @@ questions:
         - "The two concepts are not equivalent. The distinction matters practically and legally. GDPR's standard for anonymization is closer to functional (not absolute) anonymization — taking into account 'all means reasonably likely to be used.'"
         - "Neither type of anonymization is restricted to specific data formats. Both concepts apply across structured and unstructured data types."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["privacy", "anonymization", "GDPR", "data-protection"]
 
   - id: q-d2-107
@@ -2007,6 +2113,7 @@ questions:
         - "Confidentiality risk from retained data is related to access controls, not primarily to the retention schedule's age. Proper access controls should protect retained data regardless of schedule review timing."
         - "Data accuracy may decline over time but is an integrity concern addressed through data quality processes, not through retention schedule review."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["retention", "compliance", "legal", "data-management"]
 
   - id: q-d2-108
@@ -2026,6 +2133,7 @@ questions:
         - "Data in use is a real and significant attack surface — memory scraping attacks, cold boot attacks, and hypervisor attacks target data while it's being processed. The fact that it's temporary does not eliminate the need for protection."
         - "Data in use is not merely theoretical — it refers to data being actively processed in CPU registers, RAM, or application memory, which is a real and targetable attack surface."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["data-states", "encryption", "fundamentals"]
 
   - id: q-d2-109
@@ -2045,6 +2153,7 @@ questions:
         - "Financial risk from untracked assets is an operational concern. The primary security concern is the inability to protect assets you don't know exist."
         - "Personnel responsibility clarity is an administrative concern. The primary security impact of incomplete asset inventory is the inability to apply security controls to unknown systems."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["asset-management", "inventory", "fundamentals"]
 
   - id: q-d2-110
@@ -2064,6 +2173,7 @@ questions:
         - "While signed acknowledgment creates accountability, the primary purpose is to guide employee behavior, not to establish legal liability. Liability is a secondary benefit of documented procedures."
         - "Handling procedures complement technical controls — they do not replace them. Both are needed for defense in depth. Technical controls enforce policy; procedures guide behavior where technical enforcement is not feasible."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["classification", "policy", "governance", "data"]
 
   - id: q-d2-111
@@ -2083,6 +2193,7 @@ questions:
         - "Access control is a compensating control concern, but the fundamental failure is the secure logging design. Restricting log file access does not fix the underlying vulnerability of PANs in clear text logs."
         - "Classification labeling is important but not the root cause. The primary failure is the application design that logged PANs in clear text — labeling the log file would not prevent the exposure."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["data-protection", "PCI", "logging", "secure-design"]
 
   - id: q-d2-112
@@ -2102,6 +2213,7 @@ questions:
         - "Data availability is about ensuring systems are accessible when needed — it is a different concept from data quality, which addresses accuracy, completeness, and consistency."
         - "Data quality concerns apply equally to structured and unstructured data. Poor quality unstructured data (incomplete security policies, inaccurate incident reports) also creates security risks."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["data-quality", "governance", "integrity"]
 
   - id: q-d2-113
@@ -2121,6 +2233,7 @@ questions:
         - "Purging unclassified data creates legal and regulatory liability (data required for compliance or litigation may be destroyed), financial loss (valuable data may be deleted), and operational disruption. Classification programs require time to implement properly."
         - "Allowing the acquired company to operate independently with no data classification creates ongoing data governance and compliance risks. Integration is necessary to establish consistent data protection standards."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["classification", "governance", "data-discovery", "M&A"]
 
   - id: q-d2-114
@@ -2140,6 +2253,7 @@ questions:
         - "Encryption key hierarchies are key management concepts — they address how keys are derived and managed, not the data's journey through systems."
         - "Retention justification involves regulatory citation, but this is a static policy consideration. Data lineage is a dynamic tracking of actual data flows and transformations."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["data-management", "governance", "compliance"]
 
   - id: q-d2-115
@@ -2159,6 +2273,7 @@ questions:
         - "GDPR does not allow organizations to require justification for access requests. The right of access is a fundamental right that can be exercised without providing a reason."
         - "GDPR Article 12 states that access requests must generally be fulfilled free of charge. A fee may be charged for manifestly unfounded or excessive requests (particularly repetitive requests), but not as a standard practice."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["GDPR", "privacy", "data-subject-rights", "legal"]
 
   - id: q-d2-116
@@ -2178,6 +2293,7 @@ questions:
         - "Encryption frameworks address cryptographic operations. Data mesh addresses data ownership, management, and governance responsibilities across organizational domains."
         - "Database clustering addresses availability and performance. Data mesh is an organizational and governance concept about who owns and manages data, not a database technology."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["data-governance", "architecture", "distributed"]
 
   - id: q-d2-117
@@ -2197,6 +2313,7 @@ questions:
         - "Reclassification decisions are typically made by data owners, not legal teams, though legal review may be appropriate for particularly sensitive escalations. The data owner determines appropriate classification based on content."
         - "Not all aggregations warrant the highest classification — only those where combining pieces creates genuinely new sensitive information. Applying maximum classification to all aggregated documents would result in over-classification."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["classification", "aggregation", "data-governance"]
 
   - id: q-d2-118
@@ -2216,6 +2333,7 @@ questions:
         - "While wear leveling is a concern for data erasure, well-implemented FDE stores keys in protected hardware (TPM) or under password-derived keys, not in predictable unprotected SSD locations. The more immediate concern is key loss."
         - "Modern NVMe SSDs with hardware FDE have minimal performance overhead. Performance degradation is not a primary security concern — data availability from key loss is."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["encryption", "FDE", "SSD", "key-management"]
 
   - id: q-d2-119
@@ -2235,6 +2353,7 @@ questions:
         - "Market value to an external buyer is rarely determinable for most organizational data (customer records, internal processes, proprietary algorithms) and would undervalue or overvalue assets in different contexts."
         - "Historical creation cost plus storage cost drastically undervalues assets whose value has grown over time (customer databases, proprietary processes) and doesn't account for the impact of loss."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["classification", "valuation", "risk"]
 
   - id: q-d2-120
@@ -2254,6 +2373,7 @@ questions:
         - "While some regulations may recommend key segmentation, the primary concern is operational security risk, not regulatory mandate. The argument stands on security merit alone."
         - "Operational simplicity is a legitimate consideration in security design. The issue is not that simplicity is always wrong — it is that in this specific case, the security trade-off (all data exposed by one key) is unacceptably high."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["encryption", "key-management", "risk"]
 
   - id: q-d2-121
@@ -2273,6 +2393,7 @@ questions:
         - "Modern MFPs absolutely contain persistent internal hard drives that store document images, logs, and configurations. This is a well-documented security and privacy risk and a common source of data breaches during equipment disposal."
         - "Deleting the print queue removes job references but not the underlying cached data on the internal drive. This is equivalent to file deletion on a computer — data remains recoverable until properly sanitized."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["sanitization", "media", "data-destruction", "physical-security"]
 
   - id: q-d2-122
@@ -2292,4 +2413,165 @@ questions:
         - "Limiting employee access is the least privilege/need-to-know principle — it reduces insider threat and unauthorized access risk. Data minimization addresses how much data is collected, not who accesses it."
         - "Minimum retention periods are part of data lifecycle management. Data minimization primarily addresses the scope of data collected at the point of collection, though retention minimization is a related concept."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["privacy", "data-minimization", "GDPR", "breach"]
+
+  - id: q-d2-123
+    domain: domain2
+    question: "A data owner classifies a dataset as Confidential. The custodian implements encryption, access controls, and backups accordingly. An auditor asks who is accountable if the data is later breached due to inadequate classification. Who is accountable?"
+    options:
+      - "The data owner, because accountability for classification decisions cannot be delegated"
+      - "The data custodian, because they implemented the controls"
+      - "The CISO, because security is their functional responsibility"
+      - "The security operations team, because they monitor for breaches"
+    correct_answer: 0
+    explanations:
+      correct: "The data owner is accountable for classifying data correctly and accepting the residual risk. Accountability cannot be delegated, which is the defining characteristic distinguishing the owner from the custodian who executes the resulting decisions."
+      incorrect:
+        - "This is the correct answer — the owner decides classification and is accountable for that decision."
+        - "The custodian is responsible for correct implementation of the owner's decisions, not accountable for the classification itself."
+        - "The CISO advises and operates the program but is not the accountable owner of each specific dataset."
+        - "Operations teams execute monitoring; they do not own classification decisions."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["data owner", "accountability", "classification"]
+
+  - id: q-d2-124
+    domain: domain2
+    question: "An organization is decommissioning solid-state drives that contained regulated data. The team proposes running a seven-pass overwrite utility. What is the problem with this approach?"
+    options:
+      - "SSD wear leveling means overwrite utilities cannot reliably reach all physical cells; cryptographic erase or physical destruction is required"
+      - "Seven passes are insufficient for regulated data; more passes are required"
+      - "Overwriting voids the drive warranty, preventing resale"
+      - "Overwrite utilities cannot run on drives larger than 2 TB"
+    correct_answer: 0
+    explanations:
+      correct: "SSD controllers distribute writes across physical cells through wear leveling and over-provisioning, so a logical overwrite may leave original data in cells the utility never addressed. Cryptographic erase — destroying the encryption key — or physical destruction is the reliable approach."
+      incorrect:
+        - "This is the correct answer — the failure is architectural to SSDs, not a matter of pass count."
+        - "Additional passes do not solve the problem, because the utility still cannot address cells the controller has remapped."
+        - "Warranty status is a commercial concern, not a data remanence concern."
+        - "Drive capacity is not the limiting factor described here."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["data remanence", "SSD", "sanitization"]
+
+  - id: q-d2-125
+    domain: domain2
+    question: "A marketing team requests a copy of the production customer database for analytics testing. What is the MOST appropriate response?"
+    options:
+      - "Provide a masked or synthetic dataset that preserves analytical characteristics without exposing real personal data"
+      - "Provide the production copy with a signed confidentiality agreement"
+      - "Deny the request entirely since production data must never leave production"
+      - "Provide the production copy but restrict access to the team lead only"
+    correct_answer: 0
+    explanations:
+      correct: "Data masking or synthetic generation lets the team do genuine analytics work while removing the personal data that creates regulatory and breach exposure. This satisfies the business need without extending the sensitive data's footprint."
+      incorrect:
+        - "This is the correct answer — it meets the business requirement while applying data minimization."
+        - "A confidentiality agreement is a legal control that does not prevent a breach of the copied environment, which typically has weaker controls than production."
+        - "Blanket denial ignores a legitimate business need when a safe alternative exists; security should enable the business."
+        - "Narrowing access still places real personal data in a non-production environment with weaker controls."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["data masking", "minimization", "non-production"]
+
+  - id: q-d2-126
+    domain: domain2
+    question: "An organization stores EU customer data in a US-based cloud region. Legal counsel raises a concern. What is the PRIMARY issue?"
+    options:
+      - "Cross-border transfer of personal data requires a valid legal transfer mechanism under EU data protection law"
+      - "US cloud regions have inherently weaker technical security controls"
+      - "Network latency to the US region will degrade application performance"
+      - "US cloud providers do not offer encryption at rest"
+    correct_answer: 0
+    explanations:
+      correct: "Data sovereignty rules restrict transferring personal data outside the EEA unless a recognized mechanism is in place — an adequacy decision, standard contractual clauses, or binding corporate rules. This is a legal compliance requirement independent of the technical controls applied."
+      incorrect:
+        - "This is the correct answer — the issue is legal transfer basis, not technical capability."
+        - "Regional technical controls are typically equivalent; the concern is jurisdictional, not technical."
+        - "Latency is a performance consideration, not the legal concern counsel would raise."
+        - "Major cloud providers offer encryption at rest in all regions; encryption alone does not resolve a transfer restriction."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["data sovereignty", "cross-border", "GDPR"]
+
+  - id: q-d2-127
+    domain: domain2
+    question: "A retention policy requires deleting customer records after five years. Legal notifies the organization of pending litigation involving records from six years ago. What must happen?"
+    options:
+      - "A legal hold suspends normal destruction for the relevant records until the hold is lifted"
+      - "The records must be deleted as scheduled since the retention period has expired"
+      - "The retention policy must be permanently extended to seven years"
+      - "All customer records must be preserved indefinitely going forward"
+    correct_answer: 0
+    explanations:
+      correct: "A legal hold overrides routine retention schedules for records relevant to anticipated or active litigation. Destroying them after notice of litigation can constitute spoliation of evidence, with serious legal consequences."
+      incorrect:
+        - "This is the correct answer — legal hold takes precedence over the standard destruction schedule."
+        - "Destroying records subject to a hold is spoliation and may result in sanctions or adverse inference."
+        - "The policy period need not change permanently; the hold applies to specific records for the duration of the matter."
+        - "Indefinite retention of everything creates its own privacy and cost exposure and is not what a hold requires."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["legal hold", "retention", "spoliation"]
+
+  - id: q-d2-128
+    domain: domain2
+    question: "A DLP system generates hundreds of alerts daily for outbound email containing patterns resembling credit card numbers, and analysts have stopped reviewing them. What is the MOST effective corrective action?"
+    options:
+      - "Tune detection rules and add validation logic so alerts reflect genuine policy violations"
+      - "Increase analyst staffing to handle the existing alert volume"
+      - "Switch the DLP system from monitoring to blocking mode"
+      - "Disable DLP monitoring for email and focus on endpoint channels"
+    correct_answer: 0
+    explanations:
+      correct: "Alert fatigue caused by low-precision rules means real violations are missed among the noise. Tuning, including checksum validation for card numbers, restores signal so alerts are trustworthy and acted upon."
+      incorrect:
+        - "This is the correct answer — the problem is precision, and tuning is what fixes it."
+        - "Adding staff to review predominantly false positives scales the waste rather than eliminating it."
+        - "Blocking on untuned rules would disrupt legitimate business email at scale, turning a monitoring problem into an availability incident."
+        - "Disabling coverage of a primary exfiltration channel removes visibility rather than improving it."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["DLP", "alert fatigue", "tuning"]
+
+  - id: q-d2-129
+    domain: domain2
+    question: "An organization publishes a dataset it describes as anonymized, having removed names and identification numbers. A researcher re-identifies individuals by correlating postal code, birth date, and sex with public voter records. What does this demonstrate?"
+    options:
+      - "Removing direct identifiers is insufficient; quasi-identifiers can re-identify individuals through correlation"
+      - "The organization should have encrypted the dataset before publishing"
+      - "Public voter records should not be publicly available"
+      - "The researcher violated the law by attempting re-identification"
+    correct_answer: 0
+    explanations:
+      correct: "True anonymization must address quasi-identifiers — attributes that are not identifying alone but become so in combination. Techniques such as k-anonymity, l-diversity, and differential privacy exist precisely because naive identifier removal fails."
+      incorrect:
+        - "This is the correct answer — the aggregation of quasi-identifiers defeated the supposed anonymization."
+        - "Encryption would prevent publication use entirely; the goal was to publish usable data safely."
+        - "The availability of public records is not the flaw; the flaw is publishing data that correlates against them."
+        - "The researcher demonstrated a genuine weakness, which is a recognized and valuable form of privacy research."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["anonymization", "re-identification", "privacy"]
+
+  - id: q-d2-130
+    domain: domain2
+    question: "A cloud storage bucket containing internal documents is discovered to be publicly readable. The provider's shared responsibility model is cited in the post-incident review. Who bears responsibility for this misconfiguration?"
+    options:
+      - "The customer, because access configuration of customer data is the customer's responsibility under the shared responsibility model"
+      - "The cloud provider, because they operate the storage infrastructure"
+      - "Responsibility is shared equally between customer and provider"
+      - "The provider, unless the customer purchased an enhanced security tier"
+    correct_answer: 0
+    explanations:
+      correct: "Under every major shared responsibility model, the provider secures the underlying infrastructure while the customer is responsible for configuring access to its own data. A permissive bucket policy is entirely a customer-side failure."
+      incorrect:
+        - "This is the correct answer — data access configuration sits squarely on the customer side of the boundary."
+        - "The provider's obligation covers the infrastructure, not the customer's configuration choices."
+        - "The model assigns distinct responsibilities rather than splitting them equally; configuration is unambiguously the customer's."
+        - "Security tiers may add tooling but do not transfer configuration responsibility to the provider."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["shared responsibility", "cloud", "misconfiguration"]

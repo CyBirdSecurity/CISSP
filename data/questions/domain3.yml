@@ -16,6 +16,7 @@ questions:
         - "Clark-Wilson protects integrity using well-formed transactions and separation of duties, not simple read/write rules."
         - "The Brewer-Nash (Chinese Wall) model prevents conflicts of interest based on prior access history."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["security-models", "confidentiality"]
 
   - id: q-d3-002
@@ -35,6 +36,7 @@ questions:
         - "Timing attacks are a side-channel attack technique not specifically associated with ECB mode."
         - "ECB mode does not require a larger key than other modes of the same cipher."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "symmetric"]
 
   - id: q-d3-003
@@ -54,6 +56,7 @@ questions:
         - "Collision resistance is correct — finding any two inputs with the same hash is infeasible."
         - "The avalanche effect means that a small change in input produces a dramatically different hash output — it is not about two inputs having the same hash."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "hashing"]
 
   - id: q-d3-004
@@ -73,6 +76,7 @@ questions:
         - "Trusted CAs are listed in trust stores, not in a CRL. The CRL only contains revoked certificates from a specific CA."
         - "Pending certificate signing requests (CSRs) are processed by the RA/CA — they are not listed in a CRL."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["PKI", "cryptography"]
 
   - id: q-d3-005
@@ -92,6 +96,7 @@ questions:
         - "AES is the correct answer — current federal standard with 128-bit blocks and up to 256-bit keys."
         - "Blowfish uses variable key length (32-448 bits) but is not a federal standard and was replaced by Twofish and AES in competition."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["cryptography", "symmetric"]
 
   - id: q-d3-006
@@ -111,6 +116,7 @@ questions:
         - "Kerckhoffs's principle does not specify government approval — it is about not relying on algorithm secrecy."
         - "Key rotation is a key management best practice, not Kerckhoffs's principle."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "principles"]
 
   - id: q-d3-007
@@ -130,6 +136,7 @@ questions:
         - "Digital signatures provide authentication but not confidentiality or authorization. Authorization is a separate access control function."
         - "Digital signatures provide integrity and non-repudiation but not availability."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "digital-signatures"]
 
   - id: q-d3-008
@@ -149,6 +156,7 @@ questions:
         - "The TCB must be small enough (not large) to be fully verified — being 'large enough to cover all functions' is NOT a requirement."
         - "Small enough to be verified is indeed a correct requirement — the TCB should have a minimal footprint."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["architecture", "trusted-systems"]
 
   - id: q-d3-009
@@ -168,6 +176,7 @@ questions:
         - "Neither is universally more secure or faster — they have different use cases and trade-offs."
         - "The application (at rest vs. in transit) does not define cipher type — both types can be used in either context."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "symmetric"]
 
   - id: q-d3-010
@@ -187,6 +196,7 @@ questions:
         - "Bollards correctly prevent vehicle attacks by physically blocking vehicle access."
         - "A turnstile controls pedestrian access — it does not stop vehicles."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["physical-security", "controls"]
 
   - id: q-d3-011
@@ -206,6 +216,7 @@ questions:
         - "Hash functions produce fixed-size outputs regardless of input size — the output is not always larger than the input."
         - "Multiple inputs producing the same hash is a collision — the opposite of a desirable property."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["cryptography", "hashing"]
 
   - id: q-d3-012
@@ -225,6 +236,7 @@ questions:
         - "A pre-image attack is the correct term for finding an input that produces a specific target hash."
         - "A rainbow table attack uses precomputed hash-to-password mappings to reverse password hashes — it is a type of pre-image attack but specifically for password cracking."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "attacks"]
 
   - id: q-d3-013
@@ -243,6 +255,7 @@ questions:
         - "Biba is a lattice-based integrity model."
         - "Clark-Wilson uses an access control triple (subject, software, object) to ensure integrity."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["models"]
 
   - id: q-d3-014
@@ -261,6 +274,7 @@ questions:
         - "The PP is a set of security requirements for a category of products."
         - "The EAL is the numerical rating (1-7) assigned after evaluation."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["standards", "common-criteria"]
 
   - id: q-d3-015
@@ -279,6 +293,7 @@ questions:
         - "In chosen-plaintext, the attacker can encrypt specific messages of their choice."
         - "A birthday attack is a collision attack used against hashes."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "attacks"]
 
   - id: q-d3-016
@@ -298,6 +313,7 @@ questions:
         - "Not writing to higher integrity is Biba's star (*) Integrity Property — not the Simple Integrity Property."
         - "Not writing to lower integrity is Bell-LaPadula's star property for confidentiality — not a Biba property."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["security-models", "integrity"]
 
   - id: q-d3-017
@@ -317,6 +333,7 @@ questions:
         - "Asymmetric cryptography is significantly slower than symmetric — typically used only for key exchange and digital signatures, not bulk data."
         - "The value of asymmetric cryptography is that keys do not need to be exchanged in person — the public key can be distributed openly."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["cryptography", "asymmetric"]
 
   - id: q-d3-018
@@ -336,6 +353,7 @@ questions:
         - "Verifying requestor identity before CA issuance is the correct RA role — this is what the RA does."
         - "Private key management is the individual certificate holder's responsibility — PKI best practice is that the CA and RA never possess subscribers' private keys."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["PKI", "cryptography"]
 
   - id: q-d3-019
@@ -355,6 +373,7 @@ questions:
         - "A Caesar cipher with a fixed letter shift is the correct answer."
         - "A one-time pad uses a truly random key the same length as the message — it is theoretically unbreakable, not a simple shift cipher."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["cryptography", "historical"]
 
   - id: q-d3-020
@@ -374,6 +393,7 @@ questions:
         - "Private key storage is managed by the device's secure enclave or keystore — not certificate pinning."
         - "Certificate compression is not a function of certificate pinning — it is a security control."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["PKI", "mobile-security"]
 
   - id: q-d3-021
@@ -393,6 +413,7 @@ questions:
         - "Digital signatures use RSA or DSA/ECDSA — not Diffie-Hellman."
         - "One-time passwords use TOTP/HOTP algorithms — not Diffie-Hellman."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "key-exchange"]
 
   - id: q-d3-022
@@ -412,6 +433,7 @@ questions:
         - "Non-repudiation requires asymmetric cryptography (digital signatures) — MACs use shared keys, so either party could have created it."
         - "Availability is not provided by MACs — they are cryptographic authentication tools."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "MAC", "integrity"]
 
   - id: q-d3-023
@@ -431,6 +453,7 @@ questions:
         - "Replay attacks are prevented by nonces and timestamps — not PFS."
         - "Side-channel attacks are mitigated by implementation hardening — not PFS."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "TLS"]
 
   - id: q-d3-024
@@ -450,6 +473,7 @@ questions:
         - "Preventing conflicts of interest is the Brewer-Nash (Chinese Wall) model — not Clark-Wilson."
         - "Physical security is not addressed by any of the named security models."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["security-models", "integrity"]
 
   - id: q-d3-025
@@ -469,6 +493,7 @@ questions:
         - "WEP can be cracked remotely by capturing wireless traffic — no physical access needed."
         - "WEP's failure is cryptographic, not limited to device count."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["wireless", "cryptography"]
 
   - id: q-d3-026
@@ -488,6 +513,7 @@ questions:
         - "EAL7 — formally verified design and tested — is the highest and correct answer."
         - "EAL3 represents 'methodically tested and checked' — not formally verified."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["standards", "common-criteria"]
 
   - id: q-d3-027
@@ -507,6 +533,7 @@ questions:
         - "Neither is universally 'stronger' — they address different aspects of secure communication and are often used together."
         - "Both use mathematical/algorithmic techniques — the distinction is about what they hide (content vs. existence)."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "steganography"]
 
   - id: q-d3-028
@@ -526,6 +553,7 @@ questions:
         - "Key management practices are addressed in NIST SP 800-57 — FIPS 140 validates the modules themselves."
         - "Operating system security is evaluated using Common Criteria — FIPS 140 focuses specifically on cryptographic module security."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "standards"]
 
   - id: q-d3-029
@@ -545,6 +573,7 @@ questions:
         - "Account lockout addresses online brute force — rainbow tables are offline attacks against stolen hash databases."
         - "This is a deliberate distractor — rainbow tables are cryptographic attacks, not physical cable attacks."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "passwords", "attacks"]
 
   - id: q-d3-030
@@ -564,6 +593,7 @@ questions:
         - "Boot-time malware scanning is the function of secure boot (TPM/UEFI) — not specifically an HSM."
         - "Physical authentication tokens (smart cards, YubiKeys) are managed by IAM systems — HSMs manage cryptographic keys."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "hardware"]
 
   - id: q-d3-031
@@ -583,6 +613,7 @@ questions:
         - "Mixing hardware and software encryption is an implementation architecture choice — not hybrid encryption."
         - "Applying different encryption to different sensitivity levels is tiered encryption — not hybrid."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "hybrid"]
 
   - id: q-d3-032
@@ -602,6 +633,7 @@ questions:
         - "Both modes use symmetric keys — the key type is independent of the mode of operation."
         - "Both CBC and CTR require an initialization value (IV or nonce) — this is not a distinguishing factor."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "symmetric"]
 
   - id: q-d3-033
@@ -621,6 +653,7 @@ questions:
         - "Key exchange (Diffie-Hellman) is a different concept — key escrow is about depositing copies of existing keys."
         - "Hardware key protection (HSM) is a security best practice — not what key escrow refers to."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "key-management"]
 
   - id: q-d3-034
@@ -640,6 +673,7 @@ questions:
         - "A mantrap with two interlocked consecutive doors to prevent tailgating is the correct answer."
         - "A Faraday cage blocks electromagnetic signals — it does not control physical personnel access."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["physical-security", "controls"]
 
   - id: q-d3-035
@@ -659,6 +693,7 @@ questions:
         - "Network filtering is a firewall function — TPMs operate at the platform/hardware level for cryptographic operations."
         - "TPMs store cryptographic keys and boot measurements — not user passwords (those are stored in OS credential stores)."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["hardware", "trusted-computing"]
 
   - id: q-d3-036
@@ -678,6 +713,7 @@ questions:
         - "Program execution restrictions are not defined by Bell-LaPadula — it is a confidentiality model focused on read/write operations."
         - "Requiring clearance for access is a general access control requirement — not specifically the *-property."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["security-models", "Bell-LaPadula", "confidentiality"]
 
   - id: q-d3-037
@@ -697,6 +733,7 @@ questions:
         - "Mandatory labels are part of MAC and Bell-LaPadula — Clark-Wilson uses a different approach based on well-formed transactions."
         - "Role-based permissions describe RBAC — Clark-Wilson's mechanism is the TP/CDI relationship, not role assignment."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["security-models", "Clark-Wilson", "integrity"]
 
   - id: q-d3-038
@@ -716,6 +753,7 @@ questions:
         - "Data integrity protection is addressed by Biba or Clark-Wilson — Brewer-Nash addresses conflict of interest, not data integrity."
         - "Denial of service prevention is an availability concern — Brewer-Nash addresses confidentiality in commercial conflict-of-interest contexts."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["security-models", "Brewer-Nash"]
 
   - id: q-d3-039
@@ -735,6 +773,7 @@ questions:
         - "Most cryptographic hash functions are keyless (like SHA-256). HMAC adds a key to a hash — but a basic hash doesn't require a key."
         - "Output length varies — MD5 produces 128 bits, CRC32 produces 32 bits. Length alone does not define a cryptographic hash."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "hashing"]
 
   - id: q-d3-040
@@ -754,6 +793,7 @@ questions:
         - "Authentication, Authorization, and Accounting (AAA) is a security framework for access control — not the properties of digital signatures."
         - "Confidentiality is not provided by digital signatures — signing does not encrypt the content."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "digital-signatures"]
 
   - id: q-d3-041
@@ -773,6 +813,7 @@ questions:
         - "A side-channel attack (exploiting physical implementation: timing, power, EM) is the correct answer."
         - "A chosen plaintext attack has the attacker choose plaintexts to encrypt and analyze ciphertext patterns — it is a cryptanalytic attack, not a physical implementation attack."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["attacks", "cryptography", "side-channel"]
 
   - id: q-d3-042
@@ -792,6 +833,7 @@ questions:
         - "ECC uses key exchange protocols (ECDH) just as RSA does — it still requires secure key exchange mechanisms."
         - "ECC is vulnerable to quantum attacks (Shor's algorithm can break ECC) — it is NOT quantum-resistant. Post-quantum cryptography (CRYSTALS-Kyber, etc.) is needed for quantum resistance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "ECC", "asymmetric"]
 
   - id: q-d3-043
@@ -811,6 +853,7 @@ questions:
         - "Protecting authentication credentials in transit is a function of TLS encryption generally — not specifically PFS."
         - "Replay attacks are prevented by nonces, timestamps, and session tokens — not specifically by PFS."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "PFS", "TLS"]
 
   - id: q-d3-044
@@ -830,6 +873,7 @@ questions:
         - "Cryptographic salting (adding unique random values to each password before hashing) is the missing control that would defeat precomputed hash attacks."
         - "Account lockout prevents online brute-force attempts but has no effect on offline hash cracking from a leaked database."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "password-security", "salting"]
 
   - id: q-d3-045
@@ -849,6 +893,7 @@ questions:
         - "Encryption, authentication, and logging are security controls but not the defining properties of the TCB concept."
         - "Open source, audited, and updated describes good security practice for software but not the formal TCB requirements from security architecture theory."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["architecture", "trusted-systems", "TCB"]
 
   - id: q-d3-046
@@ -868,6 +913,7 @@ questions:
         - "HSMs are not primarily backup mechanisms — they are the authoritative, protected location for sensitive cryptographic keys."
         - "HSMs support proper key management including rotation — they do not eliminate the need for key management policies."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "hardware", "HSM"]
 
   - id: q-d3-047
@@ -887,6 +933,7 @@ questions:
         - "Equal dependence on both is not Kerckhoffs's principle — the algorithm should be fully public; only the key needs to remain secret."
         - "Physical security is important but Kerckhoffs's principle specifically addresses the design philosophy for the algorithm/key relationship, not physical security."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["cryptography", "principles", "Kerckhoffs"]
 
   - id: q-d3-048
@@ -906,6 +953,7 @@ questions:
         - "Network-based attacks during startup would require network-level security controls — Secure Boot addresses local boot integrity."
         - "Physical theft of storage media is addressed by full-disk encryption (BitLocker, FileVault) — Secure Boot addresses boot integrity, not data confidentiality."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["hardware", "trusted-systems", "boot-security"]
 
   - id: q-d3-049
@@ -925,6 +973,7 @@ questions:
         - "Certificate Pinning hardcodes expected certificate/key values in applications — it prevents substitution with different valid certificates but doesn't provide revocation checking."
         - "Key Escrow stores copies of cryptographic keys with a trusted third party — it is not related to certificate revocation."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["PKI", "cryptography", "certificates"]
 
   - id: q-d3-050
@@ -944,6 +993,7 @@ questions:
         - "Basic functional testing only describes EAL1 — the lowest assurance level."
         - "Structural testing with semi-formal design describes EAL5 — one level above EAL4."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["standards", "Common-Criteria", "evaluation"]
 
   - id: q-d3-051
@@ -963,6 +1013,7 @@ questions:
         - "Both covert channel types violate security policy — the distinction is technical (how they work), not legal."
         - "Detection difficulty varies for both types — timing channels can be detected through statistical analysis; storage channels can be detected through monitoring."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["architecture", "covert-channels"]
 
   - id: q-d3-052
@@ -982,6 +1033,7 @@ questions:
         - "HMAC is slightly slower than a plain hash because it performs additional operations involving the key."
         - "HMAC output size equals the underlying hash output size (e.g., HMAC-SHA256 produces 256 bits, same as SHA-256)."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "HMAC", "integrity"]
 
   - id: q-d3-053
@@ -1001,6 +1053,7 @@ questions:
         - "Nation-state interception of symmetric communications is addressed by key length (AES-256 is quantum-resistant to Grover's algorithm with doubled key) — not the primary PQC concern."
         - "AI-assisted cryptanalysis is a theoretical concern but not the specific threat driving the PQC standardization effort."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "quantum", "PQC"]
 
   - id: q-d3-054
@@ -1020,6 +1073,7 @@ questions:
         - "Logging is important for audit but is not one of the three formal reference monitor requirements — complete mediation, tamper-resistance, and verifiability are."
         - "Distribution across redundant systems is an availability strategy — not a reference monitor requirement."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["architecture", "TCB", "reference-monitor"]
 
   - id: q-d3-055
@@ -1039,6 +1093,7 @@ questions:
         - "Key escrow does not prevent use of public key cryptography — it applies to the private or symmetric keys used in public key systems."
         - "Key escrow is a key management policy that can be applied alongside TLS/SSL — they are not incompatible."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "key-management", "escrow"]
 
   - id: q-d3-056
@@ -1058,6 +1113,7 @@ questions:
         - "Clark-Wilson focuses on integrity of commercial data through well-formed transactions and separation of duties — it does not address inter-organizational conflict of interest."
         - "The Brewer-Nash (Chinese Wall) model was specifically designed to prevent conflicts of interest by restricting access based on an individual's access history to competing organizations."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["security-models", "Brewer-Nash", "access-control"]
 
   - id: q-d3-057
@@ -1077,6 +1133,7 @@ questions:
         - "Resource exhaustion is a denial of service concern (VM sprawl, 'noisy neighbor') — it is an operational problem, not a VM escape attack."
         - "Intercepting network traffic between VMs is a network-layer attack (ARP poisoning, VLAN hopping on virtual networks) — different from a VM escape that breaks hypervisor isolation."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["virtualization", "hypervisor", "attack-types"]
 
   - id: q-d3-058
@@ -1096,6 +1153,7 @@ questions:
         - "In government systems, labels and clearances define classification boundaries. The TCB is the set of security-enforcing components, not a classification boundary."
         - "Network security appliances may be part of a system's TCB if they enforce security policy, but the TCB concept encompasses much more — including the OS kernel, reference monitor, and hardware security mechanisms."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["TCB", "security-architecture", "trusted-systems"]
 
   - id: q-d3-059
@@ -1115,6 +1173,7 @@ questions:
         - "Elliptic curve discrete logarithm problems are the basis for Elliptic Curve Cryptography (ECC) algorithms, not RSA."
         - "Collision resistance is a property of cryptographic hash functions. Hash collision problems are not the basis of RSA's security."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "RSA", "asymmetric", "foundations"]
 
   - id: q-d3-060
@@ -1134,6 +1193,7 @@ questions:
         - "CT logs are publicly readable by design — their security value comes from transparency and public auditability, not from encrypting certificate content."
         - "CT logs supplement but do not replace CRLs or OCSP for certificate revocation. CT addresses the mis-issuance problem; CRL/OCSP addresses the revocation problem. Both mechanisms coexist."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["PKI", "certificates", "TLS", "transparency"]
 
   - id: q-d3-061
@@ -1153,6 +1213,7 @@ questions:
         - "Encrypted network paths (TLS, dedicated interconnects) protect data in transit. Confidential computing focuses on data in use, not in transit."
         - "Cloud management API security is addressed by IAM, API authentication, and infrastructure security controls. Confidential computing protects workload execution environments, not management plane APIs."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cloud", "confidential-computing", "data-in-use", "TEE"]
 
   - id: q-d3-062
@@ -1172,6 +1233,7 @@ questions:
         - "Segregating management network traffic is network segmentation or out-of-band management — a network architecture control, not the separation of privilege design principle."
         - "Assigning different privilege levels to security domains describes multilevel security labeling or mandatory access control — different from the two-condition authorization requirement of separation of privilege."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["principles", "security-design", "access-control"]
 
   - id: q-d3-063
@@ -1191,6 +1253,7 @@ questions:
         - "Nonces supplement key exchange but do not replace symmetric keys. They contribute to deriving session-specific key material in combination with the exchanged key secrets."
         - "Key stretching and padding techniques extend effective key length. Nonces address uniqueness and replay prevention, not key strength."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "protocols", "TLS", "replay-attacks"]
 
   - id: q-d3-064
@@ -1210,6 +1273,7 @@ questions:
         - "ECB uses the same key for all blocks. It is the lack of an initialization vector or chaining that causes the pattern problem, not key management complexity."
         - "Padding oracle attacks (BEAST, POODLE) primarily affect CBC mode implementations — not ECB. ECB's security weakness is the pattern preservation problem."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "ECB", "block-ciphers", "modes"]
 
   - id: q-d3-065
@@ -1229,6 +1293,7 @@ questions:
         - "Least privilege limits access scope but does not by itself ensure security is maintained if a control fails. Least privilege is a complementary principle."
         - "Economy of mechanism reduces complexity to minimize vulnerabilities and attack surface, not specifically to maintain security when controls fail."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["principles", "defense-in-depth", "security-design"]
 
   - id: q-d3-066
@@ -1248,6 +1313,7 @@ questions:
         - "X.509 does not mandate offline root CAs. The offline practice is a security best practice (recommended by NIST, CABF Baseline Requirements) but not an X.509 protocol requirement."
         - "Certificate transparency logs are designed to capture all certificates issued — keeping the root offline does not affect CT log visibility. CT monitors what certificates are issued, not where the CA is."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["PKI", "CA", "key-management", "trust"]
 
   - id: q-d3-067
@@ -1267,6 +1333,7 @@ questions:
         - "Both attack types ultimately aim to recover key material or plaintext. The distinction is the attack vector (physical implementation vs. mathematical properties), not the ultimate target."
         - "Timing attacks are a form of side-channel attack that requires only network access and no custom hardware. Physical hardware tools are needed for power analysis but not all side-channel attacks."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "side-channel", "attacks", "implementation"]
 
   - id: q-d3-068
@@ -1286,6 +1353,7 @@ questions:
         - "Adaptive encryption is not a standard cryptographic concept. Homomorphic encryption has a fixed mathematical structure that enables computation on ciphertext."
         - "Combining multiple encryption algorithms describes hybrid encryption or layered encryption. Homomorphic encryption is a specific property of certain mathematical systems that enables ciphertext computation."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "homomorphic", "advanced", "data-in-use"]
 
   - id: q-d3-069
@@ -1305,6 +1373,7 @@ questions:
         - "Filesystem directory restriction is access control (chroot jails, mandatory access control). The confinement problem is specifically about covert information leakage, not explicit file access."
         - "VM isolation is the hypervisor isolation problem — a related but distinct challenge. The confinement problem specifically addresses covert information leakage from a supposedly confined process."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["security-models", "covert-channels", "confinement", "theory"]
 
   - id: q-d3-070
@@ -1324,6 +1393,7 @@ questions:
         - "Internal employee physical destruction is addressed by video surveillance, security guards, and audit controls. Mantraps control entry/exit, not internal activity."
         - "Preventing media theft by authorized staff requires DLP controls, bag checks, and exit screening. Mantraps control who enters the facility, not what authorized staff remove."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["physical-security", "access-control", "tailgating"]
 
   - id: q-d3-071
@@ -1343,6 +1413,7 @@ questions:
         - "PQC replaces RSA and ECC with fundamentally different mathematical problems (lattice-based, hash-based) — it does not add randomness to existing classical algorithms."
         - "Side-channel attacks on hardware are an implementation security concern. PQC addresses the algorithmic vulnerability to quantum computing attacks, not side-channel implementation risks."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "post-quantum", "NIST", "standards"]
 
   - id: q-d3-072
@@ -1362,6 +1433,7 @@ questions:
         - "Salts are concatenated with the password before hashing — they are stored in clear text alongside the hash because they need to be available for verification. The security comes from uniqueness, not encryption."
         - "Increasing computational cost is the purpose of key stretching algorithms like bcrypt, scrypt, and Argon2 — these also use salts but the computational work factor addresses brute-force speed, not salts alone."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "passwords", "hashing", "salts"]
 
   - id: q-d3-073
@@ -1381,6 +1453,7 @@ questions:
         - "WEP was specifically designed for wireless (IEEE 802.11) networks. It was the original security protocol for Wi-Fi, not adapted from wired protocols."
         - "WEP uses pre-shared keys — it does not use certificate-based authentication. The problem was the weak cryptographic implementation, not authentication complexity."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["wireless", "WEP", "cryptography", "attacks"]
 
   - id: q-d3-074
@@ -1400,6 +1473,7 @@ questions:
         - "Authentication cost is not the reason for Zero Trust adoption. Identity-based authentication may actually have higher overhead than network-based, but the security benefit justifies it."
         - "IPv6 is a protocol upgrade — it does not eliminate the concept of network zones or resolve the trust problem that Zero Trust addresses."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["zero-trust", "architecture", "principles", "network"]
 
   - id: q-d3-075
@@ -1419,6 +1493,7 @@ questions:
         - "A Protection Profile is a generic document specifying security requirements for a type/category of product (e.g., 'firewall PP'). It is not product-specific. Vendors write Security Targets based on or referencing Protection Profiles."
         - "Assurance Classes are categories of requirements in the Common Criteria (like ADV for Development, ATE for Testing) that together determine the EAL level achieved."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["common-criteria", "evaluation", "standards", "CC"]
 
   - id: q-d3-076
@@ -1438,6 +1513,7 @@ questions:
         - "While TPMs include hardware acceleration for some operations, the primary security advantage is hardware binding of keys, not performance. Software key storage can also use hardware acceleration."
         - "TPMs are hardware chips on the physical computer's motherboard — they are entirely local hardware. They do not store keys in the cloud. Cloud HSMs are different products."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["TPM", "encryption", "hardware", "key-management"]
 
   - id: q-d3-077
@@ -1457,6 +1533,7 @@ questions:
         - "SHA-1 has been successfully attacked with collision demonstrations and is deprecated by NIST — organizations must migrate to SHA-2 or SHA-3."
         - "HMAC-SHA256 is currently secure and recommended. HMAC (Hash-based Message Authentication Code) using SHA-256 is not deprecated."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "hashing", "SHA-1", "deprecated"]
 
   - id: q-d3-078
@@ -1476,6 +1553,7 @@ questions:
         - "No execute across is not a Bell-LaPadula property. Bell-LaPadula focuses on read and write operations, not execution privileges."
         - "No transfer right is part of the Take-Grant model, which models how access rights can be propagated between subjects — different from Bell-LaPadula."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["security-models", "Bell-LaPadula", "MAC", "confidentiality"]
 
   - id: q-d3-079
@@ -1495,6 +1573,7 @@ questions:
         - "Data integrity verification is provided by MACs (Message Authentication Codes) or digital signatures. IVs are part of the encryption process, not authentication tags."
         - "S-box initialization is part of some cipher key schedules (like DES), but that is a separate concept from IVs. IVs are provided as input to the cipher operation, not part of key scheduling."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "IV", "block-ciphers", "modes"]
 
   - id: q-d3-080
@@ -1514,6 +1593,7 @@ questions:
         - "Type 2 hypervisors have a larger attack surface because all vulnerabilities in the host OS apply to them. A mature host OS still represents more attack surface than a minimal bare-metal hypervisor."
         - "Encryption of VM data is not an inherent difference between Type 1 and Type 2 hypervisors. Both types support encryption through their respective management frameworks."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["virtualization", "hypervisor", "architecture", "security"]
 
   - id: q-d3-081
@@ -1533,9 +1613,10 @@ questions:
         - "Psychological acceptability states that security mechanisms should be designed so they are easy enough to use that users don't circumvent them. This addresses usability, not simplicity of the mechanism itself."
         - "Open design (Kerckhoffs's principle applied broadly) states that the security of a mechanism should not depend on secrecy of its design. This is a separate principle from economy of mechanism."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["principles", "security-design", "Saltzer-Schroeder"]
 
-  - id: d3-082
+  - id: q-d3-082
     domain: domain3
     question: "What is 'covert timing channel' and how does it differ from a 'covert storage channel'?"
     options:
@@ -1552,6 +1633,7 @@ questions:
         - "Both types of covert channels can operate over networks or locally. Timing attacks over networks (cache timing, TCP sequence analysis) demonstrate network-capable timing channels."
         - "Both types can be intentionally created by malicious actors or emerge as unintended side effects of system design. Intent does not distinguish them — the mechanism does."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["covert-channels", "security-models", "information-flow"]
 
   - id: q-d3-083
@@ -1571,6 +1653,7 @@ questions:
         - "Criminal background checks are personnel security controls. CPTED is about physical design, not personnel screening."
         - "Technical cyber security controls are IT security domain. CPTED is a physical security and architectural design philosophy."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["physical-security", "CPTED", "design"]
 
   - id: q-d3-084
@@ -1590,6 +1673,7 @@ questions:
         - "Running multiple simultaneous algorithms is a defense strategy that may be used during transitions but does not define cryptographic agility. Agility is about the ease of algorithm replacement, not running multiple algorithms simultaneously."
         - "Support for varying key lengths is a basic library capability, not the architectural design property of cryptographic agility. Agility encompasses the full ability to replace algorithms without system redesign."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "agility", "architecture", "post-quantum"]
 
   - id: q-d3-085
@@ -1609,6 +1693,7 @@ questions:
         - "Biometric + intercom verification is strong but lacks the physical barrier of a mantrap. Without a mantrap, tailgating after biometric authentication remains possible. This is strong but not the strongest combination."
         - "Mechanical lock and key is single-factor with no electronic monitoring. After-hours patrols are detective, not preventive. This provides the least technical control assurance."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["physical-security", "access-control", "authentication"]
 
   - id: q-d3-086
@@ -1628,6 +1713,7 @@ questions:
         - "Binding certificates to hardware is done through certificate pinning or TPM-based attestation. OCSP Stapling is about revocation status delivery, not hardware binding."
         - "OCSP responses confirm current validity — they are not certificate backups and do not substitute for a revoked certificate. Stapling is a delivery mechanism for revocation status, not a backup mechanism."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["PKI", "TLS", "OCSP", "certificate-revocation"]
 
   - id: q-d3-087
@@ -1647,6 +1733,7 @@ questions:
         - "Preventing reading high-integrity data indirectly is addressed by the Biba Simple Integrity Property (no read down). The Invocation Property specifically addresses service request privilege escalation."
         - "Cross-domain messaging restrictions are addressed by access control labels and mandatory security policies. The Invocation Property is specifically about service invocation privilege escalation."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["security-models", "Biba", "integrity", "MAC"]
 
   - id: q-d3-088
@@ -1666,6 +1753,7 @@ questions:
         - "Post-quantum cryptography (PQC) develops classical algorithms resistant to quantum computer attacks. QKD is a physics-based key distribution method — different technologies addressing different problems."
         - "Quantum random number generators (QRNGs) produce random numbers from quantum events. QKD is about key distribution and eavesdropping detection — QRNGs are a component of some QKD systems but are not its defining property."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "quantum", "QKD", "key-exchange"]
 
   - id: q-d3-089
@@ -1685,6 +1773,7 @@ questions:
         - "Code obfuscation for IP protection is a commercial consideration, not a security strategy in the security sense. Even for IP protection, obfuscation alone is generally insufficient and is separate from information security."
         - "Deception technologies (honeypots, decoys) are legitimate security controls that serve detection purposes — they are not 'security by obscurity' in the traditional sense."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["principles", "security-design", "Kerckhoffs"]
 
   - id: q-d3-090
@@ -1704,6 +1793,7 @@ questions:
         - "Cipher mode selection (AES-GCM vs. AES-CBC) affects confidentiality and integrity of data content, not session-level replay protection. The issue is replaying the entire valid message, not decrypting encrypted traffic."
         - "Certificate pinning addresses server impersonation by verifying the server certificate is expected. It does not prevent capturing and replaying valid client authentication messages."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "protocols", "replay-attacks", "nonces"]
 
   - id: q-d3-091
@@ -1723,6 +1813,7 @@ questions:
         - "Physical hardware access security is addressed by physical security controls (locks, tamper-evident seals, chassis intrusion detection). Secure Boot is a software/firmware integrity mechanism."
         - "PXE boot security is addressed by network boot authentication and DHCP/TFTP security controls. Secure Boot can validate PXE-provided boot images if they are signed, but its primary purpose is broader boot integrity."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["boot-security", "UEFI", "rootkits", "hardware"]
 
   - id: q-d3-092
@@ -1742,6 +1833,7 @@ questions:
         - "Neither plain hashes nor HMACs provide encryption or confidentiality. To protect message contents, encryption (AES-GCM, for example) is required in addition to MAC operations."
         - "Non-repudiation through PKI requires digital signatures with asymmetric keys. HMACs use shared symmetric keys — they cannot provide non-repudiation because both parties know the key."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "HMAC", "authentication", "integrity"]
 
   - id: q-d3-093
@@ -1761,6 +1853,7 @@ questions:
         - "Key length is not synonymous with cipher rounds. AES number of rounds (10 for 128-bit, 12 for 192-bit, 14 for 256-bit) relates to key length but key length's primary security significance is key space size."
         - "DES used 56-bit keys, which are now insecure. NIST deprecated DES decades ago. The current standard is AES with 128, 192, or 256-bit keys."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["cryptography", "symmetric", "AES", "key-length"]
 
   - id: q-d3-094
@@ -1780,6 +1873,7 @@ questions:
         - "Personnel electrical safety is addressed by electrical safety regulations and proper grounding. UPS and generators are operational continuity controls, not primarily personal safety controls."
         - "Asset tracking uses RFID tags, GPS, or cable management systems. Power backup systems provide availability, not asset location monitoring."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["physical-security", "availability", "power", "environmental"]
 
   - id: q-d3-095
@@ -1799,6 +1893,7 @@ questions:
         - "Biometric key derivation (fuzzy extractors) is a different cryptographic concept. ABE uses organizational attributes (role, department, clearance) as policy parameters, not biometric measurements."
         - "ABE is a distinct cryptographic primitive, not a variant of RSA. It uses pairing-based or lattice-based cryptography to enable policy-based decryption."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "ABE", "access-control", "ABAC"]
 
   - id: q-d3-096
@@ -1818,6 +1913,7 @@ questions:
         - "Both FRR and FAR apply to both physical and logical biometric authentication. The distinction is about impact (inconvenience vs. security breach), not the security domain."
         - "FAR is not negligible in all biometric systems — system tuning determines the FAR/FRR balance. The statement that all systems have negligible FAR is false and misrepresents the security engineering trade-off."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["biometrics", "authentication", "FAR", "FRR"]
 
   - id: q-d3-097
@@ -1837,6 +1933,7 @@ questions:
         - "Modern steganography is primarily digital (LSB embedding, spread spectrum) — it is not inherently a physical technique. Physical steganography (invisible ink) exists historically but is not the modern definition."
         - "Steganography is not stronger than encryption — it relies on the hidden message not being discovered. Steganalysis can detect and extract steganographic content. The security is not mathematical — it is based on obscurity."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["steganography", "cryptography", "security-concepts"]
 
   - id: q-d3-098
@@ -1856,6 +1953,7 @@ questions:
         - "Fire suppression for server rooms uses clean agent systems (FM-200, Novec 1230) or inert gas systems. A Faraday cage is electromagnetic shielding, not fire suppression."
         - "Document shredders destroy paper records. A Faraday cage is electromagnetic shielding — it does not destroy anything."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["physical-security", "TEMPEST", "electromagnetic", "shielding"]
 
   - id: q-d3-099
@@ -1875,6 +1973,7 @@ questions:
         - "Requiring two CAs to sign each certificate for redundancy would be a dual-signature or co-signature arrangement — different from cross-certification. Cross-certification is about inter-hierarchy trust, not redundant signing."
         - "Matching a server certificate to its issuing CA is certificate validation (chain building) — not cross-certification. Cross-certification is about establishing trust between separate CA hierarchies."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["PKI", "CA", "cross-certification", "trust"]
 
   - id: q-d3-100
@@ -1894,6 +1993,7 @@ questions:
         - "Random numbers are used many times in cryptographic systems. The 'used once' concern applies to OTPs and nonces specifically, not to the general concern about CSPRNG quality."
         - "CPU resource consumption is an engineering concern in resource-constrained devices. The primary security concern with weak RNG is the predictability that undermines all dependent cryptographic operations."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "RNG", "entropy", "fundamentals"]
 
   - id: q-d3-101
@@ -1913,6 +2013,7 @@ questions:
         - "EAL (Evaluation Assurance Level) numbers provide assurance levels. PPs specify security functional requirements for product categories — these are orthogonal Common Criteria concepts."
         - "PPs are industry and government documents developed through a consensus process — not government-mandated minimums per se. Their use in procurement can make them effectively mandatory, but the PP itself is a requirements specification, not a legal mandate."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["common-criteria", "evaluation", "standards", "PP"]
 
   - id: q-d3-102
@@ -1932,6 +2033,7 @@ questions:
         - "Secure remote access to classified networks is addressed by cryptographic protocols, VPNs, and network security controls. TEMPEST is about physical electromagnetic security, not network access."
         - "Blast-resistant data center construction is addressed by physical facility standards and resilience requirements. TEMPEST is electromagnetic shielding, not structural security."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["physical-security", "TEMPEST", "electromagnetic", "government"]
 
   - id: q-d3-103
@@ -1951,6 +2053,7 @@ questions:
         - "Network topology lattices (mesh networks) are network architecture designs. Lattice-based cryptography refers to mathematical objects in high-dimensional spaces."
         - "CA hierarchy structures are described as tree structures or trust chains — not lattices. Lattice-based cryptography is a mathematical cryptographic primitive design approach."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["cryptography", "post-quantum", "lattice", "advanced"]
 
   - id: q-d3-104
@@ -1970,6 +2073,7 @@ questions:
         - "Clean agent gases work by reducing oxygen concentration or interrupting combustion chemistry — they are effective for electrical fires. This is why they replaced water-based systems in data centers."
         - "Clean agent systems do not require complete data center downtime for testing. Modern systems support testing under controlled conditions. This is not the primary security concern."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["physical-security", "fire-suppression", "availability", "datacenter"]
 
   - id: q-d3-105
@@ -1989,4 +2093,305 @@ questions:
         - "Cryptographic hashing detects tampering after the fact (integrity verification). Clark-Wilson proactively controls how modifications occur through certified procedures, not post-hoc verification."
         - "'No read down, no write up' rules describe the Biba integrity model — not Clark-Wilson. Clark-Wilson uses transformation procedures and separation of duties, not Biba's lattice-based rules."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["security-models", "Clark-Wilson", "integrity", "commercial"]
+
+  - id: q-d3-106
+    domain: domain3
+    question: "A hospital is deploying a new medical imaging system. The vendor states the system stores patient images on an encrypted volume, but the application service account has read access to every image regardless of which physician requested it. What is the MOST significant weakness in this design?"
+    options:
+      - "Encryption at rest does not protect against an attacker who compromises the application layer"
+      - "The encryption algorithm has not been validated against FIPS 140"
+      - "Encrypted volumes reduce system performance for large imaging files"
+      - "The vendor has not provided a key escrow arrangement"
+    correct_answer: 0
+    explanations:
+      correct: "Full-volume encryption protects data only against offline threats such as stolen disks. Because the application has standing authorized access to all images, any compromise of the application reads plaintext data through legitimate channels. The missing control is least privilege and access mediation at the application layer, not stronger encryption."
+      incorrect:
+        - "This is the correct answer — the encryption is doing nothing to constrain an authorized-but-overbroad application identity."
+        - "FIPS validation matters for regulated cryptographic implementations, but even a perfectly validated algorithm would not restrict what the over-privileged service account can read."
+        - "Performance is an engineering consideration, not the most significant security weakness in a design granting blanket access to patient data."
+        - "Key escrow addresses key recovery and availability. It does not address the fact that the application can decrypt everything by design."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["encryption", "least privilege", "architecture"]
+
+  - id: q-d3-107
+    domain: domain3
+    question: "An organization's security architect is reviewing a system that processes both classified and unclassified data on the same hardware. Users cleared only for unclassified data must never be able to infer the existence of classified records. Which security model directly addresses this requirement?"
+    options:
+      - "Bell-LaPadula with polyinstantiation"
+      - "Biba integrity model"
+      - "Clark-Wilson well-formed transactions"
+      - "Brewer-Nash Chinese Wall model"
+    correct_answer: 0
+    explanations:
+      correct: "Bell-LaPadula enforces confidentiality through no-read-up and no-write-down, and polyinstantiation extends it by maintaining multiple versions of a record at different classification levels. This prevents the inference that would occur if a low-clearance query returned an access-denied message confirming a classified record exists."
+      incorrect:
+        - "Bell-LaPadula with polyinstantiation is the correct answer — it is the combination specifically designed to prevent inference from denial messages."
+        - "Biba protects integrity, preventing improper modification. The requirement here is confidentiality and preventing inference, which Biba does not address."
+        - "Clark-Wilson enforces integrity through well-formed transactions and separation of duties in commercial systems, not multilevel confidentiality."
+        - "Brewer-Nash prevents conflicts of interest by blocking access to competing datasets after an initial choice. It is not designed for multilevel classification inference."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["security models", "Bell-LaPadula", "polyinstantiation"]
+
+  - id: q-d3-108
+    domain: domain3
+    question: "A financial services firm is selecting a cryptographic approach for a system that must let auditors verify a transaction log has not been altered, while ensuring no one — including administrators — can produce a valid log entry attributed to another party. Which combination BEST meets both requirements?"
+    options:
+      - "Hash chaining of log entries combined with digital signatures using per-party private keys"
+      - "AES-256 encryption of the log file with a key held by the audit team"
+      - "HMAC over each entry using a single shared organizational key"
+      - "Storing the log on write-once media with restricted physical access"
+    correct_answer: 0
+    explanations:
+      correct: "Hash chaining makes any alteration of an earlier entry detectable because it breaks every subsequent link, satisfying the integrity verification requirement. Digital signatures with per-party private keys provide non-repudiation, so an entry can only have been produced by the holder of that specific private key."
+      incorrect:
+        - "This is the correct answer — chaining provides tamper evidence and per-party signatures provide attribution."
+        - "Encryption provides confidentiality, not integrity verification or attribution. An administrator with the key could still alter and re-encrypt entries undetectably."
+        - "A single shared HMAC key means every party who can verify entries can also forge them, which defeats non-repudiation entirely."
+        - "Write-once media provides strong tamper resistance but no cryptographic attribution — it cannot prove which party authored a given entry."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["cryptography", "non-repudiation", "integrity"]
+
+  - id: q-d3-109
+    domain: domain3
+    question: "During a design review, an engineer proposes storing a symmetric encryption key inside the application's compiled binary because 'the binary is not distributed to customers.' What is the MOST accurate assessment of this proposal?"
+    options:
+      - "It is inadequate because the key cannot be rotated without redeploying, and anyone with access to the binary or memory can extract it"
+      - "It is acceptable because compiled binaries obfuscate the key sufficiently"
+      - "It is acceptable provided the binary is stored on an encrypted filesystem"
+      - "It is inadequate solely because symmetric encryption should never be used for this purpose"
+    correct_answer: 0
+    explanations:
+      correct: "Hardcoded keys cannot be rotated without a full rebuild and redeployment, which means a suspected compromise cannot be remediated quickly. The key is also recoverable by anyone who can read the binary or dump process memory. Keys belong in a key management system or hardware security module."
+      incorrect:
+        - "This is the correct answer — the failure is both operational (no rotation) and technical (trivial extraction)."
+        - "Compilation is not obfuscation and certainly not protection. Extracting string and key material from a binary is a routine reverse-engineering task."
+        - "Filesystem encryption protects the binary at rest but does nothing once the application is running and the key is in memory."
+        - "Symmetric encryption is entirely appropriate for bulk data protection. The problem is key management, not the choice of algorithm class."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["key management", "secure design", "cryptography"]
+
+  - id: q-d3-110
+    domain: domain3
+    question: "A company migrating to a public cloud provider must ensure that even the cloud provider's own administrators cannot read the most sensitive customer records. Which approach BEST achieves this?"
+    options:
+      - "Client-side encryption with customer-managed keys held outside the provider's environment"
+      - "Enabling the provider's server-side encryption with provider-managed keys"
+      - "Requiring the provider to sign a confidentiality agreement covering administrator access"
+      - "Configuring TLS for all data in transit to and from the provider"
+    correct_answer: 0
+    explanations:
+      correct: "Encrypting data before it reaches the provider, using keys the provider never possesses, is the only technical control that removes the provider from the trust boundary for confidentiality. The provider stores ciphertext it cannot decrypt."
+      incorrect:
+        - "This is the correct answer — it is the only option that makes provider administrator access technically insufficient rather than merely prohibited."
+        - "Provider-managed keys mean the provider can decrypt the data. This protects against outside attackers and stolen media, not against the provider itself."
+        - "A contractual control creates legal recourse after a violation but does not technically prevent an administrator from reading the data."
+        - "TLS protects data in transit. It provides no protection once data is at rest inside the provider's environment."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["cloud security", "encryption", "trust boundary"]
+
+  - id: q-d3-111
+    domain: domain3
+    question: "A manufacturing plant's engineers report that a legacy programmable logic controller cannot be patched because the vendor no longer exists, and replacing it would require a multi-month production shutdown. What is the MOST appropriate risk response?"
+    options:
+      - "Isolate the controller on a dedicated segment with strictly controlled access and document a formally accepted, time-bounded risk"
+      - "Accept the risk without further action since no patch is available"
+      - "Disconnect the controller immediately to eliminate the vulnerability"
+      - "Install endpoint detection software directly on the controller"
+    correct_answer: 0
+    explanations:
+      correct: "When a vulnerability cannot be remediated directly, compensating controls plus formal, documented, time-bounded risk acceptance is the correct response. Network isolation reduces exposure while the business plans a replacement, and the documented acceptance ensures the risk is revisited rather than forgotten."
+      incorrect:
+        - "This is the correct answer — it combines a compensating control with formal risk acceptance and a review date."
+        - "Bare acceptance with no compensating control leaves the exposure entirely unmitigated when isolation is readily achievable."
+        - "Disconnecting the controller would halt production, which is an availability impact almost certainly exceeding the risk being addressed. Security decisions must weigh business impact."
+        - "Legacy industrial controllers typically cannot run modern endpoint agents, and installing unsupported software on safety-critical equipment introduces its own serious risk."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["ICS", "compensating controls", "risk acceptance"]
+
+  - id: q-d3-112
+    domain: domain3
+    question: "A security architect discovers that a web application validates a user's authorization on the client side using JavaScript before enabling administrative buttons in the interface. Server-side endpoints perform no additional authorization check. What is the PRIMARY risk?"
+    options:
+      - "Any user can invoke administrative endpoints directly, bypassing the interface entirely"
+      - "The JavaScript validation logic may contain syntax errors under some browsers"
+      - "Client-side validation increases page load time for administrative users"
+      - "Search engines may index the administrative interface"
+    correct_answer: 0
+    explanations:
+      correct: "Client-side controls affect only what the interface displays. An attacker can craft requests directly to server endpoints using any HTTP client, completely bypassing the browser and its JavaScript. Authorization must always be enforced server-side on every request."
+      incorrect:
+        - "This is the correct answer — hiding a control in the interface is not access control, because the interface is not where the decision is enforced."
+        - "Browser compatibility is a functional quality issue, not the primary security risk in a missing server-side authorization check."
+        - "Performance is irrelevant to the security weakness described."
+        - "Search engine indexing is a minor information disclosure concern and does not address the fundamental authorization bypass."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["secure design", "authorization", "web security"]
+
+  - id: q-d3-113
+    domain: domain3
+    question: "An organization is designing a new data center and must decide on fire suppression for the server room. The room is normally occupied by staff during business hours. Which suppression approach is MOST appropriate?"
+    options:
+      - "A clean agent gaseous system that is safe for occupants and leaves no residue on equipment"
+      - "A wet pipe sprinkler system throughout the room"
+      - "A carbon dioxide flooding system with a 30-second discharge delay"
+      - "Dry chemical suppression distributed across equipment racks"
+    correct_answer: 0
+    explanations:
+      correct: "Clean agent systems such as FM-200 or Novec suppress fire without harming occupants and without leaving residue that would damage electronics. Because life safety is always the highest priority and the room is occupied, an occupant-safe agent is required."
+      incorrect:
+        - "This is the correct answer — it satisfies life safety first and equipment protection second."
+        - "Water suppression damages electronic equipment severely. While sprinklers may be required by code in some areas, they are not the most appropriate primary choice for an occupied server room where clean agents are available."
+        - "Carbon dioxide displaces oxygen and is lethal to occupants. A discharge delay reduces but does not eliminate the hazard, making it inappropriate for a normally occupied space."
+        - "Dry chemical agents leave corrosive residue that damages electronics and complicates recovery, and they are not designed for occupied electronic environments."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["physical security", "fire suppression", "life safety"]
+
+  - id: q-d3-114
+    domain: domain3
+    question: "A software vendor's product uses a random number generator seeded from the system clock to produce session tokens. A researcher demonstrates that tokens generated within the same second are predictable. What is the correct remediation?"
+    options:
+      - "Replace the generator with a cryptographically secure pseudorandom number generator seeded from a high-entropy source"
+      - "Increase the token length while keeping the existing generator"
+      - "Hash the generated token with SHA-256 before issuing it"
+      - "Reduce the session timeout so predictable tokens expire quickly"
+    correct_answer: 0
+    explanations:
+      correct: "The defect is insufficient entropy in the generator itself. Only replacing it with a CSPRNG seeded from a genuine high-entropy source produces unpredictable tokens. Everything else treats the symptom."
+      incorrect:
+        - "This is the correct answer — the root cause is a predictable entropy source, and only replacing it resolves the flaw."
+        - "A longer token derived from a predictable seed is still predictable. Length does not create entropy that was never there."
+        - "Hashing a predictable input produces a predictable output. An attacker who can guess the seed can compute the same hash."
+        - "Shortening the window reduces exposure but leaves tokens predictable within it, which is a compensating control rather than a fix."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["cryptography", "randomness", "session management"]
+
+  - id: q-d3-115
+    domain: domain3
+    question: "An organization uses a hardware security module to protect its certificate authority signing key. An auditor asks what would happen if the HSM failed catastrophically. The team confirms no backup of the key exists anywhere. What is the MOST significant consequence?"
+    options:
+      - "The organization would be unable to issue or renew certificates and would need to rebuild its entire PKI trust chain"
+      - "Previously issued certificates would immediately become invalid"
+      - "The HSM vendor would be able to recover the key from firmware"
+      - "Existing TLS sessions would be decrypted by attackers"
+    correct_answer: 0
+    explanations:
+      correct: "Losing the CA signing key with no backup means no new certificates can be issued or renewed and no revocation lists can be signed. Rebuilding requires standing up a new CA and redistributing trust to every relying party, which is a major undertaking. This is why HSM key backup and recovery procedures, with split knowledge and dual control, are essential."
+      incorrect:
+        - "This is the correct answer — availability of the signing key is a critical single point of failure in a PKI."
+        - "Already-issued certificates remain cryptographically valid until they expire. The immediate problem is the inability to issue new ones or sign revocation lists."
+        - "A properly designed HSM is specifically built so that keys cannot be extracted, including by the vendor. That property is the reason a backup strategy is required."
+        - "Loss of the CA key does not decrypt TLS sessions, particularly where forward secrecy is used. The impact is on issuance and trust management."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["PKI", "HSM", "availability", "key management"]
+
+  - id: q-d3-116
+    domain: domain3
+    question: "A cloud engineer configures a virtual machine image with a hardened baseline and uses it to launch 200 instances. Six months later a vulnerability scan shows widely varying patch levels across those instances. What does this MOST likely indicate?"
+    options:
+      - "Configuration drift, because instances were patched individually over time rather than being replaced from an updated image"
+      - "The original golden image was never hardened correctly"
+      - "The vulnerability scanner is producing false positives across the fleet"
+      - "The cloud provider modified the instances without authorization"
+    correct_answer: 0
+    explanations:
+      correct: "Instances launched from an identical image diverge over time as changes are applied inconsistently — this is configuration drift. The mature answer is immutable infrastructure: rebuild from an updated image and redeploy rather than patching running instances in place."
+      incorrect:
+        - "This is the correct answer — identical starting state plus divergent outcomes over time is the definition of drift."
+        - "If the baseline image were flawed, the instances would show consistent findings, not varying ones. The variation is the diagnostic clue."
+        - "Widely varying results across a fleet is characteristic of genuine divergence, not of systematic scanner error, which would tend to affect all instances similarly."
+        - "Cloud providers do not modify customer instance contents under the shared responsibility model. Patching inside the instance is the customer's responsibility."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["configuration management", "cloud", "drift"]
+
+  - id: q-d3-117
+    domain: domain3
+    question: "A security team must choose between a trusted platform module and a software key store for protecting disk encryption keys on corporate laptops. Executives ask why the hardware option justifies its cost. What is the STRONGEST justification?"
+    options:
+      - "A TPM binds the key to specific hardware and resists extraction even if the operating system is fully compromised"
+      - "A TPM encrypts data faster than software implementations"
+      - "A TPM eliminates the need for users to authenticate at boot"
+      - "A TPM allows the help desk to recover keys without user involvement"
+    correct_answer: 0
+    explanations:
+      correct: "The TPM's core value is that keys are generated and stored in tamper-resistant hardware and never exposed to the operating system in usable form. An attacker with full software-level control of a compromised machine still cannot extract the key material to use on other hardware."
+      incorrect:
+        - "This is the correct answer — hardware-rooted key protection survives operating system compromise, which software key stores cannot."
+        - "TPMs are generally not performance accelerators for bulk encryption. Their purpose is secure key storage and platform integrity measurement."
+        - "Pre-boot authentication is often still recommended precisely because a TPM alone binds the key to the machine rather than to the user."
+        - "Key escrow for recovery is a separate capability provided by management infrastructure, not an inherent benefit of the TPM."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["TPM", "hardware security", "encryption"]
+
+  - id: q-d3-118
+    domain: domain3
+    question: "An application team reports that their system checks whether a file exists and is writable, then opens and writes to it a moment later. A reviewer flags this as a security defect. What vulnerability class is being described, and what is the correct fix?"
+    options:
+      - "A TOCTOU race condition; perform the operation atomically rather than checking and then acting separately"
+      - "A buffer overflow; add bounds checking before the write"
+      - "An injection flaw; sanitize the filename before use"
+      - "An information disclosure flaw; suppress the error message on failure"
+    correct_answer: 0
+    explanations:
+      correct: "Time-of-check to time-of-use is a race condition where state changes between validation and use. An attacker can replace the file with a symbolic link in the interval. The fix is to perform the operation atomically — open the file and operate on the resulting handle rather than re-resolving the path."
+      incorrect:
+        - "This is the correct answer — checking a condition and acting on it as separate steps creates an exploitable window."
+        - "A buffer overflow involves writing past allocated memory boundaries, which is not what the check-then-act pattern describes."
+        - "Injection involves untrusted input being interpreted as commands. The defect here is the timing gap, not input interpretation."
+        - "This is not primarily an information disclosure issue, and suppressing errors would obscure the problem rather than address the race."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["TOCTOU", "race condition", "secure coding"]
+
+  - id: q-d3-119
+    domain: domain3
+    question: "An organization operates a data center in a region prone to extended power outages. The facility has a UPS sized for 15 minutes of runtime and no generator. The business requires continuous operation of critical systems. What is the MOST appropriate recommendation?"
+    options:
+      - "Add a generator with automatic transfer and fuel contracts, using the UPS to bridge the transfer interval"
+      - "Increase the UPS battery capacity to cover 24 hours of runtime"
+      - "Relocate all critical systems to a different geographic region"
+      - "Accept the risk since 15 minutes covers most brief outages"
+    correct_answer: 0
+    explanations:
+      correct: "A UPS is designed to bridge the short gap until a generator starts and assumes load, not to sustain extended operation. The standard architecture pairs a modest UPS with a generator and a fuel supply arrangement appropriate to the expected outage duration."
+      incorrect:
+        - "This is the correct answer — it matches each technology to the role it is actually designed for."
+        - "Battery banks sized for 24 hours would be extraordinarily expensive, space-consuming, and still finite. This is not how extended runtime is engineered."
+        - "Relocation may be justified for other reasons but is a disproportionate response to a power resilience gap that a generator addresses directly."
+        - "The scenario explicitly states extended outages occur and continuous operation is required, so accepting a 15-minute capability does not meet the stated business requirement."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["physical security", "power", "availability"]
+
+  - id: q-d3-120
+    domain: domain3
+    question: "A penetration tester demonstrates that an attacker who controls one virtual machine on a shared hypervisor can influence the timing of another tenant's cryptographic operations and recover key material. What class of attack is this, and what is the MOST effective architectural mitigation?"
+    options:
+      - "A side-channel attack; use dedicated hardware or tenant isolation for the most sensitive cryptographic workloads"
+      - "A privilege escalation attack; apply the latest guest operating system patches"
+      - "A denial of service attack; apply resource quotas to each virtual machine"
+      - "A man-in-the-middle attack; enforce TLS between virtual machines"
+    correct_answer: 0
+    explanations:
+      correct: "Side-channel attacks extract secrets from physical characteristics of computation such as timing, cache behavior, or power consumption rather than from a logical flaw. In multi-tenant environments, the architectural answer is isolation — dedicated hosts or hardware for workloads whose compromise would be unacceptable."
+      incorrect:
+        - "This is the correct answer — the attack exploits shared physical resources, so the remedy is not sharing them for sensitive work."
+        - "No privilege boundary is being escalated across; the attacker is inferring information from shared hardware behavior while remaining in their own VM."
+        - "The attack extracts confidential key material rather than denying service, and quotas would not prevent timing observation."
+        - "There is no interception of communications between parties. The leak is through hardware behavior, not the network path."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["side channel", "virtualization", "multi-tenancy"]

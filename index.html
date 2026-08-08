@@ -46,6 +46,7 @@
         <li><a class="nav-link" data-route="flashcards">Flashcards</a></li>
         <li><a class="nav-link" data-route="quiz">Quiz</a></li>
         <li><a class="nav-link" data-route="interactive">Interactive Q's</a></li>
+        <li><a class="nav-link" data-route="exam">Mock Exam</a></li>
         <li><a class="nav-link" data-route="progress">Progress</a></li>
         <li class="nav-dropdown" id="nav-other-certs" style="display:none">
           <button class="nav-link nav-dropdown-trigger" id="cert-dropdown-btn" aria-expanded="false" aria-haspopup="true">
@@ -121,6 +122,13 @@
                 <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
               </svg>
               Interactive Practice
+            </button>
+            <button class="btn btn-ghost btn-lg" onclick="navigate('exam')"
+              style="border-color: rgba(239,68,68,0.3); color: var(--c-red);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              Take a Mock Exam
             </button>
           </div>
 
@@ -216,6 +224,15 @@
       </div>
     </div>
 
+    <!-- ── Mock Exam Page ────────────────────────────────── -->
+    <div id="page-exam" class="page">
+      <div class="page-container" style="padding-top: calc(var(--nav-h) + 20px);">
+        <div id="exam-container">
+          <!-- Rendered by MockExamComponent -->
+        </div>
+      </div>
+    </div>
+
     <!-- ── Progress Page ─────────────────────────────────── -->
     <div id="page-progress" class="page">
       <div class="page-container" style="padding-top: calc(var(--nav-h) + 20px);">
@@ -238,6 +255,7 @@
   <script src="utils/loader.js"></script>
   <script src="utils/progress.js"></script>
   <script src="utils/quizEngine.js"></script>
+  <script src="utils/readiness.js"></script>
   <script src="utils/validator.js"></script>
 
   <!-- Components -->
@@ -245,6 +263,7 @@
   <script src="components/flashcard.js"></script>
   <script src="components/interactive.js"></script>
   <script src="components/quiz.js"></script>
+  <script src="components/mockExam.js"></script>
   <script src="components/studyGuide.js"></script>
 
   <!-- Main app -->

@@ -97,6 +97,7 @@ function renderPage(route, param) {
     case 'flashcards':  renderFlashcards(); break;
     case 'quiz':        renderQuiz(); break;
     case 'interactive': renderInteractive(); break;
+    case 'exam':        renderMockExam(); break;
     case 'study':       renderStudyGuide(param); break;
     case 'progress':    renderProgress(); break;
   }
@@ -210,6 +211,17 @@ function renderInteractive() {
   }
 }
 
+// ── Mock Exam Page ────────────────────────────────────────────
+function renderMockExam() {
+  const container = document.getElementById('exam-container');
+  if (container && AppState.loaded) {
+    if (!container.dataset.initialized) {
+      container.dataset.initialized = 'true';
+      MockExamComponent.init(container, AppState.questions, AppState.domains);
+    }
+  }
+}
+
 // ── Study Guide Page ──────────────────────────────────────────
 function renderStudyGuide(param) {
   const container = document.getElementById('study-container');
@@ -228,12 +240,101 @@ function renderProgress() {
   const sessions = Progress.getProgress().sessions;
   const domainStats = Progress.getDomainStats();
   const weakDomains = QuizEngine.getWeakDomains(AppState.domains);
+  const readiness = Readiness.getReadinessReport(AppState.domains, AppState.questions, AppState.flashcards, AppState.topics);
+  const mockExams = Progress.getMockExamHistory();
+
+  const readinessColor = readiness.score >= 80 ? 'var(--c-green)' : readiness.score >= 60 ? 'var(--c-amber)' : 'var(--c-red)';
+  const gateLabel = { green: 'On Track', yellow: 'Needs Work', red: 'At Risk', unstarted: 'Not Started' };
+  const gateColor = { green: 'var(--c-green)', yellow: 'var(--c-amber)', red: 'var(--c-red)', unstarted: 'var(--c-text-3)' };
 
   container.innerHTML = `
     <div class="progress-header">
       <h1 class="progress-title">Study Progress</h1>
       <p class="progress-subtitle">${(typeof CERT_CONFIG !== 'undefined' && CERT_CONFIG.progressSubtitle) ? CERT_CONFIG.progressSubtitle : 'Track your exam preparation'}</p>
     </div>
+
+    <div class="progress-section">
+      <div class="progress-section-title">Exam Readiness Score</div>
+      <div class="readiness-card card">
+        <div class="readiness-score-wrap">
+          <div class="readiness-score-circle" style="--readiness-color:${readinessColor}">
+            <svg class="score-svg" viewBox="0 0 120 120">
+              <circle class="score-bg" cx="60" cy="60" r="52" fill="none" stroke="var(--c-border)" stroke-width="8"/>
+              <circle class="score-fill" cx="60" cy="60" r="52" fill="none"
+                stroke="${readinessColor}" stroke-width="8" stroke-linecap="round"
+                stroke-dasharray="${2 * Math.PI * 52}"
+                stroke-dashoffset="${2 * Math.PI * 52 * (1 - readiness.score / 100)}"
+                transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="score-text">
+              <div class="score-number">${readiness.score}</div>
+              <div class="score-grade">READY</div>
+            </div>
+          </div>
+          <div class="readiness-explain">
+            <p>
+              A blueprint-weighted composite of your accuracy, coverage, and recency across all 8 domains —
+              weighted by ISC2's official exam weighting, not a flat average. This is what "80%" should mean:
+              broad, current, and accurate across the whole exam, not just your strongest domains.
+            </p>
+            ${readiness.applied.penaltyReason === 'unproven' ? `
+              <p class="readiness-applied readiness-applied--capped">
+                Score capped at ${readiness.rawComposite > 70 ? '70' : readiness.score} until scenario competence is demonstrated.
+                You've attempted <strong>${readiness.applied.attempted}</strong> of
+                ${readiness.applied.totalInBank} applied questions — answer at least
+                ${readiness.applied.minAttempts} to lift the cap. The real exam is mostly scenario judgment,
+                so recall accuracy alone can't establish readiness.
+              </p>
+            ` : readiness.applied.penaltyReason === 'lagging' ? `
+              <p class="readiness-applied">
+                Your accuracy on applied/scenario questions is <strong>${readiness.applied.accuracyPct}%</strong>,
+                below your overall performance — and scenario judgment is what the real exam mostly tests.
+                Use <a href="#quiz">Scenario Drill</a> to close the gap.
+              </p>
+            ` : readiness.applied.attempted >= readiness.applied.minAttempts ? `
+              <p class="readiness-applied readiness-applied--good">
+                Applied/scenario accuracy: <strong>${readiness.applied.accuracyPct}%</strong> across
+                ${readiness.applied.attempted} questions — this is the format the real exam mostly uses.
+              </p>
+            ` : ''}
+
+            ${readiness.overconfidencePct !== null ? `
+              <p class="readiness-calibration">
+                Overconfidence signal: <strong>${readiness.overconfidencePct}%</strong> of answers you rated
+                "Confident" were actually wrong. ${readiness.overconfidencePct > 20 ? 'Worth slowing down before locking in an answer.' : 'Well calibrated — trust your instincts.'}
+              </p>
+            ` : ''}
+          </div>
+        </div>
+        <div class="readiness-gate-grid">
+          ${readiness.domainBreakdown.map(d => `
+            <div class="readiness-gate-item">
+              <span class="readiness-gate-dot" style="background:${gateColor[d.gate]}"></span>
+              <span class="readiness-gate-name">${d.name}</span>
+              <span class="readiness-gate-label" style="color:${gateColor[d.gate]}">${gateLabel[d.gate]}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    ${mockExams.length > 0 ? `
+      <div class="progress-section">
+        <div class="progress-section-title">Mock Exam History</div>
+        <div class="mock-history-list">
+          ${mockExams.slice().reverse().slice(0, 8).map(m => `
+            <div class="mock-history-row">
+              <div class="mock-history-date">${new Date(m.date).toLocaleDateString()}</div>
+              <div class="mock-history-bar-wrap">
+                <div class="mock-history-bar" style="width:${m.percentage}%; background:${m.passed ? 'var(--c-green)' : 'var(--c-red)'}"></div>
+              </div>
+              <div class="mock-history-score">${m.percentage}% &middot; ${m.scaledScore}/1000</div>
+              <div class="mock-history-status ${m.passed ? 'is-pass' : 'is-fail'}">${m.passed ? 'Pass' : 'Not Yet'}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
 
     <div class="progress-section">
       <div class="progress-section-title">Overall Performance</div>
@@ -365,6 +466,21 @@ function renderProgress() {
           </label>
         </div>
 
+        <div class="data-mgmt-row">
+          <div class="data-mgmt-info">
+            <div class="data-mgmt-title">Export Reported Question Issues</div>
+            <div class="data-mgmt-desc">Download questions you've flagged as possibly incorrect (${Progress.getReportedIssues().length} reported)</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="export-issues-btn" ${Progress.getReportedIssues().length === 0 ? 'disabled' : ''}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Export
+          </button>
+        </div>
+
         <div class="data-mgmt-row danger-zone">
           <div class="data-mgmt-info">
             <div class="data-mgmt-title" style="color:var(--c-red)">Reset All Progress</div>
@@ -387,6 +503,11 @@ function renderProgress() {
   document.getElementById('export-btn')?.addEventListener('click', () => {
     Progress.exportProgress();
     showToast('Progress exported successfully!', 'success');
+  });
+
+  document.getElementById('export-issues-btn')?.addEventListener('click', () => {
+    Progress.exportReportedIssues();
+    showToast('Reported issues exported!', 'success');
   });
 
   document.getElementById('import-file')?.addEventListener('change', async e => {
@@ -536,6 +657,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentRoute !== 'interactive') {
       const ic = document.getElementById('interactive-container');
       if (ic) delete ic.dataset.initialized;
+    }
+    if (currentRoute !== 'exam') {
+      const ec = document.getElementById('exam-container');
+      if (ec) delete ec.dataset.initialized;
     }
     router();
   });

@@ -612,3 +612,71 @@ topics:
         blocks:
           - type: paragraph
             text: "The most mature awareness programs aim beyond individual behaviors (don't click this, do that) toward a broader security culture — an environment where secure behavior is the unremarkable default and reporting a mistake or a suspicious event is treated as valued, not punished. A punitive culture, where employees who click a phishing simulation or report their own error face public shaming or harsh discipline, reliably backfires: it teaches people to hide mistakes and stay quiet about suspicious activity rather than report it quickly, which is precisely the opposite of what a detective control (Domain 3) needs from its human sensors to actually work. This is why mature programs favor a supportive, blameless-by-default response to good-faith reporting (reserving real consequences for genuine negligence or willful violation, not honest mistakes) — the goal is maximizing the volume and speed of genuine reporting, since a security team that hears about problems quickly can respond far more effectively than one that only learns about them after they've been concealed and have grown worse."
+
+  - id: d1-t13
+    domain: domain1
+    number: "1.13"
+    title: "How the CISSP Exam Actually Works — and How to Answer Its Questions"
+    summary: "The exam's format, scoring, and day-of logistics, plus the single highest-leverage skill for passing it: recognizing what ISC2 means by the BEST answer."
+    tags: ["exam format", "CAT", "exam strategy", "test-taking technique", "exam day"]
+    key_terms: ["Computerized Adaptive Testing (CAT)", "Scaled Score", "NDA", "Select the BEST Answer", "Elimination Technique", "Managerial Mindset", "Pearson VUE"]
+    sections:
+      - heading: "How the Exam Is Actually Scored"
+        blocks:
+          - type: paragraph
+            text: "The English-language CISSP exam is delivered as a Computerized Adaptive Test (CAT): the difficulty of each question you're given adjusts based on whether you're answering correctly, and the exam ends once the algorithm has enough confidence in whether your ability is above or below the passing standard — not after a fixed number of questions for everyone. ISC2 publishes the current question-count range, time limit, and item format on the official exam outline, and these parameters have changed more than once over the years, so treat any specific numbers you hear (including from other study material) as approximate and confirm the current figures on isc2.org before test day rather than memorizing a number that may be out of date."
+          - type: callout
+            style: warning
+            text: "Don't over-index on question count or time limit as a study strategy — they're logistics, not content, and ISC2 has changed them before. What doesn't change is the scoring philosophy below, which is worth understanding cold."
+          - type: paragraph
+            text: "Regardless of how many items you see, your result is reported as a scaled score out of 1000, and the passing standard is 700. This is not a raw percent-correct — because the CAT algorithm targets questions near the edge of your demonstrated ability, someone who passes narrowly may have gotten a similar fraction of items 'right' as someone who fails narrowly; what matters is the difficulty-adjusted ability estimate the algorithm converges on, not a simple correct/total ratio. That's also exactly why this app's Exam Readiness Score doesn't just average your raw accuracy — it's built to track the same idea: broad, reliable performance across all 8 domains matters more than a high score built on a narrow slice of easy or memorized material."
+          - type: callout
+            style: tip
+            text: "One structural detail worth internalizing before test day: on the real CAT exam you generally cannot skip a question and come back to it later, and once you confirm an answer you cannot revisit it — unlike this app's Practice Quiz and Mock Exam, which intentionally let you review and change answers so you can learn from mistakes. Practicing your elimination process (below) until it's fast and automatic matters more on the real exam precisely because there's no going back to reconsider."
+      - heading: "What to Expect on Exam Day"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "The exam is proctored at a Pearson VUE test center (or via an online-proctored option, where available) — bring the exact forms of government-issued ID your confirmation email specifies, since mismatched or expired ID is one of the most common reasons candidates get turned away."
+              - "You'll agree to the CISSP Candidate NDA (Non-Disclosure Agreement) at the start of the exam — you're prohibited from discussing or disclosing specific exam content afterward, which is also why reputable study material (this app included) is built from the public exam outline and general domain knowledge, not from memorized real exam items."
+              - "No personal items, notes, phones, or smartwatches are allowed in the testing room; scratch material is provided by the test center and must be left behind."
+              - "Arrive early — a late arrival past the check-in cutoff can mean forfeiting the appointment entirely. Plan your route and parking the day before, not the morning of."
+              - "The clock generally keeps running through any breaks you take — factor that into your pacing rather than treating breaks as free time."
+          - type: callout
+            style: tip
+            text: "Logistics anxiety is completely avoidable anxiety. Reading the current Pearson VUE and ISC2 exam-day policies a few days beforehand — not the morning of — removes an entire category of exam-day stress that has nothing to do with how well you know the material."
+      - heading: "The Single Most Important Skill: Selecting the BEST Answer"
+        blocks:
+          - type: paragraph
+            text: "CISSP questions are infamous for offering four options that are all technically true statements — the skill being tested isn't whether you can spot the one correct fact among three fabrications (that's a lower-level recall test), it's whether you can judge which true statement is the BEST, MOST appropriate, or FIRST action given the specific scenario in the stem. Missing this distinction is the single most common reason knowledgeable, experienced practitioners still miss CISSP questions — they know the material, but answer as a hands-on technician instead of as the risk-informed manager ISC2 is testing for."
+          - type: list
+            style: bullet
+            items:
+              - "Favor the managerial/governance answer over the purely technical one — ISC2 writes CISSP from the perspective of someone who sets policy and manages risk, not the engineer who personally configures the firewall. When an option about updating a policy, process, or approval and an option about a specific technical fix both seem plausible, the process-level answer is very often the intended BEST answer."
+              - "Favor risk-based reasoning over absolute security — 'the most secure option' is a trap when it's also wildly impractical for the business; ISC2's lens is balancing risk against business need, not eliminating risk at any cost."
+              - "Respect the standard sequence of things — for incident response, that's typically identify/detect before contain before eradicate before recover before lessons-learned; for control types, that's typically prevent before detect before correct. A question asking what to do FIRST is testing whether you know the sequence, not just the full list of valid actions."
+              - "Life safety outranks everything else — in any scenario involving a choice between protecting people and protecting data, systems, or property, protecting human life is always the correct priority."
+              - "Prefer detective/corrective answers when a question describes something already in progress, and preventive answers when it describes something being designed or planned — matching the answer to where the scenario sits in the timeline is often the deciding factor between two otherwise-reasonable options."
+          - type: callout
+            style: example
+            text: "A scenario describes a phishing email that just compromised an employee's credentials. An option to 'immediately disable the compromised account' and an option to 'update the security awareness training program' can both be true, valid security activities — but only one answers what to do FIRST, right now, in response to this specific active incident. The other might be the right answer to a differently-worded question asking how to prevent recurrence."
+      - heading: "A Repeatable Elimination Process"
+        blocks:
+          - type: paragraph
+            text: "Rather than searching for the one 'correct' answer directly, a faster and more reliable approach is elimination: most CISSP questions have one or two options that are clearly, unambiguously wrong (outdated technology, a definition that's simply incorrect, an action that violates a basic principle like least privilege) — cut those first, every time, before comparing the survivors. That narrows a four-option judgment call down to a two-option judgment call, which is a meaningfully easier decision to make correctly and quickly."
+          - type: list
+            style: numbered
+            items:
+              - "Read the full question stem first, and identify the qualifier word doing the real work: FIRST, BEST, MOST, LEAST, NEXT, and PRIMARY all change what's being asked, even when the four options are identical."
+              - "Eliminate any option that is factually wrong, describes a deprecated/broken technology, or violates a core principle (like granting more access than necessary) — these exist as distractors, not close calls."
+              - "Watch for absolute language inside an option itself ('always,' 'never,' 'completely eliminates') — security is a discipline of risk reduction and trade-offs, so an option promising an absolute guarantee is very often wrong on those grounds alone, independent of its subject matter."
+              - "Of the remaining options, apply the managerial-mindset filters above (process over pure technical fix, risk-based over absolute, correct sequencing, life safety first) to pick the BEST of the survivors — not the first one that sounds reasonable."
+              - "If you're still torn between two, re-read the qualifier word from step 1 one more time — it's frequently the tiebreaker you skipped past on the first read."
+          - type: callout
+            style: warning
+            text: "A subtly true-but-irrelevant option is one of the most common traps: an option can be a completely accurate statement about security and still be the wrong answer, because it doesn't address what the specific question is actually asking. Always re-check a tempting option against the qualifier word before selecting it."
+      - heading: "Why This App's Readiness Score Matters More Than a Quiz Percentage"
+        blocks:
+          - type: paragraph
+            text: "A flat quiz percentage can be misleading preparation feedback — it's possible to hit 80%+ by mastering a few comfortable domains while a lower-weighted but still substantial domain (like Domain 2, Asset Security, at 10% of the exam) stays weak, or by memorizing this app's fixed question pool well enough to recognize items rather than reason through them. The Progress dashboard's Exam Readiness Score is built specifically to counter both of those failure modes: it weights each domain by its real ISC2 blueprint weight, rewards broad coverage and recent practice over narrow repetition, and — if you use the confidence-rating option in Practice Quiz — flags overconfidence (answers you were sure about that turned out wrong), which is exactly the failure mode that catches well-prepared candidates off guard on exam day. Treat a high readiness score, not just a high quiz percentage, as your real signal of exam readiness, and use the Mock Exam mode to rehearse the pacing and no-feedback format described above before the real thing."
