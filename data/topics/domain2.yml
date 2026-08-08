@@ -260,3 +260,79 @@ topics:
           - type: callout
             style: example
             text: "Tokenization is a good example of a control that satisfies overlapping regulations differently: PCI DSS explicitly recognizes tokenization as a way to remove systems from compliance scope entirely (if a system only ever handles tokens, not real card numbers, it faces far fewer PCI requirements), while GDPR would evaluate the same tokenization approach more generally as one possible 'appropriate technical measure' supporting its broader risk-based pseudonymization principle — same control, evaluated through two differently-structured compliance lenses."
+
+  - id: d2-t7
+    domain: domain2
+    number: "2.7"
+    title: "Data Roles and Accountability"
+    summary: "Who is accountable for data — owner, controller, processor, custodian, steward, and privacy officer — and why the exam consistently distinguishes accountability from execution."
+    tags: ["data roles", "data owner", "controller", "processor", "accountability", "GDPR"]
+    key_terms: ["Data Owner", "Data Controller", "Data Processor", "Data Custodian", "Data Steward", "Data Subject", "Data Protection Officer", "Accountability vs. Responsibility", "Sub-Processor"]
+    sections:
+      - heading: "The Roles, Precisely"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Data owner — a senior business role accountable for a data set: classifies it, defines who may access it, approves access requests, and accepts the residual risk. Accountability cannot be delegated, which is the property that distinguishes this role from every other one here."
+              - "Data controller — the entity that determines the purposes and means of processing personal data; the privacy-regulation term, and the party regulators hold answerable to data subjects"
+              - "Data processor — processes personal data on the controller's behalf and only on documented instructions; a cloud provider or payroll bureau is the standard example"
+              - "Data custodian — the technical role implementing the owner's decisions day to day: applying controls, running backups, managing storage. Responsible for execution, not accountable for the decisions."
+              - "Data steward — accountable for data quality, meaning, and consistent business use; concerned with whether the data is accurate and correctly interpreted rather than with who may see it"
+              - "Data subject — the individual the personal data is about, and the holder of rights under privacy law"
+              - "Data Protection Officer — an independent role required under GDPR in defined circumstances, advising on compliance and serving as the contact point for regulators and data subjects"
+          - type: callout
+            style: tip
+            text: "The single most tested distinction here is owner versus custodian. The owner decides — classification, who gets access, what risk is acceptable. The custodian implements those decisions technically. If a scenario asks who approves a request for access to sensitive data, the answer is the data owner, not IT, not the security team, and not the custodian."
+      - heading: "Controller and Processor Obligations"
+        blocks:
+          - type: paragraph
+            text: "The controller/processor split carries direct legal consequence rather than being terminology. The controller decides why and how personal data is processed and bears primary accountability to regulators and data subjects; it must have a lawful basis for processing, honor subject rights, and choose processors that provide adequate guarantees. The processor may act only on documented instructions and may not engage a sub-processor without authorization — and a processor that begins determining its own purposes for the data has, by that act, become a controller for that processing and assumed the corresponding liability. These relationships must be governed by a written data processing agreement specifying scope, duration, security measures, breach notification timelines, and what happens to the data at termination."
+          - type: callout
+            style: warning
+            text: "Outsourcing processing does not outsource accountability. An organization that selects a processor which then suffers a breach remains answerable to its data subjects and regulators for having chosen and overseen that processor. This is the same principle as third-party risk in Domain 1, stated in privacy-law terms."
+      - heading: "Making Ownership Real"
+        blocks:
+          - type: paragraph
+            text: "Roles documented in a policy and unassigned in practice produce the most common failure in this area: a data set nobody owns, whose access requests are approved by whoever is asked, whose classification is stale, and whose recertification campaigns are routed to a manager with no basis for judging them. Ownership becomes real when it is recorded in the asset inventory alongside the data itself, when access approval workflows route to the named owner, when recertification is their accountability, and when they are the person who must formally accept a risk if a control cannot be implemented. The practical test of whether ownership exists is simple: for any given sensitive data set, can the organization name the individual who would have to sign the risk acceptance?"
+
+  - id: d2-t8
+    domain: domain2
+    number: "2.8"
+    title: "Privacy Principles and Data Protection in Practice"
+    summary: "The privacy concepts that shape how personal data may be collected, used, and transferred — minimization, purpose limitation, consent, subject rights, and privacy engineering."
+    tags: ["privacy", "GDPR", "data minimization", "consent", "PIA", "anonymization"]
+    key_terms: ["Data Minimization", "Purpose Limitation", "Consent", "Legitimate Interest", "Privacy by Design", "Privacy Impact Assessment", "Right to Erasure", "Data Portability", "Anonymization", "Pseudonymization", "Re-identification", "PII"]
+    sections:
+      - heading: "The Core Privacy Principles"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Lawfulness, fairness, transparency — processing needs a valid legal basis and people must be told what is happening in language they can understand"
+              - "Purpose limitation — data collected for one stated purpose may not simply be repurposed for another without a fresh basis"
+              - "Data minimization — collect only what is necessary for the stated purpose, which is the principle most often violated by default, since systems tend to collect everything available in case it proves useful"
+              - "Accuracy — personal data must be kept correct and current, with a mechanism for correction"
+              - "Storage limitation — retain no longer than the purpose requires, connecting privacy directly to the retention schedules in 2.5"
+              - "Integrity and confidentiality — protect it with appropriate security, which is where this domain's controls apply"
+              - "Accountability — the controller must be able to demonstrate compliance, not merely assert it"
+          - type: callout
+            style: tip
+            text: "Data minimization is the principle with the largest security payoff and it is worth stating plainly: data never collected cannot be breached, subpoenaed, misused, or leaked. When a scenario asks for the most effective way to reduce the risk of holding sensitive personal data, not collecting or promptly deleting it generally outranks any control applied to keeping it."
+      - heading: "Consent and Lawful Basis"
+        blocks:
+          - type: paragraph
+            text: "Consent is one lawful basis among several — contract performance, legal obligation, vital interests, public task, and legitimate interests are others — and it is frequently the weakest choice operationally, because valid consent must be freely given, specific, informed, unambiguous, and as easy to withdraw as to give, and withdrawal obligates the organization to stop. Pre-ticked boxes, bundled consent, and access conditioned on unnecessary consent do not qualify. Where processing is genuinely necessary to deliver the service the person requested, contract is the sounder basis; legitimate interests requires a documented balancing assessment weighing the organization's interest against the individual's rights."
+      - heading: "Subject Rights and Their Operational Cost"
+        blocks:
+          - type: paragraph
+            text: "Modern privacy regimes grant individuals enforceable rights — access to their data, correction, erasure, restriction of processing, portability in a machine-readable format, and objection to certain processing including profiling — usually within a statutory deadline. Meeting these has an architectural precondition that organizations discover late: you cannot produce, correct, or delete all of one person's data unless you know everywhere it lives, which makes data discovery, inventory, and lineage a compliance dependency rather than a nice-to-have. Backups, analytics copies, logs, and third-party processors all hold personal data, and an erasure request nominally extends to all of them."
+          - type: callout
+            style: warning
+            text: "The right to erasure versus backup retention is a genuine and commonly examined tension. Regulators generally accept that immediately expunging an individual from immutable backups is impractical, provided the organization documents the position, ensures the data is not restored into active use, and deletes it as backups age out on their normal cycle. The wrong answers are claiming erasure is impossible and compromising backup integrity to attempt it."
+      - heading: "Privacy Engineering: Anonymization and Assessment"
+        blocks:
+          - type: paragraph
+            text: "Pseudonymization replaces identifiers with tokens while retaining a separately protected mapping that permits re-identification — it reduces risk substantially and the data remains personal data under most regimes, with the regulatory obligations that follow. Anonymization irreversibly removes the ability to identify individuals, which takes the data outside privacy regulation entirely, and is correspondingly hard to achieve: repeated real-world studies have re-identified individuals in supposedly anonymized data sets by correlating quasi-identifiers such as postal code, birth date, and sex against public sources. Techniques including k-anonymity, l-diversity, and differential privacy exist precisely because naive identifier removal is insufficient."
+          - type: paragraph
+            text: "Privacy by Design is the governing posture: build privacy into systems from the outset as a default rather than adding notices and controls afterward, which is the privacy expression of the shift-left argument in Domain 8. A Privacy Impact Assessment — a Data Protection Impact Assessment under GDPR, and mandatory for high-risk processing — is the structured method for evaluating a new system or process before deployment: what personal data it involves, why, what could go wrong, and what mitigations apply. Conducting it early is what makes its findings actionable; conducting it after launch reduces it to documentation of decisions already made."

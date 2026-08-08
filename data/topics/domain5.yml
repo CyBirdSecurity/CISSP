@@ -248,3 +248,145 @@ topics:
           - type: callout
             style: tip
             text: "Defenses specifically target the repeated-prompt pattern rather than MFA itself: number-matching (the user must enter a code shown on the login screen into the push prompt, which a bored tap can't satisfy accidentally), rate-limiting how many pushes can be sent in a short window, and alerting security teams on unusual volumes of denied/ignored push attempts as a detection signal in its own right."
+
+  - id: d5-t7
+    domain: domain5
+    number: "5.7"
+    title: "Kerberos and Ticket-Based Authentication in Depth"
+    summary: "How Kerberos actually authenticates without ever sending a password across the network, the components involved, and why its design decisions still shape enterprise identity attacks."
+    tags: ["Kerberos", "KDC", "ticket", "Active Directory", "SSO"]
+    key_terms: ["KDC", "Authentication Server", "Ticket Granting Server", "TGT", "Service Ticket", "Realm", "Principal", "Replay Protection", "Clock Skew", "Mutual Authentication"]
+    sections:
+      - heading: "The Components"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "KDC (Key Distribution Center) — the trusted third party at the center of the realm, comprising the Authentication Server and the Ticket Granting Server; it holds a secret key shared with every principal"
+              - "Principal — any entity Kerberos can authenticate: a user, a host, or a service"
+              - "TGT (Ticket Granting Ticket) — issued once at logon and used thereafter to request service tickets without re-entering credentials; this is what makes Kerberos a single sign-on system"
+              - "Service ticket — presented to a specific service to prove identity to that service"
+              - "Realm — the administrative boundary of a Kerberos deployment, corresponding to an Active Directory domain in Microsoft environments"
+      - heading: "The Flow, and Why It Matters"
+        blocks:
+          - type: paragraph
+            text: "At logon, the client requests authentication from the Authentication Server, which returns a TGT encrypted with the KDC's own key plus a session key encrypted with a key derived from the user's password. Only a client that genuinely knows the password can decrypt the session key — which means the password itself is never transmitted, and this is the single most important property to retain. When the client later needs a service, it presents the TGT to the Ticket Granting Server and receives a service ticket encrypted with that service's key, which the client presents to the service. The service can decrypt it with its own key, proving the KDC issued it, without ever contacting the KDC itself."
+          - type: callout
+            style: tip
+            text: "The exam-relevant summary: passwords never cross the network, the KDC is a trusted third party that both parties rely on, and the service validates the ticket independently. That last property is what makes Kerberos scale — service authentication does not require a round trip to the KDC for every request."
+          - type: paragraph
+            text: "Tickets carry timestamps and short lifetimes to resist replay, which is why Kerberos is unusually sensitive to clock skew — a client whose clock differs from the KDC's by more than the configured tolerance, typically five minutes, simply fails to authenticate. This makes NTP a hard dependency of authentication, not merely a logging convenience, and it is a common exam scenario disguised as a troubleshooting question."
+      - heading: "The Structural Weaknesses"
+        blocks:
+          - type: paragraph
+            text: "The KDC is a single point of both failure and compromise: if it is unavailable no one can authenticate, so production deployments require redundant KDCs, and if it is compromised the attacker can mint tickets for any principal. That is the basis of the golden ticket attack — forging TGTs using the stolen KRBTGT account key, granting effectively permanent domain-wide access that survives password resets of individual users. The silver ticket variant forges a service ticket using a compromised service account key, which is narrower but stealthier because it never touches the KDC at all."
+          - type: callout
+            style: warning
+            text: "Kerberoasting exploits a subtler design consequence: any authenticated user can request a service ticket for any service, and that ticket is encrypted with a key derived from the service account's password. An attacker requests tickets for service accounts and cracks them offline at leisure. The defenses are long random passwords on service accounts, using group managed service accounts that rotate automatically, and alerting on anomalous volumes of service ticket requests."
+
+  - id: d5-t8
+    domain: domain5
+    number: "5.8"
+    title: "OAuth, OpenID Connect, and Modern Authorization Delegation"
+    summary: "The distinction between delegated authorization and authentication, the flows the exam expects you to recognize, and the failure modes that make these protocols dangerous when misused."
+    tags: ["OAuth", "OpenID Connect", "token", "API authorization", "delegation"]
+    key_terms: ["Resource Owner", "Client", "Authorization Server", "Resource Server", "Access Token", "Refresh Token", "ID Token", "Authorization Code Flow", "PKCE", "Scope", "Bearer Token", "Redirect URI"]
+    sections:
+      - heading: "Authorization Is Not Authentication"
+        blocks:
+          - type: paragraph
+            text: "OAuth 2.0 is a delegated authorization framework: it lets a user grant an application limited access to resources held elsewhere without handing over their password. It deliberately says nothing about who the user is. OpenID Connect is a thin identity layer built on top of OAuth that adds exactly that — an ID token, a signed JWT asserting the user's identity and how they were authenticated. Conflating the two is both a common architectural error and a recurring exam distractor: using a raw OAuth access token as proof of identity is unsound, because the token proves only that some application was granted some access at some point, not that the person presenting it is who they claim to be right now."
+          - type: list
+            style: bullet
+            items:
+              - "Resource owner — the user who owns the data and grants consent"
+              - "Client — the application requesting access on the user's behalf"
+              - "Authorization server — authenticates the user, obtains consent, and issues tokens"
+              - "Resource server — the API holding the protected data, which validates tokens before serving requests"
+      - heading: "Flows and Which to Use"
+        blocks:
+          - type: paragraph
+            text: "The authorization code flow is the correct default: the user authenticates directly with the authorization server, the client receives a short-lived one-time code through a browser redirect, and the client exchanges that code for tokens over a direct back-channel call. The value of the extra step is that tokens never pass through the browser's address bar or history. PKCE (Proof Key for Code Exchange) extends this for public clients such as mobile and single-page applications that cannot keep a secret, binding the code exchange to a per-request verifier so an intercepted code cannot be redeemed by anyone else — and current guidance is to use PKCE for all clients, not only public ones."
+          - type: callout
+            style: warning
+            text: "The implicit flow, which returned tokens directly in the redirect URL, is deprecated precisely because those tokens end up in browser history, referrer headers, and server logs. The resource owner password credentials flow, where the application collects the user's actual password, is likewise deprecated because it destroys the entire point of delegation. Both are wrong answers on a current exam."
+          - type: paragraph
+            text: "The client credentials flow covers machine-to-machine access where no user is involved at all, and is the appropriate answer for service-to-service authorization. Scopes limit what a token may do, and the least-privilege principle applies directly — an application needing to read a calendar should not request write access to email. Access tokens should be short-lived, with refresh tokens obtaining new ones without re-prompting the user, so a stolen access token expires quickly while refresh tokens can be revoked centrally."
+      - heading: "Where It Goes Wrong"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Unvalidated redirect URIs — if the authorization server accepts arbitrary or loosely matched redirect targets, an attacker redirects the code or token to a server they control; exact-match registration is the defense"
+              - "Bearer token theft — a bearer token grants access to whoever holds it, with no proof of possession, so transport security and short lifetimes carry the entire weight"
+              - "Missing token validation at the resource server — signature, issuer, audience, and expiry must all be checked; accepting a token because it merely parses as a JWT is a complete authorization bypass"
+              - "The 'none' algorithm attack — a JWT library that honors an unsigned algorithm header lets an attacker forge arbitrary claims; algorithms must be pinned by the verifier rather than read from the token"
+              - "Overbroad consent — users approving sweeping scopes without reading them, which is why consent screens should present specific, comprehensible permissions"
+          - type: callout
+            style: tip
+            text: "The recurring theme is that tokens are only as trustworthy as their validation. A resource server that decodes a JWT without verifying its signature against a trusted key, and without checking that the audience claim names this service, will accept a token minted by anyone — including one legitimately issued for an entirely different service."
+
+  - id: d5-t9
+    domain: domain5
+    number: "5.9"
+    title: "Cloud, Machine, and Non-Human Identity"
+    summary: "Managing the identities that vastly outnumber human ones — service accounts, workloads, API keys, and cloud entitlements — and why they are systematically under-governed."
+    tags: ["CIEM", "machine identity", "service account", "workload identity", "secrets"]
+    key_terms: ["CIEM", "Workload Identity", "Instance Profile", "Managed Identity", "API Key", "Service Principal", "Secrets Management", "Credential Rotation", "Permission Boundary", "Confused Deputy", "SPIFFE"]
+    sections:
+      - heading: "The Scale Problem"
+        blocks:
+          - type: paragraph
+            text: "In a modern environment, non-human identities — service accounts, application identities, containers, functions, CI/CD pipelines, and API integrations — typically outnumber human identities by a large multiple, and they are governed far less rigorously. They rarely have a clear owner, are provisioned with broad permissions because narrowing them takes effort and risks breaking automation, hold credentials that are seldom rotated because rotation breaks dependent systems, and are routinely omitted from access reviews since no person experiences their access. The result is a large population of over-privileged, long-lived, unmonitored credentials, which is exactly the profile attackers seek."
+          - type: callout
+            style: warning
+            text: "A departing employee triggers a deprovisioning workflow. A decommissioned application usually does not, so its service account and credentials persist indefinitely with production access and no one watching. Including non-human identities in the joiner-mover-leaver lifecycle and in access recertification is the control, and it is a frequent audit finding when absent."
+      - heading: "Eliminating Static Credentials"
+        blocks:
+          - type: paragraph
+            text: "The strongest available answer to machine credential risk is removing the static credential entirely. Cloud platforms provide workload identity mechanisms — instance profiles, managed identities, service accounts bound to workloads — where the platform issues short-lived credentials automatically based on what the workload is, so no long-lived secret exists in code, configuration, or an environment variable to be stolen. Where a static secret is unavoidable, it belongs in a secrets manager or vault with automated rotation, tight access policy, and audit logging, never in source control, container images, or configuration files."
+          - type: list
+            style: bullet
+            items:
+              - "Short-lived, automatically rotated credentials over long-lived static keys"
+              - "Workload identity federation so a pipeline or workload authenticates by proving what it is rather than by presenting a stored key"
+              - "Secrets scanning in repositories and CI to catch committed credentials, with the assumption that any leaked secret is compromised and must be rotated rather than merely deleted from the branch"
+              - "SPIFFE/SPIRE as the vendor-neutral standard for issuing cryptographic workload identities in heterogeneous environments"
+      - heading: "Cloud Infrastructure Entitlement Management"
+        blocks:
+          - type: paragraph
+            text: "Cloud permission models are expressive enough that the effective permissions of an identity are frequently not what anyone intended: policies compose across accounts, roles, resource policies, and groups, and permissions that appear modest individually can chain into privilege escalation — an identity permitted to modify IAM policy can grant itself anything, and an identity able to pass a privileged role to a compute service can execute code with that role's authority. CIEM tools exist to compute effective permissions across this complexity, compare granted permissions against permissions actually exercised, and drive least privilege from observed usage rather than from what someone requested."
+          - type: callout
+            style: tip
+            text: "The confused deputy problem is the classic underlying pattern and is directly testable: a privileged service is tricked into performing an action on an attacker's behalf, using its own authority rather than the attacker's. Cross-account access with a confirming external identifier, and scoping what a service may act upon rather than only what it may do, are the structural defenses."
+          - type: paragraph
+            text: "Permission boundaries and service control policies provide the guardrail layer — a maximum permission ceiling that applies regardless of what individual policies grant, so that even an administrator in a sub-account cannot exceed organizational limits. This is the cloud expression of a principle from Domain 3: constrain what is possible architecturally rather than relying on everyone configuring things correctly every time."
+
+  - id: d5-t10
+    domain: domain5
+    number: "5.10"
+    title: "Identity Proofing, Registration, and Credential Issuance"
+    summary: "Establishing who someone actually is before issuing them a credential, and the account recovery paths that so often undo every control that follows."
+    tags: ["identity proofing", "registration", "enrollment", "account recovery", "IAL"]
+    key_terms: ["Identity Proofing", "Registration Authority", "Identity Assurance Level", "Knowledge-Based Authentication", "Enrollment", "Account Recovery", "Self-Service Password Reset", "Deprovisioning", "Credential Binding"]
+    sections:
+      - heading: "Proofing Precedes Everything"
+        blocks:
+          - type: paragraph
+            text: "Every authentication control downstream rests on one prior question: when this identity was created, how confident was the organization that the person was who they claimed to be? Identity proofing is that verification, performed once at enrollment, and it establishes the ceiling on all subsequent assurance. Multi-factor authentication protecting an account that was issued to an impostor is protecting the impostor's access very effectively. NIST expresses this as Identity Assurance Levels: IAL1 requires no verification of a self-asserted identity, IAL2 requires evidence checked remotely or in person, and IAL3 requires in-person or supervised verification with physical documentation."
+          - type: callout
+            style: tip
+            text: "Keep the three NIST scales distinct, because the exam may reference them: IAL concerns how thoroughly the identity was proofed at enrollment, AAL concerns the strength of the authentication used at each login, and FAL concerns the strength of assertions in a federated exchange. They are independent — a strongly authenticated session on a poorly proofed identity is still a poorly established identity."
+      - heading: "Registration and Credential Binding"
+        blocks:
+          - type: paragraph
+            text: "Once identity is established, a credential is bound to it — issuing a smart card, enrolling a biometric template, registering a FIDO2 authenticator, or setting an initial password. The binding step is a common weak point, because a credential delivered insecurely can be intercepted before first use: initial passwords sent in cleartext email, activation links with long lifetimes, or a shared onboarding password used for every new hire. Sound practice delivers initial credentials over a separate channel from the account identifier, forces change or enrollment on first use, and expires activation material quickly. Registration authorities perform proofing on behalf of the issuing system in larger deployments, which is the same trust delegation pattern PKI uses in Domain 3."
+      - heading: "Account Recovery: The Weakest Link"
+        blocks:
+          - type: paragraph
+            text: "Account recovery exists because people genuinely lose credentials, and it is routinely the softest path into an otherwise well-defended account — an attacker does not defeat the MFA, they persuade the help desk to reset it. Knowledge-based authentication using personal questions is particularly weak, since the answers are frequently discoverable through public records, social media, or prior breaches, and the exam treats it as an inadequate primary control. Stronger recovery uses pre-registered alternate authenticators, verification through a separate already-trusted channel, manager or sponsor attestation, or in-person verification for high-privilege accounts."
+          - type: callout
+            style: warning
+            text: "Help desk social engineering is a documented path in major real-world intrusions: an attacker calls claiming to be a locked-out employee and talks an agent into resetting credentials and re-enrolling MFA on an attacker-controlled device. Countermeasures are scripted verification procedures the agent may not deviate from, callback to a number already on record, requiring manager approval for privileged resets, and specifically training staff that urgency and authority pressure are social engineering indicators rather than reasons to expedite."
+          - type: paragraph
+            text: "The mirror image is deprovisioning, and the principle is symmetry: the same rigor applied to granting access should apply to removing it. Recovery paths, alternate authenticators, and registered devices must be revoked along with the primary credential, because an account disabled in the directory while its registered MFA device and recovery email remain valid may still be recoverable by whoever controls them."

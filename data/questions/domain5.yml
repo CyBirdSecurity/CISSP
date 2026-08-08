@@ -16,6 +16,7 @@ questions:
         - "Two-step verification (using the same factor category twice, like two passwords) is not MFA. Using factors from different categories is MFA."
         - "Biometric authentication uses 'something you are' (fingerprint, face, iris) — a hardware token is 'something you have.'"
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["authentication", "MFA"]
 
   - id: q-d5-002
@@ -35,6 +36,7 @@ questions:
         - "SSO is generally faster — authentication happens once. Latency increase is not the primary concern."
         - "SSO providers typically support and encourage MFA — this is not a limitation of SSO."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["SSO", "IAM"]
 
   - id: q-d5-003
@@ -54,6 +56,7 @@ questions:
         - "RBAC is not about object ownership — that describes DAC (Discretionary Access Control)."
         - "Direct user-to-permission assignment is characteristic of DAC, not RBAC."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["RBAC", "access-control"]
 
   - id: q-d5-004
@@ -73,6 +76,7 @@ questions:
         - "MAC is enforced by the OS with security labels that users cannot override — this is correct."
         - "ABAC uses policy attributes for access decisions — it is more flexible and not based on hierarchical security labels."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["MAC", "access-control"]
 
   - id: q-d5-005
@@ -92,6 +96,7 @@ questions:
         - "Communication encryption uses session keys within tickets — the TGT is an authentication mechanism, not an encryption service."
         - "User credentials are stored in the AS database — the TGT is issued after authentication, not used to store credentials."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["Kerberos", "authentication"]
 
   - id: q-d5-006
@@ -111,6 +116,7 @@ questions:
         - "They are distinct processes. Authentication must succeed before authorization can occur."
         - "Both authentication and authorization apply to humans, systems, services, and applications."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["authentication", "authorization", "IAM"]
 
   - id: q-d5-007
@@ -130,6 +136,7 @@ questions:
         - "While SAML can include MFA assertions, its primary purpose is SSO federation, not 2FA specifically."
         - "Certificate-based authentication for network devices uses protocols like EAP-TLS or 802.1X, not SAML."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["SAML", "SSO", "federation"]
 
   - id: q-d5-008
@@ -149,6 +156,7 @@ questions:
         - "Privilege revocation is the action taken (removing old permissions) — least privilege is the underlying principle that drives this requirement."
         - "Access recertification is a periodic review process to verify access is still appropriate — it is a mechanism to enforce least privilege but not the principle itself."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["least-privilege", "IAM"]
 
   - id: q-d5-009
@@ -168,6 +176,7 @@ questions:
         - "Intentional misuse of privileges is insider threat — privilege creep describes unintended accumulation, not intentional misuse."
         - "Privilege escalation malware is a technical attack — privilege creep is an administrative access management problem."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAM", "access-control"]
 
   - id: q-d5-010
@@ -187,6 +196,7 @@ questions:
         - "Self-service password reset is a standard IAM feature, not specifically PAM. PAM focuses on privileged/administrative accounts."
         - "MFA enforcement is a broader IAM control. PAM specifically addresses privileged accounts beyond just adding MFA."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["PAM", "privileged-access"]
 
   - id: q-d5-011
@@ -206,6 +216,7 @@ questions:
         - "The protocol (SAML, OAuth, OIDC) is the communication standard, not the IdP."
         - "Access policy enforcement is done by the SP or an access control system, not the IdP."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["federation", "SSO", "IAM"]
 
   - id: q-d5-012
@@ -225,6 +236,7 @@ questions:
         - "Iris scans are the most accurate common biometric — stable, unique, and hard to forge."
         - "Voice recognition is the least reliable biometric — affected by illness, ambient noise, and can be replayed or synthesized."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["biometrics", "authentication"]
 
   - id: q-d5-013
@@ -244,6 +256,7 @@ questions:
         - "JIT refers to provisioning timing (on-demand), not the time of day users log in."
         - "New account provisioning during onboarding is identity lifecycle management — JIT specifically addresses privileged access duration."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["PAM", "privileged-access"]
 
   - id: q-d5-014
@@ -263,6 +276,7 @@ questions:
         - "'Something you are' includes biometrics — fingerprints, iris scans, facial recognition."
         - "'Somewhere you are' is a location-based factor using IP geolocation or GPS — not a physical hardware device."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["authentication", "MFA"]
 
   - id: q-d5-015
@@ -282,6 +296,7 @@ questions:
         - "FIDO2 implementation requires hardware authenticators or device TPMs — it may add infrastructure cost."
         - "FIDO2 generates site-specific credentials (the opposite of reuse) — credential reuse is a password security anti-pattern."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["authentication", "FIDO2"]
 
   - id: q-d5-016
@@ -301,6 +316,7 @@ questions:
         - "Permanent access without user involvement describes the Client Credentials flow for machine-to-machine — not Authorization Code."
         - "Storing tokens in browser cookies is a session management pattern — the Authorization Code grant specifically avoids tokens appearing in the browser."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["OAuth", "IAM"]
 
   - id: q-d5-017
@@ -320,6 +336,7 @@ questions:
         - "Password resets are an authentication management activity — access reviews examine what resources users can reach."
         - "Login activity logging is audit log management — access reviews evaluate whether existing access permissions remain appropriate."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["IAM", "access-control"]
 
   - id: q-d5-018
@@ -339,6 +356,7 @@ questions:
         - "ABAC handles more complex, fine-grained policies than RBAC — RBAC is simpler but less flexible."
         - "Both ABAC and RBAC are used across all sectors — neither is limited to a specific type of organization."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["ABAC", "RBAC", "access-control"]
 
   - id: q-d5-019
@@ -358,6 +376,7 @@ questions:
         - "Read-only access is one possible configuration — service accounts have varying privileges depending on what the application needs."
         - "Temporary vendor accounts are a different category — service accounts are persistent application accounts."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAM", "service-accounts"]
 
   - id: q-d5-020
@@ -377,6 +396,7 @@ questions:
         - "Both can be automated — the distinction is about claim versus proof, not automation level."
         - "Identification always comes first (you must state who you are before proving it) — not authentication first."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["IAM", "authentication", "fundamentals"]
 
   - id: q-d5-021
@@ -396,6 +416,7 @@ questions:
         - "Crossover Error Rate (CER) is the point where FAR and FRR are equal — it provides an overall accuracy metric but doesn't specifically measure unauthorized acceptance."
         - "EER (Equal Error Rate) is the same as CER — a balance point, not the specific unauthorized acceptance metric."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["biometrics", "authentication"]
 
   - id: q-d5-022
@@ -415,6 +436,7 @@ questions:
         - "Token replay attacks (Pass-the-Ticket in Kerberos) are a related but different technique — pass-the-hash specifically uses NTLM hashes."
         - "GPU hash cracking aims to recover the plaintext — pass-the-hash doesn't bother cracking, it just uses the hash."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["attacks", "authentication"]
 
   - id: q-d5-023
@@ -434,6 +456,7 @@ questions:
         - "Learning preferences improves UX — adaptive authentication is a security mechanism that increases friction for risky scenarios."
         - "Language support is a localization feature — adaptive authentication is risk-based policy enforcement."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["authentication", "IAM"]
 
   - id: q-d5-024
@@ -453,6 +476,7 @@ questions:
         - "Role-based access is RBAC — 'role explosion' is RBAC's weakness, not DAC's."
         - "Attribute-based access is ABAC — complex policy management is ABAC's weakness."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["DAC", "access-control"]
 
   - id: q-d5-025
@@ -472,6 +496,7 @@ questions:
         - "This is reversed — OAuth 2.0 is authorization; OIDC provides the identity/authentication layer."
         - "Both are used across all application types (web, mobile, server-side) — neither is platform-specific."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["OIDC", "OAuth", "federation"]
 
   - id: q-d5-026
@@ -491,6 +516,7 @@ questions:
         - "Network credential interception is a sniffing/MitM attack — account harvesting exploits application feedback."
         - "Creating fake accounts is account fraud — harvesting collects existing valid account names."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["authentication", "attacks"]
 
   - id: q-d5-027
@@ -510,6 +536,7 @@ questions:
         - "Phishing captures credentials through deception — credential stuffing uses already-compromised credentials from other breaches."
         - "Keyloggers capture credentials at input — credential stuffing uses existing stolen credentials in automated login attempts."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["attacks", "authentication"]
 
   - id: q-d5-028
@@ -529,6 +556,7 @@ questions:
         - "Session encryption keys are embedded in Kerberos tickets as session keys — the TGS doesn't issue standalone encryption keys."
         - "Digital certificates are a PKI concept — Kerberos uses tickets, not X.509 certificates."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["Kerberos", "authentication"]
 
   - id: q-d5-029
@@ -548,6 +576,7 @@ questions:
         - "Encrypting passwords is storage protection — account lockout is a login attempt control."
         - "Password rotation is a credential management policy — account lockout responds to real-time failed attempts."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["authentication", "controls"]
 
   - id: q-d5-030
@@ -567,6 +596,7 @@ questions:
         - "Brand identity is a marketing function — identity governance is an IT security and compliance program."
         - "Network traffic monitoring for threats is a security operations function (SIEM, NTA) — identity governance is about lifecycle management and compliance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAM", "governance"]
 
   - id: q-d5-031
@@ -586,6 +616,7 @@ questions:
         - "OIDC with JWTs for web/API SSO is the correct answer."
         - "RADIUS is a network authentication protocol for VPN and 802.1X — not JWT-based web SSO."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["OIDC", "SSO", "JWT"]
 
   - id: q-d5-032
@@ -605,6 +636,7 @@ questions:
         - "Revoking access upon termination is access lifecycle management — ZSP applies to active, ongoing privileged access for all users."
         - "Default-deny firewall policies are network security controls — ZSP is an identity and access management principle."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["PAM", "least-privilege"]
 
   - id: q-d5-033
@@ -624,6 +656,7 @@ questions:
         - "FAR measures authentication accuracy, not processing time performance."
         - "FAR measures authentication error rates, not hardware reliability metrics."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["biometrics", "IAM", "metrics"]
 
   - id: q-d5-034
@@ -643,6 +676,7 @@ questions:
         - "Relying Party is a general term (sometimes used in OIDC) for the party that relies on identity assertions — in SAML terminology, this is the Service Provider role."
         - "A Certificate Authority issues digital certificates — not a SAML federation role."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["federation", "SAML", "IAM"]
 
   - id: q-d5-035
@@ -662,6 +696,7 @@ questions:
         - "Kerberos (tickets + KDC for SSO) is the correct answer."
         - "TACACS+ is a Cisco AAA protocol for device administration authentication — it does not use the Kerberos ticket system."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["protocols", "authentication", "Kerberos"]
 
   - id: q-d5-036
@@ -681,6 +716,7 @@ questions:
         - "Pass-the-Hash (using captured NTLM hash to authenticate without the plaintext password) is the correct answer."
         - "A Golden Ticket attack forges a Kerberos TGT using the KRBTGT account hash — it uses Kerberos, not NTLM."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["attacks", "Windows", "authentication"]
 
   - id: q-d5-037
@@ -700,6 +736,7 @@ questions:
         - "Password spraying targets any authentication interface — VPN, Office 365, SSH, domain logons — not exclusively web applications."
         - "Using leaked credential databases for login attempts describes credential stuffing — not password spraying."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["attacks", "authentication"]
 
   - id: q-d5-038
@@ -719,6 +756,7 @@ questions:
         - "RBAC controls what resources a role can access but doesn't automatically enforce departmental boundaries — those must be designed into the role structure."
         - "RBAC is an authorization model — it does not replace authentication. Users must still authenticate before RBAC determines what they can access."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["access-control", "RBAC", "IAM"]
 
   - id: q-d5-039
@@ -738,6 +776,7 @@ questions:
         - "Orphaned accounts don't affect other users' login capabilities — they are simply inactive accounts that can be exploited."
         - "Unused accounts do not affect application performance — they are idle, not actively processing requests."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAM", "lifecycle", "accounts"]
 
   - id: q-d5-040
@@ -757,6 +796,7 @@ questions:
         - "Kerberos is an enterprise ticket-based authentication protocol — it does not extend OAuth 2.0."
         - "WS-Federation is a separate federation protocol (used in Microsoft environments) — it does not extend OAuth 2.0."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["protocols", "authentication", "OIDC"]
 
   - id: q-d5-041
@@ -776,6 +816,7 @@ questions:
         - "Authentication performance is addressed by authentication architecture — JIT is about the lifecycle of elevated permissions, not performance."
         - "Physical access control is a different security domain — JIT is a logical access management control."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAM", "PAM", "privileged-access"]
 
   - id: q-d5-042
@@ -795,6 +836,7 @@ questions:
         - "RBAC with conflicting role exclusions (SoD controls) is the technical enforcement mechanism for separation of duties."
         - "Network segmentation controls which systems can communicate — it does not enforce that a single user cannot perform multiple conflicting functions."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["access-control", "SoD", "IAM"]
 
   - id: q-d5-043
@@ -814,6 +856,7 @@ questions:
         - "Credential stuffing is an attack using breached credentials from other services — not an internal access accumulation issue."
         - "Insider threat is a broader risk category — privilege creep is the specific access control risk that could enable an insider threat but is not itself a threat category."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["IAM", "access-control", "governance"]
 
   - id: q-d5-044
@@ -833,6 +876,7 @@ questions:
         - "MFA describes using multiple authentication factors at login — step-up authentication triggers additional authentication dynamically within a session based on transaction risk."
         - "Federated identity allows using credentials from one organization to access another's resources — not related to session-level re-authentication for risk."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["authentication", "IAM", "step-up"]
 
   - id: q-d5-045
@@ -852,6 +896,7 @@ questions:
         - "Authentication federation is provided by SAML and OIDC — SCIM handles user lifecycle management, not authentication."
         - "Biometric authentication is a separate authentication technology — SCIM is specifically for user account lifecycle automation."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAM", "SCIM", "provisioning"]
 
   - id: q-d5-046
@@ -871,6 +916,7 @@ questions:
         - "Both MAC and DAC can be implemented in cloud or on-premises environments — the distinction is the control mechanism, not deployment location."
         - "Both access control models apply to files, databases, and other resource types — not limited to file systems."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["access-control", "MAC", "DAC"]
 
   - id: q-d5-047
@@ -890,6 +936,7 @@ questions:
         - "Need-to-know is the principle that access should be granted only when there is a demonstrated business need — this workflow enforces it but the described control is the workflow itself."
         - "MAC is OS-enforced label-based access — this scenario describes an administrative workflow process."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["IAM", "access-control", "provisioning"]
 
   - id: q-d5-048
@@ -909,6 +956,7 @@ questions:
         - "Network segmentation for admin traffic is a network security control — not the specific PAM feature for credential management."
         - "MFA for regular users is an IAM control — PAM focuses on privileged accounts specifically."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAM", "PAM", "privileged-access"]
 
   - id: q-d5-049
@@ -928,6 +976,7 @@ questions:
         - "FIDO2 supports various authenticators — biometrics, security keys, PINs. Biometrics are just one option and biometrics are actually stored locally on the device."
         - "FIDO2 uses public-key cryptography (private key never leaves the device); it does not store password hashes."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["authentication", "FIDO2", "phishing"]
 
   - id: q-d5-050
@@ -947,6 +996,7 @@ questions:
         - "Endpoint detection and response (EDR) monitors device behavior — this is a security operations function, not identity governance."
         - "Directory encryption is a data security control — not a governance capability of IGA tools."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IAM", "governance", "IGA"]
 
   - id: q-d5-052
@@ -966,6 +1016,7 @@ questions:
         - "Recertification is a routine governance process — escalating every over-privilege finding would create unnecessary overhead. Fraud investigation is separate from access removal."
         - "Moving to a shared account distributes risk to more people rather than removing unnecessary access — this is not an appropriate response to excess access found in recertification."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["IAM", "governance", "recertification"]
 
   - id: q-d5-051
@@ -985,6 +1036,7 @@ questions:
         - "Credential stuffing prevention involves rate limiting, CAPTCHA, and monitoring — not requiring hardware tokens for specific applications."
         - "MAC is OS-enforced label-based access control — not a session-level authentication escalation mechanism."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["authentication", "IAM", "step-up"]
 
   - id: q-d5-053
@@ -1004,6 +1056,7 @@ questions:
         - "XSS affects web output rendering, not LDAP query processing."
         - "Directory traversal involves filesystem paths, not LDAP filter manipulation."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["LDAP", "injection", "directory-services", "input-validation"]
 
   - id: q-d5-054
@@ -1023,6 +1076,7 @@ questions:
         - "Kerberoasting is correct — it specifically targets service tickets (TGS) for accounts with Service Principal Names (SPNs)."
         - "A golden ticket attack forges TGTs using the KRBTGT account hash, granting domain-wide access without cracking service account passwords."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["Kerberos", "Kerberoasting", "credential-attacks", "Active-Directory"]
 
   - id: q-d5-055
@@ -1042,6 +1096,7 @@ questions:
         - "Pre-authentication disabled is correct — this flag (DONT_REQUIRE_PREAUTH) allows unauthenticated AS-REP requests."
         - "Unconstrained delegation allows forwarding of TGTs to any service but is not the prerequisite for AS-REP roasting."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["Kerberos", "AS-REP-roasting", "Active-Directory", "credential-attacks"]
 
   - id: q-d5-056
@@ -1061,6 +1116,7 @@ questions:
         - "DCSync mimics a domain controller replication request to extract password hashes (including KRBTGT) but is the technique used to obtain the hash, not the ticket forging attack itself."
         - "Pass-the-ticket reuses legitimately obtained Kerberos tickets rather than forging new ones."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["Kerberos", "golden-ticket", "Active-Directory", "post-exploitation"]
 
   - id: q-d5-057
@@ -1080,6 +1136,7 @@ questions:
         - "IAL3 is correct — it mandates in-person or supervised remote proofing with the highest level of evidence verification."
         - "IAL0 is not a defined level in NIST SP 800-63-3; IAL1 is the lowest defined level."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["NIST-800-63", "identity-proofing", "IAL", "authentication"]
 
   - id: q-d5-058
@@ -1099,6 +1156,7 @@ questions:
         - "MITM authentication intercepts the authentication flow but does not rely on overwhelming users with push requests."
         - "Credential stuffing uses breached username/password pairs to attempt logins; it precedes MFA but is not the same attack."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["MFA", "push-bombing", "social-engineering", "authentication-attacks"]
 
   - id: q-d5-059
@@ -1118,6 +1176,7 @@ questions:
         - "SMS-based OTPs are correct — SIM swapping redirects SMS messages to the attacker's device."
         - "Smart card/PIV authentication requires physical possession of the card; SIM swapping provides no access to it."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["SIM-swapping", "MFA", "SMS-OTP", "authentication-attacks"]
 
   - id: q-d5-060
@@ -1137,6 +1196,7 @@ questions:
         - "Both TOTP and HOTP are designed to work offline since the shared secret is pre-provisioned."
         - "HOTP is generally more vulnerable to replay than TOTP since codes don't expire until used; TOTP has a short time window."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["TOTP", "HOTP", "OTP", "MFA"]
 
   - id: q-d5-061
@@ -1156,6 +1216,7 @@ questions:
         - "Certificate revocation invalidates certificates after the fact but does not prevent key extraction from happening."
         - "Secret sharing across sectors is not a mechanism used in PIV smart card key protection."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["smart-card", "PIV", "HSM", "cryptographic-keys"]
 
   - id: q-d5-062
@@ -1175,6 +1236,7 @@ questions:
         - "FIDO2 hardware keys bound to specific origins are correct — origin binding prevents phishing by design."
         - "Push notifications can be intercepted by MFA fatigue attacks and proxy phishing toolkits that relay push challenges in real time."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["passwordless", "FIDO2", "phishing-resistance", "authentication"]
 
   - id: q-d5-063
@@ -1194,6 +1256,7 @@ questions:
         - "Client credentials for M2M is correct — it authenticates the application itself, not a user."
         - "Native desktop applications use authorization code with PKCE; refresh tokens handle offline access, not client credentials."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["OAuth2", "client-credentials", "M2M", "API-security"]
 
   - id: q-d5-064
@@ -1213,6 +1276,7 @@ questions:
         - "The implicit grant was specifically designed for public clients without client secrets; this is by design, not the security flaw."
         - "PKCE is used with authorization code grant; its absence in implicit grant is secondary to the token exposure issue."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["OAuth2", "implicit-grant", "SPA", "token-security"]
 
   - id: q-d5-065
@@ -1232,9 +1296,10 @@ questions:
         - "All trusting SPs are at risk — correct — because the attacker controls the assertion-issuing authority."
         - "Active session tokens can be invalidated; the greater risk is that new forged assertions can be issued for any SP."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["federation", "IdP", "SSO", "trust-relationships"]
 
-  - id: q-d5-065b
+  - id: q-d5-111
     domain: domain5
     question: "A SAML assertion has an expired 'NotOnOrAfter' attribute, but the Service Provider accepts it anyway due to a misconfigured clock tolerance of 30 minutes. What attack does this configuration facilitate?"
     options:
@@ -1251,6 +1316,7 @@ questions:
         - "IdP impersonation requires compromising or forging the IdP's signing key, not clock manipulation."
         - "SAML token injection is not a specific standard attack category; replay is the applicable term here."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["SAML", "replay-attack", "clock-skew", "federation-security"]
 
   - id: q-d5-066
@@ -1270,6 +1336,7 @@ questions:
         - "Overly permissive roles describe privilege excess, not role count proliferation."
         - "SoD conflicts are a specific compliance concern, not what 'role explosion' describes."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["RBAC", "role-explosion", "access-management", "IAM-design"]
 
   - id: q-d5-067
@@ -1289,6 +1356,7 @@ questions:
         - "Orphaned account detection is an IGA/governance function, not the primary purpose of PIM."
         - "MFA enforcement is a Conditional Access policy function, separate from PIM's role management capability."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["PIM", "JIT-access", "privileged-access", "cloud-IAM"]
 
   - id: q-d5-068
@@ -1308,6 +1376,7 @@ questions:
         - "Manual email notifications eliminate the automation benefit and introduce delay; SCIM is designed to remove this manual step."
         - "SSO token expiration only affects active sessions, not future login attempts; without deprovisioning, the user could re-authenticate."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["SCIM", "deprovisioning", "lifecycle-management", "IAM-automation"]
 
   - id: q-d5-069
@@ -1327,6 +1396,7 @@ questions:
         - "OAuth 2.0 scopes provide coarse-grained authorization based on pre-defined permission sets, not dynamic attribute-based evaluation."
         - "LDAP filters query directory entries; they are not a policy evaluation framework for multi-attribute access decisions."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["ABAC", "XACML", "policy-enforcement", "access-control"]
 
   - id: q-d5-070
@@ -1346,6 +1416,7 @@ questions:
         - "Continuous evaluation is correct — Zero Trust eliminates the 'trusted once, trusted for session' model."
         - "VPN-based implicit trust is the legacy perimeter model that Zero Trust is designed to replace."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["Zero-Trust", "device-identity", "continuous-validation", "access-control"]
 
   - id: q-d5-071
@@ -1365,6 +1436,7 @@ questions:
         - "Adding to .gitignore prevents future commits but does nothing to address already-committed and exposed keys."
         - "Bug bounty notification may be appropriate for vulnerabilities in provider infrastructure, but this is a configuration mistake requiring immediate remediation, not a provider vulnerability."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["API-keys", "secrets-management", "credential-exposure", "incident-response"]
 
   - id: q-d5-072
@@ -1384,6 +1456,7 @@ questions:
         - "OCSP response signing is a function an HSM may support but is not the primary purpose in CA deployments."
         - "Certificate lifecycle management is handled by CA software; the HSM's role is specifically key storage and cryptographic operations."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["HSM", "PKI", "CA", "key-management"]
 
   - id: q-d5-073
@@ -1403,6 +1476,7 @@ questions:
         - "Certificate transparency logging is a CA/browser ecosystem function independent of whether mTLS is used."
         - "TLS downgrade protection (e.g., via HSTS, TLS_FALLBACK_SCSV) is a separate TLS feature unrelated to mutual authentication."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["mTLS", "mutual-authentication", "microservices", "certificates"]
 
   - id: q-d5-074
@@ -1422,6 +1496,7 @@ questions:
         - "GPO injection is a separate lateral movement technique unrelated to the replication protocol."
         - "NTDS.DIT file attacks require physical or filesystem-level access to the DC; DCSync works remotely over the network."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["DCSync", "Active-Directory", "credential-attacks", "post-exploitation"]
 
   - id: q-d5-075
@@ -1441,6 +1516,7 @@ questions:
         - "Authentication strength requirements depend on context; CIAM often emphasizes low friction for conversion rates while allowing progressive security."
         - "Workforce IAM vs. CIAM is about scale, self-service, and UX focus — the description in B is correct."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["CIAM", "workforce-IAM", "customer-identity", "IAM-design"]
 
   - id: q-d5-076
@@ -1460,6 +1536,7 @@ questions:
         - "Frequent password re-entry is disruptive and is a form of step-up authentication, not continuous authentication."
         - "Certificate pinning prevents MITM attacks on app-server communication; it does not authenticate the user continuously."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["continuous-authentication", "behavioral-biometrics", "session-security", "IAM"]
 
   - id: q-d5-077
@@ -1479,6 +1556,7 @@ questions:
         - "If MFA is already compromised by attacker enrollment, enforcing MFA alone doesn't solve the persistence problem."
         - "Shared accounts are unrelated to the specific MFA enrollment persistence mechanism described."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["MFA", "account-recovery", "persistence", "IAM-design"]
 
   - id: q-d5-078
@@ -1498,6 +1576,7 @@ questions:
         - "DAC allowing owner discretion is correct — it is the defining characteristic and key weakness of DAC."
         - "Rule-based access control uses system-defined rules (e.g., time of day, IP range) enforced uniformly, not owner discretion."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["DAC", "access-control-models", "ACL", "IAM"]
 
   - id: q-d5-079
@@ -1517,6 +1596,7 @@ questions:
         - "Container registry credentials are for image pull authentication; mTLS certificates for workload identity are provisioned by a service mesh, not the registry."
         - "Environment variable injection of SSH keys is a static credential approach — it doesn't provide dynamic, short-lived identity."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["workload-identity", "Kubernetes", "OIDC", "cloud-IAM"]
 
   - id: q-d5-080
@@ -1536,6 +1616,7 @@ questions:
         - "Archiving for audit trails is a reporting function; the entitlements themselves should be removed from production."
         - "Unused access is not inherently low-risk — it represents potential attack surface if the account is compromised."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["least-privilege", "IGA", "access-review", "entitlement-management"]
 
   - id: q-d5-081
@@ -1555,6 +1636,7 @@ questions:
         - "A 7-day absence may trigger session expiration but is not typically a high-risk signal requiring step-up authentication."
         - "Outdated browser is a device compliance signal that might trigger a compliance remediation flow, not typically step-up MFA."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["adaptive-authentication", "risk-based-authentication", "contextual-signals", "MFA"]
 
   - id: q-d5-082
@@ -1574,6 +1656,7 @@ questions:
         - "Failure of access recertification allowing privilege creep is correct — this is the textbook IGA gap."
         - "There is no indication of malicious intent; this describes a governance failure, not an insider attack."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["privilege-creep", "access-recertification", "IGA", "least-privilege"]
 
   - id: q-d5-083
@@ -1593,6 +1676,7 @@ questions:
         - "Time-limited, scoped read-only access with auto-expiration is correct — this is the recommended approach for third-party temporary access."
         - "VPN access provides network connectivity but doesn't constrain what the auditor can access; scoped application-level credentials are more precise."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["third-party-access", "least-privilege", "temporal-access", "access-management"]
 
   - id: q-d5-084
@@ -1612,6 +1696,7 @@ questions:
         - "The 'sub' claim is correct — it is the OIDC-defined stable unique identifier for user identity."
         - "preferred_username is not guaranteed unique or stable across identity providers; it is a display hint."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["OIDC", "JWT", "identity-claims", "federation"]
 
   - id: q-d5-085
@@ -1631,6 +1716,7 @@ questions:
         - "Least privilege limiting database permissions is correct — it directly constrains what the compromised account can access."
         - "Hardware tokens require interactive authentication; service accounts use API keys or certificates and cannot use hardware tokens."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["least-privilege", "service-accounts", "blast-radius", "data-breach"]
 
   - id: q-d5-086
@@ -1650,6 +1736,7 @@ questions:
         - "Revocation does not update certificate information; new certificates must be issued if information changes."
         - "Certificate Transparency logs record certificate issuance for auditing; they do not provide revocation status."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["certificate-revocation", "OCSP", "CRL", "PKI"]
 
   - id: q-d5-087
@@ -1669,6 +1756,7 @@ questions:
         - "NTLM is a fallback when Kerberos fails; it is not the preferred mechanism and does not use the Kerberos ticket infrastructure."
         - "LDAP passthrough is not a Kerberos authentication mechanism; LDAP is used for directory queries, not Kerberos ticket exchange."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["Kerberos", "cross-realm", "Active-Directory", "forest-trust"]
 
   - id: q-d5-088
@@ -1688,6 +1776,7 @@ questions:
         - "Separation of duties in the approval workflow is correct — two independent approvers prevent unilateral access grants."
         - "Need-to-know determines whether access should be granted; the dual-approval process is how the decision is made, not the criteria."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["separation-of-duties", "access-provisioning", "workflow", "IAM"]
 
   - id: q-d5-089
@@ -1707,6 +1796,7 @@ questions:
         - "Authentication and non-repudiation are distinct concepts; MFA improves authentication assurance but does not provide cryptographic non-repudiation."
         - "PKI certificates establish identity but non-repudiation specifically requires the act of signing, not just possessing a certificate."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["non-repudiation", "digital-signatures", "authentication", "cryptography"]
 
   - id: q-d5-090
@@ -1726,6 +1816,7 @@ questions:
         - "Password complexity is a secondary concern; the identity accountability issue is the primary security risk."
         - "Rotation difficulty is an operational concern but secondary to the audit trail and accountability problem."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["shared-accounts", "accountability", "non-repudiation", "IAM"]
 
   - id: q-d5-091
@@ -1745,6 +1836,7 @@ questions:
         - "While data minimization is a GDPR principle, it applies to data collection, not login error messages specifically."
         - "SQL injection errors (stack traces, SQL syntax in messages) are a separate issue from username enumeration."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["account-enumeration", "error-messages", "username-harvesting", "authentication-security"]
 
   - id: q-d5-092
@@ -1764,6 +1856,7 @@ questions:
         - "Role conflicts describe SoD issues, not the exploitation of a trusted intermediary."
         - "Credential conflicts are an authentication edge case unrelated to the confused deputy access control problem."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["confused-deputy", "privilege-escalation", "access-control", "CSRF"]
 
   - id: q-d5-093
@@ -1783,6 +1876,7 @@ questions:
         - "Weekly backups support recovery but are not the most important security control; preventing unauthorized modification is primary."
         - "Version control in Git is a useful audit practice but is a secondary operational control, not the most important security measure."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["GPO", "Active-Directory", "change-management", "privileged-access"]
 
   - id: q-d5-094
@@ -1802,6 +1896,7 @@ questions:
         - "Strong out-of-band identity verification before re-enrollment is correct — recovery strength must match primary authentication strength."
         - "Issuing a temporary password as recovery defeats passwordless and creates a credential that can be phished."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["FIDO2", "account-recovery", "passwordless", "authentication-design"]
 
   - id: q-d5-095
@@ -1821,6 +1916,7 @@ questions:
         - "Performance specifications are irrelevant; PAWs are defined by security hardening and use-case restriction."
         - "PAWs are typically individual workstations; shared use introduces cross-contamination risk and undermines individual accountability."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["PAW", "privileged-access", "hardening", "attack-surface"]
 
   - id: q-d5-096
@@ -1840,6 +1936,7 @@ questions:
         - "License revocation prevents future access but existing session tokens may still be valid."
         - "Azure AD Connect synchronization delay (typically 30 min) is a factor but doesn't fully explain ongoing sessions."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["OAuth", "token-revocation", "hybrid-identity", "offboarding"]
 
   - id: q-d5-097
@@ -1859,6 +1956,7 @@ questions:
         - "Policy degradation is not what entitlement creep describes; it is about permission accumulation, not policy quality."
         - "Role proliferation ('role explosion') is a related but distinct problem from entitlement accumulation."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["entitlement-creep", "cloud-IAM", "least-privilege", "access-reviews"]
 
   - id: q-d5-098
@@ -1878,6 +1976,7 @@ questions:
         - "AAL3 with hardware MFA and phishing resistance is correct — it is the highest defined AAL in NIST SP 800-63B."
         - "AAL4 is not a defined level in NIST SP 800-63B; AAL3 is the highest level."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["NIST-800-63B", "AAL", "phishing-resistance", "authenticator-assurance"]
 
   - id: q-d5-099
@@ -1897,6 +1996,7 @@ questions:
         - "Resource owner password credentials (ROPC) requires passing user credentials directly to the client, violating the OAuth design principle of not exposing credentials to third parties. Deprecated by OAuth 2.1."
         - "Implicit grant is deprecated due to token exposure in URL fragments; modern applications use authorization code with PKCE instead."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["OAuth2", "PKCE", "OIDC", "API-authentication"]
 
   - id: q-d5-100
@@ -1916,6 +2016,7 @@ questions:
         - "Session recording with keystroke logging is correct — it creates the tamper-evident audit trail required for compliance."
         - "MFA verifies identity at login but does not capture what actions the authenticated user takes during the session."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["PAM", "session-recording", "privileged-access", "audit-trail"]
 
   - id: q-d5-101
@@ -1935,6 +2036,7 @@ questions:
         - "Each step serves a distinct security function; they are not equivalent."
         - "Identification and authentication are distinct — one claims identity, the other verifies it."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["AAA", "identification", "authentication", "authorization"]
 
   - id: q-d5-102
@@ -1954,4 +2056,145 @@ questions:
         - "BYOI can integrate via OIDC/SAML; technical compatibility is not the primary concern."
         - "Both Google and Apple consumer accounts support MFA; this is not the primary limitation."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["BYOI", "identity-federation", "credential-management", "IAM-risk"]
+
+  - id: q-d5-104
+    domain: domain5
+    question: "An attacker calls the help desk claiming to be a locked-out executive travelling abroad, expresses urgency about a board meeting, and requests an MFA reset to a new device. The agent complies. What control would MOST directly have prevented this?"
+    options:
+      - "A scripted verification procedure requiring callback to a number already on record, which agents may not bypass"
+      - "Longer password complexity requirements for executive accounts"
+      - "More frequent security awareness training for executives"
+      - "Increasing the MFA token expiration window"
+    correct_answer: 0
+    explanations:
+      correct: "Help desk social engineering succeeds when agents can be pressured into deviating from procedure. A mandatory scripted verification using an independently held contact record removes the agent's discretion under pressure, which is exactly what the attacker was exploiting."
+      incorrect:
+        - "This is the correct answer — the attack targeted the recovery process, so the recovery process is where the control belongs."
+        - "Password complexity is irrelevant when the attacker never attempts to guess the password."
+        - "Training the executive does not help, because the executive was not involved; the agent was the target."
+        - "Token lifetime has no bearing on an attacker who successfully had MFA re-enrolled to their own device."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["social engineering", "account recovery", "help desk"]
+
+  - id: q-d5-105
+    domain: domain5
+    question: "A security review finds that an application's service account has domain administrator privileges because 'it needed access to several file shares during initial deployment.' What is the MOST appropriate remediation?"
+    options:
+      - "Determine the specific permissions actually required and reduce the account to exactly those"
+      - "Rotate the service account password more frequently"
+      - "Move the service account into a separate organizational unit"
+      - "Enable multi-factor authentication on the service account"
+    correct_answer: 0
+    explanations:
+      correct: "The defect is excessive privilege granted for convenience and never revisited. Least privilege requires determining what access is genuinely needed and constraining the account to it, so that compromising the application does not yield domain-wide control."
+      incorrect:
+        - "This is the correct answer — reduce the privilege rather than managing around it."
+        - "Rotation limits the useful lifetime of a stolen credential but leaves the excessive privilege fully intact."
+        - "Reorganizing directory structure does not change the account's effective permissions."
+        - "MFA is generally impractical for non-interactive service accounts and does not address the over-privilege."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["service account", "least privilege", "privilege"]
+
+  - id: q-d5-106
+    domain: domain5
+    question: "An organization implements SSO across 40 applications. A risk analyst notes a new concentration of risk. What is the analyst's PRIMARY concern?"
+    options:
+      - "Compromise of a single set of credentials now grants access to all 40 applications, so the identity provider requires proportionally stronger protection"
+      - "SSO increases the number of passwords users must remember"
+      - "SSO makes it harder to revoke access when an employee departs"
+      - "SSO prevents applications from enforcing their own authorization rules"
+    correct_answer: 0
+    explanations:
+      correct: "SSO concentrates authentication into one credential and one identity provider. That is a usability and control benefit, but it also means a single compromise has 40-application blast radius, which is why the IdP warrants phishing-resistant MFA, hardened administration, and close monitoring."
+      incorrect:
+        - "This is the correct answer — concentration of access is the trade-off SSO introduces."
+        - "SSO reduces the number of passwords, which is one of its main benefits."
+        - "SSO makes revocation easier and faster, since disabling one identity removes access everywhere."
+        - "Applications retain their own authorization decisions; SSO handles authentication."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["SSO", "concentration risk", "identity provider"]
+
+  - id: q-d5-107
+    domain: domain5
+    question: "During an access recertification campaign, a manager approves all 180 of their team's entitlements within two minutes. What does this MOST likely indicate?"
+    options:
+      - "The recertification process itself is ineffective and produces audit evidence without genuine assurance"
+      - "The manager has excellent familiarity with their team's access requirements"
+      - "The entitlements were correctly provisioned in the first place"
+      - "The campaign should be run more frequently to reduce the review burden"
+    correct_answer: 0
+    explanations:
+      correct: "Rubber-stamping is a well-known failure mode: the artifact exists for auditors but no meaningful review occurred. Assessing the process — sampling approvals and testing whether reviewers could justify them — is the higher-order finding."
+      incorrect:
+        - "This is the correct answer — the speed indicates the review was not substantive."
+        - "Reviewing 180 distinct entitlements meaningfully in two minutes is not plausible."
+        - "The approval speed says nothing about whether the underlying provisioning was correct."
+        - "More frequent campaigns of an ineffective process simply produce more meaningless artifacts."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["access review", "recertification", "governance"]
+
+  - id: q-d5-108
+    domain: domain5
+    question: "A federated login integration configured with PEAP allows clients to accept any RADIUS server certificate. An attacker deploys a rogue access point with their own RADIUS server. What is the consequence?"
+    options:
+      - "Clients establish the protected tunnel to the attacker's server and deliver their credentials inside it"
+      - "Clients are unable to connect because certificate validation fails"
+      - "The attacker can decrypt WPA3 traffic on the legitimate network"
+      - "The attacker gains access to the legitimate RADIUS server's private key"
+    correct_answer: 0
+    explanations:
+      correct: "PEAP's security depends entirely on the client verifying the server's certificate before sending credentials through the tunnel. If clients accept any certificate, the tunnel that was meant to protect the password instead delivers it to the attacker."
+      incorrect:
+        - "This is the correct answer — the tunnel is established to the wrong endpoint, defeating its purpose."
+        - "Validation is precisely what has been disabled, so connection succeeds rather than failing."
+        - "The attack captures credentials from clients that associate with the rogue AP; it does not decrypt traffic on the legitimate network."
+        - "The legitimate server's private key is never exposed by this attack."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["PEAP", "802.1X", "certificate validation"]
+
+  - id: q-d5-109
+    domain: domain5
+    question: "An API resource server accepts any request presenting a syntactically valid JWT without verifying the signature or audience claim. What is the MOST severe consequence?"
+    options:
+      - "An attacker can forge a token with arbitrary claims, or replay a token issued for a different service, to gain unauthorized access"
+      - "Legitimate tokens will expire earlier than intended"
+      - "The API will experience increased latency processing tokens"
+      - "Tokens will be readable by anyone who intercepts them"
+    correct_answer: 0
+    explanations:
+      correct: "Without signature verification an attacker can mint arbitrary claims, including elevated roles. Without audience validation, a token legitimately issued for a different service is accepted here. Either alone is a complete authorization bypass."
+      incorrect:
+        - "This is the correct answer — skipping validation makes the token meaningless as an authorization decision."
+        - "Expiration behavior is unaffected by whether the server validates signatures."
+        - "Performance is not the concern; the concern is that authorization is not actually being enforced."
+        - "JWT payloads are base64-encoded rather than encrypted regardless, so readability is a separate and lesser issue."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["JWT", "OAuth", "token validation"]
+
+  - id: q-d5-110
+    domain: domain5
+    question: "An organization wants to eliminate standing administrative privileges without preventing administrators from doing their jobs. Which approach BEST achieves this?"
+    options:
+      - "Just-in-time access granting elevated rights for a limited window upon approved request, expiring automatically"
+      - "Requiring administrators to use longer passwords on their privileged accounts"
+      - "Logging all administrative actions to a SIEM for later review"
+      - "Assigning each administrator a second account with the same standing privileges"
+    correct_answer: 0
+    explanations:
+      correct: "JIT access grants privilege only for the specific window it is needed and expires automatically, shrinking the period during which a compromised privileged credential is useful while still allowing administrators to work."
+      incorrect:
+        - "This is the correct answer — it removes standing privilege without removing capability."
+        - "Password length does not reduce the window during which standing privilege can be abused."
+        - "Logging is detective and valuable, but the requirement was to eliminate standing privilege, which logging does not do."
+        - "A second account with identical standing privileges simply relocates the problem."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["JIT access", "PAM", "privileged access"]

@@ -16,6 +16,7 @@ questions:
         - "This describes the SANS/PICERL model (Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned), not NIST."
         - "Triage, Investigation, etc. is not a recognized standard incident response methodology."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["incident-response", "NIST"]
 
   - id: q-d7-002
@@ -35,6 +36,7 @@ questions:
         - "Chain of custody is maintained throughout all collection — it is not the reason for the volatility order."
         - "Importance is not the determining factor — volatility (how quickly data disappears) is."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["forensics", "evidence"]
 
   - id: q-d7-003
@@ -54,6 +56,7 @@ questions:
         - "Incident cost/impact analysis is a separate process from chain of custody documentation."
         - "Attack timeline reconstruction is done during the investigation — chain of custody is about evidence handling procedures."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["forensics", "evidence"]
 
   - id: q-d7-004
@@ -73,6 +76,7 @@ questions:
         - "A hot site is the fastest recovery option when cost is not a constraint."
         - "A mobile site is a portable solution useful for flexible deployment but generally not faster than a pre-configured hot site."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["DRP", "recovery-sites"]
 
   - id: q-d7-005
@@ -92,6 +96,7 @@ questions:
         - "Cross-training is a benefit and side effect, but fraud detection is the primary security rationale."
         - "Legal compliance may be required in some jurisdictions, but the security purpose is fraud detection."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["operations", "controls", "fraud"]
 
   - id: q-d7-006
@@ -111,6 +116,7 @@ questions:
         - "99.9% uptime allows approximately 8.76 hours of downtime per year — this is correct."
         - "About 3.65 days corresponds to approximately 99% uptime, not 99.9%."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["availability", "metrics"]
 
   - id: q-d7-007
@@ -130,6 +136,7 @@ questions:
         - "System performance monitoring is a separate function — patch management is about fixing known issues."
         - "Configuration backup is part of change/configuration management, not patch management."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["patch-management", "operations"]
 
   - id: q-d7-008
@@ -149,6 +156,7 @@ questions:
         - "Separating dev and production is environment separation, which is related but not the definition of SoD."
         - "Using different security tools is a defense-in-depth approach, not separation of duties."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["operations", "controls"]
 
   - id: q-d7-009
@@ -168,6 +176,7 @@ questions:
         - "Returning systems to normal operations is the Recovery phase, which comes after Eradication."
         - "Regulatory notification may be required but is not the primary containment objective — stopping spread is."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["incident-response", "containment"]
 
   - id: q-d7-010
@@ -187,6 +196,7 @@ questions:
         - "MTBF is not about failover thresholds or minimum uptime targets."
         - "MTBF measures hardware reliability between failures, not backup frequency."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["availability", "metrics"]
 
   - id: q-d7-011
@@ -206,6 +216,7 @@ questions:
         - "Encryption key rotation is a cryptographic key management practice, not job rotation."
         - "Password rotation is an account management control, not job rotation."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["operations", "controls", "fraud"]
 
   - id: q-d7-012
@@ -225,6 +236,7 @@ questions:
         - "A BIA is a planning document for business continuity — not a post-incident review document."
         - "A risk register tracks ongoing risks — it is not specifically created after each incident."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["incident-response", "post-incident"]
 
   - id: q-d7-013
@@ -244,6 +256,7 @@ questions:
         - "Host-based IDS/IPS (HIDS/HIPS) monitors host activity — both NIDS and NIPS monitor network traffic."
         - "Both NIDS and NIPS can use signature-based and anomaly-based detection — detection method is not the distinguishing factor."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["IDS", "IPS", "monitoring"]
 
   - id: q-d7-014
@@ -263,6 +276,7 @@ questions:
         - "Video surveillance is a physical security control — media management concerns data storage media."
         - "Software license management is an IT asset management function — media management is about physical storage media security."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["operations", "media"]
 
   - id: q-d7-015
@@ -282,6 +296,7 @@ questions:
         - "Initial device configuration is installation — CM manages the ongoing configuration state and changes over the system's lifetime."
         - "User account and password policy configuration is IAM — CM broadly covers all system configuration settings."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["operations", "configuration"]
 
   - id: q-d7-016
@@ -301,6 +316,7 @@ questions:
         - "Physical security of backup media is a separate control — verification tests the actual ability to restore data."
         - "Backup duration is a performance metric — verification tests whether restored data is usable and complete."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["DRP", "backup"]
 
   - id: q-d7-017
@@ -320,6 +336,7 @@ questions:
         - "Security effectiveness metrics are KPIs — IOCs are specific threat indicators."
         - "Insider threat behavioral indicators are a separate concept (behavioral analytics) — IOCs are technical artifacts from compromised systems."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IOC", "incident-response"]
 
   - id: q-d7-018
@@ -339,6 +356,7 @@ questions:
         - "Policy updates follow governance processes — change management in operations governs technical system changes."
         - "Replacing tools is a project/procurement activity — change management governs the process of any change to production systems."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["operations", "change-management"]
 
   - id: q-d7-019
@@ -358,6 +376,7 @@ questions:
         - "Cloud recovery solutions are a separate category (DRaaS) — a cold site is a physical facility."
         - "Mobile recovery units are a separate category — cold sites are fixed physical locations."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["DRP", "recovery-sites"]
 
   - id: q-d7-020
@@ -377,6 +396,7 @@ questions:
         - "License compliance is an IT asset management concern — security asset inventory is about security visibility, not just licensing."
         - "Productivity tracking is an HR concern — asset inventory is about knowing what needs to be protected."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["operations", "inventory"]
 
   - id: q-d7-021
@@ -396,6 +416,7 @@ questions:
         - "Staff training is a side benefit — DR testing's primary purpose is validating recovery capability."
         - "Hardware failure risk is identified through reliability analysis and monitoring — DR testing validates recovery from failure, not prediction of failure."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["DRP", "testing"]
 
   - id: q-d7-022
@@ -415,6 +436,7 @@ questions:
         - "IT and security team organizational structure is a governance concern — environment separation is an operational IT practice."
         - "OS diversity is security-through-heterogeneity — environment separation is about code and data lifecycle management."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["operations", "SDLC"]
 
   - id: q-d7-023
@@ -434,6 +456,7 @@ questions:
         - "Encryption key rotation is a separate security practice — backup rotation concerns the backup media/copies themselves."
         - "Multi-cloud backup distribution is a resilience strategy — GFS rotation manages retention periods, not cloud providers."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["backup", "DRP"]
 
   - id: q-d7-024
@@ -453,6 +476,7 @@ questions:
         - "Training manuals provide general knowledge — playbooks are operational procedures executed during real incidents."
         - "Incident logs record past incidents — playbooks guide future response."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["incident-response", "playbook"]
 
   - id: q-d7-025
@@ -472,6 +496,7 @@ questions:
         - "Automated log analysis is a SIEM function — log integrity protects the underlying log data from tampering."
         - "Log compression is a storage optimization — log integrity ensures logs haven't been altered."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["logs", "forensics"]
 
   - id: q-d7-026
@@ -491,6 +516,7 @@ questions:
         - "Both plans address all types of disruptions — neither is limited to a specific threat type."
         - "Both may be required by regulation in different industries — neither is universally mandatory or voluntary."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["BCP", "DRP", "continuity"]
 
   - id: q-d7-027
@@ -510,6 +536,7 @@ questions:
         - "Replication can provide near-instant failover (faster than restoring from backup) — restoration speed favors replication, not backup."
         - "Both replication and backup can protect against hardware failure and site disasters depending on configuration — the real distinction is about ransomware/corruption resilience."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["DRP", "backup", "replication"]
 
   - id: q-d7-028
@@ -529,6 +556,7 @@ questions:
         - "Restoring systems to normal operations is the Recovery phase — eradication removes the threat before recovery begins."
         - "Forensic evidence collection occurs during Detection & Analysis and Containment — before eradication."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["incident-response", "eradication"]
 
   - id: q-d7-029
@@ -548,6 +576,7 @@ questions:
         - "Patch deployment time is a vulnerability management metric (SLA compliance) — not MTTD."
         - "Incident duration is a separate metric — MTTD specifically measures the initial detection delay."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["metrics", "incident-response"]
 
   - id: q-d7-030
@@ -567,6 +596,7 @@ questions:
         - "Physically shutting down the primary site is a full cutover test — the most rigorous and disruptive, with real operational risk."
         - "Running a checklist without activating systems is a structured walkthrough — parallel testing actually activates and validates the alternate site."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["BCP", "testing"]
 
   - id: q-d7-031
@@ -586,6 +616,7 @@ questions:
         - "Data deletion before decommissioning is media sanitization — incident response sanitization removes threats while retaining legitimate data."
         - "Patching alone doesn't remove existing malware or backdoors — sanitization is comprehensive threat removal."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["incident-response", "recovery"]
 
   - id: q-d7-032
@@ -605,6 +636,7 @@ questions:
         - "Time-based tokens (TOTP) use accurate time but NTP itself doesn't generate tokens — it synchronizes clocks."
         - "Certificate validity and Kerberos do require accurate time, but the primary security operations value of time sync is log correlation — this is also partially correct but less complete."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["operations", "logging", "forensics"]
 
   - id: q-d7-033
@@ -624,6 +656,7 @@ questions:
         - "Simultaneous collection is impractical and unnecessary — the order of volatility provides a clear prioritization sequence."
         - "Log files on disk persist and can be collected later — RAM contains evidence not found anywhere else (live network connections, decrypted data, running malware)."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["forensics", "evidence", "volatility"]
 
   - id: q-d7-034
@@ -643,6 +676,7 @@ questions:
         - "Signature drift is not a standard security term — the described problem is about alert volume overwhelming analysts."
         - "Detection gap refers to attacks going undetected — the scenario describes detected alerts being ignored due to volume, which is alert fatigue."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["operations", "monitoring", "alert-fatigue"]
 
   - id: q-d7-035
@@ -662,6 +696,7 @@ questions:
         - "Eradication (removing malware, patches, closing backdoors) is the correct NIST IR phase."
         - "Post-Incident Activity involves lessons learned, documentation, and process improvement — it occurs after recovery is complete."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["incident-response", "NIST"]
 
   - id: q-d7-036
@@ -681,6 +716,7 @@ questions:
         - "Threat hunting (proactive hypothesis-driven search for adversary activity) is the correct description."
         - "Compliance log review verifies that logging is functioning and policies are being followed — it is not driven by threat intelligence hypotheses about specific adversary techniques."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["operations", "threat-hunting"]
 
   - id: q-d7-037
@@ -700,6 +736,7 @@ questions:
         - "Installation (stage 5) installs a persistent implant/backdoor on the system — but the C2 channel is established in the next stage."
         - "Command and Control (establishing the persistent communication channel) is the correct Kill Chain stage."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "kill-chain"]
 
   - id: q-d7-038
@@ -719,6 +756,7 @@ questions:
         - "SOAR orchestrates security tools and automates response — vulnerability scanning is performed by separate tools (Qualys, Tenable) that SOAR may integrate with."
         - "Log storage is a SIEM function — SOAR uses log data from the SIEM but is focused on orchestration and automated response."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["operations", "SOAR", "automation"]
 
   - id: q-d7-039
@@ -738,6 +776,7 @@ questions:
         - "Proper storage conditions (including refrigeration for physical evidence) support evidence integrity — this does not break chain of custody."
         - "Creating multiple forensic copies (working copies vs. master copy with hash verification) is standard practice and does not break chain of custody if properly documented."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["forensics", "evidence", "chain-of-custody"]
 
   - id: q-d7-040
@@ -757,6 +796,7 @@ questions:
         - "Hot sites are MORE expensive than warm sites due to infrastructure duplication — not more cost-effective."
         - "Both hot and warm sites can be owned or outsourced to a third-party disaster recovery provider — ownership model is not the defining difference."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["BCP", "DRP", "recovery-sites"]
 
   - id: q-d7-041
@@ -776,6 +816,7 @@ questions:
         - "Firewall rules control network traffic flows but do not analyze user behavior patterns or detect after-hours authenticated activity."
         - "Patch management addresses known vulnerabilities in software — it does not detect anomalous account usage."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["operations", "monitoring", "UEBA"]
 
   - id: q-d7-042
@@ -795,6 +836,7 @@ questions:
         - "Maintaining persistent access describes the 'Persistence' tactic — techniques like scheduled tasks, registry run keys, and service installations."
         - "Credential collection is the 'Credential Access' tactic — capturing hashes, tokens, or credentials for reuse. Different from lateral movement techniques themselves."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "MITRE-ATT&CK"]
 
   - id: q-d7-043
@@ -814,6 +856,7 @@ questions:
         - "Change approval documentation is part of the change request form — not the rollback plan."
         - "Business justification is documented in the change request — the rollback plan addresses the technical reversal procedure."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["operations", "change-management"]
 
   - id: q-d7-044
@@ -833,6 +876,7 @@ questions:
         - "Operational intelligence covers specific campaigns, threat actors, and near-term attack plans — not individual technical indicators."
         - "Behavioral TTPs describe how adversaries operate (their tactics and techniques) — they are more abstract than specific IOCs like IP addresses."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["intelligence", "IOC", "operations"]
 
   - id: q-d7-045
@@ -852,6 +896,7 @@ questions:
         - "Social engineering is addressed by security awareness training — job rotation does not specifically counter manipulation attacks."
         - "Brute-force attacks are addressed by account lockout, MFA, and strong passwords — job rotation does not affect credential attack risk."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["operations", "controls", "fraud"]
 
   - id: q-d7-046
@@ -871,6 +916,7 @@ questions:
         - "A jump server (jump box) is a hardened intermediary system used to securely access other systems — a legitimate production control, not a decoy."
         - "A DMZ server hosts legitimate public-facing services — it is a real production component, not a decoy designed to detect attackers."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["deception", "detection", "honeypot"]
 
   - id: q-d7-047
@@ -890,6 +936,7 @@ questions:
         - "Tabletop exercises typically involve key personnel from multiple teams (IT, business units, management) — not limited to technical staff."
         - "Testing frequency is determined by organizational policy and risk — no standard requires tabletops to be annual or full-scale tests daily."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["BCP", "DRP", "testing"]
 
   - id: q-d7-048
@@ -909,6 +956,7 @@ questions:
         - "Mandatory vacation (requiring continuous absence during which others cover work and may discover fraud) is the specific control described."
         - "Least privilege limits access to minimum necessary — it reduces the impact of fraud but doesn't specifically enable detection through substitute coverage."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["operations", "controls", "fraud"]
 
   - id: q-d7-049
@@ -928,6 +976,7 @@ questions:
         - "Availability is a ratio (dimensionless percentage) — multiplying MTBF × MTTR gives units of hours squared, which is meaningless as an availability metric."
         - "1 - (MTTR/MTBF) is an approximation that doesn't equal the actual formula when MTTR is significant relative to MTBF."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["metrics", "availability", "BCP"]
 
   - id: q-d7-050
@@ -947,6 +996,7 @@ questions:
         - "Employee notification may be premature during investigation and could tip off an insider threat — notification follows after containment and leadership briefing."
         - "Simultaneous scanning of all systems is a scope-determination activity but must not happen before evidence is preserved from the known compromised system."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["incident-response", "forensics"]
 
   - id: q-d7-051
@@ -966,6 +1016,7 @@ questions:
         - "Phishing attacks occur outside the network perimeter and result in credential use from external sources — they would appear as immediate successful logins, not preceded by many failures."
         - "MitM attacks intercept traffic between parties — they would not generate multiple failed login attempts from the same IP."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["operations", "SIEM", "detection"]
 
   - id: q-d7-052
@@ -985,6 +1036,7 @@ questions:
         - "Hardware procurement cost reduction is a procurement/asset management function — not related to configuration management security benefits."
         - "Software license management is an asset management function — configuration management focuses on security settings and configurations, not licensing."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["operations", "configuration-management"]
 
   - id: q-d7-053
@@ -1004,6 +1056,7 @@ questions:
         - "RTO and RPO measure distinct things; they are not equivalent, and different systems within an organization may have different RTOs and RPOs."
         - "Both metrics apply to any system with recovery and backup requirements, not restricted by system type."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["RTO", "RPO", "disaster-recovery", "BCP"]
 
   - id: q-d7-054
@@ -1023,6 +1076,7 @@ questions:
         - "Weekly backups represent up to 7 days of potential data loss — far outside the 15-minute RPO requirement."
         - "24-hour provisioning violates the 2-hour RTO requirement; cloud recovery can meet RTOs, but provisioning must be pre-configured."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["RTO", "RPO", "recovery-strategy", "BIA"]
 
   - id: q-d7-055
@@ -1042,6 +1096,7 @@ questions:
         - "Encrypting the evidence drive before imaging is not standard practice; evidence integrity is maintained through hashing, not encryption."
         - "Booting from the evidence drive modifies it (updates last boot time, log files, swap); forensic imaging must be done without booting the subject drive."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["digital-forensics", "write-blocker", "evidence-preservation", "chain-of-custody"]
 
   - id: q-d7-056
@@ -1061,6 +1116,7 @@ questions:
         - "Admissibility requires proper chain of custody, authorization, and jurisdictional considerations beyond just hash verification."
         - "Hash comparison verifies data integrity; malware presence requires separate analysis tools."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["digital-forensics", "hash-verification", "evidence-integrity", "chain-of-custody"]
 
   - id: q-d7-057
@@ -1080,6 +1136,7 @@ questions:
         - "Public denial without facts could constitute securities fraud or violate breach notification laws if a breach did occur."
         - "Ransom negotiation may be considered later after legal and strategic assessment; it is not the first action."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["ransomware", "extortion", "incident-response", "legal"]
 
   - id: q-d7-058
@@ -1099,6 +1156,7 @@ questions:
         - "RTO is a disaster recovery planning metric for system restoration time, not attack detection timing."
         - "'Attack persistence window' is not a standard industry term; 'dwell time' is the accepted terminology."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["dwell-time", "MTTD", "threat-detection", "incident-response"]
 
   - id: q-d7-059
@@ -1118,6 +1176,7 @@ questions:
         - "High-volume repetitive tasks (alert triage, IOC enrichment, automated containment) is correct — this is SOAR's design purpose."
         - "Penetration testing requires human expertise and creative attack thinking; it is not a SOAR use case."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["SOAR", "security-automation", "SOC", "incident-response"]
 
   - id: q-d7-060
@@ -1137,6 +1196,7 @@ questions:
         - "System logs on the hard drive are the LEAST volatile — they persist after system shutdown and should be collected last."
         - "RAM contents are volatile (lost on power off) and should be collected early, before hard disk imaging."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["digital-forensics", "order-of-volatility", "evidence-collection", "incident-response"]
 
   - id: q-d7-061
@@ -1156,6 +1216,7 @@ questions:
         - "If RTO exceeds MTD, the recovery plan fails to prevent catastrophic business impact — the opposite of acceptable."
         - "MTD and RTO have a required relationship; RTO must be less than MTD for a valid recovery plan."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["MTD", "RTO", "business-continuity", "recovery-planning"]
 
   - id: q-d7-062
@@ -1175,6 +1236,7 @@ questions:
         - "Modern sandboxes monitor file system changes, registry modifications, network connections, and process behavior simultaneously."
         - "Many sandboxes handle packed malware by monitoring the unpacking behavior; packing alone does not cause sandbox failure."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["malware-analysis", "sandbox-evasion", "anti-analysis", "incident-response"]
 
   - id: q-d7-063
@@ -1194,6 +1256,7 @@ questions:
         - "User recollection is unreliable and insufficient for technical investigation; endpoint telemetry provides objective evidence."
         - "TLS sessions do not 'expire' and become decryptable; SSL/TLS inspection must be implemented prospectively."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["SOC", "alert-investigation", "SIEM", "threat-intelligence"]
 
   - id: q-d7-064
@@ -1213,6 +1276,7 @@ questions:
         - "Parallel tests run recovery systems alongside production systems simultaneously to validate recovery without failing over — moderate disruption."
         - "Checklist reviews verify plan documentation completeness; tabletop exercises test response process through scenario discussion."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["tabletop-exercise", "BCP-testing", "incident-response", "DR-testing"]
 
   - id: q-d7-065
@@ -1232,6 +1296,7 @@ questions:
         - "TLP:WHITE (now TLP:CLEAR in TLP 2.0) allows unrestricted sharing; TLP:RED is the opposite."
         - "TLP:AMBER+STRICT or TLP:AMBER allows organizational sharing with some constraints; TLP:RED is more restrictive."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["TLP", "threat-intelligence", "information-sharing", "ISAC"]
 
   - id: q-d7-066
@@ -1251,6 +1316,7 @@ questions:
         - "Balancing security risk against business impact with stakeholder involvement is correct — this is the mature IR decision framework."
         - "Waiting for attackers to finish allows continued data exfiltration, lateral movement, and damage; this is not an acceptable containment strategy."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["containment", "incident-response", "business-continuity", "risk-decision"]
 
   - id: q-d7-067
@@ -1270,6 +1336,7 @@ questions:
         - "SOAR platforms automate response; SIEM correlation detects and alerts, requiring analyst validation before action."
         - "Compliance reporting is a secondary SIEM function; correlation is specifically for security detection."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["SIEM", "correlation-rules", "alert-fidelity", "threat-detection"]
 
   - id: q-d7-068
@@ -1289,6 +1356,7 @@ questions:
         - "DHCP logs show IP assignment history; they do not provide WMI execution activity."
         - "Web proxy logs capture outbound web traffic; WMI lateral movement occurs internally without web proxy involvement."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["threat-hunting", "WMI", "lateral-movement", "Windows-forensics"]
 
   - id: q-d7-069
@@ -1308,6 +1376,7 @@ questions:
         - "Monthly full backups retained long-term are the 'grandfather' — the longest retention tier and correct answer."
         - "Annual backups are not a standard GFS tier; monthly (grandfather) is the typical longest rotation."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["backup-rotation", "GFS", "data-backup", "recovery"]
 
   - id: q-d7-070
@@ -1327,6 +1396,7 @@ questions:
         - "Evidence scope must be comprehensive; limiting to directly accessed systems may miss relevant logs (gateway, DLP, email) that establish timeline and intent."
         - "Notifying the subject could allow evidence destruction (deleting files, clearing browser history); this is typically done only when legally required."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["legal-hold", "evidence-preservation", "digital-forensics", "insider-threat"]
 
   - id: q-d7-071
@@ -1346,6 +1416,7 @@ questions:
         - "Threat hunting and malware reverse engineering are Tier 3 or specialized threat intelligence/malware analyst responsibilities."
         - "Vendor management and procurement are security management functions, not SOC analyst responsibilities."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["SOC", "tiered-model", "analyst-roles", "alert-triage"]
 
   - id: q-d7-072
@@ -1365,6 +1436,7 @@ questions:
         - "Password complexity prevents unauthorized access; it does not address log collection health monitoring."
         - "Reimaging compromised systems is corrective (eradication); it doesn't prevent future log source misconfigurations."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["log-management", "SIEM", "detective-controls", "lessons-learned"]
 
   - id: q-d7-073
@@ -1384,6 +1456,7 @@ questions:
         - "Confusing attackers about network size may be a minor benefit, but early detection of attacker activity is the primary security value."
         - "Deception technology provides detection value; it does not fulfill network segmentation compliance requirements."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["honeypot", "deception-technology", "threat-detection", "IOC"]
 
   - id: q-d7-074
@@ -1403,6 +1476,7 @@ questions:
         - "Dual-factor authentication is a technical security control for identity verification; TPI is a physical presence control for operational integrity."
         - "The 3-2-1 backup rule addresses data redundancy; TPI is an operational personnel control."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["two-person-integrity", "insider-threat", "key-ceremony", "operational-security"]
 
   - id: q-d7-075
@@ -1422,6 +1496,7 @@ questions:
         - "Delivery (sending the phishing email) is correct — this is when the weapon reaches the target environment."
         - "Exploitation is when the dropper executes and exploits a vulnerability to run code — this occurs after the victim opens the attachment."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["Cyber-Kill-Chain", "phishing", "delivery-phase", "attack-lifecycle"]
 
   - id: q-d7-076
@@ -1441,6 +1516,7 @@ questions:
         - "UEBA analyzes both user and entity behavior across multiple data sources including network, application, and endpoint."
         - "While some SIEM platforms include UEBA capabilities, standalone UEBA platforms exist and offer distinct capabilities beyond standard SIEM."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["UEBA", "behavioral-analytics", "insider-threat", "anomaly-detection"]
 
   - id: q-d7-077
@@ -1460,6 +1536,7 @@ questions:
         - "The NTFS change journal (USN Journal) logs file operations metadata but does not store complete file contents for recovery."
         - "NTFS journaling provides metadata consistency after crashes; it does not replicate files to a recovery partition."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["digital-forensics", "NTFS", "deleted-file-recovery", "file-system"]
 
   - id: q-d7-078
@@ -1479,6 +1556,7 @@ questions:
         - "Manually compensating for a 2-hour gap is vague and typically impractical; the vendor commitment must meet the requirement."
         - "Changing the BIA to match vendor capability reverses the risk-based process; business requirements should drive vendor selection, not the reverse."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["RTO", "MTD", "vendor-contract", "disaster-recovery"]
 
   - id: q-d7-079
@@ -1498,6 +1576,7 @@ questions:
         - "Kerberoasting generates Kerberos service ticket request events (4769) not scheduled task events."
         - "NTLM relay generates specific authentication sequence events, not scheduled task events."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["Windows-event-logs", "scheduled-tasks", "persistence", "threat-detection"]
 
   - id: q-d7-080
@@ -1517,6 +1596,7 @@ questions:
         - "Public social media sharing may violate TLP restrictions and could tip off the attacker; controlled sharing through ISACs/ISAOs is more appropriate."
         - "Law enforcement reporting is appropriate but should not prevent the organization from taking immediate defensive action."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["threat-intelligence", "APT", "proactive-defense", "incident-prevention"]
 
   - id: q-d7-081
@@ -1536,6 +1616,7 @@ questions:
         - "Data handling compliance depends on implementation; reciprocal agreements can include appropriate data protection terms."
         - "Technical incompatibility is a challenge to address during agreement design but can be mitigated through standardization or virtualization."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["reciprocal-agreement", "disaster-recovery", "BCP", "recovery-options"]
 
   - id: q-d7-082
@@ -1555,6 +1636,7 @@ questions:
         - "Monitoring is not always preferable; the decision depends on the current phase and impact of the attack."
         - "Organizations have legal authority to monitor their own networks; this is not a constraint on containment decisions."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["containment", "incident-response", "data-exfiltration", "watch-and-learn"]
 
   - id: q-d7-083
@@ -1574,6 +1656,7 @@ questions:
         - "Blacklisting native OS tools (PowerShell, WMI) would break legitimate administrative functions; organizations need these tools."
         - "Network IDS can detect C2 traffic but doesn't detect the initial LotL execution or lateral movement using built-in tools."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["living-off-the-land", "behavioral-detection", "PowerShell", "endpoint-security"]
 
   - id: q-d7-084
@@ -1593,6 +1676,7 @@ questions:
         - "Cloud systems may be part of clean recovery infrastructure, but 'clean room' specifically refers to the baseline rebuild approach."
         - "Third-party involvement may be part of APT response, but 'clean room' describes the technical recovery approach, not the staffing."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["clean-room-recovery", "APT", "incident-recovery", "eradication"]
 
   - id: q-d7-085
@@ -1612,6 +1696,7 @@ questions:
         - "VPN encryption describes a transport mechanism; T1041 is about using the established C2 channel, regardless of encryption."
         - "Physical media theft (T1052) is a separate, lower-frequency exfiltration technique."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["MITRE-ATT&CK", "exfiltration", "C2", "threat-detection"]
 
   - id: q-d7-086
@@ -1631,6 +1716,7 @@ questions:
         - "Protocol tunneling uses one protocol to encapsulate another; this scenario describes TCP fragmentation, not tunneling."
         - "Encryption evasion is separate; this attack uses unencrypted fragmented segments to evade pattern matching."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["IPS", "TCP-splicing", "evasion", "network-security"]
 
   - id: q-d7-087
@@ -1650,6 +1736,7 @@ questions:
         - "Breach notification obligations are determined by applicable law regardless of privilege; legal counsel advises on those obligations but cannot eliminate them."
         - "Legal liability cannot be transferred through legal engagement; counsel provides advice, not liability assumption."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["attorney-client-privilege", "incident-response", "legal", "breach-notification"]
 
   - id: q-d7-088
@@ -1669,6 +1756,7 @@ questions:
         - "Critical classification for complete business operational halt is correct — severity reflects actual business impact."
         - "Ransomware may also involve data exfiltration (double extortion), affecting all three CIA triad components; availability impact alone justifies Critical."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["incident-classification", "severity", "ransomware", "business-impact"]
 
   - id: q-d7-089
@@ -1688,6 +1776,7 @@ questions:
         - "Both IoAs and IoCs are used by SOC analysts and threat intelligence teams; neither is role-specific."
         - "IoA and IoC describe distinct concepts with different detection philosophies, not synonyms."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["IoA", "IoC", "threat-detection", "proactive-security"]
 
   - id: q-d7-090
@@ -1707,6 +1796,7 @@ questions:
         - "DLL hijacking involves loading a malicious DLL; code injection into an existing process is a different technique."
         - "Scheduled task creation is an independent persistence technique; lsass injection is specifically for credential access."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["credential-dumping", "LSASS", "EDR", "Windows-security"]
 
   - id: q-d7-091
@@ -1726,6 +1816,7 @@ questions:
         - "Malware would exfiltrate actual data; a canary token specifically catches the human action of reading and using a planted credential."
         - "Credential stuffing targets authentication systems; the canary token catches post-access data theft behavior."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["honeytoken", "canary-token", "insider-threat", "deception-technology"]
 
   - id: q-d7-092
@@ -1745,6 +1836,7 @@ questions:
         - "Cloud services do not have legal immunity; they comply with lawful legal process through their terms of service."
         - "Cloud storage services share IPs with CDNs and many other services; blocking their IPs would affect far more than just that service."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["C2", "cloud-C2", "living-off-trusted-sites", "incident-response"]
 
   - id: q-d7-093
@@ -1764,6 +1856,7 @@ questions:
         - "Log retention helps with detection and forensics; it doesn't prevent lateral movement during containment."
         - "Password policies are preventive; they don't address the containment execution gap identified in the lessons learned."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["containment", "lateral-movement", "playbooks", "lessons-learned"]
 
   - id: q-d7-094
@@ -1783,6 +1876,7 @@ questions:
         - "30-day extensions are not provided in GDPR; notification must occur within 72 hours with phased updates if needed."
         - "GDPR applies to processing of EU residents' data regardless of where the breach occurred; the requirement is not limited to EU-located breaches."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["GDPR", "breach-notification", "72-hour", "incident-response"]
 
   - id: q-d7-095
@@ -1802,6 +1896,7 @@ questions:
         - "Behavioral C2 detection through connection metadata is correct — NetFlow excels at pattern analysis when content inspection is unavailable."
         - "Malware signature detection requires file content inspection; NetFlow only captures connection metadata."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["NetFlow", "network-analysis", "behavioral-detection", "encrypted-traffic"]
 
   - id: q-d7-096
@@ -1821,6 +1916,7 @@ questions:
         - "Vendor cybersecurity due diligence addresses security posture; the issue here is availability/redundancy planning."
         - "Asset inventory management tracks assets; it doesn't address single-vendor dependency risk."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["BCP", "single-point-of-failure", "third-party-dependency", "redundancy"]
 
   - id: q-d7-097
@@ -1840,6 +1936,7 @@ questions:
         - "Stronger preventive controls reduce incident frequency but don't improve detection speed for incidents that do occur."
         - "Penetration tests identify vulnerabilities; they don't directly improve the SOC's detection speed for real incidents."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["MTTD", "SOC", "detection-engineering", "false-positives"]
 
   - id: q-d7-098
@@ -1859,6 +1956,7 @@ questions:
         - "Business-hours-only SOC creates coverage gaps when attackers commonly operate (nights and weekends); this is a significant risk."
         - "Fully outsourced MSSP loses institutional knowledge and organizational context; a hybrid model typically provides better outcomes."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["SOC", "staffing-models", "follow-the-sun", "security-operations"]
 
   - id: q-d7-099
@@ -1878,6 +1976,7 @@ questions:
         - "Event ID 4688 provides real-time process creation logs but requires process auditing to be enabled; if logging was disabled or logs cleared, 4688 events would be missing. Prefetch files persist independently."
         - "Scheduled Tasks XML shows configured tasks, not evidence of program execution history."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["Windows-forensics", "Prefetch", "execution-artifacts", "digital-forensics"]
 
   - id: q-d7-100
@@ -1897,6 +1996,7 @@ questions:
         - "Staff focus on technical response is an operational benefit; the primary purpose is communication control, not resource allocation."
         - "SEC regulations apply to publicly traded companies for material disclosure; single-spokesperson policy applies broadly, not only for SEC compliance."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["crisis-communications", "incident-response", "spokesperson", "legal"]
 
   - id: q-d7-101
@@ -1916,6 +2016,7 @@ questions:
         - "BCP and DRP have distinct scopes and purposes; the distinction is well-established in standards (ISO 22301, NIST SP 800-34)."
         - "Both BCP and DRP apply to all types of disruptions — natural disasters, cyber incidents, pandemics, facility failures — not separated by type."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["BCP", "DRP", "business-continuity", "disaster-recovery"]
 
   - id: q-d7-102
@@ -1935,4 +2036,125 @@ questions:
         - "DHCP queries use broadcast or unicast to the DHCP server and do not generate random domain DNS queries."
         - "Browser extensions may generate web traffic but not regular, systematic random domain DNS queries at machine intervals."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["DGA", "malware", "C2", "DNS-analysis"]
+
+  - id: q-d7-103
+    domain: domain7
+    question: "Responders discover an active compromise on a running server. Malware appears to reside only in memory. A junior responder proposes powering off the system immediately to contain it. What is the correct guidance?"
+    options:
+      - "Capture volatile memory first, because powering off destroys the only copy of the evidence"
+      - "Power off immediately, since containment always takes priority over evidence"
+      - "Disconnect the power cable rather than shutting down gracefully to preserve disk state"
+      - "Leave the system fully operational until the investigation concludes"
+    correct_answer: 0
+    explanations:
+      correct: "Order of volatility requires collecting the most fragile evidence first. Fileless malware exists only in RAM, so powering off destroys it entirely. Memory capture precedes any power state change, after which containment can proceed — often by isolating the host from the network rather than powering it down."
+      incorrect:
+        - "This is the correct answer — capture memory, then contain."
+        - "Containment matters, but it can be achieved through network isolation without destroying volatile evidence."
+        - "Pulling power destroys memory contents just as a graceful shutdown would, and risks filesystem corruption as well."
+        - "Leaving an actively compromised system fully connected allows the attacker to continue operating and destroying evidence."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["forensics", "order of volatility", "incident response"]
+
+  - id: q-d7-104
+    domain: domain7
+    question: "A ransomware incident encrypts production file servers. The organization has nightly backups, but investigation shows the backup server was reachable using the same domain administrator credentials the attacker compromised. What is the MOST likely outcome?"
+    options:
+      - "The backups were likely encrypted or deleted as well, because they were not isolated from the compromised credential domain"
+      - "The backups will restore normally since they were taken before the encryption"
+      - "The attacker cannot access backups because they are stored on separate hardware"
+      - "Restoring will succeed but will take longer than the stated RTO"
+    correct_answer: 0
+    explanations:
+      correct: "Modern ransomware operators specifically target backups before triggering encryption. A backup system reachable with the same credentials that compromised production is within the blast radius, which is why immutable or offline backups with separate authentication are now considered essential."
+      incorrect:
+        - "This is the correct answer — shared credential scope means the backups were almost certainly in scope too."
+        - "Backup timing is irrelevant if the attacker deleted or encrypted the backup repository itself."
+        - "Separate hardware provides no protection when the same credentials grant access to it."
+        - "The problem is likely the absence of usable backups, not merely a slower restore."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["ransomware", "backup", "immutability"]
+
+  - id: q-d7-105
+    domain: domain7
+    question: "An organization's SIEM generates roughly 4,000 alerts per day. Analysts investigate approximately 40. After a breach goes undetected for three months, the review finds the initial intrusion did generate an alert. What is the PRIMARY failure?"
+    options:
+      - "Detection rules were not tuned, so genuine alerts were indistinguishable from noise and went unreviewed"
+      - "The SIEM lacked sufficient log sources to detect the intrusion"
+      - "Analysts were insufficiently trained to recognize the alert"
+      - "The organization needed a longer log retention period"
+    correct_answer: 0
+    explanations:
+      correct: "The detection worked; the operational process around it did not. An alert volume far exceeding review capacity means real signals are statistically certain to be missed, so tuning to raise precision is the corrective action."
+      incorrect:
+        - "This is the correct answer — untuned rules producing unreviewable volume is the root cause."
+        - "Log coverage was evidently adequate, since the intrusion did generate an alert."
+        - "Training does not solve a volume problem where 99 percent of alerts are never opened at all."
+        - "Retention affects investigation depth after discovery; it did not cause the detection failure."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["SIEM", "alert fatigue", "detection"]
+
+  - id: q-d7-106
+    domain: domain7
+    question: "During a disaster recovery test, systems are restored successfully but take 14 hours against a stated RTO of 4 hours. What is the MOST appropriate response?"
+    options:
+      - "Treat the gap as a finding and either improve recovery capability or revise the RTO with business agreement"
+      - "Record the test as a success since the systems were ultimately restored"
+      - "Increase the RTO to 14 hours without further analysis"
+      - "Repeat the test until a faster time is achieved"
+    correct_answer: 0
+    explanations:
+      correct: "A recovery objective the organization cannot actually meet is a documented gap. Either the capability must be improved to meet the business requirement, or the requirement must be formally revised with the business owner accepting the longer outage."
+      incorrect:
+        - "This is the correct answer — the purpose of testing is to surface gaps and drive a decision."
+        - "Restoration that misses the objective by a factor of three is not a success; the objective defines the requirement."
+        - "Unilaterally relaxing the RTO to match observed performance ignores why the business set it at four hours."
+        - "Repeating the test does not change the underlying capability."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["DR testing", "RTO", "recovery"]
+
+  - id: q-d7-107
+    domain: domain7
+    question: "A system administrator needs emergency privileged access during a major outage, but the identity provider that normally grants elevation is itself down. What control should the organization have in place for this scenario?"
+    options:
+      - "A break-glass account, sealed and tightly controlled, whose use triggers immediate alerting and after-the-fact review"
+      - "Standing domain administrator rights for all senior administrators"
+      - "A shared administrator password known to the operations team"
+      - "Disabling MFA requirements during declared incidents"
+    correct_answer: 0
+    explanations:
+      correct: "Break-glass accounts exist precisely for the case where normal access-granting systems are unavailable. Because they bypass normal controls, their use must generate an immediate alert, require justification and review afterward, and typically trigger credential rotation."
+      incorrect:
+        - "This is the correct answer — a controlled, monitored exception designed for exactly this failure mode."
+        - "Standing privileges for everyone reintroduces the always-on privileged access that JIT and PAM are designed to eliminate."
+        - "A shared password destroys individual accountability and cannot be attributed to a specific person."
+        - "Disabling MFA during incidents creates an attacker-exploitable condition, since attackers frequently cause or exploit incidents."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["break-glass", "emergency access", "PAM"]
+
+  - id: q-d7-108
+    domain: domain7
+    question: "An organization discovers that a critical server's configuration has diverged from its documented baseline over 18 months of manual changes. Which control would MOST effectively prevent recurrence?"
+    options:
+      - "Automated configuration enforcement that continuously detects drift and reverts systems to the approved baseline"
+      - "Quarterly manual audits comparing systems to the baseline document"
+      - "Requiring change tickets for all future modifications"
+      - "Increasing the frequency of vulnerability scanning"
+    correct_answer: 0
+    explanations:
+      correct: "Drift accumulates from changes made outside process, so a control that continuously detects and corrects deviation addresses the mechanism directly rather than relying on periodic human review to catch it."
+      incorrect:
+        - "This is the correct answer — continuous enforcement prevents drift rather than discovering it late."
+        - "Quarterly audits detect drift months after it occurs and depend on manual effort that does not scale."
+        - "Change tickets improve governance but do not prevent out-of-process changes from being made."
+        - "Vulnerability scanning finds missing patches and known flaws, not deviation from an approved configuration baseline."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["configuration management", "drift", "automation"]

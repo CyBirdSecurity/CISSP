@@ -16,6 +16,7 @@ questions:
         - "Parameterized queries are the correct and most effective defense — they structurally prevent SQL injection."
         - "Character escaping is a mitigation but can be implemented incorrectly. Parameterized queries are structurally safer."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["vulnerabilities", "SQL-injection"]
 
   - id: q-d8-002
@@ -35,6 +36,7 @@ questions:
         - "XSS can target any data in the browser; CSRF exploits authenticated sessions. Neither specifically targets databases."
         - "They are distinct attack types with different mechanisms, impacts, and mitigations."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["XSS", "CSRF", "web-security"]
 
   - id: q-d8-003
@@ -54,6 +56,7 @@ questions:
         - "Shift left is about timing in the SDLC, not a prioritization framework between left and right controls."
         - "Automation is a component of DevSecOps but is not specifically what 'shift left' means."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["DevSecOps", "SDLC"]
 
   - id: q-d8-004
@@ -73,6 +76,7 @@ questions:
         - "Encryption weakness leads to interception/disclosure — not related to buffer overflow memory corruption."
         - "Authentication weaknesses are access control issues — not related to memory management vulnerabilities."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["buffer-overflow", "vulnerabilities"]
 
   - id: q-d8-005
@@ -92,6 +96,7 @@ questions:
         - "TOCTOU has nothing to do with time-based OTP (TOTP) systems."
         - "TOCTOU is about race conditions in resource access, not time zone issues in authentication."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["TOCTOU", "race-condition", "vulnerabilities"]
 
   - id: q-d8-006
@@ -111,6 +116,7 @@ questions:
         - "Broken Access Control (#1) covers IDOR/BOLA, vertical and horizontal privilege escalation — correct."
         - "Security Misconfiguration covers default passwords, unnecessary features enabled, error information exposure — not IDOR."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["OWASP", "access-control"]
 
   - id: q-d8-007
@@ -130,6 +136,7 @@ questions:
         - "A vulnerability audit report documents security findings — a SBOM lists components (which then enables vulnerability tracking)."
         - "Approved vendor lists are procurement documents — a SBOM is a technical component inventory."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["supply-chain", "SBOM"]
 
   - id: q-d8-008
@@ -149,6 +156,7 @@ questions:
         - "bcrypt or Argon2 are correct — specifically designed for password hashing with adjustable work factors."
         - "SHA-512 is also too fast for password storage despite its length. Use purpose-built password hashing functions."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["cryptography", "passwords"]
 
   - id: q-d8-009
@@ -168,6 +176,7 @@ questions:
         - "Redundancy prevents failure — fail secure describes behavior during/after failure, not prevention."
         - "Logging failures is an auditing practice — fail secure is a design principle about default states."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["secure-design", "principles"]
 
   - id: q-d8-010
@@ -187,6 +196,7 @@ questions:
         - "Threat modeling works from diagrams, architecture documents, and data flow diagrams — it does not require source code."
         - "Resource availability varies by organization and is not the reason design phase is preferred for threat modeling."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "SDLC"]
 
   - id: q-d8-011
@@ -206,6 +216,7 @@ questions:
         - "Stored XSS persists on the server and affects all visitors — this is the most dangerous XSS type."
         - "Universal XSS is not a standard XSS classification."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["XSS", "web-security"]
 
   - id: q-d8-012
@@ -225,6 +236,7 @@ questions:
         - "Encrypting input is a data protection measure — not what input validation means."
         - "Logging input is part of audit/monitoring — not input validation."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["input-validation", "secure-coding"]
 
   - id: q-d8-013
@@ -244,6 +256,7 @@ questions:
         - "Code encryption is obfuscation — secure by default is about runtime configuration, not code protection."
         - "Defaulting to common user configurations prioritizes convenience over security — secure by default prioritizes security."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["secure-design", "principles"]
 
   - id: q-d8-014
@@ -263,6 +276,7 @@ questions:
         - "Execution path hijacking via environment variables is a different vulnerability (LD_PRELOAD attack) — not path traversal."
         - "Network routing misdirection is a routing attack — path traversal is a file system access vulnerability."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["vulnerabilities", "web-security"]
 
   - id: q-d8-015
@@ -282,6 +296,7 @@ questions:
         - "Configuration file modification is a different attack category — XXE exploits runtime XML parsing behavior."
         - "XSS involves script injection in HTML — XXE is specifically about XML parser exploitation."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["XXE", "vulnerabilities", "web-security"]
 
   - id: q-d8-016
@@ -301,6 +316,7 @@ questions:
         - "Unencrypted transmission is a TLS/transport security issue — insecure deserialization is about the processing of the data, not its transmission."
         - "Database serialization errors are data integrity issues — insecure deserialization is an application security vulnerability."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["deserialization", "OWASP", "vulnerabilities"]
 
   - id: q-d8-017
@@ -320,6 +336,7 @@ questions:
         - "Architecture and design review is a manual security activity — SCA is automated component vulnerability detection."
         - "AI-based code rewriting is a code generation tool — SCA identifies vulnerabilities but doesn't automatically fix them."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["SCA", "supply-chain", "vulnerabilities"]
 
   - id: q-d8-018
@@ -339,6 +356,7 @@ questions:
         - "NIST doesn't mandate specific programming languages — any language can be used with appropriate secure coding practices."
         - "Developer certifications may be valuable but are not what 'security in the SDLC' means — it is a process/methodology."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["SDLC", "DevSecOps"]
 
   - id: q-d8-019
@@ -358,6 +376,7 @@ questions:
         - "Both can target cookies or URL parameters — storage location is not the distinguishing factor."
         - "Neither is specifically server-side or client-side — the distinction is about the timing and method of session compromise."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["session-management", "attacks", "web-security"]
 
   - id: q-d8-020
@@ -377,6 +396,7 @@ questions:
         - "Team size affects coverage capacity but doesn't define coverage — coverage is about what vulnerabilities are tested, not who tests."
         - "Vulnerability scanning all systems is a security operations goal — security testing coverage is about vulnerability class completeness, not scan scope."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["testing", "coverage"]
 
   - id: q-d8-021
@@ -396,6 +416,7 @@ questions:
         - "Opening multiple connections is DoS — open redirect targets individual user redirection."
         - "Database connection visibility is an information disclosure vulnerability — open redirect is a web application redirection flaw."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["web-security", "vulnerabilities"]
 
   - id: q-d8-022
@@ -415,6 +436,7 @@ questions:
         - "Simplicity to minimize errors is the KISS (Keep It Simple) principle in security — not least astonishment."
         - "Backward compatibility is an operational concern — least astonishment is about user expectations and predictable behavior."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["secure-design", "principles"]
 
   - id: q-d8-023
@@ -434,6 +456,7 @@ questions:
         - "Social engineering targets humans — SSRF is a technical attack exploiting server-side request functionality."
         - "Certificate forging is a PKI attack — SSRF exploits server-side URL fetching functionality."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["SSRF", "vulnerabilities", "cloud"]
 
   - id: q-d8-024
@@ -453,6 +476,7 @@ questions:
         - "Unspent security budget is a financial planning issue — security debt is about deferred security work in code."
         - "Implementation gap is a metrics concept — security debt is specifically about the accumulation of skipped/deferred security work."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["SDLC", "governance"]
 
   - id: q-d8-025
@@ -472,6 +496,7 @@ questions:
         - "Version conflicts causing application errors are a dependency management problem — dependency confusion is a deliberate malicious attack."
         - "Social engineering targets humans — dependency confusion exploits automated build system behavior."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["supply-chain", "SDLC"]
 
   - id: q-d8-026
@@ -491,6 +516,7 @@ questions:
         - "Web caching is a CDN/proxy function — WAFs are security devices, not caching appliances."
         - "WAFs do not rewrite application code — they filter traffic at runtime, and secure coding remains essential."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["WAF", "web-security"]
 
   - id: q-d8-027
@@ -510,6 +536,7 @@ questions:
         - "Unchanged default passwords are a configuration security issue — hardcoded credentials are embedded in code, not default settings."
         - "Unencrypted database credentials are a data protection issue — hardcoded credentials are in source code or binaries."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["secure-coding", "vulnerabilities"]
 
   - id: q-d8-028
@@ -529,6 +556,7 @@ questions:
         - "Malicious click handler injection is a different JavaScript attack — clickjacking uses iframes, not event handler injection."
         - "HTTPS protects data in transit — it doesn't prevent iframe overlay attacks."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["web-security", "clickjacking", "HTTP-headers"]
 
   - id: q-d8-029
@@ -548,6 +576,7 @@ questions:
         - "Security policies are organizational governance documents — security requirements are system-specific technical and functional requirements."
         - "Post-development compliance review is reactive — security requirements analysis is proactive and should precede design."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["SDLC", "requirements"]
 
   - id: q-d8-030
@@ -567,6 +596,7 @@ questions:
         - "This is a deliberate misdirection — race conditions are a serious concurrent programming security vulnerability."
         - "Team conflict is organizational — race conditions are a technical concurrent programming vulnerability."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["race-condition", "vulnerabilities"]
 
   - id: q-d8-031
@@ -586,6 +616,7 @@ questions:
         - "Log verbosity is a log management concern — the security risk is displaying technical details to end users."
         - "Data corruption from unhandled errors is a data integrity concern — the primary security risk of improper error handling is information leakage."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["secure-coding", "information-disclosure"]
 
   - id: q-d8-032
@@ -605,6 +636,7 @@ questions:
         - "Variable encryption is a data protection feature — memory safety is about preventing memory corruption vulnerabilities."
         - "NIST does not maintain a list of approved programming languages — memory-safe languages are recommended by NSA/CISA guidance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["secure-coding", "memory-safety"]
 
   - id: q-d8-033
@@ -624,6 +656,7 @@ questions:
         - "XXE Injection (exploiting XML parsers to read local files or perform SSRF) is the correct answer."
         - "Server-Side Template Injection exploits template engines (Jinja2, Twig) — not XML parsers."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["vulnerabilities", "XXE", "web-security"]
 
   - id: q-d8-034
@@ -643,6 +676,7 @@ questions:
         - "XXE exploits XML external entity declarations — this attack uses HTTP URL parameters, not XML parsing."
         - "An Open Redirect exploits inadequate URL validation to redirect users to malicious sites — it doesn't involve server-side fetching of internal resources."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["vulnerabilities", "SSRF", "cloud"]
 
   - id: q-d8-035
@@ -662,6 +696,7 @@ questions:
         - "Parameterized queries are the gold standard defense against SQL injection — this is correct."
         - "Encrypting the database connection protects credentials in transit but does not prevent SQL injection — injection happens within an authenticated connection."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["vulnerabilities", "SQL-injection", "secure-coding"]
 
   - id: q-d8-036
@@ -681,6 +716,7 @@ questions:
         - "Pickle is a serialization format, not an encryption scheme — the vulnerability is about code execution, not data leakage."
         - "Pickle.loads() is not deprecated — the security issue is using it with untrusted data, which is a design flaw, not a deprecation issue."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["vulnerabilities", "deserialization", "secure-coding"]
 
   - id: q-d8-037
@@ -700,6 +736,7 @@ questions:
         - "A watering hole attack compromises websites that a target organization's employees visit — not package registry manipulation."
         - "Supply chain compromise via maintainer involves taking over an existing legitimate package's maintainer account — not creating a new malicious package with an internal name."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["supply-chain", "attacks"]
 
   - id: q-d8-038
@@ -719,6 +756,7 @@ questions:
         - "Injecting JavaScript into a stored comment is Stored XSS — an Injection vulnerability (OWASP #3), not broken access control."
         - "Exposing stack traces is Security Misconfiguration (OWASP #5) — not broken access control."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["vulnerabilities", "OWASP", "access-control"]
 
   - id: q-d8-039
@@ -738,6 +776,7 @@ questions:
         - "Buffer overflow occurs when more data is written to a buffer than it can hold — not when a resource is modified between operations."
         - "Command injection passes untrusted input to a system shell — not related to file permission checking race conditions."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["vulnerabilities", "TOCTOU", "race-conditions"]
 
   - id: q-d8-040
@@ -757,6 +796,7 @@ questions:
         - "The requirements and design phase is the most cost-effective time — preventing vulnerabilities through good design before code is written."
         - "The maintenance phase (production) is the most expensive time to fix vulnerabilities — it may involve emergency patches, incident response, and potential breach costs."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["SDLC", "principles", "cost"]
 
   - id: q-d8-041
@@ -776,6 +816,7 @@ questions:
         - "Making the repository private does not invalidate the exposed credential — anyone who already captured it can still use it."
         - "Hashing the credentials would make them unusable for authentication purposes — you need actual credentials to authenticate, not hashes."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["DevSecOps", "secrets-management", "IaC"]
 
   - id: q-d8-042
@@ -795,6 +836,7 @@ questions:
         - "HttpOnly prevents JavaScript from accessing cookies (protecting against XSS cookie theft) — it does not prevent CSRF attacks."
         - "SameSite=Strict prevents the browser from sending cookies with cross-site requests, which is an effective CSRF mitigation, but the question specifically describes the token-based approach."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["vulnerabilities", "CSRF", "web-security"]
 
   - id: q-d8-043
@@ -814,6 +856,7 @@ questions:
         - "Authorization is the security property violated by Elevation of Privilege — gaining access beyond permitted levels."
         - "Availability is violated by Denial of Service (the 'D' in STRIDE) — not Elevation of Privilege."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "STRIDE"]
 
   - id: q-d8-044
@@ -833,6 +876,7 @@ questions:
         - "Both stored and reflected XSS can potentially be mitigated by properly configured CSP — stored XSS does not uniquely bypass CSP."
         - "Both types of XSS execute client-side JavaScript in the browser — neither directly executes server-side code."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["vulnerabilities", "XSS", "web-security"]
 
   - id: q-d8-045
@@ -852,6 +896,7 @@ questions:
         - "Remediation instructions are provided by security advisories and patch notes — SBOMs identify what needs remediation, not how to remediate."
         - "Developer contribution tracking is a version control (git history) function — SBOMs track component provenance, not individual developer contributions."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["supply-chain", "SBOM", "incident-response"]
 
   - id: q-d8-046
@@ -871,6 +916,7 @@ questions:
         - "Insecure Deserialization involves processing untrusted serialized object data — not buffer operations."
         - "Integer Overflow involves arithmetic exceeding integer type bounds — not copying beyond buffer boundaries."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["vulnerabilities", "buffer-overflow", "secure-coding"]
 
   - id: q-d8-047
@@ -890,6 +936,7 @@ questions:
         - "Pre-production only testing is late in the SDLC — vulnerabilities found then are expensive to fix and may delay releases."
         - "Security team-driven SAST separate from development creates silos — findings arrive late, out of context, and developers haven't yet adopted security accountability."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["DevSecOps", "SAST", "SDLC"]
 
   - id: q-d8-048
@@ -909,6 +956,7 @@ questions:
         - "Alerting users is a notification mechanism, not the definition of fail-secure behavior."
         - "Preserving user sessions prioritizes availability and user experience over security — fail-secure may require terminating sessions during failure."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["principles", "secure-design"]
 
   - id: q-d8-049
@@ -928,6 +976,7 @@ questions:
         - "A watering hole attack compromises websites visited by target users — not package registry name manipulation."
         - "Maintainer takeover involves compromising the account of a legitimate package maintainer — not creating a new package with a deceptive name."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["supply-chain", "attacks"]
 
   - id: q-d8-050
@@ -947,6 +996,7 @@ questions:
         - "Null byte injection (%00) can terminate strings in some languages (C-based), but it's a different attack technique — path traversal specifically uses directory traversal sequences."
         - "HTTP verb tampering exploits differences in how servers handle different HTTP methods — not directly related to directory traversal."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["vulnerabilities", "path-traversal", "web-security"]
 
   - id: q-d8-051
@@ -966,6 +1016,7 @@ questions:
         - "CVE scanning identifies known vulnerable components but does not prevent a successful escape from escalating privileges on the host."
         - "Image layer encryption protects data confidentiality — it does not limit runtime privileges or prevent escape escalation."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["container-security", "DevSecOps"]
 
   - id: q-d8-052
@@ -985,6 +1036,7 @@ questions:
         - "Open-source frameworks can have security communities but still introduce significant attack surface if enabled features are not needed."
         - "Code reviews improve code quality and can catch vulnerabilities but do not reduce attack surface — that requires architectural and design decisions."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["secure-design", "principles", "attack-surface"]
   
   - id: q-d8-053
@@ -1003,6 +1055,7 @@ questions:
         - "Performance metrics are unrelated to authentication security."
         - "Scaling infrastructure is an operational concern, not an authentication problem."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["api-security", "authentication"]
 
   - id: q-d8-054
@@ -1021,6 +1074,7 @@ questions:
         - "Maintenance complexity is an operational concern, not a security vulnerability."
         - "GraphQL caching is possible with proper configuration."
     difficulty: hard
+    cognitive_level: "recall"
     tags: ["graphql", "vulnerabilities"]
 
   - id: q-d8-055
@@ -1039,6 +1093,7 @@ questions:
         - "Storing in accessible environment variables lacks encryption and audit controls."
         - "Storing in version control violates fundamental security principles regardless of notes."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["secrets-management", "secure-coding"]
 
   - id: q-d8-056
@@ -1057,6 +1112,7 @@ questions:
         - "OAuth is an authorization protocol, not a network security tool."
         - "MFA is not inherent to OAuth 2.0, though it can be integrated."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["oauth", "authentication"]
 
   - id: q-d8-057
@@ -1075,6 +1131,7 @@ questions:
         - "Data analytics uses different methodologies than security testing."
         - "Token management is an authentication function, not testing."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["DAST", "DevSecOps"]
 
   - id: q-d8-058
@@ -1093,6 +1150,7 @@ questions:
         - "Network monitoring is runtime observation, not image analysis."
         - "Naming conventions are operational standards, not security concerns."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["container-security", "vulnerability-scanning"]
 
   - id: q-d8-059
@@ -1111,6 +1169,7 @@ questions:
         - "Serverless is cloud-native and doesn't require on-premises hardware."
         - "Encryption is fully supported in serverless architectures."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["serverless", "cloud-security"]
 
   - id: q-d8-060
@@ -1129,6 +1188,7 @@ questions:
         - "Certificate rotation is a key management practice, not pinning."
         - "Disk encryption protects files but doesn't prevent acceptance of malicious certificates."
     difficulty: hard
+    cognitive_level: "recall"
     tags: ["certificate-security", "MITM-prevention"]
 
   - id: q-d8-061
@@ -1147,6 +1207,7 @@ questions:
         - "CVSS scores vulnerability severity, not a threat modeling framework."
         - "NIST RMF is a governance framework, not a threat modeling methodology."
     difficulty: hard
+    cognitive_level: "recall"
     tags: ["threat-modeling", "PASTA"]
 
   - id: q-d8-062
@@ -1165,6 +1226,7 @@ questions:
         - "Performance is unrelated to supply chain provenance."
         - "User reviews are subjective opinions, not provenance data."
     difficulty: hard
+    cognitive_level: "recall"
     tags: ["supply-chain", "provenance"]
 
   - id: q-d8-063
@@ -1183,6 +1245,7 @@ questions:
         - "Documentation alone doesn't provide cryptographic verification."
         - "Performance validation is a quality concern, not security."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["artifact-signing", "supply-chain"]
 
   - id: q-d8-064
@@ -1201,6 +1264,7 @@ questions:
         - "Secure coding training is a separate security activity."
         - "Vulnerability scanning is a technical assessment, not incident response."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["incident-response", "testing"]
 
   - id: q-d8-065
@@ -1219,6 +1283,7 @@ questions:
         - "Layered encryption increases complexity without addressing rotation needs."
         - "Memory cleanup is a basic security practice, not rotation."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["key-management", "cryptography"]
 
   - id: q-d8-066
@@ -1237,6 +1302,7 @@ questions:
         - "Container escape is a different attack vector."
         - "Network exploitation is a separate attack category."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["privilege-escalation", "access-control"]
 
   - id: q-d8-067
@@ -1255,6 +1321,7 @@ questions:
         - "Data corruption affects integrity, not confidentiality."
         - "Performance issues are availability concerns."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["information-disclosure", "confidentiality"]
 
   - id: q-d8-068
@@ -1273,6 +1340,7 @@ questions:
         - "Encryption is a technical control, not governance."
         - "Password policies are one control element, not comprehensive governance."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["governance", "compliance"]
 
   - id: q-d8-069
@@ -1291,6 +1359,7 @@ questions:
         - "Code coverage measures testing completeness, not security."
         - "Performance optimization is a different review objective."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["code-review", "secure-coding"]
 
   - id: q-d8-070
@@ -1309,6 +1378,7 @@ questions:
         - "Network noise is unrelated to fuzzing."
         - "Key randomization is a cryptographic practice."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["fuzzing", "testing"]
 
   - id: q-d8-071
@@ -1327,6 +1397,7 @@ questions:
         - "Serialization failures are different issues."
         - "BOLA affects access, not object creation."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["BOLA", "access-control"]
 
   - id: q-d8-072
@@ -1345,6 +1416,7 @@ questions:
         - "IDS installation is a technical control, not a champion program."
         - "Penetration testing is an assessment activity, not a champion program."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["security-culture", "DevSecOps"]
 
   - id: q-d8-073
@@ -1363,6 +1435,7 @@ questions:
         - "Response times relate to performance, not rate limiting."
         - "Versioning is an API management feature."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["api-security", "DoS-prevention"]
 
   - id: q-d8-074
@@ -1381,6 +1454,7 @@ questions:
         - "Single tools lack redundancy."
         - "Blocking all traffic is impractical and doesn't represent layered defense."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["secure-design", "principles"]
 
   - id: q-d8-075
@@ -1399,6 +1473,7 @@ questions:
         - "Deprecated features don't equal vulnerability."
         - "Documentation availability is not a security concern."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["supply-chain", "dependency-management"]
 
   - id: q-d8-076
@@ -1417,6 +1492,7 @@ questions:
         - "Encryption alone doesn't address misconfiguration risks."
         - "Versioning is important but doesn't address security validation."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["IaC", "DevSecOps"]
 
   - id: q-d8-077
@@ -1435,6 +1511,7 @@ questions:
         - "Storage usage is independent of immutability."
         - "Debugging is more difficult with immutable systems."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["infrastructure-security", "DevSecOps"]
 
   - id: q-d8-078
@@ -1453,6 +1530,7 @@ questions:
         - "User preferences are not security concerns."
         - "Software updates are maintenance activities."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["incident-response"]
 
   - id: q-d8-079
@@ -1471,6 +1549,7 @@ questions:
         - "User complaints are feedback, not baselines."
         - "License tracking is an inventory function."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["security-standards", "compliance"]
 
   - id: q-d8-080
@@ -1489,6 +1568,7 @@ questions:
         - "CVSS doesn't predict exploitation timing."
         - "Code quality is measured separately."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["vulnerability-management", "CVSS"]
 
   - id: q-d8-081
@@ -1507,6 +1587,7 @@ questions:
         - "Honeypots are not backups."
         - "Honeypots target malicious activity, not legitimate users."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["threat-detection", "incident-response"]
 
   - id: q-d8-082
@@ -1525,6 +1606,7 @@ questions:
         - "Team expertise is important but insufficient without design practices."
         - "Cloud deployment can be secure with proper practices."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["secure-design", "SDLC"]
 
   - id: q-d8-083
@@ -1543,6 +1625,7 @@ questions:
         - "No testing can guarantee zero vulnerabilities."
         - "Testing overhead is typically minimal in CI/CD."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["automated-testing", "DevSecOps"]
 
   - id: q-d8-084
@@ -1561,6 +1644,7 @@ questions:
         - "UI design is unrelated to security maturity."
         - "Database optimization is a performance concern."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["maturity-models", "governance"]
 
   - id: q-d8-085
@@ -1579,6 +1663,7 @@ questions:
         - "Disaster recovery testing is separate from pen testing."
         - "Credential testing is operational, not penetration testing."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["penetration-testing", "assessment"]
 
   - id: q-d8-086
@@ -1597,6 +1682,7 @@ questions:
         - "User satisfaction is not a security concern."
         - "Crashes are possible but secondary to exploitation risk."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["input-validation", "vulnerabilities"]
 
   - id: q-d8-087
@@ -1615,6 +1701,7 @@ questions:
         - "Latest versions may introduce different risks; baselines are what matter."
         - "Rebooting is not configuration management."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["configuration-management", "hardening"]
 
   - id: q-d8-088
@@ -1633,6 +1720,7 @@ questions:
         - "Unrestricted permissions maximize risks."
         - "Tenure is not a security criterion."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["access-control", "principles"]
 
   - id: q-d8-089
@@ -1651,6 +1739,7 @@ questions:
         - "Encryption may increase storage due to overhead."
         - "Cryptography is more complex than simple authentication."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["cryptography"]
 
   - id: q-d8-090
@@ -1669,6 +1758,7 @@ questions:
         - "Performance logging is separate from security monitoring."
         - "Availability monitoring is operational, not security logging."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["logging", "monitoring"]
 
   - id: q-d8-091
@@ -1687,6 +1777,7 @@ questions:
         - "Encryption overhead is negligible with modern protocols."
         - "Encryption supports authentication."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["encryption", "data-protection"]
 
   - id: q-d8-092
@@ -1705,6 +1796,7 @@ questions:
         - "Secure coding is specialized training, not general awareness."
         - "Incident documentation is separate from training."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["security-awareness", "training"]
 
   - id: q-d8-093
@@ -1723,6 +1815,7 @@ questions:
         - "Backup scheduling is operational, not retention policy."
         - "Access controls are separate from retention."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["data-protection", "compliance"]
 
   - id: q-d8-094
@@ -1741,6 +1834,7 @@ questions:
         - "Data minimization alone is insufficient."
         - "Encryption is one control, not comprehensive privacy design."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["privacy", "secure-design"]
 
   - id: q-d8-095
@@ -1759,6 +1853,7 @@ questions:
         - "Customer satisfaction is secondary to continuity."
         - "Bug management is quality assurance, not continuity."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["business-continuity", "disaster-recovery"]
 
   - id: q-d8-096
@@ -1777,6 +1872,7 @@ questions:
         - "Tools alone don't replace assessment."
         - "Consultants support assessment but aren't assessment itself."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["risk-management", "assessment"]
 
   - id: q-d8-097
@@ -1795,6 +1891,7 @@ questions:
         - "Uptime is availability, not security."
         - "Training metrics are HR data."
     difficulty: medium
+    cognitive_level: "recall"
     tags: ["metrics", "governance"]
 
   - id: q-d8-098
@@ -1813,6 +1910,7 @@ questions:
         - "No framework guarantees complete protection."
         - "Frameworks inform assessments; they don't eliminate them."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["standards", "frameworks"]
 
   - id: q-d8-099
@@ -1831,6 +1929,7 @@ questions:
         - "Specialists are necessary but insufficient."
         - "Language choice is one factor among many."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["SDLC", "secure-development"]
 
   - id: q-d8-100
@@ -1849,4 +1948,245 @@ questions:
         - "Compliance may increase development costs."
         - "UI design is separate from compliance."
     difficulty: easy
+    cognitive_level: "recall"
     tags: ["compliance", "governance"]
+
+  - id: q-d8-101
+    domain: domain8
+    question: "A developer fixes a SQL injection report by escaping single quotes in user input before building the query string. A security reviewer rejects the fix. What is the reviewer's BEST justification?"
+    options:
+      - "Escaping is bypassable through encoding and numeric contexts; parameterized queries remove the interpretation problem entirely"
+      - "Escaping single quotes degrades database performance on large tables"
+      - "The fix should have been applied in the database rather than the application"
+      - "Single quotes are not used in SQL injection attacks"
+    correct_answer: 0
+    explanations:
+      correct: "Character escaping is a blocklist approach and is routinely defeated through alternate encodings, Unicode variants, and numeric parameters that require no quotes at all. Parameterized queries define the query structure first and bind input strictly as data, so it can never be reinterpreted as SQL."
+      incorrect:
+        - "This is the correct answer — the defense must remove the possibility of reinterpretation, not attempt to filter for it."
+        - "Performance is not the concern; the fix is rejected because it is incomplete as a security control."
+        - "Database-side controls such as least privilege help contain impact, but the injection flaw itself lives in how the application builds the query."
+        - "Single quotes are commonly used in string-based injection, but the point is that they are not required for all injection, which is precisely why escaping them is insufficient."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["SQL injection", "secure coding", "input validation"]
+
+  - id: q-d8-102
+    domain: domain8
+    question: "A CI/CD pipeline builds pull requests submitted from external forks, and the build environment has access to production deployment credentials. What is the MOST severe risk this creates?"
+    options:
+      - "Anyone who can open a pull request can execute code that exfiltrates the production credentials"
+      - "External contributors may submit code with poor formatting"
+      - "Build times will increase as external contributions grow"
+      - "The repository history may become difficult to audit"
+    correct_answer: 0
+    explanations:
+      correct: "A build triggered by untrusted code executes that code with whatever secrets the pipeline holds. An attacker simply opens a pull request containing a build step that prints or transmits the credentials. Builds of untrusted contributions must run without access to privileged secrets."
+      incorrect:
+        - "This is the correct answer — it converts the ability to propose a change into the ability to compromise production."
+        - "Code style is a quality concern with no comparable security impact."
+        - "Build capacity is an operational cost issue, not a severe security risk."
+        - "Audit clarity matters but does not approach the severity of credential exfiltration to arbitrary outsiders."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["CI/CD", "pipeline security", "secrets"]
+
+  - id: q-d8-103
+    domain: domain8
+    question: "An application allows users to retrieve their invoices at a URL containing an invoice identifier. A tester changes the identifier to another value and receives a different customer's invoice. Which vulnerability is this, and where must the fix be applied?"
+    options:
+      - "Insecure Direct Object Reference; enforce server-side authorization tying each record to the authenticated user"
+      - "Cross-site scripting; encode the identifier before rendering it"
+      - "Cross-site request forgery; add an anti-CSRF token to the request"
+      - "Session fixation; regenerate the session identifier after login"
+    correct_answer: 0
+    explanations:
+      correct: "IDOR occurs when an endpoint returns a record based on a supplied identifier without verifying the requester is entitled to that specific record. The fix is an ownership check performed server-side on every request, denying by default."
+      incorrect:
+        - "This is the correct answer — the flaw is missing object-level authorization, a form of broken access control."
+        - "No script is being injected or reflected; the issue is unauthorized data retrieval."
+        - "CSRF causes a victim's browser to make unintended requests. Here the tester is deliberately making their own requests and receiving data they should not."
+        - "Session fixation involves forcing a known session identifier on a victim, which is unrelated to retrieving records by changing a parameter."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["IDOR", "broken access control", "OWASP"]
+
+  - id: q-d8-104
+    domain: domain8
+    question: "A team adopting agile delivery finds that logging, key management, and authorization architecture are consistently not implemented, even though individual features ship on time. What is the MOST likely root cause?"
+    options:
+      - "Cross-cutting security requirements belong to no single feature, so they are never represented in the backlog with acceptance criteria"
+      - "Agile methodologies are inherently incompatible with secure development"
+      - "The team is not conducting enough code reviews"
+      - "The sprint length is too short for any meaningful development"
+    correct_answer: 0
+    explanations:
+      correct: "Requirements that span the whole system have no natural owner in a feature-oriented backlog and quietly go undone. The remedy is representing them explicitly as security stories with acceptance criteria, or embedding them in the definition of done."
+      incorrect:
+        - "This is the correct answer — it identifies the structural reason rather than blaming the methodology."
+        - "Agile is not inherently insecure; teams that treat security as a definition-of-done criterion frequently outperform waterfall organizations."
+        - "Code review catches defects in code that was written. It does not cause work nobody planned to be scheduled."
+        - "Sprint length is unrelated to whether cross-cutting requirements are captured at all."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["agile", "DevSecOps", "requirements"]
+
+  - id: q-d8-105
+    domain: domain8
+    question: "A web application accepts a URL parameter and fetches content from it server-side to generate link previews. A researcher uses it to retrieve credentials from the cloud instance metadata service. What is this attack, and what is the MOST effective mitigation?"
+    options:
+      - "Server-Side Request Forgery; allowlist permitted destinations and require authentication on the metadata service"
+      - "Cross-Site Request Forgery; add SameSite cookie attributes"
+      - "Open redirect; validate the destination before redirecting the user"
+      - "Directory traversal; normalize the path before file access"
+    correct_answer: 0
+    explanations:
+      correct: "SSRF tricks the server into making requests to attacker-chosen destinations. Because the request originates from inside the environment, it reaches internal services including cloud metadata endpoints that hand out credentials. Allowlisting destinations is the robust defense, since blocklisting internal ranges is defeated by redirects and alternate address encodings."
+      incorrect:
+        - "This is the correct answer — the server, not the victim's browser, is being made to issue the request."
+        - "CSRF causes a victim's browser to send requests. Here the server itself is the one making the request."
+        - "An open redirect sends a user to an attacker-chosen site; it does not cause the server to fetch internal resources."
+        - "Directory traversal accesses unintended files on the local filesystem, not network endpoints."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["SSRF", "cloud", "OWASP"]
+
+  - id: q-d8-106
+    domain: domain8
+    question: "During a design review for a payment feature, a developer proposes validating the transaction amount in the mobile app before submitting it to the server. What is the MOST important concern?"
+    options:
+      - "The client is under the user's control, so all validation must be repeated authoritatively on the server"
+      - "Mobile validation increases battery consumption on the device"
+      - "The validation logic will need to be rewritten for each mobile platform"
+      - "Client-side validation slows down the checkout experience"
+    correct_answer: 0
+    explanations:
+      correct: "Anything running on a device the user controls can be modified, intercepted, or bypassed entirely by crafting requests directly. Client-side validation is a usability feature that gives fast feedback; the server must independently enforce every rule that matters."
+      incorrect:
+        - "This is the correct answer — trust boundaries mean the server can never rely on the client's assertions."
+        - "Battery impact is negligible and is not a security consideration."
+        - "Cross-platform maintenance is a genuine engineering cost but not the most important security concern."
+        - "Client-side validation typically improves perceived responsiveness rather than degrading it."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["input validation", "trust boundary", "mobile"]
+
+  - id: q-d8-107
+    domain: domain8
+    question: "A software composition analysis scan reports that an application depends on a library with a critical vulnerability. Investigation shows the vulnerable function is never called by the application. What is the MOST appropriate response?"
+    options:
+      - "Schedule the upgrade at normal priority and document the reduced exploitability, rather than treating it as an emergency"
+      - "Ignore the finding permanently since the function is not called"
+      - "Treat it as a critical emergency requiring immediate out-of-band deployment"
+      - "Remove the dependency entirely and reimplement its functionality internally"
+    correct_answer: 0
+    explanations:
+      correct: "Reachability meaningfully reduces exploitability, so the finding does not warrant emergency handling. It still warrants remediation on a normal cycle, because future code changes may reach the vulnerable path and the analysis may be incomplete. Documenting the reasoning is what makes the decision defensible."
+      incorrect:
+        - "This is the correct answer — it applies risk-based prioritization rather than reacting to the severity label alone."
+        - "Permanently ignoring it is unsafe, since a later code change could introduce a call path to the vulnerable function."
+        - "Emergency deployment carries its own risk and is disproportionate when the vulnerable code path is not reachable."
+        - "Reimplementing library functionality internally usually introduces more defects than it removes and is rarely justified by a single finding."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["SCA", "vulnerability management", "prioritization"]
+
+  - id: q-d8-108
+    domain: domain8
+    question: "An organization discovers that an internal package name used in its private registry was registered by an unknown party on the public registry, and some builds began pulling the public version. What attack is this, and what prevents it?"
+    options:
+      - "Dependency confusion; explicitly scope the registry for internal packages and reserve the namespace publicly"
+      - "Typosquatting; train developers to check package spelling carefully"
+      - "Pipeline poisoning; require review of all build configuration changes"
+      - "Rootkit installation; deploy endpoint detection on build agents"
+    correct_answer: 0
+    explanations:
+      correct: "Dependency confusion exploits resolvers that prefer or fall back to a public registry when a name exists in both. Pinning internal packages to the private registry explicitly, and reserving the name publicly so no one else can claim it, closes the gap."
+      incorrect:
+        - "This is the correct answer — the attack turns on name collision across registries rather than developer error."
+        - "Typosquatting relies on a developer mistyping a package name. Here the name is correct; the resolution source is wrong."
+        - "Pipeline poisoning involves modifying build configuration directly, which is not what happened."
+        - "No rootkit is involved; this is a supply chain resolution failure."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["dependency confusion", "supply chain", "build security"]
+
+  - id: q-d8-109
+    domain: domain8
+    question: "A static analysis tool reports 400 findings on a codebase, and developers say most are not real problems and have begun ignoring the tool's output entirely. What is the MOST effective corrective action?"
+    options:
+      - "Tune the ruleset and triage findings so that reported issues are high-confidence and actionable"
+      - "Mandate that all 400 findings be fixed before the next release"
+      - "Replace static analysis with dynamic analysis"
+      - "Reduce scan frequency so fewer findings accumulate"
+    correct_answer: 0
+    explanations:
+      correct: "A tool producing large volumes of low-confidence output trains developers to disregard it, which is worse than not running it. Tuning rules to the codebase and triaging findings restores signal and therefore trust."
+      incorrect:
+        - "This is the correct answer — the problem is signal quality, and tuning is what restores it."
+        - "Forcing remediation of unvalidated findings, most of which are false positives, wastes effort and deepens developer resistance."
+        - "Dynamic analysis finds a different class of defect and does not replace static analysis; it would also not solve a tuning problem."
+        - "Scanning less often reduces visibility without improving the quality of what is reported."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["SAST", "false positives", "tooling"]
+
+  - id: q-d8-110
+    domain: domain8
+    question: "A developer needs to store user passwords for a new application. Which approach is correct?"
+    options:
+      - "Hash each password with a purpose-built adaptive algorithm such as bcrypt, scrypt, or Argon2 using a unique per-user salt"
+      - "Encrypt passwords with AES-256 using a key stored in the application configuration"
+      - "Hash passwords with SHA-256 and a single application-wide salt"
+      - "Store passwords in plaintext in a database column with restricted permissions"
+    correct_answer: 0
+    explanations:
+      correct: "Passwords should be hashed, never encrypted, using an algorithm deliberately designed to be slow and memory-hard so that offline cracking is expensive. A unique per-user salt defeats rainbow tables and ensures identical passwords produce different hashes."
+      incorrect:
+        - "This is the correct answer — adaptive hashing with per-user salts is the current standard practice."
+        - "Encryption is reversible, meaning anyone who obtains the key recovers every password. Passwords should never be recoverable by the system."
+        - "SHA-256 is fast by design, making mass offline cracking feasible, and a shared salt means identical passwords hash identically across users."
+        - "Plaintext storage is indefensible regardless of database permissions, since any database compromise or backup exposure yields every credential."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["password storage", "hashing", "secure coding"]
+
+  - id: q-d8-111
+    domain: domain8
+    question: "An API returns detailed stack traces including database schema and file paths when an unexpected error occurs. The development team argues this is essential for troubleshooting. What is the correct resolution?"
+    options:
+      - "Return a generic error with a correlation identifier to the client, and log the full detail server-side for developers to retrieve"
+      - "Keep the stack traces since developers need them to diagnose issues"
+      - "Disable all error logging to eliminate the information disclosure"
+      - "Return stack traces only to requests originating from internal IP addresses"
+    correct_answer: 0
+    explanations:
+      correct: "This satisfies both needs: the client receives no internal detail, while developers retain complete diagnostic information server-side. The correlation identifier lets a support request be matched to the exact logged error."
+      incorrect:
+        - "This is the correct answer — it separates what the client sees from what is recorded internally."
+        - "Detailed errors give an attacker a map of the internal architecture, technology stack, and file layout, substantially accelerating attacks."
+        - "Disabling logging destroys the ability to investigate incidents, which is the opposite of what is needed."
+        - "IP-based filtering is fragile, can be spoofed or bypassed through proxies, and fails entirely once an attacker has any internal foothold."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["error handling", "information disclosure", "API security"]
+
+  - id: q-d8-112
+    domain: domain8
+    question: "A team wants to prove that the container image running in production was built from reviewed source code and was not modified afterward. Which combination BEST establishes this?"
+    options:
+      - "Sign artifacts at build time and verify signatures at deployment, with build provenance attestation recording the source and process"
+      - "Scan the production image for vulnerabilities on a nightly schedule"
+      - "Restrict registry push access to the build service account"
+      - "Record image digests in a spreadsheet maintained by the release manager"
+    correct_answer: 0
+    explanations:
+      correct: "Cryptographic signing at build plus verification at deploy establishes an unbroken chain proving the artifact is the one produced by the pipeline. Provenance attestation adds the record of which source and build process produced it, which together answer the integrity question."
+      incorrect:
+        - "This is the correct answer — signing plus verification plus provenance is what makes the chain verifiable rather than assumed."
+        - "Vulnerability scanning identifies known flaws in an image but says nothing about whether that image is the one that was built from reviewed source."
+        - "Restricting push access is a valuable control but does not cryptographically prove what a given running image actually is."
+        - "A manually maintained record is not tamper-evident and does not establish cryptographic integrity."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["supply chain", "artifact signing", "provenance"]

@@ -161,3 +161,497 @@ topics:
           - type: callout
             style: tip
             text: "Exam distinction: a VPN grants network-level access after one-time authentication; SDP/ZTNA grants per-application access after continuous, per-request verification of both user and device — the same shift from perimeter-based to zero trust thinking introduced in topic 4.1, applied specifically to remote access."
+
+  - id: d4-t4
+    domain: domain4
+    number: "4.4"
+    title: "IP Networking, Addressing, and Core Support Protocols"
+    summary: "How IPv4, IPv6, NAT, ARP, ICMP, DHCP, and DNS actually work — and why each was designed without security, creating attack surface that later controls exist to patch."
+    tags: ["IPv4", "IPv6", "NAT", "ARP", "ICMP", "DHCP", "DNS"]
+    key_terms: ["IPv4", "IPv6", "NAT", "PAT", "ARP", "ICMP", "DHCP", "DNS", "Private Address Space", "SLAAC", "Broadcast Domain"]
+    sections:
+      - heading: "IPv4 and IPv6"
+        blocks:
+          - type: paragraph
+            text: "IPv4 uses 32-bit addresses (about 4.3 billion, long since exhausted), written as four dotted decimal octets. IPv6 uses 128-bit addresses written as eight groups of hexadecimal digits, providing an effectively unlimited pool and removing the original driver for address conservation. The security-relevant differences go beyond size: IPv6 was designed with IPsec support built into the protocol suite rather than bolted on (though its actual use is still optional in practice), it eliminates broadcast traffic in favor of multicast, and it removes the need for NAT — which matters because NAT had been providing a side effect of obscuring internal addressing that many organizations had quietly come to rely on as if it were a security control."
+          - type: list
+            style: bullet
+            items:
+              - "Private IPv4 ranges (RFC 1918) — 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16; not routable on the public internet, which is why they require NAT to reach it"
+              - "Loopback — 127.0.0.1 (IPv4) and ::1 (IPv6), traffic that never leaves the host"
+              - "APIPA / link-local — 169.254.0.0/16 (IPv4), fe80::/10 (IPv6); self-assigned when no DHCP server answers, so a host stuck on an APIPA address is a signal that DHCP failed"
+              - "SLAAC (Stateless Address Autoconfiguration) — an IPv6 host can generate its own routable address from a router advertisement without any DHCP server, which means IPv6 hosts can become reachable on a network where administrators believed they controlled addressing through DHCP alone"
+          - type: callout
+            style: warning
+            text: "A recurring real-world gap: an organization carefully firewalls IPv4 while IPv6 is enabled by default on modern operating systems and quietly unfiltered. Dual-stack hosts can be reachable over IPv6 through a policy that only ever contemplated IPv4 — if you are not filtering both, you are not filtering."
+      - heading: "NAT and PAT"
+        blocks:
+          - type: paragraph
+            text: "Network Address Translation rewrites IP addresses as traffic crosses a boundary, most commonly translating many internal private addresses to one public address — technically PAT (Port Address Translation), or NAT overload, since it uses source port numbers to keep the many-to-one sessions distinguishable. NAT does obscure internal topology and does prevent unsolicited inbound connections to internal hosts as a side effect, but the exam's expected position is that NAT is an addressing technology, not a security control: it provides no authentication, no encryption, and no inspection, and treating it as a firewall substitute is a well-known architectural mistake."
+          - type: callout
+            style: tip
+            text: "Static NAT maps one internal address to one external address (used to publish a server); dynamic NAT maps internal addresses to a pool; PAT maps many to one using ports. If a question describes many internal users sharing a single public IP, the answer is PAT/NAT overload."
+      - heading: "ARP: Trust by Default at Layer 2"
+        blocks:
+          - type: paragraph
+            text: "Address Resolution Protocol maps a known IP address to the MAC address needed to actually deliver a frame on the local segment. It has no authentication whatsoever — a host broadcasts 'who has this IP?' and believes whichever reply arrives. ARP spoofing (or ARP poisoning) exploits exactly this: an attacker on the same segment answers for an IP that isn't theirs, causing victims to send that traffic to the attacker instead, which is the standard mechanism behind an on-path (man-in-the-middle) attack inside a LAN. Because ARP is confined to a broadcast domain, network segmentation directly limits its blast radius, and dynamic ARP inspection on managed switches validates ARP replies against a trusted DHCP binding table."
+      - heading: "ICMP: Diagnostic Utility and Attacker Utility"
+        blocks:
+          - type: paragraph
+            text: "ICMP carries control and error messages rather than application data — it is what makes ping and traceroute work, and what tells a sender that a destination is unreachable or a packet exceeded its time to live. The same usefulness serves attackers: ICMP echo sweeps map which hosts are alive, ICMP can be abused as a covert channel by hiding data in payloads that most inspection ignores, and older amplification attacks (the Smurf attack) abused ICMP broadcasts to flood a spoofed victim. Blanket-blocking all ICMP is a common but crude answer — it breaks Path MTU Discovery and legitimate troubleshooting, so mature practice filters ICMP by type at the perimeter rather than dropping the protocol entirely."
+      - heading: "DHCP and DNS: Convenience Protocols With No Native Trust"
+        blocks:
+          - type: paragraph
+            text: "DHCP automatically assigns addressing configuration to hosts — address, subnet mask, default gateway, and DNS server. A rogue DHCP server (malicious, or simply a misconfigured home router someone plugged in) can answer faster than the legitimate one and hand clients an attacker-controlled default gateway and DNS server, silently redirecting their traffic. DHCP snooping on managed switches counters this by designating which switch ports are allowed to send DHCP server responses and dropping them from any other port."
+          - type: paragraph
+            text: "DNS resolves names to addresses through a hierarchy of resolvers and authoritative servers, and like ARP and DHCP, its original design simply trusts the answer it receives. That yields DNS cache poisoning (injecting a forged response so a resolver caches a wrong address and sends users to an attacker's server while the URL still looks correct), DNS hijacking (compromising registrar or zone records outright), and DNS tunneling (encoding stolen data inside DNS queries to exfiltrate it through a protocol almost no perimeter blocks). DNSSEC — covered in 4.3 — addresses authenticity and integrity of the answers, while DNS over TLS/HTTPS separately addresses confidentiality of the queries themselves."
+          - type: callout
+            style: tip
+            text: "Keep the three straight for the exam: DNSSEC proves the answer is genuine and unmodified but leaves it readable; DoT/DoH encrypt the query so observers cannot read it but do not by themselves prove the answer came from the authoritative source. They solve different problems and are complementary, not alternatives."
+
+  - id: d4-t5
+    domain: domain4
+    number: "4.5"
+    title: "Secure Protocols and the Ports Behind Them"
+    summary: "The legacy cleartext protocols still found in production, the secure replacement for each, and the port numbers the exam expects you to recognize on sight."
+    tags: ["secure protocols", "ports", "TLS", "SSH", "SNMP", "protocol hardening"]
+    key_terms: ["Telnet vs. SSH", "FTP vs. SFTP/FTPS", "HTTP vs. HTTPS", "SNMPv3", "LDAPS", "Well-Known Ports", "Cleartext Protocol"]
+    sections:
+      - heading: "Why Cleartext Protocols Survive"
+        blocks:
+          - type: paragraph
+            text: "Nearly every foundational internet protocol was designed for a small, trusted research network and transmits credentials and data in the clear. They persist not because anyone defends them but because of dependency: an unpatchable embedded device, a vendor appliance whose management interface only speaks Telnet, or a decades-old batch job moving files over FTP that no one is funded to rewrite. Recognizing the secure replacement for each legacy protocol is directly testable, and the correct exam answer for a legacy protocol that genuinely cannot be replaced is a compensating control — isolate it on its own segment, restrict it to an out-of-band management network, or tunnel it inside something encrypted — not simply accepting the exposure."
+      - heading: "The Insecure and Secure Pairs Worth Memorizing"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Telnet (23, cleartext remote shell) → SSH (22) — SSH also underpins SCP and SFTP, so replacing Telnet often solves file transfer at the same time"
+              - "FTP (20/21, cleartext credentials and data) → SFTP (22, file transfer over SSH) or FTPS (FTP wrapped in TLS) — note these are different protocols, not two names for one thing"
+              - "HTTP (80) → HTTPS (443, HTTP over TLS)"
+              - "SMTP (25) / POP3 (110) / IMAP (143) → the same protocols over TLS, commonly SMTPS (465/587 with STARTTLS), POP3S (995), IMAPS (993)"
+              - "LDAP (389) → LDAPS (636), or LDAP with StartTLS on 389 — critical because LDAP frequently carries directory credentials"
+              - "SNMPv1/v2c (161/162, community strings sent in cleartext, often left at 'public') → SNMPv3, which adds authentication and encryption"
+              - "RDP (3389) and other remote administration — should never be exposed directly to the internet; place behind a VPN, bastion host, or ZTNA broker"
+          - type: callout
+            style: warning
+            text: "SNMP is a favorite exam target because a default community string of 'public' gives an attacker a read-only map of network device configuration, and 'private' often gives write access. If a scenario mentions SNMP with community strings, the intended answer is almost always to move to SNMPv3."
+      - heading: "Other Ports That Show Up on the Exam"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "53 — DNS (UDP for queries, TCP for zone transfers, which is why an unrestricted TCP/53 can leak an entire zone)"
+              - "67/68 — DHCP server/client"
+              - "88 — Kerberos (Domain 5)"
+              - "123 — NTP, whose accuracy underpins log correlation and Kerberos ticket validity"
+              - "445 — SMB, the file-sharing protocol behind many high-impact worms; should never cross a perimeter"
+              - "500 / 4500 — IKE and IPsec NAT traversal"
+              - "1433 / 3306 / 1521 — Microsoft SQL Server, MySQL, Oracle; database ports that should never be internet-facing"
+          - type: callout
+            style: tip
+            text: "You are not expected to recite every port, but you are expected to spot the dangerous one in a scenario — an exposed 445, 3389, 23, or a database port reachable from the internet is nearly always the vulnerability the question is pointing at."
+
+  - id: d4-t6
+    domain: domain4
+    number: "4.6"
+    title: "Converged and Multilayer Protocols"
+    summary: "What happens to security assumptions when storage, voice, and industrial traffic all ride the same IP network, and why encapsulation can carry risk across boundaries it was never meant to cross."
+    tags: ["convergence", "FCoE", "iSCSI", "VoIP", "SCADA", "MPLS", "encapsulation"]
+    key_terms: ["Converged Protocol", "FCoE", "iSCSI", "InfiniBand", "MPLS", "Modbus", "DNP3", "Encapsulation", "Multilayer Protocol", "CXL"]
+    sections:
+      - heading: "What Convergence Changed"
+        blocks:
+          - type: paragraph
+            text: "Storage, voice, and industrial control traffic historically ran on separate, purpose-built networks whose isolation was a security property nobody had to design for — it came free with the cabling. Convergence puts all of it on shared IP infrastructure for cost and manageability reasons, and in doing so silently deletes that inherent isolation. The exam-relevant consequence is that a converged network requires deliberate logical segmentation (VLANs, VRFs, microsegmentation from 4.1) to re-create a separation that used to be physical, and that a compromise of the shared network now reaches assets that were previously unreachable from it."
+      - heading: "Storage Convergence: FCoE, iSCSI, and InfiniBand"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Fibre Channel over Ethernet (FCoE) — encapsulates Fibre Channel storage traffic in Ethernet frames; it operates at Layer 2 and is not routable, so it stays within a data center fabric"
+              - "iSCSI — carries SCSI storage commands over TCP/IP, making it fully routable and therefore far cheaper to deploy than dedicated Fibre Channel, but also reachable by anything that can route to it; iSCSI commonly relies on CHAP authentication and should be isolated on a dedicated storage network or VLAN"
+              - "InfiniBand — a high-throughput, low-latency interconnect used in high-performance computing and increasingly in AI training clusters, where the performance requirement often argues against inline inspection"
+              - "Compute Express Link (CXL) — a newer high-speed interconnect standard for attaching memory and accelerators to CPUs, extending the same convergence idea inside the machine itself"
+          - type: callout
+            style: warning
+            text: "The core risk with storage convergence is blunt: raw storage traffic generally assumes it is on a trusted, isolated fabric and carries little or no encryption of its own. Putting it on a routable general-purpose network without segmentation exposes entire volumes of data at the block level, beneath every file permission the operating system enforces."
+      - heading: "Multilayer Protocols and Encapsulation Risk"
+        blocks:
+          - type: paragraph
+            text: "A multilayer protocol is one that operates across several OSI layers or wraps one protocol inside another — TCP/IP itself is the archetype, and every VPN, tunnel, and encapsulation scheme extends the pattern. The flexibility is genuinely useful, but each layer of encapsulation is another place inspection can be defeated: a firewall that understands the outer protocol may pass the inner payload without ever evaluating it, which is the basis of protocol tunneling attacks (command-and-control traffic hidden inside DNS, ICMP, or HTTPS) and of data exfiltration through channels the perimeter treats as ordinary. It is also why network controls increasingly need TLS inspection or endpoint visibility to see what encapsulation hides."
+      - heading: "Industrial Protocols: Modbus, DNP3, and the ICS Problem"
+        blocks:
+          - type: paragraph
+            text: "Operational technology protocols like Modbus and DNP3 control physical equipment — valves, breakers, pumps — and were designed decades ago for isolated, physically protected serial networks. They typically have no authentication, no encryption, and no integrity checking, so any device able to reach a controller can issue commands to it. Convergence connected these to corporate IP networks for remote monitoring, and the resulting exposure is why ICS/SCADA environments lean so heavily on network segmentation, unidirectional gateways (data diodes), and the air gaps described in 4.2 rather than on protocol-level security that does not exist. Safety, not confidentiality, is the priority ordering in these environments — an availability failure in an industrial control system can injure people."
+      - heading: "MPLS and Carrier Transport"
+        blocks:
+          - type: paragraph
+            text: "Multiprotocol Label Switching forwards traffic based on short path labels rather than performing a full routing lookup at every hop, and it can carry any payload protocol — the 'multiprotocol' in the name. Carriers use it to deliver private WAN circuits between customer sites with performance guarantees. Its security property is frequently misunderstood: MPLS provides traffic separation between customers, not encryption. The provider can see the traffic, and a customer requiring confidentiality across an MPLS WAN must still run IPsec or another encryption layer on top of it — a point SD-WAN deployments (4.2) revisit when they mix MPLS with public internet transport."
+
+  - id: d4-t7
+    domain: domain4
+    number: "4.7"
+    title: "Network Performance, Transport Architecture, and Availability"
+    summary: "Bandwidth, throughput, latency, jitter, and signal quality — why the availability leg of the CIA triad makes performance metrics a security concern rather than purely an engineering one."
+    tags: ["performance", "latency", "jitter", "QoS", "availability", "WAN"]
+    key_terms: ["Bandwidth", "Throughput", "Latency", "Jitter", "Signal-to-Noise Ratio", "Quality of Service", "Circuit Switching", "Packet Switching", "Oversubscription"]
+    sections:
+      - heading: "The Metrics and What Each Actually Measures"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Bandwidth — the theoretical maximum capacity of a link, the number on the contract"
+              - "Throughput — what you actually achieve in practice, always lower than bandwidth once protocol overhead, congestion, and retransmission are accounted for"
+              - "Latency — the delay for data to travel end to end; bounded ultimately by physics, which is why geography matters and why a satellite link cannot be tuned into a low-latency one"
+              - "Jitter — the variation in latency between packets; a stable 100 ms is workable for a voice call, while a latency that swings unpredictably between 20 ms and 200 ms is not"
+              - "Signal-to-noise ratio — the strength of the intended signal relative to background interference, the physical-layer determinant of whether a wireless or copper link is usable at all"
+          - type: callout
+            style: tip
+            text: "The exam distinction that trips people up is bandwidth versus throughput — bandwidth is capacity, throughput is delivered performance. A link can have ample bandwidth and poor throughput; the gap is where congestion, errors, and misconfiguration live."
+      - heading: "Why Performance Belongs in a Security Discussion"
+        blocks:
+          - type: paragraph
+            text: "Availability is one third of the CIA triad, and performance metrics are how availability is actually measured and defended. A denial of service attack is, in metric terms, an attack on throughput and latency. Capacity planning and oversubscription decisions determine whether an ordinary traffic spike becomes an outage. Security controls themselves consume performance — deep packet inspection, TLS decryption, and inline IPS all add latency, and an under-provisioned inspection device becomes either a bottleneck or, worse, is configured to fail open and stop inspecting under load. Recognizing that a security control has an availability cost, and that the cost must be engineered for rather than discovered in production, is exactly the risk-balancing judgment the exam rewards."
+          - type: callout
+            style: warning
+            text: "Fail-open versus fail-closed is a genuine exam question in disguise. An inline security device that fails open preserves availability but silently stops enforcing policy; one that fails closed preserves security but causes an outage. The right answer depends on what the scenario is protecting — a hospital's clinical network and a payment card environment will not choose the same way."
+      - heading: "Quality of Service"
+        blocks:
+          - type: paragraph
+            text: "QoS classifies and prioritizes traffic so that latency-sensitive flows get preferential treatment when a link is congested — voice and video ahead of bulk file transfer and backups. On a converged network (4.6) this is what keeps a nightly backup from destroying call quality. QoS carries a security dimension in both directions: it supports availability for critical services during congestion, including some resilience against low-grade denial of service, but a QoS marking that is trusted without validation lets any host request priority for its own traffic, so markings arriving from untrusted segments should be re-marked or stripped at the boundary rather than honored."
+      - heading: "Transport Architecture: Circuit and Packet Switching"
+        blocks:
+          - type: paragraph
+            text: "Circuit switching dedicates a fixed path for the duration of a communication — the traditional telephone model — giving highly predictable latency at the cost of holding capacity whether or not it is used. Packet switching, the basis of IP networking, breaks data into packets routed independently and shares capacity across all users, which is far more efficient and far more resilient (packets route around a failure) but yields variable latency and jitter. The resilience argument is the security-relevant one: packet-switched networks were designed to survive the loss of individual paths, which is the availability property that makes redundant routing and multiple carriers a meaningful control rather than just an expense."
+
+  - id: d4-t8
+    domain: domain4
+    number: "4.8"
+    title: "Transmission Media and Physical-Layer Security"
+    summary: "Copper, fiber, and the physical realities — attenuation, EMI, crosstalk, and emanations — that determine whether a cable is a reliable link or an eavesdropping opportunity."
+    tags: ["transmission media", "fiber", "copper", "EMI", "TEMPEST", "cabling"]
+    key_terms: ["UTP", "STP", "Coaxial Cable", "Single-Mode Fiber", "Multimode Fiber", "Attenuation", "EMI", "Crosstalk", "TEMPEST", "Faraday Cage", "Plenum-Rated Cable"]
+    sections:
+      - heading: "Copper Media"
+        blocks:
+          - type: paragraph
+            text: "Unshielded twisted pair (UTP) is the standard structured cabling in most buildings — inexpensive and adequate over the standard 100-meter Ethernet run. Shielded twisted pair (STP) adds a conductive shield for environments with significant electromagnetic interference, such as factory floors near heavy machinery. Coaxial cable, largely legacy in LANs, persists in broadband and some video distribution. All copper shares two security-relevant weaknesses: it radiates a detectable electromagnetic signal that can in principle be captured without touching the cable, and it can be physically tapped by anyone with access to the run, which is why cable pathways, risers, and wiring closets are physical security concerns rather than facilities trivia."
+          - type: list
+            style: bullet
+            items:
+              - "Attenuation — signal loss over distance, the reason maximum cable run lengths exist and why exceeding them produces intermittent faults rather than clean failures"
+              - "EMI (electromagnetic interference) — external noise from motors, fluorescent lighting, or power cabling corrupting the signal; the reason data and power runs are separated"
+              - "Crosstalk — signal bleeding between adjacent pairs within a cable, controlled by the twisting itself"
+              - "Plenum-rated cable — required in air-handling spaces because standard PVC jacketing emits toxic smoke when burning; a life-safety requirement that carries real regulatory weight"
+      - heading: "Fiber Optic Media"
+        blocks:
+          - type: paragraph
+            text: "Fiber transmits light through glass rather than electricity through metal, which changes its security profile fundamentally: it is immune to EMI, emits no meaningful electromagnetic signature to capture passively, and is substantially harder to tap without detection because bending the fiber to leak light degrades the signal in ways monitoring can reveal. Single-mode fiber carries a single light path over very long distances and is used for carrier and campus backbone links; multimode fiber carries multiple paths over shorter distances at lower cost and is typical within a building or data center. Fiber is the correct answer whenever a scenario emphasizes long distance, high bandwidth, an electrically noisy environment, or resistance to interception."
+          - type: callout
+            style: tip
+            text: "Fiber is harder to tap, not impossible to tap. The exam's expected position is that fiber substantially raises the difficulty of passive interception but does not replace encryption — data in transit still needs cryptographic protection, because the medium is not the control."
+      - heading: "Emanations, TEMPEST, and Shielding"
+        blocks:
+          - type: paragraph
+            text: "Electronic equipment radiates electromagnetic emanations that can, with sufficiently sensitive equipment, be reconstructed into the data being processed — historically demonstrated against CRT monitors and keyboards. TEMPEST is the U.S. government program and set of standards addressing this threat, and TEMPEST-certified equipment is engineered to suppress those emissions. The general-purpose countermeasures are shielding the equipment itself, shielding the room (a Faraday cage, a conductive enclosure that blocks electromagnetic fields from entering or leaving), and enforcing a control zone — physical distance and access control around sensitive equipment so an attacker cannot get close enough for a weak signal to be usable."
+          - type: callout
+            style: example
+            text: "This is a classic case where the exam expects proportionality rather than maximalism. TEMPEST shielding is extremely expensive and appropriate for classified government processing; recommending it for a commercial office is the wrong answer, because the cost vastly exceeds the risk. Recognizing when a control is overkill is as testable as knowing the control exists."
+      - heading: "Physical Protection of the Media Itself"
+        blocks:
+          - type: paragraph
+            text: "Every logical control in this domain assumes the cabling underneath it has not been tampered with, and that assumption needs its own controls: locked wiring closets and telecom rooms, conduit for exposed runs, cable management that makes an unexpected addition visible, and inventory of what is patched where. Unused wall ports should be administratively disabled at the switch rather than left live, which is the physical-layer companion to the port security and 802.1X controls in 4.2 and 4.12 — an attacker who can plug into a live port in an unattended conference room has bypassed the perimeter entirely."
+
+  - id: d4-t9
+    domain: domain4
+    number: "4.9"
+    title: "Wireless Network Security"
+    summary: "Wi-Fi security standards from WEP through WPA3, enterprise authentication with 802.1X and EAP, and the attacks that specifically exploit a medium anyone within range can hear."
+    tags: ["wireless", "Wi-Fi", "WPA3", "EAP", "802.1X", "evil twin", "rogue AP"]
+    key_terms: ["WEP", "WPA2", "WPA3", "PSK vs. Enterprise", "802.1X", "EAP-TLS", "PEAP", "RADIUS", "Evil Twin", "Rogue Access Point", "Deauthentication Attack", "SAE", "Captive Portal"]
+    sections:
+      - heading: "Why Wireless Is Different"
+        blocks:
+          - type: paragraph
+            text: "Every other medium in this domain requires some form of physical access to intercept. Wireless broadcasts into space that an organization does not control, so an attacker in the parking lot, the floor above, or a neighboring building is already on the medium — passively, undetectably, without ever touching a cable. That single property drives every design decision in wireless security: strong encryption is not a defense-in-depth nicety here but the primary control, and the effective perimeter is the radio propagation boundary, not the walls."
+      - heading: "The Security Standards, in Order"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "WEP — thoroughly broken; its RC4 implementation and weak initialization vectors allow key recovery in minutes with freely available tools. Any scenario mentioning WEP has WEP as the vulnerability."
+              - "WPA — a transitional fix using TKIP to run on WEP-era hardware; also deprecated and considered broken"
+              - "WPA2 — introduced AES-CCMP encryption and remained the standard for over a decade; still widely deployed but vulnerable to the KRACK key-reinstallation attack and to offline dictionary attacks against a captured handshake when the passphrase is weak"
+              - "WPA3 — current standard; replaces the pre-shared key handshake with SAE (Simultaneous Authentication of Equals, also called Dragonfly), which resists offline dictionary attacks even when the passphrase is weak, adds forward secrecy so a later key compromise does not decrypt previously captured traffic, and offers Enhanced Open (opportunistic wireless encryption) to encrypt traffic on open guest networks that previously carried none"
+          - type: callout
+            style: tip
+            text: "The single most valuable WPA3 fact for the exam: WPA2-PSK lets an attacker capture the handshake and then grind the passphrase offline at leisure, so passphrase strength is the whole defense. WPA3's SAE removes the offline attack entirely — each guess requires a fresh interaction with the network, which makes brute force detectable and impractical."
+      - heading: "Personal Versus Enterprise Authentication"
+        blocks:
+          - type: paragraph
+            text: "PSK (personal) mode shares one passphrase among every device on the network. That means no individual accountability, no way to revoke one user without re-keying everyone, and a credential that walks out the door with every departing employee and every stolen laptop. Enterprise mode uses 802.1X with a RADIUS server so each user or device authenticates with its own credential — supporting per-user revocation, individual audit trails, and dynamic per-session keys. Enterprise is the expected answer for any organizational network of meaningful size; PSK is appropriate for home use and, with a separate isolated SSID, for guest access."
+          - type: list
+            style: bullet
+            items:
+              - "EAP-TLS — mutual certificate authentication on both client and server; the strongest option and the one requiring a PKI to support it"
+              - "PEAP and EAP-TTLS — establish a server-authenticated TLS tunnel first, then carry a simpler credential (often a password) inside it; easier to deploy than EAP-TLS because only the server needs a certificate"
+              - "EAP-FAST — Cisco's tunnel-based alternative using a protected access credential"
+              - "LEAP — legacy Cisco protocol, deprecated and vulnerable to offline dictionary attack"
+          - type: callout
+            style: warning
+            text: "PEAP's security depends entirely on the client validating the RADIUS server's certificate. If clients are configured to accept any certificate, an attacker stands up a fake access point with a fake RADIUS server, clients tunnel their credentials straight into it, and the tunnel that was supposed to protect the password delivers it instead."
+      - heading: "Wireless Attacks"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Rogue access point — an unauthorized AP attached to the corporate network, often installed by an employee for convenience; it bridges the internal network to the outside world past every perimeter control"
+              - "Evil twin — an attacker-controlled AP impersonating a legitimate SSID so victims associate with it, giving the attacker an on-path position over all their traffic"
+              - "Deauthentication attack — spoofed management frames forcing clients to disconnect, used either as denial of service or to force re-association with an evil twin and capture the handshake; 802.11w management frame protection is the countermeasure"
+              - "War driving — systematically surveying an area for wireless networks and their security posture, the reconnaissance step preceding a targeted attack"
+              - "Jamming — flooding the frequency to deny service, an availability attack that no encryption standard addresses"
+          - type: callout
+            style: tip
+            text: "Disabling SSID broadcast and enabling MAC address filtering are the two classic distractor answers. Neither is meaningful security: the SSID still appears in client association traffic, and MAC addresses are transmitted in the clear and trivially spoofed. If both appear as options alongside WPA3 or 802.1X, they are the wrong answers."
+
+  - id: d4-t10
+    domain: domain4
+    number: "4.10"
+    title: "Cellular, Satellite, and Short-Range Wireless"
+    summary: "The security characteristics of mobile networks from 3G through 5G, satellite links, and the short-range protocols — Bluetooth, Zigbee, NFC, RFID — that quietly surround every enterprise."
+    tags: ["cellular", "5G", "satellite", "Bluetooth", "Zigbee", "NFC", "RFID", "IoT"]
+    key_terms: ["4G LTE", "5G", "Network Slicing", "IMSI Catcher", "Bluetooth", "Bluejacking", "Bluesnarfing", "Zigbee", "NFC", "RFID", "Li-Fi", "LEO Satellite"]
+    sections:
+      - heading: "Cellular Generations and Their Security Posture"
+        blocks:
+          - type: paragraph
+            text: "Each cellular generation improved on its predecessor's security. 2G/GSM authenticated the subscriber to the network but not the network to the subscriber, which is precisely the gap IMSI catchers (Stingrays) exploit — a device impersonating a cell tower that phones will attach to and that can then downgrade them to weak encryption and intercept traffic. 3G introduced mutual authentication, 4G LTE strengthened encryption and moved to an all-IP architecture, and 5G adds subscriber identifier encryption (closing much of the IMSI catcher exposure), stronger mutual authentication, and network slicing — logically isolated virtual networks over shared physical infrastructure, which is segmentation from 4.1 applied at carrier scale."
+          - type: callout
+            style: warning
+            text: "The security-relevant caveat for 5G is backward compatibility: a 5G device that can fall back to 4G or older networks inherits the weaknesses of whatever it falls back to. Downgrade attacks that force a device onto an older generation remain viable precisely because compatibility is a business requirement."
+          - type: paragraph
+            text: "From an enterprise standpoint, the more consequential point is that cellular is a network path the organization does not own, does not monitor, and cannot filter. A corporate laptop tethered to a phone has bypassed the entire corporate perimeter — every proxy, every egress filter, every inspection point — which is a substantial part of the architectural case for endpoint-based controls and zero trust access (4.1, 4.12) rather than reliance on network-location-based trust."
+      - heading: "Satellite Communications"
+        blocks:
+          - type: paragraph
+            text: "Satellite links serve locations terrestrial infrastructure cannot reach — maritime, aviation, remote industrial sites, and disaster recovery when local infrastructure is destroyed. Traditional geostationary satellites sit roughly 36,000 km up, imposing a round-trip latency of 500 ms or more that makes them poor for interactive applications; newer low-earth-orbit constellations reduce this substantially. The security characteristics that matter: the signal footprint covers an enormous geographic area, making passive interception straightforward for anyone with a receiver in the footprint, and historically much satellite traffic was unencrypted on the assumption that the equipment cost was itself a barrier. Encryption at the application or network layer is therefore essential rather than optional, and the high latency is a genuine design constraint for any protocol with chatty round trips."
+      - heading: "Short-Range Wireless"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Bluetooth — roughly 10 m for typical class 2 devices; attacks include bluejacking (sending unsolicited messages, mostly a nuisance), bluesnarfing (unauthorized retrieval of data such as contacts or messages), and bluebugging (taking control of the device). Defenses are unremarkable but effective: disable when unused, avoid discoverable mode, and never accept pairing requests you did not initiate."
+              - "Zigbee and Z-Wave — low-power mesh protocols common in building automation, sensors, and smart-home equipment; the security concern is less the protocol than the devices, which are often deployed and then never patched"
+              - "NFC — a few centimeters, used for contactless payment and badge functions; the extremely short range is itself a meaningful control, though relay attacks that extend the effective distance are demonstrated"
+              - "RFID — used for asset tags and access badges; low-frequency proximity badge credentials are notably clonable by an attacker who gets briefly close to a badge, which is why higher-frequency smart cards with cryptographic authentication are the recommended upgrade for access control (Domain 5)"
+              - "Li-Fi — data transmitted via modulated light rather than radio; the security-relevant property is that light does not pass through walls, naturally containing the signal within a room, which is genuinely interesting for high-security spaces"
+          - type: callout
+            style: tip
+            text: "The recurring theme across all short-range protocols is the IoT problem: enormous numbers of cheap devices, shipped with default credentials, rarely inventoried, and often never updated. The exam's expected answer is almost always network segmentation — put them on an isolated VLAN with tightly restricted access to anything else — because you cannot harden what the vendor will not patch."
+
+  - id: d4-t11
+    domain: domain4
+    number: "4.11"
+    title: "Network Attacks and Countermeasures"
+    summary: "The attack catalog the exam expects on sight — denial of service, on-path interception, spoofing, hijacking, and the segmentation-evasion techniques that target the controls themselves."
+    tags: ["DDoS", "MITM", "spoofing", "session hijacking", "VLAN hopping", "attacks"]
+    key_terms: ["Volumetric Attack", "Amplification Attack", "SYN Flood", "On-Path Attack", "Session Hijacking", "DNS Poisoning", "VLAN Hopping", "MAC Flooding", "Replay Attack", "Typosquatting", "Pivoting"]
+    sections:
+      - heading: "Denial of Service in Three Flavors"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Volumetric — raw traffic volume saturating the link; measured in bits per second, and defended largely by having more capacity than the attacker or by upstream scrubbing, since a saturated link cannot be fixed by anything downstream of the saturation"
+              - "Protocol — exhausting connection state rather than bandwidth; the SYN flood from 4.1 is the archetype, countered by SYN cookies, which let a server validate a returning handshake without holding state for every half-open connection"
+              - "Application layer — low-volume requests that are individually legitimate but expensive to serve, such as repeatedly hitting an unindexed search endpoint; hardest to distinguish from real traffic precisely because each request looks real"
+          - type: paragraph
+            text: "Amplification and reflection multiply an attacker's capacity: the attacker sends small requests with the victim's spoofed source address to servers that reply with much larger responses — DNS, NTP, and memcached are classic amplifiers — so the victim absorbs the aggregate reply volume while the attacker spends very little. The countermeasure that actually addresses the root cause is source address validation (BCP 38 ingress filtering) at network edges, so spoofed packets never leave the originating network in the first place, plus not operating open resolvers that can be used as amplifiers."
+          - type: callout
+            style: tip
+            text: "Distributed denial of service is defended with upstream capacity — a CDN or scrubbing service (4.2) that absorbs volume across a distributed edge. Any answer proposing to defend a volumetric DDoS with a firewall at the target's own perimeter misses the point, because the link in front of the firewall is already full."
+      - heading: "On-Path and Session Attacks"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "On-path (man-in-the-middle) attack — the attacker positions between two parties and can read or alter traffic; enabled by ARP spoofing, rogue DHCP, evil twin APs, or DNS poisoning, and countered fundamentally by mutual authentication and encryption rather than by trying to prevent every positioning technique"
+              - "Session hijacking — stealing or predicting a valid session token to take over an authenticated session without ever knowing the credentials; countered by high-entropy random session IDs, transmitting them only over TLS, regenerating the session ID on privilege change, and enforcing idle and absolute timeouts"
+              - "Replay attack — capturing valid traffic and re-sending it to repeat an action; countered by nonces, timestamps, and sequence numbers that make each message usable only once, which is why accurate time synchronization (NTP) is a security dependency"
+              - "SSL stripping — downgrading a victim's connection from HTTPS to HTTP at the moment of redirect; countered by HSTS, which tells browsers to refuse plaintext connections to that domain entirely"
+          - type: callout
+            style: warning
+            text: "Notice the pattern in the countermeasures: nearly every on-path attack is defeated by authenticating the endpoint cryptographically rather than by trusting network position. This is the concrete technical argument underneath zero trust — the network path is assumed hostile, so identity is verified at the endpoints regardless of where the traffic came from."
+      - heading: "Attacks Against Segmentation and Switching"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "MAC flooding — overwhelming a switch's MAC address table so it fails open and begins flooding frames to all ports like a hub, letting an attacker passively capture traffic they should never see; port security limiting MAC addresses per port is the countermeasure"
+              - "VLAN hopping via switch spoofing — a host pretends to be a switch and negotiates a trunk link, gaining access to every VLAN carried on it; countered by disabling automatic trunk negotiation and explicitly configuring access ports"
+              - "VLAN hopping via double tagging — the attacker inserts two VLAN tags so the first is stripped by one switch and the second delivers the frame into an unintended VLAN; countered by ensuring the native VLAN is unused and never carries user traffic"
+              - "STP manipulation — forcing a spanning tree recalculation to become the root bridge and redirect traffic through the attacker; countered by root guard and BPDU guard on access ports"
+          - type: callout
+            style: example
+            text: "These attacks matter because they target the very control that segmentation depends on. A VLAN is a configuration, not a wall — if an attacker can hop VLANs, every design decision that assumed VLAN isolation was providing security is invalidated at once. This is a substantial part of why microsegmentation and zero trust (4.1) reduce reliance on VLAN boundaries as a trust boundary."
+      - heading: "Reconnaissance and Lateral Movement"
+        blocks:
+          - type: paragraph
+            text: "Network attacks rarely stand alone — they are steps in a sequence that begins with reconnaissance (port scanning, banner grabbing, DNS enumeration, and zone transfer attempts to map what exists) and continues after initial access with pivoting: using a compromised host as a foothold to reach systems that were never reachable from outside. The east-west traffic problem from 4.1 is exactly this pattern viewed from the defender's side, and it is why detection of internal scanning and unexpected internal connections is often more valuable than perimeter detection. An attacker only needs to get through the perimeter once; they need to move laterally many times, and every one of those moves is an opportunity to catch them."
+
+  - id: d4-t12
+    domain: domain4
+    number: "4.12"
+    title: "Network Access Control and Endpoint Security"
+    summary: "Deciding what is allowed onto the network at all, verifying it stays healthy while connected, and defending the endpoint itself as the place where network trust ultimately lands."
+    tags: ["NAC", "802.1X", "endpoint security", "EDR", "posture assessment", "BYOD"]
+    key_terms: ["Network Access Control", "802.1X", "Supplicant", "Authenticator", "Authentication Server", "Posture Assessment", "Quarantine VLAN", "EDR", "XDR", "HIDS", "Host Firewall", "BYOD", "MDM"]
+    sections:
+      - heading: "The 802.1X Three-Party Model"
+        blocks:
+          - type: paragraph
+            text: "802.1X is port-based network access control, and its structure is worth knowing precisely because the exam names the roles. The supplicant is the client device requesting access. The authenticator is the network device controlling the port — a switch for wired, an access point for wireless — which acts purely as a gatekeeper and forwards credentials without evaluating them. The authentication server, typically RADIUS, makes the actual decision. Until authentication succeeds, the port passes nothing but authentication traffic, so an unauthorized device plugged into a live jack gets no network access at all rather than getting on the network and then being restricted."
+          - type: callout
+            style: tip
+            text: "The distinction the exam draws between 802.1X and port security: port security filters on MAC address, which is trivially spoofable and grants access to a device rather than an identity. 802.1X authenticates a credential — ideally a certificate — before the port opens. When both appear as options for controlling access to network ports, 802.1X is the stronger answer."
+      - heading: "Posture Assessment and Quarantine"
+        blocks:
+          - type: paragraph
+            text: "Network Access Control extends authentication with a health check: before granting full access, does this device meet policy — current operating system patches, running and updated anti-malware, disk encryption enabled, host firewall on, a managed device rather than a personal one? Devices that fail are placed in a quarantine or remediation VLAN with access only to the resources needed to fix the deficiency, then re-evaluated. Agent-based NAC installs software on the endpoint and can inspect deeply; agentless NAC infers posture from the network without an agent, which is the only option for devices that cannot run one — printers, medical devices, IoT — but yields far less assurance."
+          - type: paragraph
+            text: "Posture assessment can run once at admission or continuously throughout the session. Continuous assessment is meaningfully stronger, because a device that was compliant at 9 a.m. and gets compromised at 11 a.m. keeps its access under an admission-time-only model. This is the same continuous-verification principle that distinguishes ZTNA from a traditional VPN in 4.3."
+      - heading: "Defending the Endpoint Itself"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Host-based firewall — enforces policy at the device regardless of what network it is attached to, which matters enormously for laptops that leave the office and connect to networks with no controls at all"
+              - "HIDS/HIPS — host-based intrusion detection and prevention, watching for suspicious local activity such as unexpected process behavior or modification of critical system files"
+              - "Anti-malware — signature-based detection for known threats, increasingly supplemented by heuristic and behavioral analysis for novel ones"
+              - "EDR (Endpoint Detection and Response) — continuously records endpoint activity, detects behavioral patterns rather than only signatures, and supports investigation and remote response such as isolating a host from the network"
+              - "XDR (Extended Detection and Response) — correlates endpoint telemetry with network, email, identity, and cloud signals so a sequence that looks unremarkable in any single source is recognizable as an attack chain across all of them"
+              - "Application allowlisting — permitting only approved executables to run; highly effective against unknown malware and correspondingly demanding to operate in an environment where software changes frequently"
+          - type: callout
+            style: warning
+            text: "The exam-relevant distinction between traditional anti-malware and EDR: signature-based tools answer 'have I seen this exact file before?', which fails against novel or fileless attacks. EDR answers 'is this behavior consistent with an attack?' and retains the telemetry needed to reconstruct what happened afterward, which is what makes it an investigation tool and not only a prevention tool."
+      - heading: "BYOD and Personally Owned Devices"
+        blocks:
+          - type: paragraph
+            text: "Bring-your-own-device arrangements put corporate data on hardware the organization does not own, cannot fully control, and cannot legally wipe wholesale without addressing the employee's personal data. Mobile Device Management enforces policy on the device; containerization or Mobile Application Management is generally the better fit for BYOD because it separates corporate data into an encrypted, separately managed workspace that can be wiped independently, leaving personal photos and messages untouched. The decisive point for the exam is that BYOD is primarily a policy and legal problem before it is a technical one: acceptable use, the organization's right to wipe, support boundaries, and privacy expectations all need to be documented and consented to in advance, because the technical controls only work if the employee has agreed to their enforcement."
+
+  - id: d4-t13
+    domain: domain4
+    number: "4.13"
+    title: "Cloud and Virtualized Network Security"
+    summary: "How network security controls translate into cloud and virtualized environments — VPCs, security groups, overlay networks, and the east-west traffic that never touches a physical switch."
+    tags: ["cloud networking", "VPC", "security groups", "SDN", "virtualization", "east-west"]
+    key_terms: ["Virtual Private Cloud", "Security Group", "Network ACL", "VRF", "Overlay Network", "VXLAN", "Virtual Switch", "Transit Gateway", "Service Mesh", "Cloud Interconnect", "Shared Responsibility Model"]
+    sections:
+      - heading: "The Virtual Private Cloud"
+        blocks:
+          - type: paragraph
+            text: "A VPC is a logically isolated network within a cloud provider's shared infrastructure, with its own address range, subnets, route tables, and gateways — the cloud equivalent of the segmented network from 4.1, defined entirely in software. Public subnets have a route to an internet gateway; private subnets do not and reach outbound services through a NAT gateway, which is the standard pattern for keeping application and database tiers unreachable from the internet while still allowing them to fetch updates. Because everything is software-defined, the entire network topology is expressible as infrastructure-as-code, which means network architecture becomes reviewable in version control and drift becomes detectable — a genuine security improvement over hand-configured physical equipment."
+      - heading: "Security Groups and Network ACLs"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Security groups — stateful, attached to instances or interfaces rather than subnets, typically allow-rules only; return traffic for an allowed outbound connection is automatically permitted. They are effectively a distributed per-workload firewall and are the primary mechanism for microsegmentation in cloud environments."
+              - "Network ACLs — stateless, attached to subnets, support both allow and deny rules, and evaluate rules in numbered order. Because they are stateless, return traffic requires its own explicit rule, which is a frequent source of confusing misconfiguration."
+          - type: callout
+            style: tip
+            text: "The stateful/stateless distinction is directly testable and mirrors the firewall generations in 4.2. If a scenario describes outbound traffic working but replies being dropped, a stateless control missing a return rule is the likely cause. If it describes a need to explicitly block a specific address at the subnet boundary, a network ACL is the right tool since security groups generally cannot express deny."
+      - heading: "Overlay Networks and the Virtual Switch"
+        blocks:
+          - type: paragraph
+            text: "Virtualization created a network segment that no physical device can see: two virtual machines on the same hypervisor communicate through a virtual switch in software, and that traffic never reaches a physical switch, firewall, or IDS. Any monitoring architecture that assumed traffic passes a physical inspection point has a blind spot exactly where lateral movement is most likely. The answers are virtual appliances placed inside the virtual environment, hypervisor-level introspection, or a distributed firewall that enforces policy at each virtual interface — which is precisely what microsegmentation (4.1) implements."
+          - type: paragraph
+            text: "Overlay networks such as VXLAN encapsulate Layer 2 frames inside Layer 3 UDP packets, letting a logical network span physical boundaries and data centers. This delivers the flexibility cloud and container platforms depend on, and it inherits the encapsulation blind-spot problem from 4.6: inspection tools that do not decapsulate the overlay see only the tunnel, not the traffic inside it."
+      - heading: "Connecting Cloud to Everything Else"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Site-to-site VPN over the internet — encrypted, quick to establish, but subject to internet performance variability"
+              - "Dedicated interconnect (Direct Connect, ExpressRoute, and equivalents) — a private circuit to the provider offering consistent latency and bandwidth; note that like MPLS in 4.6, it provides separation rather than encryption, so sensitive traffic still warrants its own encryption layer"
+              - "Transit gateway — a hub connecting many VPCs and on-premises networks, replacing an unmanageable mesh of point-to-point peering with a single control point where routing and inspection policy can actually be enforced"
+              - "Private endpoints — reaching a cloud service over the provider's private network rather than traversing the public internet to a public endpoint, removing an entire class of exposure"
+          - type: callout
+            style: warning
+            text: "The most common real-world cloud network failure is not an exotic attack — it is a storage bucket or database exposed to the internet through a misconfigured rule. Under the shared responsibility model the provider secures the infrastructure while the customer secures its own configuration, so a permissive security group is entirely the customer's failure. Continuous configuration monitoring against a baseline (Domain 7) is the control that catches it."
+
+  - id: d4-t14
+    domain: domain4
+    number: "4.14"
+    title: "Network Monitoring, Management, and Resilience"
+    summary: "Getting visibility into network traffic, managing infrastructure safely through out-of-band paths, and engineering redundancy so a single failure does not become an outage."
+    tags: ["monitoring", "NetFlow", "SNMP", "out-of-band", "redundancy", "high availability"]
+    key_terms: ["SPAN Port", "Network TAP", "NetFlow", "Packet Capture", "Out-of-Band Management", "Jump Box", "Link Aggregation", "VRRP", "Spanning Tree Protocol", "Single Point of Failure", "Load Balancing"]
+    sections:
+      - heading: "Seeing the Traffic"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "SPAN port (port mirroring) — the switch copies traffic to a monitoring port; inexpensive and software-configured, but it can drop frames under load and the switch itself decides what you see"
+              - "Network TAP — a passive hardware device physically inserted into the link that copies every frame with no possibility of loss; the higher-assurance option and the appropriate answer where evidentiary completeness matters"
+              - "Full packet capture — records everything including payloads, giving complete investigative fidelity at enormous storage cost, so it is typically retained for a short rolling window"
+              - "Flow data (NetFlow, sFlow, IPFIX) — records metadata about conversations (who talked to whom, when, over which ports, how much data) without payloads, which is far cheaper to retain for long periods and is often sufficient to detect exfiltration, beaconing, and lateral movement"
+          - type: callout
+            style: tip
+            text: "Flow data versus full capture is a recurring trade-off question. Flow data answers 'who communicated with whom, and how much' cheaply and over long retention windows — usually enough to detect and scope an intrusion. Full packet capture answers 'exactly what was said' and is what you want for the short window around a known incident. The mature answer is usually both, at different retention periods, matching the tiered retention idea in Domain 7."
+          - type: paragraph
+            text: "The pervasive complication is encryption: the same TLS protecting users also blinds inspection. Organizations respond with TLS inspection proxies that decrypt and re-encrypt (creating a high-value interception point that itself needs strict protection, and raising real privacy and legal questions that generally require policy and notice), with encrypted-traffic analysis that infers malicious behavior from metadata and timing without decrypting, or by shifting visibility to the endpoint via EDR where data is already plaintext."
+      - heading: "Out-of-Band Management"
+        blocks:
+          - type: paragraph
+            text: "Management interfaces on switches, routers, firewalls, and server baseboard controllers are the keys to the infrastructure — anyone reaching them can reconfigure or disable the controls themselves. In-band management shares the production network, which is convenient and means that a production outage or an active attack can cut off exactly the access needed to fix it. Out-of-band management uses a physically or logically separate path — a dedicated management network, a separate console server, or a cellular backup link — so administrators retain control during an incident. The correct design combines this with a jump box or bastion host as the single audited entry point into the management plane, with multi-factor authentication and session recording (the PAM controls from Domain 7)."
+          - type: callout
+            style: warning
+            text: "Baseboard management controllers such as IPMI, iDRAC, and iLO deserve specific attention: they run independently of the host operating system, remain powered when the server is off, and grant complete control over the hardware. Exposed to a general network with default credentials, they are a total compromise of the machine that no host-level control can see or prevent."
+      - heading: "Redundancy and High Availability"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Link aggregation — bundling multiple physical links into one logical link for both added bandwidth and survival of an individual link failure"
+              - "VRRP and HSRP — first-hop redundancy protocols letting two routers share a virtual gateway address so clients keep a working default gateway when one router fails"
+              - "Spanning Tree Protocol — prevents the broadcast storms that physical loops would otherwise cause, by disabling redundant paths until they are needed; it is what makes redundant switch cabling safe rather than catastrophic"
+              - "Redundant power and cooling — dual power supplies fed from separate circuits, UPS for ride-through, generators for extended outages; the infrastructure availability controls that sit underneath every logical one"
+              - "Diverse carriers and physical paths — two circuits from two providers that share one conduit into the building are not actually redundant, a distinction that has caused real outages"
+          - type: paragraph
+            text: "The organizing concept is eliminating single points of failure, and the exam expects that reasoning to be driven by the business impact analysis from Domain 1 rather than applied uniformly. Redundancy is expensive, and the RTO and MTD for a given function determine how much of it is justified — full redundancy for a function the business can tolerate losing for a week is as much a misallocation as no redundancy for one it cannot lose for an hour."
+
+  - id: d4-t15
+    domain: domain4
+    number: "4.15"
+    title: "Third-Party Connectivity and Edge Networks"
+    summary: "Extending the network to partners, vendors, and the internet edge — where trust boundaries meet organizations you do not control."
+    tags: ["third-party", "extranet", "vendor access", "peering", "API security", "supply chain"]
+    key_terms: ["Extranet", "B2B VPN", "Peering", "Ingress and Egress", "API Gateway", "Vendor Remote Access", "Interconnection Security Agreement", "Screened Subnet"]
+    sections:
+      - heading: "Connecting to Organizations You Do Not Control"
+        blocks:
+          - type: paragraph
+            text: "Business requires network connections to parties outside the organization: suppliers submitting orders, managed service providers administering systems, payment processors, cloud vendors, and equipment manufacturers needing remote support access. Each connection extends the effective attack surface to include the partner's security posture, and several of the largest breaches on record began with credentials or connectivity belonging to a third party rather than with the victim directly. This is the network-layer expression of the supply chain risk management concepts from Domain 1, and it is why third-party connectivity is contractual and architectural before it is technical."
+          - type: list
+            style: bullet
+            items:
+              - "Extranet — a controlled portion of the internal network deliberately exposed to specific external partners, isolated from the general internal network by its own boundary"
+              - "B2B VPN — a site-to-site tunnel to a partner, which needs explicit scoping of exactly which internal resources the tunnel can reach, because a tunnel is not a filter"
+              - "Vendor remote access — time-limited, individually attributed, approved per session, and recorded; standing always-on vendor access with a shared account is the pattern that shows up in breach post-mortems"
+              - "API gateway — the modern equivalent of the perimeter for machine-to-machine integration, enforcing authentication, authorization, rate limiting, schema validation, and logging at a single controllable point"
+          - type: callout
+            style: tip
+            text: "The expected exam answer for third-party connectivity is layered: contractual requirements and right-to-audit clauses, plus an Interconnection Security Agreement documenting exactly what connects to what, plus least-privilege network scoping so the connection reaches only the specific systems required, plus monitoring of that connection as untrusted traffic. Trusting a partner's assurances without architectural constraint is never the right answer."
+      - heading: "The Internet Edge"
+        blocks:
+          - type: paragraph
+            text: "The edge is where the organization's network meets everyone else's, and it is defined by traffic direction. Ingress filtering evaluates traffic entering the network and should drop packets whose source addresses are internal or otherwise impossible, since a packet claiming to come from inside while arriving from outside is spoofed by definition. Egress filtering evaluates outbound traffic and is chronically under-implemented: it prevents an organization's own hosts from being used to attack others with spoofed sources, and — far more valuable to the organization itself — it is where data exfiltration and command-and-control beaconing become visible, since attackers have to get data out somehow."
+          - type: paragraph
+            text: "Peering describes how networks exchange traffic directly rather than paying a transit provider to carry it, at internet exchange points or through private interconnects. It is mostly an economic and performance arrangement, but it has a security dimension in routing: BGP, which decides how traffic reaches a network, historically operated on trust between peers, making route hijacking possible when an operator announces address space it does not own and diverts traffic through itself. RPKI and route origin validation are the countermeasures, and the underlying lesson — that a core internet protocol assumed trust and needed cryptographic validation retrofitted — is the same story as ARP, DHCP, DNS, and BGP alike."
+          - type: callout
+            style: warning
+            text: "Egress filtering deserves emphasis because it is the control most often missing. An organization that permits unrestricted outbound traffic has given an attacker who gets inside a free, unmonitored path to move stolen data out and to receive instructions. Restricting outbound traffic to what business actually requires, and alerting on the rest, converts exfiltration from invisible to noisy."

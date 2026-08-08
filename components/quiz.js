@@ -107,6 +107,26 @@ const QuizComponent = (() => {
           </div>
         ` : ''}
 
+        ${_allQuestions.some(q => q.cognitive_level === 'applied') ? `
+          <div class="focus-mode-card scenario-drill-card">
+            <div class="focus-mode-info">
+              <div class="focus-mode-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                Scenario Drill
+              </div>
+              <div class="focus-mode-desc">
+                Applied questions only — situations that ask for the BEST action, the format that dominates the real exam.
+                Recall accuracy alone won't get you there.
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" id="scenario-drill-btn">
+              Start Scenario Drill
+            </button>
+          </div>
+        ` : ''}
+
         ${hasAnyProgress ? `
           <div class="focus-mode-card review-queue-card">
             <div class="focus-mode-info">
@@ -248,6 +268,9 @@ const QuizComponent = (() => {
     const reviewQueueBtn = document.getElementById('review-queue-btn');
     if (reviewQueueBtn) reviewQueueBtn.addEventListener('click', () => _startReviewQueue());
 
+    const scenarioBtn = document.getElementById('scenario-drill-btn');
+    if (scenarioBtn) scenarioBtn.addEventListener('click', () => _startScenarioDrill());
+
     const startBtn = document.getElementById('start-quiz-btn');
     if (startBtn) startBtn.addEventListener('click', () => {
       _phase = 'active';
@@ -274,6 +297,25 @@ const QuizComponent = (() => {
 
     if (_questions.length === 0) {
       alert('No questions available for the selected domains.');
+      _phase = 'setup';
+      render();
+      return;
+    }
+
+    Progress.updateSession();
+    _phase = 'active';
+    render();
+  }
+
+  function _startScenarioDrill() {
+    _questions = QuizEngine.selectScenarioQuestions(_allQuestions, _selectedDomains, _questionCount);
+    _currentIndex = 0;
+    _answers = {};
+    _answered = false;
+    _pendingIndex = null;
+
+    if (_questions.length === 0) {
+      alert('No scenario questions available for the selected domains.');
       _phase = 'setup';
       render();
       return;

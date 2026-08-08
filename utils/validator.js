@@ -3,6 +3,11 @@
  */
 
 const Validator = (() => {
+  // Questions are tagged by the kind of thinking they demand: 'recall' tests
+  // whether a term or fact is known, 'applied' presents a situation and asks
+  // for a judgment. The real exam is dominated by the latter.
+  const COGNITIVE_LEVELS = ['recall', 'applied'];
+
   function validateFlashcard(card) {
     const errors = [];
     if (!card.id) errors.push('Missing id');
@@ -27,6 +32,9 @@ const Validator = (() => {
     }
     if (!q.explanations || !q.explanations.correct) {
       errors.push('Missing explanations.correct');
+    }
+    if (q.cognitive_level && !COGNITIVE_LEVELS.includes(q.cognitive_level)) {
+      errors.push(`cognitive_level must be one of: ${COGNITIVE_LEVELS.join(', ')}`);
     }
     return errors;
   }

@@ -180,6 +180,16 @@ const QuizEngine = (() => {
   }
 
   /**
+   * Applied/scenario questions only — the judgment-under-a-situation format
+   * that dominates the real exam. Drilling these specifically is what closes
+   * the gap between recognizing a definition and choosing the BEST action.
+   */
+  function selectScenarioQuestions(allQuestions, domainIds, count) {
+    const scenarioOnly = allQuestions.filter(q => q.cognitive_level === 'applied');
+    return selectQuestions(scenarioOnly, domainIds, count).map(shuffleOptions);
+  }
+
+  /**
    * Lightweight spaced-resurfacing queue: prioritizes previously-missed
    * questions and questions not seen recently, using the per-question
    * accuracy/last_seen stats already tracked in Progress. Not a full
@@ -222,6 +232,6 @@ const QuizEngine = (() => {
 
   return {
     selectQuestions, calculateScore, isCorrectAnswer, getWeakDomains, getDomainBreakdown, shuffle,
-    shuffleOptions, selectWeightedQuestions, getReviewQueue
+    shuffleOptions, selectWeightedQuestions, getReviewQueue, selectScenarioQuestions
   };
 })();

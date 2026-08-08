@@ -277,6 +277,27 @@ function renderProgress() {
               weighted by ISC2's official exam weighting, not a flat average. This is what "80%" should mean:
               broad, current, and accurate across the whole exam, not just your strongest domains.
             </p>
+            ${readiness.applied.penaltyReason === 'unproven' ? `
+              <p class="readiness-applied readiness-applied--capped">
+                Score capped at ${readiness.rawComposite > 70 ? '70' : readiness.score} until scenario competence is demonstrated.
+                You've attempted <strong>${readiness.applied.attempted}</strong> of
+                ${readiness.applied.totalInBank} applied questions — answer at least
+                ${readiness.applied.minAttempts} to lift the cap. The real exam is mostly scenario judgment,
+                so recall accuracy alone can't establish readiness.
+              </p>
+            ` : readiness.applied.penaltyReason === 'lagging' ? `
+              <p class="readiness-applied">
+                Your accuracy on applied/scenario questions is <strong>${readiness.applied.accuracyPct}%</strong>,
+                below your overall performance — and scenario judgment is what the real exam mostly tests.
+                Use <a href="#quiz">Scenario Drill</a> to close the gap.
+              </p>
+            ` : readiness.applied.attempted >= readiness.applied.minAttempts ? `
+              <p class="readiness-applied readiness-applied--good">
+                Applied/scenario accuracy: <strong>${readiness.applied.accuracyPct}%</strong> across
+                ${readiness.applied.attempted} questions — this is the format the real exam mostly uses.
+              </p>
+            ` : ''}
+
             ${readiness.overconfidencePct !== null ? `
               <p class="readiness-calibration">
                 Overconfidence signal: <strong>${readiness.overconfidencePct}%</strong> of answers you rated

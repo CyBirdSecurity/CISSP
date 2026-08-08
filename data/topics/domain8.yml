@@ -199,3 +199,202 @@ topics:
           - type: callout
             style: tip
             text: "The exam's consistent guidance across all of these: don't implement cryptography yourself. Use established, vetted libraries and cryptographically secure random number generators specifically designed for security-sensitive use, and manage keys through dedicated secrets management rather than embedding them in code — the same 'don't roll your own crypto' principle from Domain 3 applies directly at the coding level."
+
+  - id: d8-t6
+    domain: domain8
+    number: "8.6"
+    title: "Development Methodologies and Maturity Models"
+    summary: "The lifecycle models the exam names — waterfall, spiral, agile, RAD, and their relatives — and the maturity models used to measure how capable a development organization actually is."
+    tags: ["SDLC models", "waterfall", "spiral", "agile", "CMMI", "maturity"]
+    key_terms: ["Waterfall", "Spiral Model", "Agile", "Scrum", "RAD", "Prototyping", "V-Model", "CMMI", "SAMM", "BSIMM", "IDEAL Model", "Change Management"]
+    sections:
+      - heading: "The Classical Models"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Waterfall — strictly sequential phases, each completed and approved before the next begins; highly documented and auditable, but a defect found late is enormously expensive and requirements are frozen long before delivery"
+              - "V-Model — waterfall bent into a V so that each development phase is paired with the test phase that validates it; requirements pair with acceptance testing, design with integration testing, making verification planning explicit from the start"
+              - "Spiral — iterative cycles, each passing through objective-setting, risk analysis, engineering, and evaluation; its defining feature is that formal risk assessment is a built-in phase of every cycle, which makes it the model most explicitly aligned with risk management"
+              - "Prototyping — building a working model to clarify requirements before committing to full development; the hazard is the prototype being pressed into production without ever receiving production-grade security"
+              - "RAD (Rapid Application Development) — emphasizes speed through prototyping and heavy user feedback over rigorous planning; delivers quickly and reliably underinvests in non-functional requirements including security"
+              - "Agile — iterative, incremental delivery with working software over comprehensive documentation and adaptation over fixed plans; Scrum and Kanban are the common implementations"
+          - type: callout
+            style: tip
+            text: "If a question asks which model builds risk analysis into every iteration, the answer is spiral. If it asks which pairs each development stage with a corresponding test stage, the answer is the V-model. These two specific associations are commonly tested."
+      - heading: "Where Security Fits in Each"
+        blocks:
+          - type: paragraph
+            text: "Waterfall's strength for security is that requirements, including security requirements, are formally specified and traceable; its weakness is that a threat discovered during implementation has to fight backward through change control, so it often is not fixed. Agile's strength is that security work can be reprioritized into the next sprint rather than waiting for the next release; its weakness is that security requirements which belong to no single feature — logging, key management, authorization architecture — have no natural owner and quietly go undone unless deliberately represented as backlog items with acceptance criteria. Neither model is inherently more secure, and the exam expects that judgment: the deciding factor is whether security is deliberately built into whichever process the organization actually uses."
+          - type: callout
+            style: warning
+            text: "The common misconception worth rejecting is that agile is inherently insecure because it lacks upfront design. Agile organizations that treat security as a definition-of-done criterion, automate testing in the pipeline, and carry security stories in the backlog frequently outperform waterfall organizations that produced a thick security design document nobody implemented."
+      - heading: "Maturity Models"
+        blocks:
+          - type: paragraph
+            text: "Maturity models assess how capable and repeatable an organization's processes are, rather than whether a particular product is secure. CMMI defines five levels — Initial (ad hoc and heroic), Repeatable / Managed (basic project processes exist), Defined (standardized organization-wide), Quantitatively Managed (measured and controlled with data), and Optimizing (continuous measured improvement) — and the underlying idea is that an organization cannot skip levels, because each depends on the discipline established by the one below it. SAMM (OWASP's Software Assurance Maturity Model) and BSIMM take the same idea into application security specifically, with BSIMM notable for being descriptive rather than prescriptive: it reports what a large set of real organizations actually do, so it can be used to compare against peers rather than against an ideal."
+          - type: paragraph
+            text: "The IDEAL model describes how to run the improvement itself — Initiating, Diagnosing, Establishing, Acting, and Learning — and the practical value of any of these on the exam is the same: they convert a vague ambition to do better into a measurable current state, a target state, and a prioritized path between them. That is also why maturity assessment output feeds the security program's roadmap and budget conversation rather than sitting as a score."
+      - heading: "Change and Configuration Management in Development"
+        blocks:
+          - type: paragraph
+            text: "Software change management is what keeps code moving to production predictable and reversible: version control as the source of truth, a defined approval path, separation between the person who writes a change and the person who approves it (separation of duties from Domain 1), separate development, test, and production environments, and the ability to roll back. Developers should not have standing write access to production, since that collapses the separation the whole process depends on. The security-relevant emphasis for the exam is that emergency changes still require the process — with after-the-fact review and documentation rather than none at all — because an emergency change path with no oversight becomes the path every change eventually takes."
+
+  - id: d8-t7
+    domain: domain8
+    number: "8.7"
+    title: "Web Application Vulnerabilities in Depth"
+    summary: "The injection, authorization, and client-side flaw classes that dominate real-world application compromise, and the specific defense that actually closes each one."
+    tags: ["OWASP", "injection", "XSS", "CSRF", "SSRF", "access control", "web security"]
+    key_terms: ["SQL Injection", "Parameterized Query", "Cross-Site Scripting", "Stored vs. Reflected XSS", "CSRF", "SSRF", "IDOR", "Broken Access Control", "Output Encoding", "Content Security Policy", "SameSite Cookie", "Deserialization"]
+    sections:
+      - heading: "Injection"
+        blocks:
+          - type: paragraph
+            text: "Injection occurs whenever untrusted input is concatenated into something an interpreter will parse as a command — SQL, an operating system shell, LDAP, XPath, or a template engine. SQL injection remains the archetype: input that closes a quoted string and appends attacker-controlled clauses lets an attacker read, modify, or delete data far beyond what the application intended, and in some configurations execute operating system commands. The definitive defense is parameterized queries (prepared statements), where the query structure is defined first and user input is bound strictly as data that can never be reinterpreted as code. Stored procedures help only if they themselves avoid dynamic SQL construction internally."
+          - type: callout
+            style: warning
+            text: "Input validation and escaping are useful defense in depth but are the wrong primary answer for injection. Blocklists of dangerous characters are consistently bypassed through encoding, alternate syntax, and cases the author did not anticipate. If parameterized queries appear as an option alongside input sanitization for SQL injection, parameterization is the intended answer because it removes the interpretation problem instead of trying to filter it."
+          - type: paragraph
+            text: "Command injection is the same class with a shell as the interpreter, and the strongest defense is not calling a shell at all — using language APIs that pass arguments as a structured array rather than assembling a command string. Blind injection variants, where the application returns no error or data, are exploited through timing or boolean-conditional responses, which is why the absence of visible error output is not evidence that injection is absent."
+      - heading: "Cross-Site Scripting and Client-Side Attacks"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Stored (persistent) XSS — the malicious script is saved server-side, in a comment or profile field, and served to every user who views it; the most damaging variant because it needs no interaction from the attacker after planting"
+              - "Reflected XSS — the script is embedded in a crafted URL and echoed back in the response, requiring the victim to be induced into following the link"
+              - "DOM-based XSS — the injection never reaches the server at all; client-side JavaScript reads attacker-controlled input from the URL fragment and writes it unsafely into the page"
+          - type: paragraph
+            text: "The primary defense is context-aware output encoding — encoding data at the moment it is written into a page, according to where it lands, since HTML body, HTML attribute, JavaScript, URL, and CSS contexts each require different encoding. Content Security Policy adds a strong second layer by restricting which script sources the browser will execute at all, and the HttpOnly cookie flag limits the damage by preventing script from reading session cookies. Note the symmetry with injection: the fix is safe output handling in the right context, not attempting to enumerate malicious input."
+      - heading: "Request Forgery: CSRF and SSRF"
+        blocks:
+          - type: paragraph
+            text: "Cross-Site Request Forgery abuses the browser's habit of automatically attaching cookies: a victim who is authenticated to a site visits an attacker's page, which silently issues a state-changing request to that site, and the browser attaches the session cookie so the request arrives fully authenticated. Defenses are anti-CSRF tokens — an unpredictable per-session value the attacker's page cannot know — and the SameSite cookie attribute, which instructs the browser not to send cookies on cross-site requests at all."
+          - type: paragraph
+            text: "Server-Side Request Forgery is a different and increasingly severe problem: the application is tricked into making a request to an attacker-chosen destination. Because that request originates from the server, it reaches internal systems the attacker cannot address directly — internal admin interfaces, databases, and most critically cloud instance metadata services that hand out credentials to anything able to ask from the instance itself. Defenses are allowlisting permitted destinations rather than blocklisting internal ranges (which is defeated by redirects, DNS tricks, and alternate address encodings), and requiring authentication on the metadata service."
+          - type: callout
+            style: tip
+            text: "The CSRF/SSRF distinction is directly testable: CSRF makes the victim's browser issue a request the user did not intend; SSRF makes the server issue a request the developer did not intend. Different attacker, different position, different defense."
+      - heading: "Broken Access Control and Insecure Deserialization"
+        blocks:
+          - type: paragraph
+            text: "Broken access control is consistently the top category in real-world application risk, and Insecure Direct Object Reference is its most common form: an endpoint that returns a record identified by a parameter without verifying the requesting user is entitled to that specific record, so changing an identifier in the URL retrieves someone else's data. Its cousin is missing function-level authorization, where an administrative endpoint is simply unlinked from the interface for ordinary users but still responds to anyone who requests it. The only reliable defense is server-side authorization enforced on every request, against the authenticated identity, denying by default — hiding a control in the interface is not access control, because the interface is not where the decision is made."
+          - type: paragraph
+            text: "Insecure deserialization occurs when an application reconstructs objects from untrusted serialized data. Because deserialization can instantiate arbitrary types and invoke their methods, a crafted payload can lead to remote code execution. The defenses are avoiding deserialization of untrusted data entirely, using data-only formats such as JSON with strict schema validation instead of native object serialization, and cryptographically signing serialized data so tampering is detectable."
+
+  - id: d8-t8
+    domain: domain8
+    number: "8.8"
+    title: "Database and Data-Layer Security in Applications"
+    summary: "Protecting data where applications actually store it — access models, inference and aggregation problems, transaction integrity, and the specific risks of ORMs and NoSQL."
+    tags: ["database security", "inference", "aggregation", "ACID", "polyinstantiation", "NoSQL"]
+    key_terms: ["ACID", "Inference", "Aggregation", "Polyinstantiation", "Database View", "Stored Procedure", "ORM", "NoSQL Injection", "Data Dictionary", "Concurrency Control", "Field-Level Encryption"]
+    sections:
+      - heading: "Transaction Integrity: ACID"
+        blocks:
+          - type: paragraph
+            text: "Database integrity rests on four properties the exam names directly. Atomicity means a transaction completes entirely or not at all, so a transfer cannot debit one account without crediting the other. Consistency means a transaction moves the database from one valid state to another, respecting every defined constraint. Isolation means concurrent transactions do not observe each other's intermediate state, preventing the race conditions that produce corrupted balances. Durability means a committed transaction survives a crash, which is why write-ahead logging exists. These are integrity controls in the CIA sense, not merely engineering conveniences, and concurrency control through locking is how isolation is actually enforced."
+      - heading: "Inference and Aggregation"
+        blocks:
+          - type: paragraph
+            text: "Aggregation is the problem of individually unclassified facts combining into sensitive knowledge — each record innocuous alone, the compiled set revealing something none of them did. Inference is deducing information a subject is not authorized to see from information they are, such as determining an individual's salary from a departmental average combined with knowledge of the other members. Both defeat record-level access control because no single unauthorized access occurred. Countermeasures include database views exposing only permitted fields, query restriction that refuses to answer when a result set is small enough to isolate an individual, cell suppression, and noise introduction — and polyinstantiation, which maintains multiple versions of a record at different classification levels so that a low-clearance user querying a sensitive record receives a plausible cover story rather than a denial that itself confirms something exists."
+          - type: callout
+            style: example
+            text: "Polyinstantiation is a favorite exam term precisely because the naive alternative leaks information. If a low-clearance query returns access denied for a specific record, the denial confirms that a classified record exists at that identifier — which is itself the disclosure. Returning a distinct lower-classification version prevents that negative inference."
+      - heading: "Controlling Application Access to Data"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Least-privileged database accounts — an application should connect with an account holding only the specific permissions it needs, never as database administrator, so that successful injection yields limited rather than total access"
+              - "Views — present a filtered, column-restricted or row-restricted projection of underlying tables, enforcing need-to-know at the data layer"
+              - "Stored procedures — expose defined operations rather than arbitrary query capability, provided they do not build dynamic SQL internally"
+              - "Row-level security and dynamic data masking — enforce per-user row visibility and obscure sensitive field values for users who do not need them, without changing the application"
+              - "Field-level encryption — protects the highest-sensitivity columns even from database administrators, at the cost of losing the ability to index or search them normally"
+          - type: callout
+            style: warning
+            text: "Excessive application database privilege is one of the highest-leverage findings in an application review. If the application connects as a superuser, a single injection flaw anywhere in the codebase becomes complete database compromise. Constraining the account converts a catastrophic vulnerability into a contained one, which is defense in depth working exactly as intended."
+      - heading: "ORMs, NoSQL, and Modern Data Layers"
+        blocks:
+          - type: paragraph
+            text: "Object-relational mappers generate parameterized queries by default and therefore prevent most SQL injection as a side effect of ordinary use — which is genuinely valuable, and also produces false confidence, because nearly every ORM offers a raw query escape hatch, and that escape hatch is where injection reappears. NoSQL databases are not immune to injection either; they are vulnerable to a different syntax, where attacker-controlled structured input is interpreted as query operators rather than as values, and the same principle applies: validate types strictly and never pass unvalidated structures into a query. NoSQL systems also frequently ship with authentication disabled by default and have historically been exposed to the internet in enormous numbers, which is a configuration failure rather than a protocol one but has caused a large share of real breaches."
+
+  - id: d8-t9
+    domain: domain8
+    number: "8.9"
+    title: "DevSecOps and Pipeline Security"
+    summary: "Embedding security into continuous integration and delivery so that speed and assurance reinforce each other rather than trading off — and protecting the pipeline itself as production infrastructure."
+    tags: ["DevSecOps", "CI/CD", "pipeline security", "shift left", "supply chain"]
+    key_terms: ["Shift Left", "Security Gate", "Build Reproducibility", "Artifact Signing", "Dependency Confusion", "Pipeline Poisoning", "Immutable Infrastructure", "Policy as Code", "Provenance"]
+    sections:
+      - heading: "Shift Left, and Its Limits"
+        blocks:
+          - type: paragraph
+            text: "Shifting left means moving security activity earlier in the lifecycle, on the well-supported observation that a defect costs dramatically less to fix in design than in production. In practice it means threat modeling during design, security linting and secret scanning in the developer's editor and pre-commit hooks, and automated analysis on every pull request rather than an assessment weeks before release. The limit worth stating is that shifting left does not mean shifting everything left: runtime configuration, production data exposure, and emergent behavior under real load cannot be evaluated in a pipeline, so pre-production testing complements rather than replaces production monitoring and periodic assessment."
+          - type: callout
+            style: tip
+            text: "The cultural point the exam expects: DevSecOps makes security a shared responsibility of development, security, and operations rather than a gate a separate team imposes at the end. Automation is what makes that feasible, since a manual security review cannot keep pace with continuous deployment."
+      - heading: "Gates, and Why Most of Them Should Not Block"
+        blocks:
+          - type: paragraph
+            text: "A pipeline can enforce policy automatically — failing a build on a critical vulnerability in a dependency, a committed secret, a container image with a known-exploited flaw, or infrastructure-as-code that would open a security group to the world. The design judgment is which findings should break the build and which should merely report. Blocking on everything trains teams to bypass the pipeline, which is worse than not having gates; blocking on nothing means the gate is decorative. The defensible pattern is to fail hard on a small set of unambiguous, high-confidence, high-severity conditions — a leaked credential, a known-exploited vulnerability, a public storage bucket — and to route everything else into tracked findings with remediation SLAs."
+      - heading: "The Pipeline Is Production Infrastructure"
+        blocks:
+          - type: paragraph
+            text: "A CI/CD system holds credentials to every environment it deploys to, executes code from the repository automatically, and produces the artifacts that run in production. Compromising it is therefore equivalent to compromising everything downstream, without ever attacking production directly — which is precisely why it has become a favored supply chain target. It deserves the same protection as the most sensitive production system: strong authentication and MFA for access, least privilege and short-lived scoped credentials rather than long-lived static ones, isolation of build runners so one job cannot reach another's secrets, and audit logging of pipeline changes."
+          - type: list
+            style: bullet
+            items:
+              - "Pipeline poisoning — an attacker who can modify build configuration injects a step that exfiltrates secrets or backdoors the artifact; countered by treating pipeline definitions as protected code requiring review"
+              - "Dependency confusion — publishing a package to a public registry with the same name as an organization's internal package, so the resolver fetches the attacker's version; countered by explicit registry scoping and namespace reservation"
+              - "Typosquatting — malicious packages named to resemble popular ones, relying on a developer's typo"
+              - "Compromised build agents — persistent runners that retain state between jobs, letting one compromised build affect later ones; countered by ephemeral, single-use runners"
+          - type: callout
+            style: warning
+            text: "Pull request builds from untrusted forks are a specific and frequently exploited hazard: if a build triggered by an outside contribution runs with access to repository secrets, anyone able to open a pull request can exfiltrate them. Builds of untrusted code must run without privileged credentials."
+      - heading: "Provenance and Immutability"
+        blocks:
+          - type: paragraph
+            text: "The assurance question at the end of a pipeline is whether the artifact running in production is genuinely the one built from reviewed source. Artifact signing and verification at deployment establish that chain, build provenance attestation records what source and what build process produced a given artifact, and reproducible builds let an independent party rebuild from the same source and confirm they obtain an identical result — the strongest available evidence that nothing was injected during the build. Immutable infrastructure reinforces this by replacing running instances with newly built images rather than patching them in place, which eliminates configuration drift (Domain 7) and means an attacker's persistence on a host is destroyed at the next deployment rather than surviving indefinitely."
+
+  - id: d8-t10
+    domain: domain8
+    number: "8.10"
+    title: "Malicious Code, Mobile Code, and Application-Layer Threats"
+    summary: "The malware taxonomy the exam expects by name, the risks specific to code that executes on someone else's machine, and the defenses appropriate to each."
+    tags: ["malware", "mobile code", "ransomware", "backdoor", "logic bomb", "sandboxing"]
+    key_terms: ["Virus", "Worm", "Trojan", "Rootkit", "Logic Bomb", "Backdoor", "Ransomware", "Fileless Malware", "Mobile Code", "Sandbox", "Applet", "Living Off the Land", "Polymorphic Malware"]
+    sections:
+      - heading: "The Malware Taxonomy"
+        blocks:
+          - type: list
+            style: bullet
+            items:
+              - "Virus — attaches to a host file and requires user action to execute and spread"
+              - "Worm — self-propagating across networks with no user interaction, which is why worms produce the fastest and widest outbreaks"
+              - "Trojan — presents itself as something legitimate and desirable while carrying hidden malicious function; relies on the user choosing to run it"
+              - "Rootkit — conceals its own presence and that of other malware by subverting the operating system, and at kernel or firmware level can defeat detection by any tool that trusts the operating system's answers"
+              - "Logic bomb — dormant code that triggers on a condition such as a date or the absence of an employee's account, notably associated with insider sabotage"
+              - "Backdoor — an access mechanism bypassing normal authentication, sometimes introduced deliberately as a maintenance hook and left in place, which is why maintenance hooks must be removed before release"
+              - "Ransomware — encrypts data and demands payment; modern variants also exfiltrate first and threaten publication, which defeats the otherwise sufficient defense of restoring from backup"
+              - "Fileless malware — resides in memory and abuses legitimate system tools, leaving little or no disk artifact for file-based detection to find"
+              - "Polymorphic and metamorphic malware — alter their own code on each propagation specifically to defeat signature matching"
+          - type: callout
+            style: tip
+            text: "The virus, worm, and Trojan distinctions are among the most reliably tested definitions in this domain. The discriminators are simple: a virus needs a host file and a user, a worm needs neither, and a Trojan needs a user who has been deceived about what it is."
+      - heading: "Living Off the Land"
+        blocks:
+          - type: paragraph
+            text: "Sophisticated intrusions increasingly avoid custom malware entirely, accomplishing their objectives with tools already present and trusted on the target — PowerShell, WMI, PsExec, scheduled tasks, and legitimate remote administration software. Because these are signed, expected, and used constantly by administrators, signature-based detection has nothing to match on and blocking them outright is operationally impossible. This is a substantial part of why the industry shifted toward behavioral detection and EDR: the meaningful signal is not what binary ran but that a workstation's word processor spawned a scripting engine which then opened a network connection, which is anomalous regardless of every component being legitimate."
+      - heading: "Mobile Code"
+        blocks:
+          - type: paragraph
+            text: "Mobile code is code transferred from a remote system and executed locally — JavaScript in a browser, historically Java applets and ActiveX controls, and by extension macros in documents. The security problem is inherent to the concept: code from an untrusted source executes on the user's machine, so the entire defense rests on constraining what it is permitted to do. Browsers enforce a sandbox and the same-origin policy, which prevents script loaded from one origin from reading data belonging to another and is the foundation that makes the modern web survivable at all. ActiveX is the instructive negative example, having relied on Authenticode signing to establish publisher identity while granting full user-level system access once accepted — proving that knowing who wrote code is not the same as constraining what it can do."
+          - type: callout
+            style: warning
+            text: "Document macros remain one of the most productive initial access vectors in real intrusions, because they combine mobile code execution with a social engineering lure the recipient expects to open. The effective controls are disabling macros by default through policy, allowing only signed macros from trusted locations, and blocking or sandboxing the document types at the mail gateway."
+      - heading: "Defending Against Malicious Code"
+        blocks:
+          - type: paragraph
+            text: "Layered defense is the expected answer, because no single control is sufficient: signature-based anti-malware for known threats, behavioral and EDR detection for novel and fileless ones, application allowlisting to prevent unapproved executables running at all, sandboxing to detonate suspicious files in isolation before delivery, macro and script execution policy, prompt patching to remove the vulnerabilities that malware exploits for delivery, least privilege so that code which does execute cannot reach system-wide, and network segmentation to contain what does get through. Underneath all of it sits the user awareness training from Domain 1, since a large share of malware still arrives because someone was persuaded to open it."

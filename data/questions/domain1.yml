@@ -16,6 +16,7 @@ questions:
         - "Availability ensures systems and data are accessible when needed — it does not address data accuracy."
         - "Non-repudiation is not a core CIA triad component — it provides proof that an action occurred and cannot be denied."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["CIA", "fundamentals"]
 
   - id: q-d1-002
@@ -35,6 +36,7 @@ questions:
         - "Risk acceptance is the correct response when mitigation costs exceed the risk value."
         - "Risk avoidance would eliminate a business activity — this is extreme and often not practical for a single risk scenario."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["risk", "management"]
 
   - id: q-d1-003
@@ -54,6 +56,7 @@ questions:
         - "They are distinct concepts. Both are legally important but address different aspects of security responsibility."
         - "Both concepts apply to all levels of an organization — they are not role-specific distinctions."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "legal"]
 
   - id: q-d1-004
@@ -73,6 +76,7 @@ questions:
         - "MTD is the correct answer — it is the threshold beyond which business damage becomes unacceptable."
         - "MTTR is an operational metric for how long repairs take, not a BIA planning metric for business tolerance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["BCP", "BIA"]
 
   - id: q-d1-005
@@ -92,6 +96,7 @@ questions:
         - "A guideline provides recommendations and best practices but is not mandatory and does not provide step-by-step instructions."
         - "A procedure is the correct answer — it provides specific, actionable steps for completing a task."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["governance", "policy"]
 
   - id: q-d1-006
@@ -110,6 +115,7 @@ questions:
         - "BCP is focused on maintaining business operations during disruptions — it is not primarily about documenting incidents."
         - "Emergency evacuation is part of physical security and emergency management, which may be included in BCP but is not its primary purpose."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["BCP", "continuity"]
 
   - id: q-d1-007
@@ -129,6 +135,7 @@ questions:
         - "Risk transfer is the correct answer — it shifts financial impact, not risk itself, to another party."
         - "Risk acceptance means acknowledging the risk and choosing to deal with it if it occurs — no shifting to third party."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["risk", "management"]
 
   - id: q-d1-008
@@ -148,6 +155,7 @@ questions:
         - "COBIT (Control Objectives for IT) focuses on IT governance and management, not specifically on the five cybersecurity functions."
         - "ITIL is an IT service management framework focused on service delivery, not cybersecurity posture."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["frameworks", "governance"]
 
   - id: q-d1-009
@@ -167,6 +175,7 @@ questions:
         - "The Delphi technique is a qualitative method using expert consensus — not numerical calculations."
         - "Fault tree analysis is a diagram-based technique for analyzing system failures — it does not calculate ALE."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "assessment"]
 
   - id: q-d1-010
@@ -186,6 +195,7 @@ questions:
         - "Separation of duties is the correct principle — it requires multiple people for critical processes."
         - "Job rotation periodically moves people between roles but doesn't prevent a single person from controlling a process while in that role."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["principles", "access-control"]
 
   - id: q-d1-011
@@ -205,6 +215,7 @@ questions:
         - "System availability is related to RTO, not RPO. RPO specifically measures how much data (in time) can be lost."
         - "RPO is about backup frequency to prevent data loss, not about how long data is retained."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["BCP", "DRP", "metrics"]
 
   - id: q-d1-012
@@ -224,6 +235,7 @@ questions:
         - "Threat intelligence feeds provide information about real-world threats — threat modeling is about modeling risks to a specific system."
         - "Simulating attacks against production is penetration testing, not threat modeling. Threat modeling is proactive and design-phase focused."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["threat-modeling", "risk"]
     
   - id: q-d1-013
@@ -242,6 +254,7 @@ questions:
         - "Separation of duties is a preventive administrative control designed to stop a single person from completing a sensitive task alone."
         - "A security guard is a physical control, not an administrative one."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["controls", "governance"]
 
   - id: q-d1-014
@@ -260,6 +273,7 @@ questions:
         - "Advancing the profession is the fourth canon."
         - "Acting honorably and legally is the second canon."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["ethics", "legal"]
 
   - id: q-d1-015
@@ -278,6 +292,7 @@ questions:
         - "Updating policies based on threat research is part of a continuous improvement cycle, not scoping."
         - "Physical inspection is part of an audit or assessment."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["compliance", "frameworks"]
 
   - id: q-d1-016
@@ -296,6 +311,7 @@ questions:
         - "Speed is a factor, but 'controlled' implementation is the primary goal over 'fast' implementation."
         - "Delegation is part of internal workflows but not the goal of the change management process itself."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "operations"]
 
   - id: q-d1-017
@@ -314,6 +330,7 @@ questions:
         - "The individual is the Data Subject."
         - "The enforcement agency is the Supervisory Authority (SA)."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal", "GDPR", "privacy"]
 
   - id: q-d1-018
@@ -332,6 +349,7 @@ questions:
         - "ALE x EF is not used for SLE; ALE is usually the end result of SLE x ARO."
         - "SLE / ARO is not a standard risk formula."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["risk", "quantitative"]
 
   - id: q-d1-019
@@ -350,6 +368,7 @@ questions:
         - "Firewalls are Risk Mitigation."
         - "Outsourcing can be Risk Transfer or Mitigation depending on the contract."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["risk"]
 
   - id: q-d1-020
@@ -368,6 +387,7 @@ questions:
         - "Tampering covers integrity violations, but 'I' specifically stands for Information Disclosure."
         - "Spoofing covers identity issues, but 'I' is Information Disclosure."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["threat-modeling"]
 
   - id: q-d1-021
@@ -386,6 +406,7 @@ questions:
         - "Both can be administrative; technical details usually live in Standards or Procedures."
         - "The CEO typically signs high-level Policies, not guidelines."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["governance"]
 
   - id: q-d1-022
@@ -404,6 +425,7 @@ questions:
         - "Background checks are Administrative controls."
         - "Fences are Physical controls."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["controls"]
 
   - id: q-d1-023
@@ -422,6 +444,7 @@ questions:
         - "SLE is a risk metric, not a continuity time metric."
         - "ALE and ARO are quantitative risk assessment metrics."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["BCP", "BIA"]
 
   - id: q-d1-024
@@ -440,6 +463,7 @@ questions:
         - "Religious Law is based on religious texts."
         - "Criminal Law is a branch of law, not a total legal system type like Civil or Common law."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal"]
 
   - id: q-d1-025
@@ -458,6 +482,7 @@ questions:
         - "While standards are good, 'entire lifecycle' management is the broader and more correct goal."
         - "Eliminating all dependencies is impossible in modern business."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "supply-chain"]
 
   - id: q-d1-026
@@ -476,6 +501,7 @@ questions:
         - "It is a human-based process, not an automated scanning tool."
         - "No technique can predict exact dates of future breaches."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "assessment"]
 
   - id: q-d1-027
@@ -494,6 +520,7 @@ questions:
         - "Retired assets should have their risk mitigated through proper disposal (sanitization)."
         - "The cost of a control is part of a Cost-Benefit Analysis, not the definition of residual risk."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["risk"]
 
   - id: q-d1-028
@@ -512,6 +539,7 @@ questions:
         - "General employees do not need to know how to perform penetration tests."
         - "Knowing Wi-Fi passwords is not the goal of a security awareness program."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["awareness", "personnel"]
 
   - id: q-d1-029
@@ -530,6 +558,7 @@ questions:
         - "Administrative law deals with the procedures and regulations of government agencies."
         - "Contract law is a subset of civil law."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["legal"]
 
   - id: q-d1-030
@@ -548,6 +577,7 @@ questions:
         - "BIA requires input from business process owners across the whole organization, not just IT."
         - "Ten years is far too long; it should be reviewed regularly or when significant business changes occur."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["BCP", "BIA"]
 
   - id: q-d1-031
@@ -566,6 +596,7 @@ questions:
         - "Encryption provides confidentiality."
         - "Redundancy provides availability."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["CIA", "fundamentals"]
 
   - id: q-d1-032
@@ -584,6 +615,7 @@ questions:
         - "Automation cannot replace leadership."
         - "Succession planning is a continuity and talent management strategy, not a cost-cutting measure."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["governance", "personnel"]
 
   - id: q-d1-033
@@ -602,6 +634,7 @@ questions:
         - "Both can be expressed quantitatively or qualitatively — the distinction is not about measurement method."
         - "Both terms apply across all categories of risk (financial, operational, reputational, etc.), not specific domains."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["risk", "governance"]
 
   - id: q-d1-034
@@ -620,6 +653,7 @@ questions:
         - "Risk is not solely defined by vulnerability — a credible threat must exist to exploit it."
         - "Risk is reduced but rarely absolute zero — a threat could emerge at any time. Vulnerabilities still warrant remediation."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "fundamentals"]
 
   - id: q-d1-035
@@ -638,6 +672,7 @@ questions:
         - "ISO 27001 is a voluntary international standard, not a government regulation. Organizations choose to pursue certification."
         - "ISO 27001 is a management system standard, not a penetration testing framework."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["frameworks", "governance"]
 
   - id: q-d1-036
@@ -656,6 +691,7 @@ questions:
         - "Annual penetration testing may be a good practice but is not a SOX Section 404 requirement."
         - "SOX does not require appointment of a CISO, though many SOX-compliant organizations have one."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["compliance", "legal"]
 
   - id: q-d1-037
@@ -675,6 +711,7 @@ questions:
         - "Board-accepted risk is a risk acceptance decision — not the definition of inherent risk."
         - "Transferred risk is risk shifted to a third party — inherent risk is a pre-control measurement."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "fundamentals"]
 
   - id: q-d1-038
@@ -694,6 +731,7 @@ questions:
         - "Drafting policies may be delegated to the CISO's team, but the CISO's primary role is strategic leadership, not document writing."
         - "Penetration testing is performed by security engineers or external firms — not typically the CISO."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["governance", "roles"]
 
   - id: q-d1-039
@@ -713,6 +751,7 @@ questions:
         - "NIST SP 800-53 is the control catalog — this is the correct answer."
         - "NIST SP 800-61 is the Computer Security Incident Handling Guide — not the control catalog."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["frameworks", "NIST"]
 
   - id: q-d1-040
@@ -732,6 +771,7 @@ questions:
         - "Equal employment compliance is an HR and legal concern — the security purpose is risk reduction."
         - "Technical skill assessment is done through interviews and tests — not background checks."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["personnel", "insider-threat"]
 
   - id: q-d1-041
@@ -751,6 +791,7 @@ questions:
         - "HIPAA is the correct answer for US healthcare PHI protection."
         - "CCPA (California Consumer Privacy Act) is a California privacy law covering consumer personal information — not specifically healthcare."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["legal", "privacy", "compliance"]
 
   - id: q-d1-042
@@ -770,6 +811,7 @@ questions:
         - "ALE = $10,000 × 0.25 = $2,500 — this is correct."
         - "$25,000 is not produced by the ALE formula with these values."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "quantitative"]
 
   - id: q-d1-043
@@ -789,6 +831,7 @@ questions:
         - "Measuring restoration speed requires a live test (functional exercise) — tabletop exercises are discussion-based."
         - "Tool training is a separate activity — tabletop exercises focus on response coordination and decision-making."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["BCP", "exercises"]
 
   - id: q-d1-044
@@ -808,6 +851,7 @@ questions:
         - "Annual penetration testing of all vendors is impractical and not the definition of TPRM — questionnaires and audits are more common."
         - "Requiring ISO 27001 may be one TPRM control, but TPRM is a broader risk management program."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "supply-chain"]
 
   - id: q-d1-045
@@ -827,6 +871,7 @@ questions:
         - "Approved software lists are maintained in software whitelists or acceptable use policies — not the security charter."
         - "Incident response procedures are documented in the incident response plan — not the security policy."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["governance", "policy"]
 
   - id: q-d1-046
@@ -846,6 +891,7 @@ questions:
         - "$20,000 reduction minus $5,000 cost = $15,000 net benefit — this is the correct cost-benefit analysis."
         - "$50,000 is the total asset risk, not the value of the specific control."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["risk", "quantitative"]
 
   - id: q-d1-047
@@ -865,6 +911,7 @@ questions:
         - "EU resident privacy is governed by GDPR — PCI DSS is a payment card industry standard, not a privacy regulation."
         - "US federal systems are governed by FISMA and NIST standards — PCI DSS is an industry standard, not a federal requirement."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["compliance", "legal"]
 
   - id: q-d1-048
@@ -884,6 +931,7 @@ questions:
         - "Security incidents are tracked in an incident management system or incident log — not the risk register."
         - "Failed login attempts are security event logs — not risk register entries."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["risk", "governance"]
 
   - id: q-d1-049
@@ -903,6 +951,7 @@ questions:
         - "Security audits evaluate compliance against standards without exploitation — this is correct."
         - "A bug bounty program invites researchers to find and report vulnerabilities — not a structured audit against a framework."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["assessment", "governance"]
 
   - id: q-d1-050
@@ -922,6 +971,7 @@ questions:
         - "Defending only critical assets is prioritization — defense in depth is an architectural approach to layering controls."
         - "Keeping security mechanisms secret violates Kerckhoffs's principle — security should not depend on obscurity."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["principles", "architecture"]
 
   - id: q-d1-051
@@ -941,6 +991,7 @@ questions:
         - "ALE and SLE calculations are quantitative risk metrics — not qualitative descriptors."
         - "CVSS scores are used for vulnerability severity ratings — not a general qualitative risk analysis scale."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["risk", "assessment"]
 
   - id: q-d1-052
@@ -960,6 +1011,7 @@ questions:
         - "System access is granted through access control processes — NDAs are legal agreements, not access grants."
         - "Performance expectations are documented in job descriptions and performance agreements — not NDAs."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["personnel", "legal"]
 
   - id: q-d1-053
@@ -979,6 +1031,7 @@ questions:
         - "$20,000 is correct: ALE = SLE ($200,000) × ARO (0.1) = $20,000."
         - "$50,000 would result from incorrectly using ARO = 0.25 or misapplying the exposure factor."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["risk", "quantitative", "ALE"]
 
   - id: q-d1-054
@@ -998,6 +1051,7 @@ questions:
         - "Prevent, Detect, Respond, Recover, Improve is not the NIST CSF structure — 'Prevent' is not one of the five core functions."
         - "Govern, Manage, Measure, Report, Improve describes COBIT governance objectives, not the NIST CSF."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["frameworks", "NIST", "governance"]
 
   - id: q-d1-055
@@ -1017,6 +1071,7 @@ questions:
         - "ISO 27001 is the ISMS requirements standard — this is the correct answer."
         - "ISO 22301 addresses Business Continuity Management Systems (BCMS), not information security management systems."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["standards", "ISO", "governance"]
 
   - id: q-d1-056
@@ -1036,6 +1091,7 @@ questions:
         - "Insurance may be a viable option but typically doesn't cost exactly the ALE value, and the question calls for the 'most appropriate' primary response."
         - "Risk avoidance is extreme — it eliminates the business function, which may not be feasible or proportionate for a $15,000 risk."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["risk", "cost-benefit", "management"]
 
   - id: q-d1-057
@@ -1055,6 +1111,7 @@ questions:
         - "Preventive, Detective, and Corrective describe control types by function — these are not HIPAA's safeguard categories."
         - "Logical, Physical, and Environmental is not a standard HIPAA or security framework categorization."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["compliance", "HIPAA", "legal"]
 
   - id: q-d1-058
@@ -1074,6 +1131,7 @@ questions:
         - "SOX Section 802 addresses document tampering and record alteration — criminal penalties for destroying evidence."
         - "SOX Section 906 addresses criminal penalties for knowingly certifying false financial reports — not internal control assessment."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["compliance", "SOX", "governance"]
 
   - id: q-d1-059
@@ -1093,6 +1151,7 @@ questions:
         - "While often used interchangeably in common parlance, risk management frameworks (COSO, ISO 31000) distinguish them as described."
         - "Both concepts apply across risk types — the distinction is about level (strategic vs. operational) not category of risk."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["risk", "governance"]
 
   - id: q-d1-060
@@ -1112,6 +1171,7 @@ questions:
         - "Residual risk is the remaining risk after controls are applied — it does not describe the emergent sensitivity from combining data elements."
         - "Inherent risk is risk before any controls are applied — it does not describe the phenomenon of data combination creating new sensitivity."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["risk", "data", "principles"]
 
   - id: q-d1-061
@@ -1131,6 +1191,7 @@ questions:
         - "Requirement 8 addresses user identification and authentication — important for access control but not specifically for protecting stored data."
         - "Requirement 10 addresses logging and monitoring — critical for detection but not the primary requirement for protecting stored cardholder data."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["compliance", "PCI-DSS"]
 
   - id: q-d1-062
@@ -1150,6 +1211,7 @@ questions:
         - "PbD requires privacy for all systems, not just those handling obviously sensitive data — privacy is a universal default."
         - "PbD is proactive, not reactive — it anticipates and prevents privacy-invasive events rather than responding to them."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "design", "GDPR"]
 
   - id: q-d1-063
@@ -1169,6 +1231,7 @@ questions:
         - "The Delphi Technique (anonymous expert consensus through iteration) is the correct answer."
         - "OCTAVE (Operationally Critical Threat, Asset, and Vulnerability Evaluation) is a risk assessment methodology framework, not specifically the technique of gathering anonymous expert consensus."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["risk", "assessment", "qualitative"]
 
   - id: q-d1-064
@@ -1188,6 +1251,7 @@ questions:
         - "RTO and MTD are distinct: RTO is the recovery target; MTD is the maximum acceptable outage. RTO must be ≤ MTD."
         - "MTD constrains RTO — RTO must be set at or below MTD, not the reverse. The 4-hour RTO is the operational target."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["BCP", "DRP", "metrics"]
 
   - id: q-d1-065
@@ -1207,6 +1271,7 @@ questions:
         - "IT governance and management aligned with business objectives is the correct description of COBIT."
         - "SDLC security integration is addressed by frameworks like SAMM (Software Assurance Maturity Model) or the NIST SSDF — not COBIT."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["frameworks", "governance", "COBIT"]
 
   - id: q-d1-066
@@ -1226,6 +1291,7 @@ questions:
         - "The Authorizing Official (AO) is the role with formal authority to accept risk and grant system authorization in the NIST RMF."
         - "The ISSM oversees the security program but the formal risk acceptance authority belongs to the AO."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["governance", "RMF", "NIST"]
 
   - id: q-d1-067
@@ -1245,6 +1311,7 @@ questions:
         - "Penetration testing and vulnerability assessment are technical security functions performed by security teams or third parties."
         - "Individual access request management is an operational IAM function, not a strategic steering committee responsibility."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "management"]
 
   - id: q-d1-068
@@ -1264,6 +1331,7 @@ questions:
         - "The Authority to Operate (ATO) is the formal authorization document in the NIST RMF/FISMA framework."
         - "The Plan of Action and Milestones (POA&M) tracks identified weaknesses and remediation plans — it accompanies the ATO but is not the authorization itself."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["governance", "FISMA", "RMF"]
 
   - id: q-d1-069
@@ -1283,6 +1351,7 @@ questions:
         - "Risk threshold is the level at which risk triggers a response — a tactical measurement, not the board-level strategic declaration."
         - "Residual risk is what remains after controls are applied — it is measured against appetite/tolerance, not defined by the board."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["risk", "governance"]
 
   - id: q-d1-070
@@ -1302,6 +1371,7 @@ questions:
         - "Vulnerability scan output identifies technical weaknesses in the organization's own systems — this is vulnerability data, not threat intelligence about adversaries."
         - "Historical incident documentation is important for learning but is an internal record, not the external adversary-focused knowledge base that defines threat intelligence."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["intelligence", "operations", "fundamentals"]
 
   - id: q-d1-071
@@ -1321,6 +1391,7 @@ questions:
         - "Both policies and standards are mandatory — guidelines are the optional advisory documents in the policy hierarchy."
         - "Policies apply throughout the organization and to relevant third parties; standards are also internally focused — neither exclusively applies only to external parties."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["governance", "policy"]
 
   - id: q-d1-072
@@ -1340,6 +1411,7 @@ questions:
         - "Vulnerability inventories come from vulnerability assessments — not from a Business Impact Analysis."
         - "Employee access information comes from access control reviews — the BIA focuses on business functions and operational impacts, not personnel access."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["BCP", "BIA", "analysis"]
 
   - id: q-d1-073
@@ -1359,6 +1431,7 @@ questions:
         - "ALE (ARO × SLE) is the NIST/traditional quantitative risk formula, not the FAIR model. FAIR uses a different decomposition structure."
         - "While this approximates traditional risk formulas, FAIR specifically uses loss event frequency and loss magnitude as its primary components."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["risk", "FAIR", "quantitative"]
 
   - id: q-d1-074
@@ -1378,6 +1451,7 @@ questions:
         - "Assess is the step where controls are reviewed for correct implementation and effectiveness."
         - "Authorize is when the Authorizing Official (AO) reviews the SAR and makes a risk-based decision to authorize the system to operate — it follows assessment."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["NIST", "RMF", "governance"]
 
   - id: q-d1-075
@@ -1397,6 +1471,7 @@ questions:
         - "NDAs should already be in place from onboarding; requiring one at termination has no security benefit for for-cause terminations and may not be enforceable."
         - "Forensic audits may be necessary if misconduct is suspected but are not the most immediately critical security action — access revocation must happen first."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["personnel", "insider-threat", "lifecycle"]
 
   - id: q-d1-076
@@ -1416,6 +1491,7 @@ questions:
         - "PCI DSS applies to organizations that process payment card data — GLBA is specifically for financial institutions under FTC/financial regulator jurisdiction."
         - "FISMA applies to federal government agencies — GLBA applies to the private financial sector."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal", "compliance", "GLBA"]
 
   - id: q-d1-077
@@ -1435,6 +1511,7 @@ questions:
         - "The Electronic Communications Privacy Act (ECPA) and Wiretap Act address interception of communications — not the CFAA."
         - "The Digital Millennium Copyright Act (DMCA) and Copyright Act address intellectual property — the CFAA focuses on unauthorized computer access."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal", "computer-crime"]
 
   - id: q-d1-078
@@ -1454,6 +1531,7 @@ questions:
         - "7 business days is not the GDPR standard. The 72-hour clock starts from when the controller becomes aware of the breach."
         - "30 days is not the GDPR notification window. Some US state breach notification laws allow 30-45 days, but GDPR requires 72 hours."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal", "GDPR", "privacy", "breach-notification"]
 
   - id: q-d1-079
@@ -1473,6 +1551,7 @@ questions:
         - "Reputational damage and future business loss are generally not covered by cyber insurance policies as they are speculative and difficult to quantify."
         - "Physical hardware damage from power surges or environmental factors is typically covered by property insurance, not cyber liability insurance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "insurance", "transfer"]
 
   - id: q-d1-080
@@ -1492,6 +1571,7 @@ questions:
         - "KRIs and KPIs serve distinct purposes. KRIs are predictive risk signals; KPIs measure operational performance. They are not interchangeable."
         - "While policy compliance can be measured as a KPI, the defining distinction is that KRIs are forward-looking risk signals, not compliance measures."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "metrics", "risk"]
 
   - id: q-d1-081
@@ -1511,6 +1591,7 @@ questions:
         - "Quantitative management describes CMMI Level 4 — processes are statistically measured and controlled."
         - "Continuous improvement and innovation describe CMMI Level 5 (Optimizing) — the highest maturity level."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "maturity-model", "CMMI"]
 
   - id: q-d1-082
@@ -1530,6 +1611,7 @@ questions:
         - "Operating in multiple EU member states does not automatically require a DPO. A single-country SME processing sensitive data at scale must appoint one; a multinational with minimal data processing may not need to."
         - "Revenue thresholds are not DPO triggers under GDPR. The requirement is based on the nature and scale of data processing activities."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["GDPR", "privacy", "legal", "DPO"]
 
   - id: q-d1-083
@@ -1549,6 +1631,7 @@ questions:
         - "GDPR requires 72-hour breach notification; CCPA does not independently set breach notification timing (California's separate data breach notification law applies). This choice reverses the actual requirement."
         - "Both laws have extraterritorial reach. GDPR applies to any organization offering goods/services to EU residents; CCPA applies to qualifying businesses with California consumers. Neither is strictly geographically limited."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["legal", "privacy", "CCPA", "GDPR"]
 
   - id: q-d1-084
@@ -1568,6 +1651,7 @@ questions:
         - "The Use Limitation Principle directly addresses secondary use — using data beyond the stated purposes — and is the correct OECD principle here."
         - "The Individual Participation Principle gives individuals the right to access their data, challenge data about them, and have data erased or corrected."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["privacy", "OECD", "legal"]
 
   - id: q-d1-085
@@ -1587,6 +1671,7 @@ questions:
         - "Both SOC 2 Type I and Type II are auditor-prepared reports. The difference is point-in-time (Type I) versus period of time (Type II) assessment."
         - "SOC 1 covers financial reporting controls (ICFR). SOC 2 Type I and Type II both address the Trust Services Criteria for security-related controls."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["compliance", "auditing", "SOC"]
 
   - id: q-d1-086
@@ -1606,6 +1691,7 @@ questions:
         - "Not all exceptions require CISO involvement. A risk-based approach delegates exception approval based on risk level — low-risk exceptions may be approved by line managers; high-risk ones escalate to senior leadership."
         - "A blanket denial policy creates shadow IT and compliance failures. A formal exception process acknowledges business reality while managing risk through documentation, compensating controls, and time limits."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["governance", "policy", "risk"]
 
   - id: q-d1-087
@@ -1625,6 +1711,7 @@ questions:
         - "Documenting as accepted risk does not resolve the problem if the residual risk exceeds the board's stated appetite. Risk acceptance must align with the risk appetite framework."
         - "The CISO cannot override a board-level risk appetite decision. The appropriate path is to find a compliant approach or present a business case to the board to revise the risk appetite."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["risk", "governance", "risk-appetite"]
 
   - id: q-d1-088
@@ -1644,6 +1731,7 @@ questions:
         - "Background checks are a personnel security control related to trustworthiness verification — important but not directly related to least privilege."
         - "Signing the acceptable use policy establishes the employee's acknowledgment of security responsibilities — it is a governance control, not a least privilege access control."
     difficulty: "easy"
+    cognitive_level: "applied"
     tags: ["personnel", "principles", "access-control"]
 
   - id: q-d1-089
@@ -1663,6 +1751,7 @@ questions:
         - "Contract performance (Article 6(1)(b)) only covers processing necessary to fulfill the specific contract terms. Using contract data for unrelated marketing is not covered by this lawful basis."
         - "Public interest (Article 6(1)(e)) covers tasks in the public interest or official authority — it does not authorize commercial marketing activities by nonprofits."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["GDPR", "privacy", "legal"]
 
   - id: q-d1-090
@@ -1682,6 +1771,7 @@ questions:
         - "A security event is any observable occurrence; a security incident is an event adversely affecting security — this correctly distinguishes the two terms."
         - "Severity levels don't define the event/incident distinction. An incident is any adverse event requiring response, regardless of severity. A 'breach' typically refers to confirmed unauthorized access or data exposure."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["incident-response", "fundamentals", "definitions"]
 
   - id: q-d1-091
@@ -1701,6 +1791,7 @@ questions:
         - "Risk scoring methodologies include FAIR, NIST risk frameworks, and qualitative matrices. SABSA provides architectural guidance, not a risk scoring system."
         - "SABSA applies across industries and is not specific to financial institutions. Compliance frameworks for finance include GLBA, SOX, and PCI DSS."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["frameworks", "architecture", "governance"]
 
   - id: q-d1-092
@@ -1720,6 +1811,7 @@ questions:
         - "$50,000 is the residual ALE, not the value of the control. Control value is the net financial benefit: risk reduction minus control cost."
         - "There is no requirement for ALE reduction to equal 100% of control cost. Any positive net value (risk reduction minus control cost) justifies the control on cost-benefit grounds."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["risk", "quantitative", "cost-benefit"]
 
   - id: q-d1-093
@@ -1739,6 +1831,7 @@ questions:
         - "The AO (Authorizing Official) has the authority to formally accept residual risk and issue an Authorization to Operate."
         - "The ISSO manages the security posture of the system and supports the assessment process but does not have authority to authorize system operation — that is the AO's role."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "RMF", "NIST", "roles"]
 
   - id: q-d1-094
@@ -1758,6 +1851,7 @@ questions:
         - "Insurance covers costs but does not transfer legal accountability. Accountability to data subjects remains with the data controller regardless of insurance coverage."
         - "While contractual liability may be shared, ultimate accountability to data subjects is not equally shared. The data controller has primary legal and regulatory accountability."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["governance", "GDPR", "third-party", "accountability"]
 
   - id: q-d1-095
@@ -1777,6 +1871,7 @@ questions:
         - "0.5 would represent once every two years. Once every four years = 0.25."
         - "25% correctly represents the probability, but ARO is expressed as a decimal (0.25) in risk calculations, not as a percentage — though both represent the same value."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["risk", "quantitative", "ARO"]
 
   - id: q-d1-096
@@ -1796,6 +1891,7 @@ questions:
         - "The probability of exploitation in a given year is the Annualized Rate of Occurrence (ARO), not the Exposure Factor."
         - "The ratio of residual to inherent risk describes risk reduction effectiveness, not the Exposure Factor. EF is specific to a single threat event's damage potential."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["risk", "quantitative", "EF"]
 
   - id: q-d1-097
@@ -1815,6 +1911,7 @@ questions:
         - "Cryptographic frameworks like FIPS 140-2 or NIST SP 800-175B address algorithm strength and key management. COBIT is a governance framework."
         - "COBIT provides a governance framework, not a professional certification curriculum. ISACA certifications (CISM, CISA, CRISC) reference COBIT but are separate from the framework itself."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["frameworks", "governance", "COBIT"]
 
   - id: q-d1-098
@@ -1834,6 +1931,7 @@ questions:
         - "Selecting security controls is the risk response step — the third component of NIST SP 800-39. Framing precedes and informs control selection."
         - "Communicating risk findings is part of risk monitoring and risk assessment activities — it occurs after framing has established the context for those communications."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["risk", "NIST", "governance"]
 
   - id: q-d1-099
@@ -1853,6 +1951,7 @@ questions:
         - "Incident response is an operational management function. The board may be briefed on significant incidents but does not directly manage response activities."
         - "Drafting policies and standards is management's responsibility (CISO, security team). The board approves high-level policy direction and risk appetite, not operational security documents."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "board", "accountability"]
 
   - id: q-d1-100
@@ -1872,6 +1971,7 @@ questions:
         - "Insurance minimums may be appropriate for high-risk vendors but are not universally required for all third-party contracts. Insurance levels should be proportional to the risk and data sensitivity."
         - "Mandating specific certifications (like ISO 27001) can be part of vendor requirements but imposing an arbitrary timeline is not a standard contract element. Many organizations accept SOC 2 reports or equivalent assurance."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "third-party", "contracts"]
 
   - id: q-d1-101
@@ -1891,6 +1991,7 @@ questions:
         - "Both threat agents and threat actors can be internal or external. Insider threats are both internal and intentional threat actors."
         - "While used informally as synonyms, they have distinct meanings in formal risk analysis. Threat actor implies intentional human intent; threat agent is broader."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "threat-modeling", "definitions"]
 
   - id: q-d1-102
@@ -1910,6 +2011,7 @@ questions:
         - "Legal holds apply to specific, identified data relevant to the litigation, not the entire organization's data. Normal retention schedules for unrelated data continue."
         - "Legal holds do not transfer liability. The organization retains legal responsibility for preserving evidence and its security obligations remain unchanged."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal", "data-retention", "compliance"]
 
   - id: q-d1-103
@@ -1929,6 +2031,7 @@ questions:
         - "Data retention is covered by separate HIPAA retention requirements (6 years for policies/procedures). The minimum necessary standard addresses access and disclosure scope."
         - "HIPAA does not mandate specific encryption algorithms or key lengths — it requires 'reasonable and appropriate' technical safeguards and addresses addressable implementation specifications."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["HIPAA", "privacy", "legal", "compliance"]
 
   - id: q-d1-104
@@ -1948,6 +2051,7 @@ questions:
         - "Automatically proceeding with hiring without review also fails the assessment obligation. The organization must document that it considered the conviction and determined it did not disqualify the candidate based on the role's requirements."
         - "While a written explanation may be part of the process, automatic approval based on the candidate's explanation alone bypasses the organization's own risk assessment. The decision must be made by the hiring organization, not delegated to the candidate."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["personnel", "legal", "hiring"]
 
   - id: q-d1-105
@@ -1967,6 +2071,7 @@ questions:
         - "Total breach costs over 12 months is a lagging metric — it measures past financial impact of security failures, not predictive of future performance."
         - "Regulatory findings in the last audit is a lagging metric — it reflects past compliance gaps that were found during the assessment period."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "metrics", "measurement"]
 
   - id: q-d1-106
@@ -1986,6 +2091,7 @@ questions:
         - "DPIAs are required based on the risk level of processing activities, not based on geographic location of processing or data subjects."
         - "Hiring a new data processor requires a Data Processing Agreement (DPA) under Article 28, not necessarily a DPIA. A DPIA is required for high-risk processing activities, not for every vendor engagement."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["GDPR", "privacy", "DPIA"]
 
   - id: q-d1-107
@@ -2005,6 +2111,7 @@ questions:
         - "If controls were 100% effective, residual risk would approach zero, not equal inherent risk. They are only equal when no controls exist at all."
         - "Both inherent and residual risk concepts apply regardless of threat source (internal or external). The internal/external distinction is about threat origin, not risk calculation methodology."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["risk", "fundamentals", "definitions"]
 
   - id: q-d1-108
@@ -2024,6 +2131,7 @@ questions:
         - "Recovery planning and communications are covered by the Recover and Respond functions. Govern addresses the strategic and accountability layer above specific response functions."
         - "Supply chain risk is addressed within the Identify function and related Categories. While Govern provides overarching policy direction, supply chain specifics fall under Identify."
     difficulty: "hard"
+    cognitive_level: "recall"
     tags: ["NIST", "frameworks", "governance", "CSF"]
 
   - id: q-d1-109
@@ -2043,6 +2151,7 @@ questions:
         - "ERM explicitly includes technology, operational, and cyber risks alongside financial risks. Treating them as separate silos undermines the holistic purpose of ERM."
         - "ERM and security risk management share common principles (identify, assess, respond, monitor) but may use different frameworks, risk registers, and tolerance thresholds tailored to their respective domains."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["risk", "ERM", "governance"]
 
   - id: q-d1-110
@@ -2062,6 +2171,7 @@ questions:
         - "HIPAA governs healthcare providers and their business associates. The Privacy Act governs federal agencies, not private healthcare organizations."
         - "GLBA governs financial institutions receiving federal oversight. The Privacy Act is not triggered by federal funding — it applies to federal agencies themselves."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal", "privacy", "government"]
 
   - id: q-d1-111
@@ -2081,6 +2191,7 @@ questions:
         - "Preparing for certifications and advanced roles is the domain of security education and specialized training programs, not broad awareness programs."
         - "Academic-level conceptual understanding is the domain of security education (university programs, advanced certifications) — awareness is practical and behavioral, not academic."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["awareness", "personnel", "training"]
 
   - id: q-d1-112
@@ -2100,6 +2211,7 @@ questions:
         - "While this metric may be reported for compliance purposes, its primary nature is as a security effectiveness and predictive metric — not purely a compliance metric."
         - "This metric measures security awareness program effectiveness, not financial ROI. ROI metrics would compare program costs to quantified risk reduction."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["governance", "metrics", "awareness"]
 
   - id: q-d1-113
@@ -2119,6 +2231,7 @@ questions:
         - "Geographic data residency is one approach (keeping data in the EU) but does not enable the transfer that may be operationally necessary. The question asks about protecting international transfers, not preventing them."
         - "Encryption protects data security but does not address GDPR's legal basis requirements for international transfers. A receiving country still needs adequate legal protections regardless of encryption."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["GDPR", "privacy", "international", "legal"]
 
   - id: q-d1-114
@@ -2138,6 +2251,7 @@ questions:
         - "Risk treatment failure — the organization has not responded to an accepted risk that likely exceeds its tolerance — is the most accurate characterization of this situation."
         - "If the risk is in the register and visible to stakeholders, communication may be occurring. The problem is not awareness — it is the absence of treatment action."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["risk", "governance", "risk-management"]
 
   - id: q-d1-115
@@ -2157,6 +2271,7 @@ questions:
         - "Many boards prefer quantitative data for financial decisions. The suggestion that qualitative is 'always preferred' for boards is incorrect — the choice should be risk-based and context-dependent."
         - "Quantitative and qualitative methods frequently produce different prioritizations because they measure different things. An extreme qualitative risk may not correspond to the highest ALE if the asset value is low."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["risk", "assessment", "quantitative", "qualitative"]
 
   - id: q-d1-116
@@ -2176,6 +2291,7 @@ questions:
         - "Security audits are conducted by internal audit teams or external auditors. The steering committee provides governance and oversight, not audit execution."
         - "While the steering committee may influence budget decisions, its primary role is strategic governance and cross-functional alignment, not transactional budget approval."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["governance", "management", "steering-committee"]
 
   - id: q-d1-117
@@ -2195,6 +2311,7 @@ questions:
         - "Student health records at school medical offices are typically protected by HIPAA, not FERPA, unless the records are maintained by the educational institution as educational records (a nuanced area of overlap)."
         - "Employment records of educators are covered by employment law and FERPA does not protect them. FERPA is specifically about student education records."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["legal", "privacy", "FERPA", "compliance"]
 
   - id: q-d1-118
@@ -2214,6 +2331,7 @@ questions:
         - "3-year total benefit ($240,000) would be compared to 3-year total cost ($285,000 operating + $30,000 implementation = $315,000). The 3-year NPV is negative, confirming rejection."
         - "Deferring for amortization doesn't change the economic picture. If annual operating costs exceed annual benefits indefinitely, the control will never achieve positive ROI."
     difficulty: "hard"
+    cognitive_level: "applied"
     tags: ["risk", "quantitative", "cost-benefit", "governance"]
 
   - id: q-d1-119
@@ -2233,6 +2351,7 @@ questions:
         - "Procedures provide step-by-step instructions for implementing standards (e.g., 'Step 1: Press Ctrl+Alt+Del, Step 2: Select Change Password'). Character count requirements belong in the standard, not the procedure."
         - "Guidelines are recommended but not mandatory. A password character count requirement is mandatory and must be in a standard, not a guideline."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["governance", "policy", "standards"]
 
   - id: q-d1-120
@@ -2252,6 +2371,7 @@ questions:
         - "SoD does not require separate organizational teams for all security tasks. It applies to specific sensitive processes where a single person's control creates unacceptable risk."
         - "Dev/ops organizational separation may reduce certain risks but does not define SoD. SoD is about dividing access and control over specific processes, not organizational structure."
     difficulty: "easy"
+    cognitive_level: "recall"
     tags: ["principles", "access-control", "governance"]
 
   - id: q-d1-121
@@ -2271,6 +2391,7 @@ questions:
         - "Listing controls in place describes what the security team is doing but doesn't communicate whether the organization is adequately protected or what residual risks remain."
         - "Raw technical data (firewall logs, IDS alerts) without business context overwhelms executives and doesn't support strategic decision-making about risk priorities or investments."
     difficulty: "medium"
+    cognitive_level: "applied"
     tags: ["governance", "communication", "management"]
 
   - id: q-d1-122
@@ -2290,4 +2411,245 @@ questions:
         - "Bow-Tie is a conceptual modeling tool that requires human analysis. It does not automate risk assessment or integrate automated threat feeds."
         - "Bow-Tie complements threat and vulnerability assessments by showing how identified threats and vulnerabilities connect to consequences. It does not replace either assessment."
     difficulty: "medium"
+    cognitive_level: "recall"
     tags: ["risk", "threat-modeling", "assessment"]
+
+  - id: q-d1-123
+    domain: domain1
+    question: "A CISO discovers that a business unit signed a contract with a cloud vendor without security review, and the vendor now processes regulated customer data. The contract has a three-year term with no right-to-audit clause. What should the CISO do FIRST?"
+    options:
+      - "Assess the actual risk exposure of the data already being processed"
+      - "Demand the business unit terminate the contract immediately"
+      - "Report the business unit manager to executive leadership for policy violation"
+      - "Add a right-to-audit clause requirement to the procurement policy"
+    correct_answer: 0
+    explanations:
+      correct: "Understanding the current exposure comes first, because every subsequent decision — whether to accept, renegotiate, or terminate — depends on knowing what data is at risk and what the vendor's actual posture is. Acting before assessing risks a disproportionate or misdirected response."
+      incorrect:
+        - "This is the correct answer — assess the risk before choosing a response."
+        - "Termination may be warranted but is a costly decision that cannot be justified before the exposure is understood."
+        - "Accountability matters, but the immediate priority is the data at risk, not the personnel issue."
+        - "Strengthening the policy prevents recurrence and should happen, but it does nothing about the exposure that already exists."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["third-party risk", "governance", "incident response"]
+
+  - id: q-d1-124
+    domain: domain1
+    question: "An organization calculates that a particular risk has an ALE of $80,000. A proposed control costs $95,000 per year and would reduce the ALE to $10,000. What is the correct analysis?"
+    options:
+      - "The control is justified because it reduces annual loss by $70,000 against a $95,000 cost only if other factors such as regulatory penalties or reputation are also considered"
+      - "The control should be implemented because it reduces the ALE substantially"
+      - "The control should be rejected because its cost exceeds the original ALE"
+      - "The control should be rejected because the residual ALE is not zero"
+    correct_answer: 0
+    explanations:
+      correct: "The control delivers $70,000 of annual risk reduction for $95,000, so on pure quantitative grounds it is not cost-effective. However, ALE calculations frequently omit regulatory fines, contractual penalties, and reputational damage, so the decision requires evaluating whether those unquantified factors close the $25,000 gap."
+      incorrect:
+        - "This is the correct answer — it applies the quantitative test correctly while recognizing the limits of the model."
+        - "Substantial reduction alone does not justify a control; the reduction must be weighed against the cost."
+        - "Comparing cost to the original ALE is the wrong test. The correct comparison is cost against the reduction in ALE achieved."
+        - "Residual risk is expected and acceptable. No control eliminates risk entirely, and requiring zero residual risk is not a valid decision criterion."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["quantitative risk", "ALE", "cost-benefit"]
+
+  - id: q-d1-125
+    domain: domain1
+    question: "During a merger, the acquiring company discovers the target has been operating without documented security policies for five years. Regulators have not yet examined the target. What is the MOST significant governance concern?"
+    options:
+      - "The acquiring company inherits the target's unremediated regulatory liability upon completion"
+      - "The target's employees will need security awareness training"
+      - "Documentation will take significant effort to produce retroactively"
+      - "The target's security tools may be incompatible with the acquirer's"
+    correct_answer: 0
+    explanations:
+      correct: "Liability transfers with acquisition. Undiscovered regulatory violations, breach notification failures, and compliance gaps become the acquirer's responsibility, which is precisely why security due diligence belongs in the merger process before completion rather than after."
+      incorrect:
+        - "This is the correct answer — inherited liability is the governance issue that can materially change the deal's value."
+        - "Training is a real need but a routine operational cost, not the most significant governance concern."
+        - "Producing documentation is an effort issue, not a liability issue."
+        - "Tool incompatibility is an integration cost, well below inherited regulatory exposure in significance."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["mergers", "due diligence", "compliance"]
+
+  - id: q-d1-126
+    domain: domain1
+    question: "An employee reports that they clicked a phishing link and entered their credentials. They waited two days before reporting because they feared disciplinary action. What does this MOST clearly indicate about the security program?"
+    options:
+      - "The organization's culture discourages reporting, which delays detection and increases incident impact"
+      - "The phishing simulation program needs to be run more frequently"
+      - "The email filtering technology is inadequate"
+      - "The employee requires individual remedial training"
+    correct_answer: 0
+    explanations:
+      correct: "A punitive culture teaches people to conceal mistakes, and the two-day delay gave the attacker an uninterrupted window. Mature programs treat good-faith reporting as valuable and respond supportively, because rapid reporting is what makes detective controls effective."
+      incorrect:
+        - "This is the correct answer — the reporting delay, not the click, is the systemic finding."
+        - "More simulations do not address the fear that caused the delay and may reinforce it if results are used punitively."
+        - "Filtering will never stop every phishing message, which is exactly why fast reporting matters so much."
+        - "Focusing on the individual misses the organizational pattern that will cause the next employee to delay as well."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["security culture", "awareness", "incident reporting"]
+
+  - id: q-d1-127
+    domain: domain1
+    question: "A company operating in the EU and the US must decide how to handle a data subject's request to delete their personal data, when that data also appears in backups retained for seven years under financial regulation. What is the MOST defensible approach?"
+    options:
+      - "Delete from active systems, document why backup deletion is impractical, ensure the data is not restored to active use, and let it expire on the normal backup cycle"
+      - "Immediately delete the individual's records from all backup media to comply fully with the request"
+      - "Refuse the request entirely, citing the financial retention requirement"
+      - "Delete the backups containing the record and re-create them without that individual"
+    correct_answer: 0
+    explanations:
+      correct: "Regulators generally accept that expunging individuals from immutable backups is impractical, provided the organization documents its position, prevents restoration into active use, and allows the data to age out normally. This balances the erasure right against a genuine legal retention obligation."
+      incorrect:
+        - "This is the correct answer — it honors the request as far as practicable while respecting a competing legal obligation."
+        - "Selectively modifying backups destroys their integrity and their evidentiary value, and is generally not expected by regulators."
+        - "Blanket refusal ignores the obligation to honor the request in active systems, where compliance is entirely achievable."
+        - "Destroying and re-creating backups defeats their purpose and would likely violate the financial retention requirement itself."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["GDPR", "right to erasure", "retention"]
+
+  - id: q-d1-128
+    domain: domain1
+    question: "A risk assessment identifies a threat with high impact but very low likelihood, and a second threat with low impact but very high likelihood. Both have similar calculated risk values. Executives ask which to address first. What is the BEST guidance?"
+    options:
+      - "Consider the organization's risk appetite and whether the high-impact event could be existential, since equal expected values do not imply equal consequences"
+      - "Address the high-likelihood threat first because it will certainly occur"
+      - "Address the high-impact threat first because impact always outweighs likelihood"
+      - "Address neither, since equal risk values indicate both are within tolerance"
+    correct_answer: 0
+    explanations:
+      correct: "Expected-value arithmetic treats a certain small loss and a remote catastrophic loss as equivalent, but an organization can absorb repeated small losses while a single existential event ends it. Risk appetite and survivability, not the calculated value alone, should drive the sequencing."
+      incorrect:
+        - "This is the correct answer — it recognizes the limitation of expected value as a sole decision criterion."
+        - "Frequency alone does not establish priority when the alternative threat could be catastrophic."
+        - "Impact does not automatically outweigh likelihood; that would be an equally mechanical rule."
+        - "Equal calculated values say nothing about whether either falls within the organization's stated tolerance."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["risk assessment", "risk appetite", "prioritization"]
+
+  - id: q-d1-129
+    domain: domain1
+    question: "An organization's incident response plan requires notifying affected customers within 72 hours of confirming a breach. During an incident, the team is uncertain whether personal data was actually accessed. What is the MOST appropriate action?"
+    options:
+      - "Continue investigating while preparing notification, and engage legal counsel to determine the notification trigger under applicable law"
+      - "Wait until the investigation conclusively proves data was accessed before starting any notification process"
+      - "Notify all customers immediately regardless of investigation status"
+      - "Restart the 72-hour clock each time new information emerges"
+    correct_answer: 0
+    explanations:
+      correct: "Notification obligations and their triggers vary by jurisdiction and often turn on reasonable belief rather than proof. Preparing notification in parallel with investigation preserves the ability to meet the deadline, and legal counsel determines when the obligation is actually triggered."
+      incorrect:
+        - "This is the correct answer — investigate and prepare in parallel, with counsel determining the trigger."
+        - "Waiting for conclusive proof frequently causes organizations to miss statutory deadlines, since deadlines often begin at reasonable belief."
+        - "Premature notification of unaffected customers causes unnecessary alarm and reputational harm, and may itself be inaccurate."
+        - "Notification clocks are generally not restarted by new information; this would be an unsupportable interpretation."
+    difficulty: "hard"
+    cognitive_level: "applied"
+    tags: ["breach notification", "incident response", "legal"]
+
+  - id: q-d1-130
+    domain: domain1
+    question: "A security manager proposes implementing a control that would reduce risk substantially but would make a core business process significantly slower. Business leadership objects. What does the CISSP-expected approach require?"
+    options:
+      - "Present the risk in business terms and let the accountable business owner make an informed risk decision"
+      - "Implement the control because security requirements take precedence over business convenience"
+      - "Withdraw the proposal since business leadership has objected"
+      - "Escalate to the board to override the business leadership decision"
+    correct_answer: 0
+    explanations:
+      correct: "Security professionals advise on risk; accountable business owners decide whether to accept it. The professional obligation is to ensure the decision is informed and documented, not to make the decision unilaterally or to abandon the concern."
+      incorrect:
+        - "This is the correct answer — inform the decision, document the outcome, and respect the accountability structure."
+        - "Security does not automatically override business need. The discipline exists to enable the business, balancing risk against operational reality."
+        - "Silently withdrawing leaves the risk undocumented and unowned, which is a failure of the advisory role."
+        - "Escalating to override rather than to inform bypasses the proper accountability structure and should not be the first response."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["governance", "risk acceptance", "professional ethics"]
+
+  - id: q-d1-131
+    domain: domain1
+    question: "A company's BCP designates a recovery site 3 miles from the primary facility to minimize staff travel time. A consultant identifies this as a weakness. What is the PRIMARY concern?"
+    options:
+      - "A regional event such as flooding, earthquake, or extended power loss would likely affect both sites simultaneously"
+      - "Three miles is too far for staff to travel during an emergency"
+      - "Recovery sites must always be in a different country"
+      - "The recovery site will have higher operating costs at that distance"
+    correct_answer: 0
+    explanations:
+      correct: "Recovery site separation exists to ensure the same event cannot disable both locations. A site three miles away shares the same power grid, flood plain, seismic zone, and regional infrastructure, which defeats the purpose of having an alternate site."
+      incorrect:
+        - "This is the correct answer — insufficient geographic separation means shared exposure to regional threats."
+        - "Short travel distance is a benefit, not the concern; the problem is shared risk exposure."
+        - "There is no requirement for a different country. The requirement is sufficient separation from shared regional threats."
+        - "Cost is not the primary concern, and proximity would generally not increase operating costs."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["BCP", "recovery site", "geographic separation"]
+
+  - id: q-d1-132
+    domain: domain1
+    question: "An organization is selecting a security framework. It operates globally, needs a certifiable standard customers will recognize, and wants a formal management system rather than a control checklist. Which is the BEST fit?"
+    options:
+      - "ISO/IEC 27001"
+      - "NIST Cybersecurity Framework"
+      - "CIS Critical Security Controls"
+      - "COBIT"
+    correct_answer: 0
+    explanations:
+      correct: "ISO/IEC 27001 specifies an Information Security Management System and is internationally recognized and certifiable, which directly satisfies the requirements for a formal management system and customer-recognized certification."
+      incorrect:
+        - "This is the correct answer — it is the certifiable international management system standard."
+        - "The NIST CSF is a widely used voluntary framework for organizing security outcomes but is not a certifiable management system standard."
+        - "The CIS Controls are a prioritized set of technical safeguards, closer to a control checklist than a management system, and are not certifiable."
+        - "COBIT addresses IT governance broadly rather than serving as a certifiable information security management system."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["frameworks", "ISO 27001", "certification"]
+
+  - id: q-d1-133
+    domain: domain1
+    question: "A penetration tester engaged by an organization discovers evidence that an actual attacker is currently active in the environment. What should the tester do FIRST?"
+    options:
+      - "Stop testing and immediately notify the designated escalation contact"
+      - "Continue the test to determine the full extent of the attacker's access"
+      - "Attempt to remove the attacker from the environment"
+      - "Complete the engagement and document the finding in the final report"
+    correct_answer: 0
+    explanations:
+      correct: "Discovering a live intrusion is outside the scope of a penetration test. Testing must stop so the organization's incident response process can take over, and continuing risks contaminating evidence and confusing attribution between the tester's activity and the attacker's."
+      incorrect:
+        - "This is the correct answer — stop and escalate immediately through the agreed contact."
+        - "Continuing contaminates the incident scene and may destroy evidence the responders need."
+        - "Remediation is not the tester's role and acting unilaterally could alert the attacker or damage systems."
+        - "Waiting for the final report leaves an active attacker operating unopposed for the remainder of the engagement."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["penetration testing", "rules of engagement", "incident response"]
+
+  - id: q-d1-134
+    domain: domain1
+    question: "An organization's asset inventory shows 1,200 servers, but a network discovery scan identifies 1,450 responding hosts. What is the MOST significant implication?"
+    options:
+      - "250 systems are unmanaged, meaning they are unpatched, unmonitored, and outside every control the program assumes is universal"
+      - "The discovery scan is likely producing false positives and should be re-run"
+      - "The inventory should be updated to 1,450 to match the scan"
+      - "Network capacity planning will need revision"
+    correct_answer: 0
+    explanations:
+      correct: "Systems absent from the inventory receive no patching, no monitoring, no backup, and no access review. They are blind spots that attackers exploit precisely because no one is watching them, and every control the program believes is universally applied is in fact not."
+      incorrect:
+        - "This is the correct answer — unmanaged assets represent unmeasured and unmitigated risk."
+        - "Dismissing the discrepancy as scanner error without investigation would leave real exposure unaddressed."
+        - "Simply changing the number records the discrepancy without investigating what those systems are, who owns them, or whether they should exist."
+        - "Capacity planning is an operational concern far less significant than the existence of unmanaged systems."
+    difficulty: "medium"
+    cognitive_level: "applied"
+    tags: ["asset management", "shadow IT", "inventory"]

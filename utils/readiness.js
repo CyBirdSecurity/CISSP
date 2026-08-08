@@ -9,6 +9,32 @@
  */
 const Readiness = (() => {
   const STALE_MS = 14 * 24 * 60 * 60 * 1000; // 14 days
+  // Below this many attempted applied questions, scenario competence is
+  // simply unproven and the score is capped rather than inferred from recall.
+  const APPLIED_MIN_ATTEMPTS = 40;
+  const APPLIED_UNPROVEN_CAP = 70;
+
+  /**
+   * Accuracy across applied/scenario questions specifically, which is the
+   * closest in-app proxy for how the real exam actually tests.
+   */
+  function getAppliedPerformance(allQuestions, progress) {
+    let attempted = 0, correct = 0, answered = 0;
+    allQuestions.forEach(q => {
+      if (q.cognitive_level !== 'applied') return;
+      const s = progress.questions[q.id];
+      if (s && s.times_answered > 0) {
+        attempted++;
+        answered += s.times_answered;
+        correct += s.times_correct;
+      }
+    });
+    return {
+      attempted,
+      totalInBank: allQuestions.filter(q => q.cognitive_level === 'applied').length,
+      accuracyPct: answered > 0 ? Math.round((correct / answered) * 100) : 0
+    };
+  }
 
   function _domainQuizReadiness(domain, allQuestions, progress) {
     const domainQuestions = allQuestions.filter(q => q.domain === domain.id);
@@ -100,12 +126,33 @@ const Readiness = (() => {
       ? Math.round(((confident.total - confident.correct) / confident.total) * 100)
       : null;
 
+    const applied = getAppliedPerformance(allQuestions, progress);
+
+    // The real exam is dominated by applied/scenario judgment. Strong recall
+    // accuracy with little or no demonstrated scenario competence overstates
+    // readiness, so the composite is capped until enough applied questions
+    // have actually been attempted.
+    let score = composite;
+    let appliedPenaltyReason = null;
+    if (applied.attempted < APPLIED_MIN_ATTEMPTS) {
+      if (score > APPLIED_UNPROVEN_CAP) {
+        score = APPLIED_UNPROVEN_CAP;
+        appliedPenaltyReason = 'unproven';
+      }
+    } else if (applied.accuracyPct < composite) {
+      // Weight demonstrated scenario accuracy heavily once there is enough of it.
+      score = Math.round(composite * 0.5 + applied.accuracyPct * 0.5);
+      appliedPenaltyReason = 'lagging';
+    }
+
     return {
-      score: composite,
+      score,
+      rawComposite: composite,
       weightedQuizScore: Math.round(weightedQuizScore),
       flashcardMasteryPct: Math.round(flashcardMasteryPct),
       studyGuidePct: Math.round(studyGuidePct),
       overconfidencePct,
+      applied: { ...applied, penaltyReason: appliedPenaltyReason, minAttempts: APPLIED_MIN_ATTEMPTS },
       domainBreakdown
     };
   }
