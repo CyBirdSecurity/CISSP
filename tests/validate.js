@@ -38,6 +38,23 @@ try {
 
 check(domains.length === 8, `8 domains defined (got ${domains.length})`);
 
+// Domain weights drive the readiness score and mock exam composition, so they
+// must match the published ISC2 exam outline. Update these expectations (and
+// data/domains.yml) when ISC2 publishes a new outline after a Job Task Analysis.
+// Current source: CISSP Certification Exam Outline effective April 15, 2024.
+const EXPECTED_WEIGHTS = {
+  domain1: 16, domain2: 10, domain3: 13, domain4: 13,
+  domain5: 13, domain6: 12, domain7: 13, domain8: 10
+};
+{
+  const totalWeight = domains.reduce((sum, d) => sum + (d.weight || 0), 0);
+  check(totalWeight === 100, `domain weights sum to 100 (got ${totalWeight})`);
+  const mismatched = domains.filter(d => d.weight !== EXPECTED_WEIGHTS[d.id]);
+  check(mismatched.length === 0,
+    `domain weights match the April 2024 ISC2 exam outline${
+      mismatched.length ? ` (mismatched: ${mismatched.map(d => `${d.id}=${d.weight}, expected ${EXPECTED_WEIGHTS[d.id]}`).join('; ')})` : ''}`);
+}
+
 const domainIds = new Set(domains.map(d => d.id));
 domains.forEach((d, i) => {
   check(!!d.id,   `domain[${i}] has id`);
